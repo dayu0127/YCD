@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		18B9626DABA25B58C542554A /* libPods-YCD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 442DC9F435D2D57C573442D1 /* libPods-YCD.a */; };
 		6022226E1DF153BC0010D969 /* HelpFeedbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6022226D1DF153BC0010D969 /* HelpFeedbackVC.m */; };
+		602222721DF15A670010D969 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 602222711DF15A660010D969 /* BaseViewController.m */; };
 		690E616F1DE3DF9B00C8E52F /* UserGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690E616E1DE3DF9B00C8E52F /* UserGuideViewController.m */; };
 		6925F3581DE5738900FB7B1A /* MnemonicsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6925F3571DE5738900FB7B1A /* MnemonicsVC.m */; };
 		6925F3611DE5739E00FB7B1A /* ForgetPwdVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6925F35C1DE5739E00FB7B1A /* ForgetPwdVC.m */; };
@@ -55,6 +56,8 @@
 		442DC9F435D2D57C573442D1 /* libPods-YCD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YCD.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6022226C1DF153BC0010D969 /* HelpFeedbackVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpFeedbackVC.h; sourceTree = "<group>"; };
 		6022226D1DF153BC0010D969 /* HelpFeedbackVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpFeedbackVC.m; sourceTree = "<group>"; };
+		602222701DF15A660010D969 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		602222711DF15A660010D969 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		690E616D1DE3DF9B00C8E52F /* UserGuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserGuideViewController.h; sourceTree = "<group>"; };
 		690E616E1DE3DF9B00C8E52F /* UserGuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserGuideViewController.m; sourceTree = "<group>"; };
 		690E61701DE4280C00C8E52F /* YCDPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCDPrefixHeader.pch; sourceTree = "<group>"; };
@@ -141,6 +144,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6022226F1DF15A420010D969 /* root */ = {
+			isa = PBXGroup;
+			children = (
+				69B129E71DE2C6490093D841 /* AppDelegate.h */,
+				69B129E81DE2C6490093D841 /* AppDelegate.m */,
+				690E616D1DE3DF9B00C8E52F /* UserGuideViewController.h */,
+				690E616E1DE3DF9B00C8E52F /* UserGuideViewController.m */,
+				602222701DF15A660010D969 /* BaseViewController.h */,
+				602222711DF15A660010D969 /* BaseViewController.m */,
+				690E61701DE4280C00C8E52F /* YCDPrefixHeader.pch */,
+			);
+			name = root;
+			sourceTree = "<group>";
+		};
 		690E61891DE570C500C8E52F /* 记单词 */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,10 +273,7 @@
 		69B129E31DE2C6490093D841 /* YCD */ = {
 			isa = PBXGroup;
 			children = (
-				69B129E71DE2C6490093D841 /* AppDelegate.h */,
-				69B129E81DE2C6490093D841 /* AppDelegate.m */,
-				690E616D1DE3DF9B00C8E52F /* UserGuideViewController.h */,
-				690E616E1DE3DF9B00C8E52F /* UserGuideViewController.m */,
+				6022226F1DF15A420010D969 /* root */,
 				6925F3591DE5739E00FB7B1A /* 登陆 */,
 				6925F3541DE5738900FB7B1A /* 记忆法 */,
 				690E61891DE570C500C8E52F /* 记单词 */,
@@ -269,7 +283,6 @@
 				69B129F01DE2C6490093D841 /* Assets.xcassets */,
 				69B129F21DE2C6490093D841 /* LaunchScreen.storyboard */,
 				69B129F51DE2C6490093D841 /* Info.plist */,
-				690E61701DE4280C00C8E52F /* YCDPrefixHeader.pch */,
 				69B129E41DE2C6490093D841 /* Supporting Files */,
 			);
 			path = YCD;
@@ -513,6 +526,7 @@
 				699989301DEC2EDA00E1349C /* PayVC.m in Sources */,
 				69E1507C1DEC0D4800F0F1E9 /* MineTableVC.m in Sources */,
 				690E616F1DE3DF9B00C8E52F /* UserGuideViewController.m in Sources */,
+				602222721DF15A670010D969 /* BaseViewController.m in Sources */,
 				69B8C5FD1DE6C54D003A4701 /* RememberWordVC.m in Sources */,
 				699989331DEC62E100E1349C /* inviteFriendsVC.m in Sources */,
 				69A7E1A21DEE83DA008C99D7 /* RemeberWordItemVC.m in Sources */,

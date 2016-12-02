@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface MnemonicsVC : UIViewController
+#import "BaseViewController.h"
+@interface MnemonicsVC : BaseViewController
 
 @end

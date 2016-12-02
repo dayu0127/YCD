@@ -66,6 +66,7 @@
 - (void)openNight:(UISwitch *)sender{
     if (sender.on == YES) {
         NSLog(@"开启夜间模式");
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"openNightMode" object:self];
     }else{
         NSLog(@"关闭夜间模式");
     }
