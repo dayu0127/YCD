@@ -1,0 +1,29 @@
+//
+//  YCDPrefixHeader.pch
+//  YCD
+//
+//  Created by dayu on 2016/11/22.
+//  Copyright © 2016年 dayu. All rights reserved.
+//
+
+#ifndef YCDPrefixHeader_pch
+#define YCDPrefixHeader_pch
+
+//屏幕高宽
+#define WIDTH [UIScreen mainScreen].bounds.size.width
+#define HEIGHT [UIScreen mainScreen].bounds.size.height
+
+//记单词
+#define TITLE_HEIGHT 45
+#define ITEM_HEIGHT 45
+
+//已订阅
+#define WORD_ROWHEIGHT 44
+
+//充值
+#define PAY_ROWHEIGHT 60
+#define PAY_ARRAY @[@"5",@"10",@"15",@"20",@"50",@"100"]
+//充值比例
+#define PAY_PROPORTION 10
+
+#endif /* YCDPrefixHeader_pch */

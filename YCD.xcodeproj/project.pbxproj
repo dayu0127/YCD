@@ -1,0 +1,711 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		18B9626DABA25B58C542554A /* libPods-YCD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 442DC9F435D2D57C573442D1 /* libPods-YCD.a */; };
+		6022226E1DF153BC0010D969 /* HelpFeedbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6022226D1DF153BC0010D969 /* HelpFeedbackVC.m */; };
+		690E616F1DE3DF9B00C8E52F /* UserGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690E616E1DE3DF9B00C8E52F /* UserGuideViewController.m */; };
+		6925F3581DE5738900FB7B1A /* MnemonicsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6925F3571DE5738900FB7B1A /* MnemonicsVC.m */; };
+		6925F3611DE5739E00FB7B1A /* ForgetPwdVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6925F35C1DE5739E00FB7B1A /* ForgetPwdVC.m */; };
+		6925F3621DE5739E00FB7B1A /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6925F35E1DE5739E00FB7B1A /* LoginVC.m */; };
+		6925F3631DE5739E00FB7B1A /* RegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6925F3601DE5739E00FB7B1A /* RegisterVC.m */; };
+		6963C01D1DF149D20080BA26 /* UpdateHeadImageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6963C01C1DF149D20080BA26 /* UpdateHeadImageVC.m */; };
+		6998341A1DE6933000898021 /* MnemonicsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 699834181DE6933000898021 /* MnemonicsCell.m */; };
+		6998341B1DE6933000898021 /* MnemonicsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 699834191DE6933000898021 /* MnemonicsCell.xib */; };
+		699989301DEC2EDA00E1349C /* PayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6999892F1DEC2EDA00E1349C /* PayVC.m */; };
+		699989331DEC62E100E1349C /* inviteFriendsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 699989321DEC62E100E1349C /* inviteFriendsVC.m */; };
+		699989361DEC788E00E1349C /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 699989351DEC788E00E1349C /* AboutUsVC.m */; };
+		699989391DEC7F2100E1349C /* SetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 699989381DEC7F2100E1349C /* SetVC.m */; };
+		69A2529D1DE8639D00074B5E /* SubscribedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A2529C1DE8639D00074B5E /* SubscribedVC.m */; };
+		69A252A01DE9202A00074B5E /* RememberWordSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A2529F1DE9202A00074B5E /* RememberWordSectionView.m */; };
+		69A7E19F1DED64FA008C99D7 /* MemoryCourseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E19E1DED64FA008C99D7 /* MemoryCourseVC.m */; };
+		69A7E1A21DEE83DA008C99D7 /* RemeberWordItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1A11DEE83DA008C99D7 /* RemeberWordItemVC.m */; };
+		69A7E1A61DEE9449008C99D7 /* RemeberWordVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1A41DEE9449008C99D7 /* RemeberWordVideoCell.m */; };
+		69A7E1A71DEE9449008C99D7 /* RemeberWordVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69A7E1A51DEE9449008C99D7 /* RemeberWordVideoCell.xib */; };
+		69A7E1AB1DEE99CD008C99D7 /* RemeberWordSingleWordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1A91DEE99CD008C99D7 /* RemeberWordSingleWordCell.m */; };
+		69A7E1AC1DEE99CD008C99D7 /* RemeberWordSingleWordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69A7E1AA1DEE99CD008C99D7 /* RemeberWordSingleWordCell.xib */; };
+		69A7E1AF1DEEC681008C99D7 /* RemeberWordVideoDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1AE1DEEC681008C99D7 /* RemeberWordVideoDetailVC.m */; };
+		69A7E1B21DEEC8D6008C99D7 /* RemeberWordSingleWordDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1B11DEEC8D6008C99D7 /* RemeberWordSingleWordDetailVC.m */; };
+		69A7E1B51DEFBC0A008C99D7 /* PaymentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1B41DEFBC0A008C99D7 /* PaymentVC.m */; };
+		69A7E1BE1DEFCFD2008C99D7 /* PaymentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1BC1DEFCFD2008C99D7 /* PaymentCell.m */; };
+		69A7E1BF1DEFCFD2008C99D7 /* PaymentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69A7E1BD1DEFCFD2008C99D7 /* PaymentCell.xib */; };
+		69A7E1C31DEFF063008C99D7 /* PayDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1C11DEFF063008C99D7 /* PayDetailCell.m */; };
+		69A7E1C41DEFF063008C99D7 /* PayDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69A7E1C21DEFF063008C99D7 /* PayDetailCell.xib */; };
+		69A7E1C71DEFF2EB008C99D7 /* PayDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1C61DEFF2EB008C99D7 /* PayDetailVC.m */; };
+		69B129E61DE2C6490093D841 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B129E51DE2C6490093D841 /* main.m */; };
+		69B129E91DE2C6490093D841 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B129E81DE2C6490093D841 /* AppDelegate.m */; };
+		69B129EF1DE2C6490093D841 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69B129ED1DE2C6490093D841 /* Main.storyboard */; };
+		69B129F11DE2C6490093D841 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69B129F01DE2C6490093D841 /* Assets.xcassets */; };
+		69B129F41DE2C6490093D841 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69B129F21DE2C6490093D841 /* LaunchScreen.storyboard */; };
+		69B8C5FD1DE6C54D003A4701 /* RememberWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B8C5FC1DE6C54D003A4701 /* RememberWordVC.m */; };
+		69B8C6001DE6DC01003A4701 /* WordSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B8C5FF1DE6DC01003A4701 /* WordSearchVC.m */; };
+		69E150741DEBD3E400F0F1E9 /* RememberWordItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69E150731DEBD3E400F0F1E9 /* RememberWordItemView.xib */; };
+		69E150771DEBD41200F0F1E9 /* RememberWordItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E150761DEBD41200F0F1E9 /* RememberWordItemView.m */; };
+		69E1507C1DEC0D4800F0F1E9 /* MineTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E1507B1DEC0D4800F0F1E9 /* MineTableVC.m */; };
+		69E1507F1DEC1E6400F0F1E9 /* ChangeInfoTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E1507E1DEC1E6400F0F1E9 /* ChangeInfoTableVC.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		315258AEABA4886EACD45D13 /* Pods-YCD.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YCD.release.xcconfig"; path = "Pods/Target Support Files/Pods-YCD/Pods-YCD.release.xcconfig"; sourceTree = "<group>"; };
+		442DC9F435D2D57C573442D1 /* libPods-YCD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YCD.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6022226C1DF153BC0010D969 /* HelpFeedbackVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpFeedbackVC.h; sourceTree = "<group>"; };
+		6022226D1DF153BC0010D969 /* HelpFeedbackVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpFeedbackVC.m; sourceTree = "<group>"; };
+		690E616D1DE3DF9B00C8E52F /* UserGuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserGuideViewController.h; sourceTree = "<group>"; };
+		690E616E1DE3DF9B00C8E52F /* UserGuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserGuideViewController.m; sourceTree = "<group>"; };
+		690E61701DE4280C00C8E52F /* YCDPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCDPrefixHeader.pch; sourceTree = "<group>"; };
+		6925F3561DE5738900FB7B1A /* MnemonicsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnemonicsVC.h; sourceTree = "<group>"; };
+		6925F3571DE5738900FB7B1A /* MnemonicsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MnemonicsVC.m; sourceTree = "<group>"; };
+		6925F35B1DE5739E00FB7B1A /* ForgetPwdVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPwdVC.h; sourceTree = "<group>"; };
+		6925F35C1DE5739E00FB7B1A /* ForgetPwdVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPwdVC.m; sourceTree = "<group>"; };
+		6925F35D1DE5739E00FB7B1A /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
+		6925F35E1DE5739E00FB7B1A /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
+		6925F35F1DE5739E00FB7B1A /* RegisterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterVC.h; sourceTree = "<group>"; };
+		6925F3601DE5739E00FB7B1A /* RegisterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterVC.m; sourceTree = "<group>"; };
+		6963C01B1DF149D20080BA26 /* UpdateHeadImageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateHeadImageVC.h; sourceTree = "<group>"; };
+		6963C01C1DF149D20080BA26 /* UpdateHeadImageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateHeadImageVC.m; sourceTree = "<group>"; };
+		699834171DE6933000898021 /* MnemonicsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnemonicsCell.h; sourceTree = "<group>"; };
+		699834181DE6933000898021 /* MnemonicsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MnemonicsCell.m; sourceTree = "<group>"; };
+		699834191DE6933000898021 /* MnemonicsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MnemonicsCell.xib; sourceTree = "<group>"; };
+		6999892E1DEC2EDA00E1349C /* PayVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayVC.h; sourceTree = "<group>"; };
+		6999892F1DEC2EDA00E1349C /* PayVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayVC.m; sourceTree = "<group>"; };
+		699989311DEC62E100E1349C /* inviteFriendsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inviteFriendsVC.h; sourceTree = "<group>"; };
+		699989321DEC62E100E1349C /* inviteFriendsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = inviteFriendsVC.m; sourceTree = "<group>"; };
+		699989341DEC788E00E1349C /* AboutUsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsVC.h; sourceTree = "<group>"; };
+		699989351DEC788E00E1349C /* AboutUsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsVC.m; sourceTree = "<group>"; };
+		699989371DEC7F2100E1349C /* SetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetVC.h; sourceTree = "<group>"; };
+		699989381DEC7F2100E1349C /* SetVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetVC.m; sourceTree = "<group>"; };
+		69A2529B1DE8639D00074B5E /* SubscribedVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscribedVC.h; sourceTree = "<group>"; };
+		69A2529C1DE8639D00074B5E /* SubscribedVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscribedVC.m; sourceTree = "<group>"; };
+		69A2529E1DE9202A00074B5E /* RememberWordSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordSectionView.h; sourceTree = "<group>"; };
+		69A2529F1DE9202A00074B5E /* RememberWordSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordSectionView.m; sourceTree = "<group>"; };
+		69A7E19D1DED64FA008C99D7 /* MemoryCourseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryCourseVC.h; sourceTree = "<group>"; };
+		69A7E19E1DED64FA008C99D7 /* MemoryCourseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryCourseVC.m; sourceTree = "<group>"; };
+		69A7E1A01DEE83DA008C99D7 /* RemeberWordItemVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemeberWordItemVC.h; sourceTree = "<group>"; };
+		69A7E1A11DEE83DA008C99D7 /* RemeberWordItemVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemeberWordItemVC.m; sourceTree = "<group>"; };
+		69A7E1A31DEE9449008C99D7 /* RemeberWordVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemeberWordVideoCell.h; sourceTree = "<group>"; };
+		69A7E1A41DEE9449008C99D7 /* RemeberWordVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemeberWordVideoCell.m; sourceTree = "<group>"; };
+		69A7E1A51DEE9449008C99D7 /* RemeberWordVideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RemeberWordVideoCell.xib; sourceTree = "<group>"; };
+		69A7E1A81DEE99CD008C99D7 /* RemeberWordSingleWordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemeberWordSingleWordCell.h; sourceTree = "<group>"; };
+		69A7E1A91DEE99CD008C99D7 /* RemeberWordSingleWordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemeberWordSingleWordCell.m; sourceTree = "<group>"; };
+		69A7E1AA1DEE99CD008C99D7 /* RemeberWordSingleWordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RemeberWordSingleWordCell.xib; sourceTree = "<group>"; };
+		69A7E1AD1DEEC681008C99D7 /* RemeberWordVideoDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemeberWordVideoDetailVC.h; sourceTree = "<group>"; };
+		69A7E1AE1DEEC681008C99D7 /* RemeberWordVideoDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemeberWordVideoDetailVC.m; sourceTree = "<group>"; };
+		69A7E1B01DEEC8D6008C99D7 /* RemeberWordSingleWordDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemeberWordSingleWordDetailVC.h; sourceTree = "<group>"; };
+		69A7E1B11DEEC8D6008C99D7 /* RemeberWordSingleWordDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemeberWordSingleWordDetailVC.m; sourceTree = "<group>"; };
+		69A7E1B31DEFBC0A008C99D7 /* PaymentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentVC.h; sourceTree = "<group>"; };
+		69A7E1B41DEFBC0A008C99D7 /* PaymentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentVC.m; sourceTree = "<group>"; };
+		69A7E1BB1DEFCFD2008C99D7 /* PaymentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentCell.h; sourceTree = "<group>"; };
+		69A7E1BC1DEFCFD2008C99D7 /* PaymentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentCell.m; sourceTree = "<group>"; };
+		69A7E1BD1DEFCFD2008C99D7 /* PaymentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentCell.xib; sourceTree = "<group>"; };
+		69A7E1C01DEFF063008C99D7 /* PayDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayDetailCell.h; sourceTree = "<group>"; };
+		69A7E1C11DEFF063008C99D7 /* PayDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayDetailCell.m; sourceTree = "<group>"; };
+		69A7E1C21DEFF063008C99D7 /* PayDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayDetailCell.xib; sourceTree = "<group>"; };
+		69A7E1C51DEFF2EB008C99D7 /* PayDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayDetailVC.h; sourceTree = "<group>"; };
+		69A7E1C61DEFF2EB008C99D7 /* PayDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayDetailVC.m; sourceTree = "<group>"; };
+		69B129E11DE2C6490093D841 /* YCD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YCD.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		69B129E51DE2C6490093D841 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		69B129E71DE2C6490093D841 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		69B129E81DE2C6490093D841 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		69B129EE1DE2C6490093D841 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		69B129F01DE2C6490093D841 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		69B129F31DE2C6490093D841 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		69B129F51DE2C6490093D841 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		69B8C5FB1DE6C54D003A4701 /* RememberWordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordVC.h; sourceTree = "<group>"; };
+		69B8C5FC1DE6C54D003A4701 /* RememberWordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordVC.m; sourceTree = "<group>"; };
+		69B8C5FE1DE6DC01003A4701 /* WordSearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordSearchVC.h; sourceTree = "<group>"; };
+		69B8C5FF1DE6DC01003A4701 /* WordSearchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordSearchVC.m; sourceTree = "<group>"; };
+		69E150731DEBD3E400F0F1E9 /* RememberWordItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RememberWordItemView.xib; sourceTree = "<group>"; };
+		69E150751DEBD41200F0F1E9 /* RememberWordItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordItemView.h; sourceTree = "<group>"; };
+		69E150761DEBD41200F0F1E9 /* RememberWordItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordItemView.m; sourceTree = "<group>"; };
+		69E1507A1DEC0D4800F0F1E9 /* MineTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTableVC.h; sourceTree = "<group>"; };
+		69E1507B1DEC0D4800F0F1E9 /* MineTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTableVC.m; sourceTree = "<group>"; };
+		69E1507D1DEC1E6400F0F1E9 /* ChangeInfoTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeInfoTableVC.h; sourceTree = "<group>"; };
+		69E1507E1DEC1E6400F0F1E9 /* ChangeInfoTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeInfoTableVC.m; sourceTree = "<group>"; };
+		892CA89E8E8BE0A58908CF96 /* Pods-YCD.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YCD.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YCD/Pods-YCD.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		69B129DE1DE2C6490093D841 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18B9626DABA25B58C542554A /* libPods-YCD.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		690E61891DE570C500C8E52F /* 记单词 */ = {
+			isa = PBXGroup;
+			children = (
+				69B8C5F91DE6C51F003A4701 /* controller */,
+				69B8C5FA1DE6C51F003A4701 /* view */,
+			);
+			path = "记单词";
+			sourceTree = "<group>";
+		};
+		690E618A1DE570C500C8E52F /* 我的 */ = {
+			isa = PBXGroup;
+			children = (
+				69E150781DEC0D2500F0F1E9 /* controller */,
+				69E150791DEC0D2500F0F1E9 /* view */,
+			);
+			path = "我的";
+			sourceTree = "<group>";
+		};
+		690E618B1DE570C500C8E52F /* 已订阅 */ = {
+			isa = PBXGroup;
+			children = (
+				69A252991DE8638200074B5E /* controller */,
+				69A2529A1DE8638200074B5E /* view */,
+			);
+			path = "已订阅";
+			sourceTree = "<group>";
+		};
+		6925F3541DE5738900FB7B1A /* 记忆法 */ = {
+			isa = PBXGroup;
+			children = (
+				6925F3651DE573E100FB7B1A /* view */,
+				6925F3551DE5738900FB7B1A /* controller */,
+			);
+			path = "记忆法";
+			sourceTree = "<group>";
+		};
+		6925F3551DE5738900FB7B1A /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				6925F3561DE5738900FB7B1A /* MnemonicsVC.h */,
+				6925F3571DE5738900FB7B1A /* MnemonicsVC.m */,
+				69A7E19D1DED64FA008C99D7 /* MemoryCourseVC.h */,
+				69A7E19E1DED64FA008C99D7 /* MemoryCourseVC.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		6925F3591DE5739E00FB7B1A /* 登陆 */ = {
+			isa = PBXGroup;
+			children = (
+				6925F35A1DE5739E00FB7B1A /* controller */,
+			);
+			path = "登陆";
+			sourceTree = "<group>";
+		};
+		6925F35A1DE5739E00FB7B1A /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				6925F35B1DE5739E00FB7B1A /* ForgetPwdVC.h */,
+				6925F35C1DE5739E00FB7B1A /* ForgetPwdVC.m */,
+				6925F35D1DE5739E00FB7B1A /* LoginVC.h */,
+				6925F35E1DE5739E00FB7B1A /* LoginVC.m */,
+				6925F35F1DE5739E00FB7B1A /* RegisterVC.h */,
+				6925F3601DE5739E00FB7B1A /* RegisterVC.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		6925F3651DE573E100FB7B1A /* view */ = {
+			isa = PBXGroup;
+			children = (
+				699834171DE6933000898021 /* MnemonicsCell.h */,
+				699834181DE6933000898021 /* MnemonicsCell.m */,
+				699834191DE6933000898021 /* MnemonicsCell.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		69A252991DE8638200074B5E /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				69A2529B1DE8639D00074B5E /* SubscribedVC.h */,
+				69A2529C1DE8639D00074B5E /* SubscribedVC.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		69A2529A1DE8638200074B5E /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		69B129D81DE2C6490093D841 = {
+			isa = PBXGroup;
+			children = (
+				69B129E31DE2C6490093D841 /* YCD */,
+				69B129E21DE2C6490093D841 /* Products */,
+				B3274C370FA0B0F8046E4F1A /* Pods */,
+				D4104350F4A5C3154590EC1A /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		69B129E21DE2C6490093D841 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				69B129E11DE2C6490093D841 /* YCD.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		69B129E31DE2C6490093D841 /* YCD */ = {
+			isa = PBXGroup;
+			children = (
+				69B129E71DE2C6490093D841 /* AppDelegate.h */,
+				69B129E81DE2C6490093D841 /* AppDelegate.m */,
+				690E616D1DE3DF9B00C8E52F /* UserGuideViewController.h */,
+				690E616E1DE3DF9B00C8E52F /* UserGuideViewController.m */,
+				6925F3591DE5739E00FB7B1A /* 登陆 */,
+				6925F3541DE5738900FB7B1A /* 记忆法 */,
+				690E61891DE570C500C8E52F /* 记单词 */,
+				690E618B1DE570C500C8E52F /* 已订阅 */,
+				690E618A1DE570C500C8E52F /* 我的 */,
+				69B129ED1DE2C6490093D841 /* Main.storyboard */,
+				69B129F01DE2C6490093D841 /* Assets.xcassets */,
+				69B129F21DE2C6490093D841 /* LaunchScreen.storyboard */,
+				69B129F51DE2C6490093D841 /* Info.plist */,
+				690E61701DE4280C00C8E52F /* YCDPrefixHeader.pch */,
+				69B129E41DE2C6490093D841 /* Supporting Files */,
+			);
+			path = YCD;
+			sourceTree = "<group>";
+		};
+		69B129E41DE2C6490093D841 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				69B129E51DE2C6490093D841 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		69B8C5F91DE6C51F003A4701 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				69B8C5FB1DE6C54D003A4701 /* RememberWordVC.h */,
+				69B8C5FC1DE6C54D003A4701 /* RememberWordVC.m */,
+				69B8C5FE1DE6DC01003A4701 /* WordSearchVC.h */,
+				69B8C5FF1DE6DC01003A4701 /* WordSearchVC.m */,
+				69A7E1A01DEE83DA008C99D7 /* RemeberWordItemVC.h */,
+				69A7E1A11DEE83DA008C99D7 /* RemeberWordItemVC.m */,
+				69A7E1AD1DEEC681008C99D7 /* RemeberWordVideoDetailVC.h */,
+				69A7E1AE1DEEC681008C99D7 /* RemeberWordVideoDetailVC.m */,
+				69A7E1B01DEEC8D6008C99D7 /* RemeberWordSingleWordDetailVC.h */,
+				69A7E1B11DEEC8D6008C99D7 /* RemeberWordSingleWordDetailVC.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		69B8C5FA1DE6C51F003A4701 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				69A2529E1DE9202A00074B5E /* RememberWordSectionView.h */,
+				69A2529F1DE9202A00074B5E /* RememberWordSectionView.m */,
+				69E150751DEBD41200F0F1E9 /* RememberWordItemView.h */,
+				69E150761DEBD41200F0F1E9 /* RememberWordItemView.m */,
+				69E150731DEBD3E400F0F1E9 /* RememberWordItemView.xib */,
+				69A7E1A31DEE9449008C99D7 /* RemeberWordVideoCell.h */,
+				69A7E1A41DEE9449008C99D7 /* RemeberWordVideoCell.m */,
+				69A7E1A51DEE9449008C99D7 /* RemeberWordVideoCell.xib */,
+				69A7E1A81DEE99CD008C99D7 /* RemeberWordSingleWordCell.h */,
+				69A7E1A91DEE99CD008C99D7 /* RemeberWordSingleWordCell.m */,
+				69A7E1AA1DEE99CD008C99D7 /* RemeberWordSingleWordCell.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		69E150781DEC0D2500F0F1E9 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				6963C01B1DF149D20080BA26 /* UpdateHeadImageVC.h */,
+				6963C01C1DF149D20080BA26 /* UpdateHeadImageVC.m */,
+				69E1507A1DEC0D4800F0F1E9 /* MineTableVC.h */,
+				69E1507B1DEC0D4800F0F1E9 /* MineTableVC.m */,
+				69E1507D1DEC1E6400F0F1E9 /* ChangeInfoTableVC.h */,
+				69E1507E1DEC1E6400F0F1E9 /* ChangeInfoTableVC.m */,
+				6999892E1DEC2EDA00E1349C /* PayVC.h */,
+				6999892F1DEC2EDA00E1349C /* PayVC.m */,
+				699989311DEC62E100E1349C /* inviteFriendsVC.h */,
+				699989321DEC62E100E1349C /* inviteFriendsVC.m */,
+				699989341DEC788E00E1349C /* AboutUsVC.h */,
+				699989351DEC788E00E1349C /* AboutUsVC.m */,
+				6022226C1DF153BC0010D969 /* HelpFeedbackVC.h */,
+				6022226D1DF153BC0010D969 /* HelpFeedbackVC.m */,
+				699989371DEC7F2100E1349C /* SetVC.h */,
+				699989381DEC7F2100E1349C /* SetVC.m */,
+				69A7E1B31DEFBC0A008C99D7 /* PaymentVC.h */,
+				69A7E1B41DEFBC0A008C99D7 /* PaymentVC.m */,
+				69A7E1C51DEFF2EB008C99D7 /* PayDetailVC.h */,
+				69A7E1C61DEFF2EB008C99D7 /* PayDetailVC.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		69E150791DEC0D2500F0F1E9 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				69A7E1BB1DEFCFD2008C99D7 /* PaymentCell.h */,
+				69A7E1BC1DEFCFD2008C99D7 /* PaymentCell.m */,
+				69A7E1BD1DEFCFD2008C99D7 /* PaymentCell.xib */,
+				69A7E1C01DEFF063008C99D7 /* PayDetailCell.h */,
+				69A7E1C11DEFF063008C99D7 /* PayDetailCell.m */,
+				69A7E1C21DEFF063008C99D7 /* PayDetailCell.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B3274C370FA0B0F8046E4F1A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				892CA89E8E8BE0A58908CF96 /* Pods-YCD.debug.xcconfig */,
+				315258AEABA4886EACD45D13 /* Pods-YCD.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D4104350F4A5C3154590EC1A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				442DC9F435D2D57C573442D1 /* libPods-YCD.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		69B129E01DE2C6490093D841 /* YCD */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 69B129F81DE2C6490093D841 /* Build configuration list for PBXNativeTarget "YCD" */;
+			buildPhases = (
+				844BB9AE0AC166D01A4434A7 /* [CP] Check Pods Manifest.lock */,
+				69B129DD1DE2C6490093D841 /* Sources */,
+				69B129DE1DE2C6490093D841 /* Frameworks */,
+				69B129DF1DE2C6490093D841 /* Resources */,
+				C54EF6AB85ADE6EAC9350591 /* [CP] Embed Pods Frameworks */,
+				7285226724B7632B2AAF598C /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = YCD;
+			productName = YCD;
+			productReference = 69B129E11DE2C6490093D841 /* YCD.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		69B129D91DE2C6490093D841 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = dayu;
+				TargetAttributes = {
+					69B129E01DE2C6490093D841 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = AE5L29EYR8;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 69B129DC1DE2C6490093D841 /* Build configuration list for PBXProject "YCD" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 69B129D81DE2C6490093D841;
+			productRefGroup = 69B129E21DE2C6490093D841 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				69B129E01DE2C6490093D841 /* YCD */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		69B129DF1DE2C6490093D841 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69B129F41DE2C6490093D841 /* LaunchScreen.storyboard in Resources */,
+				69B129F11DE2C6490093D841 /* Assets.xcassets in Resources */,
+				69A7E1A71DEE9449008C99D7 /* RemeberWordVideoCell.xib in Resources */,
+				69B129EF1DE2C6490093D841 /* Main.storyboard in Resources */,
+				69E150741DEBD3E400F0F1E9 /* RememberWordItemView.xib in Resources */,
+				6998341B1DE6933000898021 /* MnemonicsCell.xib in Resources */,
+				69A7E1BF1DEFCFD2008C99D7 /* PaymentCell.xib in Resources */,
+				69A7E1C41DEFF063008C99D7 /* PayDetailCell.xib in Resources */,
+				69A7E1AC1DEE99CD008C99D7 /* RemeberWordSingleWordCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7285226724B7632B2AAF598C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YCD/Pods-YCD-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		844BB9AE0AC166D01A4434A7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C54EF6AB85ADE6EAC9350591 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YCD/Pods-YCD-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		69B129DD1DE2C6490093D841 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69A2529D1DE8639D00074B5E /* SubscribedVC.m in Sources */,
+				69B8C6001DE6DC01003A4701 /* WordSearchVC.m in Sources */,
+				69E150771DEBD41200F0F1E9 /* RememberWordItemView.m in Sources */,
+				69A7E1C31DEFF063008C99D7 /* PayDetailCell.m in Sources */,
+				6925F3581DE5738900FB7B1A /* MnemonicsVC.m in Sources */,
+				69E1507F1DEC1E6400F0F1E9 /* ChangeInfoTableVC.m in Sources */,
+				699989301DEC2EDA00E1349C /* PayVC.m in Sources */,
+				69E1507C1DEC0D4800F0F1E9 /* MineTableVC.m in Sources */,
+				690E616F1DE3DF9B00C8E52F /* UserGuideViewController.m in Sources */,
+				69B8C5FD1DE6C54D003A4701 /* RememberWordVC.m in Sources */,
+				699989331DEC62E100E1349C /* inviteFriendsVC.m in Sources */,
+				69A7E1A21DEE83DA008C99D7 /* RemeberWordItemVC.m in Sources */,
+				69A7E19F1DED64FA008C99D7 /* MemoryCourseVC.m in Sources */,
+				69A7E1A61DEE9449008C99D7 /* RemeberWordVideoCell.m in Sources */,
+				6022226E1DF153BC0010D969 /* HelpFeedbackVC.m in Sources */,
+				699989361DEC788E00E1349C /* AboutUsVC.m in Sources */,
+				69A7E1AF1DEEC681008C99D7 /* RemeberWordVideoDetailVC.m in Sources */,
+				6925F3631DE5739E00FB7B1A /* RegisterVC.m in Sources */,
+				6998341A1DE6933000898021 /* MnemonicsCell.m in Sources */,
+				6925F3621DE5739E00FB7B1A /* LoginVC.m in Sources */,
+				69A7E1C71DEFF2EB008C99D7 /* PayDetailVC.m in Sources */,
+				69A252A01DE9202A00074B5E /* RememberWordSectionView.m in Sources */,
+				69A7E1BE1DEFCFD2008C99D7 /* PaymentCell.m in Sources */,
+				69A7E1B21DEEC8D6008C99D7 /* RemeberWordSingleWordDetailVC.m in Sources */,
+				6925F3611DE5739E00FB7B1A /* ForgetPwdVC.m in Sources */,
+				69A7E1AB1DEE99CD008C99D7 /* RemeberWordSingleWordCell.m in Sources */,
+				69B129E91DE2C6490093D841 /* AppDelegate.m in Sources */,
+				69A7E1B51DEFBC0A008C99D7 /* PaymentVC.m in Sources */,
+				699989391DEC7F2100E1349C /* SetVC.m in Sources */,
+				69B129E61DE2C6490093D841 /* main.m in Sources */,
+				6963C01D1DF149D20080BA26 /* UpdateHeadImageVC.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		69B129ED1DE2C6490093D841 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				69B129EE1DE2C6490093D841 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		69B129F21DE2C6490093D841 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				69B129F31DE2C6490093D841 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		69B129F61DE2C6490093D841 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		69B129F71DE2C6490093D841 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		69B129F91DE2C6490093D841 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 892CA89E8E8BE0A58908CF96 /* Pods-YCD.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = AE5L29EYR8;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/YCD/YCDPrefixHeader.pch";
+				INFOPLIST_FILE = YCD/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhongshuo.YCD;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		69B129FA1DE2C6490093D841 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 315258AEABA4886EACD45D13 /* Pods-YCD.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = AE5L29EYR8;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/YCD/YCDPrefixHeader.pch";
+				INFOPLIST_FILE = YCD/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhongshuo.YCD;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		69B129DC1DE2C6490093D841 /* Build configuration list for PBXProject "YCD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				69B129F61DE2C6490093D841 /* Debug */,
+				69B129F71DE2C6490093D841 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		69B129F81DE2C6490093D841 /* Build configuration list for PBXNativeTarget "YCD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				69B129F91DE2C6490093D841 /* Debug */,
+				69B129FA1DE2C6490093D841 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 69B129D91DE2C6490093D841 /* Project object */;
+}
