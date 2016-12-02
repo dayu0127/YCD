@@ -21,6 +21,6 @@
 //充值比例
 #define PAY_PROPORTION 10
 //夜间模式颜色
-#define NIGHTMODE_COLOR1
+#define NIGHTMODE_COLOR1 [UIColor ]
 
 #endif /* YCDPrefixHeader_pch */
