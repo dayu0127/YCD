@@ -22,7 +22,11 @@
 #define PAY_ARRAY @[@"5",@"10",@"15",@"20",@"50",@"100"]
 //充值比例
 #define PAY_PROPORTION 10
-//夜间模式颜色
-#define NIGHTMODE_COLOR [UIColor colorWithRed:17/255.0 green:25/255.0 blue:34/255.0 alpha:1.0]
+//日间模式颜色
+#define BLUE [UIColor colorWithRed:0.4 green:0.6 blue:0.8 alpha:1.0] //主题蓝色 102 153 204   0x6699cc
+#define GREEN [UIColor colorWithRed:0.4 green:0.8 blue:0.4 alpha:1.0] //主题绿色 102 204 102   0x66cc66
+#define BIG_BG [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0] //大背景 248 248 248   0xf8f8f8
+#define BTN_BG [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0] //按钮灰色背景 204 204 204   0xcccccc
+#define TAB_BG [UIColor colorWithRed:0.2 green:0.6 blue:0.8 alpha:1.0] //tabbar的选中色 51 153 204   0x3399cc
 
 #endif /* YCDPrefixHeader_pch */
