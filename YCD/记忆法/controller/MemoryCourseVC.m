@@ -16,6 +16,7 @@
 @property (nonatomic,strong)UITextView *contentText;
 @property (nonatomic,strong)NSMutableArray *courceArray;
 @property (nonatomic,strong)UICollectionView *collectionView;
+@property (nonatomic, strong) UIDocumentInteractionController *documentController;
 @end
 
 @implementation MemoryCourseVC
@@ -58,15 +59,16 @@
     _underLine.backgroundColor = [UIColor orangeColor];
     [titleView addSubview:_underLine];
     //分享
-    UILabel *shareLabel = [[UILabel alloc] initWithFrame:CGRectMake(WIDTH-65, 0, 35, 39)];
-    shareLabel.text = @"分享";
-    shareLabel.font = [UIFont systemFontOfSize:15.0f];
-    shareLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor grayColor],[UIColor groupTableViewBackgroundColor],[UIColor redColor]);
-    [titleView addSubview:shareLabel];
-    UIButton *shareButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH-30, 11.5, 16, 16)];
-    [shareButton setImage:[UIImage imageNamed:@"wodezixuan"] forState:UIControlStateNormal];
-    [shareButton addTarget:self action:@selector(shareButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *shareButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH-65, 0, 35, 39)];
+    [shareButton setTitle:@"分享" forState:UIControlStateNormal];
+    [shareButton dk_setTitleColorPicker:DKColorPickerWithRGB(0x808080,0xffffff,0xff0000) forState:UIControlStateNormal];
+    shareButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    [shareButton addTarget:self action:@selector(shareButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [titleView addSubview:shareButton];
+    UIButton *shareImageButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH-30, 11.5, 16, 16)];
+    [shareImageButton setImage:[UIImage imageNamed:@"wodezixuan"] forState:UIControlStateNormal];
+    [shareImageButton addTarget:self action:@selector(shareButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [titleView addSubview:shareImageButton];
     //分割线
     _line = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(titleView.frame), WIDTH, 1)];
     _line.backgroundColor = [UIColor grayColor];
@@ -93,9 +95,10 @@
     }
 }
 #pragma mark 分享
-- (void)shareButtonClick{
-    NSLog(@"分享");
+- (void)shareButtonClick:(UIButton *)sender{
+    
 }
+
 #pragma mark 加载本节说明
 - (void)loadCurrentSectionExplain{
     if (_contentText!=nil) {
