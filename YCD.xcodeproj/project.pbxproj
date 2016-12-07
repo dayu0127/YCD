@@ -10,6 +10,16 @@
 		18B9626DABA25B58C542554A /* libPods-YCD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 442DC9F435D2D57C573442D1 /* libPods-YCD.a */; };
 		6022226E1DF153BC0010D969 /* HelpFeedbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6022226D1DF153BC0010D969 /* HelpFeedbackVC.m */; };
 		602222721DF15A670010D969 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 602222711DF15A660010D969 /* BaseViewController.m */; };
+		602222751DF16E030010D969 /* RootTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 602222741DF16E030010D969 /* RootTabBarController.m */; };
+		60505BD81DF5305B000DC456 /* UpdatePwdVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60505BD71DF5305B000DC456 /* UpdatePwdVC.m */; };
+		60505BDB1DF53A03000DC456 /* UpdateNickNameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60505BDA1DF53A03000DC456 /* UpdateNickNameVC.m */; };
+		60505BDE1DF53AFA000DC456 /* BindingNewPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60505BDD1DF53AF9000DC456 /* BindingNewPhoneVC.m */; };
+		60505BE11DF53E92000DC456 /* UseHelpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60505BE01DF53E92000DC456 /* UseHelpVC.m */; };
+		60505BE41DF53F3A000DC456 /* IntroduceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60505BE31DF53F3A000DC456 /* IntroduceVC.m */; };
+		60505BE71DF53F8C000DC456 /* UserAgreementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60505BE61DF53F8C000DC456 /* UserAgreementVC.m */; };
+		60B4106D1DF54B45002D4B4D /* NotificationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B4106C1DF54B45002D4B4D /* NotificationVC.m */; };
+		60B410701DF54B6F002D4B4D /* MemoryGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B4106F1DF54B6F002D4B4D /* MemoryGameVC.m */; };
+		60B410731DF56486002D4B4D /* LoginNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B410721DF56486002D4B4D /* LoginNC.m */; };
 		690E616F1DE3DF9B00C8E52F /* UserGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690E616E1DE3DF9B00C8E52F /* UserGuideViewController.m */; };
 		6925F3581DE5738900FB7B1A /* MnemonicsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6925F3571DE5738900FB7B1A /* MnemonicsVC.m */; };
 		6925F3611DE5739E00FB7B1A /* ForgetPwdVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6925F35C1DE5739E00FB7B1A /* ForgetPwdVC.m */; };
@@ -45,6 +55,7 @@
 		69B129F41DE2C6490093D841 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69B129F21DE2C6490093D841 /* LaunchScreen.storyboard */; };
 		69B8C5FD1DE6C54D003A4701 /* RememberWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B8C5FC1DE6C54D003A4701 /* RememberWordVC.m */; };
 		69B8C6001DE6DC01003A4701 /* WordSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B8C5FF1DE6DC01003A4701 /* WordSearchVC.m */; };
+		69BD100A1DF3F4C5005D0263 /* Singleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BD10091DF3F4C5005D0263 /* Singleton.m */; };
 		69E150741DEBD3E400F0F1E9 /* RememberWordItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69E150731DEBD3E400F0F1E9 /* RememberWordItemView.xib */; };
 		69E150771DEBD41200F0F1E9 /* RememberWordItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E150761DEBD41200F0F1E9 /* RememberWordItemView.m */; };
 		69E1507C1DEC0D4800F0F1E9 /* MineTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E1507B1DEC0D4800F0F1E9 /* MineTableVC.m */; };
@@ -58,6 +69,26 @@
 		6022226D1DF153BC0010D969 /* HelpFeedbackVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpFeedbackVC.m; sourceTree = "<group>"; };
 		602222701DF15A660010D969 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		602222711DF15A660010D969 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		602222731DF16E030010D969 /* RootTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootTabBarController.h; sourceTree = "<group>"; };
+		602222741DF16E030010D969 /* RootTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootTabBarController.m; sourceTree = "<group>"; };
+		60505BD61DF5305B000DC456 /* UpdatePwdVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdatePwdVC.h; sourceTree = "<group>"; };
+		60505BD71DF5305B000DC456 /* UpdatePwdVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdatePwdVC.m; sourceTree = "<group>"; };
+		60505BD91DF53A03000DC456 /* UpdateNickNameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateNickNameVC.h; sourceTree = "<group>"; };
+		60505BDA1DF53A03000DC456 /* UpdateNickNameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateNickNameVC.m; sourceTree = "<group>"; };
+		60505BDC1DF53AF9000DC456 /* BindingNewPhoneVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindingNewPhoneVC.h; sourceTree = "<group>"; };
+		60505BDD1DF53AF9000DC456 /* BindingNewPhoneVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BindingNewPhoneVC.m; sourceTree = "<group>"; };
+		60505BDF1DF53E92000DC456 /* UseHelpVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UseHelpVC.h; sourceTree = "<group>"; };
+		60505BE01DF53E92000DC456 /* UseHelpVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UseHelpVC.m; sourceTree = "<group>"; };
+		60505BE21DF53F3A000DC456 /* IntroduceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroduceVC.h; sourceTree = "<group>"; };
+		60505BE31DF53F3A000DC456 /* IntroduceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroduceVC.m; sourceTree = "<group>"; };
+		60505BE51DF53F8C000DC456 /* UserAgreementVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAgreementVC.h; sourceTree = "<group>"; };
+		60505BE61DF53F8C000DC456 /* UserAgreementVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAgreementVC.m; sourceTree = "<group>"; };
+		60B4106B1DF54B45002D4B4D /* NotificationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationVC.h; sourceTree = "<group>"; };
+		60B4106C1DF54B45002D4B4D /* NotificationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationVC.m; sourceTree = "<group>"; };
+		60B4106E1DF54B6F002D4B4D /* MemoryGameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryGameVC.h; sourceTree = "<group>"; };
+		60B4106F1DF54B6F002D4B4D /* MemoryGameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryGameVC.m; sourceTree = "<group>"; };
+		60B410711DF56486002D4B4D /* LoginNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginNC.h; sourceTree = "<group>"; };
+		60B410721DF56486002D4B4D /* LoginNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginNC.m; sourceTree = "<group>"; };
 		690E616D1DE3DF9B00C8E52F /* UserGuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserGuideViewController.h; sourceTree = "<group>"; };
 		690E616E1DE3DF9B00C8E52F /* UserGuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserGuideViewController.m; sourceTree = "<group>"; };
 		690E61701DE4280C00C8E52F /* YCDPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCDPrefixHeader.pch; sourceTree = "<group>"; };
@@ -122,6 +153,8 @@
 		69B8C5FC1DE6C54D003A4701 /* RememberWordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordVC.m; sourceTree = "<group>"; };
 		69B8C5FE1DE6DC01003A4701 /* WordSearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordSearchVC.h; sourceTree = "<group>"; };
 		69B8C5FF1DE6DC01003A4701 /* WordSearchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordSearchVC.m; sourceTree = "<group>"; };
+		69BD10081DF3F4C5005D0263 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
+		69BD10091DF3F4C5005D0263 /* Singleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Singleton.m; sourceTree = "<group>"; };
 		69E150731DEBD3E400F0F1E9 /* RememberWordItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RememberWordItemView.xib; sourceTree = "<group>"; };
 		69E150751DEBD41200F0F1E9 /* RememberWordItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordItemView.h; sourceTree = "<group>"; };
 		69E150761DEBD41200F0F1E9 /* RememberWordItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordItemView.m; sourceTree = "<group>"; };
@@ -151,11 +184,32 @@
 				69B129E81DE2C6490093D841 /* AppDelegate.m */,
 				690E616D1DE3DF9B00C8E52F /* UserGuideViewController.h */,
 				690E616E1DE3DF9B00C8E52F /* UserGuideViewController.m */,
+				602222731DF16E030010D969 /* RootTabBarController.h */,
+				602222741DF16E030010D969 /* RootTabBarController.m */,
 				602222701DF15A660010D969 /* BaseViewController.h */,
 				602222711DF15A660010D969 /* BaseViewController.m */,
-				690E61701DE4280C00C8E52F /* YCDPrefixHeader.pch */,
 			);
 			name = root;
+			sourceTree = "<group>";
+		};
+		60505BD41DF52708000DC456 /* 记忆法课程 */ = {
+			isa = PBXGroup;
+			children = (
+				69A7E19D1DED64FA008C99D7 /* MemoryCourseVC.h */,
+				69A7E19E1DED64FA008C99D7 /* MemoryCourseVC.m */,
+			);
+			name = "记忆法课程";
+			path = controller;
+			sourceTree = "<group>";
+		};
+		60505BD51DF527B7000DC456 /* tools */ = {
+			isa = PBXGroup;
+			children = (
+				69BD10081DF3F4C5005D0263 /* Singleton.h */,
+				69BD10091DF3F4C5005D0263 /* Singleton.m */,
+				690E61701DE4280C00C8E52F /* YCDPrefixHeader.pch */,
+			);
+			name = tools;
 			sourceTree = "<group>";
 		};
 		690E61891DE570C500C8E52F /* 记单词 */ = {
@@ -188,8 +242,9 @@
 		6925F3541DE5738900FB7B1A /* 记忆法 */ = {
 			isa = PBXGroup;
 			children = (
-				6925F3651DE573E100FB7B1A /* view */,
 				6925F3551DE5738900FB7B1A /* controller */,
+				6925F3651DE573E100FB7B1A /* view */,
+				60505BD41DF52708000DC456 /* 记忆法课程 */,
 			);
 			path = "记忆法";
 			sourceTree = "<group>";
@@ -199,8 +254,6 @@
 			children = (
 				6925F3561DE5738900FB7B1A /* MnemonicsVC.h */,
 				6925F3571DE5738900FB7B1A /* MnemonicsVC.m */,
-				69A7E19D1DED64FA008C99D7 /* MemoryCourseVC.h */,
-				69A7E19E1DED64FA008C99D7 /* MemoryCourseVC.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -216,12 +269,14 @@
 		6925F35A1DE5739E00FB7B1A /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				6925F35B1DE5739E00FB7B1A /* ForgetPwdVC.h */,
-				6925F35C1DE5739E00FB7B1A /* ForgetPwdVC.m */,
+				60B410711DF56486002D4B4D /* LoginNC.h */,
+				60B410721DF56486002D4B4D /* LoginNC.m */,
 				6925F35D1DE5739E00FB7B1A /* LoginVC.h */,
 				6925F35E1DE5739E00FB7B1A /* LoginVC.m */,
 				6925F35F1DE5739E00FB7B1A /* RegisterVC.h */,
 				6925F3601DE5739E00FB7B1A /* RegisterVC.m */,
+				6925F35B1DE5739E00FB7B1A /* ForgetPwdVC.h */,
+				6925F35C1DE5739E00FB7B1A /* ForgetPwdVC.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -274,6 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				6022226F1DF15A420010D969 /* root */,
+				60505BD51DF527B7000DC456 /* tools */,
 				6925F3591DE5739E00FB7B1A /* 登陆 */,
 				6925F3541DE5738900FB7B1A /* 记忆法 */,
 				690E61891DE570C500C8E52F /* 记单词 */,
@@ -334,10 +390,10 @@
 		69E150781DEC0D2500F0F1E9 /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				6963C01B1DF149D20080BA26 /* UpdateHeadImageVC.h */,
-				6963C01C1DF149D20080BA26 /* UpdateHeadImageVC.m */,
 				69E1507A1DEC0D4800F0F1E9 /* MineTableVC.h */,
 				69E1507B1DEC0D4800F0F1E9 /* MineTableVC.m */,
+				6963C01B1DF149D20080BA26 /* UpdateHeadImageVC.h */,
+				6963C01C1DF149D20080BA26 /* UpdateHeadImageVC.m */,
 				69E1507D1DEC1E6400F0F1E9 /* ChangeInfoTableVC.h */,
 				69E1507E1DEC1E6400F0F1E9 /* ChangeInfoTableVC.m */,
 				6999892E1DEC2EDA00E1349C /* PayVC.h */,
@@ -354,6 +410,22 @@
 				69A7E1B41DEFBC0A008C99D7 /* PaymentVC.m */,
 				69A7E1C51DEFF2EB008C99D7 /* PayDetailVC.h */,
 				69A7E1C61DEFF2EB008C99D7 /* PayDetailVC.m */,
+				60505BDC1DF53AF9000DC456 /* BindingNewPhoneVC.h */,
+				60505BDD1DF53AF9000DC456 /* BindingNewPhoneVC.m */,
+				60505BD61DF5305B000DC456 /* UpdatePwdVC.h */,
+				60505BD71DF5305B000DC456 /* UpdatePwdVC.m */,
+				60505BD91DF53A03000DC456 /* UpdateNickNameVC.h */,
+				60505BDA1DF53A03000DC456 /* UpdateNickNameVC.m */,
+				60505BDF1DF53E92000DC456 /* UseHelpVC.h */,
+				60505BE01DF53E92000DC456 /* UseHelpVC.m */,
+				60505BE21DF53F3A000DC456 /* IntroduceVC.h */,
+				60505BE31DF53F3A000DC456 /* IntroduceVC.m */,
+				60505BE51DF53F8C000DC456 /* UserAgreementVC.h */,
+				60505BE61DF53F8C000DC456 /* UserAgreementVC.m */,
+				60B4106B1DF54B45002D4B4D /* NotificationVC.h */,
+				60B4106C1DF54B45002D4B4D /* NotificationVC.m */,
+				60B4106E1DF54B6F002D4B4D /* MemoryGameVC.h */,
+				60B4106F1DF54B6F002D4B4D /* MemoryGameVC.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -517,15 +589,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60B410731DF56486002D4B4D /* LoginNC.m in Sources */,
 				69A2529D1DE8639D00074B5E /* SubscribedVC.m in Sources */,
 				69B8C6001DE6DC01003A4701 /* WordSearchVC.m in Sources */,
 				69E150771DEBD41200F0F1E9 /* RememberWordItemView.m in Sources */,
 				69A7E1C31DEFF063008C99D7 /* PayDetailCell.m in Sources */,
+				60505BE71DF53F8C000DC456 /* UserAgreementVC.m in Sources */,
 				6925F3581DE5738900FB7B1A /* MnemonicsVC.m in Sources */,
+				60505BE11DF53E92000DC456 /* UseHelpVC.m in Sources */,
 				69E1507F1DEC1E6400F0F1E9 /* ChangeInfoTableVC.m in Sources */,
 				699989301DEC2EDA00E1349C /* PayVC.m in Sources */,
 				69E1507C1DEC0D4800F0F1E9 /* MineTableVC.m in Sources */,
 				690E616F1DE3DF9B00C8E52F /* UserGuideViewController.m in Sources */,
+				60505BD81DF5305B000DC456 /* UpdatePwdVC.m in Sources */,
 				602222721DF15A670010D969 /* BaseViewController.m in Sources */,
 				69B8C5FD1DE6C54D003A4701 /* RememberWordVC.m in Sources */,
 				699989331DEC62E100E1349C /* inviteFriendsVC.m in Sources */,
@@ -534,6 +610,9 @@
 				69A7E1A61DEE9449008C99D7 /* RemeberWordVideoCell.m in Sources */,
 				6022226E1DF153BC0010D969 /* HelpFeedbackVC.m in Sources */,
 				699989361DEC788E00E1349C /* AboutUsVC.m in Sources */,
+				60505BE41DF53F3A000DC456 /* IntroduceVC.m in Sources */,
+				69BD100A1DF3F4C5005D0263 /* Singleton.m in Sources */,
+				60505BDB1DF53A03000DC456 /* UpdateNickNameVC.m in Sources */,
 				69A7E1AF1DEEC681008C99D7 /* RemeberWordVideoDetailVC.m in Sources */,
 				6925F3631DE5739E00FB7B1A /* RegisterVC.m in Sources */,
 				6998341A1DE6933000898021 /* MnemonicsCell.m in Sources */,
@@ -545,8 +624,12 @@
 				6925F3611DE5739E00FB7B1A /* ForgetPwdVC.m in Sources */,
 				69A7E1AB1DEE99CD008C99D7 /* RemeberWordSingleWordCell.m in Sources */,
 				69B129E91DE2C6490093D841 /* AppDelegate.m in Sources */,
+				60B4106D1DF54B45002D4B4D /* NotificationVC.m in Sources */,
 				69A7E1B51DEFBC0A008C99D7 /* PaymentVC.m in Sources */,
 				699989391DEC7F2100E1349C /* SetVC.m in Sources */,
+				60B410701DF54B6F002D4B4D /* MemoryGameVC.m in Sources */,
+				60505BDE1DF53AFA000DC456 /* BindingNewPhoneVC.m in Sources */,
+				602222751DF16E030010D969 /* RootTabBarController.m in Sources */,
 				69B129E61DE2C6490093D841 /* main.m in Sources */,
 				6963C01D1DF149D20080BA26 /* UpdateHeadImageVC.m in Sources */,
 			);

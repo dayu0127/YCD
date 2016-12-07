@@ -9,6 +9,7 @@
 #import "PaymentVC.h"
 #import "PaymentCell.h"
 @interface PaymentVC ()<UITableViewDataSource,UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *payLabel;
 @property (weak, nonatomic) IBOutlet UILabel *studyDouLabel;
 @property (weak, nonatomic) IBOutlet UILabel *moneyLabel;
 @property (strong,nonatomic) UITableView *tableView;
@@ -18,8 +19,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _payLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _studyDouLabel.text = [NSString stringWithFormat:@"%ld学习豆，",_money*PAY_PROPORTION];
-    NSDictionary *dic = [NSDictionary dictionaryWithObject:[UIColor blackColor] forKey:NSForegroundColorAttributeName];
+    UIColor *color;
+    _studyDouLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
+        color = [UIColor blackColor];
+    }else{
+        color = [UIColor whiteColor];
+    }
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:color forKey:NSForegroundColorAttributeName];
     NSString *moneyStr = [NSString stringWithFormat:@"%ld元",_money];
     NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:moneyStr];
     [content addAttributes:dic range:NSMakeRange(moneyStr.length-1, 1)];
@@ -29,6 +38,7 @@
     _tableView.dataSource = self;
     _tableView.rowHeight = 70;
     _tableView.bounces = NO;
+    _tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
     [_tableView registerNib:[UINib nibWithNibName:@"PaymentCell" bundle:nil] forCellReuseIdentifier:@"PaymentCell"];
 }

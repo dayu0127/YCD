@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PayVC : UIViewController
+@interface PayVC : BaseViewController
 
 @end

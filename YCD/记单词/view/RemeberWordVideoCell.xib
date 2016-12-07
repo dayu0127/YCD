@@ -68,6 +68,13 @@
                     <constraint firstItem="mLp-wA-z17" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.75" id="nxO-Jd-Urn"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="detailLabel" destination="qSt-OS-1AH" id="qbK-Su-B5L"/>
+                <outlet property="studyDouLabel" destination="H3v-jW-9cY" id="1Rz-MO-UQ4"/>
+                <outlet property="titleLabel" destination="z3y-e0-rVj" id="yIU-0n-LSl"/>
+            </connections>
             <point key="canvasLocation" x="54.5" y="76"/>
         </tableViewCell>
     </objects>

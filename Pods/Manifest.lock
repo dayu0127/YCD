@@ -14,6 +14,20 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - DKNightVersion (2.3.0):
+    - DKNightVersion/Core (= 2.3.0)
+    - DKNightVersion/CoreAnimation (= 2.3.0)
+    - DKNightVersion/UIKit (= 2.3.0)
+  - DKNightVersion/Core (2.3.0):
+    - DKNightVersion/Core/DeallocBlockExecutor (= 2.3.0)
+    - DKNightVersion/Core/extobjc (= 2.3.0)
+  - DKNightVersion/Core/DeallocBlockExecutor (2.3.0)
+  - DKNightVersion/Core/extobjc (2.3.0)
+  - DKNightVersion/CoreAnimation (2.3.0):
+    - DKNightVersion/Core
+  - DKNightVersion/UIKit (2.3.0):
+    - DKNightVersion/Core
+  - JCAlertView (1.1.5)
   - SDCycleScrollView (1.65):
     - SDWebImage (~> 3.7)
   - SDWebImage (3.8.1):
@@ -22,14 +36,18 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
+  - DKNightVersion
+  - JCAlertView
   - SDCycleScrollView (~> 1.64)
   - SDWebImage (~> 3.8)
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  DKNightVersion: 459438cbfd14edb9e41a777ff14b18e5661b9269
+  JCAlertView: c65a7b298b8b497b3db783d82f719b88f4914869
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
 
-PODFILE CHECKSUM: dd39015520e2160e3e40167bae8de90037764090
+PODFILE CHECKSUM: 8e012570d04591285ea05c88d40fb3b9a7aea8f7
 
 COCOAPODS: 1.1.1

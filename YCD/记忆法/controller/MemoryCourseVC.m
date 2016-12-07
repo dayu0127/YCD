@@ -32,12 +32,14 @@
     [self.view addSubview:playerVC.view];
     //标题视图
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 64+0.3*HEIGHT, WIDTH, 39)];
-    titleView.backgroundColor = [UIColor whiteColor];
+    titleView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor darkGrayColor],[UIColor redColor]);
     [self.view addSubview:titleView];
     //本节说明
     _titleButton1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 90, 38)];
     [_titleButton1 setTitle:@"本节说明" forState:UIControlStateNormal];
-    [_titleButton1 setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    _titleButton1.selected = YES;
+     [_titleButton1 dk_setTitleColorPicker:DKColorPickerWithColors([UIColor darkGrayColor],[UIColor whiteColor],[UIColor redColor]) forState:UIControlStateNormal];
+    [_titleButton1 setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
     _titleButton1.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     _titleButton1.tag = 0;
     [_titleButton1 addTarget:self action:@selector(titleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -45,7 +47,8 @@
     //其他课程
     _titleButton2 = [[UIButton alloc] initWithFrame:CGRectMake(90, 0, 90, 38)];
     [_titleButton2 setTitle:@"其他课程" forState:UIControlStateNormal];
-    [_titleButton2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+     [_titleButton2 dk_setTitleColorPicker:DKColorPickerWithColors([UIColor darkGrayColor],[UIColor whiteColor],[UIColor redColor]) forState:UIControlStateNormal];
+    [_titleButton2 setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
     _titleButton2.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     _titleButton2.tag = 1;
     [_titleButton2 addTarget:self action:@selector(titleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -58,7 +61,7 @@
     UILabel *shareLabel = [[UILabel alloc] initWithFrame:CGRectMake(WIDTH-65, 0, 35, 39)];
     shareLabel.text = @"分享";
     shareLabel.font = [UIFont systemFontOfSize:15.0f];
-    shareLabel.textColor = [UIColor lightGrayColor];
+    shareLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor grayColor],[UIColor groupTableViewBackgroundColor],[UIColor redColor]);
     [titleView addSubview:shareLabel];
     UIButton *shareButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH-30, 11.5, 16, 16)];
     [shareButton setImage:[UIImage imageNamed:@"wodezixuan"] forState:UIControlStateNormal];
@@ -77,18 +80,15 @@
     }
     return _courceArray;
 }
+#pragma mark 选项卡标题点击
 - (void)titleButtonClick:(UIButton *)sender{
-    if (sender.tag == 0) {
-        //点击本节说明
-        [sender setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-        [_titleButton2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        _underLine.frame = CGRectMake(0, 38, 90, 1);
+    sender.selected = YES;
+    _underLine.frame = CGRectMake(90*sender.tag, 38, 90, 1);
+    if (sender.tag == 0) { //点击本节说明
+        _titleButton2.selected = NO;
         [self loadCurrentSectionExplain];
-    }else{
-        //点击其他课程
-        [sender setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-        [_titleButton1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        _underLine.frame = CGRectMake(90, 38, 90, 1);
+    }else{  //点击其他课程
+        _titleButton1.selected = NO;
         [self loadOtherCourse];
     }
 }
@@ -104,13 +104,15 @@
     }
     _contentText = [[UITextView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_line.frame), WIDTH, HEIGHT-CGRectGetMaxY(_line.frame))];
     _contentText.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
-    _contentText.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    _contentText.editable = NO;
     NSString *textString = @"如果你无法简洁的表达你的想法，那只说明你还不够了解它。  --阿尔伯特·爱因斯坦";
     NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:textString];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:5];
     [content addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, textString.length)];
     _contentText.attributedText = content;
+    _contentText.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    _contentText.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor colorWithRed:52/255.0 green:52/255.0 blue:52/255.0 alpha:1.0],[UIColor redColor]);
     _contentText.font = [UIFont systemFontOfSize:12.0f];
     [self.view addSubview:_contentText];
 }
@@ -127,7 +129,7 @@
     _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_line.frame), WIDTH, HEIGHT-CGRectGetMaxY(_line.frame)) collectionViewLayout:layout];
     _collectionView.delegate = self;
     _collectionView.dataSource =self;
-    _collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    _collectionView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor colorWithRed:52/255.0 green:52/255.0 blue:52/255.0 alpha:1.0],[UIColor redColor]);
     [self.view addSubview:_collectionView];
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
 }
@@ -139,9 +141,9 @@
     UIButton *courseItemButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, (WIDTH-60)*0.5, 44)];
     [courseItemButton setTitle:self.courceArray[indexPath.row] forState:UIControlStateNormal];
     courseItemButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
-    [courseItemButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [courseItemButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     courseItemButton.tag = indexPath.row;
-    courseItemButton.backgroundColor = [UIColor whiteColor];
+    courseItemButton.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
     courseItemButton.layer.masksToBounds = YES;
     courseItemButton.layer.cornerRadius = 8.0f;
     [courseItemButton addTarget:self action:@selector(courseItemButtonClick:) forControlEvents:UIControlEventTouchUpInside];

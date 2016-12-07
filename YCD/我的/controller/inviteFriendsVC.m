@@ -9,6 +9,7 @@
 #import "inviteFriendsVC.h"
 
 @interface inviteFriendsVC ()<UITableViewDelegate,UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *inviteCodeButton;
 - (IBAction)inviteCodeClick:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UIButton *sendToFriendButton;
@@ -22,6 +23,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _titleLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    [_inviteCodeButton dk_setTitleColorPicker:DKColorPickerWithColors([UIColor darkGrayColor],[UIColor groupTableViewBackgroundColor],[UIColor redColor]) forState:UIControlStateNormal];
+    _inviteCodeButton.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    [_sendToFriendButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
+    _sendToFriendButton.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    _tableView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
     //点击复制互学码按钮
     self.inviteCodeButton.layer.masksToBounds = YES;
     self.inviteCodeButton.layer.cornerRadius = 8.0f;
@@ -33,6 +40,7 @@
     self.sendToFriendButton.layer.borderWidth = 1.0f;
     self.sendToFriendButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
     //邀请规则
+    _rewardRulesLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor groupTableViewBackgroundColor],[UIColor redColor]);
     NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:self.rewardRulesLabel.text];
     NSDictionary *attributeDic = [NSDictionary dictionaryWithObject:[UIColor blueColor] forKey:NSForegroundColorAttributeName];
     [content addAttributes:attributeDic range:NSMakeRange(self.rewardRulesLabel.text.length-4, 4)];
@@ -58,8 +66,9 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellid" forIndexPath:indexPath];
+    cell.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
     cell.textLabel.text = self.tableViewArray[indexPath.row];
-    cell.textLabel.textColor = [UIColor darkGrayColor];
+    cell.textLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor groupTableViewBackgroundColor],[UIColor redColor]);
     cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;

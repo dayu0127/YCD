@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RemeberWordItemVC : UIViewController
+@interface RemeberWordItemVC : BaseViewController
 
 @end

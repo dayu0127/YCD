@@ -19,15 +19,16 @@
     for (UIView *subView in _contentView.subviews) {
         [subView removeFromSuperview];
     }
+    _titleLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _titleLabel.text = dic[@"name"];
     NSArray *array = dic[@"detail"];
     UIView *lastView = nil;
     for (int i = 0; i < array.count; i++) {
-        
         NSString *str = array[i];
         UIButton *item_btn = [[UIButton alloc] init];
         item_btn.translatesAutoresizingMaskIntoConstraints = NO;
         item_btn.tag = i;
+        [item_btn dk_setTitleColorPicker:DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]) forState:UIControlStateNormal];
         item_btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [item_btn setTitle:str forState:UIControlStateNormal];
         item_btn.titleLabel.font = [UIFont systemFontOfSize:13.5f];

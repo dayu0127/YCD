@@ -10,6 +10,8 @@
 
 @interface ChangeInfoTableVC ()
 
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
+@property (strong, nonatomic) IBOutletCollection(UITableViewCell) NSArray *tableViewCellCollection;
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @end
 
@@ -17,6 +19,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    for (UILabel *item in _labelCollection) {
+        item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    }
+    for (UITableViewCell *item in _tableViewCellCollection) {
+        item.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
+    }
+    self.tableView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor colorWithRed:52/255.0 green:52/255.0 blue:52/255.0 alpha:1.0],[UIColor redColor]);
+    //从沙盒取出头像图片
     NSString *path_sandox = NSHomeDirectory();
     NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/headImage.png"];
     if([[NSFileManager defaultManager] fileExistsAtPath:imagePath]){

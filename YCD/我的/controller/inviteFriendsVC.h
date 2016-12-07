@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface inviteFriendsVC : UIViewController
+@interface inviteFriendsVC : BaseViewController
 
 @end

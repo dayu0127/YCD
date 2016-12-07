@@ -12,7 +12,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    self.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
+    _title.dk_textColorPicker = DKColorPickerWithKey(TEXT);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

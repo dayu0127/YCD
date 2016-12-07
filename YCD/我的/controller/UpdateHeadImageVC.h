@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UpdateHeadImageVC : UIViewController
+@interface UpdateHeadImageVC : BaseViewController
 
 @end

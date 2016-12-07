@@ -22,12 +22,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-    self.navigationController.navigationBar.hidden = NO;
     [self createMainScrollView];
-}
-- (void)changeNavColor{
-    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+//    _scrollView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
 }
 - (NSArray *)dataArray{
     if (!_dataArray) {
@@ -79,6 +75,7 @@
         NSDictionary *dic = self.dataArray[i];
         RememberWordItemView *itemView = [[RememberWordItemView alloc] initWithNib];
         itemView.translatesAutoresizingMaskIntoConstraints = NO;
+        itemView.backgroundColor = [UIColor clearColor];
         itemView.tag = i;
         itemView.dic = dic;
         itemView.delegate = self;

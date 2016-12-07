@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PaymentVC : UIViewController
+@interface PaymentVC : BaseViewController
 @property(nonatomic,assign)NSInteger money;
 @end

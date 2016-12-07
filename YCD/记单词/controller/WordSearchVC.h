@@ -7,5 +7,5 @@
 //
 
 #import <UIKit/UIKit.h>
-@interface WordSearchVC : UIViewController
+@interface WordSearchVC : BaseViewController
 @end

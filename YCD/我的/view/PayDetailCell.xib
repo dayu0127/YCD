@@ -55,6 +55,12 @@
                     <constraint firstItem="ppq-OH-XwG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="wo5-um-x7I"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="dateLabel" destination="dYm-bV-UNq" id="Pj9-jW-IAW"/>
+                <outlet property="payMethodLabel" destination="oBc-wL-H6Y" id="IdR-hX-aQ8"/>
+                <outlet property="paySuccessLabel" destination="ppq-OH-XwG" id="yqe-JS-0dQ"/>
+            </connections>
             <point key="canvasLocation" x="24.5" y="52.5"/>
         </tableViewCell>
     </objects>

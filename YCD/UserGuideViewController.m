@@ -30,7 +30,6 @@
     [enterButton addTarget:self action:@selector(enterMainController) forControlEvents:UIControlEventTouchUpInside];
     [self.fourthView addSubview:enterButton];
 }
-
 - (void)updateViewConstraints{
     [super updateViewConstraints];
     self.viewWidth.constant = WIDTH*4;
@@ -38,7 +37,6 @@
     self.thirdViewWidth.constant = WIDTH*2;
     self.fourthViewWidth.constant = WIDTH*3;
 }
-
 - (void)enterMainController{
     [self performSegueWithIdentifier:@"enterLogin" sender:self];
 }

@@ -9,7 +9,9 @@
 #import "AboutUsVC.h"
 
 @interface AboutUsVC ()<UITableViewDataSource,UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *appVersionLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *copyrightLabelCollection;
 @property (strong,nonatomic) NSArray *dataArray;
 @end
 
@@ -17,7 +19,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    _appVersionLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    for (UILabel *item in _copyrightLabelCollection) {
+        item.dk_textColorPicker = DKColorPickerWithColors([UIColor lightGrayColor],[UIColor groupTableViewBackgroundColor],[UIColor redColor]);
+    }
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
 }
 - (NSArray *)dataArray{
@@ -45,7 +50,8 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellid" forIndexPath:indexPath];
-    cell.textLabel.textColor = [UIColor darkGrayColor];
+    cell.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
+    cell.textLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor whiteColor],[UIColor redColor]);
     cell.textLabel.text = self.dataArray[indexPath.section];
     cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

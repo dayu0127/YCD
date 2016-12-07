@@ -90,11 +90,14 @@
                     <constraint firstItem="ULN-PU-8Qu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="18" id="zFz-3c-M85"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="sZi-se-Etd" secondAttribute="trailing" constant="33" id="G6a-7w-QkN"/>
             </constraints>
             <connections>
+                <outlet property="courseDetail" destination="sZi-se-Etd" id="LYH-Ww-i35"/>
                 <outlet property="courseTitle" destination="ULN-PU-8Qu" id="vaH-NO-qPr"/>
+                <outlet property="studyDouLabel" destination="JLR-6q-761" id="7b1-Jt-yU3"/>
             </connections>
             <point key="canvasLocation" x="51.5" y="90"/>
         </tableViewCell>

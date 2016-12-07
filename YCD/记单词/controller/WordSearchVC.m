@@ -19,7 +19,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     self.resultArray = [NSMutableArray array];
     [self initSearchBar];
 }
@@ -59,6 +58,7 @@
         _tableView.dataSource = self;
         _tableView.rowHeight = 44;
         _tableView.bounces = NO;
+        _tableView.backgroundColor = [UIColor clearColor];
         [self.view addSubview:self.tableView];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     }
@@ -75,15 +75,15 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.contentView.backgroundColor = [UIColor whiteColor];
+    cell.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
     cell.textLabel.text = [_resultArray objectAtIndex:indexPath.row];
+    cell.textLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     RemeberWordSingleWordDetailVC *wordDetailVC = [[RemeberWordSingleWordDetailVC alloc] init];
     wordDetailVC.hidesBottomBarWhenPushed = YES;
-    wordDetailVC.title = @"单词记忆法";
     [self.navigationController pushViewController:wordDetailVC animated:YES];
     _searchBar.text = @"";
     [_resultArray removeAllObjects];

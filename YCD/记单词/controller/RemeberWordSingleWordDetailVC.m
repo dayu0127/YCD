@@ -23,8 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    self.navigationController.navigationBar.hidden = NO;
+    self.title = @"单词记忆法";
     //播放器
     AVPlayerViewController *playerVC = [[AVPlayerViewController alloc] init];
     NSURL *sourceMovieURL = [NSURL URLWithString:@"http://m3.rui2.net/uploadfile/output/2015/0226/d56e56eeb7ae97cc.mp4"];
@@ -34,12 +33,14 @@
     [self.view addSubview:playerVC.view];
     //标题视图
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 64+0.3*HEIGHT, WIDTH, 39)];
-    titleView.backgroundColor = [UIColor whiteColor];
+    titleView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor darkGrayColor],[UIColor redColor]);
     [self.view addSubview:titleView];
     //释义
     _titleButton1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 90, 38)];
     [_titleButton1 setTitle:@"释义" forState:UIControlStateNormal];
-    [_titleButton1 setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    [_titleButton1 dk_setTitleColorPicker:DKColorPickerWithColors([UIColor darkGrayColor],[UIColor whiteColor],[UIColor redColor]) forState:UIControlStateNormal];
+    [_titleButton1 setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
+    _titleButton1.selected = YES;
     _titleButton1.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     _titleButton1.tag = 0;
     [_titleButton1 addTarget:self action:@selector(titleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -47,7 +48,8 @@
     //相关词语
     _titleButton2 = [[UIButton alloc] initWithFrame:CGRectMake(90, 0, 90, 38)];
     [_titleButton2 setTitle:@"相关词语" forState:UIControlStateNormal];
-    [_titleButton2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [_titleButton2 dk_setTitleColorPicker:DKColorPickerWithColors([UIColor darkGrayColor],[UIColor whiteColor],[UIColor redColor]) forState:UIControlStateNormal];
+    [_titleButton2 setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
     _titleButton2.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     _titleButton2.tag = 1;
     [_titleButton2 addTarget:self action:@selector(titleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -60,7 +62,7 @@
     UILabel *shareLabel = [[UILabel alloc] initWithFrame:CGRectMake(WIDTH-65, 0, 35, 39)];
     shareLabel.text = @"分享";
     shareLabel.font = [UIFont systemFontOfSize:15.0f];
-    shareLabel.textColor = [UIColor lightGrayColor];
+    shareLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor grayColor],[UIColor groupTableViewBackgroundColor],[UIColor redColor]);
     [titleView addSubview:shareLabel];
     UIButton *shareButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH-30, 11.5, 16, 16)];
     [shareButton setImage:[UIImage imageNamed:@"wodezixuan"] forState:UIControlStateNormal];
@@ -79,14 +81,15 @@
     }
     return _wordArray;
 }
+#pragma mark 选项卡标题点击
 - (void)titleButtonClick:(UIButton *)sender{
-    [sender setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    sender.selected = YES;
     _underLine.frame = CGRectMake(90*sender.tag, 38, 90, 1);
     if (sender.tag == 0) { //点击加载释义
-        [_titleButton2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        _titleButton2.selected = NO;
         [self loadParaphrase];
     }else{  //点击加载相关词语
-        [_titleButton1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        _titleButton1.selected = NO;
         [self loadRelatedWords];
     }
 }
@@ -101,8 +104,10 @@
         _contentText = nil;
     }
     _contentText = [[UITextView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_line.frame), WIDTH, HEIGHT-CGRectGetMaxY(_line.frame))];
+    _contentText.editable = NO;
     _contentText.text = @"  emerge";
-    _contentText.textColor = [UIColor orangeColor];
+    _contentText.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    _contentText.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor colorWithRed:52/255.0 green:52/255.0 blue:52/255.0 alpha:1.0],[UIColor redColor]);
     _contentText.font = [UIFont boldSystemFontOfSize:16.0f];
     [self.view addSubview:_contentText];
 }
@@ -119,7 +124,7 @@
     _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_line.frame), WIDTH, HEIGHT-CGRectGetMaxY(_line.frame)) collectionViewLayout:layout];
     _collectionView.delegate = self;
     _collectionView.dataSource =self;
-    _collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    _collectionView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor colorWithRed:52/255.0 green:52/255.0 blue:52/255.0 alpha:1.0],[UIColor redColor]);
     [self.view addSubview:_collectionView];
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
 }
@@ -131,9 +136,9 @@
     UIButton *courseItemButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, (WIDTH-60)*0.5, 44)];
     [courseItemButton setTitle:self.wordArray[indexPath.row] forState:UIControlStateNormal];
     courseItemButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
-    [courseItemButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [courseItemButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     courseItemButton.tag = indexPath.row;
-    courseItemButton.backgroundColor = [UIColor whiteColor];
+    courseItemButton.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
     courseItemButton.layer.masksToBounds = YES;
     courseItemButton.layer.cornerRadius = 8.0f;
     [courseItemButton addTarget:self action:@selector(courseItemButtonClick:) forControlEvents:UIControlEventTouchUpInside];

@@ -6,33 +6,43 @@
 	<dict>
 		<key>AFNetworking.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>DKNightVersion.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>JCAlertView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods-YCD.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>SDCycleScrollView.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>3</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>SDWebImage.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>4</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>4497BA283BE7184F1105398400FBF57D</key>
+		<key>47458F31BED607F3614E094FAB7E3789</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>67980B55A719E0264DB95D9B8564E013</key>
+		<key>76E6F4463B0CAF1565F5402D8422FE51</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -42,7 +52,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E8476F876D5AC72EC6F0DEFF98D88016</key>
+		<key>A675846B1C06466630E6A77E037D0480</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B0DC5942837CAACD8727A9308CF2C9EB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BA3084FB9EF35FB70D7128B94983848F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

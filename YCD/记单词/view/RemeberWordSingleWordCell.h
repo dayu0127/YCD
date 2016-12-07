@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface RemeberWordSingleWordCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *wordLabel;
+@property (weak, nonatomic) IBOutlet UILabel *studyDouLabel;
 
 @end

@@ -9,6 +9,7 @@
 #import "RemeberWordVideoDetailVC.h"
 #import <AVKit/AVKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "RemeberWordSingleWordDetailVC.h"
 @interface RemeberWordVideoDetailVC ()<UICollectionViewDelegate,UICollectionViewDataSource>
 @property (nonatomic,strong)NSMutableArray *buttonAarry;
 @property (nonatomic,strong)UIView *underLine;
@@ -34,14 +35,18 @@
     [self.view addSubview:playerVC.view];
     //标题视图
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 64+0.3*HEIGHT, WIDTH, 39)];
-    titleView.backgroundColor = [UIColor whiteColor];
+    titleView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor darkGrayColor],[UIColor redColor]);
     [self.view addSubview:titleView];
     _buttonAarry = [NSMutableArray arrayWithCapacity:3];
     NSArray *titleArray = @[@"本节说明",@"本节单词",@"其他节课"];
     for (NSInteger i = 0; i<3; i++) {
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(90*i, 0, 90, 38)];
         [btn setTitle:[titleArray objectAtIndex:i] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [btn dk_setTitleColorPicker:DKColorPickerWithColors([UIColor darkGrayColor],[UIColor whiteColor],[UIColor redColor]) forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
+        if (i == 0) {
+            btn.selected = YES;
+        }
         btn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
         btn.tag = i;
         [btn addTarget:self action:@selector(titleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -56,7 +61,7 @@
     UILabel *shareLabel = [[UILabel alloc] initWithFrame:CGRectMake(WIDTH-65, 0, 35, 39)];
     shareLabel.text = @"分享";
     shareLabel.font = [UIFont systemFontOfSize:15.0f];
-    shareLabel.textColor = [UIColor lightGrayColor];
+    shareLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor grayColor],[UIColor groupTableViewBackgroundColor],[UIColor redColor]);
     [titleView addSubview:shareLabel];
     UIButton *shareButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH-30, 11.5, 16, 16)];
     [shareButton setImage:[UIImage imageNamed:@"wodezixuan"] forState:UIControlStateNormal];
@@ -66,7 +71,7 @@
     _line = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(titleView.frame), WIDTH, 1)];
     _line.backgroundColor = [UIColor grayColor];
     [self.view addSubview:_line];
-    //本节说明(其他课程)
+    //本节说明(本节单词,其他课程)
     [self loadCurrentSectionExplain];
 }
 - (NSMutableArray *)wordArray{
@@ -81,12 +86,12 @@
     }
     return _courseArray;
 }
-
+#pragma mark 选项卡标题点击
 - (void)titleButtonClick:(UIButton *)sender{
     for (UIButton *item in _buttonAarry) {
-        [item setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        item.selected = NO;
     }
-    [sender setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    sender.selected = YES;
     _underLine.frame = CGRectMake(90*sender.tag, 38, 90, 1);
     if (sender.tag == 0) { //点击加载本节说明
         [self loadCurrentSectionExplain];
@@ -109,14 +114,16 @@
         _contentText = nil;
     }
     _contentText = [[UITextView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_line.frame), WIDTH, HEIGHT-CGRectGetMaxY(_line.frame))];
+    _contentText.editable = NO;
     _contentText.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
-    _contentText.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    _contentText.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor colorWithRed:52/255.0 green:52/255.0 blue:52/255.0 alpha:1.0],[UIColor redColor]);
     NSString *textString = @"四年级上学期第一节课";
     NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:textString];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:5];
     [content addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, textString.length)];
     _contentText.attributedText = content;
+    _contentText.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _contentText.font = [UIFont systemFontOfSize:12.0f];
     [self.view addSubview:_contentText];
 }
@@ -138,7 +145,8 @@
     _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_line.frame), WIDTH, HEIGHT-CGRectGetMaxY(_line.frame)) collectionViewLayout:layout];
     _collectionView.delegate = self;
     _collectionView.dataSource =self;
-    _collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    _collectionView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor colorWithRed:52/255.0 green:52/255.0 blue:52/255.0 alpha:1.0],[UIColor redColor]);
+    
     [self.view addSubview:_collectionView];
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
 }
@@ -152,9 +160,9 @@
     NSString *title = _flagForCollectionView == 0 ? self.wordArray[indexPath.row] : self.courseArray[indexPath.row];
     [courseItemButton setTitle:title forState:UIControlStateNormal];
     courseItemButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
-    [courseItemButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [courseItemButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     courseItemButton.tag = indexPath.row;
-    courseItemButton.backgroundColor = [UIColor whiteColor];
+    courseItemButton.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
     courseItemButton.layer.masksToBounds = YES;
     courseItemButton.layer.cornerRadius = 8.0f;
     if (_flagForCollectionView == 0) {
@@ -166,7 +174,8 @@
     return cell;
 }
 - (void)wordItemButtonClick:(UIButton *)sender{
-    NSLog(@"单词%ld",sender.tag);
+    RemeberWordSingleWordDetailVC *wordDetailVC = [[RemeberWordSingleWordDetailVC alloc] init];
+    [self.navigationController pushViewController:wordDetailVC animated:YES];
 }
 - (void)courseItemButtonClick:(UIButton *)sender{
     NSLog(@"课程%ld",sender.tag);

@@ -8,28 +8,33 @@
 
 #import "SubscribedVC.h"
 #import "RemeberWordSingleWordDetailVC.h"
+#import "Singleton.h"
+
 @interface SubscribedVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIButton *videoButton;
 @property (weak, nonatomic) IBOutlet UIButton *wordButton;
 @property (weak, nonatomic) IBOutlet UIView *leftLineView;
 @property (weak, nonatomic) IBOutlet UIView *rightLineView;
-@property (weak, nonatomic) IBOutlet UIView *bgView;
 - (IBAction)videoClick:(UIButton *)sender;
 - (IBAction)wordClick:(UIButton *)sender;
+@property (nonatomic,strong) UIScrollView *scrollView;
+@property (nonatomic,strong) UIView *noVideoView;
 @property (nonatomic,strong) UITableView *wordTableView;
 @property (nonatomic,strong) NSMutableArray *wordArray;
 @property (nonatomic,strong) NSMutableArray *sectionNameArr;
 @property (nonatomic,strong) NSMutableArray *nameArr;
-- (IBAction)btnClick1:(UIButton *)sender;
 
-- (IBAction)btnCllick2:(UIButton *)sender;
 @end
 
 @implementation SubscribedVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    [_videoButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
+    [_wordButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
+    _videoButton.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    _wordButton.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    [self.view addSubview:self.noVideoView];
 }
 #pragma mark 懒加载字母数组
 - (NSMutableArray *)wordArray{
@@ -39,35 +44,93 @@
     }
     return _wordArray;
 }
-
+#pragma mark 懒加载暂无视频View
+- (UIView *)noVideoView{
+    if (!_noVideoView) {
+        _noVideoView = [[UIView alloc] initWithFrame:CGRectMake(0, 115, WIDTH, HEIGHT-159)];
+        _noVideoView.backgroundColor = [UIColor clearColor];
+        UIImageView *logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH*0.233, HEIGHT*0.104, WIDTH*0.533, WIDTH*0.32)];
+        logoImageView.backgroundColor = [UIColor grayColor];
+        [_noVideoView addSubview:logoImageView];
+        //暂无视频Label
+        UILabel *noVideoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(logoImageView.frame)+20, WIDTH, 15)];
+        noVideoLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+        noVideoLabel.text = @"暂无视频";
+        noVideoLabel.textAlignment = NSTextAlignmentCenter;
+        noVideoLabel.font = [UIFont systemFontOfSize:15.0f];
+        [_noVideoView addSubview:noVideoLabel];
+        //去订阅记忆法Button
+        UIButton *toMemoryButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH*0.233, CGRectGetMaxY(noVideoLabel.frame)+35, WIDTH*0.533, 35)];
+        [toMemoryButton setTitle:@"去订阅记忆法" forState:UIControlStateNormal];
+        [toMemoryButton dk_setTitleColorPicker:DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]) forState:UIControlStateNormal];
+        toMemoryButton.backgroundColor = [UIColor orangeColor];
+        toMemoryButton.layer.masksToBounds = YES;
+        toMemoryButton.layer.cornerRadius = 8.0f;
+        toMemoryButton.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+        [toMemoryButton addTarget:self action:@selector(toMemoryButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        [_noVideoView addSubview:toMemoryButton];
+        //去订阅单词视频课程Button
+        UIButton *toWordVideoButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH*0.233, CGRectGetMaxY(toMemoryButton.frame)+20, WIDTH*0.533, 35)];
+        [toWordVideoButton setTitle:@"去订阅单词视频课程" forState:UIControlStateNormal];
+        [toWordVideoButton dk_setTitleColorPicker:DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]) forState:UIControlStateNormal];
+        toWordVideoButton.backgroundColor = [UIColor orangeColor];
+        toWordVideoButton.layer.masksToBounds = YES;
+        toWordVideoButton.layer.cornerRadius = 8.0f;
+        toWordVideoButton.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+        [toWordVideoButton addTarget:self action:@selector(toWordVideoButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        [_noVideoView addSubview:toWordVideoButton];
+    }
+    return _noVideoView;
+}
+#pragma mark 懒加载wordTableView
+- (UITableView *)wordTableView{
+    if (!_wordTableView) {
+        _wordTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 115, WIDTH, HEIGHT-159) style:UITableViewStyleGrouped];
+        _wordTableView.delegate = self;
+        _wordTableView.dataSource = self;
+        _wordTableView.backgroundColor = [UIColor clearColor];
+        _wordTableView.rowHeight = WORD_ROWHEIGHT;
+        [_wordTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
+    }
+    return _wordTableView;
+}
+#pragma mark 视频按钮点击
 - (IBAction)videoClick:(UIButton *)sender {
-    [sender setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    sender.selected = YES;
+    _wordButton.selected = NO;
     self.leftLineView.backgroundColor = [UIColor orangeColor];
-    [self.wordButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     self.rightLineView.backgroundColor = [UIColor clearColor];
-    self.bgView.alpha = 1;
     [self.wordTableView removeFromSuperview];
     self.wordTableView = nil;
+    [self.view addSubview:self.noVideoView];
 }
-
+#pragma mark 去订阅记忆法
+- (void)toMemoryButtonClick{
+    self.tabBarController.selectedIndex = 0;
+}
+#pragma mark 去订阅单词视频课程
+- (void)toWordVideoButtonClick{
+    self.tabBarController.selectedIndex = 1;
+}
+#pragma mark 单词按钮点击
 - (IBAction)wordClick:(UIButton *)sender {
-    [sender setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    sender.selected = YES;
+    _videoButton.selected = NO;
     self.rightLineView.backgroundColor = [UIColor orangeColor];
-    [self.videoButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     self.leftLineView.backgroundColor = [UIColor clearColor];
-    self.bgView.alpha = 0;
-    self.wordTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 115, WIDTH, HEIGHT-159) style:UITableViewStyleGrouped];
-    self.wordTableView.delegate = self;
-    self.wordTableView.dataSource = self;
-    self.wordTableView.rowHeight = WORD_ROWHEIGHT;
-    [self.wordTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
-    [self wordSearch];
+    [self.noVideoView removeFromSuperview];
+    self.noVideoView = nil;
     [self.view addSubview:self.wordTableView];
+    [self wordSearch];
 }
 #pragma mark 侧边单词检索
 - (void)wordSearch{
     //tableView右侧索引栏的字体颜色和背景色
-    self.wordTableView.sectionIndexColor = [UIColor darkGrayColor];
+    if ([[DKNightVersionManager sharedManager].themeVersion isEqualToString:DKThemeVersionNight]) {
+         [UITableView appearance].sectionIndexColor = [UIColor whiteColor];
+    }else{
+         [UITableView appearance].sectionIndexColor = [UIColor darkGrayColor];
+    }
     self.wordTableView.sectionIndexBackgroundColor = [UIColor clearColor];
     //定义键的集合（26个字母）
     NSMutableArray *keyArr = [NSMutableArray array];
@@ -120,7 +183,9 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellid" forIndexPath:indexPath];
+    cell.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
     cell.textLabel.text = _nameArr[indexPath.section][indexPath.row];
+    cell.textLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
@@ -152,18 +217,23 @@
     UIView *headView;
     if (0 == section) {
         headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 60.0)];
+        headView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor darkGrayColor],[UIColor redColor]);
         UISearchBar *search = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 40.0)];
         search.placeholder = @"搜索单词";
+        search.dk_tintColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor lightGrayColor],[UIColor redColor]);
         [headView addSubview:search];
         UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0, 40, WIDTH, 19.9)];
         [sectionLabel setText:[_sectionNameArr[section] uppercaseString]];
         [sectionLabel setTextColor:[UIColor lightGrayColor]];
+        sectionLabel.backgroundColor = [UIColor clearColor];
         [sectionLabel setFont:[UIFont systemFontOfSize:12.0]];
         [headView addSubview:sectionLabel];
     }else{
         headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 19.9)];
+        headView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor darkGrayColor],[UIColor redColor]);
         UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0, 0, WIDTH, 19.9)];
         [sectionLabel setText:[_sectionNameArr[section] uppercaseString]];
+        sectionLabel.backgroundColor = [UIColor clearColor];
         [sectionLabel setTextColor:[UIColor lightGrayColor]];
         [sectionLabel setFont:[UIFont systemFontOfSize:12.0]];
         [headView addSubview:sectionLabel];
@@ -173,14 +243,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     RemeberWordSingleWordDetailVC *wordDetailVC = [[RemeberWordSingleWordDetailVC alloc] init];
     wordDetailVC.hidesBottomBarWhenPushed = YES;
-    wordDetailVC.title = @"单词记忆法";
     [self.navigationController pushViewController:wordDetailVC animated:YES];
-}
-- (IBAction)btnClick1:(UIButton *)sender {
-    self.tabBarController.selectedIndex = 0;
-}
-
-- (IBAction)btnCllick2:(UIButton *)sender {
-    self.tabBarController.selectedIndex = 1;
 }
 @end

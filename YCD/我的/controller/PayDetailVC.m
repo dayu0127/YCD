@@ -9,6 +9,8 @@
 #import "PayDetailVC.h"
 #import "PayDetailCell.h"
 @interface PayDetailVC ()<UITableViewDelegate,UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UIView *bgView;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
 @property (strong,nonatomic) UITableView *tableView;
 @property (strong,nonatomic) NSArray *payDetailArray;
 @end
@@ -17,11 +19,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _bgView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
+    for (UILabel *item in _labelCollection) {
+        item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    }
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 138, WIDTH, HEIGHT-138) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.bounces = NO;
     _tableView.rowHeight = 75;
+    _tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
     [_tableView registerNib:[UINib nibWithNibName:@"PayDetailCell" bundle:nil] forCellReuseIdentifier:@"PayDetailCell"];
 }

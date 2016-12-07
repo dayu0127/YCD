@@ -31,7 +31,8 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="dFz-CV-Abn" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.6" id="7TR-0E-KbT"/>
                     <constraint firstItem="dFz-CV-Abn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="4" id="Ojg-4L-tdD"/>
@@ -41,6 +42,7 @@
                     <constraint firstItem="dFz-CV-Abn" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.6" id="jvM-KP-bMS"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="imageView1" destination="dFz-CV-Abn" id="RtW-tl-5oi"/>
                 <outlet property="title" destination="69d-3k-OxP" id="2hG-de-Mbc"/>

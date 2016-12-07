@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ForgetPwdVC : UIViewController
+@interface ForgetPwdVC : BaseViewController
 
 @end

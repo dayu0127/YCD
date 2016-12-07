@@ -9,6 +9,8 @@
 #import "MineTableVC.h"
 
 @interface MineTableVC ()
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *titileCollectionLabel;
+@property (strong, nonatomic) IBOutletCollection(UITableViewCell) NSArray *tableViewCellCollection;
 
 @end
 
@@ -16,7 +18,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    self.view.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    for (UILabel *item in _titileCollectionLabel) {
+        item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    }
+    for (UITableViewCell *item in _tableViewCellCollection) {
+        item.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    }
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -41,7 +49,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 5;
 }
-
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 5)];
+    headView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor darkGrayColor],[UIColor redColor]);
+    return headView;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.001;
 }

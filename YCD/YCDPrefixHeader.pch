@@ -7,6 +7,8 @@
 //
 #ifndef YCDPrefixHeader_pch
 #define YCDPrefixHeader_pch
+#import <DKNightVersion/DKNightVersion.h>
+#import "BaseViewController.h"
 //屏幕高宽
 #define WIDTH [UIScreen mainScreen].bounds.size.width
 #define HEIGHT [UIScreen mainScreen].bounds.size.height
@@ -21,6 +23,6 @@
 //充值比例
 #define PAY_PROPORTION 10
 //夜间模式颜色
-#define NIGHTMODE_COLOR1 [UIColor ]
+#define NIGHTMODE_COLOR [UIColor colorWithRed:17/255.0 green:25/255.0 blue:34/255.0 alpha:1.0]
 
 #endif /* YCDPrefixHeader_pch */

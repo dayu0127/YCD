@@ -21,7 +21,9 @@
 @property (assign,nonatomic) NSInteger flagForTable;    //切换视频和单个词语tableView的标记
 @property (strong,nonatomic) UITableView *tableView;
 @property (strong,nonatomic) NSMutableArray *wordArray;
+@property (weak, nonatomic) IBOutlet UIView *footerBgView;
 @property (weak, nonatomic) IBOutlet UILabel *subscriptionLabel;
+@property (weak, nonatomic) IBOutlet UIButton *subscriptionButton;
 - (IBAction)subscriptionClick:(id)sender;
 @end
 
@@ -34,6 +36,13 @@
     if (WIDTH<=320) {
         _subscriptionLabel.numberOfLines=2;
     }
+    [_videoButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
+    [_wordButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
+    _videoButton.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    _wordButton.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    _footerBgView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor darkGrayColor],[UIColor redColor]);
+    _subscriptionLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    [_subscriptionButton dk_setTitleColorPicker:DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]) forState:UIControlStateNormal];
 }
 - (NSMutableArray *)wordArray{
     if (!_wordArray) {
@@ -46,19 +55,19 @@
     return _wordArray;
 }
 - (IBAction)videoClick:(UIButton *)sender{
-    [sender setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    sender.selected = YES;
+    _wordButton.selected = NO;
     _leftLineView.backgroundColor = [UIColor orangeColor];
-    [_wordButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    _rightLineView.backgroundColor = [UIColor whiteColor];
+    _rightLineView.backgroundColor = [UIColor clearColor];
     _flagForTable = 0;
     [self initTableView];
     self.subscriptionLabel.text = @"一次性订阅所有四年级上半年视频教程,仅需2000学习豆!";
 }
 - (IBAction)wordClick:(UIButton *)sender{
-    [sender setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    sender.selected = YES;
+    _videoButton.selected = NO;
     _rightLineView.backgroundColor = [UIColor orangeColor];
-    [_videoButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    _leftLineView.backgroundColor = [UIColor whiteColor];
+    _leftLineView.backgroundColor = [UIColor clearColor];
     _flagForTable = 1;
     [self initTableView];
     self.subscriptionLabel.text = @"一次性订阅所有四年级上半年所有单词,仅需2000学习豆!";
@@ -69,10 +78,11 @@
         [_tableView removeFromSuperview];
         _tableView = nil;
     }
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 116, WIDTH, HEIGHT-156) style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 116, WIDTH, HEIGHT-160) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.bounces = NO;
+    _tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
     if (_flagForTable == 0) {
         [_tableView registerNib:[UINib nibWithNibName:@"RemeberWordVideoCell" bundle:nil] forCellReuseIdentifier:@"RemeberWordVideoCell"];
@@ -101,9 +111,10 @@
     UILabel *titleLabel = nil;
     if (_flagForTable == 1) {
         titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 20)];
+        titleLabel.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor darkGrayColor],[UIColor redColor]);
+        titleLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
         titleLabel.text = _wordArray[section][@"name"];
         titleLabel.font = [UIFont systemFontOfSize:15.0f];
-        titleLabel.textColor = [UIColor darkGrayColor];
         titleLabel.textAlignment = NSTextAlignmentCenter;
     }
     return titleLabel;
@@ -127,7 +138,6 @@
     }else{
         RemeberWordSingleWordDetailVC *wordDetailVC = [[RemeberWordSingleWordDetailVC alloc] init];
         wordDetailVC.hidesBottomBarWhenPushed = YES;
-        wordDetailVC.title = @"单词记忆法";
         [self.navigationController pushViewController:wordDetailVC animated:YES];
     }
 }

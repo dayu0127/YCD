@@ -7,8 +7,13 @@
 //
 
 #import "LoginVC.h"
-
+#import "RootTabBarController.h"
+#import "AppDelegate.h"
 @interface LoginVC ()
+
+@property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
+- (IBAction)loginButtonClick:(UIButton *)sender;
 
 @end
 
@@ -16,23 +21,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    for (UITextField *item in _textFieldCollection) {
+        [item setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+        item.dk_tintColorPicker = DKColorPickerWithKey(TINT);
+        item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    }
+    [_loginButton dk_setTitleColorPicker:DKColorPickerWithRGB(0xffffff,0x000000,0xff0000) forState:UIControlStateNormal];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)loginButtonClick:(UIButton *)sender {
+    UITextField *textField = [_textFieldCollection objectAtIndex:0];
+    if (![textField.text isEqualToString:@""]) {
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        RootTabBarController *rootTBC = [sb instantiateViewControllerWithIdentifier:@"root"];
+        [app.window setRootViewController:rootTBC];
+        [app.window makeKeyWindow];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"login"];
+    }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

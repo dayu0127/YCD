@@ -15,6 +15,7 @@
 @property (strong,nonatomic)SDCycleScrollView *cycleScrollView;//轮播器
 @property (weak, nonatomic) IBOutlet UIView *scrollBgView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong,nonatomic) UIView *footerView;
 @end
 
 @implementation MnemonicsVC
@@ -22,9 +23,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     [self scrollNetWorkImages];
     [self.tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openNightMode) name:@"openNightMode" object:nil];
 }
 #pragma mark 懒加载网络图片数据
 -(NSArray *)netImages{
@@ -83,19 +84,25 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 44)];
-    footerView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    footerView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor darkGrayColor],[UIColor redColor]);
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, WIDTH-65, 44)];
     label.text = @"一次订阅所有记忆法课程，仅需2000学习豆!";
+    label.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     label.font = [UIFont systemFontOfSize:12.0f];
+    label.backgroundColor = [UIColor clearColor];
     [footerView addSubview:label];
     UIButton *subscriptionButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH-70, 5, 60, 34)];
-    [subscriptionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [subscriptionButton dk_setTitleColorPicker:DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]) forState:UIControlStateNormal];
     [subscriptionButton setTitle:@"订阅" forState:UIControlStateNormal];
     subscriptionButton.backgroundColor = [UIColor orangeColor];
     subscriptionButton.titleLabel.font = [UIFont systemFontOfSize:14.0f];
     [subscriptionButton addTarget:self action:@selector(subscribe) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:subscriptionButton];
-    return footerView;
+    _footerView = footerView;
+    return _footerView;
+}
+- (void)openNightMode{
+    _tableView.backgroundColor = [UIColor blackColor];
 }
 #pragma mark 订阅所有课程
 - (void)subscribe{

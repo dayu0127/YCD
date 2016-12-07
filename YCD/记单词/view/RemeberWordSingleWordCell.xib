@@ -59,6 +59,11 @@
                     <constraint firstItem="j0s-IK-CPC" firstAttribute="leading" secondItem="Ilt-ge-fsM" secondAttribute="trailing" constant="17" id="cqW-10-A24"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="studyDouLabel" destination="KfI-Pk-4NE" id="PZo-n4-dsW"/>
+                <outlet property="wordLabel" destination="j0s-IK-CPC" id="kg3-tE-py7"/>
+            </connections>
         </tableViewCell>
     </objects>
     <resources>

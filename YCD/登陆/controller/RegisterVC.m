@@ -9,6 +9,9 @@
 #import "RegisterVC.h"
 
 @interface RegisterVC ()
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
+@property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonCollection;
 
 @end
 
@@ -16,23 +19,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    for (UILabel *item in _labelCollection) {
+        item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    }
+    for (UITextField *item in _textFieldCollection) {
+        [item setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+        item.dk_tintColorPicker = DKColorPickerWithKey(TINT);
+        item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    }
+    for (UIButton *item in _buttonCollection) {
+        [item dk_setTitleColorPicker:DKColorPickerWithRGB(0xffffff,0x000000,0xff0000) forState:UIControlStateNormal];
+    }
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end
