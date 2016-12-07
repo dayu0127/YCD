@@ -11,6 +11,7 @@
 #import "LoginNC.h"
 #import "AppDelegate.h"
 #import "LoginVC.h"
+#import <JCAlertView.h>
 @interface SetVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSArray *arr;
@@ -103,5 +104,16 @@
     [alert addAction:cancel];
     [alert addAction:sure];
     [self presentViewController:alert animated:YES completion:nil];
+//    [JCAlertView showOneButtonWithTitle:@"title" Message:@"message" ButtonType:JCAlertViewButtonTypeDefault ButtonTitle:@"button" Click:^{
+//        NSLog(@"click0");
+//    }];
+//    [JCAlertView showMultipleButtonsWithTitle:@"title" Message:@"message" Click:^(NSInteger index) {
+//        NSLog(@"click%zi", index);
+//    } Buttons:@{@(JCAlertViewButtonTypeDefault):@"index = 0"},@{@(JCAlertViewButtonTypeCancel):@"index = 1"},@{@(JCAlertViewButtonTypeWarn):@"index = 2"}, nil];
+//    UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 410)];
+//    customView.backgroundColor = [UIColor cyanColor];
+//    JCAlertView *customAlert = [[JCAlertView alloc] initWithCustomView:customView dismissWhenTouchedBackground:YES];
+//    NSLog(@"%@",NSStringFromCGRect(customView.frame));
+//    [customAlert show];
 }
 @end
