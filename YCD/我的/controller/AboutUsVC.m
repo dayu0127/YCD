@@ -50,8 +50,8 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellid" forIndexPath:indexPath];
-    cell.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
-    cell.textLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor whiteColor],[UIColor redColor]);
+    cell.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
+    cell.textLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     cell.textLabel.text = self.dataArray[indexPath.section];
     cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

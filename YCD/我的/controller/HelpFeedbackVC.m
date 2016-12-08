@@ -22,14 +22,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    _sureButton.dk_tintColorPicker = DKColorPickerWithKey(TEXT);
-    _textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 74, WIDTH-20, 150)];
-    _textView.font = [UIFont systemFontOfSize:14.0f];
+    _textView = [[UITextView alloc] initWithFrame:CGRectMake(27, 74, WIDTH-54, 200)];
+    _textView.font = [UIFont systemFontOfSize:13.0f];
     _textView.delegate = self;
     _textView.layer.borderWidth = 1;
     _textView.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _textView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
     _textView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _textView.layer.masksToBounds = YES;
+    _textView.layer.cornerRadius = 8.0f;
     [self.view addSubview:_textView];
     [self addPromptContent];
 }

@@ -10,12 +10,15 @@
 #import <SDCycleScrollView.h>
 #import "MnemonicsCell.h"
 #import "MemoryCourseVC.h"
-@interface MnemonicsVC ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
+#import <JCAlertView.h>
+#import "CustomAlertView.h"
+@interface MnemonicsVC ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,CustomAlertViewDelegate>
 @property (strong,nonatomic)NSArray *netImages;  //网络图片
 @property (strong,nonatomic)SDCycleScrollView *cycleScrollView;//轮播器
 @property (weak, nonatomic) IBOutlet UIView *scrollBgView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) UIView *footerView;
+@property (strong,nonatomic) JCAlertView *alertView;
 @end
 
 @implementation MnemonicsVC
@@ -84,18 +87,19 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 44)];
-    footerView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor darkGrayColor],[UIColor redColor]);
+    footerView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, WIDTH-65, 44)];
     label.text = @"一次订阅所有记忆法课程，仅需2000学习豆!";
     label.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     label.font = [UIFont systemFontOfSize:12.0f];
     label.backgroundColor = [UIColor clearColor];
     [footerView addSubview:label];
-    UIButton *subscriptionButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH-70, 5, 60, 34)];
-    [subscriptionButton dk_setTitleColorPicker:DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]) forState:UIControlStateNormal];
+    UIButton *subscriptionButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH-76, 11, 65, 22)];
+    [subscriptionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [subscriptionButton setTitle:@"订阅" forState:UIControlStateNormal];
-    subscriptionButton.backgroundColor = [UIColor orangeColor];
-    subscriptionButton.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    subscriptionButton.layer.cornerRadius = 3.0f;
+    subscriptionButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    subscriptionButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
     [subscriptionButton addTarget:self action:@selector(subscribe) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:subscriptionButton];
     _footerView = footerView;
@@ -106,23 +110,23 @@
 }
 #pragma mark 订阅所有课程
 - (void)subscribe{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确认订阅" message:@"如果确认，将一次订阅所有记忆法课程" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"确定订阅");
-    }];
-    [alert addAction:cancel];
-    [alert addAction:sure];
-    [self presentViewController:alert animated:YES completion:nil];
+//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确认订阅" message:@"如果确认，将一次订阅所有记忆法课程" preferredStyle:UIAlertControllerStyleAlert];
+//    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+//    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+//        NSLog(@"确定订阅");
+//    }];
+//    [alert addAction:cancel];
+//    [alert addAction:sure];
+//    [self presentViewController:alert animated:YES completion:nil];
+    CustomAlertView *alertView = [[CustomAlertView alloc] initWithFrame:CGRectMake(0, 0, 250, 155) title:@"确认订阅" message:@"如果确定，将一次订阅所有记忆法课程"];
+    alertView.delegate = self;
+    _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:YES];
+    [_alertView show];
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)buttonClickIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        NSLog(@"确认订阅");
+    }
+    [_alertView dismissWithCompletion:nil];
 }
-*/
-
 @end

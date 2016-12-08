@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11542"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,33 +18,28 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xpt-9d-iWE">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9xS-f9-oFf" userLabel="titleLabel">
-                            <rect key="frame" x="10" y="0.0" width="365" height="40"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="82w-gb-uur">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="40" id="K9z-st-8PJ"/>
+                                <constraint firstAttribute="height" constant="44" id="kQt-xD-bEL"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mPZ-MO-HrG" userLabel="contentView" customClass="RememberWordItemView">
-                            <rect key="frame" x="0.0" y="40" width="375" height="627"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fcl-E2-Nec">
+                            <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="mPZ-MO-HrG" secondAttribute="bottom" id="7vO-Ex-0Mf"/>
-                        <constraint firstItem="9xS-f9-oFf" firstAttribute="leading" secondItem="xpt-9d-iWE" secondAttribute="leading" constant="10" id="ImQ-lU-bhg"/>
-                        <constraint firstAttribute="trailing" secondItem="9xS-f9-oFf" secondAttribute="trailing" id="RsZ-jK-rhm"/>
-                        <constraint firstAttribute="trailing" secondItem="mPZ-MO-HrG" secondAttribute="trailing" id="aiL-mJ-FJ1"/>
-                        <constraint firstItem="9xS-f9-oFf" firstAttribute="top" secondItem="xpt-9d-iWE" secondAttribute="top" id="kCj-Ss-a1p"/>
-                        <constraint firstItem="mPZ-MO-HrG" firstAttribute="leading" secondItem="xpt-9d-iWE" secondAttribute="leading" id="okP-MA-oq1"/>
-                        <constraint firstItem="mPZ-MO-HrG" firstAttribute="top" secondItem="9xS-f9-oFf" secondAttribute="bottom" id="rX4-aK-GO6"/>
+                        <constraint firstAttribute="trailing" secondItem="82w-gb-uur" secondAttribute="trailing" id="FBT-pj-OwF"/>
+                        <constraint firstItem="Fcl-E2-Nec" firstAttribute="leading" secondItem="xpt-9d-iWE" secondAttribute="leading" id="ZcD-kP-eDj"/>
+                        <constraint firstItem="82w-gb-uur" firstAttribute="leading" secondItem="xpt-9d-iWE" secondAttribute="leading" id="asV-8Q-eNg"/>
+                        <constraint firstAttribute="bottom" secondItem="Fcl-E2-Nec" secondAttribute="bottom" id="hav-F9-Dx6"/>
+                        <constraint firstItem="82w-gb-uur" firstAttribute="top" secondItem="xpt-9d-iWE" secondAttribute="top" id="iL3-pL-Qtb"/>
+                        <constraint firstAttribute="trailing" secondItem="Fcl-E2-Nec" secondAttribute="trailing" id="qsd-5d-gBx"/>
+                        <constraint firstItem="Fcl-E2-Nec" firstAttribute="top" secondItem="82w-gb-uur" secondAttribute="bottom" id="sS1-u6-l4q"/>
                     </constraints>
                 </view>
             </subviews>
@@ -56,8 +51,8 @@
                 <constraint firstItem="xpt-9d-iWE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hvT-rL-ILn"/>
             </constraints>
             <connections>
-                <outlet property="contentView" destination="mPZ-MO-HrG" id="6Wi-GA-FZA"/>
-                <outlet property="titleLabel" destination="9xS-f9-oFf" id="722-85-6kY"/>
+                <outlet property="bgView" destination="82w-gb-uur" id="IKH-lD-P8D"/>
+                <outlet property="contentView" destination="Fcl-E2-Nec" id="77j-mG-5ne"/>
             </connections>
             <point key="canvasLocation" x="-82.5" y="8.5"/>
         </view>

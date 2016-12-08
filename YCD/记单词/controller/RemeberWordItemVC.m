@@ -11,7 +11,9 @@
 #import "RemeberWordSingleWordCell.h"
 #import "RemeberWordVideoDetailVC.h"
 #import "RemeberWordSingleWordDetailVC.h"
-@interface RemeberWordItemVC ()<UITableViewDelegate,UITableViewDataSource>
+#import <JCAlertView.h>
+#import "CustomAlertView.h"
+@interface RemeberWordItemVC ()<UITableViewDelegate,UITableViewDataSource,CustomAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *videoButton;
 @property (weak, nonatomic) IBOutlet UIButton *wordButton;
 @property (weak, nonatomic) IBOutlet UIView *leftLineView;
@@ -25,24 +27,24 @@
 @property (weak, nonatomic) IBOutlet UILabel *subscriptionLabel;
 @property (weak, nonatomic) IBOutlet UIButton *subscriptionButton;
 - (IBAction)subscriptionClick:(id)sender;
+@property (strong,nonatomic) JCAlertView *alertView;
 @end
 
 @implementation RemeberWordItemVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _flagForTable = 0;
+    [_videoButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
+    [_wordButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
+    _videoButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
+    _wordButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
+    _rightLineView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
+    _footerBgView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
+    _subscriptionLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     [self initTableView];
     if (WIDTH<=320) {
         _subscriptionLabel.numberOfLines=2;
     }
-    [_videoButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
-    [_wordButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
-    _videoButton.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
-    _wordButton.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
-    _footerBgView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor darkGrayColor],[UIColor redColor]);
-    _subscriptionLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    [_subscriptionButton dk_setTitleColorPicker:DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]) forState:UIControlStateNormal];
 }
 - (NSMutableArray *)wordArray{
     if (!_wordArray) {
@@ -57,20 +59,20 @@
 - (IBAction)videoClick:(UIButton *)sender{
     sender.selected = YES;
     _wordButton.selected = NO;
-    _leftLineView.backgroundColor = [UIColor orangeColor];
-    _rightLineView.backgroundColor = [UIColor clearColor];
+    _leftLineView.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    _rightLineView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     _flagForTable = 0;
     [self initTableView];
-    self.subscriptionLabel.text = @"一次性订阅所有四年级上半年视频教程,仅需2000学习豆!";
+    self.subscriptionLabel.text = @"一次订阅所有四年级上半年视频教程,仅需2000学习豆!";
 }
 - (IBAction)wordClick:(UIButton *)sender{
     sender.selected = YES;
     _videoButton.selected = NO;
-    _rightLineView.backgroundColor = [UIColor orangeColor];
-    _leftLineView.backgroundColor = [UIColor clearColor];
+    _rightLineView.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    _leftLineView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     _flagForTable = 1;
     [self initTableView];
-    self.subscriptionLabel.text = @"一次性订阅所有四年级上半年所有单词,仅需2000学习豆!";
+    self.subscriptionLabel.text = @"一次订阅所有四年级上半年所有单词,仅需2000学习豆!";
 }
 #pragma mark 初始化底部TableView
 - (void)initTableView{
@@ -111,7 +113,8 @@
     UILabel *titleLabel = nil;
     if (_flagForTable == 1) {
         titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 20)];
-        titleLabel.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor darkGrayColor],[UIColor redColor]);
+//        titleLabel.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor darkGrayColor],[UIColor redColor]);
+        titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
         titleLabel.text = _wordArray[section][@"name"];
         titleLabel.font = [UIFont systemFontOfSize:15.0f];
@@ -143,14 +146,16 @@
 }
 - (IBAction)subscriptionClick:(id)sender {
     NSString *str = _flagForTable == 0 ? @"视频课程" : @"单词";
-    NSString *messageStr = [NSString stringWithFormat:@"如果确定，将一次性订阅所有%@",str];
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确认订阅" message:messageStr preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"确定订阅");
-    }];
-    [alert addAction:cancel];
-    [alert addAction:sure];
-    [self presentViewController:alert animated:YES completion:nil];
+    NSString *message = [NSString stringWithFormat:@"如果确定，将一次订阅当前所有%@",str];
+    CustomAlertView *alertView = [[CustomAlertView alloc] initWithFrame:CGRectMake(0, 0, 250, 155) title:@"确认订阅" message:message];
+    alertView.delegate = self;
+    _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:YES];
+    [_alertView show];
+}
+- (void)buttonClickIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        NSLog(@"确认订阅");
+    }
+    [_alertView dismissWithCompletion:nil];
 }
 @end

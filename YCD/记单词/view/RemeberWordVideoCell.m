@@ -12,10 +12,9 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
+    self.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     _titleLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    _detailLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor groupTableViewBackgroundColor],[UIColor redColor]);
-    _studyDouLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
+    _detailLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor groupTableViewBackgroundColor],RED);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

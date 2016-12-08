@@ -11,11 +11,14 @@
 @implementation RootTabBarController
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     for (UINavigationController *nav in self.viewControllers) {
-        nav.navigationBar.dk_barTintColorPicker = DKColorPickerWithKey(BAR);
-        nav.navigationBar.dk_tintColorPicker = DKColorPickerWithColors([UIColor blackColor],[UIColor whiteColor],[UIColor redColor]);
+        nav.navigationBar.dk_barTintColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+        nav.navigationBar.tintColor = [UIColor whiteColor];
     }
-    self.tabBar.dk_barTintColorPicker = DKColorPickerWithKey(BAR);
-    self.tabBar.dk_tintColorPicker = DKColorPickerWithColors([UIColor orangeColor],[UIColor whiteColor],[UIColor redColor]);
+    self.tabBar.dk_barTintColorPicker = DKColorPickerWithColors(D_BLUE,N_TABBAR_BG,RED);
+    self.tabBar.tintColor = [UIColor whiteColor];
+     
 }
+
 @end

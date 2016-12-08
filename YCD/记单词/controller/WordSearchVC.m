@@ -75,7 +75,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
+    cell.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     cell.textLabel.text = [_resultArray objectAtIndex:indexPath.row];
     cell.textLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

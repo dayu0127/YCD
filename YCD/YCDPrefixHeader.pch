@@ -23,10 +23,20 @@
 //充值比例
 #define PAY_PROPORTION 10
 //日间模式颜色
-#define BLUE [UIColor colorWithRed:0.4 green:0.6 blue:0.8 alpha:1.0] //主题蓝色 102 153 204   0x6699cc
-#define GREEN [UIColor colorWithRed:0.4 green:0.8 blue:0.4 alpha:1.0] //主题绿色 102 204 102   0x66cc66
-#define BIG_BG [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0] //大背景 248 248 248   0xf8f8f8
-#define BTN_BG [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0] //按钮灰色背景 204 204 204   0xcccccc
-#define TAB_BG [UIColor colorWithRed:0.2 green:0.6 blue:0.8 alpha:1.0] //tabbar的选中色 51 153 204   0x3399cc
+#define D_BLUE [UIColor colorWithRed:0.4 green:0.6 blue:0.8 alpha:1.0] //日间蓝色 102 153 204   0x6699CC
+#define D_ORANGE [UIColor colorWithRed:244/255.0 green:164/255.0 blue:96/255.0 alpha:1.0] //日间橘色 244 164 96   0xF4A460
+#define D_BG [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0] //日间大背景色 248 248 248   0xF8F8F8
+#define D_BTN_BG [UIColor colorWithRed:225/255.0 green:226/255.0 blue:227/255.0 alpha:1.0] //日间按钮灰色背景色 204 204 204   0xCCCCCC
+#define D_TABBAR_SELECT_BG [UIColor colorWithRed:0.2 green:0.6 blue:0.8 alpha:1.0] //日间tabbar的选中色 51 153 204   0x3399CC
+#define D_CELL_BG [UIColor whiteColor] //日间cell的背景色
+
+//夜间模式
+#define N_BLUE [UIColor colorWithRed:19/255.0 green:34/255.0 blue:73/255.0 alpha:1.0] //夜间蓝色
+#define N_ORANGE [UIColor colorWithRed:205/255.0 green:133/255.0 blue:63/255.0 alpha:1.0] //夜间橘色 205,133,63   0xCD853F	
+#define N_BG [UIColor colorWithRed:5/255.0 green:18/255.0 blue:33/255.0 alpha:1.0] //夜间大背景色
+#define N_TABBAR_BG [UIColor colorWithRed:12/255.0 green:28/255.0 blue:52/255.0 alpha:1.0]  //夜间tabbar的背景色
+#define N_CELL_BG [UIColor colorWithRed:14/255.0 green:35/255.0 blue:65/255.0 alpha:1.0] //夜间cell的背景色
+//占位色
+#define RED [UIColor redColor]
 
 #endif /* YCDPrefixHeader_pch */

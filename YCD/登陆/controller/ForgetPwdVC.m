@@ -11,14 +11,17 @@
 @interface ForgetPwdVC ()
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonCollection;
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *lineCollection;
 
+@property (weak, nonatomic) IBOutlet UIButton *submitButton;
+- (IBAction)submitButton:(UIButton *)sender;
 @end
 
 @implementation ForgetPwdVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],N_BG,RED);
     for (UILabel *item in _labelCollection) {
         item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     }
@@ -27,8 +30,11 @@
         item.dk_tintColorPicker = DKColorPickerWithKey(TINT);
         item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     }
-    for (UIButton *item in _buttonCollection) {
-        [item dk_setTitleColorPicker:DKColorPickerWithRGB(0xffffff,0x000000,0xff0000) forState:UIControlStateNormal];
+    for (UIView *line in _lineCollection) {
+        line.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
     }
+    _submitButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+}
+- (IBAction)submitButton:(UIButton *)sender {
 }
 @end

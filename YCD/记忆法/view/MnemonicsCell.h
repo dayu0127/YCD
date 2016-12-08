@@ -11,6 +11,5 @@
 @interface MnemonicsCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *courseTitle;
 @property (weak, nonatomic) IBOutlet UILabel *courseDetail;
-@property (weak, nonatomic) IBOutlet UILabel *studyDouLabel;
 
 @end

@@ -18,8 +18,9 @@
 		60505BE41DF53F3A000DC456 /* IntroduceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60505BE31DF53F3A000DC456 /* IntroduceVC.m */; };
 		60505BE71DF53F8C000DC456 /* UserAgreementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60505BE61DF53F8C000DC456 /* UserAgreementVC.m */; };
 		60B4106D1DF54B45002D4B4D /* NotificationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B4106C1DF54B45002D4B4D /* NotificationVC.m */; };
-		60B410701DF54B6F002D4B4D /* MemoryGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B4106F1DF54B6F002D4B4D /* MemoryGameVC.m */; };
 		60B410731DF56486002D4B4D /* LoginNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B410721DF56486002D4B4D /* LoginNC.m */; };
+		60EB9EEA1DF950C700E8D01B /* CustomAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60EB9EE91DF950C700E8D01B /* CustomAlertView.m */; };
+		60EB9EED1DF96C6F00E8D01B /* MemoryExercisesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60EB9EEC1DF96C6F00E8D01B /* MemoryExercisesVC.m */; };
 		690E616F1DE3DF9B00C8E52F /* UserGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690E616E1DE3DF9B00C8E52F /* UserGuideViewController.m */; };
 		6925F3581DE5738900FB7B1A /* MnemonicsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6925F3571DE5738900FB7B1A /* MnemonicsVC.m */; };
 		6925F3611DE5739E00FB7B1A /* ForgetPwdVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6925F35C1DE5739E00FB7B1A /* ForgetPwdVC.m */; };
@@ -85,10 +86,12 @@
 		60505BE61DF53F8C000DC456 /* UserAgreementVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAgreementVC.m; sourceTree = "<group>"; };
 		60B4106B1DF54B45002D4B4D /* NotificationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationVC.h; sourceTree = "<group>"; };
 		60B4106C1DF54B45002D4B4D /* NotificationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationVC.m; sourceTree = "<group>"; };
-		60B4106E1DF54B6F002D4B4D /* MemoryGameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryGameVC.h; sourceTree = "<group>"; };
-		60B4106F1DF54B6F002D4B4D /* MemoryGameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryGameVC.m; sourceTree = "<group>"; };
 		60B410711DF56486002D4B4D /* LoginNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginNC.h; sourceTree = "<group>"; };
 		60B410721DF56486002D4B4D /* LoginNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginNC.m; sourceTree = "<group>"; };
+		60EB9EE81DF950C700E8D01B /* CustomAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAlertView.h; sourceTree = "<group>"; };
+		60EB9EE91DF950C700E8D01B /* CustomAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAlertView.m; sourceTree = "<group>"; };
+		60EB9EEB1DF96C6F00E8D01B /* MemoryExercisesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryExercisesVC.h; sourceTree = "<group>"; };
+		60EB9EEC1DF96C6F00E8D01B /* MemoryExercisesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryExercisesVC.m; sourceTree = "<group>"; };
 		690E616D1DE3DF9B00C8E52F /* UserGuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserGuideViewController.h; sourceTree = "<group>"; };
 		690E616E1DE3DF9B00C8E52F /* UserGuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserGuideViewController.m; sourceTree = "<group>"; };
 		690E61701DE4280C00C8E52F /* YCDPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCDPrefixHeader.pch; sourceTree = "<group>"; };
@@ -208,6 +211,8 @@
 				69BD10081DF3F4C5005D0263 /* Singleton.h */,
 				69BD10091DF3F4C5005D0263 /* Singleton.m */,
 				690E61701DE4280C00C8E52F /* YCDPrefixHeader.pch */,
+				60EB9EE81DF950C700E8D01B /* CustomAlertView.h */,
+				60EB9EE91DF950C700E8D01B /* CustomAlertView.m */,
 			);
 			name = tools;
 			sourceTree = "<group>";
@@ -424,8 +429,8 @@
 				60505BE61DF53F8C000DC456 /* UserAgreementVC.m */,
 				60B4106B1DF54B45002D4B4D /* NotificationVC.h */,
 				60B4106C1DF54B45002D4B4D /* NotificationVC.m */,
-				60B4106E1DF54B6F002D4B4D /* MemoryGameVC.h */,
-				60B4106F1DF54B6F002D4B4D /* MemoryGameVC.m */,
+				60EB9EEB1DF96C6F00E8D01B /* MemoryExercisesVC.h */,
+				60EB9EEC1DF96C6F00E8D01B /* MemoryExercisesVC.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -599,6 +604,7 @@
 				60505BE11DF53E92000DC456 /* UseHelpVC.m in Sources */,
 				69E1507F1DEC1E6400F0F1E9 /* ChangeInfoTableVC.m in Sources */,
 				699989301DEC2EDA00E1349C /* PayVC.m in Sources */,
+				60EB9EEA1DF950C700E8D01B /* CustomAlertView.m in Sources */,
 				69E1507C1DEC0D4800F0F1E9 /* MineTableVC.m in Sources */,
 				690E616F1DE3DF9B00C8E52F /* UserGuideViewController.m in Sources */,
 				60505BD81DF5305B000DC456 /* UpdatePwdVC.m in Sources */,
@@ -615,6 +621,7 @@
 				60505BDB1DF53A03000DC456 /* UpdateNickNameVC.m in Sources */,
 				69A7E1AF1DEEC681008C99D7 /* RemeberWordVideoDetailVC.m in Sources */,
 				6925F3631DE5739E00FB7B1A /* RegisterVC.m in Sources */,
+				60EB9EED1DF96C6F00E8D01B /* MemoryExercisesVC.m in Sources */,
 				6998341A1DE6933000898021 /* MnemonicsCell.m in Sources */,
 				6925F3621DE5739E00FB7B1A /* LoginVC.m in Sources */,
 				69A7E1C71DEFF2EB008C99D7 /* PayDetailVC.m in Sources */,
@@ -627,7 +634,6 @@
 				60B4106D1DF54B45002D4B4D /* NotificationVC.m in Sources */,
 				69A7E1B51DEFBC0A008C99D7 /* PaymentVC.m in Sources */,
 				699989391DEC7F2100E1349C /* SetVC.m in Sources */,
-				60B410701DF54B6F002D4B4D /* MemoryGameVC.m in Sources */,
 				60505BDE1DF53AFA000DC456 /* BindingNewPhoneVC.m in Sources */,
 				602222751DF16E030010D969 /* RootTabBarController.m in Sources */,
 				69B129E61DE2C6490093D841 /* main.m in Sources */,

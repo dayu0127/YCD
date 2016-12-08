@@ -76,16 +76,13 @@
 - (void)openNight:(UISwitch *)sender{
     if (sender.on == YES) {
         //开启夜间模式
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-        [UINavigationBar appearance].titleTextAttributes = self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
         [UITableView appearance].sectionIndexColor = [UIColor whiteColor];
         [DKNightVersionManager sharedManager].themeVersion = DKThemeVersionNight;
     }else{
         //关闭夜间模式
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-        [UINavigationBar appearance].titleTextAttributes = self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor blackColor] forKey:NSForegroundColorAttributeName];
         [UITableView appearance].sectionIndexColor = [UIColor darkGrayColor];
         [DKNightVersionManager sharedManager].themeVersion = DKThemeVersionNormal;
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }
     [[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:@"isNightMode"];
 }

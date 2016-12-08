@@ -12,6 +12,7 @@
 @interface LoginVC ()
 
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *lineCollection;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 - (IBAction)loginButtonClick:(UIButton *)sender;
 
@@ -21,12 +22,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],N_BG,RED);
     for (UITextField *item in _textFieldCollection) {
         [item setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
         item.dk_tintColorPicker = DKColorPickerWithKey(TINT);
         item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     }
-    [_loginButton dk_setTitleColorPicker:DKColorPickerWithRGB(0xffffff,0x000000,0xff0000) forState:UIControlStateNormal];
+    for (UIView *line in _lineCollection) {
+        line.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+    }
+    _loginButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
 }
 - (IBAction)loginButtonClick:(UIButton *)sender {
     UITextField *textField = [_textFieldCollection objectAtIndex:0];

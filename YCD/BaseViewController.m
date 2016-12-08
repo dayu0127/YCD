@@ -11,7 +11,7 @@
 @implementation BaseViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.dk_backgroundColorPicker = DKColorPickerWithColors(BIG_BG,[UIColor colorWithRed:52/255.0 green:52/255.0 blue:52/255.0 alpha:1.0],[UIColor redColor]);
+    self.view.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];

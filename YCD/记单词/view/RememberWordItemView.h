@@ -14,7 +14,8 @@
 
 @interface RememberWordItemView : UIView
 
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIView *bgView;
+@property (strong, nonatomic) UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (nonatomic, strong) NSDictionary *dic;
 @property (nonatomic, weak) id <RememberWordItemViewDelegate> delegate;

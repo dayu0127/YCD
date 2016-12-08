@@ -12,9 +12,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
+    self.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     _wordLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    _studyDouLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

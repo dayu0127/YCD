@@ -19,6 +19,7 @@
 @property (nonatomic,strong)NSMutableArray *courseArray;
 @property (nonatomic,strong)UICollectionView *collectionView;
 @property (nonatomic,assign)NSInteger flagForCollectionView;
+@property (nonatomic,strong)NSMutableArray *courseButtonArray;
 @end
 
 @implementation RemeberWordVideoDetailVC
@@ -26,6 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    _courseButtonArray = [NSMutableArray array];
     //播放器
     AVPlayerViewController *playerVC = [[AVPlayerViewController alloc] init];
     NSURL *sourceMovieURL = [NSURL URLWithString:@"http://m3.rui2.net/uploadfile/output/2015/0226/d56e56eeb7ae97cc.mp4"];
@@ -35,15 +37,15 @@
     [self.view addSubview:playerVC.view];
     //标题视图
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 64+0.3*HEIGHT, WIDTH, 39)];
-    titleView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor darkGrayColor],[UIColor redColor]);
+    titleView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     [self.view addSubview:titleView];
     _buttonAarry = [NSMutableArray arrayWithCapacity:3];
     NSArray *titleArray = @[@"本节说明",@"本节单词",@"其他节课"];
     for (NSInteger i = 0; i<3; i++) {
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(90*i, 0, 90, 38)];
         [btn setTitle:[titleArray objectAtIndex:i] forState:UIControlStateNormal];
-        [btn dk_setTitleColorPicker:DKColorPickerWithColors([UIColor darkGrayColor],[UIColor whiteColor],[UIColor redColor]) forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
+        [btn dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
+        [btn dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateSelected];
         if (i == 0) {
             btn.selected = YES;
         }
@@ -61,7 +63,7 @@
     UILabel *shareLabel = [[UILabel alloc] initWithFrame:CGRectMake(WIDTH-65, 0, 35, 39)];
     shareLabel.text = @"分享";
     shareLabel.font = [UIFont systemFontOfSize:15.0f];
-    shareLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor grayColor],[UIColor groupTableViewBackgroundColor],[UIColor redColor]);
+    shareLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor darkTextColor],[UIColor whiteColor],RED);
     [titleView addSubview:shareLabel];
     UIButton *shareButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH-30, 11.5, 16, 16)];
     [shareButton setImage:[UIImage imageNamed:@"wodezixuan"] forState:UIControlStateNormal];
@@ -69,7 +71,7 @@
     [titleView addSubview:shareButton];
     //分割线
     _line = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(titleView.frame), WIDTH, 1)];
-    _line.backgroundColor = [UIColor grayColor];
+    _line.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor darkGrayColor],RED);
     [self.view addSubview:_line];
     //本节说明(本节单词,其他课程)
     [self loadCurrentSectionExplain];
@@ -116,7 +118,6 @@
     _contentText = [[UITextView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_line.frame), WIDTH, HEIGHT-CGRectGetMaxY(_line.frame))];
     _contentText.editable = NO;
     _contentText.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
-    _contentText.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor colorWithRed:52/255.0 green:52/255.0 blue:52/255.0 alpha:1.0],[UIColor redColor]);
     NSString *textString = @"四年级上学期第一节课";
     NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:textString];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -124,6 +125,7 @@
     [content addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, textString.length)];
     _contentText.attributedText = content;
     _contentText.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    _contentText.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
     _contentText.font = [UIFont systemFontOfSize:12.0f];
     [self.view addSubview:_contentText];
 }
@@ -132,6 +134,8 @@
     if (_collectionView!=nil) {
         [_collectionView removeFromSuperview];
         _collectionView = nil;
+        [_courseButtonArray removeAllObjects];
+        _courseButtonArray = nil;
     }
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     if (_flagForCollectionView == 0) {
@@ -140,13 +144,13 @@
     }else{
         layout.itemSize = CGSizeMake(WIDTH-40, 44);
         layout.sectionInset = UIEdgeInsetsMake(10,20,10,20);
+        _courseButtonArray = [NSMutableArray array];
     }
     layout.minimumLineSpacing = 10;
     _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_line.frame), WIDTH, HEIGHT-CGRectGetMaxY(_line.frame)) collectionViewLayout:layout];
     _collectionView.delegate = self;
     _collectionView.dataSource =self;
-    _collectionView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor colorWithRed:52/255.0 green:52/255.0 blue:52/255.0 alpha:1.0],[UIColor redColor]);
-    
+    _collectionView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
     [self.view addSubview:_collectionView];
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
 }
@@ -162,7 +166,7 @@
     courseItemButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     [courseItemButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     courseItemButton.tag = indexPath.row;
-    courseItemButton.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
+    courseItemButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BTN_BG,N_CELL_BG,RED);
     courseItemButton.layer.masksToBounds = YES;
     courseItemButton.layer.cornerRadius = 8.0f;
     if (_flagForCollectionView == 0) {
@@ -171,6 +175,9 @@
         [courseItemButton addTarget:self action:@selector(courseItemButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     [cell.contentView addSubview:courseItemButton];
+    if (_flagForCollectionView == 1) {
+        [_courseButtonArray addObject:courseItemButton];
+    }
     return cell;
 }
 - (void)wordItemButtonClick:(UIButton *)sender{
@@ -178,7 +185,11 @@
     [self.navigationController pushViewController:wordDetailVC animated:YES];
 }
 - (void)courseItemButtonClick:(UIButton *)sender{
-    NSLog(@"课程%ld",sender.tag);
+    for (UIButton *btn in _courseButtonArray) {
+        btn.dk_backgroundColorPicker = DKColorPickerWithColors(D_BTN_BG,N_CELL_BG,RED);
+    }
+    UIButton *currentBtn = [_courseButtonArray objectAtIndex:sender.tag];
+    currentBtn.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
 }
 
 @end

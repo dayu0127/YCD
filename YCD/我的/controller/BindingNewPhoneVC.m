@@ -10,29 +10,38 @@
 
 @interface BindingNewPhoneVC ()
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *sureButton;
-- (IBAction)sureButtonClick:(UIBarButtonItem *)sender;
+
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
 @property (weak, nonatomic) IBOutlet UIButton *checkButton;
 - (IBAction)checkButtonClick:(UIButton *)sender;
+@property (weak, nonatomic) IBOutlet UIButton *sureButton;
+- (IBAction)sureButtonClick:(UIButton *)sender;
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *lineCollection;
 @end
 
 @implementation BindingNewPhoneVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _sureButton.dk_tintColorPicker = DKColorPickerWithKey(TEXT);
+    for (UILabel *item in _labelCollection) {
+        item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    }
     for (UITextField *item in _textFieldCollection) {
         //KVC实现改变placeHolder的字体色
         [item setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
         item.dk_tintColorPicker = DKColorPickerWithKey(TINT);
         item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     }
-    [_checkButton dk_setTitleColorPicker:DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]) forState:UIControlStateNormal];
-}
-- (IBAction)sureButtonClick:(UIBarButtonItem *)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    for (UIView *line in _lineCollection) {
+        line.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+    }
+    _checkButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    _sureButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
 }
 - (IBAction)checkButtonClick:(UIButton *)sender {
+}
+- (IBAction)sureButtonClick:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 @end
