@@ -13,19 +13,24 @@
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
 @property (strong, nonatomic) IBOutletCollection(UITableViewCell) NSArray *tableViewCellCollection;
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *rightLabelCollection;
+
 @end
 
 @implementation ChangeInfoTableVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
     for (UILabel *item in _labelCollection) {
         item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     }
-    for (UITableViewCell *item in _tableViewCellCollection) {
-        item.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
+    for (UILabel *item in _rightLabelCollection) {
+        item.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     }
-    self.tableView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor colorWithRed:52/255.0 green:52/255.0 blue:52/255.0 alpha:1.0],[UIColor redColor]);
+    for (UITableViewCell *item in _tableViewCellCollection) {
+        item.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
+    }
     //从沙盒取出头像图片
     NSString *path_sandox = NSHomeDirectory();
     NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/headImage.png"];

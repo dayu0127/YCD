@@ -32,8 +32,8 @@
     [super viewDidLoad];
     [_videoButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     [_wordButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
-    _videoButton.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
-    _wordButton.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    _videoButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
+    _wordButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     [self.view addSubview:self.noVideoView];
 }
 #pragma mark 懒加载字母数组
@@ -62,8 +62,8 @@
         //去订阅记忆法Button
         UIButton *toMemoryButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH*0.233, CGRectGetMaxY(noVideoLabel.frame)+35, WIDTH*0.533, 35)];
         [toMemoryButton setTitle:@"去订阅记忆法" forState:UIControlStateNormal];
-        [toMemoryButton dk_setTitleColorPicker:DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]) forState:UIControlStateNormal];
-        toMemoryButton.backgroundColor = [UIColor orangeColor];
+        [toMemoryButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        toMemoryButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
         toMemoryButton.layer.masksToBounds = YES;
         toMemoryButton.layer.cornerRadius = 8.0f;
         toMemoryButton.titleLabel.font = [UIFont systemFontOfSize:14.0f];
@@ -72,8 +72,8 @@
         //去订阅单词视频课程Button
         UIButton *toWordVideoButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH*0.233, CGRectGetMaxY(toMemoryButton.frame)+20, WIDTH*0.533, 35)];
         [toWordVideoButton setTitle:@"去订阅单词视频课程" forState:UIControlStateNormal];
-        [toWordVideoButton dk_setTitleColorPicker:DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]) forState:UIControlStateNormal];
-        toWordVideoButton.backgroundColor = [UIColor orangeColor];
+        [toWordVideoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        toWordVideoButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
         toWordVideoButton.layer.masksToBounds = YES;
         toWordVideoButton.layer.cornerRadius = 8.0f;
         toWordVideoButton.titleLabel.font = [UIFont systemFontOfSize:14.0f];
@@ -126,11 +126,7 @@
 #pragma mark 侧边单词检索
 - (void)wordSearch{
     //tableView右侧索引栏的字体颜色和背景色
-    if ([[DKNightVersionManager sharedManager].themeVersion isEqualToString:DKThemeVersionNight]) {
-         [UITableView appearance].sectionIndexColor = [UIColor whiteColor];
-    }else{
-         [UITableView appearance].sectionIndexColor = [UIColor darkGrayColor];
-    }
+    self.wordTableView.dk_sectionIndexColorPicker = DKColorPickerWithColors(D_BTN_BG1,[UIColor whiteColor],RED);
     self.wordTableView.sectionIndexBackgroundColor = [UIColor clearColor];
     //定义键的集合（26个字母）
     NSMutableArray *keyArr = [NSMutableArray array];
@@ -183,7 +179,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellid" forIndexPath:indexPath];
-    cell.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    cell.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     cell.textLabel.text = _nameArr[indexPath.section][indexPath.row];
     cell.textLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -217,10 +213,10 @@
     UIView *headView;
     if (0 == section) {
         headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 60.0)];
-        headView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor darkGrayColor],[UIColor redColor]);
+        headView.backgroundColor = [UIColor clearColor];
         UISearchBar *search = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 40.0)];
         search.placeholder = @"搜索单词";
-        search.dk_tintColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor lightGrayColor],[UIColor redColor]);
+        search.dk_barTintColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
         [headView addSubview:search];
         UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0, 40, WIDTH, 19.9)];
         [sectionLabel setText:[_sectionNameArr[section] uppercaseString]];
@@ -230,7 +226,7 @@
         [headView addSubview:sectionLabel];
     }else{
         headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 19.9)];
-        headView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor darkGrayColor],[UIColor redColor]);
+        headView.backgroundColor = [UIColor clearColor];
         UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0, 0, WIDTH, 19.9)];
         [sectionLabel setText:[_sectionNameArr[section] uppercaseString]];
         sectionLabel.backgroundColor = [UIColor clearColor];

@@ -10,15 +10,17 @@
 
 @implementation CustomAlertView
 
-- (instancetype)initWithFrame:(CGRect)frame title:(nonnull NSString *)title message:(NSString *)message{
+- (instancetype)initWithFrame:(CGRect)frame
+                                    title:(nonnull NSString *)title
+                             message:(NSString *)message{
     if (self=[super initWithFrame:frame]) {
-        self.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
+        self.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BLUE,RED);
         self.layer.masksToBounds = YES;
         self.layer.cornerRadius = 8.0f;
         CGFloat width = frame.size.width;
         CGFloat height = frame.size.height;
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 0, width-16, 60)];
-        titleLabel.text = [NSString stringWithFormat:@"· %@ ·",title];
+        titleLabel.text = title;
         titleLabel.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
         titleLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:titleLabel];
@@ -52,6 +54,13 @@
         sureButton.tag = 1;
         [sureButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:sureButton];
+    }
+    return self;
+}
+- (instancetype)initWithFrame:(CGRect)frame
+                             message:(NSString *)message{
+    if (self=[super initWithFrame:frame]) {
+        
     }
     return self;
 }

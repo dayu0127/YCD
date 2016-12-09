@@ -107,8 +107,8 @@
 //    return TITLE_HEIGHT+item_row*ITEM_HEIGHT+(item_row-1)*5;
 //}
 #pragma mark itemView的点击事件
-- (void)itemClickTitleIndex:(NSInteger)titleIndex itemIndex:(NSInteger)itemIndex{
-    NSLog(@"%ld-%ld",titleIndex,itemIndex);
+- (void)itemClickTitleIndex:(int)titleIndex itemIndex:(int)itemIndex{
+    NSLog(@"%d-%d",titleIndex,itemIndex);
     [self performSegueWithIdentifier:@"toDetail" sender:self];
 }
 @end

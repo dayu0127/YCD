@@ -20,19 +20,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _payLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    _studyDouLabel.text = [NSString stringWithFormat:@"%ld学习豆，",_money*PAY_PROPORTION];
-    UIColor *color;
+    _studyDouLabel.text = [NSString stringWithFormat:@"%li学习豆，",_money*PAY_PROPORTION];
     _studyDouLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
-        color = [UIColor blackColor];
-    }else{
-        color = [UIColor whiteColor];
-    }
-    NSDictionary *dic = [NSDictionary dictionaryWithObject:color forKey:NSForegroundColorAttributeName];
-    NSString *moneyStr = [NSString stringWithFormat:@"%ld元",_money];
-    NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:moneyStr];
-    [content addAttributes:dic range:NSMakeRange(moneyStr.length-1, 1)];
-    _moneyLabel.attributedText = content;
+    _moneyLabel.text = [NSString stringWithFormat:@"%ld元",_money];
+    _moneyLabel.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 104, WIDTH, HEIGHT-104) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;

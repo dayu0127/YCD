@@ -14,6 +14,7 @@
     [super awakeFromNib];
     self.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     _wordLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    _studyDouLabel.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

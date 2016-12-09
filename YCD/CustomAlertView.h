@@ -12,5 +12,9 @@
 @end
 @interface CustomAlertView : UIView
 @property (weak,nonatomic) id<CustomAlertViewDelegate> delegate;
-- (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title message:(NSString *)message;
+- (instancetype)initWithFrame:(CGRect)frame
+                                     title:(NSString *)title
+                              message:(NSString *)message;
+- (instancetype)initWithFrame:(CGRect)frame
+                             message:(NSString *)message;
 @end

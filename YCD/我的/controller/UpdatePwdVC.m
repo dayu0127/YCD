@@ -7,22 +7,30 @@
 //
 #import "UpdatePwdVC.h"
 @interface UpdatePwdVC ()
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *sureButton;
-- (IBAction)sureButtonClick:(UIBarButtonItem *)sender;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *titleLabelCollection;
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *lineCollection;
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
+@property (weak, nonatomic) IBOutlet UIButton *sureButton;
+- (IBAction)sureButtonClick:(UIButton *)sender;
 @end
 @implementation UpdatePwdVC
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _sureButton.dk_tintColorPicker = DKColorPickerWithKey(TEXT);
+    for (UILabel *item in _titleLabelCollection) {
+        item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    }
     for (UITextField *item in _textFieldCollection) {
         //KVC实现改变placeHolder的字体色
         [item setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
         item.dk_tintColorPicker = DKColorPickerWithKey(TINT);
         item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     }
+    for (UIView *line in _lineCollection) {
+        line.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+    }
+    _sureButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
 }
-- (IBAction)sureButtonClick:(UIBarButtonItem *)sender {
+- (IBAction)sureButtonClick:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 @end

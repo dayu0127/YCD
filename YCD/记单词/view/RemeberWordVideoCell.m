@@ -15,6 +15,7 @@
     self.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     _titleLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _detailLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor groupTableViewBackgroundColor],RED);
+    _studyDouLabel.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

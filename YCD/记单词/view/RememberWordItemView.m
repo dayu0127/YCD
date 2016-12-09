@@ -15,7 +15,6 @@
 }
 
 - (void)setDic:(NSDictionary *)dic {
-    
     for (UIView *subView in _contentView.subviews) {
         [subView removeFromSuperview];
     }
@@ -75,7 +74,7 @@
 }
 
 - (void)itemClick:(UIButton *)sender{
-    [_delegate itemClickTitleIndex:self.tag itemIndex:sender.tag];
+    [_delegate itemClickTitleIndex:(int)self.tag itemIndex:(int)sender.tag];
 }
 
 

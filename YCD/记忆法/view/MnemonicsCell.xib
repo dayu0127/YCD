@@ -97,6 +97,7 @@
             <connections>
                 <outlet property="courseDetail" destination="sZi-se-Etd" id="LYH-Ww-i35"/>
                 <outlet property="courseTitle" destination="ULN-PU-8Qu" id="vaH-NO-qPr"/>
+                <outlet property="studyDouLabel" destination="JLR-6q-761" id="sxl-VW-oMG"/>
             </connections>
             <point key="canvasLocation" x="51.5" y="90"/>
         </tableViewCell>

@@ -57,7 +57,7 @@
     }
     //下划线
     _underLine = [[UIView alloc] initWithFrame:CGRectMake(0, 38, 90, 1)];
-    _underLine.backgroundColor = [UIColor orangeColor];
+    _underLine.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     [titleView addSubview:_underLine];
     //分享
     UILabel *shareLabel = [[UILabel alloc] initWithFrame:CGRectMake(WIDTH-65, 0, 35, 39)];
@@ -71,7 +71,7 @@
     [titleView addSubview:shareButton];
     //分割线
     _line = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(titleView.frame), WIDTH, 1)];
-    _line.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor groupTableViewBackgroundColor],[UIColor darkGrayColor],RED);
+    _line.backgroundColor = SEPCOLOR;
     [self.view addSubview:_line];
     //本节说明(本节单词,其他课程)
     [self loadCurrentSectionExplain];

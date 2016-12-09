@@ -17,6 +17,7 @@
 		60505BE11DF53E92000DC456 /* UseHelpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60505BE01DF53E92000DC456 /* UseHelpVC.m */; };
 		60505BE41DF53F3A000DC456 /* IntroduceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60505BE31DF53F3A000DC456 /* IntroduceVC.m */; };
 		60505BE71DF53F8C000DC456 /* UserAgreementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60505BE61DF53F8C000DC456 /* UserAgreementVC.m */; };
+		6052E5BB1DFAA2E500EDD341 /* YHWebRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6052E5BA1DFAA2E500EDD341 /* YHWebRequest.m */; };
 		60B4106D1DF54B45002D4B4D /* NotificationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B4106C1DF54B45002D4B4D /* NotificationVC.m */; };
 		60B410731DF56486002D4B4D /* LoginNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B410721DF56486002D4B4D /* LoginNC.m */; };
 		60EB9EEA1DF950C700E8D01B /* CustomAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60EB9EE91DF950C700E8D01B /* CustomAlertView.m */; };
@@ -84,6 +85,8 @@
 		60505BE31DF53F3A000DC456 /* IntroduceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroduceVC.m; sourceTree = "<group>"; };
 		60505BE51DF53F8C000DC456 /* UserAgreementVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAgreementVC.h; sourceTree = "<group>"; };
 		60505BE61DF53F8C000DC456 /* UserAgreementVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAgreementVC.m; sourceTree = "<group>"; };
+		6052E5B91DFAA2E500EDD341 /* YHWebRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHWebRequest.h; sourceTree = "<group>"; };
+		6052E5BA1DFAA2E500EDD341 /* YHWebRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHWebRequest.m; sourceTree = "<group>"; };
 		60B4106B1DF54B45002D4B4D /* NotificationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationVC.h; sourceTree = "<group>"; };
 		60B4106C1DF54B45002D4B4D /* NotificationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationVC.m; sourceTree = "<group>"; };
 		60B410711DF56486002D4B4D /* LoginNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginNC.h; sourceTree = "<group>"; };
@@ -210,6 +213,8 @@
 			children = (
 				69BD10081DF3F4C5005D0263 /* Singleton.h */,
 				69BD10091DF3F4C5005D0263 /* Singleton.m */,
+				6052E5B91DFAA2E500EDD341 /* YHWebRequest.h */,
+				6052E5BA1DFAA2E500EDD341 /* YHWebRequest.m */,
 				690E61701DE4280C00C8E52F /* YCDPrefixHeader.pch */,
 				60EB9EE81DF950C700E8D01B /* CustomAlertView.h */,
 				60EB9EE91DF950C700E8D01B /* CustomAlertView.m */,
@@ -604,6 +609,7 @@
 				60505BE11DF53E92000DC456 /* UseHelpVC.m in Sources */,
 				69E1507F1DEC1E6400F0F1E9 /* ChangeInfoTableVC.m in Sources */,
 				699989301DEC2EDA00E1349C /* PayVC.m in Sources */,
+				6052E5BB1DFAA2E500EDD341 /* YHWebRequest.m in Sources */,
 				60EB9EEA1DF950C700E8D01B /* CustomAlertView.m in Sources */,
 				69E1507C1DEC0D4800F0F1E9 /* MineTableVC.m in Sources */,
 				690E616F1DE3DF9B00C8E52F /* UserGuideViewController.m in Sources */,

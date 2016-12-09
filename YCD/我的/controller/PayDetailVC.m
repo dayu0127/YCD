@@ -13,21 +13,23 @@
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
 @property (strong,nonatomic) UITableView *tableView;
 @property (strong,nonatomic) NSArray *payDetailArray;
+
 @end
 
 @implementation PayDetailVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _bgView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
+    _bgView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     for (UILabel *item in _labelCollection) {
         item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     }
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 138, WIDTH, HEIGHT-138) style:UITableViewStyleGrouped];
+    UILabel *label = [_labelCollection objectAtIndex:2];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(label.frame), WIDTH, HEIGHT-CGRectGetMaxY(label.frame)) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.bounces = NO;
-    _tableView.rowHeight = 75;
+    _tableView.rowHeight = 64;
     _tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
     [_tableView registerNib:[UINib nibWithNibName:@"PayDetailCell" bundle:nil] forCellReuseIdentifier:@"PayDetailCell"];

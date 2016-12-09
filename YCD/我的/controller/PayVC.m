@@ -11,8 +11,9 @@
 @interface PayVC ()
 @property (assign,nonatomic)NSInteger money;
 @property (weak, nonatomic) IBOutlet UIView *bgView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *detailButton;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
+@property (weak, nonatomic) IBOutlet UIView *bgView1;
+@property (weak, nonatomic) IBOutlet UIButton *contactServiceButton;
 - (IBAction)contactServiceClick:(UIButton *)sender;
 @end
 
@@ -20,21 +21,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _bgView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
-    _detailButton.dk_tintColorPicker = DKColorPickerWithKey(TEXT);
+    _bgView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     for (UILabel *item in _labelCollection) {
         item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     }
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 161, WIDTH, (PAY_ROWHEIGHT+1)*6)];
-    bgView.backgroundColor = [UIColor lightGrayColor];
+    [_contactServiceButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_bgView1.frame), WIDTH, (PAY_ROWHEIGHT+1)*6+1)];
+    bgView.backgroundColor = SEPCOLOR;
     [self.view addSubview:bgView];
-    for (NSInteger i = 0; i<6; i++) {
+    for (NSInteger i = 0; i<PAY_ARRAY.count; i++) {
         //itemView
-        UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(0, (PAY_ROWHEIGHT+1)*i, WIDTH, PAY_ROWHEIGHT)];
-        itemView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
+        UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(0, 1+(PAY_ROWHEIGHT+1)*i, WIDTH, PAY_ROWHEIGHT)];
+        itemView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
         [bgView addSubview:itemView];
         //imageView
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 30, 30)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, (PAY_ROWHEIGHT-30)*0.5, 30, 30)];
         imageView.image = [UIImage imageNamed:@"banner01"];
         [itemView addSubview:imageView];
         //label
@@ -43,14 +44,13 @@
         label.dk_textColorPicker = DKColorPickerWithKey(TEXT);
         [itemView addSubview:label];
         //payButton
-        UIButton *payButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH-90, 15, 75, 30)];
+        UIButton *payButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH-72, 12, 60, 23)];
         payButton.layer.masksToBounds = YES;
-        payButton.layer.cornerRadius = 8.0f;
-        payButton.layer.borderWidth = 2;
+        payButton.layer.cornerRadius = 3.0f;
         payButton.tag = i;
-        payButton.layer.borderColor = [UIColor orangeColor].CGColor;
         [payButton setTitle:[NSString stringWithFormat:@"%@元",[PAY_ARRAY objectAtIndex:i]] forState:UIControlStateNormal];
-        [payButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+        [payButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        payButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
         payButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
         [payButton addTarget:self action:@selector(payButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [itemView addSubview:payButton];

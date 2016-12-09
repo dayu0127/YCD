@@ -41,6 +41,7 @@
     _rightLineView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     _footerBgView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
     _subscriptionLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    _subscriptionButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     [self initTableView];
     if (WIDTH<=320) {
         _subscriptionLabel.numberOfLines=2;
@@ -147,7 +148,7 @@
 - (IBAction)subscriptionClick:(id)sender {
     NSString *str = _flagForTable == 0 ? @"视频课程" : @"单词";
     NSString *message = [NSString stringWithFormat:@"如果确定，将一次订阅当前所有%@",str];
-    CustomAlertView *alertView = [[CustomAlertView alloc] initWithFrame:CGRectMake(0, 0, 250, 155) title:@"确认订阅" message:message];
+    CustomAlertView *alertView = [[CustomAlertView alloc] initWithFrame:CGRectMake(0, 0, 250, 155) title:@"· 确认订阅 ·" message:message];
     alertView.delegate = self;
     _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:YES];
     [_alertView show];

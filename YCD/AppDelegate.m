@@ -21,16 +21,14 @@
     UIBarButtonItem *buttonItem = [UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil];
     [buttonItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-1000, 0) forBarMetrics:UIBarMetricsDefault];
     [UINavigationBar appearance].titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-    
+    [UITableView appearance].separatorColor = SEPCOLOR;
 //    UIImage *backImage = [UIImage imageNamed:@"back"];
 //    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[backImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, backImage.size.width, 0, 0)]forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 //    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-233, 0) forBarMetrics:UIBarMetricsDefault];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isNightMode"]==YES) {
         [[DKNightVersionManager sharedManager] nightFalling];
-        [UITableView appearance].sectionIndexColor = [UIColor whiteColor];
     }else{
         [[DKNightVersionManager sharedManager] dawnComing];
-        [UITableView appearance].sectionIndexColor = [UIColor darkGrayColor];
     }
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: [NSBundle mainBundle]];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -48,7 +46,6 @@
         }
     }
     [self.window makeKeyAndVisible];
-    
     return YES;
 }
 

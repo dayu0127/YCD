@@ -17,7 +17,7 @@
 @property (strong,nonatomic)SDCycleScrollView *cycleScrollView;//轮播器
 @property (weak, nonatomic) IBOutlet UIView *scrollBgView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong,nonatomic) UIView *footerView;
+@property (strong,nonatomic) UIButton *subscriptionButton;
 @property (strong,nonatomic) JCAlertView *alertView;
 @end
 
@@ -28,7 +28,6 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self scrollNetWorkImages];
     [self.tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openNightMode) name:@"openNightMode" object:nil];
 }
 #pragma mark 懒加载网络图片数据
 -(NSArray *)netImages{
@@ -94,22 +93,22 @@
     label.font = [UIFont systemFontOfSize:12.0f];
     label.backgroundColor = [UIColor clearColor];
     [footerView addSubview:label];
-    UIButton *subscriptionButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH-76, 11, 65, 22)];
-    [subscriptionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [subscriptionButton setTitle:@"订阅" forState:UIControlStateNormal];
-    subscriptionButton.layer.cornerRadius = 3.0f;
-    subscriptionButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
-    subscriptionButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-    [subscriptionButton addTarget:self action:@selector(subscribe) forControlEvents:UIControlEventTouchUpInside];
-    [footerView addSubview:subscriptionButton];
-    _footerView = footerView;
-    return _footerView;
+    _subscriptionButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH-76, 11, 65, 22)];
+    [_subscriptionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_subscriptionButton setTitle:@"订阅" forState:UIControlStateNormal];
+    _subscriptionButton.layer.cornerRadius = 3.0f;
+    _subscriptionButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    _subscriptionButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+    [_subscriptionButton addTarget:self action:@selector(subscribe:) forControlEvents:UIControlEventTouchUpInside];
+    [footerView addSubview:_subscriptionButton];
+    return footerView;
 }
 - (void)openNightMode{
     _tableView.backgroundColor = [UIColor blackColor];
 }
 #pragma mark 订阅所有课程
-- (void)subscribe{
+- (void)subscribe:(UIButton *)sender{
+    sender.enabled = NO;
 //    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确认订阅" message:@"如果确认，将一次订阅所有记忆法课程" preferredStyle:UIAlertControllerStyleAlert];
 //    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
 //    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
@@ -118,7 +117,7 @@
 //    [alert addAction:cancel];
 //    [alert addAction:sure];
 //    [self presentViewController:alert animated:YES completion:nil];
-    CustomAlertView *alertView = [[CustomAlertView alloc] initWithFrame:CGRectMake(0, 0, 250, 155) title:@"确认订阅" message:@"如果确定，将一次订阅所有记忆法课程"];
+    CustomAlertView *alertView = [[CustomAlertView alloc] initWithFrame:CGRectMake(0, 0, 250, 155) title:@"· 确认订阅 ·" message:@"如果确定，将一次订阅所有记忆法课程"];
     alertView.delegate = self;
     _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:YES];
     [_alertView show];
@@ -127,6 +126,8 @@
     if (buttonIndex == 1) {
         NSLog(@"确认订阅");
     }
-    [_alertView dismissWithCompletion:nil];
+    [_alertView dismissWithCompletion:^{
+        
+    }];
 }
 @end

@@ -12,7 +12,6 @@
 #import<AssetsLibrary/AssetsLibrary.h>
 #import<CoreLocation/CoreLocation.h>
 @interface UpdateHeadImageVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *finishButton;
 - (IBAction)finishButtonClick:(UIBarButtonItem *)sender;
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UIButton *photoSelectButton;
@@ -26,7 +25,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _finishButton.dk_tintColorPicker = DKColorPickerWithKey(TEXT);
+    _photoSelectButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    _photographButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BTN_BG1,N_CELL_BG,RED);
     //从沙盒中获取头像图片
     NSString *path_sandox = NSHomeDirectory();
     NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/headImage.png"];
@@ -34,10 +34,7 @@
         NSData *picData = [NSData dataWithContentsOfFile:imagePath];
         _headImageView.image = [UIImage imageWithData:picData];
     }
-    _photographButton.layer.borderWidth = 1;
-    _photographButton.layer.borderColor = [UIColor orangeColor].CGColor;
-    [_photoSelectButton dk_setTitleColorPicker:DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]) forState:UIControlStateNormal];
-    _photographButton.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
+    
 }
 - (IBAction)finishButtonClick:(UIBarButtonItem *)sender {
     [self.navigationController popViewControllerAnimated:YES];
