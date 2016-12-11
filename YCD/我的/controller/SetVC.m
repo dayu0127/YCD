@@ -90,10 +90,11 @@
 - (IBAction)logoutButtonClick:(UIButton *)sender {
     CustomAlertView *alertView = [[CustomAlertView alloc] initWithFrame:CGRectMake(0, 0, 255, 100) title:@"确定退出登录?" message:nil];
     alertView.delegate = self;
-    _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:YES];
+    _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
     [_alertView show];
 }
 - (void)buttonClickIndex:(NSInteger)buttonIndex{
+    [_alertView dismissWithCompletion:nil];
     if (buttonIndex == 1) {
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -102,6 +103,5 @@
         [app.window makeKeyWindow];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
     }
-    [_alertView dismissWithCompletion:nil];
 }
 @end
