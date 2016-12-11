@@ -64,12 +64,13 @@
     _tableView = [[BaseTableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_scrollBgView.frame), WIDTH, HEIGHT-CGRectGetMaxY(_scrollBgView.frame)-44) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource =self;
-//    [_tableView setRefreshData:^{
-//        NSLog(@"下拉刷新数据");
-//    }];
-//    [_tableView setLoadMoreData:^{
-//        NSLog(@"上拉加载更多");
-//    }];
+    _tableView.backgroundColor = [UIColor clearColor];
+    [_tableView setRefreshData:^{
+        NSLog(@"下拉刷新数据");
+    }];
+    [_tableView setLoadMoreData:^{
+        NSLog(@"上拉加载更多");
+    }];
     [self.view addSubview:_tableView];
     [_tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
 }
@@ -117,9 +118,6 @@
     [footerView addSubview:subscriptionButton];
     return footerView;
 }
-- (void)openNightMode{
-    _tableView.backgroundColor = [UIColor blackColor];
-}
 #pragma mark 订阅所有课程
 - (void)subscribe{
     CustomAlertView *alertView = [[CustomAlertView alloc] initWithFrame:CGRectMake(0, 0, 250, 155) title:@"· 确认订阅 ·" message:@"如果确定，将一次订阅所有记忆法课程"];
@@ -131,8 +129,6 @@
     if (buttonIndex == 1) {
         NSLog(@"确认订阅");
     }
-    [_alertView dismissWithCompletion:^{
-        
-    }];
+    [_alertView dismissWithCompletion:nil];
 }
 @end

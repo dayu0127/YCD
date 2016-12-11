@@ -33,14 +33,13 @@ static const CGFloat MJDuration = 2.0;
                // 拿到当前的下拉刷新控件，结束刷新状态
                [self.mj_header endRefreshing];
            });
-        }];
-        
+        }];        
         // 隐藏时间
         header.lastUpdatedTimeLabel.hidden = YES;
-        
-        // 隐藏状态
-        header.stateLabel.hidden = YES;
-        
+//
+//        // 隐藏状态
+//        header.stateLabel.hidden = YES;
+
         // 马上进入刷新状态
         [header beginRefreshing];
         
@@ -68,9 +67,8 @@ static const CGFloat MJDuration = 2.0;
 //
 //        // 马上进入刷新状态
 //        [self.mj_header beginRefreshing];
-
-        // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
-        MJChiBaoZiFooter *footer = [MJChiBaoZiFooter footerWithRefreshingBlock:^{
+        // 设置footer
+        self.mj_footer = [MJChiBaoZiFooter footerWithRefreshingBlock:^{
             if (_loadMoreData) {
                 self.loadMoreData();
             }
@@ -83,15 +81,7 @@ static const CGFloat MJDuration = 2.0;
                 [self.mj_footer endRefreshing];
             });
         }];
-        
-        // 当上拉刷新控件出现50%时（出现一半），就会自动刷新。这个值默认是1.0（也就是上拉刷新100%出现时，才会自动刷新）
-        //    footer.triggerAutomaticallyRefreshPercent = 0.5;
-        
-        // 隐藏刷新状态的文字
-        footer.refreshingTitleHidden = YES;
-        
-        // 设置footer
-        self.mj_footer = footer;
+
     }
     return self;
 }
