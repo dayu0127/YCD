@@ -39,7 +39,7 @@
 //占位色
 #define RED [UIColor redColor]
 //分割线
-#define SEPCOLOR [UIColor colorWithRed:204/255.0 green:204/255.0 blue:204/255.0 alpha:1.0f]
+#define SEPCOLOR [UIColor colorWithRed:204/255.0 green:204/255.0 blue:204/255.0 alpha:1.0f]     //0xCCCCCC
 
 
 //登录接口

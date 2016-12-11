@@ -17,8 +17,7 @@
     [super touchesBegan:touches withEvent:event];
     [self.view endEditing:YES];
 }
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+- (void)dealloc{
     [self.view endEditing:YES];
 }
 @end

@@ -1,14 +1,14 @@
 //
-//  ChangeInfoTableVC.m
+//  UpdateInfoTableVC.m
 //  YCD
 //
 //  Created by dayu on 2016/11/28.
 //  Copyright © 2016年 dayu. All rights reserved.
 //
 
-#import "ChangeInfoTableVC.h"
+#import "UpdateInfoTableVC.h"
 
-@interface ChangeInfoTableVC ()
+@interface UpdateInfoTableVC ()
 
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
 @property (strong, nonatomic) IBOutletCollection(UITableViewCell) NSArray *tableViewCellCollection;
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation ChangeInfoTableVC
+@implementation UpdateInfoTableVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];

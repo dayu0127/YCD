@@ -44,7 +44,7 @@
 - (IBAction)beginButtonClick:(UIButton *)sender {
     CustomAlertView *alertView = [[CustomAlertView alloc] initWithFrame:CGRectMake(0, 0, 250, 155) title:@"确认练习" message:@"每次练习需要消耗10个学习豆"];
     alertView.delegate = self;
-    _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:YES];
+    _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
     [_alertView show];
 }
 - (void)buttonClickIndex:(NSInteger)buttonIndex{

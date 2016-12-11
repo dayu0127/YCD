@@ -1,5 +1,5 @@
 //
-//  ChangeInfoTableVC.h
+//  UpdateInfoTableVC.h
 //  YCD
 //
 //  Created by dayu on 2016/11/28.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ChangeInfoTableVC : UITableViewController
+@interface UpdateInfoTableVC : UITableViewController
 
 @end

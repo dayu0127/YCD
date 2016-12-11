@@ -39,30 +39,30 @@
     }
 }
 - (IBAction)loginButtonClick:(UIButton *)sender {
-    UITextField *textField = [_textFieldCollection objectAtIndex:0];
-    UITextView *textField1 = [_textFieldCollection objectAtIndex:1];
-    NSString *userName = textField.text;
-    NSString *password = textField1.text;
-    if ([userName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0 || [password stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) {
-        NSLog(@"您还没输入手机号和密码呢^_^");
-    }else{
-        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:userName,@"userName",password,@"password",nil];
-        [YHWebRequest YHWebRequestForPOST:LOGIN parameters:dic success:^(id  _Nonnull json) {
-//                    NSLog(@"%@",json);
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:json options:NSJSONReadingMutableLeaves error:nil];
-            NSLog(@"%@",dic);
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"网络异常 - T_T%@", error);
-        }];
-    }
+//    UITextField *textField = [_textFieldCollection objectAtIndex:0];
+//    UITextView *textField1 = [_textFieldCollection objectAtIndex:1];
+//    NSString *userName = textField.text;
+//    NSString *password = textField1.text;
+//    if ([userName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0 || [password stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) {
+//        NSLog(@"您还没输入手机号和密码呢^_^");
+//    }else{
+//        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:userName,@"userName",password,@"password",nil];
+//        [YHWebRequest YHWebRequestForPOST:LOGIN parameters:dic success:^(id  _Nonnull json) {
+////                    NSLog(@"%@",json);
+//            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:json options:NSJSONReadingMutableLeaves error:nil];
+//            NSLog(@"%@",dic);
+//        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//            NSLog(@"网络异常 - T_T%@", error);
+//        }];
+//    }
 
 //    if (![textField.text isEqualToString:@""]) {
-//        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//        RootTabBarController *rootTBC = [sb instantiateViewControllerWithIdentifier:@"root"];
-//        [app.window setRootViewController:rootTBC];
-//        [app.window makeKeyWindow];
-//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"login"];
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        RootTabBarController *rootTBC = [sb instantiateViewControllerWithIdentifier:@"root"];
+        [app.window setRootViewController:rootTBC];
+        [app.window makeKeyWindow];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"login"];
 //    }
 }
 @end

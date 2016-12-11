@@ -20,6 +20,9 @@
 		6052E5BB1DFAA2E500EDD341 /* YHWebRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6052E5BA1DFAA2E500EDD341 /* YHWebRequest.m */; };
 		60B4106D1DF54B45002D4B4D /* NotificationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B4106C1DF54B45002D4B4D /* NotificationVC.m */; };
 		60B410731DF56486002D4B4D /* LoginNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B410721DF56486002D4B4D /* LoginNC.m */; };
+		60C2FB171DFBBCAD00876289 /* BaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2FB161DFBBCAD00876289 /* BaseTableView.m */; };
+		60C2FB1A1DFBD0E100876289 /* MJChiBaoZiHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2FB191DFBD0E100876289 /* MJChiBaoZiHeader.m */; };
+		60C2FB1D1DFBD18500876289 /* MJChiBaoZiFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2FB1C1DFBD18500876289 /* MJChiBaoZiFooter.m */; };
 		60EB9EEA1DF950C700E8D01B /* CustomAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60EB9EE91DF950C700E8D01B /* CustomAlertView.m */; };
 		60EB9EED1DF96C6F00E8D01B /* MemoryExercisesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60EB9EEC1DF96C6F00E8D01B /* MemoryExercisesVC.m */; };
 		690E616F1DE3DF9B00C8E52F /* UserGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690E616E1DE3DF9B00C8E52F /* UserGuideViewController.m */; };
@@ -61,7 +64,7 @@
 		69E150741DEBD3E400F0F1E9 /* RememberWordItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69E150731DEBD3E400F0F1E9 /* RememberWordItemView.xib */; };
 		69E150771DEBD41200F0F1E9 /* RememberWordItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E150761DEBD41200F0F1E9 /* RememberWordItemView.m */; };
 		69E1507C1DEC0D4800F0F1E9 /* MineTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E1507B1DEC0D4800F0F1E9 /* MineTableVC.m */; };
-		69E1507F1DEC1E6400F0F1E9 /* ChangeInfoTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E1507E1DEC1E6400F0F1E9 /* ChangeInfoTableVC.m */; };
+		69E1507F1DEC1E6400F0F1E9 /* UpdateInfoTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E1507E1DEC1E6400F0F1E9 /* UpdateInfoTableVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +94,12 @@
 		60B4106C1DF54B45002D4B4D /* NotificationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationVC.m; sourceTree = "<group>"; };
 		60B410711DF56486002D4B4D /* LoginNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginNC.h; sourceTree = "<group>"; };
 		60B410721DF56486002D4B4D /* LoginNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginNC.m; sourceTree = "<group>"; };
+		60C2FB151DFBBCAD00876289 /* BaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableView.h; sourceTree = "<group>"; };
+		60C2FB161DFBBCAD00876289 /* BaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableView.m; sourceTree = "<group>"; };
+		60C2FB181DFBD0E100876289 /* MJChiBaoZiHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJChiBaoZiHeader.h; sourceTree = "<group>"; };
+		60C2FB191DFBD0E100876289 /* MJChiBaoZiHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJChiBaoZiHeader.m; sourceTree = "<group>"; };
+		60C2FB1B1DFBD18500876289 /* MJChiBaoZiFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJChiBaoZiFooter.h; sourceTree = "<group>"; };
+		60C2FB1C1DFBD18500876289 /* MJChiBaoZiFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJChiBaoZiFooter.m; sourceTree = "<group>"; };
 		60EB9EE81DF950C700E8D01B /* CustomAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAlertView.h; sourceTree = "<group>"; };
 		60EB9EE91DF950C700E8D01B /* CustomAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAlertView.m; sourceTree = "<group>"; };
 		60EB9EEB1DF96C6F00E8D01B /* MemoryExercisesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryExercisesVC.h; sourceTree = "<group>"; };
@@ -166,8 +175,8 @@
 		69E150761DEBD41200F0F1E9 /* RememberWordItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordItemView.m; sourceTree = "<group>"; };
 		69E1507A1DEC0D4800F0F1E9 /* MineTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTableVC.h; sourceTree = "<group>"; };
 		69E1507B1DEC0D4800F0F1E9 /* MineTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTableVC.m; sourceTree = "<group>"; };
-		69E1507D1DEC1E6400F0F1E9 /* ChangeInfoTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeInfoTableVC.h; sourceTree = "<group>"; };
-		69E1507E1DEC1E6400F0F1E9 /* ChangeInfoTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeInfoTableVC.m; sourceTree = "<group>"; };
+		69E1507D1DEC1E6400F0F1E9 /* UpdateInfoTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateInfoTableVC.h; sourceTree = "<group>"; };
+		69E1507E1DEC1E6400F0F1E9 /* UpdateInfoTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateInfoTableVC.m; sourceTree = "<group>"; };
 		892CA89E8E8BE0A58908CF96 /* Pods-YCD.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YCD.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YCD/Pods-YCD.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -183,7 +192,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6022226F1DF15A420010D969 /* root */ = {
+		6022226F1DF15A420010D969 /* Root */ = {
 			isa = PBXGroup;
 			children = (
 				69B129E71DE2C6490093D841 /* AppDelegate.h */,
@@ -192,10 +201,8 @@
 				690E616E1DE3DF9B00C8E52F /* UserGuideViewController.m */,
 				602222731DF16E030010D969 /* RootTabBarController.h */,
 				602222741DF16E030010D969 /* RootTabBarController.m */,
-				602222701DF15A660010D969 /* BaseViewController.h */,
-				602222711DF15A660010D969 /* BaseViewController.m */,
 			);
-			name = root;
+			name = Root;
 			sourceTree = "<group>";
 		};
 		60505BD41DF52708000DC456 /* 记忆法课程 */ = {
@@ -208,18 +215,116 @@
 			path = controller;
 			sourceTree = "<group>";
 		};
-		60505BD51DF527B7000DC456 /* tools */ = {
+		60505BD51DF527B7000DC456 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				690E61701DE4280C00C8E52F /* YCDPrefixHeader.pch */,
 				69BD10081DF3F4C5005D0263 /* Singleton.h */,
 				69BD10091DF3F4C5005D0263 /* Singleton.m */,
 				6052E5B91DFAA2E500EDD341 /* YHWebRequest.h */,
 				6052E5BA1DFAA2E500EDD341 /* YHWebRequest.m */,
-				690E61701DE4280C00C8E52F /* YCDPrefixHeader.pch */,
 				60EB9EE81DF950C700E8D01B /* CustomAlertView.h */,
 				60EB9EE91DF950C700E8D01B /* CustomAlertView.m */,
+				60C2FB181DFBD0E100876289 /* MJChiBaoZiHeader.h */,
+				60C2FB191DFBD0E100876289 /* MJChiBaoZiHeader.m */,
+				60C2FB1B1DFBD18500876289 /* MJChiBaoZiFooter.h */,
+				60C2FB1C1DFBD18500876289 /* MJChiBaoZiFooter.m */,
 			);
-			name = tools;
+			name = Tools;
+			sourceTree = "<group>";
+		};
+		60C2FB081DFB9A4600876289 /* 更新资料 */ = {
+			isa = PBXGroup;
+			children = (
+				69E1507D1DEC1E6400F0F1E9 /* UpdateInfoTableVC.h */,
+				69E1507E1DEC1E6400F0F1E9 /* UpdateInfoTableVC.m */,
+				60505BDC1DF53AF9000DC456 /* BindingNewPhoneVC.h */,
+				60505BDD1DF53AF9000DC456 /* BindingNewPhoneVC.m */,
+				60505BD61DF5305B000DC456 /* UpdatePwdVC.h */,
+				60505BD71DF5305B000DC456 /* UpdatePwdVC.m */,
+				6963C01B1DF149D20080BA26 /* UpdateHeadImageVC.h */,
+				6963C01C1DF149D20080BA26 /* UpdateHeadImageVC.m */,
+				60505BD91DF53A03000DC456 /* UpdateNickNameVC.h */,
+				60505BDA1DF53A03000DC456 /* UpdateNickNameVC.m */,
+			);
+			name = "更新资料";
+			sourceTree = "<group>";
+		};
+		60C2FB0B1DFB9B9400876289 /* 充值 */ = {
+			isa = PBXGroup;
+			children = (
+				6999892E1DEC2EDA00E1349C /* PayVC.h */,
+				6999892F1DEC2EDA00E1349C /* PayVC.m */,
+				69A7E1B31DEFBC0A008C99D7 /* PaymentVC.h */,
+				69A7E1B41DEFBC0A008C99D7 /* PaymentVC.m */,
+				69A7E1C51DEFF2EB008C99D7 /* PayDetailVC.h */,
+				69A7E1C61DEFF2EB008C99D7 /* PayDetailVC.m */,
+			);
+			name = "充值";
+			sourceTree = "<group>";
+		};
+		60C2FB0C1DFB9BC600876289 /* 记忆法练习题 */ = {
+			isa = PBXGroup;
+			children = (
+				60EB9EEB1DF96C6F00E8D01B /* MemoryExercisesVC.h */,
+				60EB9EEC1DF96C6F00E8D01B /* MemoryExercisesVC.m */,
+			);
+			name = "记忆法练习题";
+			sourceTree = "<group>";
+		};
+		60C2FB0D1DFB9BDB00876289 /* 互助共进步 */ = {
+			isa = PBXGroup;
+			children = (
+				699989311DEC62E100E1349C /* inviteFriendsVC.h */,
+				699989321DEC62E100E1349C /* inviteFriendsVC.m */,
+			);
+			name = "互助共进步";
+			sourceTree = "<group>";
+		};
+		60C2FB0E1DFB9BFB00876289 /* 通知 */ = {
+			isa = PBXGroup;
+			children = (
+				60B4106B1DF54B45002D4B4D /* NotificationVC.h */,
+				60B4106C1DF54B45002D4B4D /* NotificationVC.m */,
+			);
+			name = "通知";
+			sourceTree = "<group>";
+		};
+		60C2FB0F1DFB9C0900876289 /* 关于我们 */ = {
+			isa = PBXGroup;
+			children = (
+				699989341DEC788E00E1349C /* AboutUsVC.h */,
+				699989351DEC788E00E1349C /* AboutUsVC.m */,
+				60505BDF1DF53E92000DC456 /* UseHelpVC.h */,
+				60505BE01DF53E92000DC456 /* UseHelpVC.m */,
+				60505BE21DF53F3A000DC456 /* IntroduceVC.h */,
+				60505BE31DF53F3A000DC456 /* IntroduceVC.m */,
+				6022226C1DF153BC0010D969 /* HelpFeedbackVC.h */,
+				6022226D1DF153BC0010D969 /* HelpFeedbackVC.m */,
+				60505BE51DF53F8C000DC456 /* UserAgreementVC.h */,
+				60505BE61DF53F8C000DC456 /* UserAgreementVC.m */,
+			);
+			name = "关于我们";
+			sourceTree = "<group>";
+		};
+		60C2FB101DFB9C3E00876289 /* 设置 */ = {
+			isa = PBXGroup;
+			children = (
+				699989371DEC7F2100E1349C /* SetVC.h */,
+				699989381DEC7F2100E1349C /* SetVC.m */,
+			);
+			name = "设置";
+			sourceTree = "<group>";
+		};
+		60C2FB111DFBBB7D00876289 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				602222701DF15A660010D969 /* BaseViewController.h */,
+				602222711DF15A660010D969 /* BaseViewController.m */,
+				60C2FB151DFBBCAD00876289 /* BaseTableView.h */,
+				60C2FB161DFBBCAD00876289 /* BaseTableView.m */,
+			);
+			name = Base;
 			sourceTree = "<group>";
 		};
 		690E61891DE570C500C8E52F /* 记单词 */ = {
@@ -338,13 +443,14 @@
 		69B129E31DE2C6490093D841 /* YCD */ = {
 			isa = PBXGroup;
 			children = (
-				6022226F1DF15A420010D969 /* root */,
-				60505BD51DF527B7000DC456 /* tools */,
+				6022226F1DF15A420010D969 /* Root */,
+				60C2FB111DFBBB7D00876289 /* Base */,
 				6925F3591DE5739E00FB7B1A /* 登陆 */,
 				6925F3541DE5738900FB7B1A /* 记忆法 */,
 				690E61891DE570C500C8E52F /* 记单词 */,
 				690E618B1DE570C500C8E52F /* 已订阅 */,
 				690E618A1DE570C500C8E52F /* 我的 */,
+				60505BD51DF527B7000DC456 /* Tools */,
 				69B129ED1DE2C6490093D841 /* Main.storyboard */,
 				69B129F01DE2C6490093D841 /* Assets.xcassets */,
 				69B129F21DE2C6490093D841 /* LaunchScreen.storyboard */,
@@ -402,40 +508,13 @@
 			children = (
 				69E1507A1DEC0D4800F0F1E9 /* MineTableVC.h */,
 				69E1507B1DEC0D4800F0F1E9 /* MineTableVC.m */,
-				6963C01B1DF149D20080BA26 /* UpdateHeadImageVC.h */,
-				6963C01C1DF149D20080BA26 /* UpdateHeadImageVC.m */,
-				69E1507D1DEC1E6400F0F1E9 /* ChangeInfoTableVC.h */,
-				69E1507E1DEC1E6400F0F1E9 /* ChangeInfoTableVC.m */,
-				6999892E1DEC2EDA00E1349C /* PayVC.h */,
-				6999892F1DEC2EDA00E1349C /* PayVC.m */,
-				699989311DEC62E100E1349C /* inviteFriendsVC.h */,
-				699989321DEC62E100E1349C /* inviteFriendsVC.m */,
-				699989341DEC788E00E1349C /* AboutUsVC.h */,
-				699989351DEC788E00E1349C /* AboutUsVC.m */,
-				6022226C1DF153BC0010D969 /* HelpFeedbackVC.h */,
-				6022226D1DF153BC0010D969 /* HelpFeedbackVC.m */,
-				699989371DEC7F2100E1349C /* SetVC.h */,
-				699989381DEC7F2100E1349C /* SetVC.m */,
-				69A7E1B31DEFBC0A008C99D7 /* PaymentVC.h */,
-				69A7E1B41DEFBC0A008C99D7 /* PaymentVC.m */,
-				69A7E1C51DEFF2EB008C99D7 /* PayDetailVC.h */,
-				69A7E1C61DEFF2EB008C99D7 /* PayDetailVC.m */,
-				60505BDC1DF53AF9000DC456 /* BindingNewPhoneVC.h */,
-				60505BDD1DF53AF9000DC456 /* BindingNewPhoneVC.m */,
-				60505BD61DF5305B000DC456 /* UpdatePwdVC.h */,
-				60505BD71DF5305B000DC456 /* UpdatePwdVC.m */,
-				60505BD91DF53A03000DC456 /* UpdateNickNameVC.h */,
-				60505BDA1DF53A03000DC456 /* UpdateNickNameVC.m */,
-				60505BDF1DF53E92000DC456 /* UseHelpVC.h */,
-				60505BE01DF53E92000DC456 /* UseHelpVC.m */,
-				60505BE21DF53F3A000DC456 /* IntroduceVC.h */,
-				60505BE31DF53F3A000DC456 /* IntroduceVC.m */,
-				60505BE51DF53F8C000DC456 /* UserAgreementVC.h */,
-				60505BE61DF53F8C000DC456 /* UserAgreementVC.m */,
-				60B4106B1DF54B45002D4B4D /* NotificationVC.h */,
-				60B4106C1DF54B45002D4B4D /* NotificationVC.m */,
-				60EB9EEB1DF96C6F00E8D01B /* MemoryExercisesVC.h */,
-				60EB9EEC1DF96C6F00E8D01B /* MemoryExercisesVC.m */,
+				60C2FB081DFB9A4600876289 /* 更新资料 */,
+				60C2FB0B1DFB9B9400876289 /* 充值 */,
+				60C2FB0C1DFB9BC600876289 /* 记忆法练习题 */,
+				60C2FB0D1DFB9BDB00876289 /* 互助共进步 */,
+				60C2FB0E1DFB9BFB00876289 /* 通知 */,
+				60C2FB0F1DFB9C0900876289 /* 关于我们 */,
+				60C2FB101DFB9C3E00876289 /* 设置 */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -607,7 +686,7 @@
 				60505BE71DF53F8C000DC456 /* UserAgreementVC.m in Sources */,
 				6925F3581DE5738900FB7B1A /* MnemonicsVC.m in Sources */,
 				60505BE11DF53E92000DC456 /* UseHelpVC.m in Sources */,
-				69E1507F1DEC1E6400F0F1E9 /* ChangeInfoTableVC.m in Sources */,
+				69E1507F1DEC1E6400F0F1E9 /* UpdateInfoTableVC.m in Sources */,
 				699989301DEC2EDA00E1349C /* PayVC.m in Sources */,
 				6052E5BB1DFAA2E500EDD341 /* YHWebRequest.m in Sources */,
 				60EB9EEA1DF950C700E8D01B /* CustomAlertView.m in Sources */,
@@ -615,6 +694,7 @@
 				690E616F1DE3DF9B00C8E52F /* UserGuideViewController.m in Sources */,
 				60505BD81DF5305B000DC456 /* UpdatePwdVC.m in Sources */,
 				602222721DF15A670010D969 /* BaseViewController.m in Sources */,
+				60C2FB171DFBBCAD00876289 /* BaseTableView.m in Sources */,
 				69B8C5FD1DE6C54D003A4701 /* RememberWordVC.m in Sources */,
 				699989331DEC62E100E1349C /* inviteFriendsVC.m in Sources */,
 				69A7E1A21DEE83DA008C99D7 /* RemeberWordItemVC.m in Sources */,
@@ -626,6 +706,7 @@
 				69BD100A1DF3F4C5005D0263 /* Singleton.m in Sources */,
 				60505BDB1DF53A03000DC456 /* UpdateNickNameVC.m in Sources */,
 				69A7E1AF1DEEC681008C99D7 /* RemeberWordVideoDetailVC.m in Sources */,
+				60C2FB1D1DFBD18500876289 /* MJChiBaoZiFooter.m in Sources */,
 				6925F3631DE5739E00FB7B1A /* RegisterVC.m in Sources */,
 				60EB9EED1DF96C6F00E8D01B /* MemoryExercisesVC.m in Sources */,
 				6998341A1DE6933000898021 /* MnemonicsCell.m in Sources */,
@@ -640,6 +721,7 @@
 				60B4106D1DF54B45002D4B4D /* NotificationVC.m in Sources */,
 				69A7E1B51DEFBC0A008C99D7 /* PaymentVC.m in Sources */,
 				699989391DEC7F2100E1349C /* SetVC.m in Sources */,
+				60C2FB1A1DFBD0E100876289 /* MJChiBaoZiHeader.m in Sources */,
 				60505BDE1DF53AFA000DC456 /* BindingNewPhoneVC.m in Sources */,
 				602222751DF16E030010D969 /* RootTabBarController.m in Sources */,
 				69B129E61DE2C6490093D841 /* main.m in Sources */,
