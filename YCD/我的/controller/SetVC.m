@@ -11,8 +11,6 @@
 #import "LoginNC.h"
 #import "AppDelegate.h"
 #import "LoginVC.h"
-#import <JCAlertView.h>
-#import "CustomAlertView.h"
 @interface SetVC ()<UITableViewDelegate,UITableViewDataSource,CustomAlertViewDelegate>
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSArray *arr;

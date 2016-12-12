@@ -11,8 +11,6 @@
 #import "RemeberWordSingleWordCell.h"
 #import "RemeberWordVideoDetailVC.h"
 #import "RemeberWordSingleWordDetailVC.h"
-#import <JCAlertView.h>
-#import "CustomAlertView.h"
 @interface RemeberWordItemVC ()<UITableViewDelegate,UITableViewDataSource,CustomAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *videoButton;
 @property (weak, nonatomic) IBOutlet UIButton *wordButton;

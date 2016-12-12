@@ -10,8 +10,6 @@
 #import <SDCycleScrollView.h>
 #import "MnemonicsCell.h"
 #import "MemoryCourseVC.h"
-#import <JCAlertView.h>
-#import "CustomAlertView.h"
 #import "BaseTableView.h"
 @interface MnemonicsVC ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,CustomAlertViewDelegate>
 @property (strong,nonatomic)NSArray *netImages;  //网络图片
@@ -66,10 +64,10 @@
     _tableView.dataSource =self;
     _tableView.backgroundColor = [UIColor clearColor];
     [_tableView setRefreshData:^{
-        NSLog(@"下拉刷新数据");
+//        NSLog(@"下拉刷新数据");
     }];
     [_tableView setLoadMoreData:^{
-        NSLog(@"上拉加载更多");
+//        NSLog(@"上拉加载更多");
     }];
     [self.view addSubview:_tableView];
     [_tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];

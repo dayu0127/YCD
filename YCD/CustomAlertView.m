@@ -60,7 +60,17 @@
 - (instancetype)initWithFrame:(CGRect)frame
                              message:(NSString *)message{
     if (self=[super initWithFrame:frame]) {
-        
+        self.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BLUE,RED);
+        self.layer.masksToBounds = YES;
+        self.layer.cornerRadius = 8.0f;
+        UILabel *messageLabel = [[UILabel alloc] init];
+        messageLabel.font = [UIFont systemFontOfSize:16.0f];
+        messageLabel.text = message;
+        CGFloat width = [messageLabel.text boundingRectWithSize:CGSizeMake(1000, 40) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:messageLabel.font forKey:NSFontAttributeName] context:nil].size.width+24;
+        messageLabel.frame = CGRectMake(0, 0, width, 40);
+        messageLabel.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:messageLabel];
     }
     return self;
 }

@@ -28,7 +28,23 @@
     _nickNameTextField.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _line.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
 }
+- (IBAction)nickNameText:(UITextField *)sender {
+    if (sender.text.length == 0) {
+        _sureButton.enabled = NO;
+        _sureButton.backgroundColor = [UIColor lightGrayColor];
+    }else if(sender.text.length > 0 && sender.text.length <= 12){
+        _sureButton.enabled = YES;
+        _sureButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+    }else{
+        sender.text = [sender.text substringToIndex:12];
+    }
+}
 - (IBAction)sureButtonClick:(UIButton *)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (REGEX(NICK_RE, _nickNameTextField.text)==NO) {
+        ALERT_SHOW(@"只能是数字,字母,下划线和汉字哦");
+    }else{
+        NSLog(@"修改成功");
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 @end

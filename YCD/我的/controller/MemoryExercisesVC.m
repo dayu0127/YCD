@@ -7,8 +7,6 @@
 //
 
 #import "MemoryExercisesVC.h"
-#import <JCAlertView.h>
-#import "CustomAlertView.h"
 @interface MemoryExercisesVC ()<CustomAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *beginButton;

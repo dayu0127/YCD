@@ -7,14 +7,19 @@
 //
 
 #import "ForgetPwdVC.h"
-
+#define ID_CODE @"1234"
 @interface ForgetPwdVC ()
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *lineCollection;
+@property (weak, nonatomic) IBOutlet UIButton *checkButton;
+- (IBAction)checkButtonClick:(UIButton *)sender;
 
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
 - (IBAction)submitButton:(UIButton *)sender;
+@property (strong,nonatomic) UITextField *phoneText;
+@property (strong,nonatomic) UITextField *idCodeText;
+@property (strong,nonatomic) UITextField *pwdText;
 @end
 
 @implementation ForgetPwdVC
@@ -34,7 +39,49 @@
         line.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
     }
     _submitButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+    _phoneText = [_textFieldCollection objectAtIndex:0];
+    _idCodeText = [_textFieldCollection objectAtIndex:1];
+    _pwdText = [_textFieldCollection objectAtIndex:2];
+}
+- (IBAction)phoneEditingChanged:(UITextField *)sender {
+    if(sender.text.length < 11){
+        _checkButton.enabled = NO;
+        _checkButton.backgroundColor = [UIColor lightGrayColor];
+    }else if(sender.text.length == 11){
+        _checkButton.enabled = YES;
+        _checkButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    }else{
+        sender.text = [sender.text substringToIndex:11];
+    }
+}
+- (IBAction)codeEditingChanged:(UITextField *)sender {
+    if (sender.text.length>6) {
+        sender.text = [sender.text substringToIndex:6];
+    }
+}
+- (IBAction)pwdEditingChanged:(UITextField *)sender {
+    if (sender.text.length>15) {
+        sender.text = [sender.text substringToIndex:15];
+    }
+}
+- (IBAction)checkButtonClick:(UIButton *)sender {
+    if (REGEX(PHONE_RE, _phoneText.text)==NO) {
+        ALERT_SHOW(@"无效手机号");
+    }else{
+        ALERT_SHOW(@"获取验证码");
+    }
 }
 - (IBAction)submitButton:(UIButton *)sender {
+    if (REGEX(PHONE_RE, _phoneText.text)==NO) {
+        ALERT_SHOW(@"请输入有效11位手机号");
+    }else if ([_idCodeText.text isEqualToString:ID_CODE]==NO){
+        ALERT_SHOW(@"验证码不正确");
+    }else if (REGEX(PWD_RE, _pwdText.text)==NO){
+        ALERT_SHOW(@"请输入6~15位字母+数字组合的密码");
+    }else {
+        NSLog(@"设置密码成功");
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
+
 @end
