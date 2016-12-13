@@ -10,7 +10,11 @@
 #import <AVKit/AVKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "RemeberWordSingleWordDetailVC.h"
-@interface RemeberWordVideoDetailVC ()<UICollectionViewDelegate,UICollectionViewDataSource>
+#import <ZFPlayer.h>
+@interface RemeberWordVideoDetailVC ()<UICollectionViewDelegate,UICollectionViewDataSource,ZFPlayerDelegate>
+@property (strong, nonatomic) UIView *playerFatherView;
+@property (nonatomic,strong) ZFPlayerView *playerView;
+@property (nonatomic,strong) ZFPlayerModel *playerModel;
 @property (nonatomic,strong)NSMutableArray *buttonAarry;
 @property (nonatomic,strong)UIView *underLine;
 @property (nonatomic,strong)UIView *line;
@@ -23,20 +27,38 @@
 @end
 
 @implementation RemeberWordVideoDetailVC
-
+// 返回值要必须为NO
+- (BOOL)shouldAutorotate{
+    return NO;
+}
+- (ZFPlayerModel *)playerModel{
+    if (!_playerModel) {
+        _playerModel                  = [[ZFPlayerModel alloc] init];
+        //        _playerModel.title            = self.videoName;
+        _playerModel.videoURL         = self.videoURL;
+        _playerModel.placeholderImage = [UIImage imageNamed:@"banner01"];
+        _playerModel.fatherView       = self.playerFatherView;
+    }
+    return _playerModel;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     _courseButtonArray = [NSMutableArray array];
     //播放器
-    AVPlayerViewController *playerVC = [[AVPlayerViewController alloc] init];
-    NSURL *sourceMovieURL = [NSURL URLWithString:@"http://m3.rui2.net/uploadfile/output/2015/0226/d56e56eeb7ae97cc.mp4"];
-    playerVC.player = [[AVPlayer alloc] initWithURL:sourceMovieURL];
-    playerVC.view.frame = CGRectMake(0, 64, WIDTH, HEIGHT*0.3);
-    [self addChildViewController:playerVC];
-    [self.view addSubview:playerVC.view];
+//    AVPlayerViewController *playerVC = [[AVPlayerViewController alloc] init];
+//    NSURL *sourceMovieURL = [NSURL URLWithString:@"http://m3.rui2.net/uploadfile/output/2015/0226/d56e56eeb7ae97cc.mp4"];
+//    playerVC.player = [[AVPlayer alloc] initWithURL:sourceMovieURL];
+//    playerVC.view.frame = CGRectMake(0, 64, WIDTH, HEIGHT*0.3);
+//    [self addChildViewController:playerVC];
+//    [self.view addSubview:playerVC.view];
+    _playerFatherView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, 9/16.0*WIDTH)];
+    [self.view addSubview:_playerFatherView];
+    _playerView = [[ZFPlayerView alloc] init];
+    _playerView.delegate = self;
+    [_playerView playerControlView:nil playerModel:self.playerModel];
     //标题视图
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 64+0.3*HEIGHT, WIDTH, 39)];
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 64+9/16.0*WIDTH, WIDTH, 39)];
     titleView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     [self.view addSubview:titleView];
     _buttonAarry = [NSMutableArray arrayWithCapacity:3];

@@ -20,6 +20,7 @@
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,strong) UIView *noVideoView;
 @property (nonatomic,strong) UITableView *wordTableView;
+@property (nonatomic,strong) NSArray *courseUrlArray;
 @property (nonatomic,strong) NSMutableArray *wordArray;
 @property (nonatomic,strong) NSMutableArray *sectionNameArr;
 @property (nonatomic,strong) NSMutableArray *nameArr;
@@ -43,6 +44,16 @@
         _wordArray = [NSMutableArray arrayWithArray:arr];
     }
     return _wordArray;
+}
+#pragma mark 懒加载视频url数据
+- (NSArray *)courseUrlArray{
+    if (!_courseUrlArray) {
+        _courseUrlArray = @[@"http://baobab.wdjcdn.com/14564977406580.mp4",
+                            @"http://baobab.wdjcdn.com/1456480115661mtl.mp4",
+                            @"http://baobab.wdjcdn.com/1456665467509qingshu.mp4",
+                            @"http://baobab.wdjcdn.com/1456231710844S(24).mp4"];
+    }
+    return _courseUrlArray;
 }
 #pragma mark 懒加载暂无视频View
 - (UIView *)noVideoView{
@@ -238,6 +249,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     RemeberWordSingleWordDetailVC *wordDetailVC = [[RemeberWordSingleWordDetailVC alloc] init];
+    wordDetailVC.videoURL = [NSURL URLWithString:self.courseUrlArray[indexPath.row]];
     wordDetailVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:wordDetailVC animated:YES];
 }

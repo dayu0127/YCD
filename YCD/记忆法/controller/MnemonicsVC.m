@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIView *scrollBgView;
 @property (strong, nonatomic) BaseTableView *tableView;
 @property (strong,nonatomic) JCAlertView *alertView;
+@property (strong,nonatomic) NSArray *courseUrlArray;
 @end
 
 @implementation MnemonicsVC
@@ -39,9 +40,19 @@
     }
     return _netImages;
 }
+#pragma mark 懒加载视频url数据
+- (NSArray *)courseUrlArray{
+    if (!_courseUrlArray) {
+        _courseUrlArray = @[@"http://baobab.wdjcdn.com/14564977406580.mp4",
+                                     @"http://baobab.wdjcdn.com/1456480115661mtl.mp4",
+                                     @"http://baobab.wdjcdn.com/1456665467509qingshu.mp4",
+                                     @"http://baobab.wdjcdn.com/1456231710844S(24).mp4"];
+    }
+    return _courseUrlArray;
+}
 #pragma mark 创建网络轮播器
 -(void)scrollNetWorkImages{
-    self.cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0,0, WIDTH, HEIGHT*0.3) delegate:self placeholderImage:[UIImage imageNamed:@"banner01"]];
+    self.cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, WIDTH, 9/16.0*WIDTH) delegate:self placeholderImage:[UIImage imageNamed:@"banner01"]];
     self.cycleScrollView.currentPageDotColor = [UIColor darkGrayColor];
     self.cycleScrollView.pageDotColor = [UIColor whiteColor];
     self.cycleScrollView.imageURLStringsGroup = self.netImages;
@@ -59,7 +70,7 @@
     //NSLog(@"%ld",index);
 }
 - (void)initTableView{
-    _tableView = [[BaseTableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_scrollBgView.frame), WIDTH, HEIGHT-CGRectGetMaxY(_scrollBgView.frame)-44) style:UITableViewStyleGrouped];
+    _tableView = [[BaseTableView alloc] initWithFrame:CGRectMake(0, 64+9/16.0*WIDTH, WIDTH, HEIGHT-108-9/16.0*WIDTH) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource =self;
     _tableView.backgroundColor = [UIColor clearColor];
@@ -74,10 +85,10 @@
 }
 #pragma tableView代理方法
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return 4;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return HEIGHT*0.18;
+    return 120;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 0.001;
@@ -94,6 +105,7 @@
     MemoryCourseVC *courseVC = [[MemoryCourseVC alloc] init];
     courseVC.hidesBottomBarWhenPushed = YES;
     courseVC.title = cell.courseTitle.text;
+    courseVC.videoURL = [NSURL URLWithString:self.courseUrlArray[indexPath.row]];
     [self.navigationController pushViewController:courseVC animated:YES];
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{

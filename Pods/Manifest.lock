@@ -28,6 +28,7 @@ PODS:
   - DKNightVersion/UIKit (2.4.2):
     - DKNightVersion/Core
   - JCAlertView (1.1.5)
+  - Masonry (1.0.2)
   - MJRefresh (3.1.12)
   - SDCycleScrollView (1.65):
     - SDWebImage (~> 3.7)
@@ -45,6 +46,8 @@ PODS:
     - UMengUShare/Core
   - UMengUShare/UI (6.1):
     - UMengUShare/Core
+  - ZFPlayer (2.1.1):
+    - Masonry
 
 DEPENDENCIES:
   - AFNetworking
@@ -57,16 +60,19 @@ DEPENDENCIES:
   - UMengUShare/Social/Sina
   - UMengUShare/Social/WeChat
   - UMengUShare/UI
+  - ZFPlayer
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   DKNightVersion: a211bacb8d6a9677722aaf93e292a4e5908490c1
   JCAlertView: c65a7b298b8b497b3db783d82f719b88f4914869
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   UMengUShare: 6c3902a68a06d01031bed6f426e97b89d4fc504f
+  ZFPlayer: c36657da33c28c75dfb100e98e7976b5b3e1fc10
 
-PODFILE CHECKSUM: 5d2739488c1cc777179f2e47f2a9698101c3b943
+PODFILE CHECKSUM: 223b18d0cb2f10b07aae020af044afbd6a384b0d
 
 COCOAPODS: 1.1.1

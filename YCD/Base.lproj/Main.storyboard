@@ -772,8 +772,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mag-GI-g0H" userLabel="scrollBgView">
-                                <rect key="frame" x="0.0" y="64" width="375" height="200"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="211"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="mag-GI-g0H" secondAttribute="height" multiplier="16:9" id="ClY-aN-efg"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -781,7 +784,6 @@
                             <constraint firstItem="mag-GI-g0H" firstAttribute="top" secondItem="csR-iP-o3i" secondAttribute="bottom" id="KOk-qy-vN5"/>
                             <constraint firstAttribute="trailing" secondItem="mag-GI-g0H" secondAttribute="trailing" id="MrW-6R-MA8"/>
                             <constraint firstItem="mag-GI-g0H" firstAttribute="leading" secondItem="pee-eG-Sd5" secondAttribute="leading" id="WJs-Vd-Rhg"/>
-                            <constraint firstItem="mag-GI-g0H" firstAttribute="height" secondItem="pee-eG-Sd5" secondAttribute="height" multiplier="0.3" id="q6E-ze-HkM"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="易词典" id="IKc-wc-ADp"/>

@@ -64,7 +64,7 @@
         self.layer.masksToBounds = YES;
         self.layer.cornerRadius = 8.0f;
         UILabel *messageLabel = [[UILabel alloc] init];
-        messageLabel.font = [UIFont systemFontOfSize:16.0f];
+        messageLabel.font = [UIFont systemFontOfSize:14.0f];
         messageLabel.text = message;
         CGFloat width = [messageLabel.text boundingRectWithSize:CGSizeMake(1000, 40) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:messageLabel.font forKey:NSFontAttributeName] context:nil].size.width+24;
         messageLabel.frame = CGRectMake(0, 0, width, 40);
