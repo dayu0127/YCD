@@ -9,7 +9,7 @@
 #import "LoginVC.h"
 #import "RootTabBarController.h"
 #import "AppDelegate.h"
-#import "YHWebRequest.h"
+
 @interface LoginVC ()
 
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
@@ -17,7 +17,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 - (IBAction)loginButtonClick:(UIButton *)sender;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonCollection;
-
+@property (strong,nonatomic) UITextField *phoneText;
+@property (strong,nonatomic) UITextField *pwdText;
 @end
 
 @implementation LoginVC
@@ -37,6 +38,18 @@
     for (UIButton *item in _buttonCollection) {
         [item dk_setTitleColorPicker:DKColorPickerWithColors(D_BLUE,[UIColor whiteColor],RED) forState:UIControlStateNormal];
     }
+    _phoneText = [_textFieldCollection objectAtIndex:0];
+    _pwdText = [_textFieldCollection objectAtIndex:1];
+}
+- (IBAction)phoneEditingChanged:(UITextField *)sender {
+    if (sender.text.length > 11) {
+        sender.text = [sender.text substringToIndex:11];
+    }
+}
+- (IBAction)pwdEditingChanged:(UITextField *)sender {
+    if (sender.text.length > 15) {
+        sender.text = [sender.text substringToIndex:15];
+    }
 }
 - (IBAction)loginButtonClick:(UIButton *)sender {
 //    UITextField *textField = [_textFieldCollection objectAtIndex:0];
@@ -55,14 +68,23 @@
 //            NSLog(@"网络异常 - T_T%@", error);
 //        }];
 //    }
-
-//    if (![textField.text isEqualToString:@""]) {
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        RootTabBarController *rootTBC = [sb instantiateViewControllerWithIdentifier:@"root"];
-        [app.window setRootViewController:rootTBC];
-        [app.window makeKeyWindow];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"login"];
-//    }
+    if (REGEX(PHONE_RE, _phoneText.text)==NO) {
+//        ALERT_SHOW();
+        [YHHud showWithMessage:@"请输入有效的11位手机号"];
+    }else if (REGEX(PWD_RE, _pwdText.text)==NO){
+//        ALERT_SHOW();
+        [YHHud showWithMessage:@"请输入6~15位字母+数字组合的密码"];
+    }else{
+        //--实现登录--
+        [YHHud showWithSuccess:@"登录成功"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            RootTabBarController *rootTBC = [sb instantiateViewControllerWithIdentifier:@"root"];
+            [app.window setRootViewController:rootTBC];
+            [app.window makeKeyWindow];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"login"];
+        });
+    }
 }
 @end

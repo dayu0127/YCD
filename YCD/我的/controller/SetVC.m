@@ -7,13 +7,10 @@
 //
 
 #import "SetVC.h"
-#import "Singleton.h"
 #import "LoginNC.h"
 #import "AppDelegate.h"
 #import "LoginVC.h"
-#import <JCAlertView.h>
-#import "CustomAlertView.h"
-@interface SetVC ()<UITableViewDelegate,UITableViewDataSource,CustomAlertViewDelegate>
+@interface SetVC ()<UITableViewDelegate,UITableViewDataSource,YHAlertViewDelegate>
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSArray *arr;
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;
@@ -88,7 +85,7 @@
 }
 
 - (IBAction)logoutButtonClick:(UIButton *)sender {
-    CustomAlertView *alertView = [[CustomAlertView alloc] initWithFrame:CGRectMake(0, 0, 255, 100) title:@"确定退出登录?" message:nil];
+    YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 255, 100) title:@"确定退出登录?" message:nil];
     alertView.delegate = self;
     _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
     [_alertView show];

@@ -11,9 +11,7 @@
 #import "RemeberWordSingleWordCell.h"
 #import "RemeberWordVideoDetailVC.h"
 #import "RemeberWordSingleWordDetailVC.h"
-#import <JCAlertView.h>
-#import "CustomAlertView.h"
-@interface RemeberWordItemVC ()<UITableViewDelegate,UITableViewDataSource,CustomAlertViewDelegate>
+@interface RemeberWordItemVC ()<UITableViewDelegate,UITableViewDataSource,YHAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *videoButton;
 @property (weak, nonatomic) IBOutlet UIButton *wordButton;
 @property (weak, nonatomic) IBOutlet UIView *leftLineView;
@@ -23,6 +21,7 @@
 @property (assign,nonatomic) NSInteger flagForTable;    //切换视频和单个词语tableView的标记
 @property (strong,nonatomic) UITableView *tableView;
 @property (strong,nonatomic) NSMutableArray *wordArray;
+@property (strong,nonatomic) NSArray *courseUrlArray;
 @property (weak, nonatomic) IBOutlet UIView *footerBgView;
 @property (weak, nonatomic) IBOutlet UILabel *subscriptionLabel;
 @property (weak, nonatomic) IBOutlet UIButton *subscriptionButton;
@@ -56,6 +55,16 @@
         _wordArray = [NSMutableArray arrayWithArray:arr];
     }
     return _wordArray;
+}
+#pragma mark 懒加载视频url数据
+- (NSArray *)courseUrlArray{
+    if (!_courseUrlArray) {
+        _courseUrlArray = @[@"http://baobab.wdjcdn.com/14564977406580.mp4",
+                            @"http://baobab.wdjcdn.com/1456480115661mtl.mp4",
+                            @"http://baobab.wdjcdn.com/1456665467509qingshu.mp4",
+                            @"http://baobab.wdjcdn.com/1456231710844S(24).mp4"];
+    }
+    return _courseUrlArray;
 }
 - (IBAction)videoClick:(UIButton *)sender{
     sender.selected = YES;
@@ -137,10 +146,12 @@
 //        RemeberWordVideoCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         RemeberWordVideoDetailVC *videoDetailVC = [[RemeberWordVideoDetailVC alloc] init];
         videoDetailVC.hidesBottomBarWhenPushed = YES;
+        videoDetailVC.videoURL = [NSURL URLWithString:self.courseUrlArray[indexPath.row]];
         videoDetailVC.title = @"第一节课";
         [self.navigationController pushViewController:videoDetailVC animated:YES];
     }else{
         RemeberWordSingleWordDetailVC *wordDetailVC = [[RemeberWordSingleWordDetailVC alloc] init];
+        wordDetailVC.videoURL = [NSURL URLWithString:self.courseUrlArray[indexPath.row]];
         wordDetailVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:wordDetailVC animated:YES];
     }
@@ -148,7 +159,7 @@
 - (IBAction)subscriptionClick:(id)sender {
     NSString *str = _flagForTable == 0 ? @"视频课程" : @"单词";
     NSString *message = [NSString stringWithFormat:@"如果确定，将一次订阅当前所有%@",str];
-    CustomAlertView *alertView = [[CustomAlertView alloc] initWithFrame:CGRectMake(0, 0, 250, 155) title:@"· 确认订阅 ·" message:message];
+    YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 250, 155) title:@"· 确认订阅 ·" message:message];
     alertView.delegate = self;
     _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
     [_alertView show];

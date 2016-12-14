@@ -27,7 +27,7 @@
 }
 - (NSArray *)dataArray{
     if(!_dataArray){
-        _dataArray = @[@"使用帮助",@"介绍",@"帮助与反馈",@"用户协议"];
+        _dataArray = @[@"使用帮助",@"介绍",@"用户协议"];
     }
     return _dataArray;
 }
@@ -37,7 +37,7 @@
     // Dispose of any resources that can be recreated.
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 4;
+    return 3;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;
@@ -64,8 +64,6 @@
         [self performSegueWithIdentifier:@"useHelp" sender:self];
     }else if(indexPath.section == 1){
         [self performSegueWithIdentifier:@"introduce" sender:self];
-    }else if(indexPath.section == 2){
-        [self performSegueWithIdentifier:@"helpFeedback" sender:self];
     }else{
         [self performSegueWithIdentifier:@"userAgreement" sender:self];
     }

@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface RemeberWordSingleWordDetailVC : UIViewController
-
+@property (nonatomic, strong) NSURL *videoURL;
 @end
