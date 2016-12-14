@@ -57,7 +57,10 @@
     if ([_textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) {
         _promptLabel.textColor = [UIColor redColor];
     }else{
-        [self.navigationController popViewControllerAnimated:YES];
+        [YHHud showWithSuccess:@"提交成功"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
     }
 }
 @end

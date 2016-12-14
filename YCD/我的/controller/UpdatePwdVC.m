@@ -44,14 +44,20 @@
 }
 - (IBAction)sureButtonClick:(UIButton *)sender {
     if ([_oldPwdText.text isEqualToString:USER_PWD] == NO) {
-        ALERT_SHOW(@"你输入的原密码不正确");
+//        ALERT_SHOW();
+        [YHHud showWithMessage:@"你输入的原密码不正确"];
     }else if (REGEX(PWD_RE, _pwdText.text)==NO){
-        ALERT_SHOW(@"请输入6~15位字母+数字组合的密码");
+//        ALERT_SHOW();
+        [YHHud showWithMessage:@"请输入6~15位字母+数字组合的密码"];
     }else if ([_surePwdText.text isEqualToString:_pwdText.text] == NO){
-        ALERT_SHOW(@"两次密码输入不一致");
+//        ALERT_SHOW();
+        [YHHud showWithMessage:@"两次密码输入不一致"];
     }else{
-        NSLog(@"修改成功");
-        [self.navigationController popViewControllerAnimated:YES];
+//        NSLog();
+        [YHHud showWithSuccess:@"修改成功"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
     }
 }
 @end

@@ -74,23 +74,32 @@
 //    中国电信号码：133、153、180、181、189、177、173、149
 //    虚拟运营商：170、1718、1719
     if (REGEX(PHONE_RE, _phoneText.text)==NO) {
-        ALERT_SHOW(@"无效手机号");
+//        ALERT_SHOW();
+        [YHHud showWithMessage:@"无效手机号"];
     }else{
-        ALERT_SHOW(@"获取验证码");
+//        ALERT_SHOW();
+        [YHHud showWithMessage:@"获取验证码"];
     }
 }
 - (IBAction)registerButtonClick:(UIButton *)sender {
     if (REGEX(PHONE_RE, _phoneText.text)==NO) {
-        ALERT_SHOW(@"请输入有效11位手机号");
+//        ALERT_SHOW();
+        [YHHud showWithMessage:@"请输入有效11位手机号"];
     }else if ([_idCodeText.text isEqualToString:ID_CODE]==NO){
-        ALERT_SHOW(@"验证码不正确");
+//        ALERT_SHOW();
+        [YHHud showWithMessage:@"验证码不正确"];
     }else if (REGEX(PWD_RE, _pwdText.text)==NO){
-        ALERT_SHOW(@"请输入6~15位字母+数字组合的密码");
+//        ALERT_SHOW();
+        [YHHud showWithMessage:@"请输入6~15位字母+数字组合的密码"];
     }else if ([_studyCodeText.text isEqualToString:@""]==YES){
-        ALERT_SHOW(@"您输入的互学码为空，确定注册？");
+//        ALERT_SHOW();
+        [YHHud showWithMessage:@"您输入的互学码为空，确定注册？"];
     }else {
-        NSLog(@"注册成功");
-        [self.navigationController popViewControllerAnimated:YES];
+//        NSLog();
+        [YHHud showWithSuccess:@"注册成功"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
     }
 }
 @end

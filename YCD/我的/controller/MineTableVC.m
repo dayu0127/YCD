@@ -11,10 +11,10 @@
 @interface MineTableVC ()
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *titileCollectionLabel;
 @property (strong, nonatomic) IBOutletCollection(UITableViewCell) NSArray *tableViewCellCollection;
-@property (weak, nonatomic) IBOutlet UILabel *studyDouNumLabel;
-@property (weak, nonatomic) IBOutlet UILabel *currentStudyDouNumLabel;
+@property (weak, nonatomic) IBOutlet UILabel *studyDouNum;
+@property (weak, nonatomic) IBOutlet UILabel *currentStudyDouNum;
 @property (weak, nonatomic) IBOutlet UILabel *studyCodeLabel;
-@property (weak, nonatomic) IBOutlet UIButton *payButton;
+//@property (weak, nonatomic) IBOutlet UIButton *payButton;
 
 @end
 
@@ -23,8 +23,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
-    _studyDouNumLabel.dk_textColorPicker = DKColorPickerWithColors(D_BLUE,[UIColor whiteColor],RED);
-    _currentStudyDouNumLabel.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    _studyDouNum.dk_textColorPicker = DKColorPickerWithColors(D_BLUE,[UIColor whiteColor],RED);
+    _currentStudyDouNum.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     for (UILabel *item in _titileCollectionLabel) {
         item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     }
@@ -32,7 +32,7 @@
         item.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     }
     _studyCodeLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor whiteColor],RED);
-    _payButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+//    _payButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -48,7 +48,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 7;
+    return 8;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 1;

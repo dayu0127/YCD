@@ -11,7 +11,7 @@
 #import "MnemonicsCell.h"
 #import "MemoryCourseVC.h"
 #import "BaseTableView.h"
-@interface MnemonicsVC ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,CustomAlertViewDelegate>
+@interface MnemonicsVC ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,YHAlertViewDelegate>
 @property (strong,nonatomic)NSArray *netImages;  //网络图片
 @property (strong,nonatomic)SDCycleScrollView *cycleScrollView;//轮播器
 @property (weak, nonatomic) IBOutlet UIView *scrollBgView;
@@ -130,7 +130,7 @@
 }
 #pragma mark 订阅所有课程
 - (void)subscribe{
-    CustomAlertView *alertView = [[CustomAlertView alloc] initWithFrame:CGRectMake(0, 0, 250, 155) title:@"· 确认订阅 ·" message:@"如果确定，将一次订阅所有记忆法课程"];
+    YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 250, 155) title:@"· 确认订阅 ·" message:@"如果确定，将一次订阅所有记忆法课程"];
     alertView.delegate = self;
     _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
     [_alertView show];

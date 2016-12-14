@@ -26,7 +26,7 @@
         item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     }
     [_contactServiceButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_bgView1.frame), WIDTH, (PAY_ROWHEIGHT+1)*6+1)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_bgView1.frame), WIDTH, (PAY_ROWHEIGHT+1)*PAY_ARRAY.count+1)];
     bgView.backgroundColor = SEPCOLOR;
     [self.view addSubview:bgView];
     for (NSInteger i = 0; i<PAY_ARRAY.count; i++) {

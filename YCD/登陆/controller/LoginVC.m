@@ -9,7 +9,7 @@
 #import "LoginVC.h"
 #import "RootTabBarController.h"
 #import "AppDelegate.h"
-#import "YHWebRequest.h"
+
 @interface LoginVC ()
 
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
@@ -19,7 +19,7 @@
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonCollection;
 @property (strong,nonatomic) UITextField *phoneText;
 @property (strong,nonatomic) UITextField *pwdText;
-@property (strong,nonatomic) JCAlertView *alertView;
+//@property (strong,nonatomic) JCAlertView *alertView;
 @end
 
 @implementation LoginVC
@@ -70,17 +70,22 @@
 //        }];
 //    }
     if (REGEX(PHONE_RE, _phoneText.text)==NO) {
-        ALERT_SHOW(@"请输入有效的11位手机号");
+//        ALERT_SHOW();
+        [YHHud showWithMessage:@"请输入有效的11位手机号"];
     }else if (REGEX(PWD_RE, _pwdText.text)==NO){
-        ALERT_SHOW(@"请输入6~15位字母+数字组合的密码");
+//        ALERT_SHOW();
+        [YHHud showWithMessage:@"请输入6~15位字母+数字组合的密码"];
     }else{
         //--实现登录--
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        RootTabBarController *rootTBC = [sb instantiateViewControllerWithIdentifier:@"root"];
-        [app.window setRootViewController:rootTBC];
-        [app.window makeKeyWindow];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"login"];
+        [YHHud showWithSuccess:@"登录成功"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            RootTabBarController *rootTBC = [sb instantiateViewControllerWithIdentifier:@"root"];
+            [app.window setRootViewController:rootTBC];
+            [app.window makeKeyWindow];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"login"];
+        });
     }
 }
 @end

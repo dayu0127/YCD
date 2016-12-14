@@ -18,12 +18,13 @@
 		60505BE41DF53F3A000DC456 /* IntroduceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60505BE31DF53F3A000DC456 /* IntroduceVC.m */; };
 		60505BE71DF53F8C000DC456 /* UserAgreementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60505BE61DF53F8C000DC456 /* UserAgreementVC.m */; };
 		6052E5BB1DFAA2E500EDD341 /* YHWebRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6052E5BA1DFAA2E500EDD341 /* YHWebRequest.m */; };
+		607B64111E01181A002E1264 /* YHHud.m in Sources */ = {isa = PBXBuildFile; fileRef = 607B64101E01181A002E1264 /* YHHud.m */; };
+		607B64141E011914002E1264 /* YHAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 607B64131E011914002E1264 /* YHAlertView.m */; };
 		60B4106D1DF54B45002D4B4D /* NotificationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B4106C1DF54B45002D4B4D /* NotificationVC.m */; };
 		60B410731DF56486002D4B4D /* LoginNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B410721DF56486002D4B4D /* LoginNC.m */; };
 		60C2FB171DFBBCAD00876289 /* BaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2FB161DFBBCAD00876289 /* BaseTableView.m */; };
 		60C2FB1A1DFBD0E100876289 /* MJChiBaoZiHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2FB191DFBD0E100876289 /* MJChiBaoZiHeader.m */; };
 		60C2FB1D1DFBD18500876289 /* MJChiBaoZiFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2FB1C1DFBD18500876289 /* MJChiBaoZiFooter.m */; };
-		60EB9EEA1DF950C700E8D01B /* CustomAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60EB9EE91DF950C700E8D01B /* CustomAlertView.m */; };
 		60EB9EED1DF96C6F00E8D01B /* MemoryExercisesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60EB9EEC1DF96C6F00E8D01B /* MemoryExercisesVC.m */; };
 		690E616F1DE3DF9B00C8E52F /* UserGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690E616E1DE3DF9B00C8E52F /* UserGuideViewController.m */; };
 		6925F3581DE5738900FB7B1A /* MnemonicsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6925F3571DE5738900FB7B1A /* MnemonicsVC.m */; };
@@ -90,6 +91,10 @@
 		60505BE61DF53F8C000DC456 /* UserAgreementVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAgreementVC.m; sourceTree = "<group>"; };
 		6052E5B91DFAA2E500EDD341 /* YHWebRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHWebRequest.h; sourceTree = "<group>"; };
 		6052E5BA1DFAA2E500EDD341 /* YHWebRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHWebRequest.m; sourceTree = "<group>"; };
+		607B640F1E01181A002E1264 /* YHHud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHHud.h; sourceTree = "<group>"; };
+		607B64101E01181A002E1264 /* YHHud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHHud.m; sourceTree = "<group>"; };
+		607B64121E011914002E1264 /* YHAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHAlertView.h; sourceTree = "<group>"; };
+		607B64131E011914002E1264 /* YHAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHAlertView.m; sourceTree = "<group>"; };
 		60B4106B1DF54B45002D4B4D /* NotificationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationVC.h; sourceTree = "<group>"; };
 		60B4106C1DF54B45002D4B4D /* NotificationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationVC.m; sourceTree = "<group>"; };
 		60B410711DF56486002D4B4D /* LoginNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginNC.h; sourceTree = "<group>"; };
@@ -100,8 +105,6 @@
 		60C2FB191DFBD0E100876289 /* MJChiBaoZiHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJChiBaoZiHeader.m; sourceTree = "<group>"; };
 		60C2FB1B1DFBD18500876289 /* MJChiBaoZiFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJChiBaoZiFooter.h; sourceTree = "<group>"; };
 		60C2FB1C1DFBD18500876289 /* MJChiBaoZiFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJChiBaoZiFooter.m; sourceTree = "<group>"; };
-		60EB9EE81DF950C700E8D01B /* CustomAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAlertView.h; sourceTree = "<group>"; };
-		60EB9EE91DF950C700E8D01B /* CustomAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAlertView.m; sourceTree = "<group>"; };
 		60EB9EEB1DF96C6F00E8D01B /* MemoryExercisesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryExercisesVC.h; sourceTree = "<group>"; };
 		60EB9EEC1DF96C6F00E8D01B /* MemoryExercisesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryExercisesVC.m; sourceTree = "<group>"; };
 		690E616D1DE3DF9B00C8E52F /* UserGuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserGuideViewController.h; sourceTree = "<group>"; };
@@ -223,14 +226,25 @@
 				69BD10091DF3F4C5005D0263 /* Singleton.m */,
 				6052E5B91DFAA2E500EDD341 /* YHWebRequest.h */,
 				6052E5BA1DFAA2E500EDD341 /* YHWebRequest.m */,
-				60EB9EE81DF950C700E8D01B /* CustomAlertView.h */,
-				60EB9EE91DF950C700E8D01B /* CustomAlertView.m */,
+				607B640F1E01181A002E1264 /* YHHud.h */,
+				607B64101E01181A002E1264 /* YHHud.m */,
+				607B64121E011914002E1264 /* YHAlertView.h */,
+				607B64131E011914002E1264 /* YHAlertView.m */,
 				60C2FB181DFBD0E100876289 /* MJChiBaoZiHeader.h */,
 				60C2FB191DFBD0E100876289 /* MJChiBaoZiHeader.m */,
 				60C2FB1B1DFBD18500876289 /* MJChiBaoZiFooter.h */,
 				60C2FB1C1DFBD18500876289 /* MJChiBaoZiFooter.m */,
 			);
 			name = Tools;
+			sourceTree = "<group>";
+		};
+		607B640B1E00D1EE002E1264 /* 建议反馈 */ = {
+			isa = PBXGroup;
+			children = (
+				6022226C1DF153BC0010D969 /* HelpFeedbackVC.h */,
+				6022226D1DF153BC0010D969 /* HelpFeedbackVC.m */,
+			);
+			name = "建议反馈";
 			sourceTree = "<group>";
 		};
 		60C2FB081DFB9A4600876289 /* 更新资料 */ = {
@@ -299,8 +313,6 @@
 				60505BE01DF53E92000DC456 /* UseHelpVC.m */,
 				60505BE21DF53F3A000DC456 /* IntroduceVC.h */,
 				60505BE31DF53F3A000DC456 /* IntroduceVC.m */,
-				6022226C1DF153BC0010D969 /* HelpFeedbackVC.h */,
-				6022226D1DF153BC0010D969 /* HelpFeedbackVC.m */,
 				60505BE51DF53F8C000DC456 /* UserAgreementVC.h */,
 				60505BE61DF53F8C000DC456 /* UserAgreementVC.m */,
 			);
@@ -514,6 +526,7 @@
 				60C2FB0D1DFB9BDB00876289 /* 互助共进步 */,
 				60C2FB0E1DFB9BFB00876289 /* 通知 */,
 				60C2FB0F1DFB9C0900876289 /* 关于我们 */,
+				607B640B1E00D1EE002E1264 /* 建议反馈 */,
 				60C2FB101DFB9C3E00876289 /* 设置 */,
 			);
 			path = controller;
@@ -678,6 +691,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				607B64141E011914002E1264 /* YHAlertView.m in Sources */,
 				60B410731DF56486002D4B4D /* LoginNC.m in Sources */,
 				69A2529D1DE8639D00074B5E /* SubscribedVC.m in Sources */,
 				69B8C6001DE6DC01003A4701 /* WordSearchVC.m in Sources */,
@@ -689,11 +703,11 @@
 				69E1507F1DEC1E6400F0F1E9 /* UpdateInfoTableVC.m in Sources */,
 				699989301DEC2EDA00E1349C /* PayVC.m in Sources */,
 				6052E5BB1DFAA2E500EDD341 /* YHWebRequest.m in Sources */,
-				60EB9EEA1DF950C700E8D01B /* CustomAlertView.m in Sources */,
 				69E1507C1DEC0D4800F0F1E9 /* MineTableVC.m in Sources */,
 				690E616F1DE3DF9B00C8E52F /* UserGuideViewController.m in Sources */,
 				60505BD81DF5305B000DC456 /* UpdatePwdVC.m in Sources */,
 				602222721DF15A670010D969 /* BaseViewController.m in Sources */,
+				607B64111E01181A002E1264 /* YHHud.m in Sources */,
 				60C2FB171DFBBCAD00876289 /* BaseTableView.m in Sources */,
 				69B8C5FD1DE6C54D003A4701 /* RememberWordVC.m in Sources */,
 				699989331DEC62E100E1349C /* inviteFriendsVC.m in Sources */,

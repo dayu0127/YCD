@@ -10,8 +10,9 @@
 #import <DKNightVersion/DKNightVersion.h>
 #import "BaseViewController.h"
 #import <JCAlertView.h>
-#import "CustomAlertView.h"
-#import "Singleton.h"
+#import "YHAlertView.h"
+#import "YHHud.h"
+#import "YHWebRequest.h"
 //屏幕高宽
 #define WIDTH [UIScreen mainScreen].bounds.size.width
 #define HEIGHT [UIScreen mainScreen].bounds.size.height
@@ -22,9 +23,9 @@
 #define WORD_ROWHEIGHT 44
 //充值
 #define PAY_ROWHEIGHT 47
-#define PAY_ARRAY @[@"5",@"10",@"15",@"20",@"50",@"100"]
+#define PAY_ARRAY @[@"5",@"20",@"50",@"100",@"500"]
 //充值比例
-#define PAY_PROPORTION 10
+#define PAY_PROPORTION 1
 //日间模式颜色
 #define D_BLUE [UIColor colorWithRed:0.4 green:0.6 blue:0.8 alpha:1.0] //日间蓝色       0x6699CC
 #define D_ORANGE [UIColor colorWithRed:244/255.0 green:164/255.0 blue:96/255.0 alpha:1.0] //日间橘色        0xF4A460
@@ -57,8 +58,8 @@
 #define NICK_RE @"^([\u4e00-\u9fa5]|\\w){1,12}$"
 //根据字符串获取Label宽度
 #define GET_W(str) [str boundingRectWithSize:CGSizeMake(1000, 40) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:14.0f] forKey:NSFontAttributeName] context:nil].size.width+24
-//CustomAlertView
-#define ALERT(str) [[CustomAlertView alloc] initWithFrame:CGRectMake(0, 0, GET_W(str), 40) message:str]
-//CustomAlertView Show
+//YHAlertView
+#define ALERT(str) [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, GET_W(str), 40) message:str]
+//YHAlertView Show
 #define ALERT_SHOW(str) [[[JCAlertView alloc] initWithCustomView:ALERT(str) dismissWhenTouchedBackground:YES] show]
 #endif /* YCDPrefixHeader_pch */

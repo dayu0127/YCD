@@ -8,7 +8,6 @@
 
 #import "SubscribedVC.h"
 #import "RemeberWordSingleWordDetailVC.h"
-#import "Singleton.h"
 
 @interface SubscribedVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIButton *videoButton;

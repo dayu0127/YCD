@@ -29,22 +29,20 @@
     _line.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
 }
 - (IBAction)nickNameText:(UITextField *)sender {
-    if (sender.text.length == 0) {
-        _sureButton.enabled = NO;
-        _sureButton.backgroundColor = [UIColor lightGrayColor];
-    }else if(sender.text.length > 0 && sender.text.length <= 12){
-        _sureButton.enabled = YES;
-        _sureButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
-    }else{
+    if (sender.text.length > 12) {
         sender.text = [sender.text substringToIndex:12];
     }
 }
 - (IBAction)sureButtonClick:(UIButton *)sender {
     if (REGEX(NICK_RE, _nickNameTextField.text)==NO) {
-        ALERT_SHOW(@"只能是数字,字母,下划线和汉字哦");
+//        ALERT_SHOW();
+        [YHHud showWithMessage:@"只能是数字,字母,下划线和汉字哦"];
     }else{
-        NSLog(@"修改成功");
-        [self.navigationController popViewControllerAnimated:YES];
+//        NSLog();
+        [YHHud showWithSuccess:@"修改成功"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
     }
 }
 @end

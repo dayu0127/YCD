@@ -11,7 +11,7 @@
 #import "RemeberWordSingleWordCell.h"
 #import "RemeberWordVideoDetailVC.h"
 #import "RemeberWordSingleWordDetailVC.h"
-@interface RemeberWordItemVC ()<UITableViewDelegate,UITableViewDataSource,CustomAlertViewDelegate>
+@interface RemeberWordItemVC ()<UITableViewDelegate,UITableViewDataSource,YHAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *videoButton;
 @property (weak, nonatomic) IBOutlet UIButton *wordButton;
 @property (weak, nonatomic) IBOutlet UIView *leftLineView;
@@ -159,7 +159,7 @@
 - (IBAction)subscriptionClick:(id)sender {
     NSString *str = _flagForTable == 0 ? @"视频课程" : @"单词";
     NSString *message = [NSString stringWithFormat:@"如果确定，将一次订阅当前所有%@",str];
-    CustomAlertView *alertView = [[CustomAlertView alloc] initWithFrame:CGRectMake(0, 0, 250, 155) title:@"· 确认订阅 ·" message:message];
+    YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 250, 155) title:@"· 确认订阅 ·" message:message];
     alertView.delegate = self;
     _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
     [_alertView show];

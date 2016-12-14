@@ -66,21 +66,29 @@
 }
 - (IBAction)checkButtonClick:(UIButton *)sender {
     if (REGEX(PHONE_RE, _phoneText.text)==NO) {
-        ALERT_SHOW(@"无效手机号");
+//        ALERT_SHOW();
+        [YHHud showWithMessage:@"无效手机号"];
     }else{
-        ALERT_SHOW(@"获取验证码");
+//        ALERT_SHOW();
+        [YHHud showWithMessage:@"获取验证码"];
     }
 }
 - (IBAction)submitButton:(UIButton *)sender {
     if (REGEX(PHONE_RE, _phoneText.text)==NO) {
-        ALERT_SHOW(@"请输入有效11位手机号");
+//        ALERT_SHOW();
+        [YHHud showWithMessage:@"请输入有效11位手机号"];
     }else if ([_idCodeText.text isEqualToString:ID_CODE]==NO){
-        ALERT_SHOW(@"验证码不正确");
+//        ALERT_SHOW();
+        [YHHud showWithMessage:@"验证码不正确"];
     }else if (REGEX(PWD_RE, _pwdText.text)==NO){
-        ALERT_SHOW(@"请输入6~15位字母+数字组合的密码");
+//        ALERT_SHOW();
+        [YHHud showWithMessage:@"请输入6~15位字母+数字组合的密码"];
     }else {
-        NSLog(@"设置密码成功");
-        [self.navigationController popViewControllerAnimated:YES];
+//        NSLog();
+        [YHHud showWithSuccess:@"设置密码成功"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
     }
 }
 

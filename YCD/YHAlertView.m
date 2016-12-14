@@ -1,18 +1,18 @@
 //
-//  CustomAlertView.m
+//  YHAlertView.m
 //  YCD
 //
 //  Created by liyu on 2016/12/8.
 //  Copyright © 2016年 dayu. All rights reserved.
 //
 
-#import "CustomAlertView.h"
+#import "YHAlertView.h"
 
-@implementation CustomAlertView
+@implementation YHAlertView
 
 - (instancetype)initWithFrame:(CGRect)frame
-                                    title:(nonnull NSString *)title
-                             message:(NSString *)message{
+                        title:(nonnull NSString *)title
+                      message:(NSString *)message{
     if (self=[super initWithFrame:frame]) {
         self.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BLUE,RED);
         self.layer.masksToBounds = YES;
@@ -58,7 +58,7 @@
     return self;
 }
 - (instancetype)initWithFrame:(CGRect)frame
-                             message:(NSString *)message{
+                      message:(NSString *)message{
     if (self=[super initWithFrame:frame]) {
         self.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BLUE,RED);
         self.layer.masksToBounds = YES;
