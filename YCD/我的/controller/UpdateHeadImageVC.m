@@ -42,14 +42,14 @@
 #pragma mark 打开相册
 - (IBAction)photoSelectClick:(UIButton *)sender {
     //相册权限
-    ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
-    if (author ==kCLAuthorizationStatusRestricted || author ==kCLAuthorizationStatusDenied){
-        //无权限 引导去开启
-        NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-        if ([[UIApplication sharedApplication] canOpenURL:url]) {
-            [[UIApplication sharedApplication] openURL:url];
-        }
-    }
+//    ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
+//    if (author ==kCLAuthorizationStatusRestricted || author ==kCLAuthorizationStatusDenied){
+//        //无权限 引导去开启
+//        NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//        if ([[UIApplication sharedApplication] canOpenURL:url]) {
+//            [[UIApplication sharedApplication] openURL:url];
+//        }
+//    }
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
     picker.allowsEditing = YES;
@@ -59,16 +59,16 @@
 #pragma mark 打开相机
 - (IBAction)photographClick:(UIButton *)sender {
     //相机权限
-    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-    if (authStatus ==AVAuthorizationStatusRestricted ||//此应用程序没有被授权访问的照片数据。可能是家长控制权限
-        authStatus ==AVAuthorizationStatusDenied)  //用户已经明确否认了这一照片数据的应用程序访问
-    {
-        // 无权限 引导去开启
-        NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-        if ([[UIApplication sharedApplication]canOpenURL:url]) {
-            [[UIApplication sharedApplication]openURL:url];
-        }
-    }
+//    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+//    if (authStatus ==AVAuthorizationStatusRestricted ||//此应用程序没有被授权访问的照片数据。可能是家长控制权限
+//        authStatus ==AVAuthorizationStatusDenied)  //用户已经明确否认了这一照片数据的应用程序访问
+//    {
+//        // 无权限 引导去开启
+//        NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//        if ([[UIApplication sharedApplication]canOpenURL:url]) {
+//            [[UIApplication sharedApplication]openURL:url];
+//        }
+//    }
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
     picker.allowsEditing = YES;

@@ -8,7 +8,7 @@
 
 #import "YHWebRequest.h"
 @implementation YHWebRequest
-+(AFHTTPSessionManager *)shareManager{
++ (AFHTTPSessionManager *)shareManager{
     static AFHTTPSessionManager *manager;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

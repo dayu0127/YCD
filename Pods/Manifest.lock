@@ -28,6 +28,7 @@ PODS:
   - DKNightVersion/UIKit (2.4.2):
     - DKNightVersion/Core
   - JCAlertView (1.1.5)
+  - MJRefresh (3.1.12)
   - SDCycleScrollView (1.65):
     - SDWebImage (~> 3.7)
   - SDWebImage (3.8.2):
@@ -46,11 +47,12 @@ PODS:
     - UMengUShare/Core
 
 DEPENDENCIES:
-  - AFNetworking (~> 3.0)
+  - AFNetworking
   - DKNightVersion
   - JCAlertView
-  - SDCycleScrollView (~> 1.64)
-  - SDWebImage (~> 3.8)
+  - MJRefresh
+  - SDCycleScrollView
+  - SDWebImage
   - UMengUShare/Social/QQ
   - UMengUShare/Social/Sina
   - UMengUShare/Social/WeChat
@@ -60,10 +62,11 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   DKNightVersion: a211bacb8d6a9677722aaf93e292a4e5908490c1
   JCAlertView: c65a7b298b8b497b3db783d82f719b88f4914869
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   UMengUShare: 6c3902a68a06d01031bed6f426e97b89d4fc504f
 
-PODFILE CHECKSUM: d81192a7fb8b6f8720d94afa56e5bd4a97b14e01
+PODFILE CHECKSUM: 5d2739488c1cc777179f2e47f2a9698101c3b943
 
 COCOAPODS: 1.1.1

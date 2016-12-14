@@ -8,36 +8,63 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 		<key>DKNightVersion.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>JCAlertView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>MJRefresh.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
 		</dict>
 		<key>Pods-YCD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>SDCycleScrollView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 		<key>SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>04CF549EBEEE7BC87AEAE35397184D94</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>47458F31BED607F3614E094FAB7E3789</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5436DB48D1A4B6BE4FE0740051445AE6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -68,6 +95,16 @@
 			<true/>
 		</dict>
 		<key>BA3084FB9EF35FB70D7128B94983848F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DB07F42F09CED26DFC229DDB275B061D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F611A0B319EA53BCEE6D3FF164DA23CC</key>
 		<dict>
 			<key>primary</key>
 			<true/>

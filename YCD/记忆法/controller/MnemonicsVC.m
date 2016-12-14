@@ -12,11 +12,12 @@
 #import "MemoryCourseVC.h"
 #import <JCAlertView.h>
 #import "CustomAlertView.h"
+#import "BaseTableView.h"
 @interface MnemonicsVC ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,CustomAlertViewDelegate>
 @property (strong,nonatomic)NSArray *netImages;  //网络图片
 @property (strong,nonatomic)SDCycleScrollView *cycleScrollView;//轮播器
 @property (weak, nonatomic) IBOutlet UIView *scrollBgView;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) BaseTableView *tableView;
 @property (strong,nonatomic) JCAlertView *alertView;
 @end
 
@@ -26,7 +27,7 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self scrollNetWorkImages];
-    [self.tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
+    [self initTableView];
 }
 #pragma mark 懒加载网络图片数据
 -(NSArray *)netImages{
@@ -35,7 +36,7 @@
                        @"http://d.hiphotos.baidu.com/zhidao/pic/item/72f082025aafa40f507b2e99aa64034f78f01930.jpg",
                        @"http://b.hiphotos.baidu.com/zhidao/pic/item/4b90f603738da9770889666fb151f8198718e3d4.jpg",
                        @"http://g.hiphotos.baidu.com/zhidao/pic/item/f2deb48f8c5494ee4e84ef5d2cf5e0fe98257ed4.jpg",
-                       @"http://d.hiphotos.baidu.com/zhidao/pic/item/9922720e0cf3d7ca104edf32f31fbe096b63a93e.jpg"
+                       @"http://d.hiphotos.baidu.com/zhidao/pic/item/9922`720e0cf3d7ca104edf32f31fbe096b63a93e.jpg"
                        ];
     }
     return _netImages;
@@ -59,12 +60,26 @@
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index{
     //NSLog(@"%ld",index);
 }
+- (void)initTableView{
+    _tableView = [[BaseTableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_scrollBgView.frame), WIDTH, HEIGHT-CGRectGetMaxY(_scrollBgView.frame)-44) style:UITableViewStyleGrouped];
+    _tableView.delegate = self;
+    _tableView.dataSource =self;
+    _tableView.backgroundColor = [UIColor clearColor];
+    [_tableView setRefreshData:^{
+//        NSLog(@"下拉刷新数据");
+    }];
+    [_tableView setLoadMoreData:^{
+//        NSLog(@"上拉加载更多");
+    }];
+    [self.view addSubview:_tableView];
+    [_tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
+}
 #pragma tableView代理方法
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 3;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 120;
+    return HEIGHT*0.18;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 0.001;
@@ -92,7 +107,8 @@
     label.font = [UIFont systemFontOfSize:12.0f];
     label.backgroundColor = [UIColor clearColor];
     [footerView addSubview:label];
-    UIButton *subscriptionButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH-76, 11, 65, 22)];
+    UIButton *subscriptionButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    subscriptionButton.frame = CGRectMake(WIDTH-76, 11, 65, 22);
     [subscriptionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [subscriptionButton setTitle:@"订阅" forState:UIControlStateNormal];
     subscriptionButton.layer.cornerRadius = 3.0f;
