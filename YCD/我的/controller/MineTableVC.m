@@ -14,7 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *studyDouNum;
 @property (weak, nonatomic) IBOutlet UILabel *currentStudyDouNum;
 @property (weak, nonatomic) IBOutlet UILabel *studyCodeLabel;
-//@property (weak, nonatomic) IBOutlet UIButton *payButton;
 
 @end
 

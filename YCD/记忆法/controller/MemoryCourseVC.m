@@ -9,6 +9,9 @@
 #import <AVKit/AVKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import <ZFPlayer.h>
+#import <UMSocialCore/UMSocialCore.h>
+#import <UShareUI/UMSocialUIManager.h>
+#import <UMSocialCore/UMSocialResponse.h>
 @interface MemoryCourseVC ()<UICollectionViewDelegate,UICollectionViewDataSource,ZFPlayerDelegate>
 
 @property (strong, nonatomic) UIView *playerFatherView;
@@ -122,9 +125,106 @@
         [self loadOtherCourse];
     }
 }
+
+#pragma mark 设置分享内容
+#pragma mark 分享文本
+- (void)shareTextToPlatformType:(UMSocialPlatformType)platformType{
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    //设置文本
+    messageObject.text = @"社会化组件UShare将各大社交平台接入您的应用，快速武装App。";
+    //调用分享接口
+    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+        if (error) {
+            UMSocialLogInfo(@"************Share fail with error %@*********",error);
+        }else{
+            if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                UMSocialShareResponse *resp = data;
+                //分享结果消息
+                UMSocialLogInfo(@"response message is %@",resp.message);
+                //第三方原始返回的数据
+                UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+                
+            }else{
+                UMSocialLogInfo(@"response data is %@",data);
+            }
+        }
+        [self alertWithError:error];
+    }];
+}
+#pragma mark 分享(本地/网络)图片
+- (void)shareImageToPlatformType:(UMSocialPlatformType)platformType{
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    //创建图片内容对象
+    UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
+    //如果有缩略图，则设置缩略图(本地/网络)
+    shareObject.thumbImage = [UIImage imageNamed:@"icon"];
+    [shareObject setShareImage:[UIImage imageNamed:@"logo"]];
+    //分享消息对象设置分享内容对象
+    messageObject.shareObject = shareObject;
+    //调用分享接口
+    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+        if (error) {
+            UMSocialLogInfo(@"************Share fail with error %@*********",error);
+        }else{
+            if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                UMSocialShareResponse *resp = data;
+                //分享结果消息
+                UMSocialLogInfo(@"response message is %@",resp.message);
+                //第三方原始返回的数据
+                UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+            }else{
+                UMSocialLogInfo(@"response data is %@",data);
+            }
+        }
+        [self alertWithError:error];
+    }];
+}
+#pragma mark 分享图文（新浪支持，微信/QQ仅支持图片或文本分享)
+- (void)shareImageAndTextToPlatformType:(UMSocialPlatformType)platformType{
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    //设置文本
+    messageObject.text = @"社会化组件UShare将各大社交平台接入您的应用，快速武装App。";
+    //创建图片内容对象
+    UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
+    //如果有缩略图，则设置缩略图
+    shareObject.thumbImage = [UIImage imageNamed:@"icon"];
+    shareObject.shareImage = [UIImage imageNamed:@"logo"];
+    //分享消息对象设置分享内容对象
+    messageObject.shareObject = shareObject;
+    //调用分享接口
+    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+        if (error) {
+            UMSocialLogInfo(@"************Share fail with error %@*********",error);
+        }else{
+            if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                UMSocialShareResponse *resp = data;
+                //分享结果消息
+                UMSocialLogInfo(@"response message is %@",resp.message);
+                //第三方原始返回的数据
+                UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+            }else{
+                UMSocialLogInfo(@"response data is %@",data);
+            }
+        }
+        [self alertWithError:error];
+    }];
+}
 #pragma mark 分享
 - (void)shareButtonClick{
-    
+    __weak typeof(self) weakSelf = self;
+    //显示分享面板
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        if (platformType == UMSocialPlatformType_Sina) {
+            [weakSelf shareImageAndTextToPlatformType:UMSocialPlatformType_Sina];
+        }else if (platformType == UMSocialPlatformType_QQ){
+            [weakSelf shareTextToPlatformType:UMSocialPlatformType_QQ];
+        }else if (platformType == UMSocialPlatformType_Qzone){
+            [weakSelf shareImageToPlatformType:UMSocialPlatformType_Qzone];
+        }
+    }];
 }
 
 #pragma mark 加载本节说明
@@ -191,5 +291,26 @@
     }
     UIButton *currentBtn = [_buttonArray objectAtIndex:sender.tag];
     currentBtn.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+}
+#pragma mark 分享错误信息提示
+- (void)alertWithError:(NSError *)error{
+    NSString *result = nil;
+    if (!error) {
+        result = [NSString stringWithFormat:@"分享成功"];
+    }else{
+//        NSMutableString *str = [NSMutableString string];
+//        if (error.userInfo) {
+//            for (NSString *key in error.userInfo) {
+//                [str appendFormat:@"%@ = %@\n", key, error.userInfo[key]];
+//            }
+//        }
+        if (error) {
+//            result = [NSString stringWithFormat:@"Share fail with error code: %d\n%@",(int)error.code, str];
+            result = [NSString stringWithFormat:@"分享被取消"];
+        }else{
+            result = [NSString stringWithFormat:@"分享失败"];
+        }
+    }
+    [YHHud showWithMessage:result];
 }
 @end
