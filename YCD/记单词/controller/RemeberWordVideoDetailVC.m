@@ -36,7 +36,7 @@
         _playerModel                  = [[ZFPlayerModel alloc] init];
         //        _playerModel.title            = self.videoName;
         _playerModel.videoURL         = self.videoURL;
-        _playerModel.placeholderImage = [UIImage imageNamed:@"banner01"];
+//        _playerModel.placeholderImage = [UIImage imageNamed:@"banner01"];
         _playerModel.fatherView       = self.playerFatherView;
     }
     return _playerModel;

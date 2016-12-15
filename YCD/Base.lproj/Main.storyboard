@@ -1451,7 +1451,6 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="checkButton" destination="3CI-Ll-oQV" id="bVd-m0-EXn"/>
                         <outlet property="sureButton" destination="T2e-Jh-imR" id="VDN-9l-lYf"/>
@@ -1845,6 +1844,7 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
+                                        </tableViewCellContentView>
                                             <constraints>
                                                 <constraint firstItem="wDq-7N-vTR" firstAttribute="leading" secondItem="1XW-3j-QOE" secondAttribute="trailing" constant="8" id="1V2-KZ-Psc"/>
                                                 <constraint firstItem="5Td-a9-XBf" firstAttribute="leading" secondItem="fBw-cX-cQb" secondAttribute="leadingMargin" constant="13" id="7bo-XJ-e7O"/>
@@ -1859,7 +1859,6 @@
                                                 <constraint firstItem="wDq-7N-vTR" firstAttribute="centerY" secondItem="fBw-cX-cQb" secondAttribute="centerY" id="o6T-3S-RNj"/>
                                                 <constraint firstItem="drV-oJ-6vd" firstAttribute="leading" secondItem="eeF-Nk-5jy" secondAttribute="trailing" constant="8" id="sQR-zL-GgZ"/>
                                             </constraints>
-                                        </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>

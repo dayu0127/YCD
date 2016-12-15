@@ -19,7 +19,6 @@
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonCollection;
 @property (strong,nonatomic) UITextField *phoneText;
 @property (strong,nonatomic) UITextField *pwdText;
-//@property (strong,nonatomic) JCAlertView *alertView;
 @end
 
 @implementation LoginVC

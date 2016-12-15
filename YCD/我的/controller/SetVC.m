@@ -100,6 +100,5 @@
         [app.window makeKeyWindow];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
     }
-    
 }
 @end
