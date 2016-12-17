@@ -7,7 +7,9 @@
 //
 
 #import "inviteFriendsVC.h"
-
+#import <UMSocialCore/UMSocialCore.h>
+#import <UShareUI/UMSocialUIManager.h>
+#import <UMSocialCore/UMSocialResponse.h>
 @interface inviteFriendsVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *inviteCodeButton;
@@ -54,7 +56,7 @@
 }
 - (NSArray *)tableViewArray{
     if (!_tableViewArray) {
-        _tableViewArray = @[@"用户 139****1231 加入易词典，您获得了5个学习豆",@"用户 139****1231 加入易词典，您获得了5个学习豆",@"用户 139****1231 加入易词典，您获得了5个学习豆"];
+        _tableViewArray = @[@"用户 139****1231 加入记忆大师，您获得了5个学习豆",@"用户 139****1231 加入记忆大师，您获得了5个学习豆",@"用户 139****1231 加入记忆大师，您获得了5个学习豆"];
     }
     return _tableViewArray;
 }
@@ -87,7 +89,58 @@
 #pragma mark 点击复制互学码
 - (IBAction)inviteCodeClick:(UIButton *)sender {
 }
+#pragma mark 设置分享内容
+#pragma mark 分享文本
+- (void)shareTextToPlatformType:(UMSocialPlatformType)platformType{
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    //设置文本
+    messageObject.text = @"记忆大师分享内容";
+    //调用分享接口
+    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+        if (error) {
+            UMSocialLogInfo(@"************Share fail with error %@*********",error);
+        }else{
+            if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                UMSocialShareResponse *resp = data;
+                //分享结果消息
+                UMSocialLogInfo(@"response message is %@",resp.message);
+                //第三方原始返回的数据
+                UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+                
+            }else{
+                UMSocialLogInfo(@"response data is %@",data);
+            }
+        }
+        [self alertWithError:error];
+    }];
+}
+#pragma mark 分享错误信息提示
+- (void)alertWithError:(NSError *)error{
+    NSString *result = nil;
+    if (!error) {
+        result = [NSString stringWithFormat:@"分享成功"];
+    }else{
+        if (error) {
+            result = [NSString stringWithFormat:@"分享被取消"];
+        }else{
+            result = [NSString stringWithFormat:@"分享失败"];
+        }
+    }
+    [YHHud showWithMessage:result];
+}
 #pragma mark 点击发送给好友
 - (IBAction)sendToFriendClick:(UIButton *)sender {
+    __weak typeof(self) weakSelf = self;
+    //显示分享面板
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        if (platformType == UMSocialPlatformType_Sina) {
+            [weakSelf shareTextToPlatformType:UMSocialPlatformType_Sina];
+        }else if (platformType == UMSocialPlatformType_QQ){
+            [weakSelf shareTextToPlatformType:UMSocialPlatformType_QQ];
+        }else if (platformType == UMSocialPlatformType_Qzone){
+            [weakSelf shareTextToPlatformType:UMSocialPlatformType_Qzone];
+        }
+    }];
 }
 @end

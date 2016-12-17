@@ -6,8 +6,6 @@
 //  Copyright © 2016年 dayu. All rights reserved.
 //
 #import "MemoryCourseVC.h"
-#import <AVKit/AVKit.h>
-#import <AVFoundation/AVFoundation.h>
 #import <ZFPlayer.h>
 #import <UMSocialCore/UMSocialCore.h>
 #import <UShareUI/UMSocialUIManager.h>
@@ -132,7 +130,7 @@
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     //设置文本
-    messageObject.text = @"社会化组件UShare将各大社交平台接入您的应用，快速武装App。";
+    messageObject.text = @"记忆大师分享内容";
     //调用分享接口
     [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
         if (error) {
@@ -186,7 +184,7 @@
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     //设置文本
-    messageObject.text = @"社会化组件UShare将各大社交平台接入您的应用，快速武装App。";
+    messageObject.text = @"记忆大师分享内容";
     //创建图片内容对象
     UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
     //如果有缩略图，则设置缩略图

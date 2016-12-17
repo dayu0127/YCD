@@ -7,37 +7,50 @@
 //
 
 #import "UserGuideViewController.h"
-
-@interface UserGuideViewController ()
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewWidth;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *secondViewWidth;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *thirdViewWidth;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *fourthViewWidth;
-@property (weak, nonatomic) IBOutlet UIView *fourthView;
+#import "LoginNC.h"
+#import "AppDelegate.h"
+@interface UserGuideViewController ()<UIScrollViewDelegate>
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (strong,nonatomic) UIButton *entryButton;
 @end
 
 @implementation UserGuideViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIButton *enterButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH*0.5-60, HEIGHT - 100, 120, 30)];
-    [enterButton setTitle:@"进入体验" forState:UIControlStateNormal];
-    [enterButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    enterButton.backgroundColor = [UIColor whiteColor];
-    enterButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
-    enterButton.layer.masksToBounds = YES;
-    enterButton.layer.cornerRadius = 5.0f;
-    [enterButton addTarget:self action:@selector(enterMainController) forControlEvents:UIControlEventTouchUpInside];
-    [self.fourthView addSubview:enterButton];
+    _scrollView.contentSize = CGSizeMake(WIDTH*3, HEIGHT);
+    for (int i = 0; i<3; i++) {
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH*i, 0, WIDTH, HEIGHT)];
+        imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",i]];
+        if (i==2) {
+            imageView.userInteractionEnabled = YES;
+            [imageView addSubview:self.entryButton];
+        }
+        [_scrollView addSubview:imageView];
+    }
 }
-- (void)updateViewConstraints{
-    [super updateViewConstraints];
-    self.viewWidth.constant = WIDTH*4;
-    self.secondViewWidth.constant = WIDTH;
-    self.thirdViewWidth.constant = WIDTH*2;
-    self.fourthViewWidth.constant = WIDTH*3;
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    _pageControl.currentPage = _scrollView.contentOffset.x/WIDTH;
 }
-- (void)enterMainController{
-    [self performSegueWithIdentifier:@"enterLogin" sender:self];
+- (UIButton *)entryButton{
+    if (!_entryButton) {
+        _entryButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH*0.5-60, HEIGHT - 90, 120, 30)];
+        [_entryButton setTitle:@"进入体验" forState:UIControlStateNormal];
+        [_entryButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        _entryButton.backgroundColor = [UIColor whiteColor];
+        _entryButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
+        _entryButton.layer.masksToBounds = YES;
+        _entryButton.layer.cornerRadius = 5.0f;
+        [_entryButton addTarget:self action:@selector(entryRootVC) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _entryButton;
+}
+- (void)entryRootVC{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    LoginNC *loginNC = [sb instantiateViewControllerWithIdentifier:@"login"];
+    [app.window setRootViewController:loginNC];
+    [app.window makeKeyWindow];
 }
 @end

@@ -27,7 +27,7 @@
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 104, WIDTH, HEIGHT-104) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.rowHeight = 70;
+    _tableView.rowHeight = 44;
     _tableView.bounces = NO;
     _tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
@@ -47,6 +47,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     PaymentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PaymentCell" forIndexPath:indexPath];
+    cell.imageView1.image = indexPath.section == 0 ? [UIImage imageNamed:@"alipaylogo_64x64"] : [UIImage imageNamed:@"wxlogo_64x64"];
     cell.title.text = indexPath.section == 0 ? @"支付宝支付" : @"微信支付";
     return cell;
 }

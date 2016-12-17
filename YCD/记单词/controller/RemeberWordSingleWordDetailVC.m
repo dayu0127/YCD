@@ -7,9 +7,10 @@
 //
 
 #import "RemeberWordSingleWordDetailVC.h"
-#import <AVKit/AVKit.h>
-#import <AVFoundation/AVFoundation.h>
 #import <ZFPlayer.h>
+#import <UMSocialCore/UMSocialCore.h>
+#import <UShareUI/UMSocialUIManager.h>
+#import <UMSocialCore/UMSocialResponse.h>
 @interface RemeberWordSingleWordDetailVC ()<UICollectionViewDelegate,UICollectionViewDataSource,ZFPlayerDelegate>
 @property (strong, nonatomic) UIView *playerFatherView;
 @property (nonatomic,strong) ZFPlayerView *playerView;
@@ -112,9 +113,45 @@
         [self loadRelatedWords];
     }
 }
+#pragma mark 设置分享内容
+#pragma mark 分享文本
+- (void)shareTextToPlatformType:(UMSocialPlatformType)platformType{
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    //设置文本
+    messageObject.text = @"记忆大师分享内容";
+    //调用分享接口
+    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+        if (error) {
+            UMSocialLogInfo(@"************Share fail with error %@*********",error);
+        }else{
+            if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                UMSocialShareResponse *resp = data;
+                //分享结果消息
+                UMSocialLogInfo(@"response message is %@",resp.message);
+                //第三方原始返回的数据
+                UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+                
+            }else{
+                UMSocialLogInfo(@"response data is %@",data);
+            }
+        }
+        [self alertWithError:error];
+    }];
+}
 #pragma mark 分享
 - (void)shareButtonClick{
-    NSLog(@"分享");
+    __weak typeof(self) weakSelf = self;
+    //显示分享面板
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        if (platformType == UMSocialPlatformType_Sina) {
+            [weakSelf shareTextToPlatformType:UMSocialPlatformType_Sina];
+        }else if (platformType == UMSocialPlatformType_QQ){
+            [weakSelf shareTextToPlatformType:UMSocialPlatformType_QQ];
+        }else if (platformType == UMSocialPlatformType_Qzone){
+            [weakSelf shareTextToPlatformType:UMSocialPlatformType_Qzone];
+        }
+    }];
 }
 #pragma mark 加载释义
 - (void)loadParaphrase{
@@ -175,5 +212,18 @@
     UIButton *currentBtn = [_buttonArray objectAtIndex:sender.tag];
     currentBtn.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
 }
-
+#pragma mark 分享错误信息提示
+- (void)alertWithError:(NSError *)error{
+    NSString *result = nil;
+    if (!error) {
+        result = [NSString stringWithFormat:@"分享成功"];
+    }else{
+        if (error) {
+            result = [NSString stringWithFormat:@"分享被取消"];
+        }else{
+            result = [NSString stringWithFormat:@"分享失败"];
+        }
+    }
+    [YHHud showWithMessage:result];
+}
 @end
