@@ -51,6 +51,10 @@
         sender.text = [sender.text substringToIndex:15];
     }
 }
+- (IBAction)showPwd:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    _pwdText.secureTextEntry = !sender.selected;
+}
 - (IBAction)loginButtonClick:(UIButton *)sender {
 //    UITextField *textField = [_textFieldCollection objectAtIndex:0];
 //    UITextView *textField1 = [_textFieldCollection objectAtIndex:1];
@@ -76,6 +80,9 @@
         [YHHud showWithMessage:@"请输入6~15位字母+数字组合的密码"];
     }else{
         //--实现登录--
+        //设置用户昵称和手机号
+        [[NSUserDefaults standardUserDefaults] setObject:@"大雨" forKey:@"nickName"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"13333333333" forKey:@"phoneNum"];
         [YHHud showWithSuccess:@"登录成功"];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

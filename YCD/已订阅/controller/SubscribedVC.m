@@ -7,7 +7,7 @@
 //
 
 #import "SubscribedVC.h"
-#import "RemeberWordSingleWordDetailVC.h"
+#import "RememberWordSingleWordDetailVC.h"
 
 @interface SubscribedVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIButton *videoButton;
@@ -247,7 +247,7 @@
     return headView;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    RemeberWordSingleWordDetailVC *wordDetailVC = [[RemeberWordSingleWordDetailVC alloc] init];
+    RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
     wordDetailVC.videoURL = [NSURL URLWithString:self.courseUrlArray[indexPath.row]];
     wordDetailVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:wordDetailVC animated:YES];

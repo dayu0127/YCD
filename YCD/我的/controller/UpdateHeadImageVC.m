@@ -18,7 +18,7 @@
 - (IBAction)photoSelectClick:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UIButton *photographButton;
 - (IBAction)photographClick:(UIButton *)sender;
-
+@property (strong,nonatomic) UIImage *oldImage;
 @end
 
 @implementation UpdateHeadImageVC
@@ -33,10 +33,27 @@
     if([[NSFileManager defaultManager] fileExistsAtPath:imagePath]){
         NSData *picData = [NSData dataWithContentsOfFile:imagePath];
         _headImageView.image = [UIImage imageWithData:picData];
+        _oldImage = [UIImage imageWithData:picData];
     }
     
 }
 - (IBAction)finishButtonClick:(UIBarButtonItem *)sender {
+    if (![UIImagePNGRepresentation(_oldImage) isEqual:UIImagePNGRepresentation(_headImageView.image)]) {
+        //把头像图片保存在沙盒中
+        NSString *path_sandox = NSHomeDirectory();
+        //设置头像图片路径
+        NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/headImage.png"];
+        //把头像图片直接保存到指定的路径（同时应该把头像图片的路径imagePath存起来，下次就可以直接用来取）
+        [UIImagePNGRepresentation(_headImageView.image) writeToFile:imagePath atomically:YES];
+        //上传头像图片到服务器(。。。。。。)
+        //通知我的VC更新头像图片
+        NSDictionary *dic = [NSDictionary dictionaryWithObject:_headImageView.image forKey:@"headImage"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadImage" object:nil userInfo:dic];
+        [YHHud showWithSuccess:@"修改成功"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark 打开相册
@@ -79,16 +96,6 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     UIImage *headImage = info[UIImagePickerControllerEditedImage];
     _headImageView.image = headImage;
-    //把头像图片保存在沙盒中
-    NSString *path_sandox = NSHomeDirectory();
-    //设置头像图片路径
-    NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/headImage.png"];
-    //把头像图片直接保存到指定的路径（同时应该把头像图片的路径imagePath存起来，下次就可以直接用来取）
-    [UIImagePNGRepresentation(headImage) writeToFile:imagePath atomically:YES];
-    //上传头像图片到服务器(。。。。。。)
-    //通知我的VC更新头像图片
-    NSDictionary *dic = [NSDictionary dictionaryWithObject:headImage forKey:@"headImage"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadImage" object:self userInfo:dic];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{

@@ -14,6 +14,7 @@
 @property (strong, nonatomic) IBOutletCollection(UITableViewCell) NSArray *tableViewCellCollection;
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *rightLabelCollection;
+@property (weak, nonatomic) IBOutlet UILabel *phoneNumLabel;
 
 @end
 
@@ -38,7 +39,10 @@
         NSData *picData = [NSData dataWithContentsOfFile:imagePath];
         _headImageView.image = [UIImage imageWithData:picData];
     }
+    //从用户配置中取出手机号码
+    _phoneNumLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"phoneNum"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeadImage:) name:@"updateHeadImage" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePhoneNum:) name:@"updatePhoneNum" object:nil];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -49,6 +53,10 @@
 - (void)updateHeadImage:(NSNotification *)sender{
     UIImage *headImage = sender.userInfo[@"headImage"];
     _headImageView.image = headImage;
+}
+- (void)updatePhoneNum:(NSNotification *)sender{
+    NSString *str = sender.userInfo[@"phoneNum"];
+    _phoneNumLabel.text = str;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

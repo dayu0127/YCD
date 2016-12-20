@@ -30,11 +30,13 @@ PODS:
   - JCAlertView (1.1.5)
   - Masonry (1.0.2)
   - MJRefresh (3.1.12)
+  - MOBFoundation_IDFA (2.2.3)
   - SDCycleScrollView (1.65):
     - SDWebImage (~> 3.7)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
+  - SMSSDK (2.0.8)
   - UMengUShare/Core (6.1):
     - UMengUShare/Network
   - UMengUShare/Network (6.1)
@@ -54,8 +56,10 @@ DEPENDENCIES:
   - DKNightVersion
   - JCAlertView
   - MJRefresh
+  - MOBFoundation_IDFA
   - SDCycleScrollView
   - SDWebImage
+  - SMSSDK
   - UMengUShare/Social/QQ
   - UMengUShare/Social/Sina
   - UMengUShare/Social/WeChat
@@ -68,11 +72,13 @@ SPEC CHECKSUMS:
   JCAlertView: c65a7b298b8b497b3db783d82f719b88f4914869
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  MOBFoundation_IDFA: bdc119aa1dd48c741d913695dcecfbef350555df
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  SMSSDK: 1fc8500bec6bc36b524e4de7fac4acdb784e0217
   UMengUShare: 6c3902a68a06d01031bed6f426e97b89d4fc504f
   ZFPlayer: c36657da33c28c75dfb100e98e7976b5b3e1fc10
 
-PODFILE CHECKSUM: 223b18d0cb2f10b07aae020af044afbd6a384b0d
+PODFILE CHECKSUM: 84637d6a101a2c68e72082340b5cba5deb305756
 
 COCOAPODS: 1.1.1

@@ -95,7 +95,7 @@
     [shareButton addTarget:self action:@selector(shareButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [titleView addSubview:shareButton];
     UIButton *shareImageButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH-30, 11.5, 16, 16)];
-    [shareImageButton setImage:[UIImage imageNamed:@"wodezixuan"] forState:UIControlStateNormal];
+    [shareImageButton dk_setImage:DKImagePickerWithNames(@"shareD",@"shareN",@"") forState:UIControlStateNormal];
     [shareImageButton addTarget:self action:@selector(shareButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [titleView addSubview:shareImageButton];
     //分割线

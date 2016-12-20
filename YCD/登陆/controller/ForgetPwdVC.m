@@ -20,6 +20,8 @@
 @property (strong,nonatomic) UITextField *phoneText;
 @property (strong,nonatomic) UITextField *idCodeText;
 @property (strong,nonatomic) UITextField *pwdText;
+@property (strong,nonatomic)NSTimer *countDownTimer;
+@property (assign,nonatomic)int countDown;
 @end
 
 @implementation ForgetPwdVC
@@ -70,8 +72,26 @@
         [YHHud showWithMessage:@"无效手机号"];
     }else{
 //        ALERT_SHOW();
-        [YHHud showWithMessage:@"获取验证码"];
+//        [YHHud showWithMessage:@"获取验证码"];
+        _countDown = COUNTDOWN;
+        sender.enabled = NO;
+        sender.backgroundColor = [UIColor lightGrayColor];
+        [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
+        _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+            _countDown--;
+            [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
+            if (_countDown == 0) {
+                [timer invalidate];
+                sender.enabled = YES;
+                [sender setTitle:@"获取验证码" forState:UIControlStateNormal];
+                sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+            }
+        }];
     }
+}
+- (IBAction)showPwd:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    _pwdText.secureTextEntry = !sender.selected;
 }
 - (IBAction)submitButton:(UIButton *)sender {
     if (REGEX(PHONE_RE, _phoneText.text)==NO) {
@@ -91,5 +111,8 @@
         });
     }
 }
-
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [_countDownTimer invalidate];
+}
 @end

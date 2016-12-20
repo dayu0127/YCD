@@ -11,6 +11,7 @@
 #import "LoginNC.h"
 #import "RootTabBarController.h"
 #import <UMSocialCore/UMSocialCore.h>
+#import <SMS_SDK/SMSSDK.h>
 @interface AppDelegate ()
 
 @end
@@ -76,6 +77,9 @@
     
     //设置新浪的appKey和appSecret
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"1292322940"  appSecret:@"c1ad238284f47072b0caaf27d4d3afb3" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    
+    //SMSSDK集成短信验证码
+    [SMSSDK registerApp:@"1a0b01a59d9bc" withSecret:@"35cdf0e4465e6cc8b0ddf8e0b3ca2480"];
 }
 #pragma mark 设置系统回调(支持所有iOS系统)
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{

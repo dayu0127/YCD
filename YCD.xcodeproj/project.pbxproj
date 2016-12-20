@@ -39,15 +39,14 @@
 		699989361DEC788E00E1349C /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 699989351DEC788E00E1349C /* AboutUsVC.m */; };
 		699989391DEC7F2100E1349C /* SetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 699989381DEC7F2100E1349C /* SetVC.m */; };
 		69A2529D1DE8639D00074B5E /* SubscribedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A2529C1DE8639D00074B5E /* SubscribedVC.m */; };
-		69A252A01DE9202A00074B5E /* RememberWordSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A2529F1DE9202A00074B5E /* RememberWordSectionView.m */; };
 		69A7E19F1DED64FA008C99D7 /* MemoryCourseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E19E1DED64FA008C99D7 /* MemoryCourseVC.m */; };
-		69A7E1A21DEE83DA008C99D7 /* RemeberWordItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1A11DEE83DA008C99D7 /* RemeberWordItemVC.m */; };
-		69A7E1A61DEE9449008C99D7 /* RemeberWordVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1A41DEE9449008C99D7 /* RemeberWordVideoCell.m */; };
-		69A7E1A71DEE9449008C99D7 /* RemeberWordVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69A7E1A51DEE9449008C99D7 /* RemeberWordVideoCell.xib */; };
-		69A7E1AB1DEE99CD008C99D7 /* RemeberWordSingleWordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1A91DEE99CD008C99D7 /* RemeberWordSingleWordCell.m */; };
-		69A7E1AC1DEE99CD008C99D7 /* RemeberWordSingleWordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69A7E1AA1DEE99CD008C99D7 /* RemeberWordSingleWordCell.xib */; };
-		69A7E1AF1DEEC681008C99D7 /* RemeberWordVideoDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1AE1DEEC681008C99D7 /* RemeberWordVideoDetailVC.m */; };
-		69A7E1B21DEEC8D6008C99D7 /* RemeberWordSingleWordDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1B11DEEC8D6008C99D7 /* RemeberWordSingleWordDetailVC.m */; };
+		69A7E1A21DEE83DA008C99D7 /* RememberWordItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1A11DEE83DA008C99D7 /* RememberWordItemVC.m */; };
+		69A7E1A61DEE9449008C99D7 /* RememberWordVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1A41DEE9449008C99D7 /* RememberWordVideoCell.m */; };
+		69A7E1A71DEE9449008C99D7 /* RememberWordVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69A7E1A51DEE9449008C99D7 /* RememberWordVideoCell.xib */; };
+		69A7E1AB1DEE99CD008C99D7 /* RememberWordSingleWordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1A91DEE99CD008C99D7 /* RememberWordSingleWordCell.m */; };
+		69A7E1AC1DEE99CD008C99D7 /* RememberWordSingleWordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69A7E1AA1DEE99CD008C99D7 /* RememberWordSingleWordCell.xib */; };
+		69A7E1AF1DEEC681008C99D7 /* RememberWordVideoDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1AE1DEEC681008C99D7 /* RememberWordVideoDetailVC.m */; };
+		69A7E1B21DEEC8D6008C99D7 /* RememberWordSingleWordDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1B11DEEC8D6008C99D7 /* RememberWordSingleWordDetailVC.m */; };
 		69A7E1B51DEFBC0A008C99D7 /* PaymentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1B41DEFBC0A008C99D7 /* PaymentVC.m */; };
 		69A7E1BE1DEFCFD2008C99D7 /* PaymentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A7E1BC1DEFCFD2008C99D7 /* PaymentCell.m */; };
 		69A7E1BF1DEFCFD2008C99D7 /* PaymentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69A7E1BD1DEFCFD2008C99D7 /* PaymentCell.xib */; };
@@ -97,8 +96,8 @@
 		607B64131E011914002E1264 /* YHAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHAlertView.m; sourceTree = "<group>"; };
 		60B4106B1DF54B45002D4B4D /* NotificationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationVC.h; sourceTree = "<group>"; };
 		60B4106C1DF54B45002D4B4D /* NotificationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationVC.m; sourceTree = "<group>"; };
-		60B410711DF56486002D4B4D /* LoginNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginNC.h; sourceTree = "<group>"; };
-		60B410721DF56486002D4B4D /* LoginNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginNC.m; sourceTree = "<group>"; };
+		60B410711DF56486002D4B4D /* LoginNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginNC.h; path = "登陆/controller/LoginNC.h"; sourceTree = "<group>"; };
+		60B410721DF56486002D4B4D /* LoginNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginNC.m; path = "登陆/controller/LoginNC.m"; sourceTree = "<group>"; };
 		60C2FB151DFBBCAD00876289 /* BaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableView.h; sourceTree = "<group>"; };
 		60C2FB161DFBBCAD00876289 /* BaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableView.m; sourceTree = "<group>"; };
 		60C2FB181DFBD0E100876289 /* MJChiBaoZiHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJChiBaoZiHeader.h; sourceTree = "<group>"; };
@@ -133,22 +132,20 @@
 		699989381DEC7F2100E1349C /* SetVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetVC.m; sourceTree = "<group>"; };
 		69A2529B1DE8639D00074B5E /* SubscribedVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscribedVC.h; sourceTree = "<group>"; };
 		69A2529C1DE8639D00074B5E /* SubscribedVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscribedVC.m; sourceTree = "<group>"; };
-		69A2529E1DE9202A00074B5E /* RememberWordSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordSectionView.h; sourceTree = "<group>"; };
-		69A2529F1DE9202A00074B5E /* RememberWordSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordSectionView.m; sourceTree = "<group>"; };
 		69A7E19D1DED64FA008C99D7 /* MemoryCourseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryCourseVC.h; sourceTree = "<group>"; };
 		69A7E19E1DED64FA008C99D7 /* MemoryCourseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryCourseVC.m; sourceTree = "<group>"; };
-		69A7E1A01DEE83DA008C99D7 /* RemeberWordItemVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemeberWordItemVC.h; sourceTree = "<group>"; };
-		69A7E1A11DEE83DA008C99D7 /* RemeberWordItemVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemeberWordItemVC.m; sourceTree = "<group>"; };
-		69A7E1A31DEE9449008C99D7 /* RemeberWordVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemeberWordVideoCell.h; sourceTree = "<group>"; };
-		69A7E1A41DEE9449008C99D7 /* RemeberWordVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemeberWordVideoCell.m; sourceTree = "<group>"; };
-		69A7E1A51DEE9449008C99D7 /* RemeberWordVideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RemeberWordVideoCell.xib; sourceTree = "<group>"; };
-		69A7E1A81DEE99CD008C99D7 /* RemeberWordSingleWordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemeberWordSingleWordCell.h; sourceTree = "<group>"; };
-		69A7E1A91DEE99CD008C99D7 /* RemeberWordSingleWordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemeberWordSingleWordCell.m; sourceTree = "<group>"; };
-		69A7E1AA1DEE99CD008C99D7 /* RemeberWordSingleWordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RemeberWordSingleWordCell.xib; sourceTree = "<group>"; };
-		69A7E1AD1DEEC681008C99D7 /* RemeberWordVideoDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemeberWordVideoDetailVC.h; sourceTree = "<group>"; };
-		69A7E1AE1DEEC681008C99D7 /* RemeberWordVideoDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemeberWordVideoDetailVC.m; sourceTree = "<group>"; };
-		69A7E1B01DEEC8D6008C99D7 /* RemeberWordSingleWordDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemeberWordSingleWordDetailVC.h; sourceTree = "<group>"; };
-		69A7E1B11DEEC8D6008C99D7 /* RemeberWordSingleWordDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemeberWordSingleWordDetailVC.m; sourceTree = "<group>"; };
+		69A7E1A01DEE83DA008C99D7 /* RememberWordItemVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordItemVC.h; sourceTree = "<group>"; };
+		69A7E1A11DEE83DA008C99D7 /* RememberWordItemVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordItemVC.m; sourceTree = "<group>"; };
+		69A7E1A31DEE9449008C99D7 /* RememberWordVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordVideoCell.h; sourceTree = "<group>"; };
+		69A7E1A41DEE9449008C99D7 /* RememberWordVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordVideoCell.m; sourceTree = "<group>"; };
+		69A7E1A51DEE9449008C99D7 /* RememberWordVideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RememberWordVideoCell.xib; sourceTree = "<group>"; };
+		69A7E1A81DEE99CD008C99D7 /* RememberWordSingleWordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordSingleWordCell.h; sourceTree = "<group>"; };
+		69A7E1A91DEE99CD008C99D7 /* RememberWordSingleWordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordSingleWordCell.m; sourceTree = "<group>"; };
+		69A7E1AA1DEE99CD008C99D7 /* RememberWordSingleWordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RememberWordSingleWordCell.xib; sourceTree = "<group>"; };
+		69A7E1AD1DEEC681008C99D7 /* RememberWordVideoDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordVideoDetailVC.h; sourceTree = "<group>"; };
+		69A7E1AE1DEEC681008C99D7 /* RememberWordVideoDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordVideoDetailVC.m; sourceTree = "<group>"; };
+		69A7E1B01DEEC8D6008C99D7 /* RememberWordSingleWordDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordSingleWordDetailVC.h; sourceTree = "<group>"; };
+		69A7E1B11DEEC8D6008C99D7 /* RememberWordSingleWordDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordSingleWordDetailVC.m; sourceTree = "<group>"; };
 		69A7E1B31DEFBC0A008C99D7 /* PaymentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentVC.h; sourceTree = "<group>"; };
 		69A7E1B41DEFBC0A008C99D7 /* PaymentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentVC.m; sourceTree = "<group>"; };
 		69A7E1BB1DEFCFD2008C99D7 /* PaymentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentCell.h; sourceTree = "<group>"; };
@@ -202,6 +199,8 @@
 				69B129E81DE2C6490093D841 /* AppDelegate.m */,
 				690E616D1DE3DF9B00C8E52F /* UserGuideViewController.h */,
 				690E616E1DE3DF9B00C8E52F /* UserGuideViewController.m */,
+				60B410711DF56486002D4B4D /* LoginNC.h */,
+				60B410721DF56486002D4B4D /* LoginNC.m */,
 				602222731DF16E030010D969 /* RootTabBarController.h */,
 				602222741DF16E030010D969 /* RootTabBarController.m */,
 			);
@@ -396,8 +395,6 @@
 		6925F35A1DE5739E00FB7B1A /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				60B410711DF56486002D4B4D /* LoginNC.h */,
-				60B410721DF56486002D4B4D /* LoginNC.m */,
 				6925F35D1DE5739E00FB7B1A /* LoginVC.h */,
 				6925F35E1DE5739E00FB7B1A /* LoginVC.m */,
 				6925F35F1DE5739E00FB7B1A /* RegisterVC.h */,
@@ -487,12 +484,12 @@
 				69B8C5FC1DE6C54D003A4701 /* RememberWordVC.m */,
 				69B8C5FE1DE6DC01003A4701 /* WordSearchVC.h */,
 				69B8C5FF1DE6DC01003A4701 /* WordSearchVC.m */,
-				69A7E1A01DEE83DA008C99D7 /* RemeberWordItemVC.h */,
-				69A7E1A11DEE83DA008C99D7 /* RemeberWordItemVC.m */,
-				69A7E1AD1DEEC681008C99D7 /* RemeberWordVideoDetailVC.h */,
-				69A7E1AE1DEEC681008C99D7 /* RemeberWordVideoDetailVC.m */,
-				69A7E1B01DEEC8D6008C99D7 /* RemeberWordSingleWordDetailVC.h */,
-				69A7E1B11DEEC8D6008C99D7 /* RemeberWordSingleWordDetailVC.m */,
+				69A7E1A01DEE83DA008C99D7 /* RememberWordItemVC.h */,
+				69A7E1A11DEE83DA008C99D7 /* RememberWordItemVC.m */,
+				69A7E1AD1DEEC681008C99D7 /* RememberWordVideoDetailVC.h */,
+				69A7E1AE1DEEC681008C99D7 /* RememberWordVideoDetailVC.m */,
+				69A7E1B01DEEC8D6008C99D7 /* RememberWordSingleWordDetailVC.h */,
+				69A7E1B11DEEC8D6008C99D7 /* RememberWordSingleWordDetailVC.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -500,17 +497,15 @@
 		69B8C5FA1DE6C51F003A4701 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				69A2529E1DE9202A00074B5E /* RememberWordSectionView.h */,
-				69A2529F1DE9202A00074B5E /* RememberWordSectionView.m */,
 				69E150751DEBD41200F0F1E9 /* RememberWordItemView.h */,
 				69E150761DEBD41200F0F1E9 /* RememberWordItemView.m */,
 				69E150731DEBD3E400F0F1E9 /* RememberWordItemView.xib */,
-				69A7E1A31DEE9449008C99D7 /* RemeberWordVideoCell.h */,
-				69A7E1A41DEE9449008C99D7 /* RemeberWordVideoCell.m */,
-				69A7E1A51DEE9449008C99D7 /* RemeberWordVideoCell.xib */,
-				69A7E1A81DEE99CD008C99D7 /* RemeberWordSingleWordCell.h */,
-				69A7E1A91DEE99CD008C99D7 /* RemeberWordSingleWordCell.m */,
-				69A7E1AA1DEE99CD008C99D7 /* RemeberWordSingleWordCell.xib */,
+				69A7E1A31DEE9449008C99D7 /* RememberWordVideoCell.h */,
+				69A7E1A41DEE9449008C99D7 /* RememberWordVideoCell.m */,
+				69A7E1A51DEE9449008C99D7 /* RememberWordVideoCell.xib */,
+				69A7E1A81DEE99CD008C99D7 /* RememberWordSingleWordCell.h */,
+				69A7E1A91DEE99CD008C99D7 /* RememberWordSingleWordCell.m */,
+				69A7E1AA1DEE99CD008C99D7 /* RememberWordSingleWordCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -626,13 +621,13 @@
 			files = (
 				69B129F41DE2C6490093D841 /* LaunchScreen.storyboard in Resources */,
 				69B129F11DE2C6490093D841 /* Assets.xcassets in Resources */,
-				69A7E1A71DEE9449008C99D7 /* RemeberWordVideoCell.xib in Resources */,
+				69A7E1A71DEE9449008C99D7 /* RememberWordVideoCell.xib in Resources */,
 				69B129EF1DE2C6490093D841 /* Main.storyboard in Resources */,
 				69E150741DEBD3E400F0F1E9 /* RememberWordItemView.xib in Resources */,
 				6998341B1DE6933000898021 /* MnemonicsCell.xib in Resources */,
 				69A7E1BF1DEFCFD2008C99D7 /* PaymentCell.xib in Resources */,
 				69A7E1C41DEFF063008C99D7 /* PayDetailCell.xib in Resources */,
-				69A7E1AC1DEE99CD008C99D7 /* RemeberWordSingleWordCell.xib in Resources */,
+				69A7E1AC1DEE99CD008C99D7 /* RememberWordSingleWordCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -711,26 +706,25 @@
 				60C2FB171DFBBCAD00876289 /* BaseTableView.m in Sources */,
 				69B8C5FD1DE6C54D003A4701 /* RememberWordVC.m in Sources */,
 				699989331DEC62E100E1349C /* inviteFriendsVC.m in Sources */,
-				69A7E1A21DEE83DA008C99D7 /* RemeberWordItemVC.m in Sources */,
+				69A7E1A21DEE83DA008C99D7 /* RememberWordItemVC.m in Sources */,
 				69A7E19F1DED64FA008C99D7 /* MemoryCourseVC.m in Sources */,
-				69A7E1A61DEE9449008C99D7 /* RemeberWordVideoCell.m in Sources */,
+				69A7E1A61DEE9449008C99D7 /* RememberWordVideoCell.m in Sources */,
 				6022226E1DF153BC0010D969 /* HelpFeedbackVC.m in Sources */,
 				699989361DEC788E00E1349C /* AboutUsVC.m in Sources */,
 				60505BE41DF53F3A000DC456 /* IntroduceVC.m in Sources */,
 				69BD100A1DF3F4C5005D0263 /* Singleton.m in Sources */,
 				60505BDB1DF53A03000DC456 /* UpdateNickNameVC.m in Sources */,
-				69A7E1AF1DEEC681008C99D7 /* RemeberWordVideoDetailVC.m in Sources */,
+				69A7E1AF1DEEC681008C99D7 /* RememberWordVideoDetailVC.m in Sources */,
 				60C2FB1D1DFBD18500876289 /* MJChiBaoZiFooter.m in Sources */,
 				6925F3631DE5739E00FB7B1A /* RegisterVC.m in Sources */,
 				60EB9EED1DF96C6F00E8D01B /* MemoryExercisesVC.m in Sources */,
 				6998341A1DE6933000898021 /* MnemonicsCell.m in Sources */,
 				6925F3621DE5739E00FB7B1A /* LoginVC.m in Sources */,
 				69A7E1C71DEFF2EB008C99D7 /* PayDetailVC.m in Sources */,
-				69A252A01DE9202A00074B5E /* RememberWordSectionView.m in Sources */,
 				69A7E1BE1DEFCFD2008C99D7 /* PaymentCell.m in Sources */,
-				69A7E1B21DEEC8D6008C99D7 /* RemeberWordSingleWordDetailVC.m in Sources */,
+				69A7E1B21DEEC8D6008C99D7 /* RememberWordSingleWordDetailVC.m in Sources */,
 				6925F3611DE5739E00FB7B1A /* ForgetPwdVC.m in Sources */,
-				69A7E1AB1DEE99CD008C99D7 /* RemeberWordSingleWordCell.m in Sources */,
+				69A7E1AB1DEE99CD008C99D7 /* RememberWordSingleWordCell.m in Sources */,
 				69B129E91DE2C6490093D841 /* AppDelegate.m in Sources */,
 				60B4106D1DF54B45002D4B4D /* NotificationVC.m in Sources */,
 				69A7E1B51DEFBC0A008C99D7 /* PaymentVC.m in Sources */,

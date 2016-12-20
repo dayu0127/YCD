@@ -65,4 +65,7 @@
 #define ALERT(str) [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, GET_W(str), 40) message:str]
 //YHAlertView Show
 #define ALERT_SHOW(str) [[[JCAlertView alloc] initWithCustomView:ALERT(str) dismissWhenTouchedBackground:YES] show]
+
+//验证码倒计时时间
+#define COUNTDOWN 10.0f
 #endif /* YCDPrefixHeader_pch */

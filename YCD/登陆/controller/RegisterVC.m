@@ -7,7 +7,7 @@
 //
 #define ID_CODE @"1234"
 #import "RegisterVC.h"
-
+#import <SMS_SDK/SMSSDK.h>
 @interface RegisterVC ()<UITextFieldDelegate>
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
@@ -18,6 +18,8 @@
 @property (strong,nonatomic)UITextField *idCodeText;
 @property (strong,nonatomic)UITextField *pwdText;
 @property (strong,nonatomic)UITextField *studyCodeText;
+@property (strong,nonatomic)NSTimer *countDownTimer;
+@property (assign,nonatomic)int countDown;
 @end
 
 @implementation RegisterVC
@@ -78,16 +80,66 @@
         [YHHud showWithMessage:@"无效手机号"];
     }else{
 //        ALERT_SHOW();
-        [YHHud showWithMessage:@"获取验证码"];
+//        [YHHud showWithMessage:@"获取验证码"];
+        [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:_phoneText.text zone:@"86" customIdentifier:nil result:^(NSError *error) {
+            if (!error) {
+//                NSLog(@"获取验证码成功");
+                _countDown = COUNTDOWN;
+                sender.enabled = NO;
+                sender.backgroundColor = [UIColor lightGrayColor];
+                [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
+                _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+                    _countDown--;
+                    [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
+                    if (_countDown == 0) {
+                        [timer invalidate];
+                        sender.enabled = YES;
+                        [sender setTitle:@"获取验证码" forState:UIControlStateNormal];
+                        sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+                    }
+                }];
+            } else {
+                NSLog(@"错误信息：%@",error);
+            }
+        }];
+       
+//        __block int timeout=10; //倒计时时间
+//        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//        dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
+//        dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
+//        dispatch_source_set_event_handler(_timer, ^{
+//            if(timeout<=0){ //倒计时结束，关闭
+//                dispatch_source_cancel(_timer);
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    //设置界面的按钮显示 根据自己需求设置
+//                    [sender setTitle:@"获取验证码" forState:UIControlStateNormal];
+//                    sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+//                    sender.userInteractionEnabled = YES;
+//                });
+//            }else{
+//                int seconds = timeout % 59;
+//                NSString *strTime = [NSString stringWithFormat:@"%.2d", seconds];
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    //设置界面的按钮显示 根据自己需求设置
+//                    NSLog(@"____%@",strTime);
+//                    [sender setTitle:[NSString stringWithFormat:@"%@",strTime] forState:UIControlStateNormal];
+//                    sender.backgroundColor = [UIColor grayColor];
+//                    sender.userInteractionEnabled = NO;
+//                });
+//                timeout--;
+//            }
+//        });
+//        dispatch_resume(_timer);
     }
+}
+- (IBAction)showPwd:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    _pwdText.secureTextEntry = !sender.selected;
 }
 - (IBAction)registerButtonClick:(UIButton *)sender {
     if (REGEX(PHONE_RE, _phoneText.text)==NO) {
 //        ALERT_SHOW();
         [YHHud showWithMessage:@"请输入有效11位手机号"];
-    }else if ([_idCodeText.text isEqualToString:ID_CODE]==NO){
-//        ALERT_SHOW();
-        [YHHud showWithMessage:@"验证码不正确"];
     }else if (REGEX(PWD_RE, _pwdText.text)==NO){
 //        ALERT_SHOW();
         [YHHud showWithMessage:@"请输入6~15位字母+数字组合的密码"];
@@ -96,10 +148,22 @@
         [YHHud showWithMessage:@"您输入的互学码为空，确定注册？"];
     }else {
 //        NSLog();
-        [YHHud showWithSuccess:@"注册成功"];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.navigationController popViewControllerAnimated:YES];
-        });
+        [SMSSDK commitVerificationCode:_idCodeText.text phoneNumber:_phoneText.text zone:@"86" result:^(SMSSDKUserInfo *userInfo, NSError *error) {
+            NSLog(@"%@",userInfo);
+            if (!error) {
+                [YHHud showWithSuccess:@"注册成功"];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.navigationController popViewControllerAnimated:YES];
+                });
+            }else{
+                NSLog(@"错误信息：%@",error);
+            }
+        }];
+        
     }
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [_countDownTimer invalidate];
 }
 @end

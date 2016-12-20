@@ -9,11 +9,15 @@
 #import "MineTableVC.h"
 
 @interface MineTableVC ()
+@property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *phoneNumLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *titileCollectionLabel;
 @property (strong, nonatomic) IBOutletCollection(UITableViewCell) NSArray *tableViewCellCollection;
 @property (weak, nonatomic) IBOutlet UILabel *studyDouNum;
 @property (weak, nonatomic) IBOutlet UILabel *currentStudyDouNum;
 @property (weak, nonatomic) IBOutlet UILabel *studyCodeLabel;
+@property (weak, nonatomic) IBOutlet UIButton *payButton;
 
 @end
 
@@ -31,12 +35,25 @@
         item.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     }
     _studyCodeLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor whiteColor],RED);
-//    _payButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    _payButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    //从沙盒取出头像图片
+    NSString *path_sandox = NSHomeDirectory();
+    NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/headImage.png"];
+    if([[NSFileManager defaultManager] fileExistsAtPath:imagePath]){
+        NSData *picData = [NSData dataWithContentsOfFile:imagePath];
+        _headImageView.image = [UIImage imageWithData:picData];
+    }
+    //从用户配置中获取昵称和手机号
+    _nickNameLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"nickName"];
+    _phoneNumLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"phoneNum"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeadImage:) name:@"updateHeadImage" object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNickName:) name:@"updateNickName" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePhoneNum:) name:@"updatePhoneNum" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,7 +80,18 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.001;
 }
-
+- (void)updateHeadImage:(NSNotification *)sender{
+    UIImage *headImage = sender.userInfo[@"headImage"];
+    _headImageView.image = headImage;
+}
+- (void)updateNickName:(NSNotification *)sender{
+    NSString *str = sender.userInfo[@"nickName"];
+    _nickNameLabel.text = str;
+}
+- (void)updatePhoneNum:(NSNotification *)sender{
+    NSString *str = sender.userInfo[@"phoneNum"];
+    _phoneNumLabel.text = str;
+}
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];

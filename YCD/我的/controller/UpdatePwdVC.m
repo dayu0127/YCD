@@ -42,6 +42,12 @@
         sender.text = [sender.text substringToIndex:15];
     }
 }
+- (IBAction)showPwd:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    UITextField *text = [_textFieldCollection objectAtIndex:sender.tag];
+    text.secureTextEntry = !sender.selected;
+}
+
 - (IBAction)sureButtonClick:(UIButton *)sender {
     if ([_oldPwdText.text isEqualToString:USER_PWD] == NO) {
 //        ALERT_SHOW();

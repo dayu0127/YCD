@@ -41,6 +41,8 @@
 //        NSLog();
         [YHHud showWithSuccess:@"修改成功"];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[NSUserDefaults standardUserDefaults]setObject:_nickNameTextField.text forKey:@"nickName"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateNickName" object:nil userInfo:@{@"nickName":_nickNameTextField.text}];
             [self.navigationController popViewControllerAnimated:YES];
         });
     }

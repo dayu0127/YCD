@@ -22,6 +22,8 @@
 @property (strong,nonatomic) UITextField *phoneText;
 @property (strong,nonatomic) UITextField *codeText;
 @property (strong,nonatomic) UITextField *pwdText;
+@property (strong,nonatomic)NSTimer *countDownTimer;
+@property (assign,nonatomic)int countDown;
 @end
 
 @implementation BindingNewPhoneVC
@@ -61,14 +63,37 @@
         sender.text = [sender.text substringToIndex:6];
     }
 }
+- (IBAction)pwdEditingChanged:(UITextField *)sender {
+    if (sender.text.length>15) {
+        sender.text = [sender.text substringToIndex:15];
+    }
+}
 - (IBAction)checkButtonClick:(UIButton *)sender {
     if (REGEX(PHONE_RE, _phoneText.text)==NO) {
 //        ALERT_SHOW();
         [YHHud showWithMessage:@"无效手机号"];
     }else{
 //        ALERT_SHOW();
-        [YHHud showWithMessage:@"获取验证码"];
+//        [YHHud showWithMessage:@"获取验证码"];
+        _countDown = COUNTDOWN;
+        sender.enabled = NO;
+        sender.backgroundColor = [UIColor lightGrayColor];
+        [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
+        _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+            _countDown--;
+            [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
+            if (_countDown == 0) {
+                [timer invalidate];
+                sender.enabled = YES;
+                [sender setTitle:@"获取验证码" forState:UIControlStateNormal];
+                sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+            }
+        }];
     }
+}
+- (IBAction)showPwd:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    _pwdText.secureTextEntry = !sender.selected;
 }
 - (IBAction)sureButtonClick:(UIButton *)sender {
     if (REGEX(PHONE_RE, _phoneText.text)==NO) {
@@ -84,8 +109,14 @@
 //        NSLog();
         [YHHud showWithSuccess:@"绑定成功"];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[NSUserDefaults standardUserDefaults] setObject:_phoneText.text forKey:@"phoneNum"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"updatePhoneNum" object:nil userInfo:@{@"phoneNum":_phoneText.text}];
             [self.navigationController popViewControllerAnimated:YES];
         });
     }
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [_countDownTimer invalidate];
 }
 @end

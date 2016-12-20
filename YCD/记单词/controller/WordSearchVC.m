@@ -7,7 +7,7 @@
 //
 
 #import "WordSearchVC.h"
-#import "RemeberWordSingleWordDetailVC.h"
+#import "RememberWordSingleWordDetailVC.h"
 @interface WordSearchVC ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong,nonatomic)NSArray *wordArray;
@@ -82,7 +82,7 @@
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    RemeberWordSingleWordDetailVC *wordDetailVC = [[RemeberWordSingleWordDetailVC alloc] init];
+    RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
     wordDetailVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:wordDetailVC animated:YES];
     _searchBar.text = @"";

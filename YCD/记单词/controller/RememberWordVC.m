@@ -7,7 +7,6 @@
 //
 
 #import "RememberWordVC.h"
-#import "RememberWordSectionView.h"
 #import "RememberWordItemView.h"
 #import "WordSearchVC.h"
 @interface RememberWordVC ()<UISearchBarDelegate,RememberWordItemViewDelegate>
@@ -45,33 +44,9 @@
 }
 #pragma mark 创建主视图
 - (void)createMainScrollView{
-    //    CGFloat height = 0;
-    //    for (NSInteger i =0; i<self.dataArray.count; i++) {
-    //        NSArray *detailArr = self.dataArray[i][@"detail"];
-    //        height =  height + [self getHeightFromArray:detailArr];
-    //    }
-    //    UIScrollView *mainScrolView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 108, WIDTH, HEIGHT-152)];
-    //    mainScrolView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    //    mainScrolView.contentSize = CGSizeMake(WIDTH, height+5);
-    //    CGFloat maxY = 0;
-    //    for (NSInteger i = 0; i < self.dataArray.count; i++) {
-    //        CGFloat detail_height = [self getHeightFromArray:self.dataArray[i][@"detail"]];
-    //        NSDictionary *detailDic = self.dataArray[i];
-    //        if (maxY == 0) {
-    //            RememberWordSectionView *sectionView = [[RememberWordSectionView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, detail_height) detailDic:detailDic];
-    //            [mainScrolView addSubview:sectionView];
-    //            maxY = CGRectGetMaxY(sectionView.frame);
-    //        }else{
-    //            RememberWordSectionView *sectionView = [[RememberWordSectionView alloc] initWithFrame:CGRectMake(0, maxY, WIDTH, detail_height) detailDic:detailDic];
-    //            [mainScrolView addSubview:sectionView];
-    //            maxY = CGRectGetMaxY(sectionView.frame);
-    //        }
-    //    }
-    //    [self.view addSubview:mainScrolView];
     UIView *lastView = nil;
     _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     for (int i = 0; i < self.dataArray.count; i++) {
-        
         NSDictionary *dic = self.dataArray[i];
         RememberWordItemView *itemView = [[RememberWordItemView alloc] initWithNib];
         itemView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -80,7 +55,6 @@
         itemView.dic = dic;
         itemView.delegate = self;
         [_scrollView addSubview:itemView];
-        
         
         NSMutableArray *layoutArray = [NSMutableArray array];
         [layoutArray addObject:[NSLayoutConstraint constraintWithItem:itemView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_scrollView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
@@ -97,15 +71,8 @@
         }
         [NSLayoutConstraint activateConstraints:layoutArray];
         lastView = itemView;
-        
     }
-    
 }
-//#pragma mark 根据detailArray获取detailView的height
-//- (CGFloat)getHeightFromArray:(NSArray *)array{
-//    NSInteger item_row = array.count%2==0 ? array.count/2 : array.count/2+1;
-//    return TITLE_HEIGHT+item_row*ITEM_HEIGHT+(item_row-1)*5;
-//}
 #pragma mark itemView的点击事件
 - (void)itemClickTitleIndex:(int)titleIndex itemIndex:(int)itemIndex{
     NSLog(@"%d-%d",titleIndex,itemIndex);
