@@ -28,7 +28,7 @@
 #define PAY_PROPORTION 1
 #define RGB(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 //日间模式颜色
-#define D_BLUE [UIColor colorWithRed:0.4 green:0.6 blue:0.8 alpha:1.0] //日间蓝色       0x6699CC
+#define D_BLUE [UIColor colorWithRed:102/255.0 green:153/255.0 blue:204/255.0 alpha:1.0] //日间蓝色       0x6699CC
 #define D_ORANGE [UIColor colorWithRed:244/255.0 green:164/255.0 blue:96/255.0 alpha:1.0] //日间橘色        0xF4A460
 #define D_BG [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0] //日间大背景色     0xF8F8F8
 #define D_BTN_BG [UIColor colorWithRed:225/255.0 green:226/255.0 blue:227/255.0 alpha:1.0] //日间按钮灰色背景色      0xE1E2E3

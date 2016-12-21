@@ -35,11 +35,11 @@
         itemView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
         [bgView addSubview:itemView];
         //imageView
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, (PAY_ROWHEIGHT-30)*0.5, 30, 30)];
-        imageView.image = [UIImage imageNamed:@"banner01"];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, (PAY_ROWHEIGHT-19)*0.5, 19, 19)];
+        imageView.image = [UIImage imageNamed:@"word"];
         [itemView addSubview:imageView];
         //label
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, 100, PAY_ROWHEIGHT)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imageView.frame)+15, 0, 100, PAY_ROWHEIGHT)];
         label.text = [NSString stringWithFormat:@"%d学习豆",[[PAY_ARRAY objectAtIndex:i] intValue]*PAY_PROPORTION];
         label.dk_textColorPicker = DKColorPickerWithKey(TEXT);
         [itemView addSubview:label];

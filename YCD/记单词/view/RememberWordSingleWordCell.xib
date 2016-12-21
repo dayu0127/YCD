@@ -19,15 +19,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wodezixuan" translatesAutoresizingMaskIntoConstraints="NO" id="Ilt-ge-fsM">
-                        <rect key="frame" x="15" y="13" width="16" height="16"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wordD" translatesAutoresizingMaskIntoConstraints="NO" id="Ilt-ge-fsM">
+                        <rect key="frame" x="15" y="11.5" width="19" height="19"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="16" id="kfN-GI-5Zl"/>
-                            <constraint firstAttribute="width" constant="16" id="mQK-U5-Ciy"/>
+                            <constraint firstAttribute="height" constant="19" id="kfN-GI-5Zl"/>
+                            <constraint firstAttribute="width" constant="19" id="mQK-U5-Ciy"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="merge" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j0s-IK-CPC">
-                        <rect key="frame" x="48" y="12.5" width="44" height="18"/>
+                        <rect key="frame" x="51" y="12.5" width="44" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -67,6 +67,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="wodezixuan" width="16" height="16"/>
+        <image name="wordD" width="19" height="19"/>
     </resources>
 </document>

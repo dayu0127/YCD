@@ -52,9 +52,9 @@
 }
 #pragma mark 创建网络轮播器
 -(void)scrollNetWorkImages{
-    self.cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, WIDTH, 9/16.0*WIDTH) delegate:self placeholderImage:[UIImage imageNamed:@"banner01"]];
-    self.cycleScrollView.currentPageDotColor = [UIColor darkGrayColor];
-    self.cycleScrollView.pageDotColor = [UIColor whiteColor];
+    self.cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, WIDTH, 9/16.0*WIDTH) delegate:self placeholderImage:[UIImage imageNamed:@"banner"]];
+    self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControl"];
+    self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_select"];
     self.cycleScrollView.imageURLStringsGroup = self.netImages;
     self.cycleScrollView.autoScrollTimeInterval = 3.0f;
     [self.scrollBgView addSubview:self.cycleScrollView];

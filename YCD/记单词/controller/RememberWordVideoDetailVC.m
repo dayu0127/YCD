@@ -89,7 +89,7 @@
     shareLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor darkTextColor],[UIColor whiteColor],RED);
     [titleView addSubview:shareLabel];
     UIButton *shareButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH-30, 11.5, 16, 16)];
-    [shareButton setImage:[UIImage imageNamed:@"wodezixuan"] forState:UIControlStateNormal];
+    [shareButton dk_setImage:DKImagePickerWithNames(@"shareD",@"shareN",@"") forState:UIControlStateNormal];
     [shareButton addTarget:self action:@selector(shareButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [titleView addSubview:shareButton];
     //分割线
