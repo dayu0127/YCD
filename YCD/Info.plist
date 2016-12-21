@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSContactsUsageDescription</key>
-	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -28,6 +26,14 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>wb1292322940</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>alisdkdemo</string>
 			</array>
 		</dict>
 	</array>
@@ -163,6 +169,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>记忆大师需要您的同意,才能访问相机</string>
+	<key>NSContactsUsageDescription</key>
+	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>记忆大师需要您的同意,才能访问相册</string>
 	<key>UIRequiredDeviceCapabilities</key>

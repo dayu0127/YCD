@@ -190,7 +190,7 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wKG-a5-rMB" userLabel="开眼按钮">
                                 <rect key="frame" x="316" y="278" width="19" height="22"/>
-                                <state key="normal" image="eyeOpen"/>
+                                <state key="normal" image="eyeClose"/>
                                 <state key="disabled" image="eyeOpen"/>
                                 <state key="selected" image="eyeClose"/>
                                 <state key="highlighted" image="eyeClose"/>
@@ -408,7 +408,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B2t-Xp-uRU" userLabel="开眼按钮">
                                 <rect key="frame" x="316" y="230" width="19" height="22"/>
-                                <state key="normal" image="eyeOpen"/>
+                                <state key="normal" image="eyeClose"/>
                                 <state key="disabled" image="eyeOpen"/>
                                 <state key="selected" image="eyeClose"/>
                                 <connections>
@@ -620,7 +620,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4m0-Mk-0YV" userLabel="开眼按钮">
                                 <rect key="frame" x="316" y="230" width="19" height="22"/>
-                                <state key="normal" image="eyeOpen"/>
+                                <state key="normal" image="eyeClose"/>
                                 <state key="disabled" image="eyeOpen"/>
                                 <state key="selected" image="eyeClose"/>
                                 <state key="highlighted" image="eyeClose"/>
@@ -905,7 +905,7 @@
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BeH-cm-a8o" id="QHi-ro-wNw">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WU8-H8-fxc">
@@ -944,7 +944,7 @@
                                         <rect key="frame" x="0.0" y="79" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xGV-BA-orO" id="hfY-IA-dGC">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epQ-3A-GzL">
@@ -975,7 +975,7 @@
                                         <rect key="frame" x="0.0" y="123" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zfa-R3-8sQ" id="2ce-TN-GzV">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="头像" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6c-Pe-dwe">
@@ -1007,7 +1007,7 @@
                                         <rect key="frame" x="0.0" y="167" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hQj-Nw-jtG" id="7vE-qK-mab">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昵称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Gq-kh-nAT">
@@ -1164,7 +1164,7 @@
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DfC-w5-gCv" userLabel="开眼按钮">
                                 <rect key="frame" x="316" y="174" width="19" height="22"/>
-                                <state key="normal" image="eyeOpen"/>
+                                <state key="normal" image="eyeClose"/>
                                 <state key="disabled" image="eyeOpen"/>
                                 <state key="selected" image="eyeClose"/>
                                 <state key="highlighted" image="eyeClose"/>
@@ -1174,7 +1174,7 @@
                             </button>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O39-nl-aNg" userLabel="开眼按钮">
                                 <rect key="frame" x="316" y="231" width="19" height="22"/>
-                                <state key="normal" image="eyeOpen"/>
+                                <state key="normal" image="eyeClose"/>
                                 <state key="disabled" image="eyeOpen"/>
                                 <state key="selected" image="eyeClose"/>
                                 <state key="highlighted" image="eyeClose"/>
@@ -1184,7 +1184,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avD-NE-r5c" userLabel="开眼按钮">
                                 <rect key="frame" x="316" y="119" width="19" height="22"/>
-                                <state key="normal" image="eyeOpen"/>
+                                <state key="normal" image="eyeClose"/>
                                 <state key="disabled" image="eyeOpen"/>
                                 <state key="selected" image="eyeClose"/>
                                 <state key="highlighted" image="eyeClose"/>
@@ -1383,7 +1383,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xcZ-d0-Egx" userLabel="开眼按钮">
                                 <rect key="frame" x="316" y="231" width="19" height="22"/>
-                                <state key="normal" image="eyeOpen"/>
+                                <state key="normal" image="eyeClose"/>
                                 <state key="disabled" image="eyeOpen"/>
                                 <state key="selected" image="eyeClose"/>
                                 <state key="highlighted" image="eyeClose"/>
@@ -1771,32 +1771,32 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="5Td-a9-XBf" userLabel="学习豆ImageView">
-                                                    <rect key="frame" x="15" y="11.5" width="22.5" height="23.5"/>
+                                                    <rect key="frame" x="15" y="12" width="23" height="23"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="23.5" id="8oI-IW-6Dz"/>
                                                         <constraint firstAttribute="width" constant="22.5" id="Nl6-8c-qnN"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学习豆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1XW-3j-QOE">
-                                                    <rect key="frame" x="58" y="14" width="46" height="18"/>
+                                                    <rect key="frame" x="59" y="14" width="46" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wDq-7N-vTR">
-                                                    <rect key="frame" x="112" y="15" width="31" height="16"/>
+                                                    <rect key="frame" x="113" y="15" width="31" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.40000000000000002" green="0.59999999999999998" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已消耗" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eeF-Nk-5jy">
-                                                    <rect key="frame" x="151" y="14" width="46" height="18"/>
+                                                    <rect key="frame" x="152" y="14" width="46" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="800" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drV-oJ-6vd">
-                                                    <rect key="frame" x="205" y="15" width="25" height="16"/>
+                                                    <rect key="frame" x="206" y="15" width="25" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="1" green="0.73185000099999997" blue="0.28383037950000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1850,14 +1850,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="exercises" translatesAutoresizingMaskIntoConstraints="NO" id="8Sk-P9-xNS" userLabel="学习豆ImageView">
-                                                    <rect key="frame" x="15" y="12" width="22.5" height="22.5"/>
+                                                    <rect key="frame" x="15" y="12" width="23" height="23"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="22.5" id="LNJ-14-DJJ"/>
                                                         <constraint firstAttribute="height" constant="22.5" id="viI-27-s2m"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="记忆法练习题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GI0-Q5-UPo">
-                                                    <rect key="frame" x="58" y="14" width="92" height="18"/>
+                                                    <rect key="frame" x="59" y="14" width="92" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1886,7 +1886,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="helpEachOther" translatesAutoresizingMaskIntoConstraints="NO" id="09v-LI-w6c">
-                                                    <rect key="frame" x="15" y="13.5" width="24" height="19"/>
+                                                    <rect key="frame" x="15" y="14" width="24" height="19"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="24" id="WeY-fJ-4HE"/>
                                                         <constraint firstAttribute="height" constant="19" id="gMf-Am-MuW"/>
@@ -1930,14 +1930,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notification" translatesAutoresizingMaskIntoConstraints="NO" id="qxe-Iv-wNJ">
-                                                    <rect key="frame" x="15" y="12" width="22.5" height="22"/>
+                                                    <rect key="frame" x="15" y="12" width="23" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="1Ak-Ir-Hi6"/>
                                                         <constraint firstAttribute="width" constant="22.5" id="zn2-Vq-yYt"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="通知" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jhc-kB-BE7">
-                                                    <rect key="frame" x="58" y="14" width="31" height="18"/>
+                                                    <rect key="frame" x="59" y="14" width="31" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1966,7 +1966,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aboutUs" translatesAutoresizingMaskIntoConstraints="NO" id="Izb-sL-Y8q">
-                                                    <rect key="frame" x="17" y="12" width="18" height="22.5"/>
+                                                    <rect key="frame" x="17" y="12" width="18" height="23"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="18" id="2o6-zf-cgE"/>
                                                         <constraint firstAttribute="height" constant="22.5" id="DLz-Ef-fkW"/>
@@ -2002,14 +2002,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="feedback" translatesAutoresizingMaskIntoConstraints="NO" id="0sH-fa-APo">
-                                                    <rect key="frame" x="15" y="15.5" width="22.5" height="15"/>
+                                                    <rect key="frame" x="15" y="16" width="23" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="22.5" id="UUb-Wx-8HD"/>
                                                         <constraint firstAttribute="height" constant="15" id="x4O-Xh-ulz"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="建议反馈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mUZ-Bj-DWC">
-                                                    <rect key="frame" x="58" y="14" width="62" height="18"/>
+                                                    <rect key="frame" x="59" y="14" width="62" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2038,14 +2038,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="set" translatesAutoresizingMaskIntoConstraints="NO" id="IrD-0t-poh">
-                                                    <rect key="frame" x="15" y="12" width="22.5" height="22.5"/>
+                                                    <rect key="frame" x="15" y="12" width="23" height="23"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="22.5" id="QAL-jt-ycm"/>
                                                         <constraint firstAttribute="height" constant="22.5" id="svi-N7-X0t"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="设置" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QMo-uB-rde">
-                                                    <rect key="frame" x="58" y="14" width="31" height="18"/>
+                                                    <rect key="frame" x="59" y="14" width="31" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>

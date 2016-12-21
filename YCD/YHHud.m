@@ -75,7 +75,7 @@ static YHHud * hud = nil;
     [[UIApplication sharedApplication].keyWindow addSubview:hud];
     
     UIView * customView = [[UIView alloc]initWithFrame:CGRectMake(WIDTH/2-75, HEIGHT/2-50, 150, 100)];
-    customView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor colorWithRed:0 green:0 blue:0 alpha:0.5],N_BLUE,RED);
+    customView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor colorWithRed:0 green:0 blue:0 alpha:0.5],[UIColor colorWithRed:19/255.0 green:34/255.0 blue:73/255.0 alpha:0.5],RED);
     [hud addSubview:customView];
     customView.layer.masksToBounds = YES;
     customView.layer.cornerRadius=8.0f;
@@ -83,13 +83,13 @@ static YHHud * hud = nil;
     UIImageView *heartImageView = [[UIImageView alloc]initWithFrame:CGRectMake(customView.frame.size.width/2-20, 15,40, 40.0)];
     heartImageView.contentMode=1;
     [customView addSubview:heartImageView];
-    heartImageView.image = [UIImage imageNamed:@"成功图片"];
+    heartImageView.image = [UIImage imageNamed:@"success"];
     
     UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(customView.frame.size.width/2-50, 55, 100, 40)];
     label.text = successString;
     label.textAlignment = NSTextAlignmentCenter;
     label.font = [UIFont boldSystemFontOfSize:16];
-    label.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    label.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     [customView addSubview:label];
     [UIView animateWithDuration:5.0 animations:^{
         [[UIApplication sharedApplication].keyWindow addSubview:hud];
