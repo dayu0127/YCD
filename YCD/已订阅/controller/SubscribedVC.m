@@ -106,7 +106,9 @@
 }
 #pragma mark 视频按钮点击
 - (IBAction)videoClick:(UIButton *)sender {
+    [sender dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateNormal];
     sender.selected = YES;
+    [_wordButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     _wordButton.selected = NO;
     self.leftLineView.backgroundColor = [UIColor orangeColor];
     self.rightLineView.backgroundColor = [UIColor clearColor];
@@ -124,7 +126,9 @@
 }
 #pragma mark 单词按钮点击
 - (IBAction)wordClick:(UIButton *)sender {
+    [sender dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateNormal];
     sender.selected = YES;
+    [_videoButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     _videoButton.selected = NO;
     self.rightLineView.backgroundColor = [UIColor orangeColor];
     self.leftLineView.backgroundColor = [UIColor clearColor];

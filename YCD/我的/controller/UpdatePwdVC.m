@@ -16,6 +16,8 @@
 @property (strong,nonatomic) UITextField *oldPwdText;
 @property (strong,nonatomic) UITextField *pwdText;
 @property (strong,nonatomic) UITextField *surePwdText;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *showPwdButtonCollection;
+
 @end
 @implementation UpdatePwdVC
 - (void)viewDidLoad {
@@ -31,6 +33,12 @@
     }
     for (UIView *line in _lineCollection) {
         line.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+    }
+    for (UIButton *item in _showPwdButtonCollection) {
+        [item dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateNormal];
+        [item dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateHighlighted];
+        [item dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateSelected];
+        [item dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateDisabled];
     }
     _sureButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
     _oldPwdText = [_textFieldCollection objectAtIndex:0];

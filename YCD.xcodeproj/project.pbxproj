@@ -38,7 +38,6 @@
 		60FF51751E0A5F3E00DA6693 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF51741E0A5F3E00DA6693 /* CFNetwork.framework */; };
 		60FF51771E0A5F4600DA6693 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF51761E0A5F4600DA6693 /* CoreMotion.framework */; };
 		60FF53081E0A6BBC00DA6693 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 60FF52A41E0A6BBC00DA6693 /* AlipaySDK.bundle */; };
-		60FF53091E0A6BBC00DA6693 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF52A51E0A6BBC00DA6693 /* AlipaySDK.framework */; };
 		60FF530C1E0A6BBC00DA6693 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FF52F51E0A6BBC00DA6693 /* Order.m */; };
 		60FF530D1E0A6BBC00DA6693 /* base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FF52F81E0A6BBC00DA6693 /* base64.m */; };
 		60FF530E1E0A6BBC00DA6693 /* DataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FF52FB1E0A6BBC00DA6693 /* DataSigner.m */; };
@@ -333,7 +332,6 @@
 				60FF53161E0A6CEC00DA6693 /* AlipaySDK.framework in Frameworks */,
 				60FF51691E0A5EFD00DA6693 /* CoreTelephony.framework in Frameworks */,
 				60FF51631E0A5EA900DA6693 /* SystemConfiguration.framework in Frameworks */,
-				60FF53091E0A6BBC00DA6693 /* AlipaySDK.framework in Frameworks */,
 				60FF53191E0A6D3700DA6693 /* libcrypto.a in Frameworks */,
 				60FF51611E0A5E8C00DA6693 /* libz.tbd in Frameworks */,
 				60FF515F1E0A5E3B00DA6693 /* libc++.tbd in Frameworks */,
@@ -874,7 +872,7 @@
 		69B129D91DE2C6490093D841 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = dayu;
 				TargetAttributes = {
 					69B129E01DE2C6490093D841 = {

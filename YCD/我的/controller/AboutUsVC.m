@@ -19,6 +19,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *appName = [infoDictionary objectForKey:@"CFBundleDisplayName"];
+    NSString *version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    NSString *build = [infoDictionary objectForKey:@"CFBundleVersion"];
+    _appVersionLabel.text = [NSString stringWithFormat:@"%@%@.%@",appName,version,build];
     _appVersionLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     for (UILabel *item in _copyrightLabelCollection) {
         item.dk_textColorPicker = DKColorPickerWithColors([UIColor lightGrayColor],[UIColor groupTableViewBackgroundColor],[UIColor redColor]);

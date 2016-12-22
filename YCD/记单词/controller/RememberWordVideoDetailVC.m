@@ -114,8 +114,10 @@
 #pragma mark 选项卡标题点击
 - (void)titleButtonClick:(UIButton *)sender{
     for (UIButton *item in _buttonAarry) {
+        [item dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
         item.selected = NO;
     }
+    [sender dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateNormal];
     sender.selected = YES;
     _underLine.frame = CGRectMake(90*sender.tag, 38, 90, 1);
     if (sender.tag == 0) { //点击加载本节说明

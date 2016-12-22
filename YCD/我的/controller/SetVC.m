@@ -76,9 +76,11 @@
     if (sender.on == YES) {
         //开启夜间模式
         [DKNightVersionManager sharedManager].themeVersion = DKThemeVersionNight;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"nightMode" object:nil];
     }else{
         //关闭夜间模式
         [DKNightVersionManager sharedManager].themeVersion = DKThemeVersionNormal;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"dayMode" object:nil];
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }
     [[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:@"isNightMode"];

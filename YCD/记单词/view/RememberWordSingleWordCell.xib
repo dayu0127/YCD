@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wordD" translatesAutoresizingMaskIntoConstraints="NO" id="Ilt-ge-fsM">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="word" translatesAutoresizingMaskIntoConstraints="NO" id="Ilt-ge-fsM">
                         <rect key="frame" x="15" y="11.5" width="19" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="kfN-GI-5Zl"/>
@@ -67,6 +67,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="wordD" width="19" height="19"/>
+        <image name="word" width="19" height="19"/>
     </resources>
 </document>

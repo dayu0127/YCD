@@ -82,12 +82,12 @@
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
-    wordDetailVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:wordDetailVC animated:YES];
     _searchBar.text = @"";
     [_resultArray removeAllObjects];
     [_tableView removeFromSuperview];
     _tableView = nil;
+    RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
+    wordDetailVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:wordDetailVC animated:NO];
 }
 @end

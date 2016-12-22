@@ -27,6 +27,16 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self scrollNetWorkImages];
     [self initTableView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dayMode) name:@"dayMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightMode) name:@"nightMode" object:nil];
+}
+- (void)dayMode{
+    self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControl"];
+    self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_select"];
+}
+- (void)nightMode{
+    self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlN"];
+    self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_selectN"];
 }
 #pragma mark 懒加载网络图片数据
 -(NSArray *)netImages{
@@ -53,12 +63,18 @@
 #pragma mark 创建网络轮播器
 -(void)scrollNetWorkImages{
     self.cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, WIDTH, 9/16.0*WIDTH) delegate:self placeholderImage:[UIImage imageNamed:@"banner"]];
-    self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControl"];
-    self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_select"];
+    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
+        self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControl"];
+        self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_select"];
+    }else{
+        self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlN"];
+        self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_selectN"];
+    }
     self.cycleScrollView.imageURLStringsGroup = self.netImages;
     self.cycleScrollView.autoScrollTimeInterval = 3.0f;
     [self.scrollBgView addSubview:self.cycleScrollView];
 }
+
 #pragma mark 轮播器代理方法
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
@@ -140,5 +156,9 @@
         NSLog(@"确认订阅");
     }
     [_alertView dismissWithCompletion:nil];
+}
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"dayMode" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"nightMode" object:nil];
 }
 @end

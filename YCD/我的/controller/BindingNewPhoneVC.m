@@ -24,6 +24,7 @@
 @property (strong,nonatomic) UITextField *pwdText;
 @property (strong,nonatomic)NSTimer *countDownTimer;
 @property (assign,nonatomic)int countDown;
+@property (weak, nonatomic) IBOutlet UIButton *showPwdButton;
 @end
 
 @implementation BindingNewPhoneVC
@@ -42,6 +43,10 @@
     for (UIView *line in _lineCollection) {
         line.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
     }
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateNormal];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateHighlighted];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateSelected];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateDisabled];
     _sureButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
     _phoneText = [_textFieldCollection objectAtIndex:0];
     _codeText = [_textFieldCollection objectAtIndex:1];

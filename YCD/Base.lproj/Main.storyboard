@@ -111,7 +111,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="m12345" placeholder="6~15位字母+数字组合" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cty-Hp-dHs">
-                                <rect key="frame" x="86" y="262" width="230" height="55"/>
+                                <rect key="frame" x="86" y="262" width="229" height="55"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="iCZ-xE-d8v"/>
@@ -189,11 +189,15 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wKG-a5-rMB" userLabel="开眼按钮">
-                                <rect key="frame" x="316" y="278" width="19" height="22"/>
-                                <state key="normal" image="eyeClose"/>
-                                <state key="disabled" image="eyeOpen"/>
-                                <state key="selected" image="eyeClose"/>
-                                <state key="highlighted" image="eyeClose"/>
+                                <rect key="frame" x="315" y="283" width="20" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="bpB-yu-Pz3"/>
+                                    <constraint firstAttribute="height" constant="12" id="uLX-Fi-vVP"/>
+                                </constraints>
+                                <state key="normal" image="hidePwd"/>
+                                <state key="disabled" image="hidePwd"/>
+                                <state key="selected" image="showPwd"/>
+                                <state key="highlighted" image="showPwd"/>
                                 <connections>
                                     <action selector="showPwd:" destination="CSS-cW-s3G" eventType="touchUpInside" id="6ZL-cJ-0HK"/>
                                 </connections>
@@ -233,6 +237,7 @@
                     <navigationItem key="navigationItem" title="登录" id="UXM-B6-wpE"/>
                     <connections>
                         <outlet property="loginButton" destination="qRk-Jb-p1g" id="NHc-xr-Z8O"/>
+                        <outlet property="showPwdButton" destination="wKG-a5-rMB" id="LVf-Sg-59f"/>
                         <outletCollection property="textFieldCollection" destination="o5J-zm-Qtu" id="C5i-2Z-VFo"/>
                         <outletCollection property="textFieldCollection" destination="cty-Hp-dHs" id="GCH-wr-HQz"/>
                         <outletCollection property="lineCollection" destination="Qwv-v9-pmn" id="Dck-5f-mOp"/>
@@ -343,7 +348,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="6~15位字母+数字组合" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iIG-PF-arn" userLabel="密码文本框">
-                                <rect key="frame" x="88" y="214" width="228" height="55"/>
+                                <rect key="frame" x="88" y="214" width="227" height="55"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="jKu-EN-w3V" userLabel="height = 40"/>
@@ -407,10 +412,14 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B2t-Xp-uRU" userLabel="开眼按钮">
-                                <rect key="frame" x="316" y="230" width="19" height="22"/>
-                                <state key="normal" image="eyeClose"/>
-                                <state key="disabled" image="eyeOpen"/>
-                                <state key="selected" image="eyeClose"/>
+                                <rect key="frame" x="315" y="235" width="20" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="MyM-jd-fQ4"/>
+                                    <constraint firstAttribute="height" constant="12" id="gDc-n1-qwR"/>
+                                </constraints>
+                                <state key="normal" image="hidePwd"/>
+                                <state key="disabled" image="hidePwd"/>
+                                <state key="selected" image="showPwd"/>
                                 <connections>
                                     <action selector="showPwd:" destination="DdM-kr-qZd" eventType="touchUpInside" id="WBU-G7-BVE"/>
                                 </connections>
@@ -466,6 +475,7 @@
                     <connections>
                         <outlet property="checkButton" destination="7Z5-mA-Xa1" id="lp7-BA-hAr"/>
                         <outlet property="registerButton" destination="gaa-vL-ZRL" id="xP3-LY-VhP"/>
+                        <outlet property="showPwdButton" destination="B2t-Xp-uRU" id="mTP-xI-DxB"/>
                         <outletCollection property="labelCollection" destination="er3-tY-Oac" id="Sx2-5m-gGs"/>
                         <outletCollection property="labelCollection" destination="8j4-aQ-38G" id="lua-QI-97i"/>
                         <outletCollection property="labelCollection" destination="K5z-IC-9Lu" id="TVF-S5-a7n"/>
@@ -581,7 +591,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="6~15位字母+数字组合" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s1m-Wc-KcJ">
-                                <rect key="frame" x="84" y="214" width="232" height="55"/>
+                                <rect key="frame" x="84" y="214" width="231" height="55"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="Ubt-Ha-WEE"/>
@@ -619,11 +629,15 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4m0-Mk-0YV" userLabel="开眼按钮">
-                                <rect key="frame" x="316" y="230" width="19" height="22"/>
-                                <state key="normal" image="eyeClose"/>
-                                <state key="disabled" image="eyeOpen"/>
-                                <state key="selected" image="eyeClose"/>
-                                <state key="highlighted" image="eyeClose"/>
+                                <rect key="frame" x="315" y="235" width="20" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="12" id="6TJ-KC-AxG"/>
+                                    <constraint firstAttribute="width" constant="20" id="Ohr-xR-QmN"/>
+                                </constraints>
+                                <state key="normal" image="hidePwd"/>
+                                <state key="disabled" image="hidePwd"/>
+                                <state key="selected" image="showPwd"/>
+                                <state key="highlighted" image="showPwd"/>
                                 <connections>
                                     <action selector="showPwd:" destination="326-6Z-o7U" eventType="touchUpInside" id="ukn-Ek-im2"/>
                                 </connections>
@@ -668,6 +682,7 @@
                     <navigationItem key="navigationItem" title="忘记密码" id="BVG-UU-1b9"/>
                     <connections>
                         <outlet property="checkButton" destination="P6o-gy-hka" id="E0q-k0-T1W"/>
+                        <outlet property="showPwdButton" destination="4m0-Mk-0YV" id="SJl-mA-rf0"/>
                         <outlet property="submitButton" destination="9dS-oi-J8C" id="HcC-1Q-ukN"/>
                         <outletCollection property="labelCollection" destination="cMq-zM-qr6" id="xyX-ct-JbL"/>
                         <outletCollection property="labelCollection" destination="Kdt-EN-hwI" id="lWz-hq-pA6"/>
@@ -1080,7 +1095,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="6~15位字母+数字组合" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X43-Kn-4zO">
-                                <rect key="frame" x="84" y="158" width="232" height="55"/>
+                                <rect key="frame" x="84" y="158" width="231" height="55"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="J2O-R6-0kH"/>
@@ -1093,7 +1108,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您原来的密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kMj-Cs-AMp">
-                                <rect key="frame" x="84" y="102" width="232" height="55"/>
+                                <rect key="frame" x="84" y="102" width="231" height="55"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="1EW-bC-mdQ"/>
@@ -1125,7 +1140,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请确认新密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="75f-TM-jBY">
-                                <rect key="frame" x="84" y="214" width="232" height="55"/>
+                                <rect key="frame" x="84" y="214" width="231" height="55"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="aib-Kc-UME"/>
@@ -1163,31 +1178,43 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DfC-w5-gCv" userLabel="开眼按钮">
-                                <rect key="frame" x="316" y="174" width="19" height="22"/>
-                                <state key="normal" image="eyeClose"/>
-                                <state key="disabled" image="eyeOpen"/>
-                                <state key="selected" image="eyeClose"/>
-                                <state key="highlighted" image="eyeClose"/>
+                                <rect key="frame" x="315" y="179" width="20" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="S14-Df-u5e"/>
+                                    <constraint firstAttribute="height" constant="12" id="nlX-mA-D3L"/>
+                                </constraints>
+                                <state key="normal" image="hidePwd"/>
+                                <state key="disabled" image="hidePwd"/>
+                                <state key="selected" image="showPwd"/>
+                                <state key="highlighted" image="showPwd"/>
                                 <connections>
                                     <action selector="showPwd:" destination="Idc-Xa-nsg" eventType="touchUpInside" id="pOM-QZ-cxB"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O39-nl-aNg" userLabel="开眼按钮">
-                                <rect key="frame" x="316" y="231" width="19" height="22"/>
-                                <state key="normal" image="eyeClose"/>
-                                <state key="disabled" image="eyeOpen"/>
-                                <state key="selected" image="eyeClose"/>
-                                <state key="highlighted" image="eyeClose"/>
+                                <rect key="frame" x="315" y="236" width="20" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="ENs-V9-zx0"/>
+                                    <constraint firstAttribute="height" constant="12" id="v5m-kp-4vL"/>
+                                </constraints>
+                                <state key="normal" image="hidePwd"/>
+                                <state key="disabled" image="hidePwd"/>
+                                <state key="selected" image="showPwd"/>
+                                <state key="highlighted" image="showPwd"/>
                                 <connections>
                                     <action selector="showPwd:" destination="Idc-Xa-nsg" eventType="touchUpInside" id="tdp-dd-Upp"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avD-NE-r5c" userLabel="开眼按钮">
-                                <rect key="frame" x="316" y="119" width="19" height="22"/>
-                                <state key="normal" image="eyeClose"/>
-                                <state key="disabled" image="eyeOpen"/>
-                                <state key="selected" image="eyeClose"/>
-                                <state key="highlighted" image="eyeClose"/>
+                                <rect key="frame" x="315" y="123.5" width="20" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="M0n-Sn-Pmq"/>
+                                    <constraint firstAttribute="height" constant="12" id="eQJ-6Q-fd2"/>
+                                </constraints>
+                                <state key="normal" image="hidePwd"/>
+                                <state key="disabled" image="hidePwd"/>
+                                <state key="selected" image="showPwd"/>
+                                <state key="highlighted" image="showPwd"/>
                                 <connections>
                                     <action selector="showPwd:" destination="Idc-Xa-nsg" eventType="touchUpInside" id="we9-Td-NYr"/>
                                 </connections>
@@ -1241,6 +1268,9 @@
                         <outletCollection property="lineCollection" destination="KqN-n5-2YL" id="bR5-za-YCH"/>
                         <outletCollection property="lineCollection" destination="kyX-Ae-dtG" id="BNH-Zr-zKh"/>
                         <outletCollection property="textFieldCollection" destination="75f-TM-jBY" id="8ex-7e-v7b"/>
+                        <outletCollection property="showPwdButtonCollection" destination="avD-NE-r5c" id="V8R-oC-aPO"/>
+                        <outletCollection property="showPwdButtonCollection" destination="DfC-w5-gCv" id="yTl-Ss-9th"/>
+                        <outletCollection property="showPwdButtonCollection" destination="O39-nl-aNg" id="lXa-ht-GwF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yEM-TF-CCB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1344,7 +1374,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您的密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1lD-aL-4pH">
-                                <rect key="frame" x="84" y="214" width="232" height="55"/>
+                                <rect key="frame" x="84" y="214" width="231" height="55"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="xQi-n9-6h8"/>
@@ -1382,11 +1412,15 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xcZ-d0-Egx" userLabel="开眼按钮">
-                                <rect key="frame" x="316" y="231" width="19" height="22"/>
-                                <state key="normal" image="eyeClose"/>
-                                <state key="disabled" image="eyeOpen"/>
-                                <state key="selected" image="eyeClose"/>
-                                <state key="highlighted" image="eyeClose"/>
+                                <rect key="frame" x="315" y="236" width="20" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="12" id="Gpe-Qe-Cfz"/>
+                                    <constraint firstAttribute="width" constant="20" id="tU6-GV-CiO"/>
+                                </constraints>
+                                <state key="normal" image="hidePwd"/>
+                                <state key="disabled" image="hidePwd"/>
+                                <state key="selected" image="showPwd"/>
+                                <state key="highlighted" image="showPwd"/>
                                 <connections>
                                     <action selector="showPwd:" destination="gCt-w0-uhB" eventType="touchUpInside" id="5J4-K3-dBU"/>
                                 </connections>
@@ -1431,6 +1465,7 @@
                     <toolbarItems/>
                     <connections>
                         <outlet property="checkButton" destination="3CI-Ll-oQV" id="bVd-m0-EXn"/>
+                        <outlet property="showPwdButton" destination="xcZ-d0-Egx" id="Fbv-9Q-Dph"/>
                         <outlet property="sureButton" destination="T2e-Jh-imR" id="VDN-9l-lYf"/>
                         <outletCollection property="textFieldCollection" destination="xlB-zd-0w4" id="JhD-hb-gcZ"/>
                         <outletCollection property="textFieldCollection" destination="ygK-QH-s0N" id="j4H-d8-ONS"/>
@@ -2985,12 +3020,11 @@
         <image name="appLogo" width="77" height="77"/>
         <image name="contacts" width="93" height="93"/>
         <image name="exercises" width="22" height="22"/>
-        <image name="eyeClose" width="19" height="12"/>
-        <image name="eyeOpen" width="19" height="12"/>
         <image name="feedback" width="22" height="15"/>
         <image name="headImage" width="17" height="17"/>
         <image name="headImageBig" width="100" height="100"/>
         <image name="helpEachOther" width="24" height="19"/>
+        <image name="hidePwd" width="20" height="11"/>
         <image name="login_pwd" width="24" height="24"/>
         <image name="login_user" width="24" height="24"/>
         <image name="memory" width="23" height="18"/>
@@ -2999,6 +3033,7 @@
         <image name="rememberWord" width="20" height="19"/>
         <image name="service" width="47" height="40"/>
         <image name="set" width="22" height="22"/>
+        <image name="showPwd" width="20" height="12"/>
         <image name="star" width="23" height="22"/>
         <image name="subscribed" width="19" height="18"/>
         <image name="wallet" width="23" height="17"/>

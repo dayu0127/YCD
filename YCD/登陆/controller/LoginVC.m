@@ -19,6 +19,7 @@
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonCollection;
 @property (strong,nonatomic) UITextField *phoneText;
 @property (strong,nonatomic) UITextField *pwdText;
+@property (weak, nonatomic) IBOutlet UIButton *showPwdButton;
 @end
 
 @implementation LoginVC
@@ -38,6 +39,10 @@
     for (UIButton *item in _buttonCollection) {
         [item dk_setTitleColorPicker:DKColorPickerWithColors(D_BLUE,[UIColor whiteColor],RED) forState:UIControlStateNormal];
     }
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateNormal];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateHighlighted];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateSelected];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateDisabled];
     _phoneText = [_textFieldCollection objectAtIndex:0];
     _pwdText = [_textFieldCollection objectAtIndex:1];
 }

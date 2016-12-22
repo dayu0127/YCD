@@ -20,6 +20,7 @@
 @property (strong,nonatomic)UITextField *studyCodeText;
 @property (strong,nonatomic)NSTimer *countDownTimer;
 @property (assign,nonatomic)int countDown;
+@property (weak, nonatomic) IBOutlet UIButton *showPwdButton;
 @end
 
 @implementation RegisterVC
@@ -39,6 +40,10 @@
         line.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
     }
     _registerButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateNormal];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateHighlighted];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateSelected];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateDisabled];
     _phoneText = [_textFieldCollection objectAtIndex:0];
     _idCodeText = [_textFieldCollection objectAtIndex:1];
     _pwdText = [_textFieldCollection objectAtIndex:2];

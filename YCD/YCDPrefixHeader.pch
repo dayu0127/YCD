@@ -26,46 +26,35 @@
 #define PAY_ARRAY @[@"5",@"20",@"50",@"100",@"500"]
 //充值比例
 #define PAY_PROPORTION 1
-#define RGB(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
-//日间模式颜色
-#define D_BLUE [UIColor colorWithRed:102/255.0 green:153/255.0 blue:204/255.0 alpha:1.0] //日间蓝色       0x6699CC
-#define D_ORANGE [UIColor colorWithRed:244/255.0 green:164/255.0 blue:96/255.0 alpha:1.0] //日间橘色        0xF4A460
-#define D_BG [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0] //日间大背景色     0xF8F8F8
-#define D_BTN_BG [UIColor colorWithRed:225/255.0 green:226/255.0 blue:227/255.0 alpha:1.0] //日间按钮灰色背景色      0xE1E2E3
-#define D_BTN_BG1 [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0] //日间按钮灰色背景色1        0x999999
-#define D_TABBAR_SELECT_BG [UIColor colorWithRed:0.2 green:0.6 blue:0.8 alpha:1.0] //日间tabbar的选中色       0x3399CC
-#define D_CELL_BG [UIColor whiteColor] //日间cell的背景色
-#define D_SHARE_BG RGB(233,239,242,1.0) //日间分享背景色      0xE9EFF2
+//颜色
+#define RGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
+//日间模式
+#define D_BLUE RGB(102,153,204)             //日间蓝色                  0x6699CC
+#define D_ORANGE RGB(244,164,96)         //日间橘色                  0xF4A460
+#define D_BG RGB(248,248,248)               //日间大背景色            0xF8F8F8
+#define D_BTN_BG RGB(225,226,227)       //日间按钮灰色背景色    0xE1E2E3
+#define D_BTN_BG1 RGB(153,153,153)       //日间按钮灰色背景色1   0x999999
+#define D_CELL_BG [UIColor whiteColor]  //日间cell的背景色         0xFFFFFF
 //夜间模式
-#define N_BLUE [UIColor colorWithRed:19/255.0 green:34/255.0 blue:73/255.0 alpha:1.0] //夜间蓝色        0x132249
-#define N_ORANGE [UIColor colorWithRed:205/255.0 green:133/255.0 blue:63/255.0 alpha:1.0] //夜间橘色        0xCD853F
-#define N_BG [UIColor colorWithRed:5/255.0 green:18/255.0 blue:33/255.0 alpha:1.0] //夜间大背景色     0x051221
-#define N_TABBAR_BG [UIColor colorWithRed:12/255.0 green:28/255.0 blue:52/255.0 alpha:1.0]  //夜间tabbar的背景色      0x0C1C34
-#define N_CELL_BG [UIColor colorWithRed:14/255.0 green:35/255.0 blue:65/255.0 alpha:1.0] //夜间cell的背景色       0x0E2341
-#define N_SHARE_BG RGB(14,35,65,1.0) //夜间分享背景色      0x0E2341
+#define N_BLUE RGB(19,34,73)                 //夜间蓝色                  0x132249
+#define N_ORANGE RGB(205,133,63)        //夜间橘色                  0xCD853F
+#define N_BG RGB(5,18,33)                      //夜间大背景色            0x051221
+#define N_TABBAR_BG RGB(12,28,52)      //夜间tabbar的背景色    0x0C1C34
+#define N_CELL_BG RGB(14,35,65)          //夜间cell的背景色        0x0E2341
 //占位色
 #define RED [UIColor redColor]
 //分割线
-#define SEPCOLOR [UIColor colorWithRed:204/255.0 green:204/255.0 blue:204/255.0 alpha:1.0f]     //0xCCCCCC
+#define SEPCOLOR RGB(204,204,204)     //0xCCCCCC
 
-
-//登录接口
-#define LOGIN @"http://192.168.0.106:8080/wintercamp/API/loginAPI"
 //正则
 #define REGEX(RE,text) [[NSPredicate predicateWithFormat:@"SELF MATCHES %@",RE] evaluateWithObject:text]
-//手机号正则
-#define PHONE_RE @"^((13[0-9])|(14[5,7,9])|(15[^4,\\D])|(17[0,1,3,5-8])|(18[0,5-9]))\\d{8}$"
-//密码正则
-#define PWD_RE @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$"
-//昵称正则
-#define NICK_RE @"^([\u4e00-\u9fa5]|\\w){1,12}$"
-//根据字符串获取Label宽度
-#define GET_W(str) [str boundingRectWithSize:CGSizeMake(1000, 40) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:14.0f] forKey:NSFontAttributeName] context:nil].size.width+24
-//YHAlertView
-#define ALERT(str) [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, GET_W(str), 40) message:str]
-//YHAlertView Show
-#define ALERT_SHOW(str) [[[JCAlertView alloc] initWithCustomView:ALERT(str) dismissWhenTouchedBackground:YES] show]
+#define PHONE_RE @"^((13[0-9])|(14[5,7,9])|(15[^4,\\D])|(17[0,1,3,5-8])|(18[0,5-9]))\\d{8}$" //手机号
+#define PWD_RE @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$" //密码
+#define NICK_RE @"^([\u4e00-\u9fa5]|\\w){1,12}$"  //昵称
 
 //验证码倒计时时间
 #define COUNTDOWN 10.0f
+
+//登录接口
+#define LOGIN @"http://192.168.0.106:8080/wintercamp/API/loginAPI"
 #endif /* YCDPrefixHeader_pch */

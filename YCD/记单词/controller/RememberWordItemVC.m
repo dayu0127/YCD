@@ -67,7 +67,9 @@
     return _courseUrlArray;
 }
 - (IBAction)videoClick:(UIButton *)sender{
+    [sender dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateNormal];
     sender.selected = YES;
+    [_wordButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     _wordButton.selected = NO;
     _leftLineView.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     _rightLineView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
@@ -76,7 +78,9 @@
     self.subscriptionLabel.text = @"一次订阅所有四年级上半年视频教程,仅需2000学习豆!";
 }
 - (IBAction)wordClick:(UIButton *)sender{
+    [sender dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateNormal];
     sender.selected = YES;
+    [_videoButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     _videoButton.selected = NO;
     _rightLineView.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     _leftLineView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);

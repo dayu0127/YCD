@@ -113,12 +113,15 @@
 }
 #pragma mark 选项卡标题点击
 - (void)titleButtonClick:(UIButton *)sender{
+    [sender dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateNormal];
     sender.selected = YES;
     _underLine.frame = CGRectMake(90*sender.tag, 38, 90, 1);
     if (sender.tag == 0) { //点击本节说明
+        [_titleButton2 dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
         _titleButton2.selected = NO;
         [self loadCurrentSectionExplain];
     }else{  //点击其他课程
+        [_titleButton1 dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
         _titleButton1.selected = NO;
         [self loadOtherCourse];
     }
