@@ -35,10 +35,8 @@
 }
 - (IBAction)sureButtonClick:(UIButton *)sender {
     if (REGEX(NICK_RE, _nickNameTextField.text)==NO) {
-//        ALERT_SHOW();
         [YHHud showWithMessage:@"只能是数字,字母,下划线和汉字哦"];
     }else{
-//        NSLog();
         [YHHud showWithSuccess:@"修改成功"];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [[NSUserDefaults standardUserDefaults]setObject:_nickNameTextField.text forKey:@"nickName"];

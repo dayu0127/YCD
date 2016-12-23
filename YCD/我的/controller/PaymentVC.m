@@ -24,9 +24,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _payLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    _studyDouLabel.text = [NSString stringWithFormat:@"%li学习豆，",_money*PAY_PROPORTION];
+    _studyDouLabel.text = [NSString stringWithFormat:@"%d学习豆，",_money*PAY_PROPORTION];
     _studyDouLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    _moneyLabel.text = [NSString stringWithFormat:@"%ld元",_money];
+    _moneyLabel.text = [NSString stringWithFormat:@"%d元",_money];
     _moneyLabel.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 104, WIDTH, HEIGHT-104) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
@@ -72,6 +72,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
+    //支付宝支付
         NSString *appID = @"2016121704355858";
         NSString *privateKey = @"MIICXwIBAAKBgQCtuXeBYtUnkeTfwGr8G2f20lNCAcFKlMg91+EniKbgIYu6imIvb/RnmhWPlW0SmyYaIaZl3rb2hDKKComvVmRhs5LGxTdMsUkp6w0uGx2mh2HHLmIECcf/9XmHQo1hFLkKYqn2dsxeDxYjxtmq8XL4rhtKDGWYeLzXoUxAYU4JewIDAQABAoGBAJexnWKDdHDq+hlPIZwmKi/iFAVNFwUSyY8G1Hn63wxS/nnSoE2fyqA0caNA7U8T3r9upqfJQ6YaZS8YaIWMQHWHTa/4FQWkoAyLN+oByg4Wv4sBaWxY3zuzv4wqiPpXfL8VpFyn4uYNYoBRfXunfHUOWopq80jANfmGDa44WgsxAkEA1d/0Zm3ctkzjJenmz/Vl+vPUbFFh6xLw6mEgNqkcjzXJXNrb4K29q+Cq4UUNkD7wjmVASDrCufA3fujaRY3qXwJBAM/xCtXwNwHylOX9NB8caCmFsdWhTpuFAIAG253GqsiQwunKHnor12tNrNfP39xCcWGpPZJTNH8BDA193yt8rmUCQQC3+AVtmjDRKv/0m+crmMXZAKYHalWU9F0A7vzbp8nmMfj8g1HBSRGu5/l0/oX1Pv6DLfsGZm0brdK+uqMOU013AkEAhauszIRDyCO5pfLT25/2MaL5A5xTHNQt0x8VdGIujQnJ0mIUn3KpYxgmoQDHJh8sJZyWsQZ9u5rftZiRqrHWpQJBAJeo2xgRF2IwrF626mNnmtA32jGDE4aFpvVLR0gYiR/1Meu+8651Qqvdn4ppHgciwCjJ4urLAn4mDaZIEvp/EMo=";
         //将商品信息赋予AlixPayOrder的成员变量
@@ -130,7 +131,8 @@
             }];
         }
     }else{
-        NSLog(@"微信支付支付");
+    //微信支付
+
     }
 }
 @end

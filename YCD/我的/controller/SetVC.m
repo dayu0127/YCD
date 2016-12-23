@@ -95,12 +95,21 @@
 - (void)buttonClickIndex:(NSInteger)buttonIndex{
     [_alertView dismissWithCompletion:nil];
     if (buttonIndex == 1) {
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-        [app.window setRootViewController:loginVC];
-        [app.window makeKeyWindow];
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
+        NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+        NSDictionary *dic = @{@"userID":userInfo[@"userID"],@"type":@"1"};
+        [YHWebRequest YHWebRequestForPOST:LOGOUT parameters:dic success:^(id  _Nonnull json) {
+            NSDictionary *jsonDic = json;
+            if ([jsonDic[@"code"] isEqualToString:@"SUCCESS"]) {
+                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
+                [app.window setRootViewController:loginVC];
+                [app.window makeKeyWindow];
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"网络异常 - T_T%@", error);
+        }];
     }
 }
 @end

@@ -9,7 +9,7 @@
 #import "LoginVC.h"
 #import "RootTabBarController.h"
 #import "AppDelegate.h"
-
+#import "Singleton.h"
 @interface LoginVC ()
 
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
@@ -61,42 +61,44 @@
     _pwdText.secureTextEntry = !sender.selected;
 }
 - (IBAction)loginButtonClick:(UIButton *)sender {
-//    UITextField *textField = [_textFieldCollection objectAtIndex:0];
-//    UITextView *textField1 = [_textFieldCollection objectAtIndex:1];
-//    NSString *userName = textField.text;
-//    NSString *password = textField1.text;
-//    if ([userName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0 || [password stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) {
-//        NSLog(@"您还没输入手机号和密码呢^_^");
-//    }else{
-//        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:userName,@"userName",password,@"password",nil];
-//        [YHWebRequest YHWebRequestForPOST:LOGIN parameters:dic success:^(id  _Nonnull json) {
-////                    NSLog(@"%@",json);
-//            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:json options:NSJSONReadingMutableLeaves error:nil];
-//            NSLog(@"%@",dic);
-//        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//            NSLog(@"网络异常 - T_T%@", error);
-//        }];
-//    }
     if (REGEX(PHONE_RE, _phoneText.text)==NO) {
-//        ALERT_SHOW();
         [YHHud showWithMessage:@"请输入有效的11位手机号"];
     }else if (REGEX(PWD_RE, _pwdText.text)==NO){
-//        ALERT_SHOW();
         [YHHud showWithMessage:@"请输入6~15位字母+数字组合的密码"];
     }else{
         //--实现登录--
-        //设置用户昵称和手机号
-        [[NSUserDefaults standardUserDefaults] setObject:@"大雨" forKey:@"nickName"];
-        [[NSUserDefaults standardUserDefaults] setObject:@"13333333333" forKey:@"phoneNum"];
-        [YHHud showWithSuccess:@"登录成功"];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-            RootTabBarController *rootTBC = [sb instantiateViewControllerWithIdentifier:@"root"];
-            [app.window setRootViewController:rootTBC];
-            [app.window makeKeyWindow];
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"login"];
-        });
+        [YHHud showWithStatus:@"正在登陆"];
+        NSDictionary *dic = @{@"userName":_phoneText.text,@"password":_pwdText.text};
+        [YHWebRequest YHWebRequestForPOST:LOGIN parameters:dic success:^(id  _Nonnull json) {
+            NSDictionary *jsonDic = json;
+            [YHHud dismiss];
+            if ([jsonDic[@"code"] isEqualToString:@"SUCCESS"]) {
+                //把用户信息存入用户配置
+                [[NSUserDefaults standardUserDefaults] setObject:_phoneText.text forKey:@"userName"];
+                [[NSUserDefaults standardUserDefaults] setObject:_pwdText.text forKey:@"password"];
+                [[NSUserDefaults standardUserDefaults] setObject:jsonDic[@"data"] forKey:@"userInfo"];
+                //把用户头像存入沙盒
+                NSString *path_sandox = NSHomeDirectory();
+                NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/headImage.png"];
+                NSURL *url = [NSURL URLWithString:jsonDic[@"data"][@"headImageUrl"]];
+                [UIImagePNGRepresentation([UIImage imageWithData: [NSData dataWithContentsOfURL:url]]) writeToFile:imagePath atomically:YES];
+                [YHHud showWithSuccess:@"登陆成功"];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                    RootTabBarController *rootTBC = [sb instantiateViewControllerWithIdentifier:@"root"];
+                    [app.window setRootViewController:rootTBC];
+                    [app.window makeKeyWindow];
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"login"];
+                });
+            }else if ([jsonDic[@"code"] isEqualToString:@"REPEAT_LOGIN"]){
+                [YHHud showWithMessage:@"该账户已其他设备登陆"];
+            }else if ([jsonDic[@"code"] isEqualToString:@"USAPWERR"]){
+                [YHHud showWithMessage:@"用户名或密码错误"];
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"网络异常 - T_T%@", error);
+        }];
     }
 }
 @end

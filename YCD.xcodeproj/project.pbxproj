@@ -1257,6 +1257,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "arm64 armv7 armv7s";
+				WARNING_CFLAGS = "";
 			};
 			name = Debug;
 		};
@@ -1372,6 +1374,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "arm64 armv7 armv7s";
+				WARNING_CFLAGS = "";
 			};
 			name = Release;
 		};

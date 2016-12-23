@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface PaymentVC : BaseViewController
-@property(nonatomic,assign)NSInteger money;
+@property(nonatomic,assign)int money;
 @end

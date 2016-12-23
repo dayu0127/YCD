@@ -13,6 +13,7 @@
 #import <UMSocialCore/UMSocialCore.h>
 #import <SMS_SDK/SMSSDK.h>
 #import <AlipaySDK/AlipaySDK.h>
+#import "Singleton.h"
 @interface AppDelegate ()
 
 @end
@@ -22,6 +23,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //初始化设置
+    [self getBannerInfo];
     [self initSettings];
     //设置根视图控制器
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: [NSBundle mainBundle]];
@@ -81,6 +83,16 @@
     
     //SMSSDK集成短信验证码
     [SMSSDK registerApp:@"1a0b01a59d9bc" withSecret:@"35cdf0e4465e6cc8b0ddf8e0b3ca2480"];
+}
+- (void)getBannerInfo{
+    [YHWebRequest YHWebRequestForPOST:BANNER parameters:nil success:^(id  _Nonnull json) {
+        NSDictionary *jsonDic = json;
+        if ([jsonDic[@"code"] isEqualToString:@"SUCCESS"]) {
+            [[NSUserDefaults standardUserDefaults] setObject:jsonDic[@"data"] forKey:@"banner"];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"网络异常 - T_T%@", error);
+    }];
 }
 #pragma mark 设置系统回调(支持所有iOS系统)
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{

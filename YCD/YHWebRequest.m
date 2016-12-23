@@ -37,16 +37,10 @@
     [[YHWebRequest shareManager]POST:string parameters:parameters progress:^(NSProgress *_Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task,id _Nullable responseObject) {
         if (success) {
-            // --- > 字典类型 --- > json数据 --- >解析数据并传值
-            NSError * error =nil;
-            if (error !=nil) {
-//                [SVProgressHUD showErrorWithStatus:@"数据解析失败,请稍后尝试!"];
-                return ;
-            }
-            success(responseObject);
+            success([NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil]);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError *_Nonnull error) {
-//        [SVProgressHUD showErrorWithStatus:@"请求数据失败,请检查网络后重试!"];
+        [YHHud showWithStatus:@"网络错误,请稍后重试"];
         if (failure) {
             failure(task,error);
         }

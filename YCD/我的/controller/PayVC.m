@@ -9,7 +9,7 @@
 #import "PayVC.h"
 #import "PaymentVC.h"
 @interface PayVC ()
-@property (assign,nonatomic)NSInteger money;
+@property (assign,nonatomic)int money;
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
 @property (weak, nonatomic) IBOutlet UIView *bgView1;
@@ -57,7 +57,7 @@
     }
 }
 - (void)payButtonClick:(UIButton *)sender{
-    _money = [[PAY_ARRAY objectAtIndex:sender.tag] integerValue];
+    _money = [[PAY_ARRAY objectAtIndex:sender.tag] intValue];
     [self performSegueWithIdentifier:@"toPayment" sender:self];
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{

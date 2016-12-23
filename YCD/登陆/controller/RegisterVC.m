@@ -5,10 +5,9 @@
 //  Created by dayu on 2016/11/23.
 //  Copyright © 2016年 dayu. All rights reserved.
 //
-#define ID_CODE @"1234"
 #import "RegisterVC.h"
 #import <SMS_SDK/SMSSDK.h>
-@interface RegisterVC ()<UITextFieldDelegate>
+@interface RegisterVC ()<UITextFieldDelegate,YHAlertViewDelegate>
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
 @property (weak, nonatomic) IBOutlet UIButton *registerButton;
@@ -21,6 +20,7 @@
 @property (strong,nonatomic)NSTimer *countDownTimer;
 @property (assign,nonatomic)int countDown;
 @property (weak, nonatomic) IBOutlet UIButton *showPwdButton;
+@property (strong,nonatomic) JCAlertView *alertView;
 @end
 
 @implementation RegisterVC
@@ -63,8 +63,8 @@
 }
 #pragma mark 限制验证码长度不能超过6位
 - (IBAction)idCodeEditingChanged:(UITextField *)sender {
-    if (sender.text.length>6) {
-        sender.text = [sender.text substringToIndex:6];
+    if (sender.text.length>4) {
+        sender.text = [sender.text substringToIndex:4];
     }
 }
 #pragma mark 限制密码长度不能超过15位
@@ -81,14 +81,10 @@
 //    中国电信号码：133、153、180、181、189、177、173、149
 //    虚拟运营商：170、1718、1719
     if (REGEX(PHONE_RE, _phoneText.text)==NO) {
-//        ALERT_SHOW();
         [YHHud showWithMessage:@"无效手机号"];
     }else{
-//        ALERT_SHOW();
-//        [YHHud showWithMessage:@"获取验证码"];
         [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:_phoneText.text zone:@"86" customIdentifier:nil result:^(NSError *error) {
             if (!error) {
-//                NSLog(@"获取验证码成功");
                 _countDown = COUNTDOWN;
                 sender.enabled = NO;
                 sender.backgroundColor = [UIColor lightGrayColor];
@@ -143,28 +139,47 @@
 }
 - (IBAction)registerButtonClick:(UIButton *)sender {
     if (REGEX(PHONE_RE, _phoneText.text)==NO) {
-//        ALERT_SHOW();
         [YHHud showWithMessage:@"请输入有效11位手机号"];
+    }else if(REGEX(CHECHCODE_RE, _idCodeText.text)==NO){
+        [YHHud showWithMessage:@"验证码错误"];
     }else if (REGEX(PWD_RE, _pwdText.text)==NO){
-//        ALERT_SHOW();
         [YHHud showWithMessage:@"请输入6~15位字母+数字组合的密码"];
-    }else if ([_studyCodeText.text isEqualToString:@""]==YES){
-//        ALERT_SHOW();
-        [YHHud showWithMessage:@"您输入的互学码为空，确定注册？"];
     }else {
-//        NSLog();
         [SMSSDK commitVerificationCode:_idCodeText.text phoneNumber:_phoneText.text zone:@"86" result:^(SMSSDKUserInfo *userInfo, NSError *error) {
-            NSLog(@"%@",userInfo);
             if (!error) {
-                [YHHud showWithSuccess:@"注册成功"];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self.navigationController popViewControllerAnimated:YES];
-                });
+                NSLog(@"%@",error);
+                if ([_studyCodeText.text isEqualToString:@""]) {
+                    YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 255, 155) title:@"温馨提示" message:@"您输入的互学码为空，确定注册？"];
+                    alertView.delegate = self;
+                    _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
+                    [_alertView show];
+                }else{
+                    [self userRegister];
+                }
             }else{
-                NSLog(@"错误信息：%@",error);
+                [YHHud showWithMessage:@"验证码错误"];
             }
         }];
-        
+    }
+}
+- (void)userRegister{
+    NSDictionary *dic = @{@"userName":_phoneText.text,@"password":_pwdText.text,@"studyCode":_studyCodeText.text};
+    [YHWebRequest YHWebRequestForPOST:REGISTER parameters:dic success:^(id  _Nonnull json) {
+        NSDictionary *jsonDic = json;
+        if ([jsonDic[@"code"] isEqualToString:@"SUCCESS"]) {
+            [YHHud showWithSuccess:@"注册成功"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"网络异常 - T_T%@", error);
+    }];
+}
+- (void)buttonClickIndex:(NSInteger)buttonIndex{
+    [_alertView dismissWithCompletion:nil];
+    if (buttonIndex == 1) {
+        [self userRegister];
     }
 }
 - (void)viewWillDisappear:(BOOL)animated{

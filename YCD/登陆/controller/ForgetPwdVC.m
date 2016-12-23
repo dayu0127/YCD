@@ -7,7 +7,7 @@
 //
 
 #import "ForgetPwdVC.h"
-#define ID_CODE @"1234"
+#import <SMS_SDK/SMSSDK.h>
 @interface ForgetPwdVC ()
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
@@ -73,23 +73,26 @@
 }
 - (IBAction)checkButtonClick:(UIButton *)sender {
     if (REGEX(PHONE_RE, _phoneText.text)==NO) {
-//        ALERT_SHOW();
         [YHHud showWithMessage:@"无效手机号"];
     }else{
-//        ALERT_SHOW();
-//        [YHHud showWithMessage:@"获取验证码"];
-        _countDown = COUNTDOWN;
-        sender.enabled = NO;
-        sender.backgroundColor = [UIColor lightGrayColor];
-        [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
-        _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
-            _countDown--;
-            [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
-            if (_countDown == 0) {
-                [timer invalidate];
-                sender.enabled = YES;
-                [sender setTitle:@"获取验证码" forState:UIControlStateNormal];
-                sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+        [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:_phoneText.text zone:@"86" customIdentifier:nil result:^(NSError *error) {
+            if (!error) {
+                _countDown = COUNTDOWN;
+                sender.enabled = NO;
+                sender.backgroundColor = [UIColor lightGrayColor];
+                [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
+                _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+                    _countDown--;
+                    [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
+                    if (_countDown == 0) {
+                        [timer invalidate];
+                        sender.enabled = YES;
+                        [sender setTitle:@"获取验证码" forState:UIControlStateNormal];
+                        sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+                    }
+                }];
+            } else {
+                NSLog(@"错误信息：%@",error);
             }
         }];
     }
@@ -100,20 +103,31 @@
 }
 - (IBAction)submitButton:(UIButton *)sender {
     if (REGEX(PHONE_RE, _phoneText.text)==NO) {
-//        ALERT_SHOW();
         [YHHud showWithMessage:@"请输入有效11位手机号"];
-    }else if ([_idCodeText.text isEqualToString:ID_CODE]==NO){
-//        ALERT_SHOW();
-        [YHHud showWithMessage:@"验证码不正确"];
+    }else if (REGEX(CHECHCODE_RE, _idCodeText.text)==NO){
+        [YHHud showWithMessage:@"验证码错误"];
     }else if (REGEX(PWD_RE, _pwdText.text)==NO){
-//        ALERT_SHOW();
         [YHHud showWithMessage:@"请输入6~15位字母+数字组合的密码"];
     }else {
-//        NSLog();
-        [YHHud showWithSuccess:@"设置密码成功"];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.navigationController popViewControllerAnimated:YES];
-        });
+        [SMSSDK commitVerificationCode:_idCodeText.text phoneNumber:_phoneText.text zone:@"86" result:^(SMSSDKUserInfo *userInfo, NSError *error) {
+            if (!error) {
+                NSLog(@"%@",error);
+                NSDictionary *dic = @{@"userName":_phoneText.text,@"password":_pwdText.text};
+                [YHWebRequest YHWebRequestForPOST:FORGETPWD parameters:dic success:^(id  _Nonnull json) {
+                    NSDictionary *jsonDic = json;
+                    if ([jsonDic[@"code"] isEqualToString:@"SUCCESS"]) {
+                        [YHHud showWithSuccess:@"重置密码成功"];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [self.navigationController popViewControllerAnimated:YES];
+                        });
+                    }
+                } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                    NSLog(@"网络异常 - T_T%@", error);
+                }];
+            }else{
+                [YHHud showWithMessage:@"验证码错误"];
+            }
+        }];
     }
 }
 - (void)viewWillDisappear:(BOOL)animated{

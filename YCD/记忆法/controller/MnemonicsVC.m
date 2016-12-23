@@ -11,8 +11,9 @@
 #import "MnemonicsCell.h"
 #import "MemoryCourseVC.h"
 #import "BaseTableView.h"
+#import "Singleton.h"
 @interface MnemonicsVC ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,YHAlertViewDelegate>
-@property (strong,nonatomic)NSArray *netImages;  //网络图片
+@property (strong,nonatomic)NSMutableArray *netImages;  //网络图片
 @property (strong,nonatomic)SDCycleScrollView *cycleScrollView;//轮播器
 @property (weak, nonatomic) IBOutlet UIView *scrollBgView;
 @property (strong, nonatomic) BaseTableView *tableView;
@@ -21,9 +22,13 @@
 @end
 
 @implementation MnemonicsVC
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _netImages = [NSMutableArray array];
+    NSArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"];
+    for (NSDictionary *dic in arr) {
+        [_netImages addObject:dic[@"topImageUrl"]];
+    }
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self scrollNetWorkImages];
     [self initTableView];
@@ -37,18 +42,6 @@
 - (void)nightMode{
     self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlN"];
     self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_selectN"];
-}
-#pragma mark 懒加载网络图片数据
--(NSArray *)netImages{
-    if (!_netImages) {
-        _netImages = @[
-                       @"http://d.hiphotos.baidu.com/zhidao/pic/item/72f082025aafa40f507b2e99aa64034f78f01930.jpg",
-                       @"http://b.hiphotos.baidu.com/zhidao/pic/item/4b90f603738da9770889666fb151f8198718e3d4.jpg",
-                       @"http://g.hiphotos.baidu.com/zhidao/pic/item/f2deb48f8c5494ee4e84ef5d2cf5e0fe98257ed4.jpg",
-                       @"http://d.hiphotos.baidu.com/zhidao/pic/item/72f082025aafa40f507b2e99aa64034f78f01930.jpg"
-                       ];
-    }
-    return _netImages;
 }
 #pragma mark 懒加载视频url数据
 - (NSArray *)courseUrlArray{

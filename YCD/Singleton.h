@@ -7,4 +7,5 @@
 #import <Foundation/Foundation.h>
 @interface Singleton : NSObject
 +(instancetype)shareSingleton;
+@property (strong,nonatomic) NSArray *bannerArray;
 @end
