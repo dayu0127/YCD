@@ -22,6 +22,12 @@
 		607B64141E011914002E1264 /* YHAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 607B64131E011914002E1264 /* YHAlertView.m */; };
 		60B4106D1DF54B45002D4B4D /* NotificationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B4106C1DF54B45002D4B4D /* NotificationVC.m */; };
 		60B410731DF56486002D4B4D /* LoginNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B410721DF56486002D4B4D /* LoginNC.m */; };
+		60BE4A401E0E04E100D26254 /* BannerDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BE4A3F1E0E04E100D26254 /* BannerDetailVC.m */; };
+		60BE4A431E0E0E5500D26254 /* BaseWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BE4A421E0E0E5500D26254 /* BaseWKWebView.m */; };
+		60BE4A4A1E0E2DF200D26254 /* YHDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BE4A491E0E2DF200D26254 /* YHDataSource.m */; };
+		60BE4A521E0E4F3300D26254 /* YHTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BE4A511E0E4F3300D26254 /* YHTableDelegate.m */; };
+		60BE4A5C1E0E59F500D26254 /* MnemonicsCell+Configure.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BE4A5B1E0E59F500D26254 /* MnemonicsCell+Configure.m */; };
+		60BE4A601E0E5AC900D26254 /* Mnemonics.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BE4A5F1E0E5AC900D26254 /* Mnemonics.m */; };
 		60C2FB171DFBBCAD00876289 /* BaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2FB161DFBBCAD00876289 /* BaseTableView.m */; };
 		60C2FB1A1DFBD0E100876289 /* MJChiBaoZiHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2FB191DFBD0E100876289 /* MJChiBaoZiHeader.m */; };
 		60C2FB1D1DFBD18500876289 /* MJChiBaoZiFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2FB1C1DFBD18500876289 /* MJChiBaoZiFooter.m */; };
@@ -122,6 +128,19 @@
 		60B4106C1DF54B45002D4B4D /* NotificationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationVC.m; sourceTree = "<group>"; };
 		60B410711DF56486002D4B4D /* LoginNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginNC.h; path = "登陆/controller/LoginNC.h"; sourceTree = "<group>"; };
 		60B410721DF56486002D4B4D /* LoginNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginNC.m; path = "登陆/controller/LoginNC.m"; sourceTree = "<group>"; };
+		60BE4A3E1E0E04E100D26254 /* BannerDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerDetailVC.h; sourceTree = "<group>"; };
+		60BE4A3F1E0E04E100D26254 /* BannerDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerDetailVC.m; sourceTree = "<group>"; };
+		60BE4A411E0E0E5500D26254 /* BaseWKWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseWKWebView.h; sourceTree = "<group>"; };
+		60BE4A421E0E0E5500D26254 /* BaseWKWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseWKWebView.m; sourceTree = "<group>"; };
+		60BE4A471E0E2D6800D26254 /* YHCellConfigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHCellConfigure.h; sourceTree = "<group>"; };
+		60BE4A481E0E2DF200D26254 /* YHDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHDataSource.h; sourceTree = "<group>"; };
+		60BE4A491E0E2DF200D26254 /* YHDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHDataSource.m; sourceTree = "<group>"; };
+		60BE4A501E0E4F3300D26254 /* YHTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHTableDelegate.h; sourceTree = "<group>"; };
+		60BE4A511E0E4F3300D26254 /* YHTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHTableDelegate.m; sourceTree = "<group>"; };
+		60BE4A5A1E0E59F500D26254 /* MnemonicsCell+Configure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MnemonicsCell+Configure.h"; sourceTree = "<group>"; };
+		60BE4A5B1E0E59F500D26254 /* MnemonicsCell+Configure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MnemonicsCell+Configure.m"; sourceTree = "<group>"; };
+		60BE4A5E1E0E5AC900D26254 /* Mnemonics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mnemonics.h; sourceTree = "<group>"; };
+		60BE4A5F1E0E5AC900D26254 /* Mnemonics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mnemonics.m; sourceTree = "<group>"; };
 		60C2FB151DFBBCAD00876289 /* BaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableView.h; sourceTree = "<group>"; };
 		60C2FB161DFBBCAD00876289 /* BaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableView.m; sourceTree = "<group>"; };
 		60C2FB181DFBD0E100876289 /* MJChiBaoZiHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJChiBaoZiHeader.h; sourceTree = "<group>"; };
@@ -370,6 +389,7 @@
 		60505BD51DF527B7000DC456 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				60BE4A461E0E2CB300D26254 /* YHTableHelper */,
 				690E61701DE4280C00C8E52F /* YCDPrefixHeader.pch */,
 				69BD10081DF3F4C5005D0263 /* Singleton.h */,
 				69BD10091DF3F4C5005D0263 /* Singleton.m */,
@@ -395,6 +415,36 @@
 				6022226D1DF153BC0010D969 /* HelpFeedbackVC.m */,
 			);
 			name = "建议反馈";
+			sourceTree = "<group>";
+		};
+		60BE4A3D1E0E036A00D26254 /* 轮播图详情 */ = {
+			isa = PBXGroup;
+			children = (
+				60BE4A3E1E0E04E100D26254 /* BannerDetailVC.h */,
+				60BE4A3F1E0E04E100D26254 /* BannerDetailVC.m */,
+			);
+			name = "轮播图详情";
+			sourceTree = "<group>";
+		};
+		60BE4A461E0E2CB300D26254 /* YHTableHelper */ = {
+			isa = PBXGroup;
+			children = (
+				60BE4A471E0E2D6800D26254 /* YHCellConfigure.h */,
+				60BE4A481E0E2DF200D26254 /* YHDataSource.h */,
+				60BE4A491E0E2DF200D26254 /* YHDataSource.m */,
+				60BE4A501E0E4F3300D26254 /* YHTableDelegate.h */,
+				60BE4A511E0E4F3300D26254 /* YHTableDelegate.m */,
+			);
+			name = YHTableHelper;
+			sourceTree = "<group>";
+		};
+		60BE4A5D1E0E5AB000D26254 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				60BE4A5E1E0E5AC900D26254 /* Mnemonics.h */,
+				60BE4A5F1E0E5AC900D26254 /* Mnemonics.m */,
+			);
+			name = model;
 			sourceTree = "<group>";
 		};
 		60C2FB081DFB9A4600876289 /* 更新资料 */ = {
@@ -485,6 +535,8 @@
 				602222711DF15A660010D969 /* BaseViewController.m */,
 				60C2FB151DFBBCAD00876289 /* BaseTableView.h */,
 				60C2FB161DFBBCAD00876289 /* BaseTableView.m */,
+				60BE4A411E0E0E5500D26254 /* BaseWKWebView.h */,
+				60BE4A421E0E0E5500D26254 /* BaseWKWebView.m */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -640,8 +692,10 @@
 		6925F3541DE5738900FB7B1A /* 记忆法 */ = {
 			isa = PBXGroup;
 			children = (
-				6925F3551DE5738900FB7B1A /* controller */,
+				60BE4A5D1E0E5AB000D26254 /* model */,
 				6925F3651DE573E100FB7B1A /* view */,
+				6925F3551DE5738900FB7B1A /* controller */,
+				60BE4A3D1E0E036A00D26254 /* 轮播图详情 */,
 				60505BD41DF52708000DC456 /* 记忆法课程 */,
 			);
 			path = "记忆法";
@@ -683,6 +737,8 @@
 				699834171DE6933000898021 /* MnemonicsCell.h */,
 				699834181DE6933000898021 /* MnemonicsCell.m */,
 				699834191DE6933000898021 /* MnemonicsCell.xib */,
+				60BE4A5A1E0E59F500D26254 /* MnemonicsCell+Configure.h */,
+				60BE4A5B1E0E59F500D26254 /* MnemonicsCell+Configure.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -974,6 +1030,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				60FF53101E0A6BBC00DA6693 /* MD5DataSigner.m in Sources */,
+				60BE4A4A1E0E2DF200D26254 /* YHDataSource.m in Sources */,
 				607B64141E011914002E1264 /* YHAlertView.m in Sources */,
 				60B410731DF56486002D4B4D /* LoginNC.m in Sources */,
 				69A2529D1DE8639D00074B5E /* SubscribedVC.m in Sources */,
@@ -1004,6 +1061,7 @@
 				699989361DEC788E00E1349C /* AboutUsVC.m in Sources */,
 				60FF530C1E0A6BBC00DA6693 /* Order.m in Sources */,
 				60FF530F1E0A6BBC00DA6693 /* DataVerifier.m in Sources */,
+				60BE4A5C1E0E59F500D26254 /* MnemonicsCell+Configure.m in Sources */,
 				60505BE41DF53F3A000DC456 /* IntroduceVC.m in Sources */,
 				69BD100A1DF3F4C5005D0263 /* Singleton.m in Sources */,
 				60505BDB1DF53A03000DC456 /* UpdateNickNameVC.m in Sources */,
@@ -1013,7 +1071,9 @@
 				6925F3631DE5739E00FB7B1A /* RegisterVC.m in Sources */,
 				60EB9EED1DF96C6F00E8D01B /* MemoryExercisesVC.m in Sources */,
 				6998341A1DE6933000898021 /* MnemonicsCell.m in Sources */,
+				60BE4A601E0E5AC900D26254 /* Mnemonics.m in Sources */,
 				60FF53141E0A6BBC00DA6693 /* RSADataVerifier.m in Sources */,
+				60BE4A521E0E4F3300D26254 /* YHTableDelegate.m in Sources */,
 				6925F3621DE5739E00FB7B1A /* LoginVC.m in Sources */,
 				69A7E1C71DEFF2EB008C99D7 /* PayDetailVC.m in Sources */,
 				69A7E1BE1DEFCFD2008C99D7 /* PaymentCell.m in Sources */,
@@ -1024,9 +1084,11 @@
 				60B4106D1DF54B45002D4B4D /* NotificationVC.m in Sources */,
 				69A7E1B51DEFBC0A008C99D7 /* PaymentVC.m in Sources */,
 				60FF53111E0A6BBC00DA6693 /* NSDataEx.m in Sources */,
+				60BE4A401E0E04E100D26254 /* BannerDetailVC.m in Sources */,
 				699989391DEC7F2100E1349C /* SetVC.m in Sources */,
 				60C2FB1A1DFBD0E100876289 /* MJChiBaoZiHeader.m in Sources */,
 				60505BDE1DF53AFA000DC456 /* BindingNewPhoneVC.m in Sources */,
+				60BE4A431E0E0E5500D26254 /* BaseWKWebView.m in Sources */,
 				602222751DF16E030010D969 /* RootTabBarController.m in Sources */,
 				69B129E61DE2C6490093D841 /* main.m in Sources */,
 				6963C01D1DF149D20080BA26 /* UpdateHeadImageVC.m in Sources */,

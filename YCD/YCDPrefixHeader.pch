@@ -62,5 +62,7 @@
 #define FORGETPWD @"http://192.168.0.201:8080/wintercamp/API/forgetPwdAPI" //忘记密码
 #define UPDATEPWD @"http://192.168.0.201:8080/wintercamp/API/updatePwdAPI" //更改密码
 #define LOGOUT @"http://192.168.0.201:8080/wintercamp/API/logoutAPI" //退出登录
-#define BANNER @"http://192.168.0.201:8080/wintercamp/API/bannerAPI"
+#define BANNER @"http://192.168.0.201:8080/wintercamp/API/bannerAPI" //获取轮播图
+#define COURSE @"http://192.168.0.201:8080/wintercamp/API/courseAPI" //获取记忆法课程
+
 #endif /* YCDPrefixHeader_pch */

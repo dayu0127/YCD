@@ -12,21 +12,29 @@
 #import "MemoryCourseVC.h"
 #import "BaseTableView.h"
 #import "Singleton.h"
-@interface MnemonicsVC ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,YHAlertViewDelegate>
+#import "BannerDetailVC.h"
+#import "YHTableDelegate.h"
+#import "YHDataSource.h"
+#import "Mnemonics.h"
+#import <UIImageView+WebCache.h>
+@interface MnemonicsVC ()<SDCycleScrollViewDelegate,UITableViewDelegate,YHAlertViewDelegate>
 @property (strong,nonatomic)NSMutableArray *netImages;  //网络图片
 @property (strong,nonatomic)SDCycleScrollView *cycleScrollView;//轮播器
 @property (weak, nonatomic) IBOutlet UIView *scrollBgView;
 @property (strong, nonatomic) BaseTableView *tableView;
+@property (strong,nonatomic) YHTableDelegate *tableDelegate;
+@property (strong,nonatomic) YHDataSource *dataSource;
 @property (strong,nonatomic) JCAlertView *alertView;
 @property (strong,nonatomic) NSArray *courseUrlArray;
+@property (strong,nonatomic) NSArray *bannerInfoArray;
 @end
 
 @implementation MnemonicsVC
 - (void)viewDidLoad {
     [super viewDidLoad];
     _netImages = [NSMutableArray array];
-    NSArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"];
-    for (NSDictionary *dic in arr) {
+    _bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"];
+    for (NSDictionary *dic in _bannerInfoArray) {
         [_netImages addObject:dic[@"topImageUrl"]];
     }
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -71,7 +79,11 @@
 #pragma mark 轮播器代理方法
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
-//    NSLog(@"%ld",index);
+    BannerDetailVC *bannerVC = [[BannerDetailVC alloc] init];
+    bannerVC.bannerTitle = @"标题";
+    bannerVC.linkUrl = _bannerInfoArray[index][@"linkUrl"];
+    bannerVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:bannerVC animated:YES];
 }
 
 /** 图片滚动回调 */
@@ -79,36 +91,90 @@
     //NSLog(@"%ld",index);
 }
 - (void)initTableView{
-    _tableView = [[BaseTableView alloc] initWithFrame:CGRectMake(0, 64+9/16.0*WIDTH, WIDTH, HEIGHT-108-9/16.0*WIDTH) style:UITableViewStyleGrouped];
-    _tableView.delegate = self;
-    _tableView.dataSource =self;
-    _tableView.backgroundColor = [UIColor clearColor];
-    [_tableView setRefreshData:^{
-//        NSLog(@"下拉刷新数据");
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+    NSDictionary *dic = @{@"userID":userInfo[@"userID"]};
+    [YHWebRequest YHWebRequestForPOST:COURSE parameters:dic success:^(id  _Nonnull json) {
+        NSDictionary *jsonDic = json;
+        if ([jsonDic[@"code"] isEqualToString:@"SUCCESS"]) {
+            NSMutableArray *dataArray = [NSMutableArray array];
+            for (NSDictionary *dic in jsonDic[@"data"]) {
+                [dataArray addObject:[Mnemonics modelWithDIc:dic]];
+            }
+            _dataSource = [[YHDataSource alloc] initWithIdentifier:@"MnemonicsCell" configureBlock:^(id cell, id model, NSIndexPath *indexPath) {
+                MnemonicsCell *m_cell = cell;
+                Mnemonics *m_model = model;
+                [m_cell.courseImageView sd_setImageWithURL:[NSURL URLWithString:m_model.courseImageUrl] placeholderImage:[UIImage imageNamed:@"videoImage"]];
+                m_cell.courseTitle.text = m_model.courseName;
+                m_cell.courseDetail.text = m_model.courseTitle;
+                NSString *studyDouStr = @"";
+                if ([m_model.coursePayStatus isEqualToString:@"0"]) {
+                    if ([m_model.coursePrice isEqualToString:@"0"]) {
+                        studyDouStr = @"免费";
+                    }else{
+                        studyDouStr = [NSString stringWithFormat:@"%@学习豆",m_model.coursePrice];
+                    }
+                }else{
+                    studyDouStr = @"已订阅";
+                }
+                m_cell.studyDouLabel.text = studyDouStr;
+            }];
+            [_dataSource addModels:dataArray];
+            _tableView = [[BaseTableView alloc] initWithFrame:CGRectMake(0, 64+9/16.0*WIDTH, WIDTH, HEIGHT-108-9/16.0*WIDTH) style:UITableViewStylePlain];
+            [_tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
+            _tableView.delegate = self;
+            _tableView.dataSource =  _dataSource;
+            _tableView.rowHeight = 120;
+            _tableView.backgroundColor = [UIColor clearColor];
+            [_tableView setRefreshData:^{
+                //        NSLog(@"下拉刷新数据");
+            }];
+            [_tableView setLoadMoreData:^{
+                //        NSLog(@"上拉加载更多");
+            }];
+            [self.view addSubview:_tableView];
+            [_tableView reloadData];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"网络异常 - T_T%@", error);
     }];
-    [_tableView setLoadMoreData:^{
-//        NSLog(@"上拉加载更多");
-    }];
-    [self.view addSubview:_tableView];
-    [_tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
+//    _tableView = [[BaseTableView alloc] initWithFrame:CGRectMake(0, 64+9/16.0*WIDTH, WIDTH, HEIGHT-108-9/16.0*WIDTH) style:UITableViewStyleGrouped];
+//    _tableView.delegate = self;
+//    _tableView.dataSource =self;
+//    _tableView.backgroundColor = [UIColor clearColor];
+//    [_tableView setRefreshData:^{
+////        NSLog(@"下拉刷新数据");
+//    }];
+//    [_tableView setLoadMoreData:^{
+////        NSLog(@"上拉加载更多");
+//    }];
+//    [self.view addSubview:_tableView];
+//    [_tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
 }
 #pragma tableView代理方法
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 120;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 0.001;
-}
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+//    return 4;
+//}
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    return 0.001;
+//}
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 44;
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MnemonicsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MnemonicsCell" forIndexPath:indexPath];
-    return cell;
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+        [tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
 }
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    MnemonicsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MnemonicsCell" forIndexPath:indexPath];
+//    return cell;
+//}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MnemonicsCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     MemoryCourseVC *courseVC = [[MemoryCourseVC alloc] init];

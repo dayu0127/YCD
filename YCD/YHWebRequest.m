@@ -40,7 +40,7 @@
             success([NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil]);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError *_Nonnull error) {
-        [YHHud showWithStatus:@"网络错误,请稍后重试"];
+        [YHHud showWithStatus:@"网络错误"];
         if (failure) {
             failure(task,error);
         }
