@@ -9,11 +9,12 @@
 #import "RememberWordVC.h"
 #import "RememberWordItemView.h"
 #import "WordSearchVC.h"
+#import "RememberWordItemVC.h"
 @interface RememberWordVC ()<UISearchBarDelegate,RememberWordItemViewDelegate>
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-@property (strong,nonatomic)NSArray *dataArray;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-
+@property (nonatomic,strong) NSArray *courseVideoArray;
+@property (nonatomic,strong) NSString *itemTitle;
 
 @end
 
@@ -24,17 +25,6 @@
     _searchBar.dk_barTintColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
     [self createMainScrollView];
 }
-- (NSArray *)dataArray{
-    if (!_dataArray) {
-        _dataArray = @[@{@"name":@"小学",@"detail":@[@"四年级上学期(人教版)",@"四年级上学期(人教版)",@"四年级上学期(沪教版)",@"四年级上学期(沪教版)"]},
-                       @{@"name":@"初中",@"detail":@[@"初一上学期(人教版)",@"初一上学期(人教版)",@"初一上学期(沪教版)",@"初一上学期(沪教版)"]},
-                       @{@"name":@"高中",@"detail":@[@"高一上学期(人教版)",@"高一上学期(人教版)",@"高一上学期(沪教版)",@"高一上学期(沪教版)",@"2016年全国卷高考单词",@"2016年全国卷高考预测",@"2016年全国卷高考预测"]},
-                       @{@"name":@"大学",@"detail":@[@"英语四级考试",@"英语四级考试"]},
-                       @{@"name":@"职业资格考试",@"detail":@[@"职业医师资格考试",@"建筑师职业资格考试"]}
-                       ];
-    }
-    return _dataArray;
-}
 #pragma mark 搜索框开始编辑
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
     WordSearchVC *wordSearch = [[WordSearchVC alloc] init];
@@ -44,38 +34,61 @@
 }
 #pragma mark 创建主视图
 - (void)createMainScrollView{
-    UIView *lastView = nil;
-    _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-    for (int i = 0; i < self.dataArray.count; i++) {
-        NSDictionary *dic = self.dataArray[i];
-        RememberWordItemView *itemView = [[RememberWordItemView alloc] initWithNib];
-        itemView.translatesAutoresizingMaskIntoConstraints = NO;
-        itemView.backgroundColor = [UIColor clearColor];
-        itemView.tag = i;
-        itemView.dic = dic;
-        itemView.delegate = self;
-        [_scrollView addSubview:itemView];
-        
-        NSMutableArray *layoutArray = [NSMutableArray array];
-        [layoutArray addObject:[NSLayoutConstraint constraintWithItem:itemView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_scrollView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-        [layoutArray addObject:[NSLayoutConstraint constraintWithItem:itemView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_scrollView attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
-        if (i == 0) {
-            [layoutArray addObject:[NSLayoutConstraint constraintWithItem:itemView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_scrollView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-            [layoutArray addObject:[NSLayoutConstraint constraintWithItem:itemView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_scrollView attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+    [YHWebRequest YHWebRequestForPOST:COURSE parameters:nil success:^(NSDictionary  *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            NSArray *dataArray = json[@"data"];
+            UIView *lastView = nil;
+            _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+            for (int i = 0; i < dataArray.count; i++) {
+                NSDictionary *dic = dataArray[i];
+                RememberWordItemView *itemView = [[RememberWordItemView alloc] initWithNib];
+                itemView.translatesAutoresizingMaskIntoConstraints = NO;
+                itemView.backgroundColor = [UIColor clearColor];
+                itemView.dic = dic;
+                itemView.delegate = self;
+                [_scrollView addSubview:itemView];
+                
+                NSMutableArray *layoutArray = [NSMutableArray array];
+                [layoutArray addObject:[NSLayoutConstraint constraintWithItem:itemView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_scrollView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+                [layoutArray addObject:[NSLayoutConstraint constraintWithItem:itemView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_scrollView attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+                if (i == 0) {
+                    [layoutArray addObject:[NSLayoutConstraint constraintWithItem:itemView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_scrollView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+                    [layoutArray addObject:[NSLayoutConstraint constraintWithItem:itemView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_scrollView attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+                }
+                if (lastView != nil) {
+                    [layoutArray addObject:[NSLayoutConstraint constraintWithItem:itemView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:lastView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+                }
+                if (i == dataArray.count - 1) {
+                    [layoutArray addObject:[NSLayoutConstraint constraintWithItem:itemView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_scrollView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+                }
+                [NSLayoutConstraint activateConstraints:layoutArray];
+                lastView = itemView;
+            }
         }
-        if (lastView != nil) {
-            [layoutArray addObject:[NSLayoutConstraint constraintWithItem:itemView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:lastView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
-        }
-        if (i == self.dataArray.count - 1) {
-            [layoutArray addObject:[NSLayoutConstraint constraintWithItem:itemView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_scrollView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
-        }
-        [NSLayoutConstraint activateConstraints:layoutArray];
-        lastView = itemView;
-    }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"网络异常 - T_T%@", error);
+    }];
 }
 #pragma mark itemView的点击事件
-- (void)itemClickTitleIndex:(int)titleIndex itemIndex:(int)itemIndex{
-    NSLog(@"%d-%d",titleIndex,itemIndex);
-    [self performSegueWithIdentifier:@"toDetail" sender:self];
+- (void)itemClickWithClassifyID:(NSInteger)classifyID title:(NSString *)title{
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+    NSDictionary *dic = @{@"userID":userInfo[@"userID"],@"classifyID":[NSString stringWithFormat:@"%zd",classifyID]};
+    [YHWebRequest YHWebRequestForPOST:COURSEVIDEO parameters:dic success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            _itemTitle = title;
+            _courseVideoArray = json[@"data"];
+            [self performSegueWithIdentifier:@"toItemDetail" sender:self];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+         NSLog(@"网络异常 - T_T%@", error);
+    }];
+}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"toItemDetail"]) {
+        RememberWordItemVC *itemVC = segue.destinationViewController;
+        itemVC.title = _itemTitle;
+        itemVC.courseVideoArray = _courseVideoArray;
+        itemVC.hidesBottomBarWhenPushed = YES;
+    }
 }
 @end

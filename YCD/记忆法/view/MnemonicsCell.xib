@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="373" height="120"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="340" height="119"/>
+                <rect key="frame" x="0.0" y="0.0" width="340" height="120"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="MnemonicsCell" image="videoImage1" translatesAutoresizingMaskIntoConstraints="NO" id="PqK-TB-syY" userLabel="图片">
@@ -85,10 +85,11 @@
                 <constraint firstAttribute="trailing" secondItem="sZi-se-Etd" secondAttribute="trailing" constant="33" id="G6a-7w-QkN"/>
             </constraints>
             <connections>
-                <outlet property="courseDetail" destination="sZi-se-Etd" id="LYH-Ww-i35"/>
                 <outlet property="courseImageView" destination="PqK-TB-syY" id="svS-Ul-LqR"/>
-                <outlet property="courseTitle" destination="ULN-PU-8Qu" id="vaH-NO-qPr"/>
-                <outlet property="studyDouLabel" destination="JLR-6q-761" id="sxl-VW-oMG"/>
+                <outlet property="courseName" destination="ULN-PU-8Qu" id="NyV-xh-t9L"/>
+                <outlet property="coursePrice" destination="JLR-6q-761" id="sxC-Ew-ESP"/>
+                <outlet property="coursePriceWidth" destination="s9W-QT-SHl" id="3vF-uG-CXh"/>
+                <outlet property="courseTitle" destination="sZi-se-Etd" id="y6Q-Jw-Sab"/>
             </connections>
             <point key="canvasLocation" x="51.5" y="90"/>
         </tableViewCell>

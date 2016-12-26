@@ -18,20 +18,22 @@
 #import "Mnemonics.h"
 #import <UIImageView+WebCache.h>
 @interface MnemonicsVC ()<SDCycleScrollViewDelegate,UITableViewDelegate,YHAlertViewDelegate>
-@property (strong,nonatomic)NSMutableArray *netImages;  //网络图片
-@property (strong,nonatomic)SDCycleScrollView *cycleScrollView;//轮播器
+@property (strong,nonatomic) NSDictionary *userInfo;
+@property (strong,nonatomic) NSMutableArray *netImages;  //网络图片
+@property (strong,nonatomic) SDCycleScrollView *cycleScrollView;//轮播器
 @property (weak, nonatomic) IBOutlet UIView *scrollBgView;
 @property (strong, nonatomic) BaseTableView *tableView;
 @property (strong,nonatomic) YHTableDelegate *tableDelegate;
 @property (strong,nonatomic) YHDataSource *dataSource;
 @property (strong,nonatomic) JCAlertView *alertView;
-@property (strong,nonatomic) NSArray *courseUrlArray;
 @property (strong,nonatomic) NSArray *bannerInfoArray;
+@property (strong,nonatomic) NSMutableArray<Mnemonics *> *memoryArray;
 @end
 
 @implementation MnemonicsVC
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
     _netImages = [NSMutableArray array];
     _bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"];
     for (NSDictionary *dic in _bannerInfoArray) {
@@ -50,16 +52,6 @@
 - (void)nightMode{
     self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlN"];
     self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_selectN"];
-}
-#pragma mark 懒加载视频url数据
-- (NSArray *)courseUrlArray{
-    if (!_courseUrlArray) {
-        _courseUrlArray = @[@"http://baobab.wdjcdn.com/14564977406580.mp4",
-                                     @"http://baobab.wdjcdn.com/1456480115661mtl.mp4",
-                                     @"http://baobab.wdjcdn.com/1456665467509qingshu.mp4",
-                                     @"http://baobab.wdjcdn.com/1456231710844S(24).mp4"];
-    }
-    return _courseUrlArray;
 }
 #pragma mark 创建网络轮播器
 -(void)scrollNetWorkImages{
@@ -80,7 +72,7 @@
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
     BannerDetailVC *bannerVC = [[BannerDetailVC alloc] init];
-    bannerVC.bannerTitle = @"标题";
+    bannerVC.title = _bannerInfoArray[index][@"topTitle"];
     bannerVC.linkUrl = _bannerInfoArray[index][@"linkUrl"];
     bannerVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:bannerVC animated:YES];
@@ -91,34 +83,41 @@
     //NSLog(@"%ld",index);
 }
 - (void)initTableView{
-    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-    NSDictionary *dic = @{@"userID":userInfo[@"userID"]};
-    [YHWebRequest YHWebRequestForPOST:COURSE parameters:dic success:^(id  _Nonnull json) {
+    NSDictionary *dic = @{@"userID":_userInfo[@"userID"]};
+    [YHWebRequest YHWebRequestForPOST:MEMORY parameters:dic success:^(id  _Nonnull json) {
         NSDictionary *jsonDic = json;
         if ([jsonDic[@"code"] isEqualToString:@"SUCCESS"]) {
-            NSMutableArray *dataArray = [NSMutableArray array];
+            _memoryArray = [NSMutableArray array];
+//            {
+//                courseID = 1;
+//                courseImageUrl = "wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1";
+//                courseInstructions = "\U8fd9\U662f\U4e00\U90e8\U5f88\U77ed\U7684\U89c6\U9891";
+//                courseName = "\U8bb0\U5fc6\U6cd5\U8bfe\U7a0b";
+//                coursePayStatus = 0;
+//                coursePrice = 20;
+//                courseTitle = "\U8fd9\U662f\U4e00\U90e8\U5f88\U4e0d\U9519\U7684\U89c6\U9891";
+//                courseVideo = "http://baobab.wdjcdn.com/14564977406580.mp4";
+//            }
             for (NSDictionary *dic in jsonDic[@"data"]) {
-                [dataArray addObject:[Mnemonics modelWithDIc:dic]];
+                [_memoryArray addObject:[Mnemonics yy_modelWithJSON:dic]];
             }
-            _dataSource = [[YHDataSource alloc] initWithIdentifier:@"MnemonicsCell" configureBlock:^(id cell, id model, NSIndexPath *indexPath) {
-                MnemonicsCell *m_cell = cell;
-                Mnemonics *m_model = model;
-                [m_cell.courseImageView sd_setImageWithURL:[NSURL URLWithString:m_model.courseImageUrl] placeholderImage:[UIImage imageNamed:@"videoImage"]];
-                m_cell.courseTitle.text = m_model.courseName;
-                m_cell.courseDetail.text = m_model.courseTitle;
-                NSString *studyDouStr = @"";
-                if ([m_model.coursePayStatus isEqualToString:@"0"]) {
-                    if ([m_model.coursePrice isEqualToString:@"0"]) {
-                        studyDouStr = @"免费";
+            _dataSource = [[YHDataSource alloc] initWithIdentifier:@"MnemonicsCell" configureBlock:^(MnemonicsCell *cell, Mnemonics *model, NSIndexPath *indexPath) {
+                [cell.courseImageView sd_setImageWithURL:[NSURL URLWithString:model.courseImageUrl] placeholderImage:[UIImage imageNamed:@"videoImage"]];
+                cell.courseName.text = model.courseName;
+                cell.courseTitle.text = model.courseTitle;
+                NSString *coursePrice = @"";
+                if ([model.coursePayStatus isEqualToString:@"0"]) {
+                    if ([model.coursePrice isEqualToString:@"0"]) {
+                        coursePrice = @"免费";
                     }else{
-                        studyDouStr = [NSString stringWithFormat:@"%@学习豆",m_model.coursePrice];
+                        coursePrice = [NSString stringWithFormat:@"%@学习豆",model.coursePrice];
                     }
                 }else{
-                    studyDouStr = @"已订阅";
+                    coursePrice = @"已订阅";
                 }
-                m_cell.studyDouLabel.text = studyDouStr;
+                cell.coursePrice.text = coursePrice;
             }];
-            [_dataSource addModels:dataArray];
+            [_dataSource addModels:_memoryArray];
             _tableView = [[BaseTableView alloc] initWithFrame:CGRectMake(0, 64+9/16.0*WIDTH, WIDTH, HEIGHT-108-9/16.0*WIDTH) style:UITableViewStylePlain];
             [_tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
             _tableView.delegate = self;
@@ -137,26 +136,8 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"网络异常 - T_T%@", error);
     }];
-//    _tableView = [[BaseTableView alloc] initWithFrame:CGRectMake(0, 64+9/16.0*WIDTH, WIDTH, HEIGHT-108-9/16.0*WIDTH) style:UITableViewStyleGrouped];
-//    _tableView.delegate = self;
-//    _tableView.dataSource =self;
-//    _tableView.backgroundColor = [UIColor clearColor];
-//    [_tableView setRefreshData:^{
-////        NSLog(@"下拉刷新数据");
-//    }];
-//    [_tableView setLoadMoreData:^{
-////        NSLog(@"上拉加载更多");
-//    }];
-//    [self.view addSubview:_tableView];
-//    [_tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
 }
 #pragma tableView代理方法
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    return 4;
-//}
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    return 0.001;
-//}
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 44;
 }
@@ -171,16 +152,15 @@
         [cell setLayoutMargins:UIEdgeInsetsZero];
     }
 }
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    MnemonicsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MnemonicsCell" forIndexPath:indexPath];
-//    return cell;
-//}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MnemonicsCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    Mnemonics *model = [_dataSource modelsAtIndexPath:indexPath];
     MemoryCourseVC *courseVC = [[MemoryCourseVC alloc] init];
     courseVC.hidesBottomBarWhenPushed = YES;
-    courseVC.title = cell.courseTitle.text;
-    courseVC.videoURL = [NSURL URLWithString:self.courseUrlArray[indexPath.row]];
+    courseVC.courseID = model.courseID;
+    courseVC.title = model.courseName;
+    courseVC.courseVideo = [NSURL URLWithString:model.courseVideo];
+    courseVC.courseInstructions = model.courseInstructions;
+    courseVC.memoryArray = _memoryArray;
     [self.navigationController pushViewController:courseVC animated:YES];
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
@@ -212,7 +192,19 @@
 }
 - (void)buttonClickIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
-        NSLog(@"确认订阅");
+        NSInteger totalPrice = 0;
+        for (Mnemonics *model in _memoryArray) {
+            if ([model.coursePayStatus isEqualToString:@"0"]) {
+                totalPrice = totalPrice + [model.coursePrice integerValue];
+            }
+        }
+        NSDictionary *dic = @{@"userID":_userInfo[@"userID"],@"payStudyBean":[NSString stringWithFormat:@"%zd",totalPrice],@"type":@"memory"};
+        [YHWebRequest YHWebRequestForPOST:SUBALL parameters:dic success:^(NSDictionary  *json) {
+            NSLog(@"%@",json);
+            NSLog(@"%@",_userInfo);
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"网络异常 - T_T%@", error);
+        }];
     }
     [_alertView dismissWithCompletion:nil];
 }

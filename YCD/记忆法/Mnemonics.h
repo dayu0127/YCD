@@ -17,6 +17,7 @@
 //coursePrice = 20;
 //courseTitle = "\U8fd9\U662f\U4e00\U90e8\U5f88\U4e0d\U9519\U7684\U89c6\U9891";
 //courseVideo = "http://baobab.wdjcdn.com/14564977406580.mp4";
+@property (copy,nonatomic) NSString *courseID;
 @property (copy,nonatomic) NSString *courseImageUrl;
 @property (copy,nonatomic) NSString *courseInstructions;
 @property (copy,nonatomic) NSString *courseName;
@@ -24,5 +25,4 @@
 @property (copy,nonatomic) NSString *coursePrice;
 @property (copy,nonatomic) NSString *courseTitle;
 @property (copy,nonatomic) NSString *courseVideo;
-+ (instancetype)modelWithDIc:(NSDictionary *)dic;
 @end

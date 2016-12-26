@@ -20,24 +20,24 @@
     }
     _titleLabel = [[UILabel alloc] init];
     _titleLabel.font = [UIFont systemFontOfSize:15.0f];
-    _titleLabel.text = dic[@"name"];
+    _titleLabel.text = dic[@"sectionName"];
     _titleLabel.textColor = [UIColor whiteColor];
     _titleLabel.textAlignment = NSTextAlignmentCenter;
     _titleLabel.layer.masksToBounds = YES;
     _titleLabel.layer.cornerRadius = 3.0f;
     _titleLabel.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     CGFloat width = [_titleLabel.text boundingRectWithSize:CGSizeMake(1000, 23) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:15.0f] forKey:NSFontAttributeName] context:nil].size.width;
-    _titleLabel.frame = CGRectMake(10, 16, width+50, 23);
+    _titleLabel.frame = CGRectMake(10, 16, width+40, 23);
     [_bgView addSubview:_titleLabel];
-    NSArray *array = dic[@"detail"];
+    NSArray *itemArray = dic[@"sectionDetail"];
     UIView *lastView = nil;
-    for (int i = 0; i < array.count; i++) {
-        NSString *str = array[i];
+    for (int i = 0; i < itemArray.count; i++) {
+        NSDictionary *itemDic = itemArray[i];
         UIButton *item_btn = [[UIButton alloc] init];
         item_btn.translatesAutoresizingMaskIntoConstraints = NO;
-        item_btn.tag = i;
+        item_btn.tag = [itemDic[@"id"] integerValue];
         [item_btn dk_setTitleColorPicker:DKColorPickerWithColors([UIColor darkGrayColor],[UIColor whiteColor],RED) forState:UIControlStateNormal];
-        [item_btn setTitle:str forState:UIControlStateNormal];
+        [item_btn setTitle:itemDic[@"classifyName"] forState:UIControlStateNormal];
         item_btn.layer.cornerRadius = 6.0f;
         item_btn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
         item_btn.dk_backgroundColorPicker = DKColorPickerWithColors(D_BTN_BG,N_CELL_BG,RED);
@@ -59,7 +59,7 @@
             [layoutArray addObject:[NSLayoutConstraint constraintWithItem:item_btn attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:_contentView attribute:NSLayoutAttributeTrailing multiplier:1 constant:-10]];
             [layoutArray addObject:[NSLayoutConstraint constraintWithItem:item_btn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:lastView attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
         }
-        if (i == array.count - 1) {
+        if (i == itemArray.count - 1) {
             [layoutArray addObject:[NSLayoutConstraint constraintWithItem:item_btn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:-5]];
             if (i % 2 == 0) {
                 [layoutArray addObject:[NSLayoutConstraint constraintWithItem:item_btn attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:_contentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:-10]];
@@ -74,7 +74,7 @@
 }
 
 - (void)itemClick:(UIButton *)sender{
-    [_delegate itemClickTitleIndex:(int)self.tag itemIndex:(int)sender.tag];
+    [_delegate itemClickWithClassifyID:sender.tag title:sender.titleLabel.text];
 }
 
 

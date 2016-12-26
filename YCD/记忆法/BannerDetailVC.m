@@ -16,7 +16,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = _bannerTitle;
     _wkWebView = [[BaseWKWebView alloc] initWithFrame:self.view.bounds];
     NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:_linkUrl]];
     [_wkWebView loadRequest:request];

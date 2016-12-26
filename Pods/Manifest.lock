@@ -48,6 +48,7 @@ PODS:
     - UMengUShare/Core
   - UMengUShare/UI (6.1):
     - UMengUShare/Core
+  - YYModel (1.0.4)
   - ZFPlayer (2.1.1):
     - Masonry
 
@@ -64,6 +65,7 @@ DEPENDENCIES:
   - UMengUShare/Social/Sina
   - UMengUShare/Social/WeChat
   - UMengUShare/UI
+  - YYModel
   - ZFPlayer
 
 SPEC CHECKSUMS:
@@ -77,8 +79,9 @@ SPEC CHECKSUMS:
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SMSSDK: 1fc8500bec6bc36b524e4de7fac4acdb784e0217
   UMengUShare: 6c3902a68a06d01031bed6f426e97b89d4fc504f
+  YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   ZFPlayer: c36657da33c28c75dfb100e98e7976b5b3e1fc10
 
-PODFILE CHECKSUM: 84637d6a101a2c68e72082340b5cba5deb305756
+PODFILE CHECKSUM: e22bc3266dcb1030a4664ad92eb565fbaaef4a75
 
 COCOAPODS: 1.1.1

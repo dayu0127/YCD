@@ -10,9 +10,10 @@
 #import <UMSocialCore/UMSocialCore.h>
 #import <UShareUI/UMSocialUIManager.h>
 #import <UMSocialCore/UMSocialResponse.h>
+#import "Mnemonics.h"
 @interface MemoryCourseVC ()<UICollectionViewDelegate,UICollectionViewDataSource,ZFPlayerDelegate>
 
-@property (strong, nonatomic) UIView *playerFatherView;
+@property (nonatomic, strong) UIView *playerFatherView;
 @property (nonatomic,strong) ZFPlayerView *playerView;
 @property (nonatomic,strong) ZFPlayerModel *playerModel;
 @property (nonatomic,strong) UIButton *titleButton1;
@@ -36,7 +37,7 @@
     if (!_playerModel) {
         _playerModel                  = [[ZFPlayerModel alloc] init];
 //        _playerModel.title            = self.videoName;
-        _playerModel.videoURL         = self.videoURL;
+        _playerModel.videoURL         = self.courseVideo;
 //        _playerModel.placeholderImage = [UIImage imageNamed:@"banner01"];
         _playerModel.fatherView       = self.playerFatherView;
     }
@@ -50,7 +51,6 @@
 //    // 设置最多同时下载个数（默认是3）
 //    [ZFDownloadManager sharedDownloadManager].maxCount = 4;
 //}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     _buttonArray = [NSMutableArray array];
@@ -126,7 +126,6 @@
         [self loadOtherCourse];
     }
 }
-
 #pragma mark 设置分享内容
 #pragma mark 分享文本
 - (void)shareTextToPlatformType:(UMSocialPlatformType)platformType{
@@ -227,7 +226,6 @@
         }
     }];
 }
-
 #pragma mark 加载本节说明
 - (void)loadCurrentSectionExplain{
     if (_contentText!=nil) {
@@ -237,7 +235,7 @@
     _contentText = [[UITextView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_line.frame), WIDTH, HEIGHT-CGRectGetMaxY(_line.frame))];
     _contentText.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
     _contentText.editable = NO;
-    NSString *textString = @"如果你无法简洁的表达你的想法，那只说明你还不够了解它。  --阿尔伯特·爱因斯坦";
+    NSString *textString = self.courseInstructions;
     NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:textString];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:5];
@@ -269,18 +267,23 @@
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.courceArray.count;
+    return _memoryArray.count;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     UIButton *courseItemButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, (WIDTH-60)*0.5, 44)];
-    [courseItemButton setTitle:self.courceArray[indexPath.row] forState:UIControlStateNormal];
+    Mnemonics *model = _memoryArray[indexPath.row];
+    [courseItemButton setTitle:model.courseName forState:UIControlStateNormal];
     courseItemButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     [courseItemButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
-    courseItemButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BTN_BG,N_CELL_BG,RED);
+    if ([model.courseID isEqualToString:_courseID]) {
+        courseItemButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    }else{
+        courseItemButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BTN_BG,N_CELL_BG,RED);
+    }
     courseItemButton.layer.masksToBounds = YES;
     courseItemButton.layer.cornerRadius = 8.0f;
-    courseItemButton.tag = indexPath.row;
+    courseItemButton.tag = [model.courseID integerValue];
     [courseItemButton addTarget:self action:@selector(courseItemButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:courseItemButton];
     [_buttonArray addObject:courseItemButton];
@@ -290,8 +293,26 @@
     for (UIButton *btn in _buttonArray) {
         btn.dk_backgroundColorPicker = DKColorPickerWithColors(D_BTN_BG,N_CELL_BG,RED);
     }
-    UIButton *currentBtn = [_buttonArray objectAtIndex:sender.tag];
-    currentBtn.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    for (Mnemonics *model in _memoryArray) {
+        if ([model.courseID integerValue] == sender.tag) {
+            _courseID = model.courseID;
+            self.title = model.courseName;
+            _playerModel = [[ZFPlayerModel alloc] init];
+            _playerModel.fatherView = self.playerFatherView;
+            _playerModel.videoURL = [NSURL URLWithString:model.courseVideo];
+            [_playerView resetPlayer];
+            [_playerView playerControlView:nil playerModel:_playerModel];
+            _courseInstructions = model.courseInstructions;
+            [_titleButton1 dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateNormal];
+            _titleButton1.selected = YES;
+            _underLine.frame = CGRectMake(0, 38, 90, 1);
+            [_titleButton2 dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
+            _titleButton2.selected = NO;
+            [self loadCurrentSectionExplain];
+            break;
+        }
+    }
 }
 #pragma mark 分享错误信息提示
 - (void)alertWithError:(NSError *)error{

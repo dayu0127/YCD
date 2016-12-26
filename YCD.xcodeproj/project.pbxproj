@@ -31,6 +31,7 @@
 		60C2FB171DFBBCAD00876289 /* BaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2FB161DFBBCAD00876289 /* BaseTableView.m */; };
 		60C2FB1A1DFBD0E100876289 /* MJChiBaoZiHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2FB191DFBD0E100876289 /* MJChiBaoZiHeader.m */; };
 		60C2FB1D1DFBD18500876289 /* MJChiBaoZiFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2FB1C1DFBD18500876289 /* MJChiBaoZiFooter.m */; };
+		60E9D64C1E110938006412BF /* CourseVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E9D64B1E110938006412BF /* CourseVideo.m */; };
 		60EB9EED1DF96C6F00E8D01B /* MemoryExercisesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60EB9EEC1DF96C6F00E8D01B /* MemoryExercisesVC.m */; };
 		60FF515F1E0A5E3B00DA6693 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF515E1E0A5E3B00DA6693 /* libc++.tbd */; };
 		60FF51611E0A5E8C00DA6693 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF51601E0A5E8C00DA6693 /* libz.tbd */; };
@@ -147,6 +148,8 @@
 		60C2FB191DFBD0E100876289 /* MJChiBaoZiHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJChiBaoZiHeader.m; sourceTree = "<group>"; };
 		60C2FB1B1DFBD18500876289 /* MJChiBaoZiFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJChiBaoZiFooter.h; sourceTree = "<group>"; };
 		60C2FB1C1DFBD18500876289 /* MJChiBaoZiFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJChiBaoZiFooter.m; sourceTree = "<group>"; };
+		60E9D64A1E110938006412BF /* CourseVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseVideo.h; sourceTree = "<group>"; };
+		60E9D64B1E110938006412BF /* CourseVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseVideo.m; sourceTree = "<group>"; };
 		60EB9EEB1DF96C6F00E8D01B /* MemoryExercisesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryExercisesVC.h; sourceTree = "<group>"; };
 		60EB9EEC1DF96C6F00E8D01B /* MemoryExercisesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryExercisesVC.m; sourceTree = "<group>"; };
 		60FF515E1E0A5E3B00DA6693 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -541,6 +544,15 @@
 			name = Base;
 			sourceTree = "<group>";
 		};
+		60E9D6491E11091A006412BF /* model */ = {
+			isa = PBXGroup;
+			children = (
+				60E9D64A1E110938006412BF /* CourseVideo.h */,
+				60E9D64B1E110938006412BF /* CourseVideo.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
 		60FF52A31E0A6BBC00DA6693 /* Alipay */ = {
 			isa = PBXGroup;
 			children = (
@@ -665,6 +677,7 @@
 		690E61891DE570C500C8E52F /* 记单词 */ = {
 			isa = PBXGroup;
 			children = (
+				60E9D6491E11091A006412BF /* model */,
 				69B8C5F91DE6C51F003A4701 /* controller */,
 				69B8C5FA1DE6C51F003A4701 /* view */,
 			);
@@ -1045,6 +1058,7 @@
 				699989301DEC2EDA00E1349C /* PayVC.m in Sources */,
 				6052E5BB1DFAA2E500EDD341 /* YHWebRequest.m in Sources */,
 				69E1507C1DEC0D4800F0F1E9 /* MineTableVC.m in Sources */,
+				60E9D64C1E110938006412BF /* CourseVideo.m in Sources */,
 				690E616F1DE3DF9B00C8E52F /* UserGuideViewController.m in Sources */,
 				60505BD81DF5305B000DC456 /* UpdatePwdVC.m in Sources */,
 				602222721DF15A670010D969 /* BaseViewController.m in Sources */,

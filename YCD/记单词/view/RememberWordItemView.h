@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol RememberWordItemViewDelegate<NSObject>
-- (void)itemClickTitleIndex:(int)titleIndex itemIndex:(int)itemIndex;
+- (void)itemClickWithClassifyID:(NSInteger)classifyID title:(NSString *)title;
 @end
 
 @interface RememberWordItemView : UIView

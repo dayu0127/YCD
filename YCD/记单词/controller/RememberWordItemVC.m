@@ -11,6 +11,9 @@
 #import "RememberWordSingleWordCell.h"
 #import "RememberWordVideoDetailVC.h"
 #import "RememberWordSingleWordDetailVC.h"
+#import "YHDataSource.h"
+#import "CourseVideo.h"
+#import <UIImageView+WebCache.h>
 @interface RememberWordItemVC ()<UITableViewDelegate,UITableViewDataSource,YHAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *videoButton;
 @property (weak, nonatomic) IBOutlet UIButton *wordButton;
@@ -27,6 +30,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *subscriptionButton;
 - (IBAction)subscriptionClick:(id)sender;
 @property (strong,nonatomic) JCAlertView *alertView;
+@property (strong,nonatomic) YHDataSource *dataSource;
+@property (strong,nonatomic) NSMutableArray<CourseVideo *> *courseVideoModelArray;
 @end
 
 @implementation RememberWordItemVC
@@ -45,6 +50,7 @@
     if (WIDTH<=320) {
         _subscriptionLabel.numberOfLines=2;
     }
+    NSLog(@"%@",_courseVideoArray);
 }
 - (NSMutableArray *)wordArray{
     if (!_wordArray) {
@@ -96,15 +102,28 @@
     }
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 116, WIDTH, HEIGHT-160) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
-    _tableView.dataSource = self;
     _tableView.bounces = NO;
     _tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
     if (_flagForTable == 0) {
+        _dataSource = [[YHDataSource alloc] initWithIdentifier:@"RememberWordVideoCell" configureBlock:^(RememberWordVideoCell *cell, CourseVideo *model, NSIndexPath *indexPath) {
+            [cell.videoImageView sd_setImageWithURL:[NSURL URLWithString:model.videoImageUrl] placeholderImage:[UIImage imageNamed:@"videoImage"]];
+            cell.videoName.text = model.videoName;
+            cell.detailLabel.text = [NSString stringWithFormat:@"%@,共%@词",[self getHMSFromS:model.videoTime],model.videoWordNum];
+            cell.videoPrice.text = [NSString stringWithFormat:@"%@学习豆",model.videoPrice];
+        }];
+        _courseVideoModelArray = [NSMutableArray array];
+        for (NSDictionary *dic in _courseVideoArray) {
+            [_courseVideoModelArray addObject:[CourseVideo yy_modelWithJSON:dic]];
+        }
+        [_dataSource addModels:_courseVideoModelArray];
+        _tableView.dataSource = _dataSource;
         [_tableView registerNib:[UINib nibWithNibName:@"RememberWordVideoCell" bundle:nil] forCellReuseIdentifier:@"RememberWordVideoCell"];
     }else{
+        _tableView.dataSource = self;
         [_tableView registerNib:[UINib nibWithNibName:@"RememberWordSingleWordCell" bundle:nil] forCellReuseIdentifier:@"RememberWordSingleWordCell"];
     }
+    [_tableView reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -112,7 +131,13 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     NSArray *arr = self.wordArray[section][@"detail"];
-    return _flagForTable == 0 ? 2 : arr.count;
+    NSInteger rowNumber = 0;
+    if (_flagForTable == 0) {
+       rowNumber =  _courseVideoArray.count;
+    }else{
+        rowNumber = arr.count;
+    }
+    return rowNumber;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return _flagForTable == 0 ? 10 : 30;
@@ -122,6 +147,17 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.001;
+}
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+        [tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UILabel *titleLabel = nil;
@@ -136,13 +172,11 @@
     return titleLabel;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (_flagForTable == 0) {
-        RememberWordVideoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RememberWordVideoCell" forIndexPath:indexPath];
-        return cell;
-    }else{
-        RememberWordSingleWordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RememberWordSingleWordCell" forIndexPath:indexPath];
-        return cell;
+    RememberWordSingleWordCell *cell;
+    if (_flagForTable == 1) {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"RememberWordSingleWordCell" forIndexPath:indexPath];
     }
+    return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (_flagForTable == 0) {
@@ -172,5 +206,21 @@
         NSLog(@"确认订阅");
     }
     [_alertView dismissWithCompletion:nil];
+}
+#pragma mark 秒->时 分 秒
+-(NSString *)getHMSFromS:(NSString *)totalTime{
+    NSInteger seconds = [totalTime integerValue];
+    NSString *str_hour = [NSString stringWithFormat:@"%02zd",seconds/3600];
+    NSString *str_minute = [NSString stringWithFormat:@"%02zd",(seconds%3600)/60];
+    NSString *str_second = [NSString stringWithFormat:@"%02zd",seconds%60];
+    NSString *format_time = @"";
+    if ((![str_hour isEqualToString:@"00"])&&(![str_minute isEqualToString:@"00"])) {
+        format_time = [NSString stringWithFormat:@"%@时%@分%@秒",str_hour,str_minute,str_second];
+    }else if ([str_hour isEqualToString:@"00"]&&(![str_minute isEqualToString:@"00"])){
+        format_time = [NSString stringWithFormat:@"%@分%@秒",str_minute,str_second];
+    }else if ([str_hour isEqualToString:@"00"]&&[str_minute isEqualToString:@"00"]){
+        format_time = [NSString stringWithFormat:@"%@秒",str_second];
+    }
+    return format_time;
 }
 @end

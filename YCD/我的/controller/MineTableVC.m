@@ -14,8 +14,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *titileCollectionLabel;
 @property (strong, nonatomic) IBOutletCollection(UITableViewCell) NSArray *tableViewCellCollection;
-@property (weak, nonatomic) IBOutlet UILabel *studyDouNum;
-@property (weak, nonatomic) IBOutlet UILabel *currentStudyDouNum;
+@property (weak, nonatomic) IBOutlet UILabel *studyBean;
+@property (weak, nonatomic) IBOutlet UILabel *costStudyBean;
 @property (weak, nonatomic) IBOutlet UILabel *studyCodeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *payButton;
 @end
@@ -24,8 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
-    _studyDouNum.dk_textColorPicker = DKColorPickerWithColors(D_BLUE,[UIColor whiteColor],RED);
-    _currentStudyDouNum.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    _studyBean.dk_textColorPicker = DKColorPickerWithColors(D_BLUE,[UIColor whiteColor],RED);
+    _costStudyBean.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     for (UILabel *item in _titileCollectionLabel) {
         item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     }
@@ -41,10 +41,12 @@
         NSData *picData = [NSData dataWithContentsOfFile:imagePath];
         _headImageView.image = [UIImage imageWithData:picData];
     }
-    //从用户配置中获取昵称和手机号
+    //从用户配置中获取昵称,手机号,学习豆和已消耗学习豆
     NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
     _nickNameLabel.text = userInfo[@"nickName"];
     _phoneNumLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+    _studyBean.text = [NSString stringWithFormat:@"%@",userInfo[@"studyBean"]];
+    _costStudyBean.text = [NSString stringWithFormat:@"%@",userInfo[@"costStudyBean"]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeadImage:) name:@"updateHeadImage" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNickName:) name:@"updateNickName" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePhoneNum:) name:@"updatePhoneNum" object:nil];

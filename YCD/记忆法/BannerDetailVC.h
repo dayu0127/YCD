@@ -9,6 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface BannerDetailVC : UIViewController
-@property (copy,nonatomic) NSString *bannerTitle;
 @property (copy,nonatomic) NSString *linkUrl;
 @end

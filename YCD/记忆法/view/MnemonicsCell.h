@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface MnemonicsCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UIImageView *courseImageView;
+@property (weak, nonatomic) IBOutlet UILabel *courseName;
+@property (weak, nonatomic) IBOutlet UILabel *coursePrice;
 @property (weak, nonatomic) IBOutlet UILabel *courseTitle;
-@property (weak, nonatomic) IBOutlet UILabel *courseDetail;
-@property (weak, nonatomic) IBOutlet UILabel *studyDouLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *coursePriceWidth;
 
 @end

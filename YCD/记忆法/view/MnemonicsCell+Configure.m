@@ -16,20 +16,20 @@
 //    @property (weak, nonatomic) IBOutlet UILabel *courseTitle;
 //    @property (weak, nonatomic) IBOutlet UILabel *courseDetail;
 //    @property (weak, nonatomic) IBOutlet UILabel *studyDouLabel;
-    self.courseTitle.text = model.courseName;
-    self.courseDetail.text = model.courseTitle;
+    self.courseName.text = model.courseName;
+    self.courseTitle.text = model.courseTitle;
 //    @property (copy,nonatomic) NSString *coursePayStatus;
 //    @property (copy,nonatomic) NSString *coursePrice;
-    NSString *studyDouStr = @"";
+    NSString *coursePrice = @"";
     if ([model.coursePayStatus isEqualToString:@"0"]) {
         if ([model.coursePrice isEqualToString:@"0"]) {
-            studyDouStr = @"免费";
+            coursePrice = @"免费";
         }else{
-            studyDouStr = [NSString stringWithFormat:@"%@学习豆",model.coursePrice];
+            coursePrice = [NSString stringWithFormat:@"%@学习豆",model.coursePrice];
         }
     }else{
-        studyDouStr = @"已订阅";
+        coursePrice = @"已订阅";
     }
-    self.studyDouLabel.text = studyDouStr;
+    self.coursePrice.text = coursePrice;
 }
 @end

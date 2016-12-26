@@ -25,7 +25,7 @@
                         <rect key="frame" x="15" y="10" width="60" height="60"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="【人教版】小学四年级上第一节" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z3y-e0-rVj" userLabel="titleLabel">
-                        <rect key="frame" x="75" y="18" width="259" height="17"/>
+                        <rect key="frame" x="83" y="18" width="251" height="17"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -37,11 +37,11 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20学习豆" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H3v-jW-9cY">
-                        <rect key="frame" x="272" y="43" width="62" height="20"/>
+                        <rect key="frame" x="289" y="43" width="45" height="20"/>
                         <color key="backgroundColor" red="1" green="0.73185000099999997" blue="0.28383037950000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="1SZ-EB-WRX"/>
-                            <constraint firstAttribute="width" constant="62" id="bNk-5p-TL8"/>
+                            <constraint firstAttribute="width" constant="45" id="bNk-5p-TL8"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -59,7 +59,7 @@
                     <constraint firstItem="mLp-wA-z17" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="2Mp-w5-ZGa"/>
                     <constraint firstItem="qSt-OS-1AH" firstAttribute="leading" secondItem="mLp-wA-z17" secondAttribute="trailing" constant="8" id="2Vc-Ez-48x"/>
                     <constraint firstAttribute="trailingMargin" secondItem="z3y-e0-rVj" secondAttribute="trailing" id="42Q-sF-BOa"/>
-                    <constraint firstItem="z3y-e0-rVj" firstAttribute="leading" secondItem="mLp-wA-z17" secondAttribute="trailing" id="BDR-ia-cOS"/>
+                    <constraint firstItem="z3y-e0-rVj" firstAttribute="leading" secondItem="mLp-wA-z17" secondAttribute="trailing" constant="8" id="BDR-ia-cOS"/>
                     <constraint firstItem="mLp-wA-z17" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.75" id="Dwn-Ev-xwL"/>
                     <constraint firstItem="H3v-jW-9cY" firstAttribute="top" secondItem="z3y-e0-rVj" secondAttribute="bottom" constant="8" id="KQU-bq-3tJ"/>
                     <constraint firstItem="z3y-e0-rVj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="flq-rj-HS3"/>
@@ -72,8 +72,10 @@
             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="detailLabel" destination="qSt-OS-1AH" id="qbK-Su-B5L"/>
-                <outlet property="studyDouLabel" destination="H3v-jW-9cY" id="1Rz-MO-UQ4"/>
-                <outlet property="titleLabel" destination="z3y-e0-rVj" id="yIU-0n-LSl"/>
+                <outlet property="videoImageView" destination="mLp-wA-z17" id="l2Y-D5-uJH"/>
+                <outlet property="videoName" destination="z3y-e0-rVj" id="Jbf-13-y4S"/>
+                <outlet property="videoPrice" destination="H3v-jW-9cY" id="En9-xa-Og0"/>
+                <outlet property="videoPriceWidth" destination="bNk-5p-TL8" id="SEs-e9-FRy"/>
             </connections>
             <point key="canvasLocation" x="54.5" y="76"/>
         </tableViewCell>

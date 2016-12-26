@@ -44,6 +44,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>YYModel.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>ZFPlayer.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,7 +62,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>68B3954762E51A2CDCC00E297A7341CC</key>
+		<key>0C30F98F9CA7E3436E7EC507938B1B01</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0DEE648F4C8D304FD9F9F4EF894F094B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1EB02ADACA26D4635863F02967B1C01C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -67,7 +82,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8EA62B7633FAE22D09A3F051EBC53B58</key>
+		<key>8EED9C00FDE3943B9E1B7C26FCD430A4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -82,17 +97,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A872D500F78E443BD61E61F38EA3C7CB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>B46184DE6B3A8503498C74F1E3D2C1A4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D0C344E3422385C6CADF3C5D2FEA044B</key>
+		<key>E73DBF187E4C0318B4AAFED04138D4E1</key>
 		<dict>
 			<key>primary</key>
 			<true/>

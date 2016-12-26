@@ -13,11 +13,14 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
-    _courseTitle.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    _courseDetail.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor groupTableViewBackgroundColor],[UIColor redColor]);
-    _studyDouLabel.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    _courseName.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    _courseTitle.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor groupTableViewBackgroundColor],[UIColor redColor]);
+    _coursePrice.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
 }
-
+- (void)updateConstraints{
+    [super updateConstraints];
+    _coursePriceWidth.constant = _coursePriceWidth.constant + 10;
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 }

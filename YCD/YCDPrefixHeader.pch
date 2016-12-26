@@ -13,6 +13,7 @@
 #import "YHAlertView.h"
 #import "YHHud.h"
 #import "YHWebRequest.h"
+#import <YYModel.h>
 //屏幕高宽
 #define WIDTH [UIScreen mainScreen].bounds.size.width
 #define HEIGHT [UIScreen mainScreen].bounds.size.height
@@ -63,6 +64,8 @@
 #define UPDATEPWD @"http://192.168.0.201:8080/wintercamp/API/updatePwdAPI" //更改密码
 #define LOGOUT @"http://192.168.0.201:8080/wintercamp/API/logoutAPI" //退出登录
 #define BANNER @"http://192.168.0.201:8080/wintercamp/API/bannerAPI" //获取轮播图
-#define COURSE @"http://192.168.0.201:8080/wintercamp/API/courseAPI" //获取记忆法课程
-
+#define MEMORY @"http://192.168.0.201:8080/wintercamp/API/courseAPI" //获取记忆法课程
+#define SUBALL @"http://192.168.0.201:8080/wintercamp/API/subAllAPI" //订阅全部
+#define COURSE @"http://192.168.0.201:8080/wintercamp/API/getReciteWordsAPI" //获取课程列表
+#define COURSEVIDEO @"http://192.168.0.201:8080/wintercamp/API/getCourseVideoAPI" //获取记单词视频目录
 #endif /* YCDPrefixHeader_pch */
