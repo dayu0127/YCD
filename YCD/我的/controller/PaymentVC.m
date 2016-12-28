@@ -33,26 +33,21 @@
     _tableView.dataSource = self;
     _tableView.rowHeight = 44;
     _tableView.bounces = NO;
+    _tableView.separatorInset = UIEdgeInsetsZero;
     _tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
     [_tableView registerNib:[UINib nibWithNibName:@"PaymentCell" bundle:nil] forCellReuseIdentifier:@"PaymentCell"];
 }
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
-}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return 2;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 0.001;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0.001;
-}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     PaymentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PaymentCell" forIndexPath:indexPath];
-    cell.imageView1.image = indexPath.section == 0 ? [UIImage imageNamed:@"alipaylogo_64x64"] : [UIImage imageNamed:@"wxlogo_64x64"];
-    cell.title.text = indexPath.section == 0 ? @"支付宝支付" : @"微信支付";
+    cell.imageView1.image = indexPath.row == 0 ? [UIImage imageNamed:@"alipaylogo_64x64"] : [UIImage imageNamed:@"wxlogo_64x64"];
+    cell.title.text = indexPath.row == 0 ? @"支付宝支付" : @"微信支付";
     return cell;
 }
 - (NSString *)generateTradeNO
@@ -71,7 +66,7 @@
     return resultStr;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
+    if (indexPath.row == 0) {
     //支付宝支付
         NSString *appID = @"2016121704355858";
         NSString *privateKey = @"MIICXwIBAAKBgQCtuXeBYtUnkeTfwGr8G2f20lNCAcFKlMg91+EniKbgIYu6imIvb/RnmhWPlW0SmyYaIaZl3rb2hDKKComvVmRhs5LGxTdMsUkp6w0uGx2mh2HHLmIECcf/9XmHQo1hFLkKYqn2dsxeDxYjxtmq8XL4rhtKDGWYeLzXoUxAYU4JewIDAQABAoGBAJexnWKDdHDq+hlPIZwmKi/iFAVNFwUSyY8G1Hn63wxS/nnSoE2fyqA0caNA7U8T3r9upqfJQ6YaZS8YaIWMQHWHTa/4FQWkoAyLN+oByg4Wv4sBaWxY3zuzv4wqiPpXfL8VpFyn4uYNYoBRfXunfHUOWopq80jANfmGDa44WgsxAkEA1d/0Zm3ctkzjJenmz/Vl+vPUbFFh6xLw6mEgNqkcjzXJXNrb4K29q+Cq4UUNkD7wjmVASDrCufA3fujaRY3qXwJBAM/xCtXwNwHylOX9NB8caCmFsdWhTpuFAIAG253GqsiQwunKHnor12tNrNfP39xCcWGpPZJTNH8BDA193yt8rmUCQQC3+AVtmjDRKv/0m+crmMXZAKYHalWU9F0A7vzbp8nmMfj8g1HBSRGu5/l0/oX1Pv6DLfsGZm0brdK+uqMOU013AkEAhauszIRDyCO5pfLT25/2MaL5A5xTHNQt0x8VdGIujQnJ0mIUn3KpYxgmoQDHJh8sJZyWsQZ9u5rftZiRqrHWpQJBAJeo2xgRF2IwrF626mNnmtA32jGDE4aFpvVLR0gYiR/1Meu+8651Qqvdn4ppHgciwCjJ4urLAn4mDaZIEvp/EMo=";

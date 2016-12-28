@@ -33,10 +33,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1学习豆" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KfI-Pk-4NE">
-                        <rect key="frame" x="279" y="12" width="55" height="20"/>
+                        <rect key="frame" x="289" y="12" width="45" height="20"/>
                         <color key="backgroundColor" red="1" green="0.73185000099999997" blue="0.28383037950000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="55" id="Jrd-Qx-fNO"/>
+                            <constraint firstAttribute="width" constant="45" id="Jrd-Qx-fNO"/>
                             <constraint firstAttribute="height" constant="20" id="a3J-XO-y6B"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -61,8 +61,9 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
-                <outlet property="studyDouLabel" destination="KfI-Pk-4NE" id="PZo-n4-dsW"/>
-                <outlet property="wordLabel" destination="j0s-IK-CPC" id="kg3-tE-py7"/>
+                <outlet property="word" destination="j0s-IK-CPC" id="yB7-Zb-IZC"/>
+                <outlet property="wordPrice" destination="KfI-Pk-4NE" id="WXl-PK-xCh"/>
+                <outlet property="wordPriceWidth" destination="Jrd-Qx-fNO" id="3Gu-PN-Y2c"/>
             </connections>
         </tableViewCell>
     </objects>

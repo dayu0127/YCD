@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class Words;
 @interface RememberWordSingleWordDetailVC : UIViewController
-@property (nonatomic, strong) NSURL *videoURL;
+@property (strong,nonatomic) Words *word;
 @end

@@ -26,6 +26,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.bounces = NO;
+    _tableView.separatorInset = UIEdgeInsetsZero;
     _tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
     _logoutButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
@@ -36,32 +37,21 @@
     }
     return _arr;
 }
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 2;
 }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
-}
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return section == 0 ? 13.0 : 0.001;
-}
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 10)];
-    headView.backgroundColor = [UIColor clearColor];
-    return headView;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0.001;
+    return 13;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 44)];
     cell.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(16, 0, 100, 44)];
-    label.text = self.arr[indexPath.section];
+    label.text = self.arr[indexPath.row];
     label.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     label.font = [UIFont systemFontOfSize:15.0f];
     [cell.contentView addSubview:label];
-    if (indexPath.section==0) {
+    if (indexPath.row==0) {
         UISwitch *sw = [[UISwitch alloc] initWithFrame:CGRectMake((WIDTH-67), 6.5, 51, 31)];
         [sw addTarget:self action:@selector(openNight:) forControlEvents:UIControlEventValueChanged];
         [sw setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"isNightMode"]];

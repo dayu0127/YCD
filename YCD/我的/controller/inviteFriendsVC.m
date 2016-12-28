@@ -29,9 +29,8 @@
     [super viewDidLoad];
     _titleLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     [_inviteCodeButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
-    _inviteCodeButton.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    _inviteCodeButton.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
     _sendToFriendButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
-    _tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
     //点击复制互学码按钮
     _inviteCodeButton.layer.masksToBounds = YES;
     _inviteCodeButton.layer.cornerRadius = 5.0f;
@@ -51,7 +50,7 @@
     _rewardRulesLabel.attributedText = content;
     _rewardsRecordLabel.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     _line.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
-    _tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    _tableView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
 }
 - (NSArray *)tableViewArray{
@@ -59,11 +58,6 @@
         _tableViewArray = @[@"用户 139****1231 加入记忆大师，您获得了5个学习豆",@"用户 139****1231 加入记忆大师，您获得了5个学习豆",@"用户 139****1231 加入记忆大师，您获得了5个学习豆"];
     }
     return _tableViewArray;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.tableViewArray.count;
@@ -77,15 +71,6 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 #pragma mark 点击复制互学码
 - (IBAction)inviteCodeClick:(UIButton *)sender {
 }

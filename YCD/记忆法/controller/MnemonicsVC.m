@@ -13,7 +13,6 @@
 #import "BaseTableView.h"
 #import "Singleton.h"
 #import "BannerDetailVC.h"
-#import "YHTableDelegate.h"
 #import "YHDataSource.h"
 #import "Mnemonics.h"
 #import <UIImageView+WebCache.h>
@@ -23,7 +22,6 @@
 @property (strong,nonatomic) SDCycleScrollView *cycleScrollView;//轮播器
 @property (weak, nonatomic) IBOutlet UIView *scrollBgView;
 @property (strong, nonatomic) BaseTableView *tableView;
-@property (strong,nonatomic) YHTableDelegate *tableDelegate;
 @property (strong,nonatomic) YHDataSource *dataSource;
 @property (strong,nonatomic) JCAlertView *alertView;
 @property (strong,nonatomic) NSArray *bannerInfoArray;
@@ -118,11 +116,12 @@
                 cell.coursePrice.text = coursePrice;
             }];
             [_dataSource addModels:_memoryArray];
-            _tableView = [[BaseTableView alloc] initWithFrame:CGRectMake(0, 64+9/16.0*WIDTH, WIDTH, HEIGHT-108-9/16.0*WIDTH) style:UITableViewStylePlain];
+            _tableView = [[BaseTableView alloc] initWithFrame:CGRectMake(0, 64+9/16.0*WIDTH, WIDTH, HEIGHT-108-9/16.0*WIDTH) style:UITableViewStyleGrouped];
             [_tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
             _tableView.delegate = self;
             _tableView.dataSource =  _dataSource;
             _tableView.rowHeight = 120;
+            _tableView.separatorInset = UIEdgeInsetsZero;
             _tableView.backgroundColor = [UIColor clearColor];
             [_tableView setRefreshData:^{
                 //        NSLog(@"下拉刷新数据");
@@ -138,19 +137,11 @@
     }];
 }
 #pragma tableView代理方法
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.0001;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 44;
-}
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
-        [tableView setSeparatorInset:UIEdgeInsetsZero];
-    }
-    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
-        [tableView setLayoutMargins:UIEdgeInsetsZero];
-    }
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        [cell setLayoutMargins:UIEdgeInsetsZero];
-    }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     Mnemonics *model = [_dataSource modelsAtIndexPath:indexPath];

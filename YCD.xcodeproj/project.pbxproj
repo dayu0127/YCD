@@ -25,14 +25,13 @@
 		60BE4A401E0E04E100D26254 /* BannerDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BE4A3F1E0E04E100D26254 /* BannerDetailVC.m */; };
 		60BE4A431E0E0E5500D26254 /* BaseWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BE4A421E0E0E5500D26254 /* BaseWKWebView.m */; };
 		60BE4A4A1E0E2DF200D26254 /* YHDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BE4A491E0E2DF200D26254 /* YHDataSource.m */; };
-		60BE4A521E0E4F3300D26254 /* YHTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BE4A511E0E4F3300D26254 /* YHTableDelegate.m */; };
-		60BE4A5C1E0E59F500D26254 /* MnemonicsCell+Configure.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BE4A5B1E0E59F500D26254 /* MnemonicsCell+Configure.m */; };
 		60BE4A601E0E5AC900D26254 /* Mnemonics.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BE4A5F1E0E5AC900D26254 /* Mnemonics.m */; };
 		60C2FB171DFBBCAD00876289 /* BaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2FB161DFBBCAD00876289 /* BaseTableView.m */; };
 		60C2FB1A1DFBD0E100876289 /* MJChiBaoZiHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2FB191DFBD0E100876289 /* MJChiBaoZiHeader.m */; };
 		60C2FB1D1DFBD18500876289 /* MJChiBaoZiFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2FB1C1DFBD18500876289 /* MJChiBaoZiFooter.m */; };
 		60E9D64C1E110938006412BF /* CourseVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E9D64B1E110938006412BF /* CourseVideo.m */; };
 		60EB9EED1DF96C6F00E8D01B /* MemoryExercisesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60EB9EEC1DF96C6F00E8D01B /* MemoryExercisesVC.m */; };
+		60F52C441E12162F006E4D78 /* Words.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F52C431E12162F006E4D78 /* Words.m */; };
 		60FF515F1E0A5E3B00DA6693 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF515E1E0A5E3B00DA6693 /* libc++.tbd */; };
 		60FF51611E0A5E8C00DA6693 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF51601E0A5E8C00DA6693 /* libz.tbd */; };
 		60FF51631E0A5EA900DA6693 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF51621E0A5EA900DA6693 /* SystemConfiguration.framework */; };
@@ -136,10 +135,6 @@
 		60BE4A471E0E2D6800D26254 /* YHCellConfigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHCellConfigure.h; sourceTree = "<group>"; };
 		60BE4A481E0E2DF200D26254 /* YHDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHDataSource.h; sourceTree = "<group>"; };
 		60BE4A491E0E2DF200D26254 /* YHDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHDataSource.m; sourceTree = "<group>"; };
-		60BE4A501E0E4F3300D26254 /* YHTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHTableDelegate.h; sourceTree = "<group>"; };
-		60BE4A511E0E4F3300D26254 /* YHTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHTableDelegate.m; sourceTree = "<group>"; };
-		60BE4A5A1E0E59F500D26254 /* MnemonicsCell+Configure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MnemonicsCell+Configure.h"; sourceTree = "<group>"; };
-		60BE4A5B1E0E59F500D26254 /* MnemonicsCell+Configure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MnemonicsCell+Configure.m"; sourceTree = "<group>"; };
 		60BE4A5E1E0E5AC900D26254 /* Mnemonics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mnemonics.h; sourceTree = "<group>"; };
 		60BE4A5F1E0E5AC900D26254 /* Mnemonics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mnemonics.m; sourceTree = "<group>"; };
 		60C2FB151DFBBCAD00876289 /* BaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableView.h; sourceTree = "<group>"; };
@@ -152,6 +147,8 @@
 		60E9D64B1E110938006412BF /* CourseVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseVideo.m; sourceTree = "<group>"; };
 		60EB9EEB1DF96C6F00E8D01B /* MemoryExercisesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryExercisesVC.h; sourceTree = "<group>"; };
 		60EB9EEC1DF96C6F00E8D01B /* MemoryExercisesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryExercisesVC.m; sourceTree = "<group>"; };
+		60F52C421E12162F006E4D78 /* Words.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Words.h; sourceTree = "<group>"; };
+		60F52C431E12162F006E4D78 /* Words.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Words.m; sourceTree = "<group>"; };
 		60FF515E1E0A5E3B00DA6693 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		60FF51601E0A5E8C00DA6693 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		60FF51621E0A5EA900DA6693 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -435,8 +432,6 @@
 				60BE4A471E0E2D6800D26254 /* YHCellConfigure.h */,
 				60BE4A481E0E2DF200D26254 /* YHDataSource.h */,
 				60BE4A491E0E2DF200D26254 /* YHDataSource.m */,
-				60BE4A501E0E4F3300D26254 /* YHTableDelegate.h */,
-				60BE4A511E0E4F3300D26254 /* YHTableDelegate.m */,
 			);
 			name = YHTableHelper;
 			sourceTree = "<group>";
@@ -549,6 +544,8 @@
 			children = (
 				60E9D64A1E110938006412BF /* CourseVideo.h */,
 				60E9D64B1E110938006412BF /* CourseVideo.m */,
+				60F52C421E12162F006E4D78 /* Words.h */,
+				60F52C431E12162F006E4D78 /* Words.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -750,8 +747,6 @@
 				699834171DE6933000898021 /* MnemonicsCell.h */,
 				699834181DE6933000898021 /* MnemonicsCell.m */,
 				699834191DE6933000898021 /* MnemonicsCell.xib */,
-				60BE4A5A1E0E59F500D26254 /* MnemonicsCell+Configure.h */,
-				60BE4A5B1E0E59F500D26254 /* MnemonicsCell+Configure.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1075,7 +1070,6 @@
 				699989361DEC788E00E1349C /* AboutUsVC.m in Sources */,
 				60FF530C1E0A6BBC00DA6693 /* Order.m in Sources */,
 				60FF530F1E0A6BBC00DA6693 /* DataVerifier.m in Sources */,
-				60BE4A5C1E0E59F500D26254 /* MnemonicsCell+Configure.m in Sources */,
 				60505BE41DF53F3A000DC456 /* IntroduceVC.m in Sources */,
 				69BD100A1DF3F4C5005D0263 /* Singleton.m in Sources */,
 				60505BDB1DF53A03000DC456 /* UpdateNickNameVC.m in Sources */,
@@ -1087,11 +1081,11 @@
 				6998341A1DE6933000898021 /* MnemonicsCell.m in Sources */,
 				60BE4A601E0E5AC900D26254 /* Mnemonics.m in Sources */,
 				60FF53141E0A6BBC00DA6693 /* RSADataVerifier.m in Sources */,
-				60BE4A521E0E4F3300D26254 /* YHTableDelegate.m in Sources */,
 				6925F3621DE5739E00FB7B1A /* LoginVC.m in Sources */,
 				69A7E1C71DEFF2EB008C99D7 /* PayDetailVC.m in Sources */,
 				69A7E1BE1DEFCFD2008C99D7 /* PaymentCell.m in Sources */,
 				69A7E1B21DEEC8D6008C99D7 /* RememberWordSingleWordDetailVC.m in Sources */,
+				60F52C441E12162F006E4D78 /* Words.m in Sources */,
 				6925F3611DE5739E00FB7B1A /* ForgetPwdVC.m in Sources */,
 				69A7E1AB1DEE99CD008C99D7 /* RememberWordSingleWordCell.m in Sources */,
 				69B129E91DE2C6490093D841 /* AppDelegate.m in Sources */,

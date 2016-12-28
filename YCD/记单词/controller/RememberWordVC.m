@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic,strong) NSArray *courseVideoArray;
 @property (nonatomic,strong) NSString *itemTitle;
+@property (nonatomic,strong) NSString *classifyID;
 
 @end
 
@@ -77,6 +78,7 @@
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _itemTitle = title;
             _courseVideoArray = json[@"data"];
+            _classifyID = [NSString stringWithFormat:@"%zd",classifyID];
             [self performSegueWithIdentifier:@"toItemDetail" sender:self];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -88,6 +90,7 @@
         RememberWordItemVC *itemVC = segue.destinationViewController;
         itemVC.title = _itemTitle;
         itemVC.courseVideoArray = _courseVideoArray;
+        itemVC.classifyID = _classifyID;
         itemVC.hidesBottomBarWhenPushed = YES;
     }
 }

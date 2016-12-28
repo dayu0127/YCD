@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface RememberWordSingleWordCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *wordLabel;
-@property (weak, nonatomic) IBOutlet UILabel *studyDouLabel;
-
+@property (weak, nonatomic) IBOutlet UILabel *word;
+@property (weak, nonatomic) IBOutlet UILabel *wordPrice;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *wordPriceWidth;
+- (void)addModelWidthDic:(NSDictionary *)dic;
 @end

@@ -77,7 +77,6 @@
                 [[NSUserDefaults standardUserDefaults] setObject:_phoneText.text forKey:@"userName"];
                 [[NSUserDefaults standardUserDefaults] setObject:_pwdText.text forKey:@"password"];
                 [[NSUserDefaults standardUserDefaults] setObject:jsonDic[@"data"] forKey:@"userInfo"];
-                NSLog(@"%@",jsonDic[@"data"]);
                 //把用户头像存入沙盒
                 NSString *path_sandox = NSHomeDirectory();
                 NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/headImage.png"];

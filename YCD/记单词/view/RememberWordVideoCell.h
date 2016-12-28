@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class CourseVideo;
 @interface RememberWordVideoCell : UITableViewCell
 //@property (copy,nonatomic) NSString *productType;
 //@property (copy,nonatomic) NSString *videoDetail;
@@ -23,5 +23,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *detailLabel;
 @property (weak, nonatomic) IBOutlet UILabel *videoPrice;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPriceWidth;
-
+- (void)addModel:(CourseVideo *)model;
 @end

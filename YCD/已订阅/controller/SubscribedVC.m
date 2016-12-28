@@ -7,8 +7,11 @@
 //
 
 #import "SubscribedVC.h"
+#import "Words.h"
+#import "RememberWordVideoCell.h"
+#import "RememberWordVideoDetailVC.h"
 #import "RememberWordSingleWordDetailVC.h"
-
+#import "CourseVideo.h"
 @interface SubscribedVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIButton *videoButton;
 @property (weak, nonatomic) IBOutlet UIButton *wordButton;
@@ -18,11 +21,11 @@
 - (IBAction)wordClick:(UIButton *)sender;
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,strong) UIView *noVideoView;
-@property (nonatomic,strong) UITableView *wordTableView;
-@property (nonatomic,strong) NSArray *courseUrlArray;
-@property (nonatomic,strong) NSMutableArray *wordArray;
-@property (nonatomic,strong) NSMutableArray *sectionNameArr;
-@property (nonatomic,strong) NSMutableArray *nameArr;
+@property (nonatomic,strong) UITableView *tableView;
+@property (nonatomic,strong) NSArray *videoArray;
+@property (nonatomic,strong) NSArray *wordArray;
+@property (nonatomic,strong) NSMutableDictionary *wordDic;
+@property (assign,nonatomic) NSInteger flagForTable;    //切换已订阅的视频和单词tableView的标记
 
 @end
 
@@ -34,25 +37,54 @@
     [_wordButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     _videoButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     _wordButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
-    [self.view addSubview:self.noVideoView];
+    [self loadSubscribed];
 }
-#pragma mark 懒加载字母数组
-- (NSMutableArray *)wordArray{
-    if (!_wordArray) {
-        NSArray *arr = @[@"about",@"because",@"code",@"discover",@"dispath",@"ever",@"forget",@"give",@"hour",@"italic",@"jump",@"keep",@"littl",@"mark",@"notification",@"open",@"present",@"queue",@"rules",@"storyboard",@"touch",@"underline",@"video",@"what",@"xerox",@"year",@"zero",@"red",@"prama",@"navigation",@"application",@"will",@"you",@"do",@"to",@"use",@"view",@"collection",@"pass",@"the",@"object",@"new",@"segue",@"often",@"set",@"remove",@"nil",@"get"];
-        _wordArray = [NSMutableArray arrayWithArray:arr];
+#pragma mark 加载已订阅视频
+- (void)loadSubscribed{
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+    if (_flagForTable == 0) {
+        [YHWebRequest YHWebRequestForPOST:SUBVIDEO parameters:@{@"userID":userInfo[@"userID"]} success:^(NSDictionary *json) {
+            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                _videoArray = json[@"data"];
+                [self initTableView:_flagForTable];
+            }else if ([json[@"code"] isEqualToString:@"NOVIDEO"]){
+                [self.view addSubview:self.noVideoView];
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"网络异常 - T_T%@", error);
+        }];
+    }else if(_flagForTable == 1){
+        [YHWebRequest YHWebRequestForPOST:SUBWORD parameters:@{@"userID":userInfo[@"userID"]} success:^(NSDictionary *json) {
+            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                _wordArray = json[@"data"];
+                [self initTableView:_flagForTable];
+            }else if ([json[@"code"] isEqualToString:@"NOVIDEO"]){
+                [self.view addSubview:self.noVideoView];
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"网络异常 - T_T%@", error);
+        }];
     }
-    return _wordArray;
 }
-#pragma mark 懒加载视频url数据
-- (NSArray *)courseUrlArray{
-    if (!_courseUrlArray) {
-        _courseUrlArray = @[@"http://baobab.wdjcdn.com/14564977406580.mp4",
-                            @"http://baobab.wdjcdn.com/1456480115661mtl.mp4",
-                            @"http://baobab.wdjcdn.com/1456665467509qingshu.mp4",
-                            @"http://baobab.wdjcdn.com/1456231710844S(24).mp4"];
+- (void)initTableView:(NSInteger)index{
+    if (_tableView != nil) {
+        [_tableView removeFromSuperview];
+        _tableView = nil;
     }
-    return _courseUrlArray;
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 116, WIDTH, HEIGHT-160) style:UITableViewStyleGrouped];
+    _tableView.delegate = self;
+    _tableView.bounces = NO;
+    _tableView.dataSource = self;
+    _tableView.separatorInset = UIEdgeInsetsZero;
+    _tableView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:_tableView];
+    if (index == 0) {
+        [_tableView registerNib:[UINib nibWithNibName:@"RememberWordVideoCell" bundle:nil] forCellReuseIdentifier:@"RememberWordVideoCell"];
+    }else if(index == 1){
+        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
+        [self wordSearch];
+    }
+    [_tableView reloadData];
 }
 #pragma mark 懒加载暂无视频View
 - (UIView *)noVideoView{
@@ -92,18 +124,6 @@
     }
     return _noVideoView;
 }
-#pragma mark 懒加载wordTableView
-- (UITableView *)wordTableView{
-    if (!_wordTableView) {
-        _wordTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 115, WIDTH, HEIGHT-159) style:UITableViewStyleGrouped];
-        _wordTableView.delegate = self;
-        _wordTableView.dataSource = self;
-        _wordTableView.backgroundColor = [UIColor clearColor];
-        _wordTableView.rowHeight = WORD_ROWHEIGHT;
-        [_wordTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
-    }
-    return _wordTableView;
-}
 #pragma mark 视频按钮点击
 - (IBAction)videoClick:(UIButton *)sender {
     [sender dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateNormal];
@@ -112,17 +132,9 @@
     _wordButton.selected = NO;
     self.leftLineView.backgroundColor = [UIColor orangeColor];
     self.rightLineView.backgroundColor = [UIColor clearColor];
-    [self.wordTableView removeFromSuperview];
-    self.wordTableView = nil;
-    [self.view addSubview:self.noVideoView];
-}
-#pragma mark 去订阅记忆法
-- (void)toMemoryButtonClick{
-    self.tabBarController.selectedIndex = 0;
-}
-#pragma mark 去订阅单词视频课程
-- (void)toWordVideoButtonClick{
-    self.tabBarController.selectedIndex = 1;
+    
+    _flagForTable = 0;
+    [self loadSubscribed];
 }
 #pragma mark 单词按钮点击
 - (IBAction)wordClick:(UIButton *)sender {
@@ -132,16 +144,23 @@
     _videoButton.selected = NO;
     self.rightLineView.backgroundColor = [UIColor orangeColor];
     self.leftLineView.backgroundColor = [UIColor clearColor];
-    [self.noVideoView removeFromSuperview];
-    self.noVideoView = nil;
-    [self.view addSubview:self.wordTableView];
-    [self wordSearch];
+    
+    _flagForTable = 1;
+    [self loadSubscribed];
+}
+#pragma mark 去订阅记忆法
+- (void)toMemoryButtonClick{
+    self.tabBarController.selectedIndex = 0;
+}
+#pragma mark 去订阅单词视频课程
+- (void)toWordVideoButtonClick{
+    self.tabBarController.selectedIndex = 1;
 }
 #pragma mark 侧边单词检索
 - (void)wordSearch{
     //tableView右侧索引栏的字体颜色和背景色
-    self.wordTableView.dk_sectionIndexColorPicker = DKColorPickerWithColors(D_BTN_BG1,[UIColor whiteColor],RED);
-    self.wordTableView.sectionIndexBackgroundColor = [UIColor clearColor];
+    _tableView.dk_sectionIndexColorPicker = DKColorPickerWithColors(D_BTN_BG1,[UIColor whiteColor],RED);
+    _tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     //定义键的集合（26个字母）
     NSMutableArray *keyArr = [NSMutableArray array];
     [keyArr addObject:@"🔍"];
@@ -157,103 +176,132 @@
     NSMutableDictionary *dataDic = [NSMutableDictionary dictionaryWithObjects:objectArr forKeys:keyArr];
     //根据单词的首字符放入对应的键所对应的值中 ("a"--"about","n"--"notification,nil",...)
     for (int i = 0 ; i < self.wordArray.count; i++) {
-        NSString *word = [self.wordArray objectAtIndex:i];
+        NSDictionary *dic = self.wordArray[i];
+        NSString *word = dic[@"word"];
         NSString *firstLetter = [NSString stringWithFormat:@"%c",[word characterAtIndex:0]];
         NSMutableArray *arr = dataDic[firstLetter];
-        [arr addObject:word];
+        [arr addObject:dic];
     }
     //删除长度为0的值的集合
-    for (NSString *str in dataDic.allKeys) {
-        NSMutableArray *arr = dataDic[str];
+    for (NSString *letter in dataDic.allKeys) {
+        NSMutableArray *arr = dataDic[letter];
         if (arr.count == 0) {
-            [dataDic removeObjectForKey:str];
+            [dataDic removeObjectForKey:letter];
         }
     }
     //组名集合排序
-    _sectionNameArr = [NSMutableArray arrayWithArray:dataDic.allKeys];
-    [_sectionNameArr sortUsingComparator:^NSComparisonResult(NSString *s1,NSString *s2){
+    NSMutableArray *sectionNameArr = [NSMutableArray arrayWithArray:dataDic.allKeys];
+    [sectionNameArr sortUsingComparator:^NSComparisonResult(NSString *s1,NSString *s2){
         if ([s1 isEqual:@"🔍"]) {
             return [s2 compare:s1];
         }
         return [s1 compare:s2];
     }];
-    //名字集合
-    _nameArr = [NSMutableArray arrayWithCapacity:_sectionNameArr.count];
-    for (int i = 0; i < _sectionNameArr.count; i++) {
-        _nameArr[i] = dataDic[_sectionNameArr[i]];
+    //单词字典对象集合
+    _wordDic = [NSMutableDictionary dictionary];
+    for (int i = 0; i < sectionNameArr.count; i++) {
+        NSArray *wordObjectArr = dataDic[sectionNameArr[i]];
+        [_wordDic setObject:wordObjectArr forKey:sectionNameArr[i]];
     }
+//    @{@"A":@[@{@"wordID" : @"5",@"word" : @"subscribed"...},@{@"wordID" : @"5",@"word" : @"subscribed"...},...],
+//       @"B":@[@{@"wordID" : @"5",@"word" : @"subscribed"...},@{@"wordID" : @"5",@"word" : @"subscribed"...},...],
+//        .
+//        .
+//        .
+//     }
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return _nameArr.count;
+    return _flagForTable == 0 ? 1 :_wordDic.allKeys.count;
 }
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSMutableArray *arr = _nameArr[section];
-    return arr.count;
+    if(_flagForTable == 0){
+        return _videoArray.count;
+    }else{
+        NSArray *wordArray = _wordDic.allValues[section];
+        return wordArray.count;
+    }
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return _flagForTable == 0 ? 80 : 44;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellid" forIndexPath:indexPath];
-    cell.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
-    cell.textLabel.text = _nameArr[indexPath.section][indexPath.row];
-    cell.textLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
+    if (_flagForTable == 0) {
+        RememberWordVideoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RememberWordVideoCell" forIndexPath:indexPath];
+        [cell addModel:[CourseVideo yy_modelWithJSON:_videoArray[indexPath.row]]];
+        cell.videoPrice.alpha = 0;
+        return cell;
+    }else{
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellid" forIndexPath:indexPath];
+        cell.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
+        cell.textLabel.text = _wordDic.allValues[indexPath.section][indexPath.row][@"word"];
+        cell.textLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return section == 0 ? 60 : 19.9;
+    if (_flagForTable == 0) {
+        return 0.001;
+    }else{
+        return section == 0 ? 60 : 19.9;
+    }
 }
-
 #pragma mark 右侧索引设置
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView{
-    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:_sectionNameArr.count];
-    [arr addObject:@"🔍"];
-    for (NSString *sectionName in _sectionNameArr) {
-        [arr addObject:[sectionName uppercaseString]];
+    if (_flagForTable == 1) {
+        NSMutableArray *arr = [NSMutableArray array];
+        [arr addObject:@"🔍"];
+        [arr addObjectsFromArray:_wordDic.allKeys];
+        return arr;
+    }else{
+        return nil;
     }
-    return arr;
 }
-
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.01;
 }
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    return [_sectionNameArr[section] uppercaseString];
-}
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headView;
-    if (0 == section) {
-        headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 60.0)];
-        headView.backgroundColor = [UIColor clearColor];
-        UISearchBar *search = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 40.0)];
-        search.placeholder = @"搜索单词";
-        search.dk_barTintColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
-        [headView addSubview:search];
-        UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0, 40, WIDTH, 19.9)];
-        [sectionLabel setText:[_sectionNameArr[section] uppercaseString]];
-        [sectionLabel setTextColor:[UIColor lightGrayColor]];
-        sectionLabel.backgroundColor = [UIColor clearColor];
-        [sectionLabel setFont:[UIFont systemFontOfSize:12.0]];
-        [headView addSubview:sectionLabel];
-    }else{
-        headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 19.9)];
-        headView.backgroundColor = [UIColor clearColor];
-        UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0, 0, WIDTH, 19.9)];
-        [sectionLabel setText:[_sectionNameArr[section] uppercaseString]];
-        sectionLabel.backgroundColor = [UIColor clearColor];
-        [sectionLabel setTextColor:[UIColor lightGrayColor]];
-        [sectionLabel setFont:[UIFont systemFontOfSize:12.0]];
-        [headView addSubview:sectionLabel];
+    if (_flagForTable == 1) {
+        if (0 == section) {
+            headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 60.0)];
+            headView.backgroundColor = [UIColor clearColor];
+            UISearchBar *search = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 40.0)];
+            search.placeholder = @"搜索单词";
+            search.dk_barTintColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+            [headView addSubview:search];
+            UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0, 40, WIDTH, 19.9)];
+            [sectionLabel setText:[_wordDic.allKeys[section] uppercaseString]];
+            [sectionLabel setTextColor:[UIColor lightGrayColor]];
+            sectionLabel.backgroundColor = [UIColor clearColor];
+            [sectionLabel setFont:[UIFont systemFontOfSize:12.0]];
+            [headView addSubview:sectionLabel];
+        }else{
+            headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 19.9)];
+            headView.backgroundColor = [UIColor clearColor];
+            UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0, 0, WIDTH, 19.9)];
+            [sectionLabel setText:[_wordDic.allKeys[section] uppercaseString]];
+            sectionLabel.backgroundColor = [UIColor clearColor];
+            [sectionLabel setTextColor:[UIColor lightGrayColor]];
+            [sectionLabel setFont:[UIFont systemFontOfSize:12.0]];
+            [headView addSubview:sectionLabel];
+        }
     }
     return headView;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
-    wordDetailVC.videoURL = [NSURL URLWithString:self.courseUrlArray[indexPath.row]];
-    wordDetailVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:wordDetailVC animated:YES];
+    if (_flagForTable == 0) {
+        RememberWordVideoDetailVC *videoDetailVC = [[RememberWordVideoDetailVC alloc] init];
+        videoDetailVC.hidesBottomBarWhenPushed = YES;
+        videoDetailVC.video = [CourseVideo yy_modelWithJSON:_videoArray[indexPath.row]];
+        [self.navigationController pushViewController:videoDetailVC animated:YES];
+    }else{
+        RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
+        wordDetailVC.hidesBottomBarWhenPushed = YES;
+        wordDetailVC.word = [Words yy_modelWithJSON:_wordDic.allValues[indexPath.section][indexPath.row]];
+        [self.navigationController pushViewController:wordDetailVC animated:YES];
+    }
 }
 @end

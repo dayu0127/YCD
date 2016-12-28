@@ -13,6 +13,7 @@
 #import "RememberWordSingleWordDetailVC.h"
 #import "YHDataSource.h"
 #import "CourseVideo.h"
+#import "Words.h"
 #import <UIImageView+WebCache.h>
 @interface RememberWordItemVC ()<UITableViewDelegate,UITableViewDataSource,YHAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *videoButton;
@@ -31,7 +32,6 @@
 - (IBAction)subscriptionClick:(id)sender;
 @property (strong,nonatomic) JCAlertView *alertView;
 @property (strong,nonatomic) YHDataSource *dataSource;
-@property (strong,nonatomic) NSMutableArray<CourseVideo *> *courseVideoModelArray;
 @end
 
 @implementation RememberWordItemVC
@@ -50,27 +50,6 @@
     if (WIDTH<=320) {
         _subscriptionLabel.numberOfLines=2;
     }
-    NSLog(@"%@",_courseVideoArray);
-}
-- (NSMutableArray *)wordArray{
-    if (!_wordArray) {
-        NSArray *arr = @[@{@"name":@"UNIT1",@"detail":@[@"merge",@"merge"]},
-                         @{@"name":@"UNIT2",@"detail":@[@"merge",@"merge",@"merge",@"merge"]},
-                         @{@"name":@"UNIT3",@"detail":@[@"merge",@"merge",@"merge"]},
-                         @{@"name":@"UNIT4",@"detail":@[@"merge",@"merge",@"merge",@"merge"]}];
-        _wordArray = [NSMutableArray arrayWithArray:arr];
-    }
-    return _wordArray;
-}
-#pragma mark 懒加载视频url数据
-- (NSArray *)courseUrlArray{
-    if (!_courseUrlArray) {
-        _courseUrlArray = @[@"http://baobab.wdjcdn.com/14564977406580.mp4",
-                            @"http://baobab.wdjcdn.com/1456480115661mtl.mp4",
-                            @"http://baobab.wdjcdn.com/1456665467509qingshu.mp4",
-                            @"http://baobab.wdjcdn.com/1456231710844S(24).mp4"];
-    }
-    return _courseUrlArray;
 }
 - (IBAction)videoClick:(UIButton *)sender{
     [sender dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateNormal];
@@ -103,6 +82,7 @@
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 116, WIDTH, HEIGHT-160) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.bounces = NO;
+    _tableView.separatorInset = UIEdgeInsetsZero;
     _tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
     if (_flagForTable == 0) {
@@ -112,25 +92,35 @@
             cell.detailLabel.text = [NSString stringWithFormat:@"%@,共%@词",[self getHMSFromS:model.videoTime],model.videoWordNum];
             cell.videoPrice.text = [NSString stringWithFormat:@"%@学习豆",model.videoPrice];
         }];
-        _courseVideoModelArray = [NSMutableArray array];
+        NSMutableArray<CourseVideo *> *courseVideoModelArray = [NSMutableArray array];
         for (NSDictionary *dic in _courseVideoArray) {
-            [_courseVideoModelArray addObject:[CourseVideo yy_modelWithJSON:dic]];
+            [courseVideoModelArray addObject:[CourseVideo yy_modelWithJSON:dic]];
         }
-        [_dataSource addModels:_courseVideoModelArray];
+        [_dataSource addModels:courseVideoModelArray];
         _tableView.dataSource = _dataSource;
         [_tableView registerNib:[UINib nibWithNibName:@"RememberWordVideoCell" bundle:nil] forCellReuseIdentifier:@"RememberWordVideoCell"];
+        [_tableView reloadData];
     }else{
-        _tableView.dataSource = self;
-        [_tableView registerNib:[UINib nibWithNibName:@"RememberWordSingleWordCell" bundle:nil] forCellReuseIdentifier:@"RememberWordSingleWordCell"];
+        NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+        NSDictionary *dic = @{@"userID":userInfo[@"userID"],@"classifyID":_classifyID};
+        [YHWebRequest YHWebRequestForPOST:WORD parameters:dic success:^(NSDictionary *json) {
+            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                self.wordArray = json[@"data"];
+                _tableView.dataSource = self;
+                [_tableView registerNib:[UINib nibWithNibName:@"RememberWordSingleWordCell" bundle:nil] forCellReuseIdentifier:@"RememberWordSingleWordCell"];
+                [_tableView reloadData];
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"网络异常 - T_T%@", error);
+        }];
     }
-    [_tableView reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return _flagForTable == 0 ? 1 : self.wordArray.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSArray *arr = self.wordArray[section][@"detail"];
+    NSArray *arr = self.wordArray[section][@"wordData"];
     NSInteger rowNumber = 0;
     if (_flagForTable == 0) {
        rowNumber =  _courseVideoArray.count;
@@ -148,24 +138,13 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.001;
 }
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
-        [tableView setSeparatorInset:UIEdgeInsetsZero];
-    }
-    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
-        [tableView setLayoutMargins:UIEdgeInsetsZero];
-    }
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        [cell setLayoutMargins:UIEdgeInsetsZero];
-    }
-}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UILabel *titleLabel = nil;
     if (_flagForTable == 1) {
         titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 20)];
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-        titleLabel.text = _wordArray[section][@"name"];
+        titleLabel.text = _wordArray[section][@"Title"];
         titleLabel.font = [UIFont systemFontOfSize:15.0f];
         titleLabel.textAlignment = NSTextAlignmentCenter;
     }
@@ -174,22 +153,21 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     RememberWordSingleWordCell *cell;
     if (_flagForTable == 1) {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"RememberWordSingleWordCell" forIndexPath:indexPath];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"RememberWordSingleWordCell" forIndexPath:indexPath];
+        [cell addModelWidthDic:self.wordArray[indexPath.section][@"wordData"][indexPath.row]];
     }
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (_flagForTable == 0) {
-//        RememberWordVideoCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         RememberWordVideoDetailVC *videoDetailVC = [[RememberWordVideoDetailVC alloc] init];
         videoDetailVC.hidesBottomBarWhenPushed = YES;
-        videoDetailVC.videoURL = [NSURL URLWithString:self.courseUrlArray[indexPath.row]];
-        videoDetailVC.title = @"第一节课";
+        videoDetailVC.video = [_dataSource modelsAtIndexPath:indexPath];
         [self.navigationController pushViewController:videoDetailVC animated:YES];
     }else{
         RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
-        wordDetailVC.videoURL = [NSURL URLWithString:self.courseUrlArray[indexPath.row]];
         wordDetailVC.hidesBottomBarWhenPushed = YES;
+        wordDetailVC.word = [Words yy_modelWithJSON:self.wordArray[indexPath.section][@"wordData"][indexPath.row]];
         [self.navigationController pushViewController:wordDetailVC animated:YES];
     }
 }

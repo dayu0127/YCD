@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class CourseVideo;
 @interface RememberWordVideoDetailVC : UIViewController
-@property (nonatomic, strong) NSURL *videoURL;
+@property (strong,nonatomic) CourseVideo *video;
 @end

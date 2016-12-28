@@ -58,14 +58,18 @@
 #define COUNTDOWN 10.0f
 
 //接口
-#define LOGIN @"http://192.168.0.201:8080/wintercamp/API/loginAPI" //登录
-#define REGISTER @"http://192.168.0.201:8080/wintercamp/API/registerAPI" //注册
-#define FORGETPWD @"http://192.168.0.201:8080/wintercamp/API/forgetPwdAPI" //忘记密码
-#define UPDATEPWD @"http://192.168.0.201:8080/wintercamp/API/updatePwdAPI" //更改密码
-#define LOGOUT @"http://192.168.0.201:8080/wintercamp/API/logoutAPI" //退出登录
-#define BANNER @"http://192.168.0.201:8080/wintercamp/API/bannerAPI" //获取轮播图
-#define MEMORY @"http://192.168.0.201:8080/wintercamp/API/courseAPI" //获取记忆法课程
-#define SUBALL @"http://192.168.0.201:8080/wintercamp/API/subAllAPI" //订阅全部
-#define COURSE @"http://192.168.0.201:8080/wintercamp/API/getReciteWordsAPI" //获取课程列表
-#define COURSEVIDEO @"http://192.168.0.201:8080/wintercamp/API/getCourseVideoAPI" //获取记单词视频目录
+#define API(api) [NSString stringWithFormat:@"http://192.168.0.201:8080/wintercamp/API/%@API",api]
+#define LOGIN API(@"login") //登录
+#define REGISTER API(@"register") //注册
+#define FORGETPWD API(@"forgetPwd") //忘记密码
+#define UPDATEPWD API(@"updatePwd") //更改密码
+#define LOGOUT API(@"logout") //退出登录
+#define BANNER API(@"banner")//轮播图
+#define MEMORY API(@"course") //记忆法课程
+#define SUBALL API(@"subAll") //订阅全部
+#define COURSE API(@"getReciteWords") //课程列表
+#define COURSEVIDEO API(@"getCourseVideo") //记单词视频目录
+#define WORD API(@"getWords") //记单词单词目录
+#define SUBVIDEO API(@"subscribedVideo")  //已订阅视频目录
+#define SUBWORD API(@"subscribedWord")  //已订阅单词目录
 #endif /* YCDPrefixHeader_pch */

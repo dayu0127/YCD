@@ -11,6 +11,8 @@
 #import <UMSocialCore/UMSocialCore.h>
 #import <UShareUI/UMSocialUIManager.h>
 #import <UMSocialCore/UMSocialResponse.h>
+#import "Words.h"
+#import <WebKit/WebKit.h>
 @interface RememberWordSingleWordDetailVC ()<UICollectionViewDelegate,UICollectionViewDataSource,ZFPlayerDelegate>
 @property (strong, nonatomic) UIView *playerFatherView;
 @property (nonatomic,strong) ZFPlayerView *playerView;
@@ -23,6 +25,7 @@
 @property (nonatomic,strong)NSMutableArray *wordArray;
 @property (nonatomic,strong)UICollectionView *collectionView;
 @property (nonatomic,strong) NSMutableArray *buttonArray;
+@property (nonatomic,strong) WKWebView *wkWebView;
 @end
 
 @implementation RememberWordSingleWordDetailVC
@@ -33,8 +36,8 @@
 - (ZFPlayerModel *)playerModel{
     if (!_playerModel) {
         _playerModel                  = [[ZFPlayerModel alloc] init];
-        //        _playerModel.title            = self.videoName;
-        _playerModel.videoURL         = self.videoURL;
+//        _playerModel.title            = self.videoName;
+        _playerModel.videoURL         = [NSURL URLWithString:_word.wordVideoUrl];
 //        _playerModel.placeholderImage = [UIImage imageNamed:@"banner01"];
         _playerModel.fatherView       = self.playerFatherView;
     }
@@ -42,7 +45,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"单词记忆法";
+    self.title = _word.word;
     _buttonArray = [NSMutableArray array];
     //播放器
     _playerFatherView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, 9/16.0*WIDTH)];
@@ -158,17 +161,13 @@
 }
 #pragma mark 加载释义
 - (void)loadParaphrase{
-    if (_contentText!=nil) {
-        [_contentText removeFromSuperview];
-        _contentText = nil;
+    if (_wkWebView!=nil) {
+        [_wkWebView removeFromSuperview];
+        _wkWebView = nil;
     }
-    _contentText = [[UITextView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_line.frame), WIDTH, HEIGHT-CGRectGetMaxY(_line.frame))];
-    _contentText.editable = NO;
-    _contentText.text = @"  emerge";
-    _contentText.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    _contentText.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
-    _contentText.font = [UIFont boldSystemFontOfSize:16.0f];
-    [self.view addSubview:_contentText];
+    _wkWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_line.frame), WIDTH, HEIGHT-CGRectGetMaxY(_line.frame))];
+    [_wkWebView loadHTMLString:_word.wordDetail baseURL:nil];
+    [self.view addSubview:_wkWebView];
 }
 #pragma mark 加载相关词语
 - (void)loadRelatedWords{

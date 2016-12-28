@@ -12,6 +12,7 @@
 #import <UMSocialCore/UMSocialCore.h>
 #import <UMSocialCore/UMSocialResponse.h>
 #import <UShareUI/UMSocialUIManager.h>
+#import "CourseVideo.h"
 @interface RememberWordVideoDetailVC ()<UICollectionViewDelegate,UICollectionViewDataSource,ZFPlayerDelegate>
 @property (strong, nonatomic) UIView *playerFatherView;
 @property (nonatomic,strong) ZFPlayerView *playerView;
@@ -36,7 +37,7 @@
     if (!_playerModel) {
         _playerModel                  = [[ZFPlayerModel alloc] init];
         //        _playerModel.title            = self.videoName;
-        _playerModel.videoURL         = self.videoURL;
+        _playerModel.videoURL         = [NSURL URLWithString:self.video.videoUrl];
 //        _playerModel.placeholderImage = [UIImage imageNamed:@"banner01"];
         _playerModel.fatherView       = self.playerFatherView;
     }
@@ -44,15 +45,10 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = _video.videoName;
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     _courseButtonArray = [NSMutableArray array];
     //播放器
-//    AVPlayerViewController *playerVC = [[AVPlayerViewController alloc] init];
-//    NSURL *sourceMovieURL = [NSURL URLWithString:@"http://m3.rui2.net/uploadfile/output/2015/0226/d56e56eeb7ae97cc.mp4"];
-//    playerVC.player = [[AVPlayer alloc] initWithURL:sourceMovieURL];
-//    playerVC.view.frame = CGRectMake(0, 64, WIDTH, HEIGHT*0.3);
-//    [self addChildViewController:playerVC];
-//    [self.view addSubview:playerVC.view];
     _playerFatherView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, 9/16.0*WIDTH)];
     [self.view addSubview:_playerFatherView];
     _playerView = [[ZFPlayerView alloc] init];
@@ -179,7 +175,7 @@
     _contentText = [[UITextView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_line.frame), WIDTH, HEIGHT-CGRectGetMaxY(_line.frame))];
     _contentText.editable = NO;
     _contentText.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
-    NSString *textString = @"四年级上学期第一节课";
+    NSString *textString = _video.videoDetail;
     NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:textString];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:5];
