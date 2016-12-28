@@ -53,7 +53,7 @@
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"网络异常 - T_T%@", error);
         }];
-    }else if(_flagForTable == 1){
+    }else{
         [YHWebRequest YHWebRequestForPOST:SUBWORD parameters:@{@"userID":userInfo[@"userID"]} success:^(NSDictionary *json) {
             if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                 _wordArray = json[@"data"];
@@ -80,7 +80,7 @@
     [self.view addSubview:_tableView];
     if (index == 0) {
         [_tableView registerNib:[UINib nibWithNibName:@"RememberWordVideoCell" bundle:nil] forCellReuseIdentifier:@"RememberWordVideoCell"];
-    }else if(index == 1){
+    }else{
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
         [self wordSearch];
     }

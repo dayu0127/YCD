@@ -11,7 +11,6 @@
 #import "RememberWordSingleWordCell.h"
 #import "RememberWordVideoDetailVC.h"
 #import "RememberWordSingleWordDetailVC.h"
-#import "YHDataSource.h"
 #import "CourseVideo.h"
 #import "Words.h"
 #import <UIImageView+WebCache.h>
@@ -31,7 +30,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *subscriptionButton;
 - (IBAction)subscriptionClick:(id)sender;
 @property (strong,nonatomic) JCAlertView *alertView;
-@property (strong,nonatomic) YHDataSource *dataSource;
 @end
 
 @implementation RememberWordItemVC
@@ -86,18 +84,7 @@
     _tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
     if (_flagForTable == 0) {
-        _dataSource = [[YHDataSource alloc] initWithIdentifier:@"RememberWordVideoCell" configureBlock:^(RememberWordVideoCell *cell, CourseVideo *model, NSIndexPath *indexPath) {
-            [cell.videoImageView sd_setImageWithURL:[NSURL URLWithString:model.videoImageUrl] placeholderImage:[UIImage imageNamed:@"videoImage"]];
-            cell.videoName.text = model.videoName;
-            cell.detailLabel.text = [NSString stringWithFormat:@"%@,共%@词",[self getHMSFromS:model.videoTime],model.videoWordNum];
-            cell.videoPrice.text = [NSString stringWithFormat:@"%@学习豆",model.videoPrice];
-        }];
-        NSMutableArray<CourseVideo *> *courseVideoModelArray = [NSMutableArray array];
-        for (NSDictionary *dic in _courseVideoArray) {
-            [courseVideoModelArray addObject:[CourseVideo yy_modelWithJSON:dic]];
-        }
-        [_dataSource addModels:courseVideoModelArray];
-        _tableView.dataSource = _dataSource;
+        _tableView.dataSource = self;
         [_tableView registerNib:[UINib nibWithNibName:@"RememberWordVideoCell" bundle:nil] forCellReuseIdentifier:@"RememberWordVideoCell"];
         [_tableView reloadData];
     }else{
@@ -151,18 +138,21 @@
     return titleLabel;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    RememberWordSingleWordCell *cell;
-    if (_flagForTable == 1) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"RememberWordSingleWordCell" forIndexPath:indexPath];
+    if (_flagForTable == 0) {
+        RememberWordVideoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RememberWordVideoCell" forIndexPath:indexPath];
+        [cell addModel:[CourseVideo yy_modelWithJSON:self.courseVideoArray[indexPath.row]]];
+        return cell;
+    }else{
+        RememberWordSingleWordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RememberWordSingleWordCell" forIndexPath:indexPath];
         [cell addModelWidthDic:self.wordArray[indexPath.section][@"wordData"][indexPath.row]];
+        return cell;
     }
-    return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (_flagForTable == 0) {
         RememberWordVideoDetailVC *videoDetailVC = [[RememberWordVideoDetailVC alloc] init];
         videoDetailVC.hidesBottomBarWhenPushed = YES;
-        videoDetailVC.video = [_dataSource modelsAtIndexPath:indexPath];
+        videoDetailVC.video = [CourseVideo yy_modelWithJSON:self.courseVideoArray[indexPath.row]];
         [self.navigationController pushViewController:videoDetailVC animated:YES];
     }else{
         RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];

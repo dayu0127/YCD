@@ -18,13 +18,13 @@
 		60505BE41DF53F3A000DC456 /* IntroduceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60505BE31DF53F3A000DC456 /* IntroduceVC.m */; };
 		60505BE71DF53F8C000DC456 /* UserAgreementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60505BE61DF53F8C000DC456 /* UserAgreementVC.m */; };
 		6052E5BB1DFAA2E500EDD341 /* YHWebRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6052E5BA1DFAA2E500EDD341 /* YHWebRequest.m */; };
+		6053C5961E13D49800EA2286 /* YHDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6053C5951E13D49800EA2286 /* YHDataSource.m */; };
 		607B64111E01181A002E1264 /* YHHud.m in Sources */ = {isa = PBXBuildFile; fileRef = 607B64101E01181A002E1264 /* YHHud.m */; };
 		607B64141E011914002E1264 /* YHAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 607B64131E011914002E1264 /* YHAlertView.m */; };
 		60B4106D1DF54B45002D4B4D /* NotificationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B4106C1DF54B45002D4B4D /* NotificationVC.m */; };
 		60B410731DF56486002D4B4D /* LoginNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B410721DF56486002D4B4D /* LoginNC.m */; };
 		60BE4A401E0E04E100D26254 /* BannerDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BE4A3F1E0E04E100D26254 /* BannerDetailVC.m */; };
 		60BE4A431E0E0E5500D26254 /* BaseWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BE4A421E0E0E5500D26254 /* BaseWKWebView.m */; };
-		60BE4A4A1E0E2DF200D26254 /* YHDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BE4A491E0E2DF200D26254 /* YHDataSource.m */; };
 		60BE4A601E0E5AC900D26254 /* Mnemonics.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BE4A5F1E0E5AC900D26254 /* Mnemonics.m */; };
 		60C2FB171DFBBCAD00876289 /* BaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2FB161DFBBCAD00876289 /* BaseTableView.m */; };
 		60C2FB1A1DFBD0E100876289 /* MJChiBaoZiHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2FB191DFBD0E100876289 /* MJChiBaoZiHeader.m */; };
@@ -120,6 +120,9 @@
 		60505BE61DF53F8C000DC456 /* UserAgreementVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAgreementVC.m; sourceTree = "<group>"; };
 		6052E5B91DFAA2E500EDD341 /* YHWebRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHWebRequest.h; sourceTree = "<group>"; };
 		6052E5BA1DFAA2E500EDD341 /* YHWebRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHWebRequest.m; sourceTree = "<group>"; };
+		6053C5931E13D49800EA2286 /* YHCellConfigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHCellConfigure.h; sourceTree = "<group>"; };
+		6053C5941E13D49800EA2286 /* YHDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHDataSource.h; sourceTree = "<group>"; };
+		6053C5951E13D49800EA2286 /* YHDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHDataSource.m; sourceTree = "<group>"; };
 		607B640F1E01181A002E1264 /* YHHud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHHud.h; sourceTree = "<group>"; };
 		607B64101E01181A002E1264 /* YHHud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHHud.m; sourceTree = "<group>"; };
 		607B64121E011914002E1264 /* YHAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHAlertView.h; sourceTree = "<group>"; };
@@ -132,9 +135,6 @@
 		60BE4A3F1E0E04E100D26254 /* BannerDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerDetailVC.m; sourceTree = "<group>"; };
 		60BE4A411E0E0E5500D26254 /* BaseWKWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseWKWebView.h; sourceTree = "<group>"; };
 		60BE4A421E0E0E5500D26254 /* BaseWKWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseWKWebView.m; sourceTree = "<group>"; };
-		60BE4A471E0E2D6800D26254 /* YHCellConfigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHCellConfigure.h; sourceTree = "<group>"; };
-		60BE4A481E0E2DF200D26254 /* YHDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHDataSource.h; sourceTree = "<group>"; };
-		60BE4A491E0E2DF200D26254 /* YHDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHDataSource.m; sourceTree = "<group>"; };
 		60BE4A5E1E0E5AC900D26254 /* Mnemonics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mnemonics.h; sourceTree = "<group>"; };
 		60BE4A5F1E0E5AC900D26254 /* Mnemonics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mnemonics.m; sourceTree = "<group>"; };
 		60C2FB151DFBBCAD00876289 /* BaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableView.h; sourceTree = "<group>"; };
@@ -389,7 +389,7 @@
 		60505BD51DF527B7000DC456 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				60BE4A461E0E2CB300D26254 /* YHTableHelper */,
+				6053C5921E13D48400EA2286 /* TableHelper */,
 				690E61701DE4280C00C8E52F /* YCDPrefixHeader.pch */,
 				69BD10081DF3F4C5005D0263 /* Singleton.h */,
 				69BD10091DF3F4C5005D0263 /* Singleton.m */,
@@ -408,6 +408,16 @@
 			name = Tools;
 			sourceTree = "<group>";
 		};
+		6053C5921E13D48400EA2286 /* TableHelper */ = {
+			isa = PBXGroup;
+			children = (
+				6053C5931E13D49800EA2286 /* YHCellConfigure.h */,
+				6053C5941E13D49800EA2286 /* YHDataSource.h */,
+				6053C5951E13D49800EA2286 /* YHDataSource.m */,
+			);
+			name = TableHelper;
+			sourceTree = "<group>";
+		};
 		607B640B1E00D1EE002E1264 /* 建议反馈 */ = {
 			isa = PBXGroup;
 			children = (
@@ -424,16 +434,6 @@
 				60BE4A3F1E0E04E100D26254 /* BannerDetailVC.m */,
 			);
 			name = "轮播图详情";
-			sourceTree = "<group>";
-		};
-		60BE4A461E0E2CB300D26254 /* YHTableHelper */ = {
-			isa = PBXGroup;
-			children = (
-				60BE4A471E0E2D6800D26254 /* YHCellConfigure.h */,
-				60BE4A481E0E2DF200D26254 /* YHDataSource.h */,
-				60BE4A491E0E2DF200D26254 /* YHDataSource.m */,
-			);
-			name = YHTableHelper;
 			sourceTree = "<group>";
 		};
 		60BE4A5D1E0E5AB000D26254 /* model */ = {
@@ -1038,7 +1038,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				60FF53101E0A6BBC00DA6693 /* MD5DataSigner.m in Sources */,
-				60BE4A4A1E0E2DF200D26254 /* YHDataSource.m in Sources */,
 				607B64141E011914002E1264 /* YHAlertView.m in Sources */,
 				60B410731DF56486002D4B4D /* LoginNC.m in Sources */,
 				69A2529D1DE8639D00074B5E /* SubscribedVC.m in Sources */,
@@ -1060,6 +1059,7 @@
 				607B64111E01181A002E1264 /* YHHud.m in Sources */,
 				60C2FB171DFBBCAD00876289 /* BaseTableView.m in Sources */,
 				69B8C5FD1DE6C54D003A4701 /* RememberWordVC.m in Sources */,
+				6053C5961E13D49800EA2286 /* YHDataSource.m in Sources */,
 				699989331DEC62E100E1349C /* inviteFriendsVC.m in Sources */,
 				69A7E1A21DEE83DA008C99D7 /* RememberWordItemVC.m in Sources */,
 				69A7E19F1DED64FA008C99D7 /* MemoryCourseVC.m in Sources */,

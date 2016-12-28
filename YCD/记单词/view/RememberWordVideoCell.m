@@ -31,6 +31,7 @@
     [self.videoImageView sd_setImageWithURL:[NSURL URLWithString:model.videoImageUrl] placeholderImage:[UIImage imageNamed:@"videoImage"]];
     self.videoName.text = model.videoName;
     self.detailLabel.text = [NSString stringWithFormat:@"%@,共%@词",[self getHMSFromS:model.videoTime],model.videoWordNum];
+    self.videoPrice.text = [NSString stringWithFormat:@"%@学习豆",model.videoPrice];
 }
 -(NSString *)getHMSFromS:(NSString *)totalTime{
     NSInteger seconds = [totalTime integerValue];
