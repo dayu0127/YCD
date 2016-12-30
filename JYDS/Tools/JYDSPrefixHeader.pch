@@ -1,0 +1,79 @@
+//
+//  JYDSPrefixHeader.pch
+//  JYDS
+//
+//  Created by dayu on 2016/11/22.
+//  Copyright © 2016年 dayu. All rights reserved.
+//
+#ifndef JYDSPrefixHeader_pch
+#define JYDSPrefixHeader_pch
+#import <DKNightVersion/DKNightVersion.h>
+#import "BaseViewController.h"
+#import <JCAlertView.h>
+#import "YHAlertView.h"
+#import "YHHud.h"
+#import "YHWebRequest.h"
+#import <YYModel.h>
+//屏幕高宽
+#define WIDTH [UIScreen mainScreen].bounds.size.width
+#define HEIGHT [UIScreen mainScreen].bounds.size.height
+//记单词
+#define TITLE_HEIGHT 45
+#define ITEM_HEIGHT 45
+//已订阅
+#define WORD_ROWHEIGHT 44
+//充值
+#define PAY_ROWHEIGHT 47
+#define PAY_ARRAY @[@"5",@"20",@"50",@"100",@"500"]
+//充值比例
+#define PAY_PROPORTION 1
+//颜色
+#define RGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
+//日间模式
+#define D_BLUE RGB(68,157,245)             //日间蓝色                   0x6699CC
+#define D_ORANGE RGB(244,164,96)        //日间橘色                   0xF4A460
+#define D_BG RGB(248,248,248)              //日间大背景色             0xF8F8F8
+#define D_BTN_BG RGB(225,226,227)       //日间按钮灰色背景色    0xE1E2E3
+#define D_BTN_BG1 RGB(153,153,153)       //日间按钮灰色背景色1   0x999999
+#define D_CELL_BG [UIColor whiteColor]   //日间cell的背景色        0xFFFFFF
+//夜间模式
+#define N_BLUE RGB(19,34,73)                 //夜间蓝色                   0x132249
+#define N_ORANGE RGB(205,133,63)        //夜间橘色                   0xCD853F
+#define N_BG RGB(5,18,33)                      //夜间大背景色             0x051221
+#define N_TABBAR_BG RGB(12,28,52)       //夜间tabbar的背景色    0x0C1C34
+#define N_CELL_BG RGB(14,35,65)           //夜间cell的背景色        0x0E2341
+//占位色
+#define RED [UIColor redColor]
+//分割线
+#define SEPCOLOR RGB(204,204,204)     //0xCCCCCC
+
+//正则
+#define REGEX(RE,text) [[NSPredicate predicateWithFormat:@"SELF MATCHES %@",RE] evaluateWithObject:text]
+#define PHONE_RE @"^((13[0-9])|(14[5,7,9])|(15[^4,\\D])|(17[0,1,3,5-8])|(18[0,5-9]))\\d{8}$" //手机号
+#define CHECHCODE_RE @"^\\d{4}$" //验证码
+#define PWD_RE @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$" //密码
+#define NICK_RE @"^([\u4e00-\u9fa5]|\\w){1,12}$"  //昵称
+
+//验证码倒计时时间
+#define COUNTDOWN 10.0f
+
+//接口
+#define API(api) [NSString stringWithFormat:@"http://192.168.0.201:8080/wintercamp/API/%@API",api]
+#define LOGIN API(@"login") //登录
+#define REGISTER API(@"register") //注册
+#define FORGETPWD API(@"forgetPwd") //忘记密码
+#define UPDATEPWD API(@"updatePwd") //更改密码
+#define LOGOUT API(@"logout") //退出登录
+#define BANNER API(@"banner")//轮播图
+#define MEMORY API(@"course") //记忆法课程
+#define SUBALL API(@"subAll") //订阅全部
+#define COURSE API(@"getReciteWords") //课程列表
+#define COURSEVIDEO API(@"getCourseVideo") //记单词视频目录
+#define WORD API(@"getWords") //记单词单词目录
+#define SUBVIDEO API(@"subscribedVideo")  //已订阅视频目录
+#define SUBWORD API(@"subscribedWord")  //已订阅单词目录
+#define PAYDETAIL API(@"getPayDetail")  //充值明细
+#define COSTDETAIL API(@"getCostDetail")  //消费明细
+#define UPDNICK API(@"updateNickName")  //修改昵称
+#define BEANS API(@"getBeans")  //获取学习豆
+#endif /* JYDSPrefixHeader_pch */

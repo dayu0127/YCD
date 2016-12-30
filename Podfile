@@ -1,6 +1,6 @@
 platform :ios, '7.0'
 
-target 'YCD' do
+target 'JYDS' do
 
 pod 'AFNetworking'
 pod 'SDWebImage'
