@@ -273,7 +273,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     UIButton *courseItemButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, (WIDTH-60)*0.5, 44)];
-    Mnemonics *model = _memoryArray[indexPath.row];
+    Mnemonics *model = [Mnemonics yy_modelWithJSON:_memoryArray[indexPath.row]];
     [courseItemButton setTitle:model.courseName forState:UIControlStateNormal];
     courseItemButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     [courseItemButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
@@ -295,7 +295,8 @@
         btn.dk_backgroundColorPicker = DKColorPickerWithColors(D_BTN_BG,N_CELL_BG,RED);
     }
     sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
-    for (Mnemonics *model in _memoryArray) {
+    for (NSDictionary *dic in _memoryArray) {
+        Mnemonics *model = [Mnemonics yy_modelWithJSON:dic];
         if ([model.courseID integerValue] == sender.tag) {
             _memory.courseID = model.courseID;
             self.title = model.courseName;

@@ -67,7 +67,6 @@
     [YHWebRequest YHWebRequestForPOST:MEMORY parameters:dic success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _memoryArray = json[@"data"];
-            NSLog(@"%@",_memoryArray);
             _tableView = [[BaseTableView alloc] initWithFrame:_bgView.bounds style:UITableViewStyleGrouped];
             _tableView.delegate = self;
             _tableView.dataSource =  self;
