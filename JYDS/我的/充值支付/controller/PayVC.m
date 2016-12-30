@@ -47,7 +47,7 @@
         imageView.image = [UIImage imageNamed:@"word"];
         [itemView addSubview:imageView];
         //label
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imageView.frame)+15, 0, 100, PAY_ROWHEIGHT)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imageView.frame)+18, 0, 100, PAY_ROWHEIGHT)];
         label.text = [NSString stringWithFormat:@"%d学习豆",[[PAY_ARRAY objectAtIndex:i] intValue]*PAY_PROPORTION];
         label.dk_textColorPicker = DKColorPickerWithKey(TEXT);
         [itemView addSubview:label];

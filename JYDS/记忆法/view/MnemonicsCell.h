@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class Mnemonics;
 @interface MnemonicsCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *courseImageView;
@@ -16,4 +16,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *courseTitle;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *coursePriceWidth;
 
+- (void)addModelWithDic:(NSDictionary *)dic;
 @end

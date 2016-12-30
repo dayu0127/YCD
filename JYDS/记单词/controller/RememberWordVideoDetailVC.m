@@ -61,7 +61,7 @@
     _buttonAarry = [NSMutableArray arrayWithCapacity:3];
     NSArray *titleArray = @[@"本节说明",@"本节单词",@"其他节课"];
     for (NSInteger i = 0; i<3; i++) {
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(90*i, 0, 90, 38)];
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0.24*WIDTH*i, 0, 0.24*WIDTH, 38)];
         [btn setTitle:[titleArray objectAtIndex:i] forState:UIControlStateNormal];
         [btn dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
         [btn dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateSelected];
@@ -75,7 +75,7 @@
         [_buttonAarry addObject:btn];
     }
     //下划线
-    _underLine = [[UIView alloc] initWithFrame:CGRectMake(0, 38, 90, 1)];
+    _underLine = [[UIView alloc] initWithFrame:CGRectMake(0, 38, 0.24*WIDTH, 1)];
     _underLine.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     [titleView addSubview:_underLine];
     //分享
@@ -115,7 +115,7 @@
     }
     [sender dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateNormal];
     sender.selected = YES;
-    _underLine.frame = CGRectMake(90*sender.tag, 38, 90, 1);
+    _underLine.frame = CGRectMake(0.24*WIDTH*sender.tag, 38, 0.24*WIDTH, 1);
     if (sender.tag == 0) { //点击加载本节说明
         [self loadCurrentSectionExplain];
     }else if(sender.tag == 1){ //点击加载本节单词

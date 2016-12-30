@@ -37,7 +37,7 @@
     if (!_playerModel) {
         _playerModel                  = [[ZFPlayerModel alloc] init];
 //        _playerModel.title            = self.videoName;
-        _playerModel.videoURL         = self.courseVideo;
+        _playerModel.videoURL         = [NSURL URLWithString:_memory.courseVideo];
 //        _playerModel.placeholderImage = [UIImage imageNamed:@"banner01"];
         _playerModel.fatherView       = self.playerFatherView;
     }
@@ -53,6 +53,7 @@
 //}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = _memory.courseName;
     _buttonArray = [NSMutableArray array];
     //播放器
     _playerFatherView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, 9/16.0*WIDTH)];
@@ -65,7 +66,7 @@
     titleView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     [self.view addSubview:titleView];
     //本节说明
-    _titleButton1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 90, 38)];
+    _titleButton1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0.24*WIDTH, 38)];
     [_titleButton1 setTitle:@"本节说明" forState:UIControlStateNormal];
     _titleButton1.selected = YES;
     [_titleButton1 dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
@@ -75,7 +76,7 @@
     [_titleButton1 addTarget:self action:@selector(titleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [titleView addSubview:_titleButton1];
     //其他课程
-    _titleButton2 = [[UIButton alloc] initWithFrame:CGRectMake(90, 0, 90, 38)];
+    _titleButton2 = [[UIButton alloc] initWithFrame:CGRectMake(0.24*WIDTH, 0, 0.24*WIDTH, 38)];
     [_titleButton2 setTitle:@"其他课程" forState:UIControlStateNormal];
     [_titleButton2 dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     [_titleButton2 dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateSelected];
@@ -84,7 +85,7 @@
     [_titleButton2 addTarget:self action:@selector(titleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [titleView addSubview:_titleButton2];
     //下划线
-    _underLine = [[UIView alloc] initWithFrame:CGRectMake(0, 38, 90, 1)];
+    _underLine = [[UIView alloc] initWithFrame:CGRectMake(0, 38, 0.24*WIDTH, 1)];
     _underLine.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     [titleView addSubview:_underLine];
     //分享
@@ -115,7 +116,7 @@
 - (void)titleButtonClick:(UIButton *)sender{
     [sender dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateNormal];
     sender.selected = YES;
-    _underLine.frame = CGRectMake(90*sender.tag, 38, 90, 1);
+    _underLine.frame = CGRectMake(0.24*WIDTH*sender.tag, 38, 0.24*WIDTH, 1);
     if (sender.tag == 0) { //点击本节说明
         [_titleButton2 dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
         _titleButton2.selected = NO;
@@ -235,7 +236,7 @@
     _contentText = [[UITextView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_line.frame), WIDTH, HEIGHT-CGRectGetMaxY(_line.frame))];
     _contentText.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
     _contentText.editable = NO;
-    NSString *textString = self.courseInstructions;
+    NSString *textString = _memory.courseInstructions;
     NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:textString];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:5];
@@ -276,7 +277,7 @@
     [courseItemButton setTitle:model.courseName forState:UIControlStateNormal];
     courseItemButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     [courseItemButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
-    if ([model.courseID isEqualToString:_courseID]) {
+    if ([model.courseID isEqualToString:_memory.courseID]) {
         courseItemButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     }else{
         courseItemButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BTN_BG,N_CELL_BG,RED);
@@ -296,17 +297,17 @@
     sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     for (Mnemonics *model in _memoryArray) {
         if ([model.courseID integerValue] == sender.tag) {
-            _courseID = model.courseID;
+            _memory.courseID = model.courseID;
             self.title = model.courseName;
             _playerModel = [[ZFPlayerModel alloc] init];
             _playerModel.fatherView = self.playerFatherView;
             _playerModel.videoURL = [NSURL URLWithString:model.courseVideo];
             [_playerView resetPlayer];
             [_playerView playerControlView:nil playerModel:_playerModel];
-            _courseInstructions = model.courseInstructions;
+            _memory.courseInstructions = model.courseInstructions;
             [_titleButton1 dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateNormal];
             _titleButton1.selected = YES;
-            _underLine.frame = CGRectMake(0, 38, 90, 1);
+            _underLine.frame = CGRectMake(0, 38, 0.24*WIDTH, 1);
             [_titleButton2 dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
             _titleButton2.selected = NO;
             [self loadCurrentSectionExplain];

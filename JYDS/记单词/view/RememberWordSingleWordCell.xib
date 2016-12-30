@@ -20,20 +20,20 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="word" translatesAutoresizingMaskIntoConstraints="NO" id="Ilt-ge-fsM">
-                        <rect key="frame" x="15" y="11.5" width="19" height="19"/>
+                        <rect key="frame" x="15" y="12" width="19" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="kfN-GI-5Zl"/>
                             <constraint firstAttribute="width" constant="19" id="mQK-U5-Ciy"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="merge" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j0s-IK-CPC">
-                        <rect key="frame" x="51" y="12.5" width="44" height="18"/>
+                        <rect key="frame" x="51" y="13" width="44" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1学习豆" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KfI-Pk-4NE">
-                        <rect key="frame" x="289" y="12" width="45" height="20"/>
+                        <rect key="frame" x="297" y="12" width="45" height="20"/>
                         <color key="backgroundColor" red="1" green="0.73185000099999997" blue="0.28383037950000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="45" id="Jrd-Qx-fNO"/>
@@ -51,7 +51,7 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="KfI-Pk-4NE" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="Did-Me-AHQ"/>
+                    <constraint firstAttribute="trailing" secondItem="KfI-Pk-4NE" secondAttribute="trailing" id="8KR-e1-UjD"/>
                     <constraint firstItem="Ilt-ge-fsM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="NKe-T3-tXx"/>
                     <constraint firstItem="KfI-Pk-4NE" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="POa-Tz-Vxw"/>
                     <constraint firstItem="j0s-IK-CPC" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="WvA-gg-Sos"/>

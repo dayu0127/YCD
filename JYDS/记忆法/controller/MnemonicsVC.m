@@ -12,19 +12,17 @@
 #import "MemoryCourseVC.h"
 #import "BaseTableView.h"
 #import "BannerDetailVC.h"
-#import "YHDataSource.h"
 #import "Mnemonics.h"
 #import <UIImageView+WebCache.h>
-@interface MnemonicsVC ()<SDCycleScrollViewDelegate,UITableViewDelegate,YHAlertViewDelegate>
+@interface MnemonicsVC ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,YHAlertViewDelegate>
+@property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (strong,nonatomic) NSDictionary *userInfo;
 @property (strong,nonatomic) NSMutableArray *netImages;  //网络图片
 @property (strong,nonatomic) SDCycleScrollView *cycleScrollView;//轮播器
-@property (weak, nonatomic) IBOutlet UIView *scrollBgView;
 @property (strong, nonatomic) BaseTableView *tableView;
-@property (strong,nonatomic) YHDataSource *dataSource;
 @property (strong,nonatomic) JCAlertView *alertView;
 @property (strong,nonatomic) NSArray *bannerInfoArray;
-@property (strong,nonatomic) NSMutableArray<Mnemonics *> *memoryArray;
+@property (strong,nonatomic) NSArray *memoryArray;
 @end
 
 @implementation MnemonicsVC
@@ -37,7 +35,6 @@
         [_netImages addObject:dic[@"topImageUrl"]];
     }
     self.automaticallyAdjustsScrollViewInsets = NO;
-    [self scrollNetWorkImages];
     [self initTableView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dayMode) name:@"dayMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightMode) name:@"nightMode" object:nil];
@@ -49,20 +46,6 @@
 - (void)nightMode{
     self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlN"];
     self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_selectN"];
-}
-#pragma mark 创建网络轮播器
--(void)scrollNetWorkImages{
-    self.cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, WIDTH, 9/16.0*WIDTH) delegate:self placeholderImage:[UIImage imageNamed:@"banner"]];
-    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
-        self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControl"];
-        self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_select"];
-    }else{
-        self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlN"];
-        self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_selectN"];
-    }
-    self.cycleScrollView.imageURLStringsGroup = self.netImages;
-    self.cycleScrollView.autoScrollTimeInterval = 3.0f;
-    [self.scrollBgView addSubview:self.cycleScrollView];
 }
 
 #pragma mark 轮播器代理方法
@@ -81,44 +64,13 @@
 }
 - (void)initTableView{
     NSDictionary *dic = @{@"userID":_userInfo[@"userID"]};
-    [YHWebRequest YHWebRequestForPOST:MEMORY parameters:dic success:^(id  _Nonnull json) {
-        NSDictionary *jsonDic = json;
-        if ([jsonDic[@"code"] isEqualToString:@"SUCCESS"]) {
-            _memoryArray = [NSMutableArray array];
-//            {
-//                courseID = 1;
-//                courseImageUrl = "wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1";
-//                courseInstructions = "\U8fd9\U662f\U4e00\U90e8\U5f88\U77ed\U7684\U89c6\U9891";
-//                courseName = "\U8bb0\U5fc6\U6cd5\U8bfe\U7a0b";
-//                coursePayStatus = 0;
-//                coursePrice = 20;
-//                courseTitle = "\U8fd9\U662f\U4e00\U90e8\U5f88\U4e0d\U9519\U7684\U89c6\U9891";
-//                courseVideo = "http://baobab.wdjcdn.com/14564977406580.mp4";
-//            }
-            for (NSDictionary *dic in jsonDic[@"data"]) {
-                [_memoryArray addObject:[Mnemonics yy_modelWithJSON:dic]];
-            }
-            _dataSource = [[YHDataSource alloc] initWithIdentifier:@"MnemonicsCell" configureBlock:^(MnemonicsCell *cell, Mnemonics *model, NSIndexPath *indexPath) {
-                [cell.courseImageView sd_setImageWithURL:[NSURL URLWithString:model.courseImageUrl] placeholderImage:[UIImage imageNamed:@"videoImage"]];
-                cell.courseName.text = model.courseName;
-                cell.courseTitle.text = model.courseTitle;
-                NSString *coursePrice = @"";
-                if ([model.coursePayStatus isEqualToString:@"0"]) {
-                    if ([model.coursePrice isEqualToString:@"0"]) {
-                        coursePrice = @"免费";
-                    }else{
-                        coursePrice = [NSString stringWithFormat:@"%@学习豆",model.coursePrice];
-                    }
-                }else{
-                    coursePrice = @"已订阅";
-                }
-                cell.coursePrice.text = coursePrice;
-            }];
-            [_dataSource addModels:_memoryArray];
-            _tableView = [[BaseTableView alloc] initWithFrame:CGRectMake(0, 64+9/16.0*WIDTH, WIDTH, HEIGHT-108-9/16.0*WIDTH) style:UITableViewStyleGrouped];
-            [_tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
+    [YHWebRequest YHWebRequestForPOST:MEMORY parameters:dic success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            _memoryArray = json[@"data"];
+            NSLog(@"%@",_memoryArray);
+            _tableView = [[BaseTableView alloc] initWithFrame:_bgView.bounds style:UITableViewStyleGrouped];
             _tableView.delegate = self;
-            _tableView.dataSource =  _dataSource;
+            _tableView.dataSource =  self;
             _tableView.rowHeight = 100;
             _tableView.separatorInset = UIEdgeInsetsZero;
             _tableView.backgroundColor = [UIColor clearColor];
@@ -128,28 +80,46 @@
             [_tableView setLoadMoreData:^{
                 //        NSLog(@"上拉加载更多");
             }];
-            [self.view addSubview:_tableView];
-            [_tableView reloadData];
+            [_tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
+            [_bgView addSubview:_tableView];
         }
     }];
 }
-#pragma tableView代理方法
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return _memoryArray.count;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    MnemonicsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MnemonicsCell" forIndexPath:indexPath];
+    [cell addModelWithDic:_memoryArray[indexPath.row]];
+    return cell;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 0.0001;
+    return 9/16.0*WIDTH;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 44;
 }
+#pragma tableView代理方法
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    Mnemonics *model = [_dataSource modelsAtIndexPath:indexPath];
     MemoryCourseVC *courseVC = [[MemoryCourseVC alloc] init];
     courseVC.hidesBottomBarWhenPushed = YES;
-    courseVC.courseID = model.courseID;
-    courseVC.title = model.courseName;
-    courseVC.courseVideo = [NSURL URLWithString:model.courseVideo];
-    courseVC.courseInstructions = model.courseInstructions;
     courseVC.memoryArray = _memoryArray;
+    courseVC.memory = [Mnemonics yy_modelWithJSON:_memoryArray[indexPath.row]];
     [self.navigationController pushViewController:courseVC animated:YES];
+}
+#pragma mark 轮播图
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, WIDTH, 9/16.0*WIDTH) delegate:self placeholderImage:[UIImage imageNamed:@"banner"]];
+    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
+        self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControl"];
+        self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_select"];
+    }else{
+        self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlN"];
+        self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_selectN"];
+    }
+    self.cycleScrollView.imageURLStringsGroup = self.netImages;
+    self.cycleScrollView.autoScrollTimeInterval = 3.0f;
+    return _cycleScrollView;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 44)];

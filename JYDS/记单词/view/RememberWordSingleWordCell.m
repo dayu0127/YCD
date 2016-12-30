@@ -24,7 +24,7 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 }
-- (void)addModelWidthDic:(NSDictionary *)dic{
+- (void)addModelWithDic:(NSDictionary *)dic{
     Words *words = [Words yy_modelWithJSON:dic];
     self.word.text = words.word;
     self.wordPrice.text = [NSString stringWithFormat:@"%@学习豆",words.wordPrice];

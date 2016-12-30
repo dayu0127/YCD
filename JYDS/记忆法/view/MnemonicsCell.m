@@ -7,6 +7,8 @@
 //
 
 #import "MnemonicsCell.h"
+#import "Mnemonics.h"
+#import <UIImageView+WebCache.h>
 
 @implementation MnemonicsCell
 
@@ -23,5 +25,22 @@
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+}
+- (void)addModelWithDic:(NSDictionary *)dic{
+    Mnemonics *model = [Mnemonics yy_modelWithJSON:dic];
+    [self.courseImageView sd_setImageWithURL:[NSURL URLWithString:model.courseImageUrl] placeholderImage:[UIImage imageNamed:@"videoImage"]];
+    self.courseName.text = model.courseName;
+    self.courseTitle.text = model.courseTitle;
+    NSString *coursePrice = @"";
+    if ([model.coursePayStatus isEqualToString:@"0"]) {
+        if ([model.coursePrice isEqualToString:@"0"]) {
+            coursePrice = @"免费";
+        }else{
+            coursePrice = [NSString stringWithFormat:@"%@学习豆",model.coursePrice];
+        }
+    }else{
+        coursePrice = @"已订阅";
+    }
+    self.coursePrice.text = coursePrice;
 }
 @end

@@ -29,7 +29,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-YCD.xcscheme</key>
+		<key>Pods-JYDS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -62,27 +62,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0C30F98F9CA7E3436E7EC507938B1B01</key>
+		<key>64EE1DFFE31D41C73822A3B730DEDABA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0DEE648F4C8D304FD9F9F4EF894F094B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>1EB02ADACA26D4635863F02967B1C01C</key>
+		<key>6DA668E0C2935DAAE25FA0708910B856</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>76E6F4463B0CAF1565F5402D8422FE51</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8EED9C00FDE3943B9E1B7C26FCD430A4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,12 +87,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>B32F9D7401634E0647B51C68D2F605F5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B442DC60FB29DC1597843AFCD9FAD7F5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>B46184DE6B3A8503498C74F1E3D2C1A4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E73DBF187E4C0318B4AAFED04138D4E1</key>
+		<key>FFF4C5A7050DAD54943AB4467A62841A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

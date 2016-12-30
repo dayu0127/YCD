@@ -222,12 +222,12 @@
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return _flagForTable == 0 ? 80 : 44;
+    return _flagForTable == 0 ? 70 : 44;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (_flagForTable == 0) {
         RememberWordVideoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RememberWordVideoCell" forIndexPath:indexPath];
-        [cell addModel:[CourseVideo yy_modelWithJSON:_videoArray[indexPath.row]]];
+        [cell addModelWithDic:_videoArray[indexPath.row]];
         cell.videoPrice.alpha = 0;
         return cell;
     }else{

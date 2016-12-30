@@ -15,6 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *videoPrice;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPriceWidth;
 
-- (void)addModel:(CourseVideo *)model;
+- (void)addModelWithDic:(NSDictionary *)dic;
 
 @end

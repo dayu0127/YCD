@@ -120,7 +120,7 @@
     return _flagForTable == 0 ? 10 : 30;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return _flagForTable == 0 ? 80 : 44;
+    return _flagForTable == 0 ? 70 : 44;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.001;
@@ -140,11 +140,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (_flagForTable == 0) {
         RememberWordVideoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RememberWordVideoCell" forIndexPath:indexPath];
-        [cell addModel:[CourseVideo yy_modelWithJSON:self.courseVideoArray[indexPath.row]]];
+        [cell addModelWithDic:self.courseVideoArray[indexPath.row]];
         return cell;
     }else{
         RememberWordSingleWordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RememberWordSingleWordCell" forIndexPath:indexPath];
-        [cell addModelWidthDic:self.wordArray[indexPath.section][@"wordData"][indexPath.row]];
+        [cell addModelWithDic:self.wordArray[indexPath.section][@"wordData"][indexPath.row]];
         return cell;
     }
 }

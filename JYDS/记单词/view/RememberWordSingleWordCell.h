@@ -14,6 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *wordPrice;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *wordPriceWidth;
 
-- (void)addModelWidthDic:(NSDictionary *)dic;
+- (void)addModelWithDic:(NSDictionary *)dic;
 
 @end

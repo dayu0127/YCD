@@ -26,7 +26,8 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 }
-- (void)addModel:(CourseVideo *)model{
+- (void)addModelWithDic:(NSDictionary *)dic{
+    CourseVideo *model = [CourseVideo yy_modelWithJSON:dic];
     [self.videoImageView sd_setImageWithURL:[NSURL URLWithString:model.videoImageUrl] placeholderImage:[UIImage imageNamed:@"videoImage"]];
     self.videoName.text = model.videoName;
     self.detailLabel.text = [NSString stringWithFormat:@"%@,共%@词",[self getHMSFromS:model.videoTime],model.videoWordNum];
