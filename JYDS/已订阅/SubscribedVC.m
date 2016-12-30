@@ -252,8 +252,10 @@
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView{
     if (_flagForTable == 1) {
         NSMutableArray *arr = [NSMutableArray array];
-        [arr addObject:@"🔍"];
-        [arr addObjectsFromArray:_wordDic.allKeys];
+        if (_wordArray != nil) {
+            [arr addObject:@"🔍"];
+            [arr addObjectsFromArray:_wordDic.allKeys];
+        }
         return arr;
     }else{
         return nil;
