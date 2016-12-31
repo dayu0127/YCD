@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-@interface RememberWordItemVC : BaseViewController
+#import "BaseNavViewController.h"
+@interface RememberWordItemVC : BaseNavViewController
 
 @property (nonatomic,strong) NSString *classifyID;
 @property (nonatomic,strong) NSArray *courseVideoArray;

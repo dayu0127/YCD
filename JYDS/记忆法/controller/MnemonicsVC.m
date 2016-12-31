@@ -26,8 +26,13 @@
 @end
 
 @implementation MnemonicsVC
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initNavBar];
     _userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
     _netImages = [NSMutableArray array];
     _bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"];
@@ -39,6 +44,18 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dayMode) name:@"dayMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightMode) name:@"nightMode" object:nil];
 }
+- (void)initNavBar{
+    UIView *navBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 64)];
+    navBar.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+    UILabel *titleLabel = [[UILabel alloc] init];
+    [titleLabel setTextColor:[UIColor whiteColor]];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [titleLabel setText:@"记忆大师"];
+    [titleLabel sizeToFit];
+    titleLabel.center = CGPointMake(WIDTH * 0.5, 42);
+    [navBar addSubview:titleLabel];
+    [self.view addSubview:navBar];
+}
 - (void)dayMode{
     self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControl"];
     self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_select"];
@@ -47,7 +64,6 @@
     self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlN"];
     self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_selectN"];
 }
-
 #pragma mark 轮播器代理方法
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{

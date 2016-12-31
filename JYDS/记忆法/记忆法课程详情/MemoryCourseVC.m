@@ -28,7 +28,6 @@
 @end
 
 @implementation MemoryCourseVC
-
 // 返回值要必须为NO
 - (BOOL)shouldAutorotate{
     return NO;
@@ -36,12 +35,15 @@
 - (ZFPlayerModel *)playerModel{
     if (!_playerModel) {
         _playerModel                  = [[ZFPlayerModel alloc] init];
-//        _playerModel.title            = self.videoName;
+        _playerModel.title            = _memory.courseName;
         _playerModel.videoURL         = [NSURL URLWithString:_memory.courseVideo];
 //        _playerModel.placeholderImage = [UIImage imageNamed:@"banner01"];
         _playerModel.fatherView       = self.playerFatherView;
     }
     return _playerModel;
+}
+- (void)zf_playerBackAction{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 //- (void)zf_playerDownload:(NSString *)url
 //{
@@ -53,16 +55,16 @@
 //}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = _memory.courseName;
+    self.view.backgroundColor = [UIColor blackColor];
     _buttonArray = [NSMutableArray array];
     //播放器
-    _playerFatherView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, 9/16.0*WIDTH)];
+    _playerFatherView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, WIDTH, 9/16.0*WIDTH)];
     [self.view addSubview:_playerFatherView];
     _playerView = [[ZFPlayerView alloc] init];
     _playerView.delegate = self;
     [_playerView playerControlView:nil playerModel:self.playerModel];
     //标题视图
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 64+9/16.0*WIDTH, WIDTH, 39)];
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 20+9/16.0*WIDTH, WIDTH, 39)];
     titleView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     [self.view addSubview:titleView];
     //本节说明
@@ -298,9 +300,8 @@
     for (NSDictionary *dic in _memoryArray) {
         Mnemonics *model = [Mnemonics yy_modelWithJSON:dic];
         if ([model.courseID integerValue] == sender.tag) {
-            _memory.courseID = model.courseID;
-            self.title = model.courseName;
             _playerModel = [[ZFPlayerModel alloc] init];
+            _playerModel.title = model.courseName;
             _playerModel.fatherView = self.playerFatherView;
             _playerModel.videoURL = [NSURL URLWithString:model.courseVideo];
             [_playerView resetPlayer];
@@ -336,5 +337,9 @@
         }
     }
     [YHHud showWithMessage:result];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.hidden = NO;
 }
 @end

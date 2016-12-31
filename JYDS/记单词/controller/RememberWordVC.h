@@ -6,5 +6,6 @@
 //  Copyright © 2016年 dayu. All rights reserved.
 //
 #import <UIKit/UIKit.h>
-@interface RememberWordVC :BaseViewController
+#import "BaseNavViewController.h"
+@interface RememberWordVC :BaseNavViewController
 @end

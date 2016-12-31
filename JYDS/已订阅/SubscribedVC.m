@@ -17,8 +17,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *wordButton;
 @property (weak, nonatomic) IBOutlet UIView *leftLineView;
 @property (weak, nonatomic) IBOutlet UIView *rightLineView;
-- (IBAction)videoClick:(UIButton *)sender;
-- (IBAction)wordClick:(UIButton *)sender;
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,strong) UIView *noVideoView;
 @property (nonatomic,strong) UITableView *tableView;
@@ -30,15 +28,32 @@
 @end
 
 @implementation SubscribedVC
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initNavBar];
     [_videoButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     [_wordButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     _videoButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
+    _rightLineView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     _wordButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     [self initTableView];
     [self setTableView];
+}
+- (void)initNavBar{
+    UIView *navBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 64)];
+    navBar.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+    UILabel *titleLabel = [[UILabel alloc] init];
+    [titleLabel setTextColor:[UIColor whiteColor]];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [titleLabel setText:@"记忆大师"];
+    [titleLabel sizeToFit];
+    titleLabel.center = CGPointMake(WIDTH * 0.5, 42);
+    [navBar addSubview:titleLabel];
+    [self.view addSubview:navBar];
 }
 #pragma mark 初始化TableView
 - (void)initTableView{
@@ -130,8 +145,8 @@
     sender.selected = YES;
     [_wordButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     _wordButton.selected = NO;
-    self.leftLineView.backgroundColor = [UIColor orangeColor];
-    self.rightLineView.backgroundColor = [UIColor clearColor];
+    _leftLineView.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    _rightLineView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     
     _flagForTable = 0;
     [self setTableView];
@@ -142,8 +157,8 @@
     sender.selected = YES;
     [_videoButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     _videoButton.selected = NO;
-    self.rightLineView.backgroundColor = [UIColor orangeColor];
-    self.leftLineView.backgroundColor = [UIColor clearColor];
+    _rightLineView.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    _leftLineView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     
     _flagForTable = 1;
     [self setTableView];

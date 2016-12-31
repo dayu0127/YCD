@@ -8,6 +8,7 @@
 
 #import "WordSearchVC.h"
 #import "RememberWordSingleWordDetailVC.h"
+#import "Words.h"
 @interface WordSearchVC ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong,nonatomic)NSArray *wordArray;
@@ -20,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.resultArray = [NSMutableArray array];
-    [self initSearchBar];
+    [self initNavBar];
 }
 
 - (NSArray *)wordArray{
@@ -29,18 +30,30 @@
     }
     return _wordArray;
 }
-- (void)initSearchBar{
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH-95, 30)];
-    bgView.layer.masksToBounds = YES;
-    bgView.layer.cornerRadius = 4.0f;
-    bgView.layer.borderWidth = 1.0;
-    bgView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    _searchBar = [[UISearchBar alloc] initWithFrame:bgView.frame];
+- (void)initNavBar{
+    UIView *navBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 64)];
+    navBar.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+    
+    //返回按钮
+    UIButton *leftBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftBarButton.frame = CGRectMake(0, 20, 20, 20);
+    [leftBarButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    leftBarButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [leftBarButton sizeToFit];
+    [leftBarButton addTarget:self action:@selector(backVC) forControlEvents:UIControlEventTouchUpInside];
+    [navBar addSubview:leftBarButton];
+    
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(40, 20, WIDTH-40, 44)];
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    _searchBar.dk_barTintColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
     _searchBar.placeholder = @"请搜索单词";
     _searchBar.delegate = self;
-    [bgView addSubview:_searchBar];
-    self.navigationItem.titleView = bgView;
+    [navBar addSubview:_searchBar];
+    
+    [self.view addSubview:navBar];
+}
+- (void)backVC{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark 搜索框输入监听
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
@@ -86,8 +99,16 @@
     [_resultArray removeAllObjects];
     [_tableView removeFromSuperview];
     _tableView = nil;
-    RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
-    wordDetailVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:wordDetailVC animated:NO];
+    
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+    [YHWebRequest YHWebRequestForPOST:SUBWORD parameters:@{@"userID":userInfo[@"userID"]} success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            NSDictionary *wordDic = json[@"data"][0];
+            RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
+            wordDetailVC.hidesBottomBarWhenPushed = YES;
+            wordDetailVC.word = [Words yy_modelWithJSON:wordDic];
+            [self.navigationController pushViewController:wordDetailVC animated:YES];
+        }
+    }];
 }
 @end

@@ -33,10 +33,13 @@
 - (BOOL)shouldAutorotate{
     return NO;
 }
+- (void)zf_playerBackAction{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 - (ZFPlayerModel *)playerModel{
     if (!_playerModel) {
         _playerModel                  = [[ZFPlayerModel alloc] init];
-        //        _playerModel.title            = self.videoName;
+        _playerModel.title            = self.video.videoName;
         _playerModel.videoURL         = [NSURL URLWithString:self.video.videoUrl];
 //        _playerModel.placeholderImage = [UIImage imageNamed:@"banner01"];
         _playerModel.fatherView       = self.playerFatherView;
@@ -45,17 +48,16 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = _video.videoName;
-    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    self.view.backgroundColor = [UIColor blackColor];
     _courseButtonArray = [NSMutableArray array];
     //播放器
-    _playerFatherView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, 9/16.0*WIDTH)];
+    _playerFatherView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, WIDTH, 9/16.0*WIDTH)];
     [self.view addSubview:_playerFatherView];
     _playerView = [[ZFPlayerView alloc] init];
     _playerView.delegate = self;
     [_playerView playerControlView:nil playerModel:self.playerModel];
     //标题视图
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 64+9/16.0*WIDTH, WIDTH, 39)];
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 20+9/16.0*WIDTH, WIDTH, 39)];
     titleView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     [self.view addSubview:titleView];
     _buttonAarry = [NSMutableArray arrayWithCapacity:3];

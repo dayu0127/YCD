@@ -23,10 +23,27 @@
 
 @implementation RememberWordVC
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initNavBar];
     _searchBar.dk_barTintColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
     [self createMainScrollView];
+}
+- (void)initNavBar{
+    UIView *navBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 64)];
+    navBar.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+    UILabel *titleLabel = [[UILabel alloc] init];
+    [titleLabel setTextColor:[UIColor whiteColor]];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [titleLabel setText:@"记单词"];
+    [titleLabel sizeToFit];
+    titleLabel.center = CGPointMake(WIDTH * 0.5, 42);
+    [navBar addSubview:titleLabel];
+    [self.view addSubview:navBar];
 }
 #pragma mark 搜索框开始编辑
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
@@ -86,7 +103,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"toItemDetail"]) {
         RememberWordItemVC *itemVC = segue.destinationViewController;
-        itemVC.title = _itemTitle;
+        itemVC.navTitle = _itemTitle;
         itemVC.courseVideoArray = _courseVideoArray;
         itemVC.classifyID = _classifyID;
         itemVC.hidesBottomBarWhenPushed = YES;

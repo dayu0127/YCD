@@ -14,13 +14,13 @@
 #import "CourseVideo.h"
 #import "Words.h"
 #import <UIImageView+WebCache.h>
+
 @interface RememberWordItemVC ()<UITableViewDelegate,UITableViewDataSource,YHAlertViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UIButton *videoButton;
 @property (weak, nonatomic) IBOutlet UIButton *wordButton;
 @property (weak, nonatomic) IBOutlet UIView *leftLineView;
 @property (weak, nonatomic) IBOutlet UIView *rightLineView;
-- (IBAction)videoClick:(UIButton *)sender;
-- (IBAction)wordClick:(UIButton *)sender;
 @property (assign,nonatomic) NSInteger flagForTable;    //切换视频和单个词语tableView的标记
 @property (strong,nonatomic) UITableView *tableView;
 @property (strong,nonatomic) NSMutableArray *wordArray;
@@ -28,14 +28,14 @@
 @property (weak, nonatomic) IBOutlet UIView *footerBgView;
 @property (weak, nonatomic) IBOutlet UILabel *subscriptionLabel;
 @property (weak, nonatomic) IBOutlet UIButton *subscriptionButton;
-- (IBAction)subscriptionClick:(id)sender;
 @property (strong,nonatomic) JCAlertView *alertView;
-@end
 
+@end
 @implementation RememberWordItemVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.leftBarButton.hidden = NO;
     [_videoButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     [_wordButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     _videoButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);

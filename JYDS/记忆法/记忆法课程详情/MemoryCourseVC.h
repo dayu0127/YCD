@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class Mnemonics;
-@interface MemoryCourseVC : BaseViewController
+@interface MemoryCourseVC : UIViewController
 
 @property (nonatomic,strong) Mnemonics *memory;
 @property (nonatomic,strong) NSArray *memoryArray;
