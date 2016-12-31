@@ -23,6 +23,7 @@
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+    
 }
 - (void)addModelWithDic:(NSDictionary *)dic{
     Words *words = [Words yy_modelWithJSON:dic];

@@ -144,6 +144,8 @@
         return cell;
     }else{
         RememberWordSingleWordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RememberWordSingleWordCell" forIndexPath:indexPath];
+        cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
+        cell.selectedBackgroundView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_SELT,N_CELL_SELT,RED);
         [cell addModelWithDic:self.wordArray[indexPath.section][@"wordData"][indexPath.row]];
         return cell;
     }
@@ -155,6 +157,7 @@
         videoDetailVC.video = [CourseVideo yy_modelWithJSON:self.courseVideoArray[indexPath.row]];
         [self.navigationController pushViewController:videoDetailVC animated:YES];
     }else{
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
         wordDetailVC.hidesBottomBarWhenPushed = YES;
         wordDetailVC.word = [Words yy_modelWithJSON:self.wordArray[indexPath.section][@"wordData"][indexPath.row]];

@@ -250,12 +250,12 @@
         cell.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
         cell.textLabel.text = _wordDic.allValues[indexPath.section][indexPath.row][@"word"];
         cell.textLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+        cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
+        cell.selectedBackgroundView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_SELT,N_CELL_SELT,RED);
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
 }
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (_flagForTable == 0) {
         return 0.001;
@@ -315,6 +315,7 @@
         videoDetailVC.video = [CourseVideo yy_modelWithJSON:_videoArray[indexPath.row]];
         [self.navigationController pushViewController:videoDetailVC animated:YES];
     }else{
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
         wordDetailVC.hidesBottomBarWhenPushed = YES;
         wordDetailVC.word = [Words yy_modelWithJSON:_wordDic.allValues[indexPath.section][indexPath.row]];

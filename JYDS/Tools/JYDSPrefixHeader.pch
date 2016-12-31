@@ -36,12 +36,14 @@
 #define D_BTN_BG RGB(225,226,227)       //日间按钮灰色背景色    0xE1E2E3
 #define D_BTN_BG1 RGB(153,153,153)       //日间按钮灰色背景色1   0x999999
 #define D_CELL_BG [UIColor whiteColor]   //日间cell的背景色        0xFFFFFF
+#define D_CELL_SELT RGB(229,230,231)   //日间cell的选中色        0xE5E6E7
 //夜间模式
 #define N_BLUE RGB(19,34,73)                 //夜间蓝色                   0x132249
 #define N_ORANGE RGB(205,133,63)        //夜间橘色                   0xCD853F
 #define N_BG RGB(5,18,33)                      //夜间大背景色             0x051221
 #define N_TABBAR_BG RGB(12,28,52)       //夜间tabbar的背景色    0x0C1C34
 #define N_CELL_BG RGB(14,35,65)           //夜间cell的背景色        0x0E2341
+#define N_CELL_SELT RGB(29,74,143)      //夜间cell的选中色        0x1D4A8F
 //占位色
 #define RED [UIColor redColor]
 //分割线

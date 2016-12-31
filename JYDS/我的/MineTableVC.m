@@ -32,6 +32,8 @@
     }
     for (UITableViewCell *item in _tableViewCellCollection) {
         item.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
+        item.selectedBackgroundView = [[UIView alloc]initWithFrame:item.frame];
+        item.selectedBackgroundView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_SELT,N_CELL_SELT,RED);
     }
     _studyCodeLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor whiteColor],RED);
     _payButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
@@ -56,6 +58,12 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 13;
 }
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@""];
+//    cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
+//    cell.selectedBackgroundView.backgroundColor = RGB(29, 74, 143);
+//    return cell;
+//}
 - (void)updateHeadImage:(NSNotification *)sender{
     UIImage *headImage = sender.userInfo[@"headImage"];
     _headImageView.image = headImage;

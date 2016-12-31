@@ -29,6 +29,8 @@
     }
     for (UITableViewCell *item in _tableViewCellCollection) {
         item.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
+        item.selectedBackgroundView = [[UIView alloc]initWithFrame:item.frame];
+        item.selectedBackgroundView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_SELT,N_CELL_SELT,RED);
     }
     //从沙盒取出头像图片
     NSString *path_sandox = NSHomeDirectory();

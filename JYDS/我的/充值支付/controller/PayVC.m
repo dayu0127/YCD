@@ -8,15 +8,16 @@
 
 #import "PayVC.h"
 #import "PaymentVC.h"
-@interface PayVC ()
+#import "RememberWordSingleWordCell.h"
+@interface PayVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (assign,nonatomic) NSInteger money;
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
 @property (weak, nonatomic) IBOutlet UIView *bgView1;
 @property (weak, nonatomic) IBOutlet UIButton *contactServiceButton;
-- (IBAction)contactServiceClick:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UILabel *payBean;
+
 @end
 
 @implementation PayVC
@@ -34,38 +35,31 @@
         item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     }
     [_contactServiceButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_bgView1.frame), WIDTH, (PAY_ROWHEIGHT+1)*PAY_ARRAY.count+1)];
-    bgView.backgroundColor = SEPCOLOR;
-    [self.view addSubview:bgView];
-    for (NSInteger i = 0; i<PAY_ARRAY.count; i++) {
-        //itemView
-        UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(0, 1+(PAY_ROWHEIGHT+1)*i, WIDTH, PAY_ROWHEIGHT)];
-        itemView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
-        [bgView addSubview:itemView];
-        //imageView
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, (PAY_ROWHEIGHT-19)*0.5, 19, 19)];
-        imageView.image = [UIImage imageNamed:@"word"];
-        [itemView addSubview:imageView];
-        //label
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imageView.frame)+18, 0, 100, PAY_ROWHEIGHT)];
-        label.text = [NSString stringWithFormat:@"%d学习豆",[[PAY_ARRAY objectAtIndex:i] intValue]*PAY_PROPORTION];
-        label.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-        [itemView addSubview:label];
-        //payButton
-        UIButton *payButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH-72, 12, 60, 23)];
-        payButton.layer.masksToBounds = YES;
-        payButton.layer.cornerRadius = 3.0f;
-        payButton.tag = i;
-        [payButton setTitle:[NSString stringWithFormat:@"%@元",[PAY_ARRAY objectAtIndex:i]] forState:UIControlStateNormal];
-        [payButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        payButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
-        payButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-        [payButton addTarget:self action:@selector(payButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [itemView addSubview:payButton];
-    }
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_bgView1.frame), WIDTH, PAY_ARRAY.count*44) style:UITableViewStyleGrouped];
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    tableView.separatorInset = UIEdgeInsetsZero;
+    tableView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:tableView];
+    [tableView registerNib:[UINib nibWithNibName:@"RememberWordSingleWordCell" bundle:nil] forCellReuseIdentifier:@"RememberWordSingleWordCell"];
 }
-- (void)payButtonClick:(UIButton *)sender{
-    _money = [[PAY_ARRAY objectAtIndex:sender.tag] intValue];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return PAY_ARRAY.count;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.00001;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    RememberWordSingleWordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RememberWordSingleWordCell" forIndexPath:indexPath];
+    cell.word.text = [NSString stringWithFormat:@"%@学习豆",[PAY_ARRAY objectAtIndex:indexPath.row]];
+    cell.wordPrice.text = [NSString stringWithFormat:@"%d元",[[PAY_ARRAY objectAtIndex:indexPath.row] intValue]*PAY_PROPORTION];
+    cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
+    cell.selectedBackgroundView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_SELT,N_CELL_SELT,RED);
+    return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    _money = [[PAY_ARRAY objectAtIndex:indexPath.row] integerValue]*PAY_PROPORTION;
     [self performSegueWithIdentifier:@"toPayment" sender:self];
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{

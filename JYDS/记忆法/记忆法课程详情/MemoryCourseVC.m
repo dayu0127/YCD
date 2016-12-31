@@ -63,6 +63,10 @@
     _playerView = [[ZFPlayerView alloc] init];
     _playerView.delegate = self;
     [_playerView playerControlView:nil playerModel:self.playerModel];
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    backBtn.backgroundColor = [UIColor clearColor];
+    [backBtn addTarget:self action:@selector(zf_playerBackAction) forControlEvents:UIControlEventTouchUpInside];
+    [_playerView addSubview:backBtn];
     //标题视图
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 20+9/16.0*WIDTH, WIDTH, 39)];
     titleView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
