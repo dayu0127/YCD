@@ -16,7 +16,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _wkWebView = [[BaseWKWebView alloc] initWithFrame:self.view.bounds];
+    self.leftBarButton.hidden = NO;
+    _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT)];
     NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:_linkUrl]];
     [_wkWebView loadRequest:request];
     [self.view addSubview:_wkWebView];

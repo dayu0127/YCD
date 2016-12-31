@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface BannerDetailVC : UIViewController
+#import "BaseNavViewController.h"
+@interface BannerDetailVC : BaseNavViewController
 @property (copy,nonatomic) NSString *linkUrl;
 @end

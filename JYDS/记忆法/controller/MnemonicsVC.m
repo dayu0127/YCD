@@ -68,7 +68,7 @@
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
     BannerDetailVC *bannerVC = [[BannerDetailVC alloc] init];
-    bannerVC.title = _bannerInfoArray[index][@"topTitle"];
+    bannerVC.navTitle = _bannerInfoArray[index][@"topTitle"];
     bannerVC.linkUrl = _bannerInfoArray[index][@"linkUrl"];
     bannerVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:bannerVC animated:YES];
