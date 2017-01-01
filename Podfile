@@ -1,6 +1,6 @@
 platform :ios, '7.0'
 
-target 'YCD' do
+target 'JYDS' do
 
 pod 'AFNetworking'
 pod 'SDWebImage'
@@ -13,5 +13,8 @@ pod 'UMengUShare/Social/WeChat'
 pod 'UMengUShare/Social/QQ'
 pod 'MJRefresh'
 pod 'ZFPlayer'
+pod 'MOBFoundation_IDFA'
+pod 'SMSSDK'
+pod 'YYModel'
 
 end
