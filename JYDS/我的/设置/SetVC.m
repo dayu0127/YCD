@@ -16,7 +16,6 @@
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSArray *arr;
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;
-- (IBAction)logoutButtonClick:(UIButton *)sender;
 @property (nonatomic,strong) JCAlertView *alertView;
 
 @end

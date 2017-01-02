@@ -18,6 +18,8 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //强制退出登录(上线时去掉！！！)
+    [YHWebRequest YHWebRequestForPOST:LOGOUT parameters:@{@"userID":@"3",@"type":@"1"} success:^(NSDictionary *json) {}];
     //初始化设置
     [self getBannerInfo];
     [self initSettings];

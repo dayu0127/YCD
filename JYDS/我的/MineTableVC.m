@@ -58,12 +58,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 13;
 }
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@""];
-//    cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
-//    cell.selectedBackgroundView.backgroundColor = RGB(29, 74, 143);
-//    return cell;
-//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 - (void)updateHeadImage:(NSNotification *)sender{
     UIImage *headImage = sender.userInfo[@"headImage"];
     _headImageView.image = headImage;
