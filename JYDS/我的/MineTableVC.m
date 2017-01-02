@@ -50,6 +50,7 @@
     _phoneNumLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
     _studyBean.text = [NSString stringWithFormat:@"%@",userInfo[@"studyBean"]];
     _costStudyBean.text = [NSString stringWithFormat:@"%@",userInfo[@"costStudyBean"]];
+    _studyCodeLabel.text = [NSString stringWithFormat:@"互学码:%@",userInfo[@"studyCode"]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeadImage:) name:@"updateHeadImage" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNickName:) name:@"updateNickName" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePhoneNum:) name:@"updatePhoneNum" object:nil];

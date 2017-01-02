@@ -38,7 +38,7 @@
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_bgView1.frame), WIDTH, PAY_ARRAY.count*44) style:UITableViewStyleGrouped];
     tableView.delegate = self;
     tableView.dataSource = self;
-    tableView.bounces = YES;
+    tableView.bounces = NO;
     tableView.separatorInset = UIEdgeInsetsZero;
     tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:tableView];

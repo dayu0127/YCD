@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    _textView = [[UITextView alloc] initWithFrame:CGRectMake(27, 74, WIDTH-54, 200)];
+    _textView = [[UITextView alloc] initWithFrame:CGRectMake(27, 10, WIDTH-54, 200)];
     _textView.font = [UIFont systemFontOfSize:13.0f];
     _textView.delegate = self;
     _textView.layer.borderWidth = 1;

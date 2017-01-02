@@ -15,7 +15,6 @@
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *lineCollection;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
-- (IBAction)loginButtonClick:(UIButton *)sender;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonCollection;
 @property (strong,nonatomic) UITextField *phoneText;
 @property (strong,nonatomic) UITextField *pwdText;
