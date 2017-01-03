@@ -11,7 +11,8 @@
 #import <UShareUI/UMSocialUIManager.h>
 #import <UMSocialCore/UMSocialResponse.h>
 #import "Mnemonics.h"
-@interface MemoryCourseVC ()<UICollectionViewDelegate,UICollectionViewDataSource,ZFPlayerDelegate>
+#import "PayVC.h"
+@interface MemoryCourseVC ()<UICollectionViewDelegate,UICollectionViewDataSource,ZFPlayerDelegate,YHAlertViewDelegate>
 
 @property (nonatomic, strong) UIView *playerFatherView;
 @property (nonatomic,strong) ZFPlayerView *playerView;
@@ -25,6 +26,9 @@
 @property (nonatomic,strong) UICollectionView *collectionView;
 @property (nonatomic,strong) UIDocumentInteractionController *documentController;
 @property (nonatomic,strong) NSMutableArray *buttonArray;
+@property (nonatomic,strong) JCAlertView *alertView;
+@property (nonatomic,strong) UIView *opaqueView;
+
 @end
 
 @implementation MemoryCourseVC
@@ -63,6 +67,31 @@
     _playerView = [[ZFPlayerView alloc] init];
     _playerView.delegate = self;
     [_playerView playerControlView:nil playerModel:self.playerModel];
+    //记忆法课程购买
+    if ([_memory.coursePayStatus isEqualToString:@"0"]) {
+        _opaqueView = [[UIView alloc] initWithFrame:_playerFatherView.bounds];
+        UIImage *playerBtn = [UIImage imageNamed:@"playerBtn"];
+        UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        backButton.frame = CGRectMake(12.1, 7.8, 30, 30);
+        [backButton setImage:[UIImage imageNamed:@"ZFPlayer_back_full"] forState:UIControlStateNormal];
+        backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        [backButton sizeToFit];
+        [backButton addTarget:self action:@selector(zf_playerBackAction) forControlEvents:UIControlEventTouchUpInside];
+        [_opaqueView addSubview:backButton];
+        UIImageView *playImageView = [[UIImageView alloc] initWithImage:playerBtn];
+        playImageView.center = CGPointMake(WIDTH*0.5, _playerFatherView.bounds.size.height*0.5);
+        playImageView.bounds = CGRectMake(0, 0, playerBtn.size.width, playerBtn.size.height);
+        [_opaqueView addSubview:playImageView];
+        UILabel *payPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(playImageView.frame)+14, WIDTH, 15)];
+        payPriceLabel.font = [UIFont systemFontOfSize:15.0f];
+        payPriceLabel.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+        payPriceLabel.text = [NSString stringWithFormat:@"需花费%@学习豆",_memory.coursePrice];
+        payPriceLabel.textAlignment = NSTextAlignmentCenter;
+        [_opaqueView addSubview:payPriceLabel];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buyMemoryCourse)];
+        [_opaqueView addGestureRecognizer:tap];
+        [_playerView addSubview:_opaqueView];
+    }
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
     backBtn.backgroundColor = [UIColor clearColor];
     [backBtn addTarget:self action:@selector(zf_playerBackAction) forControlEvents:UIControlEventTouchUpInside];
@@ -111,6 +140,46 @@
     [self.view addSubview:_line];
     //本节说明(其他课程)
     [self loadCurrentSectionExplain];
+}
+- (void)buyMemoryCourse{
+    YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 255, 100) title:@"确定购买？" message:nil];
+    alertView.delegate = self;
+    _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
+    [_alertView show];
+}
+- (void)buttonClickIndex:(NSInteger)buttonIndex{
+    [_alertView dismissWithCompletion:nil];
+    if (buttonIndex == 1) {
+        //用户学习豆不够，跳转到充值页面
+        NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+        NSInteger studyBean = [userInfo[@"studyBean"] integerValue];
+        if (studyBean < [_memory.coursePrice integerValue]) {
+            [YHHud showWithMessage:@"您的学习豆不足，请充值"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+                PayVC *payVC = [sb instantiateViewControllerWithIdentifier:@"pay"];
+                payVC.isH = YES;
+                [self.navigationController pushViewController:payVC animated:YES];
+            });
+        }else{
+            NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+            NSDictionary *dic = @{@"userID":userInfo[@"userID"],@"productID":_memory.courseID,@"type":@"memory",@"money":_memory.coursePrice};
+            [YHWebRequest YHWebRequestForPOST:SUB parameters:dic success:^(NSDictionary *json) {
+                if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                    [YHHud showWithSuccess:@"购买成功"];
+                    [_opaqueView removeFromSuperview];
+                    _opaqueView = nil;
+                }
+            }];
+        }
+//        NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+//        NSDictionary *dic = @{@"userID":userInfo[@"userID"],@"type":@"1"};
+//        [YHWebRequest YHWebRequestForPOST:LOGOUT parameters:dic success:^(NSDictionary *json) {
+//            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//
+//            }
+//        }];
+    }
 }
 - (NSMutableArray *)courceArray{
     if (!_courceArray) {

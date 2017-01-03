@@ -100,19 +100,35 @@
     _pwdText.secureTextEntry = !sender.selected;
 }
 - (IBAction)sureButtonClick:(UIButton *)sender {
+    NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:@"password"];
     if (REGEX(PHONE_RE, _phoneText.text)==NO) {
         [YHHud showWithMessage:@"请输入11位有效手机号"];
     }else if (REGEX(CHECHCODE_RE, _codeText.text) == NO){
         [YHHud showWithMessage:@"验证码错误"];
-    }else if ([_pwdText.text isEqualToString:@""] == NO){
+    }else if ([_pwdText.text isEqualToString:password] == NO){
         [YHHud showWithMessage:@"密码不正确"];
     }else{
-        [YHHud showWithSuccess:@"绑定成功"];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [[NSUserDefaults standardUserDefaults] setObject:_phoneText.text forKey:@"phoneNum"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"updatePhoneNum" object:nil userInfo:@{@"phoneNum":_phoneText.text}];
-            [self.navigationController popViewControllerAnimated:YES];
-        });
+        [SMSSDK commitVerificationCode:_codeText.text phoneNumber:_phoneText.text zone:@"86" result:^(SMSSDKUserInfo *userInfo, NSError *error) {
+            if (!error) {
+                NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+                NSString *userID = userInfo[@"userID"];
+                NSString *userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+                NSDictionary *dic = @{@"userID":userID,@"oldMobile":userName,@"newMobile":_phoneText.text,@"password":_pwdText.text};
+                [YHWebRequest YHWebRequestForPOST:BNEWPHONE parameters:dic success:^(NSDictionary *json) {
+                    if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                        [YHHud showWithSuccess:@"绑定成功"];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [[NSUserDefaults standardUserDefaults] setObject:_phoneText.text forKey:@"userName"];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"updatePhoneNum" object:nil userInfo:@{@"phoneNum":_phoneText.text}];
+                            [self.navigationController popViewControllerAnimated:YES];
+                        });
+                    }
+                }];
+            }else{
+                NSLog(@"%@",error);
+                [YHHud showWithMessage:@"验证码错误"];
+            }
+        }];
     }
 }
 - (void)viewWillDisappear:(BOOL)animated{

@@ -14,7 +14,6 @@
 @property (assign,nonatomic) NSInteger money;
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
-@property (weak, nonatomic) IBOutlet UIView *bgView1;
 @property (weak, nonatomic) IBOutlet UIButton *contactServiceButton;
 @property (weak, nonatomic) IBOutlet UILabel *payBean;
 
@@ -24,6 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [self initNaBar:@"充值"];
     NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
     [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":userInfo[@"userID"]} success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
@@ -35,7 +35,19 @@
         item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     }
     [_contactServiceButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_bgView1.frame), WIDTH, PAY_ARRAY.count*44) style:UITableViewStyleGrouped];
+    CGFloat y = 0;
+    if (_isH == YES) {
+        y = CGRectGetMaxY(_bgView.frame) + 64;
+    }else{
+        y = CGRectGetMaxY(_bgView.frame);
+    }
+    UIView *payView = [[UIView alloc] initWithFrame:CGRectMake(0, y, WIDTH, 35)];
+    UILabel *payLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 100, 35)];
+    payLabel.text = @"充值金额";
+    payLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    [payView addSubview:payLabel];
+    [self.view addSubview:payView];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(payView.frame), WIDTH, PAY_ARRAY.count*44) style:UITableViewStyleGrouped];
     tableView.delegate = self;
     tableView.dataSource = self;
     tableView.bounces = NO;
@@ -81,5 +93,9 @@
     [alertVC addAction:telephone];
     [alertVC addAction:cancel];
     [self presentViewController:alertVC animated:YES completion:nil];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.hidden = YES;
 }
 @end

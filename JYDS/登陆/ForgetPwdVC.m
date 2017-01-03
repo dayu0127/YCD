@@ -93,6 +93,7 @@
                 }];
             } else {
                 NSLog(@"错误信息：%@",error);
+                [YHHud showWithMessage:@"验证码错误"];
             }
         }];
     }

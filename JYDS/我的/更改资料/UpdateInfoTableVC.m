@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *rightLabelCollection;
 @property (weak, nonatomic) IBOutlet UILabel *phoneNumLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
 
 @end
 
@@ -39,10 +40,12 @@
         NSData *picData = [NSData dataWithContentsOfFile:imagePath];
         _headImageView.image = [UIImage imageWithData:picData];
     }
-    //从用户配置中取出手机号码
-    _phoneNumLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"phoneNum"];
+    //从用户配置中取出手机号码和昵称
+    _phoneNumLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+    _nickNameLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"nickName"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeadImage:) name:@"updateHeadImage" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePhoneNum:) name:@"updatePhoneNum" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePhoneNum:) name:@"updateNickName" object:nil];
 }
 - (void)updateHeadImage:(NSNotification *)sender{
     UIImage *headImage = sender.userInfo[@"headImage"];
@@ -51,6 +54,10 @@
 - (void)updatePhoneNum:(NSNotification *)sender{
     NSString *str = sender.userInfo[@"phoneNum"];
     _phoneNumLabel.text = str;
+}
+- (void)updateNickName:(NSNotification *)sender{
+    NSString *str = sender.userInfo[@"nickName"];
+    _nickNameLabel.text = str;
 }
 #pragma mark - Table view data source
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

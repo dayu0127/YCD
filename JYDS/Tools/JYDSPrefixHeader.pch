@@ -61,6 +61,7 @@
 
 //接口
 #define API(api) [NSString stringWithFormat:@"http://www.zhongshuo.cn:8088/jyds/API/%@API",api]
+//#define API(api) [NSString stringWithFormat:@"http://192.168.0.200:8080/jyds/API/%@API",api]
 #define LOGIN API(@"login") //登录
 #define REGISTER API(@"register") //注册
 #define FORGETPWD API(@"forgetPwd") //忘记密码
@@ -80,5 +81,7 @@
 #define BEANS API(@"getBeans")  //获取学习豆
 #define FEEDBACK API(@"fedBack")  //用户反馈
 #define BNEWPHONE API(@"updateMobile")  //绑定新手机
+#define UPLOADHEADIMAGE API(@"upload")  //上传头像
+#define SUB API(@"sub") //订阅
 
 #endif /* JYDSPrefixHeader_pch */

@@ -163,9 +163,8 @@
 }
 - (void)userRegister{
     NSDictionary *dic = @{@"userName":_phoneText.text,@"password":_pwdText.text,@"studyCode":_studyCodeText.text};
-    [YHWebRequest YHWebRequestForPOST:REGISTER parameters:dic success:^(id  _Nonnull json) {
-        NSDictionary *jsonDic = json;
-        if ([jsonDic[@"code"] isEqualToString:@"SUCCESS"]) {
+    [YHWebRequest YHWebRequestForPOST:REGISTER parameters:dic success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             [YHHud showWithSuccess:@"注册成功"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.navigationController popViewControllerAnimated:YES];
