@@ -50,6 +50,7 @@
     _phoneNumLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
     _studyBean.text = [NSString stringWithFormat:@"%@",userInfo[@"studyBean"]];
     _costStudyBean.text = [NSString stringWithFormat:@"%@",userInfo[@"costStudyBean"]];
+    _studyCodeLabel.text = [NSString stringWithFormat:@"互学码:%@",userInfo[@"studyCode"]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeadImage:) name:@"updateHeadImage" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNickName:) name:@"updateNickName" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePhoneNum:) name:@"updatePhoneNum" object:nil];
@@ -58,12 +59,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 13;
 }
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@""];
-//    cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
-//    cell.selectedBackgroundView.backgroundColor = RGB(29, 74, 143);
-//    return cell;
-//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 - (void)updateHeadImage:(NSNotification *)sender{
     UIImage *headImage = sender.userInfo[@"headImage"];
     _headImageView.image = headImage;

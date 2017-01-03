@@ -15,9 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *inviteCodeButton;
-- (IBAction)inviteCodeClick:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UIButton *sendToFriendButton;
-- (IBAction)sendToFriendClick:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UILabel *rewardRulesLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *rewardsRecordLabel;
@@ -38,6 +36,8 @@
     _inviteCodeButton.layer.cornerRadius = 5.0f;
     _inviteCodeButton.layer.borderWidth = 1.0f;
     _inviteCodeButton.layer.dk_borderColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+    [_inviteCodeButton setTitle:userInfo[@"studyCode"] forState:UIControlStateNormal];
     //发送给好友按钮
     _sendToFriendButton.layer.masksToBounds = YES;
     _sendToFriendButton.layer.cornerRadius = 5.0f;

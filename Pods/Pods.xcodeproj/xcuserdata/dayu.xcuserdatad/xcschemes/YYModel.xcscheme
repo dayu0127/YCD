@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0810"
+   LastUpgradeVersion = "0820"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "69B129E01DE2C6490093D841"
-               BuildableName = "YCD.app"
-               BlueprintName = "YCD"
-               ReferencedContainer = "container:YCD.xcodeproj">
+               BlueprintIdentifier = "B442DC60FB29DC1597843AFCD9FAD7F5"
+               BuildableName = "libYYModel.a"
+               BlueprintName = "YYModel"
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,15 +29,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "69B129E01DE2C6490093D841"
-            BuildableName = "YCD.app"
-            BlueprintName = "YCD"
-            ReferencedContainer = "container:YCD.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -51,23 +42,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "69B129E01DE2C6490093D841"
-            BuildableName = "YCD.app"
-            BlueprintName = "YCD"
-            ReferencedContainer = "container:YCD.xcodeproj">
+            BlueprintIdentifier = "B442DC60FB29DC1597843AFCD9FAD7F5"
+            BuildableName = "libYYModel.a"
+            BlueprintName = "YYModel"
+            ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "OS_ACTIVITY_MODE"
-            value = "disable"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -77,16 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "69B129E01DE2C6490093D841"
-            BuildableName = "YCD.app"
-            BlueprintName = "YCD"
-            ReferencedContainer = "container:YCD.xcodeproj">
+            BlueprintIdentifier = "B442DC60FB29DC1597843AFCD9FAD7F5"
+            BuildableName = "libYYModel.a"
+            BlueprintName = "YYModel"
+            ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

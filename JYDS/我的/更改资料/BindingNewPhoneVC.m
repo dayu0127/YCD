@@ -7,15 +7,14 @@
 //
 
 #import "BindingNewPhoneVC.h"
+#import <SMS_SDK/SMSSDK.h>
 
 @interface BindingNewPhoneVC ()
 
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
 @property (weak, nonatomic) IBOutlet UIButton *checkButton;
-- (IBAction)checkButtonClick:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UIButton *sureButton;
-- (IBAction)sureButtonClick:(UIButton *)sender;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *lineCollection;
 @property (strong,nonatomic) UITextField *phoneText;
 @property (strong,nonatomic) UITextField *codeText;
@@ -75,21 +74,26 @@
     if (REGEX(PHONE_RE, _phoneText.text)==NO) {
         [YHHud showWithMessage:@"无效手机号"];
     }else{
-        _countDown = COUNTDOWN;
-        sender.enabled = NO;
-        sender.backgroundColor = [UIColor lightGrayColor];
-        [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
-        _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
-            _countDown--;
-            [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
-            if (_countDown == 0) {
-                [timer invalidate];
-                sender.enabled = YES;
-                [sender setTitle:@"获取验证码" forState:UIControlStateNormal];
-                sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+        [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:_phoneText.text zone:@"86" customIdentifier:nil result:^(NSError *error) {
+            if (!error) {
+                _countDown = COUNTDOWN;
+                sender.enabled = NO;
+                sender.backgroundColor = [UIColor lightGrayColor];
+                [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
+                _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+                    _countDown--;
+                    [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
+                    if (_countDown == 0) {
+                        [timer invalidate];
+                        sender.enabled = YES;
+                        [sender setTitle:@"获取验证码" forState:UIControlStateNormal];
+                        sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+                    }
+                }];
+            } else {
+                NSLog(@"错误信息：%@",error);
             }
-        }];
-    }
+        }];    }
 }
 - (IBAction)showPwd:(UIButton *)sender {
     sender.selected = !sender.selected;
