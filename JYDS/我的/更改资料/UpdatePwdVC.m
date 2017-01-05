@@ -60,19 +60,16 @@
 }
 
 - (IBAction)sureButtonClick:(UIButton *)sender {
-    NSString *userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
-    NSString *pwd = [[NSUserDefaults standardUserDefaults] objectForKey:@"password"];
-    if ([_oldPwdText.text isEqualToString:pwd] == NO) {
+    if (REGEX(PWD_RE, _oldPwdText.text)==NO) {
         [YHHud showWithMessage:@"你输入的原密码不正确"];
     }else if (REGEX(PWD_RE, _pwdText.text)==NO){
         [YHHud showWithMessage:@"请输入6~15位字母+数字组合的密码"];
     }else if ([_surePwdText.text isEqualToString:_pwdText.text] == NO){
         [YHHud showWithMessage:@"两次密码输入不一致"];
     }else{
-        NSDictionary *dic = @{@"userName":userName,@"oldPassword":_oldPwdText.text,@"newPassword":_pwdText.text};
-        [YHWebRequest YHWebRequestForPOST:UPDATEPWD parameters:dic success:^(id  _Nonnull json) {
-            NSDictionary *jsonDic = json;
-            if ([jsonDic[@"code"] isEqualToString:@"SUCCESS"]) {
+        NSDictionary *dic = @{@"userName":[YHSingleton shareSingleton].userInfo.userName,@"oldPassword":_oldPwdText.text,@"newPassword":_pwdText.text};
+        [YHWebRequest YHWebRequestForPOST:UPDATEPWD parameters:dic success:^(NSDictionary *json) {
+            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                 [YHHud showWithMessage:@"修改成功，请重新登录"];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -81,6 +78,8 @@
                     [app.window makeKeyWindow];
                     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
                 });
+            }else{
+                [YHHud showWithMessage:@"修改失败"];
             }
         }];
     }

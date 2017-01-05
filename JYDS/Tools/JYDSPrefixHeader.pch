@@ -14,6 +14,8 @@
 #import "YHHud.h"
 #import "YHWebRequest.h"
 #import <YYModel.h>
+#import "UserInfo.h"
+#import "YHSingleton.h"
 //屏幕高宽
 #define WIDTH [UIScreen mainScreen].bounds.size.width
 #define HEIGHT [UIScreen mainScreen].bounds.size.height
@@ -83,5 +85,10 @@
 #define BNEWPHONE API(@"updateMobile")  //绑定新手机
 #define UPLOADHEADIMAGE API(@"upload")  //上传头像
 #define SUB API(@"sub") //订阅
+#define MEMORYBYID API(@"memoryIDSel") //根据ID查询记忆法
+#define WORDBYVIDEOID API(@"selVideoID") //根据视频ID获取本节单词
+#define VIDEOBYID API(@"videoIDSel") //根据ID查询视频
+#define WORDBYID API(@"wordIDSel") //根据ID查询单词
+#define UNITWORDBYID API(@"selUnitAllWord") //根据ID查询本单元单词
 
 #endif /* JYDSPrefixHeader_pch */

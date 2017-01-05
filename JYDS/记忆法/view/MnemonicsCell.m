@@ -18,6 +18,8 @@
     _courseName.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _courseTitle.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor groupTableViewBackgroundColor],[UIColor redColor]);
     _coursePrice.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    self.selectedBackgroundView = [[UIView alloc]initWithFrame:self.frame];
+    self.selectedBackgroundView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_SELT,N_CELL_SELT,RED);
 }
 - (void)updateConstraints{
     [super updateConstraints];
@@ -25,6 +27,10 @@
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+}
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
+    [super setHighlighted:highlighted animated:animated];
+    _coursePrice.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
 }
 - (void)addModelWithDic:(NSDictionary *)dic{
     Mnemonics *model = [Mnemonics yy_modelWithJSON:dic];

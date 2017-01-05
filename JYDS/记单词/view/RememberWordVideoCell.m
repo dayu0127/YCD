@@ -18,6 +18,8 @@
     _videoName.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _detailLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor groupTableViewBackgroundColor],RED);
     _videoPrice.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    self.selectedBackgroundView = [[UIView alloc]initWithFrame:self.frame];
+    self.selectedBackgroundView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_SELT,N_CELL_SELT,RED);
 }
 - (void)updateConstraints{
     [super updateConstraints];
@@ -25,6 +27,10 @@
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+}
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
+    [super setHighlighted:highlighted animated:animated];
+    _videoPrice.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
 }
 - (void)addModelWithDic:(NSDictionary *)dic{
     CourseVideo *model = [CourseVideo yy_modelWithJSON:dic];

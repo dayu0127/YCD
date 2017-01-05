@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 @class Words;
 @interface RememberWordSingleWordDetailVC : UIViewController
-@property (strong,nonatomic) Words *word;
+
+@property (nonatomic,strong) Words *word;
+@property (nonatomic,strong) NSArray *wordArray;
+
 @end

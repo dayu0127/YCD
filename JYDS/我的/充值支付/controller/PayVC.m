@@ -20,12 +20,12 @@
 @end
 
 @implementation PayVC
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self initNaBar:@"充值"];
-    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":userInfo[@"userID"]} success:^(NSDictionary *json) {
+    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _payBean.text = [NSString stringWithFormat:@"%@个",json[@"data"][@"restBean"]];
         }
@@ -44,6 +44,7 @@
     UIView *payView = [[UIView alloc] initWithFrame:CGRectMake(0, y, WIDTH, 35)];
     UILabel *payLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 100, 35)];
     payLabel.text = @"充值金额";
+    payLabel.font = [UIFont systemFontOfSize:15.0f];
     payLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     [payView addSubview:payLabel];
     [self.view addSubview:payView];
@@ -62,12 +63,13 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 0.00001;
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.00001;
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     RememberWordSingleWordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RememberWordSingleWordCell" forIndexPath:indexPath];
     cell.word.text = [NSString stringWithFormat:@"%@学习豆",[PAY_ARRAY objectAtIndex:indexPath.row]];
     cell.wordPrice.text = [NSString stringWithFormat:@"%d元",[[PAY_ARRAY objectAtIndex:indexPath.row] intValue]*PAY_PROPORTION];
-    cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
-    cell.selectedBackgroundView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_SELT,N_CELL_SELT,RED);
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

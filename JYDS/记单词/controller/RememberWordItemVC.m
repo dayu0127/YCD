@@ -90,8 +90,7 @@
         if (_wordArray!=nil) {
             [_tableView registerNib:[UINib nibWithNibName:@"RememberWordSingleWordCell" bundle:nil] forCellReuseIdentifier:@"RememberWordSingleWordCell"];
         }else{
-            NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-            NSDictionary *dic = @{@"userID":userInfo[@"userID"],@"classifyID":_classifyID};
+            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"classifyID":_classifyID};
             [YHWebRequest YHWebRequestForPOST:WORD parameters:dic success:^(NSDictionary *json) {
                 if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                     _wordArray = json[@"data"];
@@ -144,23 +143,23 @@
         return cell;
     }else{
         RememberWordSingleWordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RememberWordSingleWordCell" forIndexPath:indexPath];
-        cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
-        cell.selectedBackgroundView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_SELT,N_CELL_SELT,RED);
         [cell addModelWithDic:self.wordArray[indexPath.section][@"wordData"][indexPath.row]];
         return cell;
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (_flagForTable == 0) {
         RememberWordVideoDetailVC *videoDetailVC = [[RememberWordVideoDetailVC alloc] init];
         videoDetailVC.hidesBottomBarWhenPushed = YES;
         videoDetailVC.video = [CourseVideo yy_modelWithJSON:self.courseVideoArray[indexPath.row]];
+        videoDetailVC.videoArray = self.courseVideoArray;
         [self.navigationController pushViewController:videoDetailVC animated:YES];
     }else{
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
         wordDetailVC.hidesBottomBarWhenPushed = YES;
         wordDetailVC.word = [Words yy_modelWithJSON:self.wordArray[indexPath.section][@"wordData"][indexPath.row]];
+        wordDetailVC.wordArray = _wordArray;
         [self.navigationController pushViewController:wordDetailVC animated:YES];
     }
 }

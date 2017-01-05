@@ -67,13 +67,12 @@
 }
 #pragma mark 设置TableView数据源
 - (void)setTableView{
-    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
     if (_flagForTable == 0) {
         [self.view endEditing:YES];
         if (_videoArray!=nil) {
             [_tableView registerNib:[UINib nibWithNibName:@"RememberWordVideoCell" bundle:nil] forCellReuseIdentifier:@"RememberWordVideoCell"];
         }else{
-            [YHWebRequest YHWebRequestForPOST:SUBVIDEO parameters:@{@"userID":userInfo[@"userID"]} success:^(NSDictionary *json) {
+            [YHWebRequest YHWebRequestForPOST:SUBVIDEO parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
                 if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                     _videoArray = json[@"data"];
                     [_tableView registerNib:[UINib nibWithNibName:@"RememberWordVideoCell" bundle:nil] forCellReuseIdentifier:@"RememberWordVideoCell"];
@@ -87,7 +86,7 @@
         if (_wordArray!=nil) {
             [_tableView registerNib:[UINib nibWithNibName:@"RememberWordVideoCell" bundle:nil] forCellReuseIdentifier:@"RememberWordVideoCell"];
         }else{
-            [YHWebRequest YHWebRequestForPOST:SUBWORD parameters:@{@"userID":userInfo[@"userID"]} success:^(NSDictionary *json) {
+            [YHWebRequest YHWebRequestForPOST:SUBWORD parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
                 if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                     _wordArray = json[@"data"];
                     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
@@ -150,6 +149,10 @@
     
     _flagForTable = 0;
     [self setTableView];
+    if (self.noVideoView!=nil) {
+        [self.noVideoView removeFromSuperview];
+        self.noVideoView = nil;
+    }
 }
 #pragma mark 单词按钮点击
 - (IBAction)wordClick:(UIButton *)sender {
@@ -162,6 +165,10 @@
     
     _flagForTable = 1;
     [self setTableView];
+    if (self.noVideoView!=nil) {
+        [self.noVideoView removeFromSuperview];
+        self.noVideoView = nil;
+    }
 }
 #pragma mark 去订阅记忆法
 - (void)toMemoryButtonClick{
@@ -309,13 +316,13 @@
     return headView;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (_flagForTable == 0) {
         RememberWordVideoDetailVC *videoDetailVC = [[RememberWordVideoDetailVC alloc] init];
         videoDetailVC.hidesBottomBarWhenPushed = YES;
         videoDetailVC.video = [CourseVideo yy_modelWithJSON:_videoArray[indexPath.row]];
         [self.navigationController pushViewController:videoDetailVC animated:YES];
     }else{
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
         wordDetailVC.hidesBottomBarWhenPushed = YES;
         wordDetailVC.word = [Words yy_modelWithJSON:_wordDic.allValues[indexPath.section][indexPath.row]];

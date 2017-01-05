@@ -56,8 +56,7 @@
     if ([_textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) {
         _promptLabel.textColor = [UIColor redColor];
     }else{
-        NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-        NSDictionary *dic = @{@"userID":userInfo[@"userID"],@"content":_textView.text};
+        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"content":_textView.text};
         [YHWebRequest YHWebRequestForPOST:FEEDBACK parameters:dic success:^(NSDictionary *json) {
             if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                 [YHHud showWithSuccess:@"提交成功"];

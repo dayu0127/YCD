@@ -36,13 +36,14 @@
     if (REGEX(NICK_RE, _nickNameTextField.text)==NO) {
         [YHHud showWithMessage:@"只能是数字,字母,下划线和汉字哦"];
     }else{
-        NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-        NSDictionary *dic = @{@"userID":userInfo[@"userID"],@"nickName":_nickNameTextField.text};
+        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"nickName":_nickNameTextField.text};
         [YHWebRequest YHWebRequestForPOST:UPDNICK parameters:dic success:^(NSDictionary *json) {
             if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                 [YHHud showWithSuccess:@"修改成功"];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [[NSUserDefaults standardUserDefaults]setObject:_nickNameTextField.text forKey:@"nickName"];
+                    //更新用户信息
+                    [YHSingleton shareSingleton].userInfo.nickName = _nickNameTextField.text;
+                    [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateNickName" object:nil userInfo:@{@"nickName":_nickNameTextField.text}];
                     [self.navigationController popViewControllerAnimated:YES];
                 });

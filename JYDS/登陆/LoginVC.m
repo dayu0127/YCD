@@ -71,10 +71,9 @@
         [YHWebRequest YHWebRequestForPOST:LOGIN parameters:dic success:^(NSDictionary *json) {
             [YHHud dismiss];
             if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                //把用户信息存入用户配置
-                [[NSUserDefaults standardUserDefaults] setObject:_phoneText.text forKey:@"userName"];
-                [[NSUserDefaults standardUserDefaults] setObject:_pwdText.text forKey:@"password"];
+                //保存用户信息
                 [[NSUserDefaults standardUserDefaults] setObject:json[@"data"] forKey:@"userInfo"];
+                [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:json[@"data"]];
                 //把用户头像存入沙盒
                 NSString *path_sandox = NSHomeDirectory();
                 NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/headImage.png"];

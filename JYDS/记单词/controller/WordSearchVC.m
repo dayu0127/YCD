@@ -100,8 +100,7 @@
     [_tableView removeFromSuperview];
     _tableView = nil;
     
-    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-    [YHWebRequest YHWebRequestForPOST:SUBWORD parameters:@{@"userID":userInfo[@"userID"]} success:^(NSDictionary *json) {
+    [YHWebRequest YHWebRequestForPOST:SUBWORD parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             NSDictionary *wordDic = json[@"data"][0];
             RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];

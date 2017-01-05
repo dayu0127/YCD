@@ -47,8 +47,7 @@
         AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
         mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
         mgr.responseSerializer.acceptableContentTypes =[NSSet setWithObjects:@"application/json",@"text/json",@"text/JavaScript",@"text/html",@"text/plain",nil];
-        NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-        [mgr POST:UPLOADHEADIMAGE parameters:@{@"userID":userInfo[@"userID"]} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [mgr POST:UPLOADHEADIMAGE parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             NSData *data = UIImagePNGRepresentation(_headImageView.image);
             [formData appendPartWithFileData:data name:@"posterFile" fileName:@"headImage.png" mimeType:@"image/png"];
         } progress:^(NSProgress * _Nonnull uploadProgress) {} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

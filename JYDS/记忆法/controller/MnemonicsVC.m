@@ -15,25 +15,32 @@
 #import "Mnemonics.h"
 #import <UIImageView+WebCache.h>
 @interface MnemonicsVC ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,YHAlertViewDelegate>
-@property (weak, nonatomic) IBOutlet UIView *bgView;
-@property (strong,nonatomic) NSDictionary *userInfo;
 @property (strong,nonatomic) NSMutableArray *netImages;  //网络图片
 @property (strong,nonatomic) SDCycleScrollView *cycleScrollView;//轮播器
-@property (strong, nonatomic) BaseTableView *tableView;
+//@property (strong, nonatomic) BaseTableView *tableView;
+@property (strong, nonatomic) UITableView *tableView;
 @property (strong,nonatomic) JCAlertView *alertView;
 @property (strong,nonatomic) NSArray *bannerInfoArray;
+@property (weak, nonatomic) IBOutlet UIView *buttomBgView;
+@property (weak, nonatomic) IBOutlet UILabel *subLabel;
+@property (weak, nonatomic) IBOutlet UIButton *subBtn;
 @property (strong,nonatomic) NSArray *memoryArray;
+
 @end
 
 @implementation MnemonicsVC
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dayMode) name:@"dayMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightMode) name:@"nightMode" object:nil];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initNavBar];
-    _userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+    _buttomBgView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
+    _subLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    _subBtn.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     _netImages = [NSMutableArray array];
     _bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"];
     for (NSDictionary *dic in _bannerInfoArray) {
@@ -41,8 +48,6 @@
     }
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self initTableView];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dayMode) name:@"dayMode" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightMode) name:@"nightMode" object:nil];
 }
 - (void)initNavBar{
     UIView *navBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 64)];
@@ -79,24 +84,39 @@
     //NSLog(@"%ld",index);
 }
 - (void)initTableView{
-    NSDictionary *dic = @{@"userID":_userInfo[@"userID"]};
+    NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID};
     [YHWebRequest YHWebRequestForPOST:MEMORY parameters:dic success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _memoryArray = json[@"data"];
-            _tableView = [[BaseTableView alloc] initWithFrame:_bgView.bounds style:UITableViewStyleGrouped];
+//            _tableView = [[BaseTableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-157) style:UITableViewStyleGrouped];
+            //计算tableView的高度
+            CGFloat h = 0;
+            NSInteger count = 0;
+            for (NSDictionary *dic in _memoryArray) {
+                if ([dic[@"coursePayStatus"] integerValue] == 1) {
+                    count++;
+                }
+            }
+            if (count == _memoryArray.count) {
+                h = HEIGHT-113;
+                _buttomBgView.alpha = 0;
+            }else{
+                h = HEIGHT-157;
+            }
+            _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, h) style:UITableViewStyleGrouped];
             _tableView.delegate = self;
             _tableView.dataSource =  self;
             _tableView.rowHeight = 100;
             _tableView.separatorInset = UIEdgeInsetsZero;
             _tableView.backgroundColor = [UIColor clearColor];
-            [_tableView setRefreshData:^{
-                //        NSLog(@"下拉刷新数据");
-            }];
-            [_tableView setLoadMoreData:^{
-                //        NSLog(@"上拉加载更多");
-            }];
+//            [_tableView setRefreshData:^{
+//                //        NSLog(@"下拉刷新数据");
+//            }];
+//            [_tableView setLoadMoreData:^{
+//                //        NSLog(@"上拉加载更多");
+//            }];
             [_tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
-            [_bgView addSubview:_tableView];
+            [self.view addSubview:_tableView];
         }
     }];
 }
@@ -112,10 +132,11 @@
     return 9/16.0*WIDTH;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 44;
+    return 0.000001;
 }
 #pragma tableView代理方法
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     MemoryCourseVC *courseVC = [[MemoryCourseVC alloc] init];
     courseVC.hidesBottomBarWhenPushed = YES;
     courseVC.memoryArray = _memoryArray;
@@ -136,28 +157,8 @@
     self.cycleScrollView.autoScrollTimeInterval = 3.0f;
     return _cycleScrollView;
 }
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 44)];
-    footerView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, WIDTH-65, 44)];
-    label.text = @"一次订阅所有记忆法课程，仅需2000学习豆!";
-    label.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    label.font = [UIFont systemFontOfSize:12.0f];
-    label.backgroundColor = [UIColor clearColor];
-    [footerView addSubview:label];
-    UIButton *subscriptionButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    subscriptionButton.frame = CGRectMake(WIDTH-76, 11, 65, 22);
-    [subscriptionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [subscriptionButton setTitle:@"订阅" forState:UIControlStateNormal];
-    subscriptionButton.layer.cornerRadius = 3.0f;
-    subscriptionButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
-    subscriptionButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-    [subscriptionButton addTarget:self action:@selector(subscribe) forControlEvents:UIControlEventTouchUpInside];
-    [footerView addSubview:subscriptionButton];
-    return footerView;
-}
 #pragma mark 订阅所有课程
-- (void)subscribe{
+- (IBAction)subscribe:(id)sender {
     YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 250, 155) title:@"· 确认订阅 ·" message:@"如果确定，将一次订阅所有记忆法课程"];
     alertView.delegate = self;
     _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
@@ -166,20 +167,38 @@
 - (void)buttonClickIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
         NSInteger totalPrice = 0;
-        for (Mnemonics *model in _memoryArray) {
+        for (NSDictionary *dic in _memoryArray) {
+            Mnemonics *model = [Mnemonics yy_modelWithJSON:dic];
             if ([model.coursePayStatus isEqualToString:@"0"]) {
                 totalPrice = totalPrice + [model.coursePrice integerValue];
             }
         }
-        NSDictionary *dic = @{@"userID":_userInfo[@"userID"],@"payStudyBean":[NSString stringWithFormat:@"%zd",totalPrice],@"type":@"memory"};
+//        //学习豆不足
+//        if (totalPrice>[[YHSingleton shareSingleton].userInfo.studyBean integerValue]) {
+//            <#statements#>
+//        }
+        //学习豆充足
+        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"payStudyBean":[NSString stringWithFormat:@"%zd",totalPrice],@"type":@"memory"};
         [YHWebRequest YHWebRequestForPOST:SUBALL parameters:dic success:^(NSDictionary  *json) {
-            NSLog(@"%@",json);
-            NSLog(@"%@",_userInfo);
+            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                _tableView.frame = CGRectMake(0, 64, WIDTH, HEIGHT-113);
+                _buttomBgView.alpha = 0;
+                NSMutableArray *arr = [NSMutableArray arrayWithArray:_memoryArray];
+                for (NSInteger i = 0; i<arr.count; i++) {
+                    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:[arr objectAtIndex:i]];
+                    [dic setObject:[NSNumber numberWithInt:1] forKey:@"coursePayStatus"];
+                    [arr replaceObjectAtIndex:i withObject:[NSDictionary dictionaryWithDictionary:dic]];
+                }
+                _memoryArray = [NSArray arrayWithArray:arr];
+                [_tableView reloadData];
+                [YHHud showWithSuccess:@"订阅成功"];
+            }
         }];
     }
     [_alertView dismissWithCompletion:nil];
 }
-- (void)dealloc{
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"dayMode" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"nightMode" object:nil];
 }

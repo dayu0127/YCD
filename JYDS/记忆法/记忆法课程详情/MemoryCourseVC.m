@@ -28,6 +28,7 @@
 @property (nonatomic,strong) NSMutableArray *buttonArray;
 @property (nonatomic,strong) JCAlertView *alertView;
 @property (nonatomic,strong) UIView *opaqueView;
+@property (nonatomic,strong) UILabel *payPriceLabel;
 
 @end
 
@@ -82,12 +83,12 @@
         playImageView.center = CGPointMake(WIDTH*0.5, _playerFatherView.bounds.size.height*0.5);
         playImageView.bounds = CGRectMake(0, 0, playerBtn.size.width, playerBtn.size.height);
         [_opaqueView addSubview:playImageView];
-        UILabel *payPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(playImageView.frame)+14, WIDTH, 15)];
-        payPriceLabel.font = [UIFont systemFontOfSize:15.0f];
-        payPriceLabel.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
-        payPriceLabel.text = [NSString stringWithFormat:@"需花费%@学习豆",_memory.coursePrice];
-        payPriceLabel.textAlignment = NSTextAlignmentCenter;
-        [_opaqueView addSubview:payPriceLabel];
+        _payPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(playImageView.frame)+14, WIDTH, 15)];
+        _payPriceLabel.font = [UIFont systemFontOfSize:15.0f];
+        _payPriceLabel.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+        _payPriceLabel.text = [NSString stringWithFormat:@"需花费%@学习豆",_memory.coursePrice];
+        _payPriceLabel.textAlignment = NSTextAlignmentCenter;
+        [_opaqueView addSubview:_payPriceLabel];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buyMemoryCourse)];
         [_opaqueView addGestureRecognizer:tap];
         [_playerView addSubview:_opaqueView];
@@ -151,8 +152,7 @@
     [_alertView dismissWithCompletion:nil];
     if (buttonIndex == 1) {
         //用户学习豆不够，跳转到充值页面
-        NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-        NSInteger studyBean = [userInfo[@"studyBean"] integerValue];
+        NSInteger studyBean = [[YHSingleton shareSingleton].userInfo.studyBean integerValue];
         if (studyBean < [_memory.coursePrice integerValue]) {
             [YHHud showWithMessage:@"您的学习豆不足，请充值"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -162,8 +162,7 @@
                 [self.navigationController pushViewController:payVC animated:YES];
             });
         }else{
-            NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-            NSDictionary *dic = @{@"userID":userInfo[@"userID"],@"productID":_memory.courseID,@"type":@"memory",@"money":_memory.coursePrice};
+            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"productID":_memory.courseID,@"type":@"memory",@"money":_memory.coursePrice};
             [YHWebRequest YHWebRequestForPOST:SUB parameters:dic success:^(NSDictionary *json) {
                 if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                     [YHHud showWithSuccess:@"购买成功"];
@@ -172,13 +171,6 @@
                 }
             }];
         }
-//        NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-//        NSDictionary *dic = @{@"userID":userInfo[@"userID"],@"type":@"1"};
-//        [YHWebRequest YHWebRequestForPOST:LOGOUT parameters:dic success:^(NSDictionary *json) {
-//            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-//
-//            }
-//        }];
     }
 }
 - (NSMutableArray *)courceArray{
@@ -370,25 +362,31 @@
         btn.dk_backgroundColorPicker = DKColorPickerWithColors(D_BTN_BG,N_CELL_BG,RED);
     }
     sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
-    for (NSDictionary *dic in _memoryArray) {
-        Mnemonics *model = [Mnemonics yy_modelWithJSON:dic];
-        if ([model.courseID integerValue] == sender.tag) {
+    NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"id":[NSString stringWithFormat:@"%zd",sender.tag]};
+    [YHWebRequest YHWebRequestForPOST:MEMORYBYID parameters:dic success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            Mnemonics *model = [Mnemonics yy_modelWithJSON:json[@"data"]];
             _playerModel = [[ZFPlayerModel alloc] init];
             _playerModel.title = model.courseName;
             _playerModel.fatherView = self.playerFatherView;
             _playerModel.videoURL = [NSURL URLWithString:model.courseVideo];
             [_playerView resetPlayer];
             [_playerView playerControlView:nil playerModel:_playerModel];
-            _memory.courseInstructions = model.courseInstructions;
+            if ([model.coursePayStatus isEqualToString:@"0"]) {
+                _opaqueView.alpha = 1;
+                _payPriceLabel.text = [NSString stringWithFormat:@"需花费%@学习豆",model.coursePrice];
+            }else{
+                _opaqueView.alpha = 0;
+            }
             [_titleButton1 dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateNormal];
             _titleButton1.selected = YES;
             _underLine.frame = CGRectMake(0, 38, 0.24*WIDTH, 1);
             [_titleButton2 dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
             _titleButton2.selected = NO;
             [self loadCurrentSectionExplain];
-            break;
+            _contentText.text = model.courseInstructions;
         }
-    }
+    }];
 }
 #pragma mark 分享错误信息提示
 - (void)alertWithError:(NSError *)error{

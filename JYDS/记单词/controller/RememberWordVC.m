@@ -89,8 +89,7 @@
 }
 #pragma mark itemView的点击事件
 - (void)itemClickWithClassifyID:(NSInteger)classifyID title:(NSString *)title{
-    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-    NSDictionary *dic = @{@"userID":userInfo[@"userID"],@"classifyID":[NSString stringWithFormat:@"%zd",classifyID]};
+    NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"classifyID":[NSString stringWithFormat:@"%zd",classifyID]};
     [YHWebRequest YHWebRequestForPOST:COURSEVIDEO parameters:dic success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _itemTitle = title;

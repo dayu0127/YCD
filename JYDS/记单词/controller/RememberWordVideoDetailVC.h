@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 @class CourseVideo;
 @interface RememberWordVideoDetailVC : UIViewController
+
 @property (strong,nonatomic) CourseVideo *video;
+@property (nonatomic,strong) NSArray *videoArray;
+
 @end
