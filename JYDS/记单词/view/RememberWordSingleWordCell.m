@@ -25,14 +25,25 @@
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+    _wordPrice.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
 }
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
     [super setHighlighted:highlighted animated:animated];
     _wordPrice.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
 }
 - (void)addModelWithDic:(NSDictionary *)dic{
-    Words *words = [Words yy_modelWithJSON:dic];
-    self.word.text = words.word;
-    self.wordPrice.text = [NSString stringWithFormat:@"%@学习豆",words.wordPrice];
+    Words *model = [Words yy_modelWithJSON:dic];
+    self.word.text = model.word;
+    NSString *wordPrice = @"";
+    if ([model.payType isEqualToString:@"0"]) {
+        wordPrice = [NSString stringWithFormat:@"%@学习豆",model.wordPrice];
+    }else{
+        if ([model.wordPrice isEqualToString:@"0"]) {
+            wordPrice = @"免费";
+        }else{
+            wordPrice = @"已订阅";
+        }
+    }
+    self.wordPrice.text = wordPrice;
 }
 @end

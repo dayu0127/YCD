@@ -27,6 +27,7 @@
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+    _videoPrice.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
 }
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
     [super setHighlighted:highlighted animated:animated];
@@ -37,7 +38,17 @@
     [self.videoImageView sd_setImageWithURL:[NSURL URLWithString:model.videoImageUrl] placeholderImage:[UIImage imageNamed:@"videoImage"]];
     self.videoName.text = model.videoName;
     self.detailLabel.text = [NSString stringWithFormat:@"%@,共%@词",[self getHMSFromS:model.videoTime],model.videoWordNum];
-    self.videoPrice.text = [NSString stringWithFormat:@"%@学习豆",model.videoPrice];
+    NSString *wordPrice = @"";
+    if ([model.productType isEqualToString:@"0"]) {
+        wordPrice = [NSString stringWithFormat:@"%@学习豆",model.videoPrice];
+    }else{
+        if ([model.videoPrice isEqualToString:@"0"]) {
+            wordPrice = @"免费";
+        }else{
+            wordPrice = @"已订阅";
+        }
+    }
+    self.videoPrice.text = wordPrice;
 }
 -(NSString *)getHMSFromS:(NSString *)totalTime{
     NSInteger seconds = [totalTime integerValue];

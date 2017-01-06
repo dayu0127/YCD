@@ -31,6 +31,11 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
+    if (_flagForTable == 0) {
+        [self loadVideoList];
+    }else{
+        [self loadWordList];
+    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -72,33 +77,40 @@
         if (_videoArray!=nil) {
             [_tableView registerNib:[UINib nibWithNibName:@"RememberWordVideoCell" bundle:nil] forCellReuseIdentifier:@"RememberWordVideoCell"];
         }else{
-            [YHWebRequest YHWebRequestForPOST:SUBVIDEO parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
-                if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                    _videoArray = json[@"data"];
-                    [_tableView registerNib:[UINib nibWithNibName:@"RememberWordVideoCell" bundle:nil] forCellReuseIdentifier:@"RememberWordVideoCell"];
-                    [_tableView reloadData];
-                }else if ([json[@"code"] isEqualToString:@"NOVIDEO"]){
-                    [self.view addSubview:self.noVideoView];
-                }
-            }];
+            [self loadVideoList];
         }
     }else{
         if (_wordArray!=nil) {
-            [_tableView registerNib:[UINib nibWithNibName:@"RememberWordVideoCell" bundle:nil] forCellReuseIdentifier:@"RememberWordVideoCell"];
+            [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
+            [self wordSearch];
         }else{
-            [YHWebRequest YHWebRequestForPOST:SUBWORD parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
-                if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                    _wordArray = json[@"data"];
-                    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
-                    [self wordSearch];
-                    [_tableView reloadData];
-                }else if ([json[@"code"] isEqualToString:@"NOVIDEO"]){
-                    [self.view addSubview:self.noVideoView];
-                }
-            }];
+            [self loadWordList];
         }
     }
     [_tableView reloadData];
+}
+- (void)loadVideoList{
+    [YHWebRequest YHWebRequestForPOST:SUBVIDEO parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            _videoArray = json[@"data"];
+            [_tableView registerNib:[UINib nibWithNibName:@"RememberWordVideoCell" bundle:nil] forCellReuseIdentifier:@"RememberWordVideoCell"];
+            [_tableView reloadData];
+        }else if ([json[@"code"] isEqualToString:@"NOVIDEO"]){
+            [self.view addSubview:self.noVideoView];
+        }
+    }];
+}
+- (void)loadWordList{
+    [YHWebRequest YHWebRequestForPOST:SUBWORD parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            _wordArray = json[@"data"];
+            [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
+            [self wordSearch];
+            [_tableView reloadData];
+        }else if ([json[@"code"] isEqualToString:@"NOWORD"]){
+            [self.view addSubview:self.noVideoView];
+        }
+    }];
 }
 #pragma mark 懒加载暂无视频View
 - (UIView *)noVideoView{
@@ -328,5 +340,9 @@
         wordDetailVC.word = [Words yy_modelWithJSON:_wordDic.allValues[indexPath.section][indexPath.row]];
         [self.navigationController pushViewController:wordDetailVC animated:YES];
     }
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"aa" object:nil];
 }
 @end

@@ -15,7 +15,9 @@
 #import "CourseVideo.h"
 #import "PayVC.h"
 #import "Words.h"
+
 @interface RememberWordVideoDetailVC ()<UICollectionViewDelegate,UICollectionViewDataSource,ZFPlayerDelegate,YHAlertViewDelegate>
+
 @property (strong, nonatomic) UIView *playerFatherView;
 @property (nonatomic,strong) ZFPlayerView *playerView;
 @property (nonatomic,strong) ZFPlayerModel *playerModel;
@@ -30,6 +32,8 @@
 @property (nonatomic,strong) JCAlertView *alertView;
 @property (nonatomic,strong) UIView *opaqueView;
 @property (nonatomic,strong) UILabel *payPriceLabel;
+@property (nonatomic,strong) UIButton *backBtn;
+
 @end
 
 @implementation RememberWordVideoDetailVC
@@ -45,7 +49,7 @@
         _playerModel                  = [[ZFPlayerModel alloc] init];
         _playerModel.title            = self.video.videoName;
         _playerModel.videoURL         = [NSURL URLWithString:self.video.videoUrl];
-//        _playerModel.placeholderImage = [UIImage imageNamed:@"banner01"];
+//        _playerModel.placeholderImage = [UIImage imageNamed:@""];
         _playerModel.fatherView       = self.playerFatherView;
     }
     return _playerModel;
@@ -54,41 +58,13 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     _courseButtonArray = [NSMutableArray array];
-    //播放器
+    //播放器父视图
     _playerFatherView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, WIDTH, 9/16.0*WIDTH)];
     [self.view addSubview:_playerFatherView];
     _playerView = [[ZFPlayerView alloc] init];
     _playerView.delegate = self;
     [_playerView playerControlView:nil playerModel:self.playerModel];
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-    backBtn.backgroundColor = [UIColor clearColor];
-    [backBtn addTarget:self action:@selector(zf_playerBackAction) forControlEvents:UIControlEventTouchUpInside];
-    [_playerView addSubview:backBtn];
-    //记忆法课程购买
-    if ([_video.productType isEqualToString:@"0"]) {
-        _opaqueView = [[UIView alloc] initWithFrame:_playerFatherView.bounds];
-        UIImage *playerBtn = [UIImage imageNamed:@"playerBtn"];
-        UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        backButton.frame = CGRectMake(12.1, 7.8, 30, 30);
-        [backButton setImage:[UIImage imageNamed:@"ZFPlayer_back_full"] forState:UIControlStateNormal];
-        backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [backButton sizeToFit];
-        [backButton addTarget:self action:@selector(zf_playerBackAction) forControlEvents:UIControlEventTouchUpInside];
-        [_opaqueView addSubview:backButton];
-        UIImageView *playImageView = [[UIImageView alloc] initWithImage:playerBtn];
-        playImageView.center = CGPointMake(WIDTH*0.5, _playerFatherView.bounds.size.height*0.5);
-        playImageView.bounds = CGRectMake(0, 0, playerBtn.size.width, playerBtn.size.height);
-        [_opaqueView addSubview:playImageView];
-        _payPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(playImageView.frame)+14, WIDTH, 15)];
-        _payPriceLabel.font = [UIFont systemFontOfSize:15.0f];
-        _payPriceLabel.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
-        _payPriceLabel.text = [NSString stringWithFormat:@"需花费%@学习豆",_video.videoPrice];
-        _payPriceLabel.textAlignment = NSTextAlignmentCenter;
-        [_opaqueView addSubview:_payPriceLabel];
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buyVideo)];
-        [_opaqueView addGestureRecognizer:tap];
-        [_playerView addSubview:_opaqueView];
-    }
+    [self loadPlayerOpaqueView:_video.videoPrice subStatus:_video.productType];
     //标题视图
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 20+9/16.0*WIDTH, WIDTH, 39)];
     titleView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
@@ -128,7 +104,50 @@
     _line.backgroundColor = SEPCOLOR;
     [self.view addSubview:_line];
     //本节说明(本节单词,其他课程)
-    [self loadCurrentSectionExplain];
+    [self loadCurrentSectionExplain:_video.videoDetail];
+}
+#pragma mark 加载播放器遮罩视图
+- (void)loadPlayerOpaqueView:(NSString *)price subStatus:(NSString *)status{
+    if (_backBtn!=nil) {
+        [_backBtn removeFromSuperview];
+        _backBtn = nil;
+    }
+    if (_opaqueView!=nil) {
+        [_opaqueView removeFromSuperview];
+        _opaqueView = nil;
+    }
+    _backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    _backBtn.backgroundColor = [UIColor clearColor];
+    [_backBtn addTarget:self action:@selector(zf_playerBackAction) forControlEvents:UIControlEventTouchUpInside];
+    [_playerView addSubview:_backBtn];
+    //记忆法课程购买
+    _opaqueView = [[UIView alloc] initWithFrame:_playerFatherView.bounds];
+    UIImage *playerBtn = [UIImage imageNamed:@"playerBtn"];
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    backButton.frame = CGRectMake(12.1, 7.8, 30, 30);
+    [backButton setImage:[UIImage imageNamed:@"ZFPlayer_back_full"] forState:UIControlStateNormal];
+    backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [backButton sizeToFit];
+    [backButton addTarget:self action:@selector(zf_playerBackAction) forControlEvents:UIControlEventTouchUpInside];
+    [_opaqueView addSubview:backButton];
+    UIImageView *playImageView = [[UIImageView alloc] initWithImage:playerBtn];
+    playImageView.center = CGPointMake(WIDTH*0.5, _playerFatherView.bounds.size.height*0.5);
+    playImageView.bounds = CGRectMake(0, 0, playerBtn.size.width, playerBtn.size.height);
+    [_opaqueView addSubview:playImageView];
+    UILabel *payPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(playImageView.frame)+14, WIDTH, 15)];
+    payPriceLabel.font = [UIFont systemFontOfSize:15.0f];
+    payPriceLabel.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    payPriceLabel.text = [NSString stringWithFormat:@"需花费%@学习豆",price];
+    payPriceLabel.textAlignment = NSTextAlignmentCenter;
+    [_opaqueView addSubview:payPriceLabel];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buyVideo)];
+    [_opaqueView addGestureRecognizer:tap];
+    [_playerView addSubview:_opaqueView];
+    if ([status isEqualToString:@"0"]) {
+        _opaqueView.alpha = 1;
+    }else{
+        _opaqueView.alpha = 0;
+    }
 }
 #pragma mark 选项卡标题点击
 - (void)titleButtonClick:(UIButton *)sender{
@@ -140,7 +159,7 @@
     sender.selected = YES;
     _underLine.frame = CGRectMake(0.24*WIDTH*sender.tag, 38, 0.24*WIDTH, 1);
     if (sender.tag == 0) { //点击加载本节说明
-        [self loadCurrentSectionExplain];
+        [self loadCurrentSectionExplain:_video.videoDetail];
     }else if(sender.tag == 1){ //点击加载本节单词
         _flagForCollectionView = 0;
         [self loadWordOrOtherCourse];
@@ -191,7 +210,7 @@
     }];
 }
 #pragma mark 加载本节说明
-- (void)loadCurrentSectionExplain{
+- (void)loadCurrentSectionExplain:(NSString *)text{
     if (_contentText!=nil) {
         [_contentText removeFromSuperview];
         _contentText = nil;
@@ -199,7 +218,7 @@
     _contentText = [[UITextView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_line.frame), WIDTH, HEIGHT-CGRectGetMaxY(_line.frame))];
     _contentText.editable = NO;
     _contentText.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
-    NSString *textString = _video.videoDetail;
+    NSString *textString = text;
     NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:textString];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:5];
@@ -213,16 +232,12 @@
 #pragma mark 加载本节单词/其他课程
 - (void)loadWordOrOtherCourse{
     if (_flagForCollectionView == 0) {
-        if (_wordArray!=nil) {
-            [self initCollectionView:0];
-        }else{
-            [YHWebRequest YHWebRequestForPOST:WORDBYVIDEOID parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"id":_video.videoID} success:^(NSDictionary *json) {
-                if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                    _wordArray = json[@"data"];
-                    [self initCollectionView:0];
-                }
-            }];
-        }
+        [YHWebRequest YHWebRequestForPOST:WORDBYVIDEOID parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"id":_video.videoID} success:^(NSDictionary *json) {
+            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                _wordArray = json[@"data"];
+                [self initCollectionView:0];
+            }
+        }];
     }else{
         [self initCollectionView:1];
     }
@@ -266,6 +281,10 @@
     if (_flagForCollectionView == 0) {
         [courseItemButton addTarget:self action:@selector(wordItemButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }else{
+        if ([[NSString stringWithFormat:@"%@",self.videoArray[indexPath.row][@"videoID"]] isEqualToString:_video.videoID]) {
+            courseItemButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+        }
+        [courseItemButton addTarget:self action:@selector(courseItemButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
         [courseItemButton addTarget:self action:@selector(courseItemButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [_courseButtonArray addObject:courseItemButton];
     }
@@ -278,29 +297,25 @@
     wordDetailVC.wordArray = _wordArray;
     [self.navigationController pushViewController:wordDetailVC animated:YES];
 }
-- (void)courseItemButtonClick:(UIButton *)sender{
+- (void)courseItemButtonTouchDown:(UIButton *)sender{
     for (UIButton *btn in _courseButtonArray) {
         btn.dk_backgroundColorPicker = DKColorPickerWithColors(D_BTN_BG,N_CELL_BG,RED);
     }
-    UIButton *currentBtn = [_courseButtonArray objectAtIndex:sender.tag];
-    currentBtn.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+}
+- (void)courseItemButtonClick:(UIButton *)sender{
     NSString *videoID = _videoArray[sender.tag][@"videoID"];
     NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"id":videoID};
     [YHWebRequest YHWebRequestForPOST:VIDEOBYID parameters:dic success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-            CourseVideo *model = [CourseVideo yy_modelWithJSON:json[@"data"]];
+            _video = [CourseVideo yy_modelWithJSON:json[@"data"]];
             _playerModel = [[ZFPlayerModel alloc] init];
-            _playerModel.title = model.videoName;
+            _playerModel.title = _video.videoName;
             _playerModel.fatherView = self.playerFatherView;
-            _playerModel.videoURL = [NSURL URLWithString:model.videoUrl];
+            _playerModel.videoURL = [NSURL URLWithString:_video.videoUrl];
             [_playerView resetPlayer];
             [_playerView playerControlView:nil playerModel:_playerModel];
-            if ([model.productType isEqualToString:@"0"]) {
-                _opaqueView.alpha = 1;
-                _payPriceLabel.text = [NSString stringWithFormat:@"需花费%@学习豆",model.videoPrice];
-            }else{
-                _opaqueView.alpha = 0;
-            }
+            [self loadPlayerOpaqueView:_video.videoPrice subStatus:_video.productType];
             for (UIButton *item in _buttonAarry) {
                 [item dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
                 item.selected = NO;
@@ -308,9 +323,9 @@
             UIButton *firstButton = (UIButton *)[_buttonAarry objectAtIndex:0];
             [firstButton dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateNormal];
             firstButton.selected = YES;
-            _underLine.frame = CGRectMake(0.24*WIDTH*sender.tag, 38, 0.24*WIDTH, 1);
-            [self loadCurrentSectionExplain];
-            _contentText.text = model.videoDetail;
+            _underLine.frame = CGRectMake(0, 38, 0.24*WIDTH, 1);
+            [self loadCurrentSectionExplain:_video.videoDetail];
+            [_collectionView reloadData];
         }
     }];
 }
@@ -338,8 +353,8 @@
             [YHWebRequest YHWebRequestForPOST:SUB parameters:dic success:^(NSDictionary *json) {
                 if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                     [YHHud showWithSuccess:@"购买成功"];
-                    [_opaqueView removeFromSuperview];
-                    _opaqueView = nil;
+                    _opaqueView.alpha = 0;
+                    [_delegate reloadVideoList];
                 }
             }];
         }

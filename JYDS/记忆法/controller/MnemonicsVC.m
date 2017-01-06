@@ -14,7 +14,9 @@
 #import "BannerDetailVC.h"
 #import "Mnemonics.h"
 #import <UIImageView+WebCache.h>
-@interface MnemonicsVC ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,YHAlertViewDelegate>
+#import "PayVC.h"
+
+@interface MnemonicsVC ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,YHAlertViewDelegate,MemoryCourseVCDelegate>
 @property (strong,nonatomic) NSMutableArray *netImages;  //网络图片
 @property (strong,nonatomic) SDCycleScrollView *cycleScrollView;//轮播器
 //@property (strong, nonatomic) BaseTableView *tableView;
@@ -88,6 +90,14 @@
     [YHWebRequest YHWebRequestForPOST:MEMORY parameters:dic success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _memoryArray = json[@"data"];
+            //显示总价
+            NSInteger totalPrice = 0;
+            for (NSDictionary *dic in _memoryArray) {
+                if ([dic[@"coursePayStatus"] integerValue] == 0) {
+                    totalPrice = totalPrice + [dic[@"coursePrice"] integerValue];
+                }
+            }
+            _subLabel.text = [NSString stringWithFormat:@"一次订阅所有记忆法课程，仅需%zd学习豆!",totalPrice];
 //            _tableView = [[BaseTableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-157) style:UITableViewStyleGrouped];
             //计算tableView的高度
             CGFloat h = 0;
@@ -141,7 +151,17 @@
     courseVC.hidesBottomBarWhenPushed = YES;
     courseVC.memoryArray = _memoryArray;
     courseVC.memory = [Mnemonics yy_modelWithJSON:_memoryArray[indexPath.row]];
+    courseVC.delegate = self;
     [self.navigationController pushViewController:courseVC animated:YES];
+}
+- (void)reloadMemoryList{
+    NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID};
+    [YHWebRequest YHWebRequestForPOST:MEMORY parameters:dic success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            _memoryArray = json[@"data"];
+            [_tableView reloadData];
+        }
+    }];
 }
 #pragma mark 轮播图
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -173,27 +193,34 @@
                 totalPrice = totalPrice + [model.coursePrice integerValue];
             }
         }
-//        //学习豆不足
-//        if (totalPrice>[[YHSingleton shareSingleton].userInfo.studyBean integerValue]) {
-//            <#statements#>
-//        }
-        //学习豆充足
-        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"payStudyBean":[NSString stringWithFormat:@"%zd",totalPrice],@"type":@"memory"};
-        [YHWebRequest YHWebRequestForPOST:SUBALL parameters:dic success:^(NSDictionary  *json) {
-            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                _tableView.frame = CGRectMake(0, 64, WIDTH, HEIGHT-113);
-                _buttomBgView.alpha = 0;
-                NSMutableArray *arr = [NSMutableArray arrayWithArray:_memoryArray];
-                for (NSInteger i = 0; i<arr.count; i++) {
-                    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:[arr objectAtIndex:i]];
-                    [dic setObject:[NSNumber numberWithInt:1] forKey:@"coursePayStatus"];
-                    [arr replaceObjectAtIndex:i withObject:[NSDictionary dictionaryWithDictionary:dic]];
+        //学习豆不足
+        if (totalPrice>[[YHSingleton shareSingleton].userInfo.studyBean integerValue]) {
+            [YHHud showWithMessage:@"您的学习豆不足，请充值"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+                PayVC *payVC = [sb instantiateViewControllerWithIdentifier:@"pay"];
+                payVC.isH = YES;
+                [self.navigationController pushViewController:payVC animated:YES];
+            });
+        }else{
+            //学习豆充足
+            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"payStudyBean":[NSString stringWithFormat:@"%zd",totalPrice],@"type":@"memory"};
+            [YHWebRequest YHWebRequestForPOST:SUBALL parameters:dic success:^(NSDictionary  *json) {
+                if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                    _tableView.frame = CGRectMake(0, 64, WIDTH, HEIGHT-113);
+                    _buttomBgView.alpha = 0;
+                    NSMutableArray *arr = [NSMutableArray arrayWithArray:_memoryArray];
+                    for (NSInteger i = 0; i<arr.count; i++) {
+                        NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:[arr objectAtIndex:i]];
+                        [dic setObject:[NSNumber numberWithInt:1] forKey:@"coursePayStatus"];
+                        [arr replaceObjectAtIndex:i withObject:[NSDictionary dictionaryWithDictionary:dic]];
+                    }
+                    _memoryArray = [NSArray arrayWithArray:arr];
+                    [_tableView reloadData];
+                    [YHHud showWithSuccess:@"订阅成功"];
                 }
-                _memoryArray = [NSArray arrayWithArray:arr];
-                [_tableView reloadData];
-                [YHHud showWithSuccess:@"订阅成功"];
-            }
-        }];
+            }];
+        }
     }
     [_alertView dismissWithCompletion:nil];
 }
