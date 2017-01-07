@@ -173,7 +173,7 @@
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
                 PayVC *payVC = [sb instantiateViewControllerWithIdentifier:@"pay"];
-                payVC.isH = YES;
+                payVC.isHiddenNav = YES;
                 [self.navigationController pushViewController:payVC animated:YES];
             });
         }else{
@@ -183,6 +183,7 @@
                     [YHHud showWithSuccess:@"购买成功"];
                     _opaqueView.alpha = 0;
                     [_delegate reloadMemoryList];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBean" object:nil];
                 }
             }];
         }

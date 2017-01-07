@@ -10,7 +10,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *sureButton;
-- (IBAction)sureButtonClick:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UITextField *nickNameTextField;
 @property (weak, nonatomic) IBOutlet UIView *line;
 
@@ -44,7 +43,8 @@
                     //更新用户信息
                     [YHSingleton shareSingleton].userInfo.nickName = _nickNameTextField.text;
                     [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateNickName" object:nil userInfo:@{@"nickName":_nickNameTextField.text}];
+                    NSDictionary *dic = [NSDictionary dictionaryWithObject:_nickNameTextField.text forKey:@"nickName"];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateNickName" object:nil userInfo:dic];
                     [self.navigationController popViewControllerAnimated:YES];
                 });
             }

@@ -49,9 +49,9 @@
     //设置
     [UINavigationBar appearance].titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     [UITableView appearance].separatorColor = SEPCOLOR;
-    //    UIImage *backImage = [UIImage imageNamed:@"back"];
-    //    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[backImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, backImage.size.width, 0, 0)]forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    //    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-233, 0) forBarMetrics:UIBarMetricsDefault];
+//    UIImage *backImage = [UIImage imageNamed:@"back"];
+//    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[backImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, backImage.size.width, 0, 0)]forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+//    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-233, 0) forBarMetrics:UIBarMetricsDefault];
     //判断是否加载夜间模式
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isNightMode"]==YES) {
         [[DKNightVersionManager sharedManager] nightFalling];

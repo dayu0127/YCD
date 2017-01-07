@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *subLabel;
 @property (weak, nonatomic) IBOutlet UIButton *subBtn;
 @property (strong,nonatomic) NSArray *memoryArray;
+@property (assign,nonatomic) BOOL isHiddenNav;
 
 @end
 
@@ -39,7 +40,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initNavBar];
+    [self initNaBar:@"记忆大师"];
     _buttomBgView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
     _subLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _subBtn.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
@@ -50,18 +51,6 @@
     }
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self initTableView];
-}
-- (void)initNavBar{
-    UIView *navBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 64)];
-    navBar.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
-    UILabel *titleLabel = [[UILabel alloc] init];
-    [titleLabel setTextColor:[UIColor whiteColor]];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    [titleLabel setText:@"记忆大师"];
-    [titleLabel sizeToFit];
-    titleLabel.center = CGPointMake(WIDTH * 0.5, 42);
-    [navBar addSubview:titleLabel];
-    [self.view addSubview:navBar];
 }
 - (void)dayMode{
     self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControl"];
@@ -152,6 +141,7 @@
     courseVC.memoryArray = _memoryArray;
     courseVC.memory = [Mnemonics yy_modelWithJSON:_memoryArray[indexPath.row]];
     courseVC.delegate = self;
+    _isHiddenNav = NO;
     [self.navigationController pushViewController:courseVC animated:YES];
 }
 - (void)reloadMemoryList{
@@ -197,9 +187,10 @@
         if (totalPrice>[[YHSingleton shareSingleton].userInfo.studyBean integerValue]) {
             [YHHud showWithMessage:@"您的学习豆不足，请充值"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                _isHiddenNav = YES;
                 UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
                 PayVC *payVC = [sb instantiateViewControllerWithIdentifier:@"pay"];
-                payVC.isH = YES;
+                payVC.isHiddenNav = YES;
                 [self.navigationController pushViewController:payVC animated:YES];
             });
         }else{
@@ -218,6 +209,7 @@
                     _memoryArray = [NSArray arrayWithArray:arr];
                     [_tableView reloadData];
                     [YHHud showWithSuccess:@"订阅成功"];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBean" object:nil];
                 }
             }];
         }
@@ -226,7 +218,8 @@
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"dayMode" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"nightMode" object:nil];
+    if (_isHiddenNav == YES) {
+        self.navigationController.navigationBar.hidden = NO;
+    }
 }
 @end

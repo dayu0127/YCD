@@ -33,10 +33,16 @@
 @property (nonatomic,strong) UIView *opaqueView;
 @property (nonatomic,strong) UILabel *payPriceLabel;
 @property (nonatomic,strong) UIButton *backBtn;
+@property (assign,nonatomic) BOOL isHiddenNav;
 
 @end
 
 @implementation RememberWordVideoDetailVC
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
+}
 // 返回值要必须为NO
 - (BOOL)shouldAutorotate{
     return NO;
@@ -294,7 +300,7 @@
 - (void)wordItemButtonClick:(UIButton *)sender{
     RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
     wordDetailVC.word = [Words yy_modelWithJSON:_wordArray[sender.tag]];
-    wordDetailVC.wordArray = _wordArray;
+    _isHiddenNav = NO;
     [self.navigationController pushViewController:wordDetailVC animated:YES];
 }
 - (void)courseItemButtonTouchDown:(UIButton *)sender{
@@ -343,9 +349,10 @@
         if (studyBean < [_video.videoPrice integerValue]) {
             [YHHud showWithMessage:@"您的学习豆不足，请充值"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                _isHiddenNav = YES;
                 UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
                 PayVC *payVC = [sb instantiateViewControllerWithIdentifier:@"pay"];
-                payVC.isH = YES;
+                payVC.isHiddenNav = YES;
                 [self.navigationController pushViewController:payVC animated:YES];
             });
         }else{
@@ -355,6 +362,8 @@
                     [YHHud showWithSuccess:@"购买成功"];
                     _opaqueView.alpha = 0;
                     [_delegate reloadVideoList];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadVideos" object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBean" object:nil];
                 }
             }];
         }
@@ -373,5 +382,11 @@
         }
     }
     [YHHud showWithMessage:result];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    if (_isHiddenNav == YES) {
+        self.navigationController.navigationBar.hidden = NO;
+    }
 }
 @end

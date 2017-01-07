@@ -36,7 +36,7 @@
     }
     [_contactServiceButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     CGFloat y = 0;
-    if (_isH == YES) {
+    if (_isHiddenNav == YES) {
         y = CGRectGetMaxY(_bgView.frame) + 64;
     }else{
         y = CGRectGetMaxY(_bgView.frame);

@@ -15,7 +15,6 @@
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *lineCollection;
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
 @property (weak, nonatomic) IBOutlet UIButton *sureButton;
-- (IBAction)sureButtonClick:(UIButton *)sender;
 @property (strong,nonatomic) UITextField *oldPwdText;
 @property (strong,nonatomic) UITextField *pwdText;
 @property (strong,nonatomic) UITextField *surePwdText;

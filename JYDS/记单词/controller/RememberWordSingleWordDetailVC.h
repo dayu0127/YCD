@@ -14,7 +14,6 @@
 @interface RememberWordSingleWordDetailVC : UIViewController
 
 @property (nonatomic,strong) Words *word;
-@property (nonatomic,strong) NSArray *wordArray;
 @property (weak,nonatomic) id<RememberWordSingleWordDetailVCDelegate> delegate;
 
 @end

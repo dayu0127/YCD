@@ -25,15 +25,15 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBean) name:@"updateBean" object:nil];
+}
+- (void)updateBean{
     [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _studyBean.text = [NSString stringWithFormat:@"%@",json[@"data"][@"restBean"]];
             _costStudyBean.text = [NSString stringWithFormat:@"%@",json[@"data"][@"consumeBean"]];
         }
     }];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeadImage:) name:@"updateHeadImage" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNickName:) name:@"updateNickName" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePhoneNum:) name:@"updatePhoneNum" object:nil];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -61,6 +61,9 @@
     _nickNameLabel.text = [YHSingleton shareSingleton].userInfo.nickName;
     _phoneNumLabel.text = [YHSingleton shareSingleton].userInfo.userName;
     _studyCodeLabel.text = [NSString stringWithFormat:@"互学码:%@",[YHSingleton shareSingleton].userInfo.studyCode];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeadImage:) name:@"updateHeadImage" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNickName:) name:@"updateNickName" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePhoneNum:) name:@"updatePhoneNum" object:nil];
 }
 #pragma mark - Table view data source
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -80,11 +83,5 @@
 - (void)updatePhoneNum:(NSNotification *)sender{
     NSString *str = sender.userInfo[@"phoneNum"];
     _phoneNumLabel.text = str;
-}
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateHeadImage" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateNickName" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updatePhoneNum" object:nil];
 }
 @end

@@ -29,27 +29,21 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initNavBar];
+    [self initNaBar:@"记单词"];
     _searchBar.dk_barTintColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
     [self createMainScrollView];
 }
-- (void)initNavBar{
-    UIView *navBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 64)];
-    navBar.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
-    UILabel *titleLabel = [[UILabel alloc] init];
-    [titleLabel setTextColor:[UIColor whiteColor]];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    [titleLabel setText:@"记单词"];
-    [titleLabel sizeToFit];
-    titleLabel.center = CGPointMake(WIDTH * 0.5, 42);
-    [navBar addSubview:titleLabel];
-    [self.view addSubview:navBar];
-}
 #pragma mark 搜索框开始编辑
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
-    WordSearchVC *wordSearch = [[WordSearchVC alloc] init];
-    wordSearch.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:wordSearch animated:YES];
+    [YHWebRequest YHWebRequestForPOST:ALLWORD parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            WordSearchVC *wordSearch = [[WordSearchVC alloc] init];
+            wordSearch.hidesBottomBarWhenPushed = YES;
+            wordSearch.wordArray = json[@"data"];
+            [self.navigationController pushViewController:wordSearch animated:YES];
+        }
+    }];
+    
     return NO;
 }
 #pragma mark 创建主视图

@@ -18,12 +18,7 @@
 @end
 
 @implementation UpdateInfoTableVC
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeadImage:) name:@"updateHeadImage" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePhoneNum:) name:@"updatePhoneNum" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNickName:) name:@"updateNickName" object:nil];
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
@@ -48,7 +43,9 @@
     //从用户配置中取出手机号码和昵称
     _phoneNumLabel.text = [YHSingleton shareSingleton].userInfo.userName;
     _nickNameLabel.text = [YHSingleton shareSingleton].userInfo.nickName;
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeadImage:) name:@"updateHeadImage" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePhoneNum:) name:@"updatePhoneNum" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNickName:) name:@"updateNickName" object:nil];
 }
 - (void)updateHeadImage:(NSNotification *)sender{
     UIImage *headImage = sender.userInfo[@"headImage"];
@@ -68,11 +65,5 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateHeadImage" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updatePhoneNum" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateNickName" object:nil];
 }
 @end

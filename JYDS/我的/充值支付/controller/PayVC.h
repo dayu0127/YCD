@@ -8,5 +8,5 @@
 #import <UIKit/UIKit.h>
 //#import "BaseNavViewController.h"
 @interface PayVC : BaseViewController
-@property (assign,nonatomic) BOOL isH;
+@property (assign,nonatomic) BOOL isHiddenNav;
 @end

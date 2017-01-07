@@ -716,12 +716,12 @@
 		609F05FC1E162057009F4986 /* 更改资料 */ = {
 			isa = PBXGroup;
 			children = (
+				609F06201E1621BD009F4986 /* UpdateInfoTableVC.h */,
+				609F06211E1621BD009F4986 /* UpdateInfoTableVC.m */,
 				609F061C1E1621BD009F4986 /* BindingNewPhoneVC.h */,
 				609F061D1E1621BD009F4986 /* BindingNewPhoneVC.m */,
 				609F061E1E1621BD009F4986 /* UpdateHeadImageVC.h */,
 				609F061F1E1621BD009F4986 /* UpdateHeadImageVC.m */,
-				609F06201E1621BD009F4986 /* UpdateInfoTableVC.h */,
-				609F06211E1621BD009F4986 /* UpdateInfoTableVC.m */,
 				609F06221E1621BD009F4986 /* UpdateNickNameVC.h */,
 				609F06231E1621BD009F4986 /* UpdateNickNameVC.m */,
 				609F06241E1621BD009F4986 /* UpdatePwdVC.h */,

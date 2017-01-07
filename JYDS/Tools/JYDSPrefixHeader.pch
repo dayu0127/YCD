@@ -9,6 +9,7 @@
 #define JYDSPrefixHeader_pch
 #import <DKNightVersion/DKNightVersion.h>
 #import "BaseViewController.h"
+#import "BaseNavViewController.h"
 #import <JCAlertView.h>
 #import "YHAlertView.h"
 #import "YHHud.h"
@@ -63,7 +64,7 @@
 
 //接口
 #define API(api) [NSString stringWithFormat:@"http://www.zhongshuo.cn:8088/jyds/API/%@API",api]
-//#define API(api) [NSString stringWithFormat:@"http://192.168.0.200:8080/jyds/API/%@API",api]
+#define BOSSAPI(api) [NSString stringWithFormat:@"http://www.zhongshuo.cn:8088/jyds/API/%@",api]
 #define LOGIN API(@"login") //登录
 #define REGISTER API(@"register") //注册
 #define FORGETPWD API(@"forgetPwd") //忘记密码
@@ -90,5 +91,6 @@
 #define VIDEOBYID API(@"videoIDSel") //根据ID查询视频
 #define WORDBYID API(@"wordIDSel") //根据ID查询单词
 #define UNITWORDBYID API(@"selUnitAllWord") //根据ID查询本单元单词
+#define ALLWORD API(@"getAllWords") //获取所有单词
 
 #endif /* JYDSPrefixHeader_pch */

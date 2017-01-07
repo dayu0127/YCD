@@ -201,6 +201,100 @@
                                     <action selector="showPwd:" destination="CSS-cW-s3G" eventType="touchUpInside" id="6ZL-cJ-0HK"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oLv-9h-fwm" userLabel="BossView">
+                                <rect key="frame" x="123" y="547" width="130" height="120"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ggt-Na-Xvi">
+                                        <rect key="frame" x="46" y="90" width="84" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="84" id="CZL-uN-wMb"/>
+                                            <constraint firstAttribute="height" constant="30" id="a9k-ck-z9p"/>
+                                        </constraints>
+                                        <state key="normal" title="999999">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="set999999Bean:" destination="CSS-cW-s3G" eventType="touchUpInside" id="lLY-8o-RkX"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Zm-3H-PfQ">
+                                        <rect key="frame" x="0.0" y="90" width="30" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="pqy-Q5-cKP"/>
+                                            <constraint firstAttribute="width" constant="30" id="rZg-cg-tHl"/>
+                                        </constraints>
+                                        <state key="normal" title="0">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="setZeroBean:" destination="CSS-cW-s3G" eventType="touchUpInside" id="UcU-o6-8RG"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CSs-rq-9XU">
+                                        <rect key="frame" x="10.5" y="52" width="110" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="XhH-tz-pnf"/>
+                                            <constraint firstAttribute="width" constant="110" id="cbC-G7-jk3"/>
+                                        </constraints>
+                                        <state key="normal" title="清除全部订阅">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="removeAllSub:" destination="CSS-cW-s3G" eventType="touchUpInside" id="Swx-cs-TU2"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f1S-pg-dFB">
+                                        <rect key="frame" x="25" y="14" width="80" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="gvE-2V-iYC"/>
+                                            <constraint firstAttribute="height" constant="30" id="kAK-aE-X99"/>
+                                        </constraints>
+                                        <state key="normal" title="退出登录">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="logout:" destination="CSS-cW-s3G" eventType="touchUpInside" id="6jt-iU-Yj4"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="130" id="4jm-pD-APK"/>
+                                    <constraint firstItem="CSs-rq-9XU" firstAttribute="centerX" secondItem="oLv-9h-fwm" secondAttribute="centerX" id="6EN-6O-k5j"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ggt-Na-Xvi" secondAttribute="trailing" id="W9a-pM-hKN"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ggt-Na-Xvi" secondAttribute="bottom" id="WDm-wh-S38"/>
+                                    <constraint firstItem="CSs-rq-9XU" firstAttribute="top" secondItem="f1S-pg-dFB" secondAttribute="bottom" constant="8" id="f6q-5B-sWc"/>
+                                    <constraint firstItem="6Zm-3H-PfQ" firstAttribute="leading" secondItem="oLv-9h-fwm" secondAttribute="leading" id="g9y-YO-YKj"/>
+                                    <constraint firstAttribute="height" constant="120" id="jlv-YS-1nY"/>
+                                    <constraint firstItem="f1S-pg-dFB" firstAttribute="centerX" secondItem="oLv-9h-fwm" secondAttribute="centerX" id="o5Z-hc-r9x"/>
+                                    <constraint firstItem="6Zm-3H-PfQ" firstAttribute="top" secondItem="CSs-rq-9XU" secondAttribute="bottom" constant="8" id="vVY-bi-nzN"/>
+                                    <constraint firstAttribute="bottom" secondItem="6Zm-3H-PfQ" secondAttribute="bottom" id="yO9-UX-MG6"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -229,6 +323,8 @@
                             <constraint firstItem="GbE-D8-M2x" firstAttribute="top" secondItem="Q4i-Wj-yH2" secondAttribute="bottom" constant="30" id="n6e-hR-LPu"/>
                             <constraint firstItem="qRk-Jb-p1g" firstAttribute="leading" secondItem="jue-0T-V5B" secondAttribute="leadingMargin" constant="9" id="t7r-JH-EGg"/>
                             <constraint firstItem="Q4i-Wj-yH2" firstAttribute="leading" secondItem="jue-0T-V5B" secondAttribute="leadingMargin" constant="9" id="uEt-Z4-Yn0"/>
+                            <constraint firstItem="oLv-9h-fwm" firstAttribute="centerX" secondItem="jue-0T-V5B" secondAttribute="centerX" id="vdT-X3-nhr"/>
+                            <constraint firstItem="GbE-D8-M2x" firstAttribute="top" secondItem="oLv-9h-fwm" secondAttribute="bottom" id="w37-fa-8yv"/>
                             <constraint firstItem="wbU-ao-8ZI" firstAttribute="top" secondItem="cty-Hp-dHs" secondAttribute="bottom" id="wb8-bi-FYk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Dgq-ZQ-Fkc" secondAttribute="trailing" constant="9" id="xS5-W4-8j6"/>
                         </constraints>

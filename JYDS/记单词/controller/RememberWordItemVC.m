@@ -111,39 +111,46 @@
         [_tableView reloadData];
         [self initVideoSubContent];
     }else{
-        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"classifyID":_classifyID};
-        [YHWebRequest YHWebRequestForPOST:WORD parameters:dic success:^(NSDictionary *json) {
-            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                _allWordPrice = 0;
-                _wordArray = [NSMutableArray arrayWithArray:json[@"data"]];
-                CGFloat h = 0;
-                NSInteger count = 0;
-                NSInteger subCount = 0;
-                for (NSDictionary *dic in _wordArray) {
-                    NSArray *wordArray = dic[@"wordData"];
-                    count+=wordArray.count;
-                    for (NSDictionary *item in wordArray) {
-                        if ([item[@"payType"] integerValue] == 0) {
-                            _allWordPrice += [item[@"wordPrice"] integerValue];
-                        }else{
-                            subCount++;
-                        }
-                    }
+        if (_wordArray == nil) {
+            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"classifyID":_classifyID};
+            [YHWebRequest YHWebRequestForPOST:WORD parameters:dic success:^(NSDictionary *json) {
+                if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                    _wordArray = [NSMutableArray arrayWithArray:json[@"data"]];
+                    [self initWordTable];
                 }
-                if (count == subCount) {
-                    h =  HEIGHT-116;
-                    _footerBgView.alpha = 0;
-                }else{
-                    h = HEIGHT-160;
-                    _footerBgView.alpha = 1;
-                }
-                _tableView.frame = CGRectMake(0, 116, WIDTH, h);
-                [_tableView registerNib:[UINib nibWithNibName:@"RememberWordSingleWordCell" bundle:nil] forCellReuseIdentifier:@"RememberWordSingleWordCell"];
-                [_tableView reloadData];
-                self.subscriptionLabel.text = [NSString stringWithFormat:@"一次订阅所有%@的视频教程,仅需%zd学习豆!",self.navTitle,_allWordPrice];
-            }
-        }];
+            }];
+        }else{
+            [self initWordTable];
+        }
     }
+}
+- (void)initWordTable{
+    _allWordPrice = 0;
+    CGFloat h = 0;
+    NSInteger count = 0;
+    NSInteger subCount = 0;
+    for (NSDictionary *dic in _wordArray) {
+        NSArray *wordArray = dic[@"wordData"];
+        count+=wordArray.count;
+        for (NSDictionary *item in wordArray) {
+            if ([item[@"payType"] integerValue] == 0) {
+                _allWordPrice += [item[@"wordPrice"] integerValue];
+            }else{
+                subCount++;
+            }
+        }
+    }
+    if (count == subCount) {
+        h =  HEIGHT-116;
+        _footerBgView.alpha = 0;
+    }else{
+        h = HEIGHT-160;
+        _footerBgView.alpha = 1;
+    }
+    _tableView.frame = CGRectMake(0, 116, WIDTH, h);
+    [_tableView registerNib:[UINib nibWithNibName:@"RememberWordSingleWordCell" bundle:nil] forCellReuseIdentifier:@"RememberWordSingleWordCell"];
+    [_tableView reloadData];
+    self.subscriptionLabel.text = [NSString stringWithFormat:@"一次订阅所有%@的视频教程,仅需%zd学习豆!",self.navTitle,_allWordPrice];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return _flagForTable == 0 ? 1 : self.wordArray.count;
@@ -203,7 +210,6 @@
         RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
         wordDetailVC.hidesBottomBarWhenPushed = YES;
         wordDetailVC.word = [Words yy_modelWithJSON:self.wordArray[indexPath.section][@"wordData"][indexPath.row]];
-        wordDetailVC.wordArray = _wordArray;
         wordDetailVC.delegate = self;
         [self.navigationController pushViewController:wordDetailVC animated:YES];
     }
@@ -251,6 +257,8 @@
                         _courseVideoArray = [NSArray arrayWithArray:arr];
                         [_tableView reloadData];
                         [YHHud showWithSuccess:@"订阅成功"];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadVideos" object:nil];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBean" object:nil];
                     }
                 }];
             }
@@ -261,7 +269,9 @@
             }else{
                 //学习豆充足
                 NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"payStudyBean":[NSString stringWithFormat:@"%zd",_allWordPrice],@"type":@"words",@"classifyID":_classifyID};
+                NSLog(@"%@",dic);
                 [YHWebRequest YHWebRequestForPOST:SUBALL parameters:dic success:^(NSDictionary  *json) {
+                     NSLog(@"%@",json);
                     if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                         _tableView.frame = CGRectMake(0, 116, WIDTH, HEIGHT-116);
                         _footerBgView.alpha = 0;
@@ -278,6 +288,8 @@
                         }
                         [_tableView reloadData];
                         [YHHud showWithSuccess:@"订阅成功"];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadWords" object:nil];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBean" object:nil];
                     }
                 }];
             }
@@ -290,7 +302,7 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         PayVC *payVC = [sb instantiateViewControllerWithIdentifier:@"pay"];
-        payVC.isH = YES;
+        payVC.isHiddenNav = YES;
         [self.navigationController pushViewController:payVC animated:YES];
     });
 }

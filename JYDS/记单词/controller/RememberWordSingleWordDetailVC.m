@@ -310,7 +310,7 @@
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
                 PayVC *payVC = [sb instantiateViewControllerWithIdentifier:@"pay"];
-                payVC.isH = YES;
+                payVC.isHiddenNav = YES;
                 [self.navigationController pushViewController:payVC animated:YES];
             });
         }else{
@@ -321,7 +321,8 @@
                     [_opaqueView removeFromSuperview];
                     _opaqueView = nil; 
                     [_delegate reloadWordList];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"aa" object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadWords" object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBean" object:nil];
                 }
             }];
         }
@@ -340,5 +341,9 @@
         }
     }
     [YHHud showWithMessage:result];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.hidden = NO;
 }
 @end

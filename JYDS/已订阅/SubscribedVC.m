@@ -32,14 +32,14 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
     if (_flagForTable == 0) {
-        [self loadVideoList];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadVideoList) name:@"reloadVideos" object:nil];
     }else{
-        [self loadWordList];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWordList) name:@"reloadVideos" object:nil];
     }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initNavBar];
+    [self initNaBar:@"已订阅"];
     [_videoButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     [_wordButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     _videoButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
@@ -47,18 +47,6 @@
     _wordButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     [self initTableView];
     [self setTableView];
-}
-- (void)initNavBar{
-    UIView *navBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 64)];
-    navBar.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
-    UILabel *titleLabel = [[UILabel alloc] init];
-    [titleLabel setTextColor:[UIColor whiteColor]];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    [titleLabel setText:@"记忆大师"];
-    [titleLabel sizeToFit];
-    titleLabel.center = CGPointMake(WIDTH * 0.5, 42);
-    [navBar addSubview:titleLabel];
-    [self.view addSubview:navBar];
 }
 #pragma mark 初始化TableView
 - (void)initTableView{
@@ -92,6 +80,10 @@
 - (void)loadVideoList{
     [YHWebRequest YHWebRequestForPOST:SUBVIDEO parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            if (self.noVideoView != nil) {
+                [self.noVideoView removeFromSuperview];
+                self.noVideoView = nil;
+            }
             _videoArray = json[@"data"];
             [_tableView registerNib:[UINib nibWithNibName:@"RememberWordVideoCell" bundle:nil] forCellReuseIdentifier:@"RememberWordVideoCell"];
             [_tableView reloadData];
@@ -103,6 +95,10 @@
 - (void)loadWordList{
     [YHWebRequest YHWebRequestForPOST:SUBWORD parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            if (self.noVideoView != nil) {
+                [self.noVideoView removeFromSuperview];
+                self.noVideoView = nil;
+            }
             _wordArray = json[@"data"];
             [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
             [self wordSearch];
@@ -332,6 +328,7 @@
     if (_flagForTable == 0) {
         RememberWordVideoDetailVC *videoDetailVC = [[RememberWordVideoDetailVC alloc] init];
         videoDetailVC.hidesBottomBarWhenPushed = YES;
+        videoDetailVC.videoArray = _videoArray;
         videoDetailVC.video = [CourseVideo yy_modelWithJSON:_videoArray[indexPath.row]];
         [self.navigationController pushViewController:videoDetailVC animated:YES];
     }else{
@@ -340,9 +337,5 @@
         wordDetailVC.word = [Words yy_modelWithJSON:_wordDic.allValues[indexPath.section][indexPath.row]];
         [self.navigationController pushViewController:wordDetailVC animated:YES];
     }
-}
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"aa" object:nil];
 }
 @end
