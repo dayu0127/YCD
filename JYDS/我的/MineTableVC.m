@@ -7,6 +7,7 @@
 //
 
 #import "MineTableVC.h"
+#import <UIImageView+WebCache.h>
 
 @interface MineTableVC ()
 
@@ -51,15 +52,18 @@
     _studyCodeLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor whiteColor],RED);
     _payButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     //从沙盒取出头像图片
-    NSString *path_sandox = NSHomeDirectory();
-    NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/headImage.png"];
-    if([[NSFileManager defaultManager] fileExistsAtPath:imagePath]){
-        NSData *picData = [NSData dataWithContentsOfFile:imagePath];
-        _headImageView.image = [UIImage imageWithData:picData];
-    }
-    //从用户配置中获取昵称,手机号,学习豆和已消耗学习豆
+//    NSString *path_sandox = NSHomeDirectory();
+//    NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/headImage.png"];
+//    if([[NSFileManager defaultManager] fileExistsAtPath:imagePath]){
+//        NSData *picData = [NSData dataWithContentsOfFile:imagePath];
+//        _headImageView.image = [UIImage imageWithData:picData];
+//    }
+    //从用户配置中获取用户信息
+    [_headImageView sd_setImageWithURL:[NSURL URLWithString:[YHSingleton shareSingleton].userInfo.headImageUrl] placeholderImage:[UIImage imageNamed:@"headImage"]];
     _nickNameLabel.text = [YHSingleton shareSingleton].userInfo.nickName;
     _phoneNumLabel.text = [YHSingleton shareSingleton].userInfo.userName;
+    _studyBean.text = [YHSingleton shareSingleton].userInfo.studyBean;
+    _costStudyBean.text = [YHSingleton shareSingleton].userInfo.costStudyBean;
     _studyCodeLabel.text = [NSString stringWithFormat:@"互学码:%@",[YHSingleton shareSingleton].userInfo.studyCode];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeadImage:) name:@"updateHeadImage" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNickName:) name:@"updateNickName" object:nil];
