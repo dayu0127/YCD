@@ -14,12 +14,9 @@
 
 @interface UpdateHeadImageVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
-- (IBAction)finishButtonClick:(UIBarButtonItem *)sender;
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UIButton *photoSelectButton;
-- (IBAction)photoSelectClick:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UIButton *photographButton;
-- (IBAction)photographClick:(UIButton *)sender;
 @property (strong,nonatomic) UIImage *oldImage;
 @end
 
@@ -46,14 +43,27 @@
         NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/headImage.png"];
         //把头像图片直接保存到指定的路径（同时应该把头像图片的路径imagePath存起来，下次就可以直接用来取）
         [UIImagePNGRepresentation(_headImageView.image) writeToFile:imagePath atomically:YES];
-        //上传头像图片到服务器(。。。。。。)
-        //通知我的VC更新头像图片
-        NSDictionary *dic = [NSDictionary dictionaryWithObject:_headImageView.image forKey:@"headImage"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadImage" object:nil userInfo:dic];
-        [YHHud showWithSuccess:@"修改成功"];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.navigationController popViewControllerAnimated:YES];
-        });
+        //上传头像图片到服务器
+        AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+        mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
+        mgr.responseSerializer.acceptableContentTypes =[NSSet setWithObjects:@"application/json",@"text/json",@"text/JavaScript",@"text/html",@"text/plain",nil];
+        [mgr POST:UPLOADHEADIMAGE parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+            NSData *data = UIImagePNGRepresentation(_headImageView.image);
+            [formData appendPartWithFileData:data name:@"posterFile" fileName:@"headImage.png" mimeType:@"image/png"];
+        } progress:^(NSProgress * _Nonnull uploadProgress) {} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil];
+            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                //通知我的VC更新头像图片
+                NSDictionary *dic = [NSDictionary dictionaryWithObject:_headImageView.image forKey:@"headImage"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadImage" object:nil userInfo:dic];
+                [YHHud showWithSuccess:@"修改成功"];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.navigationController popViewControllerAnimated:YES];
+                });
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"上传失败,%@",error);
+        }];
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -96,10 +106,40 @@
 #pragma mark UIImagePickerController回调方法
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     UIImage *headImage = info[UIImagePickerControllerEditedImage];
-    _headImageView.image = headImage;
+    _headImageView.image = [self compressImage:headImage newWidth:200];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+#pragma mark 压缩图片(图片宽度:像素)
+- (UIImage *)compressImage:(UIImage *)image newWidth:(CGFloat)newImageWidth{
+    if (!image) return nil;
+    float imageWidth = image.size.width;
+    float imageHeight = image.size.height;
+    float width = newImageWidth;
+    float height = image.size.height/(image.size.width/width);
+    
+    float widthScale = imageWidth /width;
+    float heightScale = imageHeight /height;
+    
+    // 创建一个bitmap的context
+    // 并把它设置成为当前正在使用的context
+    UIGraphicsBeginImageContext(CGSizeMake(width, height));
+    
+    if (widthScale > heightScale) {
+        [image drawInRect:CGRectMake(0, 0, imageWidth /heightScale , height)];
+    }
+    else {
+        [image drawInRect:CGRectMake(0, 0, width , imageHeight /widthScale)];
+    }
+    
+    // 从当前context中创建一个改变大小后的图片
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    // 使当前的context出堆栈
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+    
 }
 @end

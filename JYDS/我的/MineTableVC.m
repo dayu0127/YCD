@@ -22,6 +22,19 @@
 
 @end
 @implementation MineTableVC
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBean) name:@"updateBean" object:nil];
+}
+- (void)updateBean{
+    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            _studyBean.text = [NSString stringWithFormat:@"%@",json[@"data"][@"restBean"]];
+            _costStudyBean.text = [NSString stringWithFormat:@"%@",json[@"data"][@"consumeBean"]];
+        }
+    }];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
@@ -45,12 +58,9 @@
         _headImageView.image = [UIImage imageWithData:picData];
     }
     //从用户配置中获取昵称,手机号,学习豆和已消耗学习豆
-    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-    _nickNameLabel.text = userInfo[@"nickName"];
-    _phoneNumLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
-    _studyBean.text = [NSString stringWithFormat:@"%@",userInfo[@"studyBean"]];
-    _costStudyBean.text = [NSString stringWithFormat:@"%@",userInfo[@"costStudyBean"]];
-    _studyCodeLabel.text = [NSString stringWithFormat:@"互学码:%@",userInfo[@"studyCode"]];
+    _nickNameLabel.text = [YHSingleton shareSingleton].userInfo.nickName;
+    _phoneNumLabel.text = [YHSingleton shareSingleton].userInfo.userName;
+    _studyCodeLabel.text = [NSString stringWithFormat:@"互学码:%@",[YHSingleton shareSingleton].userInfo.studyCode];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeadImage:) name:@"updateHeadImage" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNickName:) name:@"updateNickName" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePhoneNum:) name:@"updatePhoneNum" object:nil];

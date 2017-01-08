@@ -13,10 +13,7 @@
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *lineCollection;
 @property (weak, nonatomic) IBOutlet UIButton *checkButton;
-- (IBAction)checkButtonClick:(UIButton *)sender;
-
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
-- (IBAction)submitButton:(UIButton *)sender;
 @property (strong,nonatomic) UITextField *phoneText;
 @property (strong,nonatomic) UITextField *idCodeText;
 @property (strong,nonatomic) UITextField *pwdText;
@@ -93,6 +90,7 @@
                 }];
             } else {
                 NSLog(@"错误信息：%@",error);
+                [YHHud showWithMessage:@"验证码错误"];
             }
         }];
     }

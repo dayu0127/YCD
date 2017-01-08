@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol MemoryCourseVCDelegate<NSObject>
+- (void)reloadMemoryList;
+@end
 @class Mnemonics;
 @interface MemoryCourseVC : UIViewController
 
 @property (nonatomic,strong) Mnemonics *memory;
 @property (nonatomic,strong) NSArray *memoryArray;
+@property (weak,nonatomic) id<MemoryCourseVCDelegate> delegate;
 
 @end

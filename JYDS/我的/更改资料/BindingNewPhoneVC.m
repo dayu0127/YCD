@@ -7,15 +7,14 @@
 //
 
 #import "BindingNewPhoneVC.h"
+#import <SMS_SDK/SMSSDK.h>
 
 @interface BindingNewPhoneVC ()
 
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
 @property (weak, nonatomic) IBOutlet UIButton *checkButton;
-- (IBAction)checkButtonClick:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UIButton *sureButton;
-- (IBAction)sureButtonClick:(UIButton *)sender;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *lineCollection;
 @property (strong,nonatomic) UITextField *phoneText;
 @property (strong,nonatomic) UITextField *codeText;
@@ -75,21 +74,26 @@
     if (REGEX(PHONE_RE, _phoneText.text)==NO) {
         [YHHud showWithMessage:@"无效手机号"];
     }else{
-        _countDown = COUNTDOWN;
-        sender.enabled = NO;
-        sender.backgroundColor = [UIColor lightGrayColor];
-        [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
-        _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
-            _countDown--;
-            [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
-            if (_countDown == 0) {
-                [timer invalidate];
-                sender.enabled = YES;
-                [sender setTitle:@"获取验证码" forState:UIControlStateNormal];
-                sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+        [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:_phoneText.text zone:@"86" customIdentifier:nil result:^(NSError *error) {
+            if (!error) {
+                _countDown = COUNTDOWN;
+                sender.enabled = NO;
+                sender.backgroundColor = [UIColor lightGrayColor];
+                [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
+                _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+                    _countDown--;
+                    [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
+                    if (_countDown == 0) {
+                        [timer invalidate];
+                        sender.enabled = YES;
+                        [sender setTitle:@"获取验证码" forState:UIControlStateNormal];
+                        sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+                    }
+                }];
+            } else {
+                NSLog(@"错误信息：%@",error);
             }
-        }];
-    }
+        }];    }
 }
 - (IBAction)showPwd:(UIButton *)sender {
     sender.selected = !sender.selected;
@@ -100,15 +104,29 @@
         [YHHud showWithMessage:@"请输入11位有效手机号"];
     }else if (REGEX(CHECHCODE_RE, _codeText.text) == NO){
         [YHHud showWithMessage:@"验证码错误"];
-    }else if ([_pwdText.text isEqualToString:@""] == NO){
+    }else if (REGEX(PWD_RE, _pwdText.text) == NO){
         [YHHud showWithMessage:@"密码不正确"];
     }else{
-        [YHHud showWithSuccess:@"绑定成功"];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [[NSUserDefaults standardUserDefaults] setObject:_phoneText.text forKey:@"phoneNum"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"updatePhoneNum" object:nil userInfo:@{@"phoneNum":_phoneText.text}];
-            [self.navigationController popViewControllerAnimated:YES];
-        });
+        [SMSSDK commitVerificationCode:_codeText.text phoneNumber:_phoneText.text zone:@"86" result:^(SMSSDKUserInfo *userInfo, NSError *error) {
+            if (!error) {
+                NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"oldMobile":[YHSingleton shareSingleton].userInfo.userName,@"newMobile":_phoneText.text,@"password":_pwdText.text};
+                [YHWebRequest YHWebRequestForPOST:BNEWPHONE parameters:dic success:^(NSDictionary *json) {
+                    if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                        [YHHud showWithSuccess:@"绑定成功"];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            //更新用户信息
+                            [YHSingleton shareSingleton].userInfo.userName = _phoneText.text;
+                            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"updatePhoneNum" object:nil userInfo:@{@"phoneNum":_phoneText.text}];
+                            [self.navigationController popViewControllerAnimated:YES];
+                        });
+                    }
+                }];
+            }else{
+                NSLog(@"%@",error);
+                [YHHud showWithMessage:@"验证码错误"];
+            }
+        }];
     }
 }
 - (void)viewWillDisappear:(BOOL)animated{

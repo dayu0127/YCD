@@ -27,11 +27,10 @@
     for (UILabel *item in _labelCollection) {
         item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     }
-    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":userInfo[@"userID"]} success:^(id  _Nonnull json) {
+    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
         _costBean.text = [NSString stringWithFormat:@"%@个",json[@"data"][@"consumeBean"]];
     }];
-    [YHWebRequest YHWebRequestForPOST:COSTDETAIL parameters:@{@"userID":userInfo[@"userID"]} success:^(NSDictionary *json) {
+    [YHWebRequest YHWebRequestForPOST:COSTDETAIL parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _dataArray = json[@"data"];
             [_tableView registerNib:[UINib nibWithNibName:@"PayDetailCell" bundle:nil] forCellReuseIdentifier:@"PayDetailCell"];

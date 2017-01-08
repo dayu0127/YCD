@@ -30,13 +30,13 @@
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.text = title;
     [titleLabel sizeToFit];
+    titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
     titleLabel.center = CGPointMake(WIDTH * 0.5, 42);
     [_navBar addSubview:titleLabel];
     _titleLabel = titleLabel;
     //返回按钮
-    _leftBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _leftBarButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 44, 44)];
     _leftBarButton.hidden = YES;
-    _leftBarButton.frame = CGRectMake(0, 20, 20, 20);
     [_leftBarButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     _leftBarButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_leftBarButton sizeToFit];
@@ -46,5 +46,13 @@
 }
 - (void)backVC{
     [self.navigationController popViewControllerAnimated:YES];
+}
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [super touchesBegan:touches withEvent:event];
+    [self.view endEditing:YES];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.view endEditing:YES];
 }
 @end

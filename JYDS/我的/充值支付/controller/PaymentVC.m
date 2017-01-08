@@ -16,11 +16,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *payLabel;
 @property (weak, nonatomic) IBOutlet UILabel *studyDouLabel;
 @property (weak, nonatomic) IBOutlet UILabel *moneyLabel;
-@property (strong,nonatomic) UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end
 
 @implementation PaymentVC
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = NO;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     _payLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
@@ -28,14 +31,6 @@
     _studyDouLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _moneyLabel.text = [NSString stringWithFormat:@"%zd元",_money];
     _moneyLabel.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
-    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 104, WIDTH, HEIGHT-104) style:UITableViewStyleGrouped];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    _tableView.rowHeight = 44;
-    _tableView.bounces = NO;
-    _tableView.separatorInset = UIEdgeInsetsZero;
-    _tableView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:_tableView];
     [_tableView registerNib:[UINib nibWithNibName:@"PaymentCell" bundle:nil] forCellReuseIdentifier:@"PaymentCell"];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

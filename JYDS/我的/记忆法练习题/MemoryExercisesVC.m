@@ -12,8 +12,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *beginButton;
 @property (strong,nonatomic) JCAlertView *alertView;
 
-- (IBAction)beginButtonClick:(UIButton *)sender;
-
 @end
 @implementation MemoryExercisesVC
 

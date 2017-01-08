@@ -36,8 +36,7 @@
     _inviteCodeButton.layer.cornerRadius = 5.0f;
     _inviteCodeButton.layer.borderWidth = 1.0f;
     _inviteCodeButton.layer.dk_borderColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
-    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-    [_inviteCodeButton setTitle:userInfo[@"studyCode"] forState:UIControlStateNormal];
+    [_inviteCodeButton setTitle:[YHSingleton shareSingleton].userInfo.studyCode forState:UIControlStateNormal];
     //发送给好友按钮
     _sendToFriendButton.layer.masksToBounds = YES;
     _sendToFriendButton.layer.cornerRadius = 5.0f;
@@ -75,6 +74,9 @@
 }
 #pragma mark 点击复制互学码
 - (IBAction)inviteCodeClick:(UIButton *)sender {
+    UIPasteboard *paste = [UIPasteboard generalPasteboard];
+    [paste setString:sender.titleLabel.text];
+    [YHHud showWithMessage:@"互学码已复制到剪贴板"];
 }
 #pragma mark 设置分享内容
 #pragma mark 分享文本

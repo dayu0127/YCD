@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 @class Words;
+@protocol RememberWordSingleWordDetailVCDelegate<NSObject>
+- (void)reloadWordList;
+@end
 @interface RememberWordSingleWordDetailVC : UIViewController
-@property (strong,nonatomic) Words *word;
+
+@property (nonatomic,strong) Words *word;
+@property (weak,nonatomic) id<RememberWordSingleWordDetailVCDelegate> delegate;
+
 @end

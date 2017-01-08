@@ -51,6 +51,7 @@
 		6078D2241E161AF20089D40F /* YHHud.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D21B1E161AF20089D40F /* YHHud.m */; };
 		6078D2251E161AF20089D40F /* YHSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D21D1E161AF20089D40F /* YHSingleton.m */; };
 		6078D2261E161AF20089D40F /* YHWebRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D21F1E161AF20089D40F /* YHWebRequest.m */; };
+		6085D4C81E1C85DC00C4CDDC /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6085D4C71E1C85DC00C4CDDC /* UserInfo.m */; };
 		609D6D521E17782D000BCD65 /* BaseNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 609D6D511E17782D000BCD65 /* BaseNavViewController.m */; };
 		609F05D81E161C57009F4986 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6078D1381E1613180089D40F /* libssl.a */; };
 		609F05DF1E161D1A009F4986 /* ForgetPwdVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F05DA1E161D1A009F4986 /* ForgetPwdVC.m */; };
@@ -257,6 +258,8 @@
 		6078D21D1E161AF20089D40F /* YHSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHSingleton.m; sourceTree = "<group>"; };
 		6078D21E1E161AF20089D40F /* YHWebRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHWebRequest.h; sourceTree = "<group>"; };
 		6078D21F1E161AF20089D40F /* YHWebRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHWebRequest.m; sourceTree = "<group>"; };
+		6085D4C61E1C85DC00C4CDDC /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
+		6085D4C71E1C85DC00C4CDDC /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
 		609D6D501E17782D000BCD65 /* BaseNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavViewController.h; sourceTree = "<group>"; };
 		609D6D511E17782D000BCD65 /* BaseNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavViewController.m; sourceTree = "<group>"; };
 		609F05D91E161D1A009F4986 /* ForgetPwdVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPwdVC.h; sourceTree = "<group>"; };
@@ -373,6 +376,8 @@
 				609F05DC1E161D1A009F4986 /* LoginVC.m */,
 				609F05DD1E161D1A009F4986 /* RegisterVC.h */,
 				609F05DE1E161D1A009F4986 /* RegisterVC.m */,
+				6085D4C61E1C85DC00C4CDDC /* UserInfo.h */,
+				6085D4C71E1C85DC00C4CDDC /* UserInfo.m */,
 			);
 			name = "登陆";
 			path = "JYDS/登陆";
@@ -711,12 +716,12 @@
 		609F05FC1E162057009F4986 /* 更改资料 */ = {
 			isa = PBXGroup;
 			children = (
+				609F06201E1621BD009F4986 /* UpdateInfoTableVC.h */,
+				609F06211E1621BD009F4986 /* UpdateInfoTableVC.m */,
 				609F061C1E1621BD009F4986 /* BindingNewPhoneVC.h */,
 				609F061D1E1621BD009F4986 /* BindingNewPhoneVC.m */,
 				609F061E1E1621BD009F4986 /* UpdateHeadImageVC.h */,
 				609F061F1E1621BD009F4986 /* UpdateHeadImageVC.m */,
-				609F06201E1621BD009F4986 /* UpdateInfoTableVC.h */,
-				609F06211E1621BD009F4986 /* UpdateInfoTableVC.m */,
 				609F06221E1621BD009F4986 /* UpdateNickNameVC.h */,
 				609F06231E1621BD009F4986 /* UpdateNickNameVC.m */,
 				609F06241E1621BD009F4986 /* UpdatePwdVC.h */,
@@ -1071,6 +1076,7 @@
 				609F06281E1621BD009F4986 /* UpdateInfoTableVC.m in Sources */,
 				609F05F51E161EF4009F4986 /* MemoryCourseVC.m in Sources */,
 				609F063D1E1621D9009F4986 /* IntroduceVC.m in Sources */,
+				6085D4C81E1C85DC00C4CDDC /* UserInfo.m in Sources */,
 				6078D2251E161AF20089D40F /* YHSingleton.m in Sources */,
 				609F05E01E161D1A009F4986 /* LoginVC.m in Sources */,
 				609F05E81E161DE5009F4986 /* Words.m in Sources */,

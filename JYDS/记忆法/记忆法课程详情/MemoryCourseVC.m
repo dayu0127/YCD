@@ -11,7 +11,8 @@
 #import <UShareUI/UMSocialUIManager.h>
 #import <UMSocialCore/UMSocialResponse.h>
 #import "Mnemonics.h"
-@interface MemoryCourseVC ()<UICollectionViewDelegate,UICollectionViewDataSource,ZFPlayerDelegate>
+#import "PayVC.h"
+@interface MemoryCourseVC ()<UICollectionViewDelegate,UICollectionViewDataSource,ZFPlayerDelegate,YHAlertViewDelegate>
 
 @property (nonatomic, strong) UIView *playerFatherView;
 @property (nonatomic,strong) ZFPlayerView *playerView;
@@ -25,6 +26,10 @@
 @property (nonatomic,strong) UICollectionView *collectionView;
 @property (nonatomic,strong) UIDocumentInteractionController *documentController;
 @property (nonatomic,strong) NSMutableArray *buttonArray;
+@property (nonatomic,strong) JCAlertView *alertView;
+@property (nonatomic,strong) UIView *opaqueView;
+@property (nonatomic,strong) UIButton *backBtn;
+
 @end
 
 @implementation MemoryCourseVC
@@ -37,7 +42,7 @@
         _playerModel                  = [[ZFPlayerModel alloc] init];
         _playerModel.title            = _memory.courseName;
         _playerModel.videoURL         = [NSURL URLWithString:_memory.courseVideo];
-//        _playerModel.placeholderImage = [UIImage imageNamed:@"banner01"];
+//        _playerModel.placeholderImage = [UIImage imageNamed:@""];
         _playerModel.fatherView       = self.playerFatherView;
     }
     return _playerModel;
@@ -63,10 +68,7 @@
     _playerView = [[ZFPlayerView alloc] init];
     _playerView.delegate = self;
     [_playerView playerControlView:nil playerModel:self.playerModel];
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-    backBtn.backgroundColor = [UIColor clearColor];
-    [backBtn addTarget:self action:@selector(zf_playerBackAction) forControlEvents:UIControlEventTouchUpInside];
-    [_playerView addSubview:backBtn];
+    [self loadPlayerOpaqueView:_memory.coursePrice subStatus:_memory.coursePayStatus];
     //标题视图
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 20+9/16.0*WIDTH, WIDTH, 39)];
     titleView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
@@ -110,7 +112,82 @@
     _line.backgroundColor = SEPCOLOR;
     [self.view addSubview:_line];
     //本节说明(其他课程)
-    [self loadCurrentSectionExplain];
+    [self loadCurrentSectionExplain:_memory.courseInstructions];
+}
+#pragma mark 加载播放器遮罩视图
+- (void)loadPlayerOpaqueView:(NSString *)price subStatus:(NSString *)status{
+    if (_backBtn!=nil) {
+        [_backBtn removeFromSuperview];
+        _backBtn = nil;
+    }
+    if (_opaqueView!=nil) {
+        [_opaqueView removeFromSuperview];
+        _opaqueView = nil;
+    }
+    _backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    _backBtn.backgroundColor = [UIColor clearColor];
+    [_backBtn addTarget:self action:@selector(zf_playerBackAction) forControlEvents:UIControlEventTouchUpInside];
+    [_playerView addSubview:_backBtn];
+    //记忆法课程购买
+    _opaqueView = [[UIView alloc] initWithFrame:_playerFatherView.bounds];
+    UIImage *playerBtn = [UIImage imageNamed:@"playerBtn"];
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    backButton.frame = CGRectMake(12.1, 7.8, 30, 30);
+    [backButton setImage:[UIImage imageNamed:@"ZFPlayer_back_full"] forState:UIControlStateNormal];
+    backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [backButton sizeToFit];
+    [backButton addTarget:self action:@selector(zf_playerBackAction) forControlEvents:UIControlEventTouchUpInside];
+    [_opaqueView addSubview:backButton];
+    UIImageView *playImageView = [[UIImageView alloc] initWithImage:playerBtn];
+    playImageView.center = CGPointMake(WIDTH*0.5, _playerFatherView.bounds.size.height*0.5);
+    playImageView.bounds = CGRectMake(0, 0, playerBtn.size.width, playerBtn.size.height);
+    [_opaqueView addSubview:playImageView];
+    UILabel *payPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(playImageView.frame)+14, WIDTH, 15)];
+    payPriceLabel.font = [UIFont systemFontOfSize:15.0f];
+    payPriceLabel.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    payPriceLabel.text = [NSString stringWithFormat:@"需花费%@学习豆",price];
+    payPriceLabel.textAlignment = NSTextAlignmentCenter;
+    [_opaqueView addSubview:payPriceLabel];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buyMemoryCourse)];
+    [_opaqueView addGestureRecognizer:tap];
+    [_playerView addSubview:_opaqueView];
+    if ([status isEqualToString:@"0"]) {
+        _opaqueView.alpha = 1;
+    }else{
+        _opaqueView.alpha = 0;
+    }
+}
+- (void)buyMemoryCourse{
+    YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 255, 100) title:@"确定购买？" message:nil];
+    alertView.delegate = self;
+    _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
+    [_alertView show];
+}
+- (void)buttonClickIndex:(NSInteger)buttonIndex{
+    [_alertView dismissWithCompletion:nil];
+    if (buttonIndex == 1) {
+        //用户学习豆不够，跳转到充值页面
+        NSInteger studyBean = [[YHSingleton shareSingleton].userInfo.studyBean integerValue];
+        if (studyBean < [_memory.coursePrice integerValue]) {
+            [YHHud showWithMessage:@"您的学习豆不足，请充值"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+                PayVC *payVC = [sb instantiateViewControllerWithIdentifier:@"pay"];
+                payVC.isHiddenNav = YES;
+                [self.navigationController pushViewController:payVC animated:YES];
+            });
+        }else{
+            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"productID":_memory.courseID,@"type":@"memory",@"money":_memory.coursePrice};
+            [YHWebRequest YHWebRequestForPOST:SUB parameters:dic success:^(NSDictionary *json) {
+                if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                    [YHHud showWithSuccess:@"购买成功"];
+                    _opaqueView.alpha = 0;
+                    [_delegate reloadMemoryList];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBean" object:nil];
+                }
+            }];
+        }
+    }
 }
 - (NSMutableArray *)courceArray{
     if (!_courceArray) {
@@ -126,7 +203,7 @@
     if (sender.tag == 0) { //点击本节说明
         [_titleButton2 dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
         _titleButton2.selected = NO;
-        [self loadCurrentSectionExplain];
+        [self loadCurrentSectionExplain:_memory.courseInstructions];
     }else{  //点击其他课程
         [_titleButton1 dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
         _titleButton1.selected = NO;
@@ -234,7 +311,7 @@
     }];
 }
 #pragma mark 加载本节说明
-- (void)loadCurrentSectionExplain{
+- (void)loadCurrentSectionExplain:(NSString *)text{
     if (_contentText!=nil) {
         [_contentText removeFromSuperview];
         _contentText = nil;
@@ -242,7 +319,7 @@
     _contentText = [[UITextView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_line.frame), WIDTH, HEIGHT-CGRectGetMaxY(_line.frame))];
     _contentText.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
     _contentText.editable = NO;
-    NSString *textString = _memory.courseInstructions;
+    NSString *textString = text;
     NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:textString];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:5];
@@ -291,35 +368,38 @@
     courseItemButton.layer.masksToBounds = YES;
     courseItemButton.layer.cornerRadius = 8.0f;
     courseItemButton.tag = [model.courseID integerValue];
+    [courseItemButton addTarget:self action:@selector(courseItemButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
     [courseItemButton addTarget:self action:@selector(courseItemButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:courseItemButton];
     [_buttonArray addObject:courseItemButton];
     return cell;
 }
-- (void)courseItemButtonClick:(UIButton *)sender{
+- (void)courseItemButtonTouchDown:(UIButton *)sender{
     for (UIButton *btn in _buttonArray) {
         btn.dk_backgroundColorPicker = DKColorPickerWithColors(D_BTN_BG,N_CELL_BG,RED);
     }
     sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
-    for (NSDictionary *dic in _memoryArray) {
-        Mnemonics *model = [Mnemonics yy_modelWithJSON:dic];
-        if ([model.courseID integerValue] == sender.tag) {
+}
+- (void)courseItemButtonClick:(UIButton *)sender{
+    NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"id":[NSString stringWithFormat:@"%zd",sender.tag]};
+    [YHWebRequest YHWebRequestForPOST:MEMORYBYID parameters:dic success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            _memory = [Mnemonics yy_modelWithJSON:json[@"data"]];
             _playerModel = [[ZFPlayerModel alloc] init];
-            _playerModel.title = model.courseName;
+            _playerModel.title = _memory.courseName;
             _playerModel.fatherView = self.playerFatherView;
-            _playerModel.videoURL = [NSURL URLWithString:model.courseVideo];
+            _playerModel.videoURL = [NSURL URLWithString:_memory.courseVideo];
             [_playerView resetPlayer];
             [_playerView playerControlView:nil playerModel:_playerModel];
-            _memory.courseInstructions = model.courseInstructions;
+            [self loadPlayerOpaqueView:_memory.coursePrice subStatus:_memory.coursePayStatus];
             [_titleButton1 dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateNormal];
             _titleButton1.selected = YES;
             _underLine.frame = CGRectMake(0, 38, 0.24*WIDTH, 1);
             [_titleButton2 dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
             _titleButton2.selected = NO;
-            [self loadCurrentSectionExplain];
-            break;
+            [self loadCurrentSectionExplain:_memory.courseInstructions];
         }
-    }
+    }];
 }
 #pragma mark 分享错误信息提示
 - (void)alertWithError:(NSError *)error{

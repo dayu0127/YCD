@@ -71,10 +71,9 @@
         [YHWebRequest YHWebRequestForPOST:LOGIN parameters:dic success:^(NSDictionary *json) {
             [YHHud dismiss];
             if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                //把用户信息存入用户配置
-                [[NSUserDefaults standardUserDefaults] setObject:_phoneText.text forKey:@"userName"];
-                [[NSUserDefaults standardUserDefaults] setObject:_pwdText.text forKey:@"password"];
+                //保存用户信息
                 [[NSUserDefaults standardUserDefaults] setObject:json[@"data"] forKey:@"userInfo"];
+                [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:json[@"data"]];
                 //把用户头像存入沙盒
                 NSString *path_sandox = NSHomeDirectory();
                 NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/headImage.png"];
@@ -96,5 +95,17 @@
             }
         }];
     }
+}
+- (IBAction)logout:(id)sender {
+    [YHWebRequest YHWebRequestForPOST:LOGOUT parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"type":@"1"} success:^(id  _Nonnull json) {}];
+}
+- (IBAction)removeAllSub:(id)sender {
+    [YHWebRequest YHWebRequestForPOST:BOSSAPI(@"test") parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(id  _Nonnull json) {}];
+}
+- (IBAction)setZeroBean:(id)sender {
+    [YHWebRequest YHWebRequestForPOST:BOSSAPI(@"test2") parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(id  _Nonnull json) {}];
+}
+- (IBAction)set999999Bean:(id)sender {
+    [YHWebRequest YHWebRequestForPOST:BOSSAPI(@"test1") parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(id  _Nonnull json) {}];
 }
 @end

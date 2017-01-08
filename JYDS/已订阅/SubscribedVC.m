@@ -31,10 +31,15 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
+    if (_flagForTable == 0) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadVideoList) name:@"reloadVideos" object:nil];
+    }else{
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWordList) name:@"reloadVideos" object:nil];
+    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initNavBar];
+    [self initNaBar:@"已订阅"];
     [_videoButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     [_wordButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     _videoButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
@@ -42,18 +47,6 @@
     _wordButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     [self initTableView];
     [self setTableView];
-}
-- (void)initNavBar{
-    UIView *navBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 64)];
-    navBar.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
-    UILabel *titleLabel = [[UILabel alloc] init];
-    [titleLabel setTextColor:[UIColor whiteColor]];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    [titleLabel setText:@"记忆大师"];
-    [titleLabel sizeToFit];
-    titleLabel.center = CGPointMake(WIDTH * 0.5, 42);
-    [navBar addSubview:titleLabel];
-    [self.view addSubview:navBar];
 }
 #pragma mark 初始化TableView
 - (void)initTableView{
@@ -67,39 +60,53 @@
 }
 #pragma mark 设置TableView数据源
 - (void)setTableView{
-    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
     if (_flagForTable == 0) {
         [self.view endEditing:YES];
         if (_videoArray!=nil) {
             [_tableView registerNib:[UINib nibWithNibName:@"RememberWordVideoCell" bundle:nil] forCellReuseIdentifier:@"RememberWordVideoCell"];
         }else{
-            [YHWebRequest YHWebRequestForPOST:SUBVIDEO parameters:@{@"userID":userInfo[@"userID"]} success:^(NSDictionary *json) {
-                if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                    _videoArray = json[@"data"];
-                    [_tableView registerNib:[UINib nibWithNibName:@"RememberWordVideoCell" bundle:nil] forCellReuseIdentifier:@"RememberWordVideoCell"];
-                    [_tableView reloadData];
-                }else if ([json[@"code"] isEqualToString:@"NOVIDEO"]){
-                    [self.view addSubview:self.noVideoView];
-                }
-            }];
+            [self loadVideoList];
         }
     }else{
         if (_wordArray!=nil) {
-            [_tableView registerNib:[UINib nibWithNibName:@"RememberWordVideoCell" bundle:nil] forCellReuseIdentifier:@"RememberWordVideoCell"];
+            [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
+            [self wordSearch];
         }else{
-            [YHWebRequest YHWebRequestForPOST:SUBWORD parameters:@{@"userID":userInfo[@"userID"]} success:^(NSDictionary *json) {
-                if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                    _wordArray = json[@"data"];
-                    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
-                    [self wordSearch];
-                    [_tableView reloadData];
-                }else if ([json[@"code"] isEqualToString:@"NOVIDEO"]){
-                    [self.view addSubview:self.noVideoView];
-                }
-            }];
+            [self loadWordList];
         }
     }
     [_tableView reloadData];
+}
+- (void)loadVideoList{
+    [YHWebRequest YHWebRequestForPOST:SUBVIDEO parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            if (self.noVideoView != nil) {
+                [self.noVideoView removeFromSuperview];
+                self.noVideoView = nil;
+            }
+            _videoArray = json[@"data"];
+            [_tableView registerNib:[UINib nibWithNibName:@"RememberWordVideoCell" bundle:nil] forCellReuseIdentifier:@"RememberWordVideoCell"];
+            [_tableView reloadData];
+        }else if ([json[@"code"] isEqualToString:@"NOVIDEO"]){
+            [self.view addSubview:self.noVideoView];
+        }
+    }];
+}
+- (void)loadWordList{
+    [YHWebRequest YHWebRequestForPOST:SUBWORD parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            if (self.noVideoView != nil) {
+                [self.noVideoView removeFromSuperview];
+                self.noVideoView = nil;
+            }
+            _wordArray = json[@"data"];
+            [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
+            [self wordSearch];
+            [_tableView reloadData];
+        }else if ([json[@"code"] isEqualToString:@"NOWORD"]){
+            [self.view addSubview:self.noVideoView];
+        }
+    }];
 }
 #pragma mark 懒加载暂无视频View
 - (UIView *)noVideoView{
@@ -150,6 +157,10 @@
     
     _flagForTable = 0;
     [self setTableView];
+    if (self.noVideoView!=nil) {
+        [self.noVideoView removeFromSuperview];
+        self.noVideoView = nil;
+    }
 }
 #pragma mark 单词按钮点击
 - (IBAction)wordClick:(UIButton *)sender {
@@ -162,6 +173,10 @@
     
     _flagForTable = 1;
     [self setTableView];
+    if (self.noVideoView!=nil) {
+        [self.noVideoView removeFromSuperview];
+        self.noVideoView = nil;
+    }
 }
 #pragma mark 去订阅记忆法
 - (void)toMemoryButtonClick{
@@ -309,13 +324,14 @@
     return headView;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (_flagForTable == 0) {
         RememberWordVideoDetailVC *videoDetailVC = [[RememberWordVideoDetailVC alloc] init];
         videoDetailVC.hidesBottomBarWhenPushed = YES;
+        videoDetailVC.videoArray = _videoArray;
         videoDetailVC.video = [CourseVideo yy_modelWithJSON:_videoArray[indexPath.row]];
         [self.navigationController pushViewController:videoDetailVC animated:YES];
     }else{
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
         wordDetailVC.hidesBottomBarWhenPushed = YES;
         wordDetailVC.word = [Words yy_modelWithJSON:_wordDic.allValues[indexPath.section][indexPath.row]];

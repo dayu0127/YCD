@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class Mnemonics;
+
 @interface MnemonicsCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *courseImageView;

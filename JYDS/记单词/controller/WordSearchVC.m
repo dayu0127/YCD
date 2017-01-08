@@ -11,24 +11,19 @@
 #import "Words.h"
 @interface WordSearchVC ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 @property (strong, nonatomic) UISearchBar *searchBar;
-@property (strong,nonatomic)NSArray *wordArray;
 @property (strong,nonatomic)NSMutableArray *resultArray;
 @property (strong,nonatomic)UITableView *tableView;
 @end
 
 @implementation WordSearchVC
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.resultArray = [NSMutableArray array];
     [self initNavBar];
-}
-
-- (NSArray *)wordArray{
-    if (!_wordArray) {
-       _wordArray = @[@"aa",@"aaa",@"aaaa",@"bb",@"bbb",@"bbbb",@"cc",@"ccc",@"cccc"];
-    }
-    return _wordArray;
 }
 - (void)initNavBar{
     UIView *navBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 64)];
@@ -60,9 +55,9 @@
     [_resultArray removeAllObjects];
     [_tableView removeFromSuperview];
     _tableView = nil;
-    for (NSString *word in self.wordArray) {
-        if ([word hasPrefix:searchText]) {
-            [_resultArray addObject:word];
+    for (NSDictionary *dic in self.wordArray) {
+        if ([dic[@"word"] hasPrefix:searchText]) {
+            [_resultArray addObject:dic];
         }
     }
     if (_resultArray.count>0) {
@@ -71,6 +66,7 @@
         _tableView.dataSource = self;
         _tableView.rowHeight = 44;
         _tableView.bounces = NO;
+        _tableView.separatorInset = UIEdgeInsetsZero;
         _tableView.backgroundColor = [UIColor clearColor];
         [self.view addSubview:self.tableView];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
@@ -81,34 +77,27 @@
     return _resultArray.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 0.001;
+    return 0.00001;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0.001;
+    return 0.00001;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     cell.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
-    cell.textLabel.text = [_resultArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = _resultArray[indexPath.row][@"word"];
     cell.textLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
+    wordDetailVC.hidesBottomBarWhenPushed = YES;
+    wordDetailVC.word = [Words yy_modelWithJSON:_resultArray[indexPath.row]];
+    [self.navigationController pushViewController:wordDetailVC animated:YES];
     _searchBar.text = @"";
     [_resultArray removeAllObjects];
     [_tableView removeFromSuperview];
     _tableView = nil;
-    
-    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-    [YHWebRequest YHWebRequestForPOST:SUBWORD parameters:@{@"userID":userInfo[@"userID"]} success:^(NSDictionary *json) {
-        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-            NSDictionary *wordDic = json[@"data"][0];
-            RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
-            wordDetailVC.hidesBottomBarWhenPushed = YES;
-            wordDetailVC.word = [Words yy_modelWithJSON:wordDic];
-            [self.navigationController pushViewController:wordDetailVC animated:YES];
-        }
-    }];
 }
 @end
