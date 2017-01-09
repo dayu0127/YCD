@@ -6,6 +6,8 @@
 //  Copyright © 2016年 dayu. All rights reserved.
 //
 #import "UpdateInfoTableVC.h"
+#import <UIImageView+WebCache.h>
+
 @interface UpdateInfoTableVC ()
 
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
@@ -33,13 +35,7 @@
         item.selectedBackgroundView = [[UIView alloc]initWithFrame:item.frame];
         item.selectedBackgroundView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_SELT,N_CELL_SELT,RED);
     }
-    //从沙盒取出头像图片
-    NSString *path_sandox = NSHomeDirectory();
-    NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/headImage.png"];
-    if([[NSFileManager defaultManager] fileExistsAtPath:imagePath]){
-        NSData *picData = [NSData dataWithContentsOfFile:imagePath];
-        _headImageView.image = [UIImage imageWithData:picData];
-    }
+    [_headImageView sd_setImageWithURL:[NSURL URLWithString:[YHSingleton shareSingleton].userInfo.headImageUrl] placeholderImage:[UIImage imageNamed:@"headImage"]];
     //从用户配置中取出手机号码和昵称
     _phoneNumLabel.text = [YHSingleton shareSingleton].userInfo.userName;
     _nickNameLabel.text = [YHSingleton shareSingleton].userInfo.nickName;

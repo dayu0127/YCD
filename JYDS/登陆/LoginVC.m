@@ -71,14 +71,10 @@
         [YHWebRequest YHWebRequestForPOST:LOGIN parameters:dic success:^(NSDictionary *json) {
             [YHHud dismiss];
             if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                NSLog(@"%@",json[@"data"]);
                 //保存用户信息
                 [[NSUserDefaults standardUserDefaults] setObject:json[@"data"] forKey:@"userInfo"];
                 [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:json[@"data"]];
-                //把用户头像存入沙盒
-                NSString *path_sandox = NSHomeDirectory();
-                NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/headImage.png"];
-                NSURL *url = [NSURL URLWithString:json[@"data"][@"headImageUrl"]];
-                [UIImagePNGRepresentation([UIImage imageWithData: [NSData dataWithContentsOfURL:url]]) writeToFile:imagePath atomically:YES];
                 [YHHud showWithSuccess:@"登陆成功"];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
