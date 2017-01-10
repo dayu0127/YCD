@@ -75,7 +75,7 @@
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"100424468"  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
     
     //设置新浪的appKey和appSecret
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"1292322940"  appSecret:@"c1ad238284f47072b0caaf27d4d3afb3" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"2098975700"  appSecret:@"1b7c4892f9a69a82058bd084445537fa" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
     //SMSSDK集成短信验证码
     [SMSSDK registerApp:@"1a0b01a59d9bc" withSecret:@"35cdf0e4465e6cc8b0ddf8e0b3ca2480"];
@@ -84,6 +84,10 @@
     [YHWebRequest YHWebRequestForPOST:BANNER parameters:nil success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             [[NSUserDefaults standardUserDefaults] setObject:json[@"data"] forKey:@"banner"];
+        }else if ([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
         }
     }];
 }

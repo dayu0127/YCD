@@ -41,6 +41,10 @@
             wordSearch.hidesBottomBarWhenPushed = YES;
             wordSearch.wordArray = json[@"data"];
             [self.navigationController pushViewController:wordSearch animated:YES];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
         }
     }];
     
@@ -78,6 +82,10 @@
                 [NSLayoutConstraint activateConstraints:layoutArray];
                 lastView = itemView;
             }
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
         }
     }];
 }
@@ -90,6 +98,10 @@
             _courseVideoArray = json[@"data"];
             _classifyID = [NSString stringWithFormat:@"%zd",classifyID];
             [self performSegueWithIdentifier:@"toItemDetail" sender:self];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
         }
     }];
 }

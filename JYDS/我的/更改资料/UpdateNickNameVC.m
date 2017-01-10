@@ -50,6 +50,10 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateNickName" object:nil userInfo:dic];
                     [self.navigationController popViewControllerAnimated:YES];
                 });
+            }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                [YHHud showWithMessage:@"服务器错误"];
+            }else{
+                [YHHud showWithMessage:@"修改失败"];
             }
         }];
     }

@@ -173,6 +173,12 @@
                 [_delegate autoFillUserName:_phoneText.text];
                 [self.navigationController popViewControllerAnimated:YES];
             });
+        }else if([json[@"code"] isEqualToString:@"MOBILE_REPEAT"]){
+            [YHHud showWithMessage:@"该手机号已被注册"];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"注册失败"];
         }
     }];
 }

@@ -80,6 +80,8 @@
                     [app.window makeKeyWindow];
                     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
                 });
+            }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                [YHHud showWithMessage:@"服务器错误"];
             }else{
                 [YHHud showWithMessage:@"修改失败"];
             }

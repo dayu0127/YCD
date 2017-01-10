@@ -94,6 +94,8 @@
                 [YHHud showWithMessage:@"该账户已其他设备登陆"];
             }else if ([json[@"code"] isEqualToString:@"USAPWERR"]){
                 [YHHud showWithMessage:@"用户名或密码错误"];
+            }else{
+                [YHHud showWithMessage:@"登录失败"];
             }
         }];
     }

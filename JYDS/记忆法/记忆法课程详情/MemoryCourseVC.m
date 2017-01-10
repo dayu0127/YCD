@@ -47,6 +47,7 @@
     }
     return _playerModel;
 }
+
 - (void)zf_playerBackAction{
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -124,20 +125,16 @@
         [_opaqueView removeFromSuperview];
         _opaqueView = nil;
     }
-    _backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-    _backBtn.backgroundColor = [UIColor clearColor];
+    _backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     [_backBtn addTarget:self action:@selector(zf_playerBackAction) forControlEvents:UIControlEventTouchUpInside];
     [_playerView addSubview:_backBtn];
     //记忆法课程购买
     _opaqueView = [[UIView alloc] initWithFrame:_playerFatherView.bounds];
-    UIImage *playerBtn = [UIImage imageNamed:@"playerBtn"];
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    backButton.frame = CGRectMake(12.1, 7.8, 30, 30);
-    [backButton setImage:[UIImage imageNamed:@"ZFPlayer_back_full"] forState:UIControlStateNormal];
-    backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [backButton sizeToFit];
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    [backButton setImage:[UIImage imageNamed:@"videoBack"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(zf_playerBackAction) forControlEvents:UIControlEventTouchUpInside];
     [_opaqueView addSubview:backButton];
+    UIImage *playerBtn = [UIImage imageNamed:@"playerBtn"];
     UIImageView *playImageView = [[UIImageView alloc] initWithImage:playerBtn];
     playImageView.center = CGPointMake(WIDTH*0.5, _playerFatherView.bounds.size.height*0.5);
     playImageView.bounds = CGRectMake(0, 0, playerBtn.size.width, playerBtn.size.height);
@@ -180,10 +177,14 @@
             NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"productID":_memory.courseID,@"type":@"memory",@"money":_memory.coursePrice};
             [YHWebRequest YHWebRequestForPOST:SUB parameters:dic success:^(NSDictionary *json) {
                 if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                    [YHHud showWithSuccess:@"购买成功"];
+                    [YHHud showWithSuccess:@"订阅成功"];
                     _opaqueView.alpha = 0;
                     [_delegate reloadMemoryList];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBean" object:nil];
+                }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                    [YHHud showWithMessage:@"服务器错误"];
+                }else{
+                    [YHHud showWithMessage:@"订阅失败"];
                 }
             }];
         }
@@ -398,6 +399,10 @@
             [_titleButton2 dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
             _titleButton2.selected = NO;
             [self loadCurrentSectionExplain:_memory.courseInstructions];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
         }
     }];
 }

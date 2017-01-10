@@ -120,6 +120,12 @@
                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                             [self.navigationController popViewControllerAnimated:YES];
                         });
+                    }else if ([json[@"code"] isEqualToString:@"UPDATEERR"]){
+                        [YHHud showWithMessage:@"修改失败"];
+                    }else if([json[@"code"] isEqualToString:@"USERR"]){
+                        [YHHud showWithMessage:@"手机号错误"];
+                    }else{
+                         [YHHud showWithMessage:@"重置密码失败"];
                     }
                 }];
             }else{

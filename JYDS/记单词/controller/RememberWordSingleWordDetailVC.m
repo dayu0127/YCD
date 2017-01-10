@@ -120,15 +120,13 @@
         [_opaqueView removeFromSuperview];
         _opaqueView = nil;
     }
-    _backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-    _backBtn.backgroundColor = [UIColor clearColor];
+    _backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     [_backBtn addTarget:self action:@selector(zf_playerBackAction) forControlEvents:UIControlEventTouchUpInside];
     [_playerView addSubview:_backBtn];
     //记忆法课程购买
     _opaqueView = [[UIView alloc] initWithFrame:_playerFatherView.bounds];
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    backButton.frame = CGRectMake(12.1, 7.8, 30, 30);
-    [backButton setImage:[UIImage imageNamed:@"ZFPlayer_back_full"] forState:UIControlStateNormal];
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    [backButton setImage:[UIImage imageNamed:@"videoBack"] forState:UIControlStateNormal];
     backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [backButton sizeToFit];
     [backButton addTarget:self action:@selector(zf_playerBackAction) forControlEvents:UIControlEventTouchUpInside];
@@ -241,6 +239,10 @@
             _collectionView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
             [self.view addSubview:_collectionView];
             [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
         }
     }];
 }
@@ -291,6 +293,10 @@
             [_titleButton2 dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
             _titleButton2.selected = NO;
             [self loadParaphrase:_word.wordDetail];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
         }
     }];
 }
@@ -317,12 +323,16 @@
             NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"productID":_word.wordID,@"type":@"word",@"money":_word.wordPrice};
             [YHWebRequest YHWebRequestForPOST:SUB parameters:dic success:^(NSDictionary *json) {
                 if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                    [YHHud showWithSuccess:@"购买成功"];
+                    [YHHud showWithSuccess:@"订阅成功"];
                     [_opaqueView removeFromSuperview];
                     _opaqueView = nil; 
                     [_delegate reloadWordList];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadWords" object:nil];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBean" object:nil];
+                }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                    [YHHud showWithMessage:@"服务器错误"];
+                }else{
+                    [YHHud showWithMessage:@"订阅失败"];
                 }
             }];
         }

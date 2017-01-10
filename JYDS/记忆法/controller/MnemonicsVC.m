@@ -119,6 +119,10 @@
 //            }];
             [_tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
             [self.view addSubview:_tableView];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
         }
     }];
 }
@@ -153,6 +157,10 @@
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _memoryArray = json[@"data"];
             [_tableView reloadData];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
         }
     }];
 }
@@ -213,6 +221,10 @@
                     [_tableView reloadData];
                     [YHHud showWithSuccess:@"订阅成功"];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBean" object:nil];
+                }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                    [YHHud showWithMessage:@"服务器错误"];
+                }else{
+                    [YHHud showWithMessage:@"订阅失败"];
                 }
             }];
         }

@@ -120,6 +120,10 @@
                 if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                     _wordArray = [NSMutableArray arrayWithArray:json[@"data"]];
                     [self initWordTable];
+                }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                    [YHHud showWithMessage:@"服务器错误"];
+                }else{
+                    [YHHud showWithMessage:@"数据异常"];
                 }
             }];
         }else{
@@ -224,6 +228,10 @@
             _courseVideoArray = json[@"data"];
             [_tableView registerNib:[UINib nibWithNibName:@"RememberWordVideoCell" bundle:nil] forCellReuseIdentifier:@"RememberWordVideoCell"];
             [_tableView reloadData];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
         }
     }];
 }
@@ -262,6 +270,10 @@
                         [YHHud showWithSuccess:@"订阅成功"];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadVideos" object:nil];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBean" object:nil];
+                    }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                        [YHHud showWithMessage:@"服务器错误"];
+                    }else{
+                        [YHHud showWithMessage:@"订阅失败"];
                     }
                 }];
             }
@@ -272,9 +284,7 @@
             }else{
                 //学习豆充足
                 NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"payStudyBean":[NSString stringWithFormat:@"%zd",_allWordPrice],@"type":@"words",@"classifyID":_classifyID};
-                NSLog(@"%@",dic);
                 [YHWebRequest YHWebRequestForPOST:SUBALL parameters:dic success:^(NSDictionary  *json) {
-                     NSLog(@"%@",json);
                     if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                         _tableView.frame = CGRectMake(0, 116, WIDTH, HEIGHT-116);
                         _footerBgView.alpha = 0;
@@ -293,6 +303,10 @@
                         [YHHud showWithSuccess:@"订阅成功"];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadWords" object:nil];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBean" object:nil];
+                    }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                        [YHHud showWithMessage:@"服务器错误"];
+                    }else{
+                        [YHHud showWithMessage:@"订阅失败"];
                     }
                 }];
             }

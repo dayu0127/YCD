@@ -92,6 +92,10 @@
             [_tableView reloadData];
         }else if ([json[@"code"] isEqualToString:@"NOVIDEO"]){
             [self.view addSubview:self.noVideoView];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
         }
     }];
 }
@@ -108,6 +112,10 @@
             [_tableView reloadData];
         }else if ([json[@"code"] isEqualToString:@"NOWORD"]){
             [self.view addSubview:self.noVideoView];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
         }
     }];
 }

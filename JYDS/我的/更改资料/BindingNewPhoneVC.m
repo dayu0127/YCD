@@ -123,6 +123,10 @@
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"updatePhoneNum" object:nil userInfo:@{@"phoneNum":_phoneText.text}];
                             [self.navigationController popViewControllerAnimated:YES];
                         });
+                    }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                        [YHHud showWithMessage:@"服务器错误"];
+                    }else{
+                        [YHHud showWithMessage:@"绑定失败"];
                     }
                 }];
             }else{

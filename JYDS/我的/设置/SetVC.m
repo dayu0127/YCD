@@ -107,6 +107,12 @@
                 [app.window setRootViewController:loginVC];
                 [app.window makeKeyWindow];
                 [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
+            }else if([json[@"code"] isEqualToString:@"TYPEERR"]){
+                [YHHud showWithMessage:@"该账号未登录"];
+            }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                [YHHud showWithMessage:@"服务器错误"];
+            }else{
+                [YHHud showWithMessage:@"退出登录失败"];
             }
         }];
     }

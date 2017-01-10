@@ -33,6 +33,10 @@
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _studyBean.text = [NSString stringWithFormat:@"%@",json[@"data"][@"restBean"]];
             _costStudyBean.text = [NSString stringWithFormat:@"%@",json[@"data"][@"consumeBean"]];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
         }
     }];
 }
