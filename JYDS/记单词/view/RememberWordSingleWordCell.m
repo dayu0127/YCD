@@ -13,6 +13,9 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    [self nightModeConfiguration];
+}
+- (void)nightModeConfiguration{
     self.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     _word.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _wordPrice.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);

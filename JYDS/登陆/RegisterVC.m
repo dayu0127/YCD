@@ -27,6 +27,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self nightModeConfiguration];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateNormal];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateHighlighted];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateSelected];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateDisabled];
+    _phoneText = [_textFieldCollection objectAtIndex:0];
+    _idCodeText = [_textFieldCollection objectAtIndex:1];
+    _pwdText = [_textFieldCollection objectAtIndex:2];
+    _studyCodeText = [_textFieldCollection objectAtIndex:3];
+}
+- (void)nightModeConfiguration{
     self.view.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],N_BG,RED);
     for (UILabel *item in _labelCollection) {
         item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
@@ -40,14 +51,6 @@
         line.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
     }
     _registerButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
-    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateNormal];
-    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateHighlighted];
-    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateSelected];
-    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateDisabled];
-    _phoneText = [_textFieldCollection objectAtIndex:0];
-    _idCodeText = [_textFieldCollection objectAtIndex:1];
-    _pwdText = [_textFieldCollection objectAtIndex:2];
-    _studyCodeText = [_textFieldCollection objectAtIndex:3];
 }
 #pragma mark 监听是否输入11位手机号，改变验证码按钮状态
 - (IBAction)phoneEditingChanged:(UITextField *)sender {
@@ -146,7 +149,6 @@
     }else {
         [SMSSDK commitVerificationCode:_idCodeText.text phoneNumber:_phoneText.text zone:@"86" result:^(SMSSDKUserInfo *userInfo, NSError *error) {
             if (!error) {
-                NSLog(@"%@",error);
                 if ([_studyCodeText.text isEqualToString:@""]) {
                     YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 255, 155) title:@"温馨提示" message:@"您输入的互学码为空，确定注册？"];
                     alertView.delegate = self;
@@ -156,6 +158,7 @@
                     [self userRegister];
                 }
             }else{
+                NSLog(@"%@",error);
                 [YHHud showWithMessage:@"验证码错误"];
             }
         }];
@@ -167,6 +170,7 @@
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             [YHHud showWithSuccess:@"注册成功"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [_delegate autoFillUserName:_phoneText.text];
                 [self.navigationController popViewControllerAnimated:YES];
             });
         }

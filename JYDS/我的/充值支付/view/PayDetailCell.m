@@ -9,6 +9,9 @@
 @implementation PayDetailCell
 - (void)awakeFromNib {
     [super awakeFromNib];
+    [self nightModeConfiguration];
+}
+- (void)nightModeConfiguration{
     self.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     _payType.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _payDate.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor groupTableViewBackgroundColor],[UIColor redColor]);

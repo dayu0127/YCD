@@ -40,13 +40,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initNaBar:@"已订阅"];
+    [self nightModeConfiguration];
+    [self initTableView];
+    [self setTableView];
+}
+- (void)nightModeConfiguration{
     [_videoButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     [_wordButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     _videoButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     _rightLineView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     _wordButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
-    [self initTableView];
-    [self setTableView];
 }
 #pragma mark 初始化TableView
 - (void)initTableView{

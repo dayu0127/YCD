@@ -23,10 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _bgView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
-    for (UILabel *item in _labelCollection) {
-        item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    }
+    [self nightModeConfiguration];
     [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
         _costBean.text = [NSString stringWithFormat:@"%@个",json[@"data"][@"consumeBean"]];
     }];
@@ -37,6 +34,12 @@
             [_tableView reloadData];
         }
     }];
+}
+- (void)nightModeConfiguration{
+    _bgView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
+    for (UILabel *item in _labelCollection) {
+        item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    }
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _dataArray.count;

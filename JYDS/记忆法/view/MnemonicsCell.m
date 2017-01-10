@@ -14,6 +14,9 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    [self nightModeConfiguration];
+}
+- (void)nightModeConfiguration{
     self.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     _courseName.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _courseTitle.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor groupTableViewBackgroundColor],[UIColor redColor]);

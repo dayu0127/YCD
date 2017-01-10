@@ -24,6 +24,18 @@
 @implementation UpdatePwdVC
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self nightModeConfiguration];
+    for (UIButton *item in _showPwdButtonCollection) {
+        [item dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateNormal];
+        [item dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateHighlighted];
+        [item dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateSelected];
+        [item dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateDisabled];
+    }
+    _oldPwdText = [_textFieldCollection objectAtIndex:0];
+    _pwdText = [_textFieldCollection objectAtIndex:1];
+    _surePwdText = [_textFieldCollection objectAtIndex:2];
+}
+- (void)nightModeConfiguration{
     for (UILabel *item in _titleLabelCollection) {
         item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     }
@@ -36,16 +48,7 @@
     for (UIView *line in _lineCollection) {
         line.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
     }
-    for (UIButton *item in _showPwdButtonCollection) {
-        [item dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateNormal];
-        [item dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateHighlighted];
-        [item dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateSelected];
-        [item dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateDisabled];
-    }
     _sureButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
-    _oldPwdText = [_textFieldCollection objectAtIndex:0];
-    _pwdText = [_textFieldCollection objectAtIndex:1];
-    _surePwdText = [_textFieldCollection objectAtIndex:2];
 }
 - (IBAction)pwdEditingChanged:(UITextField *)sender {
     if (sender.text.length>15) {

@@ -19,9 +19,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self nightModeConfiguration];
+     [_nickNameTextField setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+}
+- (void)nightModeConfiguration{
     _nickNameLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _sureButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
-    [_nickNameTextField setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
     _nickNameTextField.dk_tintColorPicker = DKColorPickerWithKey(TINT);
     _nickNameTextField.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _line.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);

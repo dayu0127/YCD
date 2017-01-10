@@ -26,6 +26,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self nightModeConfiguration];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateNormal];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateHighlighted];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateSelected];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateDisabled];
+    _submitButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+    _phoneText = [_textFieldCollection objectAtIndex:0];
+    _idCodeText = [_textFieldCollection objectAtIndex:1];
+    _pwdText = [_textFieldCollection objectAtIndex:2];
+}
+- (void)nightModeConfiguration{
     self.view.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],N_BG,RED);
     for (UILabel *item in _labelCollection) {
         item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
@@ -38,14 +49,6 @@
     for (UIView *line in _lineCollection) {
         line.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
     }
-    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateNormal];
-    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateHighlighted];
-    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateSelected];
-    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateDisabled];
-    _submitButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
-    _phoneText = [_textFieldCollection objectAtIndex:0];
-    _idCodeText = [_textFieldCollection objectAtIndex:1];
-    _pwdText = [_textFieldCollection objectAtIndex:2];
 }
 - (IBAction)phoneEditingChanged:(UITextField *)sender {
     if(sender.text.length < 11){

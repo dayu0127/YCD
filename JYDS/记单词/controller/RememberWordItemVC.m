@@ -38,6 +38,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.leftBarButton.hidden = NO;
+    [self nightModeConfiguration];
+    [self initTableView];
+    [self setTableView];
+}
+- (void)nightModeConfiguration{
     [_videoButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     [_wordButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     _videoButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
@@ -46,8 +51,6 @@
     _footerBgView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
     _subscriptionLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _subscriptionButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
-    [self initTableView];
-    [self setTableView];
 }
 #pragma mark 初始化TableView
 - (void)initTableView{

@@ -9,8 +9,9 @@
 #import "LoginVC.h"
 #import "RootTabBarController.h"
 #import "AppDelegate.h"
+#import "RegisterVC.h"
 
-@interface LoginVC ()
+@interface LoginVC ()<RegisterVCDelegate>
 
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *lineCollection;
@@ -25,6 +26,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self nightModeConfiguration];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateNormal];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateHighlighted];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateSelected];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateDisabled];
+    _phoneText = [_textFieldCollection objectAtIndex:0];
+    _pwdText = [_textFieldCollection objectAtIndex:1];
+    if ([YHSingleton shareSingleton].userInfo!=nil) {
+        _phoneText.text = [YHSingleton shareSingleton].userInfo.userName;
+    }
+}
+- (void)nightModeConfiguration{
     self.view.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],N_BG,RED);
     for (UITextField *item in _textFieldCollection) {
         [item setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
@@ -38,12 +51,6 @@
     for (UIButton *item in _buttonCollection) {
         [item dk_setTitleColorPicker:DKColorPickerWithColors(D_BLUE,[UIColor whiteColor],RED) forState:UIControlStateNormal];
     }
-    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateNormal];
-    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateHighlighted];
-    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateSelected];
-    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateDisabled];
-    _phoneText = [_textFieldCollection objectAtIndex:0];
-    _pwdText = [_textFieldCollection objectAtIndex:1];
 }
 - (IBAction)phoneEditingChanged:(UITextField *)sender {
     if (sender.text.length > 11) {
@@ -71,7 +78,6 @@
         [YHWebRequest YHWebRequestForPOST:LOGIN parameters:dic success:^(NSDictionary *json) {
             [YHHud dismiss];
             if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                NSLog(@"%@",json[@"data"]);
                 //保存用户信息
                 [[NSUserDefaults standardUserDefaults] setObject:json[@"data"] forKey:@"userInfo"];
                 [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:json[@"data"]];
@@ -91,6 +97,15 @@
             }
         }];
     }
+}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"register"]) {
+        RegisterVC *registerVC = segue.destinationViewController;
+        registerVC.delegate = self;
+    }
+}
+- (void)autoFillUserName:(NSString *)userName{
+    _phoneText.text = userName;
 }
 - (IBAction)logout:(id)sender {
     [YHWebRequest YHWebRequestForPOST:LOGOUT parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"type":@"1"} success:^(id  _Nonnull json) {}];

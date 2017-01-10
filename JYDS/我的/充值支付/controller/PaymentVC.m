@@ -26,12 +26,15 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _payLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    [self nightModeConfiguration];
     _studyDouLabel.text = [NSString stringWithFormat:@"%zd学习豆，",_money*PAY_PROPORTION];
-    _studyDouLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _moneyLabel.text = [NSString stringWithFormat:@"%zd元",_money];
-    _moneyLabel.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     [_tableView registerNib:[UINib nibWithNibName:@"PaymentCell" bundle:nil] forCellReuseIdentifier:@"PaymentCell"];
+}
+- (void)nightModeConfiguration{
+    _payLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    _studyDouLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    _moneyLabel.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 2;

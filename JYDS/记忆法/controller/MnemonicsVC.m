@@ -41,9 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initNaBar:@"记忆大师"];
-    _buttomBgView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
-    _subLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    _subBtn.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    [self nightModeConfiguration];
     _netImages = [NSMutableArray array];
     _bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"];
     for (NSDictionary *dic in _bannerInfoArray) {
@@ -51,6 +49,11 @@
     }
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self initTableView];
+}
+- (void)nightModeConfiguration{
+    _buttomBgView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
+    _subLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    _subBtn.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
 }
 - (void)dayMode{
     self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControl"];
