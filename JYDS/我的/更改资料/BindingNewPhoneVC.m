@@ -95,8 +95,10 @@
                 }];
             } else {
                 NSLog(@"错误信息：%@",error);
+                [YHHud showWithMessage:@"验证码错误"];
             }
-        }];    }
+        }];
+    }
 }
 - (IBAction)showPwd:(UIButton *)sender {
     sender.selected = !sender.selected;

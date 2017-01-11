@@ -203,6 +203,12 @@
             [weakSelf shareTextToPlatformType:UMSocialPlatformType_QQ];
         }else if (platformType == UMSocialPlatformType_Qzone){
             [weakSelf shareTextToPlatformType:UMSocialPlatformType_Qzone];
+        }else if (platformType == UMSocialPlatformType_WechatSession){
+            [weakSelf shareTextToPlatformType:UMSocialPlatformType_WechatSession];
+        }else if (platformType == UMSocialPlatformType_WechatTimeLine){
+            [weakSelf shareTextToPlatformType:UMSocialPlatformType_WechatTimeLine];
+        }else if (platformType == UMSocialPlatformType_WechatFavorite){
+            [weakSelf shareTextToPlatformType:UMSocialPlatformType_WechatFavorite];
         }
     }];
 }

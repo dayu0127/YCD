@@ -25,7 +25,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wb1292322940</string>
+				<string>wb2098975700</string>
 			</array>
 		</dict>
 		<dict>
@@ -34,6 +34,23 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>alisdkdemo</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx7658d0735b233185</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>tencent1105811937</string>
+                <string>QQ41e959e1</string>
 			</array>
 		</dict>
 	</array>

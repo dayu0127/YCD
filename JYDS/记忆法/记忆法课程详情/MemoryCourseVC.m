@@ -308,6 +308,12 @@
             [weakSelf shareTextToPlatformType:UMSocialPlatformType_QQ];
         }else if (platformType == UMSocialPlatformType_Qzone){
             [weakSelf shareImageToPlatformType:UMSocialPlatformType_Qzone];
+        }else if (platformType == UMSocialPlatformType_WechatSession){
+            [weakSelf shareImageToPlatformType:UMSocialPlatformType_WechatSession];
+        }else if (platformType == UMSocialPlatformType_WechatTimeLine){
+            [weakSelf shareImageToPlatformType:UMSocialPlatformType_WechatTimeLine];
+        }else if (platformType == UMSocialPlatformType_WechatFavorite){
+            [weakSelf shareImageToPlatformType:UMSocialPlatformType_WechatFavorite];
         }
     }];
 }

@@ -104,6 +104,7 @@
                 }];
             } else {
                 NSLog(@"错误信息：%@",error);
+                [YHHud showWithMessage:@"验证码错误"];
             }
         }];
 //        __block int timeout=10; //倒计时时间

@@ -58,7 +58,7 @@
                 });
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"上传失败,%@",error);
+            [YHHud showWithMessage:@"上传失败"];
         }];
     }
     [self.navigationController popViewControllerAnimated:YES];
