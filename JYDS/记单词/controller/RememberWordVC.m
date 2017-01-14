@@ -47,7 +47,6 @@
             [YHHud showWithMessage:@"数据异常"];
         }
     }];
-    
     return NO;
 }
 #pragma mark 创建主视图

@@ -50,7 +50,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>tencent1105811937</string>
-                <string>QQ41e959e1</string>
+				<string>QQ41e959e1</string>
 			</array>
 		</dict>
 	</array>
@@ -187,7 +187,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>记忆大师需要您的同意,才能访问相机</string>
 	<key>NSContactsUsageDescription</key>
-	<string></string>
+	<string>访问通讯录</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>记忆大师需要您的同意,才能访问相册</string>
 	<key>UIRequiredDeviceCapabilities</key>

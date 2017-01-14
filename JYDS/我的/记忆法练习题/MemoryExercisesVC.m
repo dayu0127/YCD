@@ -6,8 +6,11 @@
 //  Copyright © 2016年 dayu. All rights reserved.
 //
 #import "MemoryExercisesVC.h"
-@interface MemoryExercisesVC ()<YHAlertViewDelegate>
+#import "LevelView.h"
 
+@interface MemoryExercisesVC ()<YHAlertViewDelegate,LevelViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *beginButton;
 @property (strong,nonatomic) JCAlertView *alertView;
@@ -28,8 +31,15 @@
 }
 - (void)buttonClickIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
-        NSLog(@"确定练习");
+        NSLog(@"确定练习");//订阅逻辑
+        CGFloat y = CGRectGetMaxY(_imageView.frame)+15;
+        LevelView *levelView = [[LevelView alloc] initWithFrame:CGRectMake(0, y, WIDTH, HEIGHT-y)];
+        levelView.delegate = self;
+        [self.view addSubview:levelView];
     }
     [_alertView dismissWithCompletion:nil];
+}
+- (void)levelButtonClick:(NSInteger)buttonIndex{
+    NSLog(@"%zd",buttonIndex);
 }
 @end
