@@ -7,6 +7,7 @@
 //
 #import "MemoryExercisesVC.h"
 #import "LevelView.h"
+#import "ExerciseView.h"
 
 @interface MemoryExercisesVC ()<YHAlertViewDelegate,LevelViewDelegate>
 
@@ -14,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *beginButton;
 @property (strong,nonatomic) JCAlertView *alertView;
+@property (strong,nonatomic) LevelView *levelView;
 
 @end
 @implementation MemoryExercisesVC
@@ -31,15 +33,16 @@
 }
 - (void)buttonClickIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
-        NSLog(@"确定练习");//订阅逻辑
+        //订阅逻辑.......
         CGFloat y = CGRectGetMaxY(_imageView.frame)+15;
-        LevelView *levelView = [[LevelView alloc] initWithFrame:CGRectMake(0, y, WIDTH, HEIGHT-y)];
-        levelView.delegate = self;
-        [self.view addSubview:levelView];
+        _levelView = [[LevelView alloc] initWithFrame:CGRectMake(0, y, WIDTH, HEIGHT-y)];
+        _levelView.delegate = self;
+        [self.view addSubview:_levelView];
     }
     [_alertView dismissWithCompletion:nil];
 }
 - (void)levelButtonClick:(NSInteger)buttonIndex{
-    NSLog(@"%zd",buttonIndex);
+    ExerciseView *exerciseView = [[ExerciseView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT-64) ExerciseNum:1 level:buttonIndex];
+    [self.view addSubview:exerciseView];
 }
 @end

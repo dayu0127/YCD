@@ -12,4 +12,5 @@
 @end
 @interface LevelView : UIView
 @property (weak,nonatomic) id<LevelViewDelegate> delegate;
+@property (strong,nonatomic) NSMutableArray<UIButton *> *buttonArray;
 @end
