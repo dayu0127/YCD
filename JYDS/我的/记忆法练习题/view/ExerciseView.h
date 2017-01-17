@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol ExerciseViewDelegate<NSObject>
+- (void)passClick:(NSString *)errorNum;
+- (void)showResultView;
+@end
 @interface ExerciseView : UIView
 
 @property (strong,nonatomic) UILabel *timeLabel;
@@ -20,6 +23,7 @@
 @property (assign,nonatomic) NSInteger totalTime;
 @property (assign,nonatomic) NSInteger time;
 @property (assign,nonatomic) NSInteger index;
+@property (weak,nonatomic) id<ExerciseViewDelegate> delegate;
 
 - (instancetype)initWithFrame:(CGRect)frame ExerciseNum:(NSInteger)num level:(NSInteger)level;
 @end

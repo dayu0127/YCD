@@ -20,9 +20,6 @@
 @end
 
 @implementation PayVC
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {

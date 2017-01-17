@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol FailedViewDelegate<NSObject>
+- (void)backToExerciselView;
+- (void)backToLevelView;
+@end
 @interface FailedView : UIView
-
+@property (weak,nonatomic) id<FailedViewDelegate> delegate;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
+@property (weak, nonatomic) IBOutlet UIButton *continueButton;
 @end

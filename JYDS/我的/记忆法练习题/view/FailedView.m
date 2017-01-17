@@ -9,13 +9,18 @@
 #import "FailedView.h"
 
 @implementation FailedView
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (IBAction)continueClick:(id)sender {
+    [_delegate backToExerciselView];
 }
-*/
-
+- (IBAction)backClick:(id)sender {
+    [_delegate backToLevelView];
+}
+- (void)awakeFromNib{
+    [super awakeFromNib];
+    self.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
+    for (UILabel *label in _labelCollection) {
+        label.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    }
+    _continueButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+}
 @end

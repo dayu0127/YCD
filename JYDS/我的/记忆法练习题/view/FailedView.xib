@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="FailedView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="很抱歉" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w6h-MP-cyp">
+                    <rect key="frame" x="162" y="100" width="52" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您没有通过练习" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hdp-sP-qYa">
+                    <rect key="frame" x="126.5" y="126" width="122" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="exer_failed" translatesAutoresizingMaskIntoConstraints="NO" id="eMc-na-aeb">
+                    <rect key="frame" x="124" y="169" width="127" height="127"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="127" id="JCf-bt-7v5"/>
+                        <constraint firstAttribute="height" constant="127" id="hPT-tk-ujh"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请继续努力" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFk-7r-fk0">
+                    <rect key="frame" x="144" y="326" width="87" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7R5-a7-VPU">
+                    <rect key="frame" x="87.5" y="556" width="200" height="38"/>
+                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="38" id="glw-3b-3cf"/>
+                        <constraint firstAttribute="width" constant="200" id="t5H-g7-ZoC"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <state key="normal" title="返回">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="backClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="mSd-Zh-YXM"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TJZ-pB-xhE">
+                    <rect key="frame" x="88" y="504" width="200" height="38"/>
+                    <color key="backgroundColor" red="0.40000000000000002" green="0.59999999999999998" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="8cA-pz-4uA"/>
+                        <constraint firstAttribute="height" constant="38" id="a57-H8-FAJ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <state key="normal" title="继续">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="continueClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="1dL-6d-Pwe"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="hFk-7r-fk0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Ds4-dY-2UU"/>
+                <constraint firstItem="Hdp-sP-qYa" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="JuC-UZ-2dL"/>
+                <constraint firstItem="eMc-na-aeb" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Tk7-q4-oXw"/>
+                <constraint firstItem="TJZ-pB-xhE" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="UOu-MN-7Pm"/>
+                <constraint firstItem="eMc-na-aeb" firstAttribute="top" secondItem="Hdp-sP-qYa" secondAttribute="bottom" constant="22" id="bc4-bk-PD0"/>
+                <constraint firstItem="7R5-a7-VPU" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="cjR-Xm-boa"/>
+                <constraint firstItem="hFk-7r-fk0" firstAttribute="top" secondItem="eMc-na-aeb" secondAttribute="bottom" constant="30" id="eRy-BM-ldX"/>
+                <constraint firstItem="w6h-MP-cyp" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="fXX-R5-qVT"/>
+                <constraint firstAttribute="bottom" secondItem="7R5-a7-VPU" secondAttribute="bottom" constant="73" id="j5V-Qu-Ups"/>
+                <constraint firstItem="Hdp-sP-qYa" firstAttribute="top" secondItem="w6h-MP-cyp" secondAttribute="bottom" constant="5" id="k0B-4X-u5w"/>
+                <constraint firstItem="w6h-MP-cyp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="100" id="kDk-Oo-y8U"/>
+                <constraint firstItem="7R5-a7-VPU" firstAttribute="top" secondItem="TJZ-pB-xhE" secondAttribute="bottom" constant="14" id="rLq-wR-jyB"/>
+            </constraints>
+            <connections>
+                <outlet property="continueButton" destination="TJZ-pB-xhE" id="a9V-Z6-hK4"/>
+                <outletCollection property="labelCollection" destination="w6h-MP-cyp" id="NZn-WW-aoK"/>
+                <outletCollection property="labelCollection" destination="Hdp-sP-qYa" id="HXd-kx-fLh"/>
+                <outletCollection property="labelCollection" destination="hFk-7r-fk0" id="ETf-MX-1a2"/>
+            </connections>
+            <point key="canvasLocation" x="24.5" y="51.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="exer_failed" width="126" height="127"/>
+    </resources>
+</document>

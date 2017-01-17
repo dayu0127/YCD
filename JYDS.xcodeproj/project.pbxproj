@@ -113,6 +113,8 @@
 		60190B1C1E2A0A5C009C9450 /* SuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60190B1B1E2A0A5C009C9450 /* SuccessView.m */; };
 		60190B1F1E2A0A6C009C9450 /* ResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60190B1E1E2A0A6C009C9450 /* ResultView.m */; };
 		60190B221E2A0A9A009C9450 /* FailedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60190B211E2A0A9A009C9450 /* FailedView.m */; };
+		605D2ED01E2DB97000A7E01B /* SuccessView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 605D2ECF1E2DB97000A7E01B /* SuccessView.xib */; };
+		605D2ED21E2DB9B200A7E01B /* FailedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 605D2ED11E2DB9B200A7E01B /* FailedView.xib */; };
 		6078D1C41E1613180089D40F /* RememberWordItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0DC1E1613180089D40F /* RememberWordItemVC.m */; };
 		6078D1C51E1613180089D40F /* RememberWordSingleWordDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0DE1E1613180089D40F /* RememberWordSingleWordDetailVC.m */; };
 		6078D1C61E1613180089D40F /* RememberWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0E01E1613180089D40F /* RememberWordVC.m */; };
@@ -318,6 +320,8 @@
 		60190B1E1E2A0A6C009C9450 /* ResultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultView.m; sourceTree = "<group>"; };
 		60190B201E2A0A9A009C9450 /* FailedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FailedView.h; sourceTree = "<group>"; };
 		60190B211E2A0A9A009C9450 /* FailedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FailedView.m; sourceTree = "<group>"; };
+		605D2ECF1E2DB97000A7E01B /* SuccessView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuccessView.xib; sourceTree = "<group>"; };
+		605D2ED11E2DB9B200A7E01B /* FailedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FailedView.xib; sourceTree = "<group>"; };
 		6078D0DB1E1613180089D40F /* RememberWordItemVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordItemVC.h; sourceTree = "<group>"; };
 		6078D0DC1E1613180089D40F /* RememberWordItemVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordItemVC.m; sourceTree = "<group>"; };
 		6078D0DD1E1613180089D40F /* RememberWordSingleWordDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordSingleWordDetailVC.h; sourceTree = "<group>"; };
@@ -701,10 +705,12 @@
 				60190B181E2A09B3009C9450 /* ExerciseView.m */,
 				60190B1A1E2A0A5C009C9450 /* SuccessView.h */,
 				60190B1B1E2A0A5C009C9450 /* SuccessView.m */,
+				605D2ECF1E2DB97000A7E01B /* SuccessView.xib */,
 				60190B1D1E2A0A6C009C9450 /* ResultView.h */,
 				60190B1E1E2A0A6C009C9450 /* ResultView.m */,
 				60190B201E2A0A9A009C9450 /* FailedView.h */,
 				60190B211E2A0A9A009C9450 /* FailedView.m */,
+				605D2ED11E2DB9B200A7E01B /* FailedView.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1400,10 +1406,12 @@
 				60190AFB1E2A07C0009C9450 /* 76.png in Resources */,
 				60190ACB1E2A07C0009C9450 /* 28.png in Resources */,
 				60190B041E2A07C0009C9450 /* 85.png in Resources */,
+				605D2ED01E2DB97000A7E01B /* SuccessView.xib in Resources */,
 				60190ADD1E2A07C0009C9450 /* 46.png in Resources */,
 				6078D1FC1E1613180089D40F /* Assets.xcassets in Resources */,
 				60190AF51E2A07C0009C9450 /* 70.png in Resources */,
 				60190B001E2A07C0009C9450 /* 81.png in Resources */,
+				605D2ED21E2DB9B200A7E01B /* FailedView.xib in Resources */,
 				60190B011E2A07C0009C9450 /* 82.png in Resources */,
 				60190AEE1E2A07C0009C9450 /* 63.png in Resources */,
 				60190AE01E2A07C0009C9450 /* 49.png in Resources */,

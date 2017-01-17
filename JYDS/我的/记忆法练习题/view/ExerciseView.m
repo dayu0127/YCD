@@ -12,6 +12,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame ExerciseNum:(NSInteger)num level:(NSInteger)level{
     if (self = [super initWithFrame:frame]) {
+        self.userInteractionEnabled = YES;
         _totalTime = _time = [LEVELARRAY[level] integerValue];
         //标题
         UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 44)];
@@ -95,16 +96,24 @@
         [currentNumBgImageView addSubview:_currentNumLabel];
         //上一个数字
         _preNumLabel =  [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(currentNumBgImageView.frame)-24-60, self.center.y-18, 60, 36)];
-        _preNumLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor lightGrayColor],[UIColor whiteColor],RED);
+        _preNumLabel.dk_textColorPicker = DKColorPickerWithColors(SEPCOLOR,[UIColor whiteColor],RED);
         _preNumLabel.textAlignment = NSTextAlignmentCenter;
         _preNumLabel.font = [UIFont systemFontOfSize:36.0];
+        _preNumLabel.layer.shadowColor = RGB(231, 231, 231).CGColor;
+        _preNumLabel.layer.shadowOffset = CGSizeMake(-7, 0);
+        _preNumLabel.layer.shadowOpacity = 0.8;
+        _preNumLabel.layer.shadowRadius = 1.0;
         [self addSubview:_preNumLabel];
         //下一个数字
         _nextNumLabel =  [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(currentNumBgImageView.frame)+24, self.center.y-18, 60, 36)];
-        _nextNumLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor lightGrayColor],[UIColor whiteColor],RED);
+        _nextNumLabel.dk_textColorPicker = DKColorPickerWithColors(SEPCOLOR,[UIColor whiteColor],RED);
         _nextNumLabel.textAlignment = NSTextAlignmentCenter;
         _nextNumLabel.font = [UIFont systemFontOfSize:36.0];
         _nextNumLabel.text = _numArray[1];
+        _nextNumLabel.layer.shadowColor = RGB(231, 231, 231).CGColor;
+        _nextNumLabel.layer.shadowOffset = CGSizeMake(7, 0);
+        _nextNumLabel.layer.shadowOpacity = 0.8;
+        _nextNumLabel.layer.shadowRadius = 1.0;
         [self addSubview:_nextNumLabel];
         //计时器
         _timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
@@ -112,6 +121,7 @@
             _timeLabel.text = [NSString stringWithFormat:@"%zd秒",_time];
             if (_time == 0) {
                 [timer invalidate];
+                [_delegate showResultView];
             }
         }];
         _timer1 = [NSTimer scheduledTimerWithTimeInterval:_totalTime/20.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
@@ -133,12 +143,12 @@
         passButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
         passButton.layer.masksToBounds = YES;
         passButton.layer.cornerRadius = 6.0f;
-        [passButton addTarget:self action:@selector(passClick:) forControlEvents:UIControlEventTouchUpInside];
+        [passButton addTarget:self action:@selector(passClick) forControlEvents:UIControlEventTouchDown];
         [self addSubview:passButton];
     }
     return self;
 }
-- (void)passClick:(UIButton *)sender{
-    NSLog(@"----------");
+- (void)passClick{
+    [_delegate passClick:_numArray[_index]];
 }
 @end

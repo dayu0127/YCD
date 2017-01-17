@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol SuccessViewDelegate<NSObject>
+- (void)backToLevelView;
+@end
 @interface SuccessView : UIView
-
+@property (weak,nonatomic) id<SuccessViewDelegate> delegate;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
+@property (weak, nonatomic) IBOutlet UIButton *continueButton;
 @end

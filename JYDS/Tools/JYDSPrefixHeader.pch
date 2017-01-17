@@ -95,7 +95,11 @@
 #define WORDBYID API(@"wordIDSel") //根据ID查询单词
 #define UNITWORDBYID API(@"selUnitAllWord") //根据ID查询本单元单词
 #define ALLWORD API(@"getAllWords") //获取所有单词
+#define GAME API(@"gameDetil") //获取练习题订阅状态
 
 //练习题等级数组
 #define LEVELARRAY @[@"60",@"50",@"40",@"30",@"25",@"20",@"15",@"13",@"10"]
+//练习题价格
+#define GAMEPRICE 10
+
 #endif /* JYDSPrefixHeader_pch */
