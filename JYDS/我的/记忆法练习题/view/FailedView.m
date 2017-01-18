@@ -23,4 +23,12 @@
     }
     _continueButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
 }
+- (void)updateConstraints{
+    [super updateConstraints];
+    _topHeight.constant = self.frame.size.height*100/603.0;
+    _verticalSpacing1.constant = self.frame.size.height*22/603.0;
+    _verticalSpacing2.constant = self.frame.size.height*30/603.0;
+    _verticalSpacing3.constant =self.frame.size.height*14/603.0;
+    _buttomHeight.constant = self.frame.size.height*73/603.0;
+}
 @end

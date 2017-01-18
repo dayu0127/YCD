@@ -22,27 +22,27 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="通过了练习" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="riy-fQ-hwZ">
-                    <rect key="frame" x="144" y="126" width="87" height="21"/>
+                    <rect key="frame" x="144" y="121" width="87" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="exer_success" translatesAutoresizingMaskIntoConstraints="NO" id="pNg-qn-uhe">
-                    <rect key="frame" x="124" y="169" width="127" height="127"/>
+                    <rect key="frame" x="124" y="164" width="127" height="127"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="127" id="9JI-V2-ZSP"/>
                         <constraint firstAttribute="width" constant="127" id="Edr-vF-iKp"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="是否继续挑战其他等级" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KbY-bM-fs7">
-                    <rect key="frame" x="101" y="326" width="174" height="21"/>
+                    <rect key="frame" x="101" y="321" width="174" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e5Y-tA-Coc">
                     <rect key="frame" x="87" y="556" width="200" height="38"/>
-                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="200" id="8IV-4E-puQ"/>
                         <constraint firstAttribute="height" constant="38" id="fGj-fS-TDB"/>
@@ -85,7 +85,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="riy-fQ-hwZ" firstAttribute="top" secondItem="dSk-EI-f9L" secondAttribute="bottom" constant="5" id="1aU-Hx-9BL"/>
+                <constraint firstItem="riy-fQ-hwZ" firstAttribute="top" secondItem="dSk-EI-f9L" secondAttribute="bottom" id="1aU-Hx-9BL"/>
                 <constraint firstItem="pNg-qn-uhe" firstAttribute="top" secondItem="riy-fQ-hwZ" secondAttribute="bottom" constant="22" id="40l-vh-QSF"/>
                 <constraint firstAttribute="bottom" secondItem="e5Y-tA-Coc" secondAttribute="bottom" constant="73" id="InE-xL-SQr"/>
                 <constraint firstItem="KbY-bM-fs7" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="JoU-7z-zFS"/>
@@ -99,7 +99,12 @@
                 <constraint firstItem="dSk-EI-f9L" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="z4V-EX-kgo"/>
             </constraints>
             <connections>
+                <outlet property="buttomHeight" destination="InE-xL-SQr" id="Bis-dR-DM8"/>
                 <outlet property="continueButton" destination="UwN-Gg-snP" id="8Uw-tY-CyP"/>
+                <outlet property="topHeight" destination="wem-XV-pjY" id="TRr-0Y-f1f"/>
+                <outlet property="verticalSpacing1" destination="40l-vh-QSF" id="LAb-mN-snr"/>
+                <outlet property="verticalSpacing2" destination="P5U-7B-ROW" id="Jj3-pZ-WFC"/>
+                <outlet property="verticalSpacing3" destination="cqI-Cf-AU4" id="OCY-lO-9Pb"/>
                 <outletCollection property="labelCollection" destination="dSk-EI-f9L" id="SI0-ah-LPH"/>
                 <outletCollection property="labelCollection" destination="riy-fQ-hwZ" id="9Mn-f1-j0D"/>
                 <outletCollection property="labelCollection" destination="KbY-bM-fs7" id="vOr-4v-NMf"/>

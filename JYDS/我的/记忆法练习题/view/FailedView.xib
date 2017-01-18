@@ -42,7 +42,7 @@
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7R5-a7-VPU">
                     <rect key="frame" x="87.5" y="556" width="200" height="38"/>
-                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="38" id="glw-3b-3cf"/>
                         <constraint firstAttribute="width" constant="200" id="t5H-g7-ZoC"/>
@@ -99,7 +99,12 @@
                 <constraint firstItem="7R5-a7-VPU" firstAttribute="top" secondItem="TJZ-pB-xhE" secondAttribute="bottom" constant="14" id="rLq-wR-jyB"/>
             </constraints>
             <connections>
+                <outlet property="buttomHeight" destination="j5V-Qu-Ups" id="6uu-Ua-F3C"/>
                 <outlet property="continueButton" destination="TJZ-pB-xhE" id="a9V-Z6-hK4"/>
+                <outlet property="topHeight" destination="kDk-Oo-y8U" id="gmm-QP-ohU"/>
+                <outlet property="verticalSpacing1" destination="bc4-bk-PD0" id="SFp-nH-R6H"/>
+                <outlet property="verticalSpacing2" destination="eRy-BM-ldX" id="Mfe-vS-hbX"/>
+                <outlet property="verticalSpacing3" destination="rLq-wR-jyB" id="TOw-wC-5Wg"/>
                 <outletCollection property="labelCollection" destination="w6h-MP-cyp" id="NZn-WW-aoK"/>
                 <outletCollection property="labelCollection" destination="Hdp-sP-qYa" id="HXd-kx-fLh"/>
                 <outletCollection property="labelCollection" destination="hFk-7r-fk0" id="ETf-MX-1a2"/>
