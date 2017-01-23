@@ -83,12 +83,7 @@
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _memoryArray = json[@"data"];
             //显示总价
-            NSInteger totalPrice = 0;
-            for (NSDictionary *dic in _memoryArray) {
-                if ([dic[@"coursePayStatus"] integerValue] == 0) {
-                    totalPrice = totalPrice + [dic[@"coursePrice"] integerValue];
-                }
-            }
+            NSInteger totalPrice = [self getTotalPrice];
             _subLabel.text = [NSString stringWithFormat:@"一次订阅所有记忆法课程，仅需%zd学习豆!",totalPrice];
 //            _tableView = [[BaseTableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-157) style:UITableViewStyleGrouped];
             //计算tableView的高度
@@ -157,6 +152,8 @@
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _memoryArray = json[@"data"];
             [_tableView reloadData];
+            NSInteger totalPrice = [self getTotalPrice];
+            _subLabel.text = [NSString stringWithFormat:@"一次订阅所有记忆法课程，仅需%zd学习豆!",totalPrice];
         }else if([json[@"code"] isEqualToString:@"ERROR"]){
             [YHHud showWithMessage:@"服务器错误"];
         }else{
@@ -185,15 +182,18 @@
     _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
     [_alertView show];
 }
+- (NSInteger)getTotalPrice{
+    NSInteger totalPrice = 0;
+    for (NSDictionary *item in _memoryArray) {
+        if ([item[@"coursePayStatus"] integerValue] == 0) {
+            totalPrice = totalPrice + [item[@"coursePrice"] integerValue];
+        }
+    }
+    return totalPrice;
+}
 - (void)buttonClickIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
-        NSInteger totalPrice = 0;
-        for (NSDictionary *dic in _memoryArray) {
-            Mnemonics *model = [Mnemonics yy_modelWithJSON:dic];
-            if ([model.coursePayStatus isEqualToString:@"0"]) {
-                totalPrice = totalPrice + [model.coursePrice integerValue];
-            }
-        }
+        NSInteger totalPrice = [self getTotalPrice];
         //学习豆不足
         if (totalPrice>[[YHSingleton shareSingleton].userInfo.studyBean integerValue]) {
             [YHHud showWithMessage:@"您的学习豆不足，请充值"];

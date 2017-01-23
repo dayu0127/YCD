@@ -228,6 +228,7 @@
             _courseVideoArray = json[@"data"];
             [_tableView registerNib:[UINib nibWithNibName:@"RememberWordVideoCell" bundle:nil] forCellReuseIdentifier:@"RememberWordVideoCell"];
             [_tableView reloadData];
+            [self initVideoSubContent];
         }else if([json[@"code"] isEqualToString:@"ERROR"]){
             [YHHud showWithMessage:@"服务器错误"];
         }else{
@@ -236,7 +237,17 @@
     }];
 }
 - (void)reloadWordList{
-    [self setTableView];
+    NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"classifyID":_classifyID};
+    [YHWebRequest YHWebRequestForPOST:WORD parameters:dic success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            _wordArray = [NSMutableArray arrayWithArray:json[@"data"]];
+            [self initWordTable];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
+        }
+    }];
 }
 - (IBAction)subscriptionClick:(id)sender {
     NSString *str = _flagForTable == 0 ? @"视频课程" : @"单词";
