@@ -113,6 +113,7 @@
 		60190B1C1E2A0A5C009C9450 /* SuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60190B1B1E2A0A5C009C9450 /* SuccessView.m */; };
 		60190B1F1E2A0A6C009C9450 /* ResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60190B1E1E2A0A6C009C9450 /* ResultView.m */; };
 		60190B221E2A0A9A009C9450 /* FailedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60190B211E2A0A9A009C9450 /* FailedView.m */; };
+		6019F2721E45AC3200E6E8A1 /* codeName.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6019F2711E45AC3200E6E8A1 /* codeName.plist */; };
 		605D2ED01E2DB97000A7E01B /* SuccessView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 605D2ECF1E2DB97000A7E01B /* SuccessView.xib */; };
 		605D2ED21E2DB9B200A7E01B /* FailedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 605D2ED11E2DB9B200A7E01B /* FailedView.xib */; };
 		6078D1C41E1613180089D40F /* RememberWordItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0DC1E1613180089D40F /* RememberWordItemVC.m */; };
@@ -195,6 +196,7 @@
 		609F06421E1621DF009F4986 /* HelpFeedbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F06411E1621DF009F4986 /* HelpFeedbackVC.m */; };
 		609F06451E1621E5009F4986 /* SetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F06441E1621E5009F4986 /* SetVC.m */; };
 		609F06471E1638CC009F4986 /* libPods-JYDS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 609F06461E1638CC009F4986 /* libPods-JYDS.a */; };
+		60E5D43D1E35EF31006D6834 /* CodeListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E5D43C1E35EF31006D6834 /* CodeListVC.m */; };
 		60FF515F1E0A5E3B00DA6693 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF515E1E0A5E3B00DA6693 /* libc++.tbd */; };
 		60FF51611E0A5E8C00DA6693 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF51601E0A5E8C00DA6693 /* libz.tbd */; };
 		60FF51631E0A5EA900DA6693 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF51621E0A5EA900DA6693 /* SystemConfiguration.framework */; };
@@ -320,6 +322,7 @@
 		60190B1E1E2A0A6C009C9450 /* ResultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultView.m; sourceTree = "<group>"; };
 		60190B201E2A0A9A009C9450 /* FailedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FailedView.h; sourceTree = "<group>"; };
 		60190B211E2A0A9A009C9450 /* FailedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FailedView.m; sourceTree = "<group>"; };
+		6019F2711E45AC3200E6E8A1 /* codeName.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = codeName.plist; path = "JYDS/我的/记忆法练习题/codeName.plist"; sourceTree = SOURCE_ROOT; };
 		605D2ECF1E2DB97000A7E01B /* SuccessView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuccessView.xib; sourceTree = "<group>"; };
 		605D2ED11E2DB9B200A7E01B /* FailedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FailedView.xib; sourceTree = "<group>"; };
 		6078D0DB1E1613180089D40F /* RememberWordItemVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordItemVC.h; sourceTree = "<group>"; };
@@ -546,6 +549,8 @@
 		609F06431E1621E5009F4986 /* SetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetVC.h; sourceTree = "<group>"; };
 		609F06441E1621E5009F4986 /* SetVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetVC.m; sourceTree = "<group>"; };
 		609F06461E1638CC009F4986 /* libPods-JYDS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-JYDS.a"; path = "../../Library/Developer/Xcode/DerivedData/JYDS-fqdknxlehibyzhblnywoodytclot/Build/Products/Debug-iphonesimulator/libPods-JYDS.a"; sourceTree = "<group>"; };
+		60E5D43B1E35EF31006D6834 /* CodeListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeListVC.h; sourceTree = "<group>"; };
+		60E5D43C1E35EF31006D6834 /* CodeListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeListVC.m; sourceTree = "<group>"; };
 		60FF515E1E0A5E3B00DA6693 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		60FF51601E0A5E8C00DA6693 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		60FF51621E0A5EA900DA6693 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -1092,6 +1097,8 @@
 			children = (
 				609F062B1E1621C5009F4986 /* MemoryExercisesVC.h */,
 				609F062C1E1621C5009F4986 /* MemoryExercisesVC.m */,
+				60E5D43B1E35EF31006D6834 /* CodeListVC.h */,
+				60E5D43C1E35EF31006D6834 /* CodeListVC.m */,
 				60190B131E2A0897009C9450 /* view */,
 				6019097A1E2A0773009C9450 /* image */,
 			);
@@ -1210,6 +1217,7 @@
 				6078D1A11E1613180089D40F /* Base.lproj */,
 				6078D1991E1613180089D40F /* Assets.xcassets */,
 				6078D1A61E1613180089D40F /* Info.plist */,
+				6019F2711E45AC3200E6E8A1 /* codeName.plist */,
 				6078D1A71E1613180089D40F /* main.m */,
 			);
 			name = JYDS;
@@ -1368,6 +1376,7 @@
 				60190AE31E2A07C0009C9450 /* 52.png in Resources */,
 				60190ABB1E2A07C0009C9450 /* 12.png in Resources */,
 				60190AE61E2A07C0009C9450 /* 55.png in Resources */,
+				6019F2721E45AC3200E6E8A1 /* codeName.plist in Resources */,
 				60190B051E2A07C0009C9450 /* 86.png in Resources */,
 				60190AF61E2A07C0009C9450 /* 71.png in Resources */,
 				6078D1CD1E1613180089D40F /* RememberWordSingleWordCell.xib in Resources */,
@@ -1548,6 +1557,7 @@
 				6078D1C51E1613180089D40F /* RememberWordSingleWordDetailVC.m in Sources */,
 				609F05F21E161EEA009F4986 /* BannerDetailVC.m in Sources */,
 				6078D1F61E1613180089D40F /* DataVerifier.m in Sources */,
+				60E5D43D1E35EF31006D6834 /* CodeListVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
