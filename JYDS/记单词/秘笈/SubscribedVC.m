@@ -9,7 +9,6 @@
 #import "SubscribedVC.h"
 #import "Words.h"
 #import "RememberWordVideoCell.h"
-#import "RememberWordVideoDetailVC.h"
 #import "RememberWordSingleWordDetailVC.h"
 #import "CourseVideo.h"
 @interface SubscribedVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -337,11 +336,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (_flagForTable == 0) {
-        RememberWordVideoDetailVC *videoDetailVC = [[RememberWordVideoDetailVC alloc] init];
-        videoDetailVC.hidesBottomBarWhenPushed = YES;
-        videoDetailVC.videoArray = _videoArray;
-        videoDetailVC.video = [CourseVideo yy_modelWithJSON:_videoArray[indexPath.row]];
-        [self.navigationController pushViewController:videoDetailVC animated:YES];
+
     }else{
         RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
         wordDetailVC.hidesBottomBarWhenPushed = YES;

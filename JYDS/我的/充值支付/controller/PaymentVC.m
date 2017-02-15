@@ -66,30 +66,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
     //支付宝支付
-        NSString *appID = @"2016121704355858";
-        NSString *privateKey = @"MIICXwIBAAKBgQCtuXeBYtUnkeTfwGr8G2f20lNCAcFKlMg91+EniKbgIYu6imIvb/RnmhWPlW0SmyYaIaZl3rb2hDKKComvVmRhs5LGxTdMsUkp6w0uGx2mh2HHLmIECcf/9XmHQo1hFLkKYqn2dsxeDxYjxtmq8XL4rhtKDGWYeLzXoUxAYU4JewIDAQABAoGBAJexnWKDdHDq+hlPIZwmKi/iFAVNFwUSyY8G1Hn63wxS/nnSoE2fyqA0caNA7U8T3r9upqfJQ6YaZS8YaIWMQHWHTa/4FQWkoAyLN+oByg4Wv4sBaWxY3zuzv4wqiPpXfL8VpFyn4uYNYoBRfXunfHUOWopq80jANfmGDa44WgsxAkEA1d/0Zm3ctkzjJenmz/Vl+vPUbFFh6xLw6mEgNqkcjzXJXNrb4K29q+Cq4UUNkD7wjmVASDrCufA3fujaRY3qXwJBAM/xCtXwNwHylOX9NB8caCmFsdWhTpuFAIAG253GqsiQwunKHnor12tNrNfP39xCcWGpPZJTNH8BDA193yt8rmUCQQC3+AVtmjDRKv/0m+crmMXZAKYHalWU9F0A7vzbp8nmMfj8g1HBSRGu5/l0/oX1Pv6DLfsGZm0brdK+uqMOU013AkEAhauszIRDyCO5pfLT25/2MaL5A5xTHNQt0x8VdGIujQnJ0mIUn3KpYxgmoQDHJh8sJZyWsQZ9u5rftZiRqrHWpQJBAJeo2xgRF2IwrF626mNnmtA32jGDE4aFpvVLR0gYiR/1Meu+8651Qqvdn4ppHgciwCjJ4urLAn4mDaZIEvp/EMo=";
         //将商品信息赋予AlixPayOrder的成员变量
         Order* order = [Order new];
         
         // NOTE: app_id设置
-        order.app_id = appID;
-        
-        // NOTE: 支付接口名称
-        order.method = @"alipay.trade.app.pay";
-        
-        // NOTE: 参数编码格式
-        order.charset = @"utf-8";
-        
-        // NOTE: 当前时间点
-        NSDateFormatter* formatter = [NSDateFormatter new];
-        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        order.timestamp = [formatter stringFromDate:[NSDate date]];
-        
-        // NOTE: 支付版本
-        order.version = @"1.0";
-        
-        // NOTE: sign_type设置
-        order.sign_type = @"RSA";
+        order.app_id = @"2017011805188573";
         
         // NOTE: 商品数据
         order.biz_content = [BizContent new];
@@ -99,30 +80,62 @@
         order.biz_content.timeout_express = @"30m"; //超时时间设置
         order.biz_content.total_amount = [NSString stringWithFormat:@"%.2f", 0.01]; //商品价格
         
+        // NOTE: 参数编码格式
+        order.charset = @"utf-8";
+        
+        // NOTE: 支付接口名称
+        order.method = @"alipay.trade.app.pay";
+        
+        // NOTE: 仅支持JSON
+        order.format = @"json";
+        
+        // NOTE: 支付宝服务器主动通知商户服务器里指定的页面http/https路径。建议商户使用https
+        order.notify_url = @"http://www.jydsapp.com";
+        
+        // NOTE: sign_type设置
+        order.sign_type = @"RSA2";
+        
+        // NOTE: 当前时间点
+        NSDateFormatter* formatter = [NSDateFormatter new];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        order.timestamp = [formatter stringFromDate:[NSDate date]];
+        
+        // NOTE: 支付版本
+        order.version = @"1.0";
+        
         //将商品信息拼接成字符串
         NSString *orderInfo = [order orderInfoEncoded:NO];
         NSString *orderInfoEncoded = [order orderInfoEncoded:YES];
-        NSLog(@"orderSpec = %@",orderInfo);
         
         // NOTE: 获取私钥并将商户信息签名，外部商户的加签过程请务必放在服务端，防止公私钥数据泄露；
         //       需要遵循RSA签名规范，并将签名字符串base64编码和UrlEncode
-        id<DataSigner> signer = CreateRSADataSigner(privateKey);
-        NSString *signedString = [signer signString:orderInfo];
+//        id<DataSigner> signer = CreateRSADataSigner(privateKey);
+//        NSString *signedString = [signer signString:orderInfo];
+        NSLog(@"加签前------------%@",orderInfo);
         
-        // NOTE: 如果加签成功，则继续执行支付
-        if (signedString != nil) {
-            //应用注册scheme,在AliSDKDemo-Info.plist定义URL types
-            NSString *appScheme = @"alisdkdemo";
-            
-            // NOTE: 将签名成功字符串格式化为订单字符串,请严格按照该格式
-            NSString *orderString = [NSString stringWithFormat:@"%@&sign=%@",
-                                     orderInfoEncoded, signedString];
-            
-            // NOTE: 调用支付结果开始支付
-            [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-                NSLog(@"reslut = %@",resultDic);
-            }];
-        }
+        [YHWebRequest YHWebRequestForPOST:@"http://www.zhongshuo.cn:8088/jyds/API/order_generateAPI" parameters:@{@"test":orderInfo} success:^(NSDictionary *json) {
+            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                // NOTE: 如果加签成功，则继续执行支付
+                if (json[@"sign"] != nil) {
+                    //应用注册scheme,在AliSDKDemo-Info.plist定义URL types
+                    NSString *appScheme = @"jydsapp";
+                    NSString *signedString = [json valueForKey:@"sign"];
+                    NSString *newSignedString =(__bridge_transfer  NSString*)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)signedString, NULL, (__bridge CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8);
+                    // NOTE: 将签名成功字符串格式化为订单字符串,请严格按照该格式
+                    NSString *orderString = [NSString stringWithFormat:@"%@&sign=%@",
+                                             orderInfoEncoded, newSignedString];
+                    NSLog(@"加签后------------%@",orderString);
+                    // NOTE: 调用支付结果开始支付
+                    [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+                        NSLog(@"reslut ======== %@",resultDic);
+                    }];
+                }else{
+                    [YHHud showWithMessage:@"交易失败"];
+                }
+            }else{
+                [YHHud showWithMessage:@"交易失败"];
+            }
+        }];
     }else{
     //微信支付
 

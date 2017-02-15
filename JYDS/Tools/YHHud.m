@@ -33,7 +33,7 @@ static YHHud * hud = nil;
     messageLabel.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     [hud addSubview:messageLabel];
     messageLabel.layer.masksToBounds = YES;
-    messageLabel.layer.cornerRadius = 8.0f;
+    messageLabel.layer.cornerRadius = 6.0f;
     //视图消失
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [hud removeFromSuperview];
@@ -78,7 +78,7 @@ static YHHud * hud = nil;
     customView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor colorWithRed:0 green:0 blue:0 alpha:0.5],[UIColor colorWithRed:19/255.0 green:34/255.0 blue:73/255.0 alpha:0.5],RED);
     [hud addSubview:customView];
     customView.layer.masksToBounds = YES;
-    customView.layer.cornerRadius=8.0f;
+    customView.layer.cornerRadius=6.0f;
     
     UIImageView *heartImageView = [[UIImageView alloc]initWithFrame:CGRectMake(customView.frame.size.width/2-20, 15,40, 40.0)];
     heartImageView.contentMode=1;

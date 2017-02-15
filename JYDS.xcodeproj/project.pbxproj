@@ -116,10 +116,16 @@
 		6019F2721E45AC3200E6E8A1 /* codeName.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6019F2711E45AC3200E6E8A1 /* codeName.plist */; };
 		605D2ED01E2DB97000A7E01B /* SuccessView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 605D2ECF1E2DB97000A7E01B /* SuccessView.xib */; };
 		605D2ED21E2DB9B200A7E01B /* FailedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 605D2ED11E2DB9B200A7E01B /* FailedView.xib */; };
+		606A94E41E51A89E00A0279D /* SecretsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94E31E51A89E00A0279D /* SecretsVC.m */; };
+		606A94F61E51A8CA00A0279D /* MnemonicsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94E81E51A8CA00A0279D /* MnemonicsVC.m */; };
+		606A94F71E51A8CA00A0279D /* Mnemonics.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94EB1E51A8CA00A0279D /* Mnemonics.m */; };
+		606A94F81E51A8CA00A0279D /* MnemonicsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94EE1E51A8CA00A0279D /* MnemonicsCell.m */; };
+		606A94F91E51A8CA00A0279D /* MnemonicsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 606A94EF1E51A8CA00A0279D /* MnemonicsCell.xib */; };
+		606A94FA1E51A8CA00A0279D /* MemoryCourseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94F21E51A8CA00A0279D /* MemoryCourseVC.m */; };
+		606A94FB1E51A8CA00A0279D /* BannerDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94F51E51A8CA00A0279D /* BannerDetailVC.m */; };
 		6078D1C41E1613180089D40F /* RememberWordItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0DC1E1613180089D40F /* RememberWordItemVC.m */; };
 		6078D1C51E1613180089D40F /* RememberWordSingleWordDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0DE1E1613180089D40F /* RememberWordSingleWordDetailVC.m */; };
 		6078D1C61E1613180089D40F /* RememberWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0E01E1613180089D40F /* RememberWordVC.m */; };
-		6078D1C71E1613180089D40F /* RememberWordVideoDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0E21E1613180089D40F /* RememberWordVideoDetailVC.m */; };
 		6078D1C81E1613180089D40F /* WordSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0E41E1613180089D40F /* WordSearchVC.m */; };
 		6078D1CA1E1613180089D40F /* RememberWordItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0E91E1613180089D40F /* RememberWordItemView.m */; };
 		6078D1CB1E1613180089D40F /* RememberWordItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6078D0EA1E1613180089D40F /* RememberWordItemView.xib */; };
@@ -127,9 +133,6 @@
 		6078D1CD1E1613180089D40F /* RememberWordSingleWordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6078D0ED1E1613180089D40F /* RememberWordSingleWordCell.xib */; };
 		6078D1CE1E1613180089D40F /* RememberWordVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0EF1E1613180089D40F /* RememberWordVideoCell.m */; };
 		6078D1CF1E1613180089D40F /* RememberWordVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6078D0F01E1613180089D40F /* RememberWordVideoCell.xib */; };
-		6078D1D31E1613180089D40F /* MnemonicsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0FA1E1613180089D40F /* MnemonicsVC.m */; };
-		6078D1D51E1613180089D40F /* MnemonicsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0FF1E1613180089D40F /* MnemonicsCell.m */; };
-		6078D1D61E1613180089D40F /* MnemonicsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6078D1001E1613180089D40F /* MnemonicsCell.xib */; };
 		6078D1EF1E1613180089D40F /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6078D1351E1613180089D40F /* AlipaySDK.bundle */; };
 		6078D1F01E1613180089D40F /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6078D1361E1613180089D40F /* AlipaySDK.framework */; };
 		6078D1F11E1613180089D40F /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6078D1371E1613180089D40F /* libcrypto.a */; };
@@ -168,10 +171,6 @@
 		609F05E11E161D1A009F4986 /* RegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F05DE1E161D1A009F4986 /* RegisterVC.m */; };
 		609F05E71E161DE5009F4986 /* CourseVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F05E41E161DE5009F4986 /* CourseVideo.m */; };
 		609F05E81E161DE5009F4986 /* Words.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F05E61E161DE5009F4986 /* Words.m */; };
-		609F05EF1E161EE3009F4986 /* Mnemonics.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F05EE1E161EE3009F4986 /* Mnemonics.m */; };
-		609F05F21E161EEA009F4986 /* BannerDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F05F11E161EEA009F4986 /* BannerDetailVC.m */; };
-		609F05F51E161EF4009F4986 /* MemoryCourseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F05F41E161EF4009F4986 /* MemoryCourseVC.m */; };
-		609F05F81E161F41009F4986 /* SubscribedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F05F71E161F41009F4986 /* SubscribedVC.m */; };
 		609F05FB1E161FA4009F4986 /* MineTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F05FA1E161FA4009F4986 /* MineTableVC.m */; };
 		609F060C1E16218B009F4986 /* PayDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F06071E16218B009F4986 /* PayDetailCell.m */; };
 		609F060D1E16218B009F4986 /* PayDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 609F06081E16218B009F4986 /* PayDetailCell.xib */; };
@@ -325,14 +324,25 @@
 		6019F2711E45AC3200E6E8A1 /* codeName.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = codeName.plist; path = "JYDS/我的/记忆法练习题/codeName.plist"; sourceTree = SOURCE_ROOT; };
 		605D2ECF1E2DB97000A7E01B /* SuccessView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuccessView.xib; sourceTree = "<group>"; };
 		605D2ED11E2DB9B200A7E01B /* FailedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FailedView.xib; sourceTree = "<group>"; };
+		606A94E21E51A89E00A0279D /* SecretsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecretsVC.h; sourceTree = "<group>"; };
+		606A94E31E51A89E00A0279D /* SecretsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecretsVC.m; sourceTree = "<group>"; };
+		606A94E71E51A8CA00A0279D /* MnemonicsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnemonicsVC.h; sourceTree = "<group>"; };
+		606A94E81E51A8CA00A0279D /* MnemonicsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MnemonicsVC.m; sourceTree = "<group>"; };
+		606A94EA1E51A8CA00A0279D /* Mnemonics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mnemonics.h; sourceTree = "<group>"; };
+		606A94EB1E51A8CA00A0279D /* Mnemonics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mnemonics.m; sourceTree = "<group>"; };
+		606A94ED1E51A8CA00A0279D /* MnemonicsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnemonicsCell.h; sourceTree = "<group>"; };
+		606A94EE1E51A8CA00A0279D /* MnemonicsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MnemonicsCell.m; sourceTree = "<group>"; };
+		606A94EF1E51A8CA00A0279D /* MnemonicsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MnemonicsCell.xib; sourceTree = "<group>"; };
+		606A94F11E51A8CA00A0279D /* MemoryCourseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryCourseVC.h; sourceTree = "<group>"; };
+		606A94F21E51A8CA00A0279D /* MemoryCourseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryCourseVC.m; sourceTree = "<group>"; };
+		606A94F41E51A8CA00A0279D /* BannerDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerDetailVC.h; sourceTree = "<group>"; };
+		606A94F51E51A8CA00A0279D /* BannerDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerDetailVC.m; sourceTree = "<group>"; };
 		6078D0DB1E1613180089D40F /* RememberWordItemVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordItemVC.h; sourceTree = "<group>"; };
 		6078D0DC1E1613180089D40F /* RememberWordItemVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordItemVC.m; sourceTree = "<group>"; };
 		6078D0DD1E1613180089D40F /* RememberWordSingleWordDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordSingleWordDetailVC.h; sourceTree = "<group>"; };
 		6078D0DE1E1613180089D40F /* RememberWordSingleWordDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordSingleWordDetailVC.m; sourceTree = "<group>"; };
 		6078D0DF1E1613180089D40F /* RememberWordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordVC.h; sourceTree = "<group>"; };
 		6078D0E01E1613180089D40F /* RememberWordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordVC.m; sourceTree = "<group>"; };
-		6078D0E11E1613180089D40F /* RememberWordVideoDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordVideoDetailVC.h; sourceTree = "<group>"; };
-		6078D0E21E1613180089D40F /* RememberWordVideoDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordVideoDetailVC.m; sourceTree = "<group>"; };
 		6078D0E31E1613180089D40F /* WordSearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordSearchVC.h; sourceTree = "<group>"; };
 		6078D0E41E1613180089D40F /* WordSearchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordSearchVC.m; sourceTree = "<group>"; };
 		6078D0E81E1613180089D40F /* RememberWordItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordItemView.h; sourceTree = "<group>"; };
@@ -344,11 +354,6 @@
 		6078D0EE1E1613180089D40F /* RememberWordVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordVideoCell.h; sourceTree = "<group>"; };
 		6078D0EF1E1613180089D40F /* RememberWordVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordVideoCell.m; sourceTree = "<group>"; };
 		6078D0F01E1613180089D40F /* RememberWordVideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RememberWordVideoCell.xib; sourceTree = "<group>"; };
-		6078D0F91E1613180089D40F /* MnemonicsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnemonicsVC.h; sourceTree = "<group>"; };
-		6078D0FA1E1613180089D40F /* MnemonicsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MnemonicsVC.m; sourceTree = "<group>"; };
-		6078D0FE1E1613180089D40F /* MnemonicsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnemonicsCell.h; sourceTree = "<group>"; };
-		6078D0FF1E1613180089D40F /* MnemonicsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MnemonicsCell.m; sourceTree = "<group>"; };
-		6078D1001E1613180089D40F /* MnemonicsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MnemonicsCell.xib; sourceTree = "<group>"; };
 		6078D1351E1613180089D40F /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		6078D1361E1613180089D40F /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		6078D1371E1613180089D40F /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
@@ -496,14 +501,6 @@
 		609F05E41E161DE5009F4986 /* CourseVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseVideo.m; sourceTree = "<group>"; };
 		609F05E51E161DE5009F4986 /* Words.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Words.h; sourceTree = "<group>"; };
 		609F05E61E161DE5009F4986 /* Words.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Words.m; sourceTree = "<group>"; };
-		609F05ED1E161EE3009F4986 /* Mnemonics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mnemonics.h; sourceTree = "<group>"; };
-		609F05EE1E161EE3009F4986 /* Mnemonics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mnemonics.m; sourceTree = "<group>"; };
-		609F05F01E161EEA009F4986 /* BannerDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerDetailVC.h; sourceTree = "<group>"; };
-		609F05F11E161EEA009F4986 /* BannerDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerDetailVC.m; sourceTree = "<group>"; };
-		609F05F31E161EF4009F4986 /* MemoryCourseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryCourseVC.h; sourceTree = "<group>"; };
-		609F05F41E161EF4009F4986 /* MemoryCourseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryCourseVC.m; sourceTree = "<group>"; };
-		609F05F61E161F41009F4986 /* SubscribedVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscribedVC.h; sourceTree = "<group>"; };
-		609F05F71E161F41009F4986 /* SubscribedVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscribedVC.m; sourceTree = "<group>"; };
 		609F05F91E161FA4009F4986 /* MineTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTableVC.h; sourceTree = "<group>"; };
 		609F05FA1E161FA4009F4986 /* MineTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTableVC.m; sourceTree = "<group>"; };
 		609F06061E16218B009F4986 /* PayDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayDetailCell.h; sourceTree = "<group>"; };
@@ -720,6 +717,75 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		606A94E11E51A89E00A0279D /* 秘笈 */ = {
+			isa = PBXGroup;
+			children = (
+				606A94E21E51A89E00A0279D /* SecretsVC.h */,
+				606A94E31E51A89E00A0279D /* SecretsVC.m */,
+			);
+			name = "秘笈";
+			path = "JYDS/秘笈";
+			sourceTree = SOURCE_ROOT;
+		};
+		606A94E51E51A8CA00A0279D /* 首页 */ = {
+			isa = PBXGroup;
+			children = (
+				606A94E61E51A8CA00A0279D /* controller */,
+				606A94E91E51A8CA00A0279D /* model */,
+				606A94EC1E51A8CA00A0279D /* view */,
+				606A94F01E51A8CA00A0279D /* 记忆法课程详情 */,
+				606A94F31E51A8CA00A0279D /* 轮播图详情 */,
+			);
+			name = "首页";
+			path = "JYDS/首页";
+			sourceTree = SOURCE_ROOT;
+		};
+		606A94E61E51A8CA00A0279D /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				606A94E71E51A8CA00A0279D /* MnemonicsVC.h */,
+				606A94E81E51A8CA00A0279D /* MnemonicsVC.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		606A94E91E51A8CA00A0279D /* model */ = {
+			isa = PBXGroup;
+			children = (
+				606A94EA1E51A8CA00A0279D /* Mnemonics.h */,
+				606A94EB1E51A8CA00A0279D /* Mnemonics.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		606A94EC1E51A8CA00A0279D /* view */ = {
+			isa = PBXGroup;
+			children = (
+				606A94ED1E51A8CA00A0279D /* MnemonicsCell.h */,
+				606A94EE1E51A8CA00A0279D /* MnemonicsCell.m */,
+				606A94EF1E51A8CA00A0279D /* MnemonicsCell.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		606A94F01E51A8CA00A0279D /* 记忆法课程详情 */ = {
+			isa = PBXGroup;
+			children = (
+				606A94F11E51A8CA00A0279D /* MemoryCourseVC.h */,
+				606A94F21E51A8CA00A0279D /* MemoryCourseVC.m */,
+			);
+			path = "记忆法课程详情";
+			sourceTree = "<group>";
+		};
+		606A94F31E51A8CA00A0279D /* 轮播图详情 */ = {
+			isa = PBXGroup;
+			children = (
+				606A94F41E51A8CA00A0279D /* BannerDetailVC.h */,
+				606A94F51E51A8CA00A0279D /* BannerDetailVC.m */,
+			);
+			path = "轮播图详情";
+			sourceTree = "<group>";
+		};
 		6078D0D11E1613180089D40F /* 登陆 */ = {
 			isa = PBXGroup;
 			children = (
@@ -740,6 +806,7 @@
 			isa = PBXGroup;
 			children = (
 				609F05E21E161DD2009F4986 /* model */,
+				6078D0D11E1613180089D40F /* 登陆 */,
 				6078D0E71E1613180089D40F /* view */,
 				6078D0DA1E1613180089D40F /* controller */,
 			);
@@ -756,8 +823,6 @@
 				6078D0E41E1613180089D40F /* WordSearchVC.m */,
 				6078D0DB1E1613180089D40F /* RememberWordItemVC.h */,
 				6078D0DC1E1613180089D40F /* RememberWordItemVC.m */,
-				6078D0E11E1613180089D40F /* RememberWordVideoDetailVC.h */,
-				6078D0E21E1613180089D40F /* RememberWordVideoDetailVC.m */,
 				6078D0DD1E1613180089D40F /* RememberWordSingleWordDetailVC.h */,
 				6078D0DE1E1613180089D40F /* RememberWordSingleWordDetailVC.m */,
 			);
@@ -780,38 +845,6 @@
 			path = view;
 			sourceTree = "<group>";
 		};
-		6078D0F31E1613180089D40F /* 记忆法 */ = {
-			isa = PBXGroup;
-			children = (
-				609F05EC1E161EAD009F4986 /* model */,
-				6078D0FD1E1613180089D40F /* view */,
-				6078D0F61E1613180089D40F /* controller */,
-				609F05E91E161E85009F4986 /* 轮播图详情 */,
-				609F05EA1E161E85009F4986 /* 记忆法课程详情 */,
-			);
-			name = "记忆法";
-			path = "JYDS/记忆法";
-			sourceTree = SOURCE_ROOT;
-		};
-		6078D0F61E1613180089D40F /* controller */ = {
-			isa = PBXGroup;
-			children = (
-				6078D0F91E1613180089D40F /* MnemonicsVC.h */,
-				6078D0FA1E1613180089D40F /* MnemonicsVC.m */,
-			);
-			path = controller;
-			sourceTree = "<group>";
-		};
-		6078D0FD1E1613180089D40F /* view */ = {
-			isa = PBXGroup;
-			children = (
-				6078D0FE1E1613180089D40F /* MnemonicsCell.h */,
-				6078D0FF1E1613180089D40F /* MnemonicsCell.m */,
-				6078D1001E1613180089D40F /* MnemonicsCell.xib */,
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
 		6078D1011E1613180089D40F /* 我的 */ = {
 			isa = PBXGroup;
 			children = (
@@ -828,16 +861,6 @@
 			);
 			name = "我的";
 			path = "JYDS/我的";
-			sourceTree = SOURCE_ROOT;
-		};
-		6078D1301E1613180089D40F /* 已订阅 */ = {
-			isa = PBXGroup;
-			children = (
-				609F05F61E161F41009F4986 /* SubscribedVC.h */,
-				609F05F71E161F41009F4986 /* SubscribedVC.m */,
-			);
-			name = "已订阅";
-			path = "JYDS/已订阅";
 			sourceTree = SOURCE_ROOT;
 		};
 		6078D1341E1613180089D40F /* Alipay */ = {
@@ -1039,33 +1062,6 @@
 			path = model;
 			sourceTree = "<group>";
 		};
-		609F05E91E161E85009F4986 /* 轮播图详情 */ = {
-			isa = PBXGroup;
-			children = (
-				609F05F01E161EEA009F4986 /* BannerDetailVC.h */,
-				609F05F11E161EEA009F4986 /* BannerDetailVC.m */,
-			);
-			path = "轮播图详情";
-			sourceTree = "<group>";
-		};
-		609F05EA1E161E85009F4986 /* 记忆法课程详情 */ = {
-			isa = PBXGroup;
-			children = (
-				609F05F31E161EF4009F4986 /* MemoryCourseVC.h */,
-				609F05F41E161EF4009F4986 /* MemoryCourseVC.m */,
-			);
-			path = "记忆法课程详情";
-			sourceTree = "<group>";
-		};
-		609F05EC1E161EAD009F4986 /* model */ = {
-			isa = PBXGroup;
-			children = (
-				609F05ED1E161EE3009F4986 /* Mnemonics.h */,
-				609F05EE1E161EE3009F4986 /* Mnemonics.m */,
-			);
-			path = model;
-			sourceTree = "<group>";
-		};
 		609F05FC1E162057009F4986 /* 更改资料 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1208,10 +1204,9 @@
 				6078D1AC1E1613180089D40F /* Root */,
 				6078D19A1E1613180089D40F /* Base */,
 				6078D20F1E161AC60089D40F /* Tools */,
-				6078D0D11E1613180089D40F /* 登陆 */,
-				6078D0F31E1613180089D40F /* 记忆法 */,
+				606A94E51E51A8CA00A0279D /* 首页 */,
 				6078D0D91E1613180089D40F /* 记单词 */,
-				6078D1301E1613180089D40F /* 已订阅 */,
+				606A94E11E51A89E00A0279D /* 秘笈 */,
 				6078D1011E1613180089D40F /* 我的 */,
 				6078D1341E1613180089D40F /* Alipay */,
 				6078D1A11E1613180089D40F /* Base.lproj */,
@@ -1387,6 +1382,7 @@
 				60190AD81E2A07C0009C9450 /* 41.png in Resources */,
 				60190B111E2A07C0009C9450 /* 98.png in Resources */,
 				60190AC71E2A07C0009C9450 /* 24.png in Resources */,
+				606A94F91E51A8CA00A0279D /* MnemonicsCell.xib in Resources */,
 				60190ADA1E2A07C0009C9450 /* 43.png in Resources */,
 				60190AC91E2A07C0009C9450 /* 26.png in Resources */,
 				60190ACA1E2A07C0009C9450 /* 27.png in Resources */,
@@ -1411,7 +1407,6 @@
 				609F060D1E16218B009F4986 /* PayDetailCell.xib in Resources */,
 				60190ADB1E2A07C0009C9450 /* 44.png in Resources */,
 				60190AF21E2A07C0009C9450 /* 67.png in Resources */,
-				6078D1D61E1613180089D40F /* MnemonicsCell.xib in Resources */,
 				60190AFB1E2A07C0009C9450 /* 76.png in Resources */,
 				60190ACB1E2A07C0009C9450 /* 28.png in Resources */,
 				60190B041E2A07C0009C9450 /* 85.png in Resources */,
@@ -1486,6 +1481,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				606A94FA1E51A8CA00A0279D /* MemoryCourseVC.m in Sources */,
 				6078D2081E1613180089D40F /* RootTabBarController.m in Sources */,
 				609F06291E1621BD009F4986 /* UpdateNickNameVC.m in Sources */,
 				6078D1C61E1613180089D40F /* RememberWordVC.m in Sources */,
@@ -1493,18 +1489,17 @@
 				609F05E11E161D1A009F4986 /* RegisterVC.m in Sources */,
 				6078D2241E161AF20089D40F /* YHHud.m in Sources */,
 				609F06261E1621BD009F4986 /* BindingNewPhoneVC.m in Sources */,
-				609F05F81E161F41009F4986 /* SubscribedVC.m in Sources */,
 				6078D1FE1E1613180089D40F /* BaseViewController.m in Sources */,
-				609F05EF1E161EE3009F4986 /* Mnemonics.m in Sources */,
 				6078D1FF1E1613180089D40F /* BaseWKWebView.m in Sources */,
 				6078D1F71E1613180089D40F /* MD5DataSigner.m in Sources */,
 				6078D2071E1613180089D40F /* LoginNC.m in Sources */,
 				609F060E1E16218B009F4986 /* PaymentCell.m in Sources */,
+				606A94E41E51A89E00A0279D /* SecretsVC.m in Sources */,
 				6078D2261E161AF20089D40F /* YHWebRequest.m in Sources */,
 				6078D1F31E1613180089D40F /* Order.m in Sources */,
 				6078D1C41E1613180089D40F /* RememberWordItemVC.m in Sources */,
+				606A94FB1E51A8CA00A0279D /* BannerDetailVC.m in Sources */,
 				609F06271E1621BD009F4986 /* UpdateHeadImageVC.m in Sources */,
-				6078D1D51E1613180089D40F /* MnemonicsCell.m in Sources */,
 				6078D1CC1E1613180089D40F /* RememberWordSingleWordCell.m in Sources */,
 				6078D2231E161AF20089D40F /* YHDataSource.m in Sources */,
 				609F061A1E162190009F4986 /* PaymentVC.m in Sources */,
@@ -1520,6 +1515,7 @@
 				6078D1CE1E1613180089D40F /* RememberWordVideoCell.m in Sources */,
 				609F06191E162190009F4986 /* PayDetailVC.m in Sources */,
 				6078D1FD1E1613180089D40F /* BaseTableView.m in Sources */,
+				606A94F81E51A8CA00A0279D /* MnemonicsCell.m in Sources */,
 				60190B161E2A0969009C9450 /* LevelView.m in Sources */,
 				609F06181E162190009F4986 /* CostDetailVC.m in Sources */,
 				6078D1F41E1613180089D40F /* base64.m in Sources */,
@@ -1532,13 +1528,12 @@
 				60190B221E2A0A9A009C9450 /* FailedView.m in Sources */,
 				609F06331E1621D1009F4986 /* NotificationVC.m in Sources */,
 				6078D2091E1613180089D40F /* UserGuideViewController.m in Sources */,
-				6078D1D31E1613180089D40F /* MnemonicsVC.m in Sources */,
 				6078D2031E1613180089D40F /* main.m in Sources */,
 				609F06301E1621CB009F4986 /* inviteFriendsVC.m in Sources */,
 				609F05DF1E161D1A009F4986 /* ForgetPwdVC.m in Sources */,
 				609F063C1E1621D9009F4986 /* AboutUsVC.m in Sources */,
+				606A94F61E51A8CA00A0279D /* MnemonicsVC.m in Sources */,
 				609F06281E1621BD009F4986 /* UpdateInfoTableVC.m in Sources */,
-				609F05F51E161EF4009F4986 /* MemoryCourseVC.m in Sources */,
 				60190B191E2A09B3009C9450 /* ExerciseView.m in Sources */,
 				609F063D1E1621D9009F4986 /* IntroduceVC.m in Sources */,
 				6085D4C81E1C85DC00C4CDDC /* UserInfo.m in Sources */,
@@ -1549,15 +1544,14 @@
 				609F05E81E161DE5009F4986 /* Words.m in Sources */,
 				609F05FB1E161FA4009F4986 /* MineTableVC.m in Sources */,
 				6078D1F91E1613180089D40F /* openssl_wrapper.m in Sources */,
-				6078D1C71E1613180089D40F /* RememberWordVideoDetailVC.m in Sources */,
 				6078D2201E161AF20089D40F /* MJChiBaoZiFooter.m in Sources */,
 				609F062A1E1621BD009F4986 /* UpdatePwdVC.m in Sources */,
 				609F05E71E161DE5009F4986 /* CourseVideo.m in Sources */,
 				609F061B1E162190009F4986 /* PayVC.m in Sources */,
 				6078D1C51E1613180089D40F /* RememberWordSingleWordDetailVC.m in Sources */,
-				609F05F21E161EEA009F4986 /* BannerDetailVC.m in Sources */,
 				6078D1F61E1613180089D40F /* DataVerifier.m in Sources */,
 				60E5D43D1E35EF31006D6834 /* CodeListVC.m in Sources */,
+				606A94F71E51A8CA00A0279D /* Mnemonics.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

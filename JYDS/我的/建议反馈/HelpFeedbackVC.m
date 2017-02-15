@@ -28,7 +28,7 @@
     _textView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
     _textView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     _textView.layer.masksToBounds = YES;
-    _textView.layer.cornerRadius = 8.0f;
+    _textView.layer.cornerRadius = 6.0f;
     [self.view addSubview:_textView];
     [self addPromptContent];
 }
