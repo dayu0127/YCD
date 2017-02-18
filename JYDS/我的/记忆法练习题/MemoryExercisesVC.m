@@ -13,12 +13,12 @@
 #import "FailedView.h"
 #import "PayVC.h"
 
-@interface MemoryExercisesVC ()<YHAlertViewDelegate,LevelViewDelegate,ExerciseViewDelegate,SuccessViewDelegate,FailedViewDelegate,ResultViewDelegate>
+@interface MemoryExercisesVC ()</*YHAlertViewDelegate,*/LevelViewDelegate,ExerciseViewDelegate,SuccessViewDelegate,FailedViewDelegate,ResultViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *beginButton;
-@property (strong,nonatomic) JCAlertView *alertView;
+//@property (strong,nonatomic) JCAlertView *alertView;
 @property (strong,nonatomic) LevelView *levelView;
 @property (strong,nonatomic) NSMutableArray *errorNumArray;
 @property (strong,nonatomic) ExerciseView *exerciseView;
@@ -40,17 +40,25 @@
     _beginButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
     _errorNumArray = [NSMutableArray array];
     _exerciseNum = 1;
-    [YHWebRequest YHWebRequestForPOST:GAME parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
-        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-            if ([json[@"payType"] integerValue] == 1) {
-                [self initLevelView];
-            }
-        }else if([json[@"code"] isEqualToString:@"ERROR"]){
-            [YHHud showWithMessage:@"服务器错误"];
-        }else{
-            [YHHud showWithMessage:@"数据异常"];
-        }
-    }];
+//    [YHWebRequest YHWebRequestForPOST:GAME parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
+//        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//            if ([json[@"payType"] integerValue] == 1) {
+//                [self initLevelView];
+//            }
+//        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//            [YHHud showWithMessage:@"服务器错误"];
+//        }else{
+//            [YHHud showWithMessage:@"数据异常"];
+//        }
+//    }];
+}
+#pragma mark 开始练习
+- (IBAction)beginButtonClick:(UIButton *)sender {
+//    YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 250, 155) title:@"确认练习" message:@"每次练习需要消耗10个学习豆"];
+//    alertView.delegate = self;
+//    _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
+//    [_alertView show];
+    [self initLevelView];
 }
 - (void)initLevelView{
     CGFloat y = CGRectGetMaxY(_imageView.frame)+15;
@@ -58,41 +66,34 @@
     _levelView.delegate = self;
     [self.view addSubview:_levelView];
 }
-#pragma mark 开始练习
-- (IBAction)beginButtonClick:(UIButton *)sender {
-    YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 250, 155) title:@"确认练习" message:@"每次练习需要消耗10个学习豆"];
-    alertView.delegate = self;
-    _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
-    [_alertView show];
-}
 #pragma mark 确认订阅
-- (void)buttonClickIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 1) {
-        if (20>[[YHSingleton shareSingleton].userInfo.studyBean integerValue]) {
-            [YHHud showWithMessage:@"您的学习豆不足，请充值"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-                PayVC *payVC = [sb instantiateViewControllerWithIdentifier:@"pay"];
-                payVC.isHiddenNav = NO;
-                [self.navigationController pushViewController:payVC animated:YES];
-            });
-        }else{
-            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"payStudyBean":@"20",@"type":@"game"};
-            [YHWebRequest YHWebRequestForPOST:SUBALL parameters:dic success:^(NSDictionary *json) {
-                if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBean" object:nil];
-                    [YHHud showWithSuccess:@"订阅成功"];
-                    [self initLevelView];
-                }else if([json[@"code"] isEqualToString:@"ERROR"]){
-                    [YHHud showWithMessage:@"服务器错误"];
-                }else{
-                    [YHHud showWithMessage:@"订阅失败"];
-                }
-            }];
-        }
-    }
-    [_alertView dismissWithCompletion:nil];
-}
+//- (void)buttonClickIndex:(NSInteger)buttonIndex{
+//    if (buttonIndex == 1) {
+//        if (20>[[YHSingleton shareSingleton].userInfo.studyBean integerValue]) {
+//            [YHHud showWithMessage:@"您的学习豆不足，请充值"];
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+//                PayVC *payVC = [sb instantiateViewControllerWithIdentifier:@"pay"];
+//                payVC.isHiddenNav = NO;
+//                [self.navigationController pushViewController:payVC animated:YES];
+//            });
+//        }else{
+//            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"payStudyBean":@"20",@"type":@"game"};
+//            [YHWebRequest YHWebRequestForPOST:SUBALL parameters:dic success:^(NSDictionary *json) {
+//                if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBean" object:nil];
+//                    [YHHud showWithSuccess:@"订阅成功"];
+//                    [self initLevelView];
+//                }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//                    [YHHud showWithMessage:@"服务器错误"];
+//                }else{
+//                    [YHHud showWithMessage:@"订阅失败"];
+//                }
+//            }];
+//        }
+//    }
+//    [_alertView dismissWithCompletion:nil];
+//}
 #pragma mark 选择等级
 - (void)levelButtonClick:(NSInteger)buttonIndex{
     _currentLevel = buttonIndex;
@@ -152,5 +153,4 @@
     _exerciseView.delegate = self;
     [self.view addSubview:_exerciseView];
 }
-
 @end

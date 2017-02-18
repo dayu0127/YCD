@@ -12,13 +12,11 @@
 @interface MineTableVC ()
 
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *phoneNumLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *titileCollectionLabel;
 @property (strong, nonatomic) IBOutletCollection(UITableViewCell) NSArray *tableViewCellCollection;
 @property (weak, nonatomic) IBOutlet UILabel *studyBean;
 @property (weak, nonatomic) IBOutlet UILabel *costStudyBean;
-@property (weak, nonatomic) IBOutlet UILabel *studyCodeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *payButton;
 
 @end
@@ -47,7 +45,7 @@
     [self userConfiguration];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeadImage:) name:@"updateHeadImage" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNickName:) name:@"updateNickName" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePhoneNum:) name:@"updatePhoneNum" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePhoneNum:) name:@"updatePhoneNum" object:nil];
 }
 - (void)nightModeConfiguration{
     self.tableView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
@@ -61,16 +59,14 @@
         item.selectedBackgroundView = [[UIView alloc]initWithFrame:item.frame];
         item.selectedBackgroundView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_SELT,N_CELL_SELT,RED);
     }
-    _studyCodeLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor whiteColor],RED);
     _payButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
 }
 - (void)userConfiguration{
     [_headImageView sd_setImageWithURL:[NSURL URLWithString:[YHSingleton shareSingleton].userInfo.headImageUrl] placeholderImage:[UIImage imageNamed:@"headImage"]];
     _nickNameLabel.text = [YHSingleton shareSingleton].userInfo.nickName;
-    _phoneNumLabel.text = [YHSingleton shareSingleton].userInfo.userName;
+//    _phoneNumLabel.text = [YHSingleton shareSingleton].userInfo.userName;
     _studyBean.text = [YHSingleton shareSingleton].userInfo.studyBean;
     _costStudyBean.text = [YHSingleton shareSingleton].userInfo.costStudyBean;
-    _studyCodeLabel.text = [NSString stringWithFormat:@"互学码:%@",[YHSingleton shareSingleton].userInfo.studyCode];
 }
 #pragma mark - Table view data source
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -87,8 +83,8 @@
     NSString *str = sender.userInfo[@"nickName"];
     _nickNameLabel.text = str;
 }
-- (void)updatePhoneNum:(NSNotification *)sender{
-    NSString *str = sender.userInfo[@"phoneNum"];
-    _phoneNumLabel.text = str;
-}
+//- (void)updatePhoneNum:(NSNotification *)sender{
+//    NSString *str = sender.userInfo[@"phoneNum"];
+//    _phoneNumLabel.text = str;
+//}
 @end

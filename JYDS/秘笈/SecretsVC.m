@@ -196,15 +196,14 @@
 #pragma mark 发送给好友
 - (void)sendToFriendClick{
     __weak typeof(self) weakSelf = self;
+    //设置面板样式
+    [UMSocialShareUIConfig shareInstance].shareTitleViewConfig.isShow = NO;
+    [UMSocialShareUIConfig shareInstance].shareCancelControlConfig.shareCancelControlText = @"取消";
+    //预定义平台
+    [UMSocialUIManager setPreDefinePlatforms:@[@(UMSocialPlatformType_WechatSession),@(UMSocialPlatformType_QQ)]];
     //显示分享面板
     [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
-        if (platformType == UMSocialPlatformType_Sina) {
-            [weakSelf shareTextToPlatformType:UMSocialPlatformType_Sina];
-        }else if (platformType == UMSocialPlatformType_QQ){
-            [weakSelf shareTextToPlatformType:UMSocialPlatformType_QQ];
-        }else if (platformType == UMSocialPlatformType_Qzone){
-            [weakSelf shareTextToPlatformType:UMSocialPlatformType_Qzone];
-        }
+        [weakSelf shareTextToPlatformType:platformType];
     }];
 }
 - (NSArray *)tableViewArray{

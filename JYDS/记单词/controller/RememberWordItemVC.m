@@ -24,6 +24,7 @@
 @property (strong,nonatomic) NSArray <NSIndexPath *> *indexPathArray;
 @property (assign,nonatomic) NSInteger allWordPrice;
 @property (assign,nonatomic) NSInteger buyStyle;//0--单个订阅 1--全部订阅
+@property (assign,nonatomic) BOOL isHiddenNav;
 
 @end
 @implementation RememberWordItemVC
@@ -121,6 +122,7 @@
         _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
         [_alertView show];
     }else{
+        _isHiddenNav = NO;
         RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
         wordDetailVC.hidesBottomBarWhenPushed = YES;
         wordDetailVC.word = [Words yy_modelWithJSON:self.wordArray[indexPath.section][@"wordData"][indexPath.row]];
@@ -144,13 +146,7 @@
             //用户学习豆不够，跳转到充值页面
             NSInteger studyBean = [[YHSingleton shareSingleton].userInfo.studyBean integerValue];
             if (studyBean < [_wordPrice integerValue]) {
-                [YHHud showWithMessage:@"您的学习豆不足，请充值"];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-                    PayVC *payVC = [sb instantiateViewControllerWithIdentifier:@"pay"];
-                    payVC.isHiddenNav = YES;
-                    [self.navigationController pushViewController:payVC animated:YES];
-                });
+                [self pushPayVC];
             }else{
                 NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"productID":_wordID,@"type":@"word",@"money":_wordPrice};
                 [YHWebRequest YHWebRequestForPOST:SUB parameters:dic success:^(NSDictionary *json) {
@@ -234,10 +230,17 @@
 - (void)pushPayVC{
     [YHHud showWithMessage:@"您的学习豆不足，请充值"];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        _isHiddenNav = YES;
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         PayVC *payVC = [sb instantiateViewControllerWithIdentifier:@"pay"];
         payVC.isHiddenNav = YES;
         [self.navigationController pushViewController:payVC animated:YES];
     });
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    if (_isHiddenNav == YES) {
+        self.navigationController.navigationBar.hidden = NO;
+    }
 }
 @end
