@@ -14,6 +14,9 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    [self nightModeConfiguration];
+}
+- (void)nightModeConfiguration{
     self.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     _videoName.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _detailLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor groupTableViewBackgroundColor],RED);

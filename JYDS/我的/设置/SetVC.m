@@ -10,6 +10,7 @@
 #import "LoginNC.h"
 #import "AppDelegate.h"
 #import "LoginVC.h"
+#import <UIImageView+WebCache.h>
 
 @interface SetVC ()<UITableViewDelegate,UITableViewDataSource,YHAlertViewDelegate>
 
@@ -59,9 +60,21 @@
         [cell.contentView addSubview:sw];
     }else{
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
+        cell.selectedBackgroundView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_SELT,N_CELL_SELT,RED);
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == 1) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [YHHud showWithStatus:@"正在清除"];
+        [[SDImageCache sharedImageCache] clearDisk];
+        [[SDImageCache sharedImageCache] clearMemory];//可有可无
+        [YHHud dismiss];
+        [YHHud showWithSuccess:@"清除成功"];
+    }
 }
 - (void)openNight:(UISwitch *)sender{
     if (sender.on == YES) {
@@ -94,6 +107,12 @@
                 [app.window setRootViewController:loginVC];
                 [app.window makeKeyWindow];
                 [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
+            }else if([json[@"code"] isEqualToString:@"TYPEERR"]){
+                [YHHud showWithMessage:@"该账号未登录"];
+            }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                [YHHud showWithMessage:@"服务器错误"];
+            }else{
+                [YHHud showWithMessage:@"退出登录失败"];
             }
         }];
     }

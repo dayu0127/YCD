@@ -10,6 +10,4 @@
 @interface BaseTableView : UITableView
 @property (copy,nonatomic) void(^refreshData)();
 @property (copy,nonatomic) void(^loadMoreData)();
-//- (void)endRefresh;
-//@property (strong,nonatomic) NSMutableArray *data;
 @end

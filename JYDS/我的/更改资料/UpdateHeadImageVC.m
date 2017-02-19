@@ -11,6 +11,7 @@
 #import <AVFoundation/AVMediaFormat.h>
 #import<AssetsLibrary/AssetsLibrary.h>
 #import<CoreLocation/CoreLocation.h>
+#import <UIImageView+WebCache.h>
 
 @interface UpdateHeadImageVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -26,14 +27,7 @@
     [super viewDidLoad];
     _photoSelectButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     _photographButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BTN_BG1,N_CELL_BG,RED);
-    //从沙盒中获取头像图片
-    NSString *path_sandox = NSHomeDirectory();
-    NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/headImage.png"];
-    if([[NSFileManager defaultManager] fileExistsAtPath:imagePath]){
-        NSData *picData = [NSData dataWithContentsOfFile:imagePath];
-        _headImageView.image = [UIImage imageWithData:picData];
-        _oldImage = [UIImage imageWithData:picData];
-    }
+    [_headImageView sd_setImageWithURL:[NSURL URLWithString:[YHSingleton shareSingleton].userInfo.headImageUrl] placeholderImage:[UIImage imageNamed:@"headImage"]];
 }
 - (IBAction)finishButtonClick:(UIBarButtonItem *)sender {
     if (![UIImagePNGRepresentation(_oldImage) isEqual:UIImagePNGRepresentation(_headImageView.image)]) {
@@ -56,13 +50,15 @@
                 //通知我的VC更新头像图片
                 NSDictionary *dic = [NSDictionary dictionaryWithObject:_headImageView.image forKey:@"headImage"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadImage" object:nil userInfo:dic];
+                [YHSingleton shareSingleton].userInfo.headImageUrl = json[@"url"];
+                [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
                 [YHHud showWithSuccess:@"修改成功"];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.navigationController popViewControllerAnimated:YES];
                 });
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"上传失败,%@",error);
+            [YHHud showWithMessage:@"上传失败"];
         }];
     }
     [self.navigationController popViewControllerAnimated:YES];

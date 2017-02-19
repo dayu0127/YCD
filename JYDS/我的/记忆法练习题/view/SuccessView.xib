@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SuccessView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="恭喜您" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dSk-EI-f9L">
+                    <rect key="frame" x="162" y="100" width="52" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="通过了练习" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="riy-fQ-hwZ">
+                    <rect key="frame" x="144" y="121" width="87" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="exer_success" translatesAutoresizingMaskIntoConstraints="NO" id="pNg-qn-uhe">
+                    <rect key="frame" x="124" y="164" width="127" height="127"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="127" id="9JI-V2-ZSP"/>
+                        <constraint firstAttribute="width" constant="127" id="Edr-vF-iKp"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="是否继续挑战其他等级" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KbY-bM-fs7">
+                    <rect key="frame" x="101" y="321" width="174" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e5Y-tA-Coc">
+                    <rect key="frame" x="87" y="556" width="200" height="38"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="8IV-4E-puQ"/>
+                        <constraint firstAttribute="height" constant="38" id="fGj-fS-TDB"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <state key="normal" title="返回">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="backClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="ady-YJ-MI0"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UwN-Gg-snP">
+                    <rect key="frame" x="88" y="504" width="200" height="38"/>
+                    <color key="backgroundColor" red="0.40000000000000002" green="0.59999999999999998" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="38" id="5cI-Rz-4hP"/>
+                        <constraint firstAttribute="width" constant="200" id="TRD-4E-Dq5"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <state key="normal" title="继续">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="continueClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="i8V-LY-8mn"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="riy-fQ-hwZ" firstAttribute="top" secondItem="dSk-EI-f9L" secondAttribute="bottom" id="1aU-Hx-9BL"/>
+                <constraint firstItem="pNg-qn-uhe" firstAttribute="top" secondItem="riy-fQ-hwZ" secondAttribute="bottom" constant="22" id="40l-vh-QSF"/>
+                <constraint firstAttribute="bottom" secondItem="e5Y-tA-Coc" secondAttribute="bottom" constant="73" id="InE-xL-SQr"/>
+                <constraint firstItem="KbY-bM-fs7" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="JoU-7z-zFS"/>
+                <constraint firstItem="KbY-bM-fs7" firstAttribute="top" secondItem="pNg-qn-uhe" secondAttribute="bottom" constant="30" id="P5U-7B-ROW"/>
+                <constraint firstItem="pNg-qn-uhe" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="SBN-is-M6B"/>
+                <constraint firstItem="riy-fQ-hwZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="aP5-wJ-MPY"/>
+                <constraint firstItem="e5Y-tA-Coc" firstAttribute="top" secondItem="UwN-Gg-snP" secondAttribute="bottom" constant="14" id="cqI-Cf-AU4"/>
+                <constraint firstItem="e5Y-tA-Coc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="mNP-99-VFF"/>
+                <constraint firstItem="UwN-Gg-snP" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="qwd-39-Bqn"/>
+                <constraint firstItem="dSk-EI-f9L" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="100" id="wem-XV-pjY"/>
+                <constraint firstItem="dSk-EI-f9L" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="z4V-EX-kgo"/>
+            </constraints>
+            <connections>
+                <outlet property="buttomHeight" destination="InE-xL-SQr" id="Bis-dR-DM8"/>
+                <outlet property="continueButton" destination="UwN-Gg-snP" id="8Uw-tY-CyP"/>
+                <outlet property="topHeight" destination="wem-XV-pjY" id="TRr-0Y-f1f"/>
+                <outlet property="verticalSpacing1" destination="40l-vh-QSF" id="LAb-mN-snr"/>
+                <outlet property="verticalSpacing2" destination="P5U-7B-ROW" id="Jj3-pZ-WFC"/>
+                <outlet property="verticalSpacing3" destination="cqI-Cf-AU4" id="OCY-lO-9Pb"/>
+                <outletCollection property="labelCollection" destination="dSk-EI-f9L" id="SI0-ah-LPH"/>
+                <outletCollection property="labelCollection" destination="riy-fQ-hwZ" id="9Mn-f1-j0D"/>
+                <outletCollection property="labelCollection" destination="KbY-bM-fs7" id="vOr-4v-NMf"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="exer_success" width="126" height="127"/>
+    </resources>
+</document>

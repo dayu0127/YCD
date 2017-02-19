@@ -27,20 +27,33 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _bgView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
-    for (UILabel *item in _labelCollection) {
-        item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    }
-    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(id  _Nonnull json) {
-        _payBean.text = [NSString stringWithFormat:@"%@元",json[@"data"][@"rechargeBean"]];
+    [self nightModeConfiguration];
+    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            _payBean.text = [NSString stringWithFormat:@"%@元",json[@"data"][@"rechargeBean"]];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
+        }
     }];
     [YHWebRequest YHWebRequestForPOST:PAYDETAIL parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _dataArray = json[@"data"];
             [_tableView registerNib:[UINib nibWithNibName:@"PayDetailCell" bundle:nil] forCellReuseIdentifier:@"PayDetailCell"];
             [_tableView reloadData];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
         }
     }];
+}
+- (void)nightModeConfiguration{
+    _bgView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
+    for (UILabel *item in _labelCollection) {
+        item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    }
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _dataArray.count;

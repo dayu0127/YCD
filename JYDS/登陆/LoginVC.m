@@ -9,8 +9,9 @@
 #import "LoginVC.h"
 #import "RootTabBarController.h"
 #import "AppDelegate.h"
+#import "RegisterVC.h"
 
-@interface LoginVC ()
+@interface LoginVC ()<RegisterVCDelegate>
 
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *lineCollection;
@@ -25,6 +26,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self nightModeConfiguration];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateNormal];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateHighlighted];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateSelected];
+    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateDisabled];
+    _phoneText = [_textFieldCollection objectAtIndex:0];
+    _pwdText = [_textFieldCollection objectAtIndex:1];
+    if ([YHSingleton shareSingleton].userInfo!=nil) {
+        _phoneText.text = [YHSingleton shareSingleton].userInfo.userName;
+    }
+}
+- (void)nightModeConfiguration{
     self.view.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],N_BG,RED);
     for (UITextField *item in _textFieldCollection) {
         [item setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
@@ -38,12 +51,6 @@
     for (UIButton *item in _buttonCollection) {
         [item dk_setTitleColorPicker:DKColorPickerWithColors(D_BLUE,[UIColor whiteColor],RED) forState:UIControlStateNormal];
     }
-    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateNormal];
-    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateHighlighted];
-    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateSelected];
-    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateDisabled];
-    _phoneText = [_textFieldCollection objectAtIndex:0];
-    _pwdText = [_textFieldCollection objectAtIndex:1];
 }
 - (IBAction)phoneEditingChanged:(UITextField *)sender {
     if (sender.text.length > 11) {
@@ -74,11 +81,6 @@
                 //保存用户信息
                 [[NSUserDefaults standardUserDefaults] setObject:json[@"data"] forKey:@"userInfo"];
                 [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:json[@"data"]];
-                //把用户头像存入沙盒
-                NSString *path_sandox = NSHomeDirectory();
-                NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/headImage.png"];
-                NSURL *url = [NSURL URLWithString:json[@"data"][@"headImageUrl"]];
-                [UIImagePNGRepresentation([UIImage imageWithData: [NSData dataWithContentsOfURL:url]]) writeToFile:imagePath atomically:YES];
                 [YHHud showWithSuccess:@"登陆成功"];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -92,9 +94,20 @@
                 [YHHud showWithMessage:@"该账户已其他设备登陆"];
             }else if ([json[@"code"] isEqualToString:@"USAPWERR"]){
                 [YHHud showWithMessage:@"用户名或密码错误"];
+            }else{
+                [YHHud showWithMessage:@"登录失败"];
             }
         }];
     }
+}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"register"]) {
+        RegisterVC *registerVC = segue.destinationViewController;
+        registerVC.delegate = self;
+    }
+}
+- (void)autoFillUserName:(NSString *)userName{
+    _phoneText.text = userName;
 }
 - (IBAction)logout:(id)sender {
     [YHWebRequest YHWebRequestForPOST:LOGOUT parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"type":@"1"} success:^(id  _Nonnull json) {}];

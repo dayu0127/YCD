@@ -15,7 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (nonatomic,strong) NSArray *courseVideoArray;
+@property (nonatomic,strong) NSMutableArray *wordArray;
 @property (nonatomic,strong) NSString *itemTitle;
 @property (nonatomic,strong) NSString *classifyID;
 
@@ -41,9 +41,12 @@
             wordSearch.hidesBottomBarWhenPushed = YES;
             wordSearch.wordArray = json[@"data"];
             [self.navigationController pushViewController:wordSearch animated:YES];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
         }
     }];
-    
     return NO;
 }
 #pragma mark 创建主视图
@@ -78,18 +81,26 @@
                 [NSLayoutConstraint activateConstraints:layoutArray];
                 lastView = itemView;
             }
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
         }
     }];
 }
 #pragma mark itemView的点击事件
 - (void)itemClickWithClassifyID:(NSInteger)classifyID title:(NSString *)title{
     NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"classifyID":[NSString stringWithFormat:@"%zd",classifyID]};
-    [YHWebRequest YHWebRequestForPOST:COURSEVIDEO parameters:dic success:^(NSDictionary *json) {
+    [YHWebRequest YHWebRequestForPOST:WORD parameters:dic success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _itemTitle = title;
-            _courseVideoArray = json[@"data"];
             _classifyID = [NSString stringWithFormat:@"%zd",classifyID];
+            _wordArray = [NSMutableArray arrayWithArray:json[@"data"]];
             [self performSegueWithIdentifier:@"toItemDetail" sender:self];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
         }
     }];
 }
@@ -97,7 +108,7 @@
     if ([segue.identifier isEqualToString:@"toItemDetail"]) {
         RememberWordItemVC *itemVC = segue.destinationViewController;
         itemVC.navTitle = _itemTitle;
-        itemVC.courseVideoArray = _courseVideoArray;
+        itemVC.wordArray = _wordArray;
         itemVC.classifyID = _classifyID;
         itemVC.hidesBottomBarWhenPushed = YES;
     }

@@ -69,13 +69,13 @@
     //NSLog(@"UMeng social version: %@", [UMSocialGlobal umSocialSDKVersion]);
     
     //设置微信的appKey和appSecret
-//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxdc1e388c3822c80b" appSecret:@"3baf1193c85774b3fd9d18447d76cab0" redirectURL:@"http://mobile.umeng.com/social"];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx7658d0735b233185" appSecret:@"07f165e769707ce2d10955666edbeb1c" redirectURL:@"http://mobile.umeng.com/social"];
     
     //设置分享到QQ互联的appKey和appSecret
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"100424468"  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105811937"  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
     
     //设置新浪的appKey和appSecret
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"1292322940"  appSecret:@"c1ad238284f47072b0caaf27d4d3afb3" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"2098975700"  appSecret:@"1b7c4892f9a69a82058bd084445537fa" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
     //SMSSDK集成短信验证码
     [SMSSDK registerApp:@"1a0b01a59d9bc" withSecret:@"35cdf0e4465e6cc8b0ddf8e0b3ca2480"];
@@ -84,6 +84,10 @@
     [YHWebRequest YHWebRequestForPOST:BANNER parameters:nil success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             [[NSUserDefaults standardUserDefaults] setObject:json[@"data"] forKey:@"banner"];
+        }else if ([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
         }
     }];
 }
@@ -95,7 +99,7 @@
         if ([url.host isEqualToString:@"safepay"]) {
             //跳转支付宝钱包进行支付，处理支付结果
             [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-                NSLog(@"result = %@",resultDic);
+//                NSLog(@"result = %@",resultDic);
                 [YHHud showWithMessage:resultDic[@"memo"]];
             }];
         }

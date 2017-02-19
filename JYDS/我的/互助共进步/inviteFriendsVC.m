@@ -27,21 +27,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _titleLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    [_inviteCodeButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
-    _inviteCodeButton.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
-    _sendToFriendButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+    [self nightModeConfiguration];
     //点击复制互学码按钮
     _inviteCodeButton.layer.masksToBounds = YES;
     _inviteCodeButton.layer.cornerRadius = 5.0f;
     _inviteCodeButton.layer.borderWidth = 1.0f;
-    _inviteCodeButton.layer.dk_borderColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     [_inviteCodeButton setTitle:[YHSingleton shareSingleton].userInfo.studyCode forState:UIControlStateNormal];
     //发送给好友按钮
     _sendToFriendButton.layer.masksToBounds = YES;
     _sendToFriendButton.layer.cornerRadius = 5.0f;
     //邀请规则
-    _rewardRulesLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor groupTableViewBackgroundColor],RED);
     NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:self.rewardRulesLabel.text];
     NSDictionary *attributeDic = [NSDictionary dictionaryWithObject:[UIColor blueColor] forKey:NSForegroundColorAttributeName];
     [content addAttributes:attributeDic range:NSMakeRange(self.rewardRulesLabel.text.length-4, 4)];
@@ -49,10 +44,18 @@
     [paragraphStyle setLineSpacing:10];
     [content addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, self.rewardRulesLabel.text.length)];
     _rewardRulesLabel.attributedText = content;
+    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
+}
+- (void)nightModeConfiguration{
+    _inviteCodeButton.layer.dk_borderColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    _rewardRulesLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor groupTableViewBackgroundColor],RED);
+    _titleLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    [_inviteCodeButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
+    _inviteCodeButton.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
+    _sendToFriendButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
     _rewardsRecordLabel.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     _line.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     _tableView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
-    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
 }
 - (NSArray *)tableViewArray{
     if (!_tableViewArray) {

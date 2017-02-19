@@ -28,7 +28,7 @@
     _textView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
     _textView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     _textView.layer.masksToBounds = YES;
-    _textView.layer.cornerRadius = 8.0f;
+    _textView.layer.cornerRadius = 6.0f;
     [self.view addSubview:_textView];
     [self addPromptContent];
 }
@@ -62,6 +62,10 @@
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.navigationController popViewControllerAnimated:YES];
                 });
+            }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                [YHHud showWithMessage:@"服务器错误"];
+            }else{
+                [YHHud showWithMessage:@"提交失败"];
             }
         }];
     }

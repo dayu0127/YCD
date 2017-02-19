@@ -20,21 +20,18 @@
 @end
 
 @implementation PayVC
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _payBean.text = [NSString stringWithFormat:@"%@个",json[@"data"][@"restBean"]];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
         }
     }];
-    _bgView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
-    for (UILabel *item in _labelCollection) {
-        item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    }
-    [_contactServiceButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
+    [self nightModeConfiguration];
     CGFloat y = 0;
     if (_isHiddenNav == YES) {
         y = CGRectGetMaxY(_bgView.frame) + 64;
@@ -56,6 +53,13 @@
     tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:tableView];
     [tableView registerNib:[UINib nibWithNibName:@"RememberWordSingleWordCell" bundle:nil] forCellReuseIdentifier:@"RememberWordSingleWordCell"];
+}
+- (void)nightModeConfiguration{
+    _bgView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
+    for (UILabel *item in _labelCollection) {
+        item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    }
+    [_contactServiceButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return PAY_ARRAY.count;

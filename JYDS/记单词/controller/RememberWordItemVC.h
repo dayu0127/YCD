@@ -11,6 +11,6 @@
 @interface RememberWordItemVC : BaseNavViewController
 
 @property (nonatomic,strong) NSString *classifyID;
-@property (nonatomic,strong) NSArray *courseVideoArray;
+@property (nonatomic,strong) NSMutableArray *wordArray;
 
 @end

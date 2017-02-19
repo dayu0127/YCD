@@ -16,7 +16,7 @@
     if (self=[super initWithFrame:frame]) {
         self.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BLUE,RED);
         self.layer.masksToBounds = YES;
-        self.layer.cornerRadius = 8.0f;
+        self.layer.cornerRadius = 6.0f;
         CGFloat width = frame.size.width;
         CGFloat height = frame.size.height;
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 0, width-16, 60)];
@@ -62,7 +62,7 @@
     if (self=[super initWithFrame:frame]) {
         self.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BLUE,RED);
         self.layer.masksToBounds = YES;
-        self.layer.cornerRadius = 8.0f;
+        self.layer.cornerRadius = 6.0f;
         UILabel *messageLabel = [[UILabel alloc] init];
         messageLabel.font = [UIFont systemFontOfSize:14.0f];
         messageLabel.text = message;
