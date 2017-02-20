@@ -300,21 +300,20 @@
 #pragma mark 分享
 - (void)shareButtonClick{
     __weak typeof(self) weakSelf = self;
+    //设置面板样式
+    [UMSocialShareUIConfig shareInstance].shareTitleViewConfig.isShow = YES;
+    [UMSocialShareUIConfig shareInstance].shareTitleViewConfig.shareTitleViewTitleString = @"请选择分享平台";
+    [UMSocialShareUIConfig shareInstance].shareCancelControlConfig.shareCancelControlText = @"取消分享";
+    //预定义平台
+    [UMSocialUIManager setPreDefinePlatforms:@[@(UMSocialPlatformType_WechatSession),
+                                                                       @(UMSocialPlatformType_QQ),
+                                                                       @(UMSocialPlatformType_Sina),
+                                                                       @(UMSocialPlatformType_WechatTimeLine),
+                                                                       @(UMSocialPlatformType_Qzone)
+                                                                    ]];
     //显示分享面板
     [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
-        if (platformType == UMSocialPlatformType_Sina) {
-            [weakSelf shareImageAndTextToPlatformType:UMSocialPlatformType_Sina];
-        }else if (platformType == UMSocialPlatformType_QQ){
-            [weakSelf shareTextToPlatformType:UMSocialPlatformType_QQ];
-        }else if (platformType == UMSocialPlatformType_Qzone){
-            [weakSelf shareImageToPlatformType:UMSocialPlatformType_Qzone];
-        }else if (platformType == UMSocialPlatformType_WechatSession){
-            [weakSelf shareImageToPlatformType:UMSocialPlatformType_WechatSession];
-        }else if (platformType == UMSocialPlatformType_WechatTimeLine){
-            [weakSelf shareImageToPlatformType:UMSocialPlatformType_WechatTimeLine];
-        }else if (platformType == UMSocialPlatformType_WechatFavorite){
-            [weakSelf shareImageToPlatformType:UMSocialPlatformType_WechatFavorite];
-        }
+        [weakSelf shareTextToPlatformType:platformType];
     }];
 }
 #pragma mark 加载本节说明
