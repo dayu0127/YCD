@@ -10,6 +10,8 @@
 #import <UMSocialCore/UMSocialCore.h>
 #import <UShareUI/UMSocialUIManager.h>
 #import <UMSocialCore/UMSocialResponse.h>
+#import <WXApi.h>
+#import <TencentOpenAPI/QQApiInterface.h>
 @interface SecretsVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIButton *ruleButton;
@@ -199,12 +201,26 @@
     //设置面板样式
     [UMSocialShareUIConfig shareInstance].shareTitleViewConfig.isShow = NO;
     [UMSocialShareUIConfig shareInstance].shareCancelControlConfig.shareCancelControlText = @"取消";
-    //预定义平台
-    [UMSocialUIManager setPreDefinePlatforms:@[@(UMSocialPlatformType_WechatSession),@(UMSocialPlatformType_QQ)]];
-    //显示分享面板
-    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
-        [weakSelf shareTextToPlatformType:platformType];
-    }];
+    //判断是否安装QQ,微信,微博
+    BOOL hasWX = [WXApi isWXAppInstalled];
+    BOOL hasQQ = [QQApiInterface isQQInstalled];
+    if (!hasQQ&&!hasWX) {
+        [YHHud showWithMessage:@"请您先安装微信或QQ"];
+    }else{
+        NSMutableArray *platformArray = [NSMutableArray array];
+        if (hasWX) {
+            [platformArray addObject:@(UMSocialPlatformType_WechatSession)];
+        }
+        if (hasQQ) {
+            [platformArray addObject:@(UMSocialPlatformType_QQ)];
+        }
+        //预定义平台
+        [UMSocialUIManager setPreDefinePlatforms:[NSArray arrayWithArray:platformArray]];
+        //显示分享面板
+        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+            [weakSelf shareTextToPlatformType:platformType];
+        }];
+    }
 }
 - (NSArray *)tableViewArray{
     if (!_tableViewArray) {

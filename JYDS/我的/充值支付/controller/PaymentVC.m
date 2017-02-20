@@ -11,7 +11,7 @@
 #import <AlipaySDK/AlipaySDK.h>
 #import "Order.h"
 #import "DataSigner.h"
-
+#import "WXApi.h"
 @interface PaymentVC ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *payLabel;
 @property (weak, nonatomic) IBOutlet UILabel *studyDouLabel;
@@ -46,6 +46,8 @@
     PaymentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PaymentCell" forIndexPath:indexPath];
     cell.imageView1.image = indexPath.row == 0 ? [UIImage imageNamed:@"alipaylogo_64x64"] : [UIImage imageNamed:@"wxlogo_64x64"];
     cell.title.text = indexPath.row == 0 ? @"支付宝支付" : @"微信支付";
+    cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
+    cell.selectedBackgroundView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_SELT,N_CELL_SELT,RED);
     return cell;
 }
 - (NSString *)generateTradeNO
@@ -64,6 +66,7 @@
     return resultStr;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 0) {
     //支付宝支付
         //将商品信息赋予AlixPayOrder的成员变量
@@ -138,7 +141,18 @@
         }];
     }else{
     //微信支付
-
+        [YHWebRequest YHWebRequestForPOST:@"http://www.zhongshuo.cn:8088/payAPI/API/wx_unifiedorderAPI" parameters:nil success:^(NSDictionary *json) {
+            if (![json[@"prepayId"] isEqualToString:@""]) {
+                PayReq *request = [[PayReq alloc] init];
+                request.partnerId = json[@"partnerId"];
+                request.prepayId = json[@"prepayId"];
+                request.package = json[@"package"];
+                request.nonceStr= json[@"nonceStr"];
+                request.timeStamp = [json[@"timestamp"] intValue];
+                request.sign = json[@"sign"];
+                [WXApi sendReq:request];
+            }
+        }];
     }
 }
 @end

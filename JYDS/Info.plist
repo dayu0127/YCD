@@ -23,6 +23,8 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>Sina</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>wb2098975700</string>
@@ -31,6 +33,8 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>app</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>jydsapp</string>
@@ -39,6 +43,8 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>WeChat</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>wx7658d0735b233185</string>
@@ -47,6 +53,8 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>QQ</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>tencent1105811937</string>

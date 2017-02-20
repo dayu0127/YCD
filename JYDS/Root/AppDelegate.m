@@ -12,6 +12,8 @@
 #import <UMSocialCore/UMSocialCore.h>
 #import <SMS_SDK/SMSSDK.h>
 #import <AlipaySDK/AlipaySDK.h>
+#import <WXApi.h>
+#import "WXApiManager.h"
 
 @interface AppDelegate ()
 @end
@@ -79,6 +81,9 @@
     
     //SMSSDK集成短信验证码
     [SMSSDK registerApp:@"1a0b01a59d9bc" withSecret:@"35cdf0e4465e6cc8b0ddf8e0b3ca2480"];
+    
+    //微信支付注册APPID
+    [WXApi registerApp:@"wx7658d0735b233185"];
 }
 - (void)getBannerInfo{
     [YHWebRequest YHWebRequestForPOST:BANNER parameters:nil success:^(NSDictionary *json) {
@@ -95,15 +100,30 @@
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
     BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
     if (!result) {
-        // 其他如支付等SDK的回调
+        // 支付宝SDK的回调
         if ([url.host isEqualToString:@"safepay"]) {
             //跳转支付宝钱包进行支付，处理支付结果
             [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-//                NSLog(@"result = %@",resultDic);
                 [YHHud showWithMessage:resultDic[@"memo"]];
             }];
         }
+    }else{
+        // 微信SDK的回调
+        [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     }
     return result;
+}
+-(void)onResp:(BaseResp*)resp{
+    if ([resp isKindOfClass:[PayResp class]]) {
+        PayResp *response = (PayResp *)resp;
+        switch (response.errCode) {
+            case WXSuccess:
+               
+                break;
+            default:
+                [YHHud showWithMessage:@"支付失败"];
+                break;
+        }
+    }
 }
 @end

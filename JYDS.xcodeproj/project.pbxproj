@@ -195,6 +195,9 @@
 		609F06421E1621DF009F4986 /* HelpFeedbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F06411E1621DF009F4986 /* HelpFeedbackVC.m */; };
 		609F06451E1621E5009F4986 /* SetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F06441E1621E5009F4986 /* SetVC.m */; };
 		609F06471E1638CC009F4986 /* libPods-JYDS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 609F06461E1638CC009F4986 /* libPods-JYDS.a */; };
+		60E2DD001E5A94F500D45986 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60E2DCFB1E5A94F500D45986 /* libWeChatSDK.a */; };
+		60E2DD011E5A94F500D45986 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 60E2DCFC1E5A94F500D45986 /* README.txt */; };
+		60E2DD041E5AA22F00D45986 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E2DD031E5AA22F00D45986 /* WXApiManager.m */; };
 		60E5D43D1E35EF31006D6834 /* CodeListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E5D43C1E35EF31006D6834 /* CodeListVC.m */; };
 		60FF515F1E0A5E3B00DA6693 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF515E1E0A5E3B00DA6693 /* libc++.tbd */; };
 		60FF51611E0A5E8C00DA6693 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF51601E0A5E8C00DA6693 /* libz.tbd */; };
@@ -546,6 +549,13 @@
 		609F06431E1621E5009F4986 /* SetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetVC.h; sourceTree = "<group>"; };
 		609F06441E1621E5009F4986 /* SetVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetVC.m; sourceTree = "<group>"; };
 		609F06461E1638CC009F4986 /* libPods-JYDS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-JYDS.a"; path = "../../Library/Developer/Xcode/DerivedData/JYDS-fqdknxlehibyzhblnywoodytclot/Build/Products/Debug-iphonesimulator/libPods-JYDS.a"; sourceTree = "<group>"; };
+		60E2DCFB1E5A94F500D45986 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		60E2DCFC1E5A94F500D45986 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		60E2DCFD1E5A94F500D45986 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		60E2DCFE1E5A94F500D45986 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		60E2DCFF1E5A94F500D45986 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		60E2DD021E5AA22F00D45986 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
+		60E2DD031E5AA22F00D45986 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
 		60E5D43B1E35EF31006D6834 /* CodeListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeListVC.h; sourceTree = "<group>"; };
 		60E5D43C1E35EF31006D6834 /* CodeListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeListVC.m; sourceTree = "<group>"; };
 		60FF515E1E0A5E3B00DA6693 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -571,6 +581,7 @@
 			files = (
 				609F06471E1638CC009F4986 /* libPods-JYDS.a in Frameworks */,
 				609F05D81E161C57009F4986 /* libssl.a in Frameworks */,
+				60E2DD001E5A94F500D45986 /* libWeChatSDK.a in Frameworks */,
 				6078D1F01E1613180089D40F /* AlipaySDK.framework in Frameworks */,
 				60FF51771E0A5F4600DA6693 /* CoreMotion.framework in Frameworks */,
 				60FF51751E0A5F3E00DA6693 /* CFNetwork.framework in Frameworks */,
@@ -1180,6 +1191,21 @@
 			path = controller;
 			sourceTree = "<group>";
 		};
+		60E2DCFA1E5A94C300D45986 /* WeChatPay */ = {
+			isa = PBXGroup;
+			children = (
+				60E2DCFB1E5A94F500D45986 /* libWeChatSDK.a */,
+				60E2DCFC1E5A94F500D45986 /* README.txt */,
+				60E2DCFD1E5A94F500D45986 /* WechatAuthSDK.h */,
+				60E2DCFE1E5A94F500D45986 /* WXApi.h */,
+				60E2DCFF1E5A94F500D45986 /* WXApiObject.h */,
+				60E2DD021E5AA22F00D45986 /* WXApiManager.h */,
+				60E2DD031E5AA22F00D45986 /* WXApiManager.m */,
+			);
+			name = WeChatPay;
+			path = JYDS/WeChatPay;
+			sourceTree = SOURCE_ROOT;
+		};
 		69B129D81DE2C6490093D841 = {
 			isa = PBXGroup;
 			children = (
@@ -1209,6 +1235,7 @@
 				606A94E11E51A89E00A0279D /* 秘笈 */,
 				6078D1011E1613180089D40F /* 我的 */,
 				6078D1341E1613180089D40F /* Alipay */,
+				60E2DCFA1E5A94C300D45986 /* WeChatPay */,
 				6078D1A11E1613180089D40F /* Base.lproj */,
 				6078D1991E1613180089D40F /* Assets.xcassets */,
 				6078D1A61E1613180089D40F /* Info.plist */,
@@ -1338,6 +1365,7 @@
 				60190AC01E2A07C0009C9450 /* 17.png in Resources */,
 				60190AD01E2A07C0009C9450 /* 33.png in Resources */,
 				60190B0E1E2A07C0009C9450 /* 95.png in Resources */,
+				60E2DD011E5A94F500D45986 /* README.txt in Resources */,
 				60190AEA1E2A07C0009C9450 /* 59.png in Resources */,
 				60190ABF1E2A07C0009C9450 /* 16.png in Resources */,
 				60190B021E2A07C0009C9450 /* 83.png in Resources */,
@@ -1502,6 +1530,7 @@
 				609F06271E1621BD009F4986 /* UpdateHeadImageVC.m in Sources */,
 				6078D1CC1E1613180089D40F /* RememberWordSingleWordCell.m in Sources */,
 				6078D2231E161AF20089D40F /* YHDataSource.m in Sources */,
+				60E2DD041E5AA22F00D45986 /* WXApiManager.m in Sources */,
 				609F061A1E162190009F4986 /* PaymentVC.m in Sources */,
 				6078D2061E1613180089D40F /* AppDelegate.m in Sources */,
 				6078D1FA1E1613180089D40F /* RSADataSigner.m in Sources */,
@@ -1708,6 +1737,7 @@
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)/JYDS/Alipay",
+					"$(PROJECT_DIR)/JYDS/WeChatPay",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1826,6 +1856,7 @@
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)/JYDS/Alipay",
+					"$(PROJECT_DIR)/JYDS/WeChatPay",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
