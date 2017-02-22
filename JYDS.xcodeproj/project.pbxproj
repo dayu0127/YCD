@@ -136,7 +136,6 @@
 		6078D1EF1E1613180089D40F /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6078D1351E1613180089D40F /* AlipaySDK.bundle */; };
 		6078D1F01E1613180089D40F /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6078D1361E1613180089D40F /* AlipaySDK.framework */; };
 		6078D1F11E1613180089D40F /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6078D1371E1613180089D40F /* libcrypto.a */; };
-		6078D1F31E1613180089D40F /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D1861E1613180089D40F /* Order.m */; };
 		6078D1F41E1613180089D40F /* base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D1891E1613180089D40F /* base64.m */; };
 		6078D1F51E1613180089D40F /* DataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D18C1E1613180089D40F /* DataSigner.m */; };
 		6078D1F61E1613180089D40F /* DataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D18E1E1613180089D40F /* DataVerifier.m */; };
@@ -436,8 +435,6 @@
 		6078D1821E1613180089D40F /* x509.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x509.h; sourceTree = "<group>"; };
 		6078D1831E1613180089D40F /* x509_vfy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x509_vfy.h; sourceTree = "<group>"; };
 		6078D1841E1613180089D40F /* x509v3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x509v3.h; sourceTree = "<group>"; };
-		6078D1851E1613180089D40F /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
-		6078D1861E1613180089D40F /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		6078D1881E1613180089D40F /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		6078D1891E1613180089D40F /* base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = base64.m; sourceTree = "<group>"; };
 		6078D18A1E1613180089D40F /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
@@ -817,7 +814,6 @@
 			isa = PBXGroup;
 			children = (
 				609F05E21E161DD2009F4986 /* model */,
-				6078D0D11E1613180089D40F /* 登陆 */,
 				6078D0E71E1613180089D40F /* view */,
 				6078D0DA1E1613180089D40F /* controller */,
 			);
@@ -882,8 +878,6 @@
 				6078D1371E1613180089D40F /* libcrypto.a */,
 				6078D1381E1613180089D40F /* libssl.a */,
 				6078D1391E1613180089D40F /* openssl */,
-				6078D1851E1613180089D40F /* Order.h */,
-				6078D1861E1613180089D40F /* Order.m */,
 				6078D1871E1613180089D40F /* Util */,
 			);
 			name = Alipay;
@@ -1230,6 +1224,7 @@
 				6078D1AC1E1613180089D40F /* Root */,
 				6078D19A1E1613180089D40F /* Base */,
 				6078D20F1E161AC60089D40F /* Tools */,
+				6078D0D11E1613180089D40F /* 登陆 */,
 				606A94E51E51A8CA00A0279D /* 首页 */,
 				6078D0D91E1613180089D40F /* 记单词 */,
 				606A94E11E51A89E00A0279D /* 秘笈 */,
@@ -1524,7 +1519,6 @@
 				609F060E1E16218B009F4986 /* PaymentCell.m in Sources */,
 				606A94E41E51A89E00A0279D /* SecretsVC.m in Sources */,
 				6078D2261E161AF20089D40F /* YHWebRequest.m in Sources */,
-				6078D1F31E1613180089D40F /* Order.m in Sources */,
 				6078D1C41E1613180089D40F /* RememberWordItemVC.m in Sources */,
 				606A94FB1E51A8CA00A0279D /* BannerDetailVC.m in Sources */,
 				609F06271E1621BD009F4986 /* UpdateHeadImageVC.m in Sources */,
