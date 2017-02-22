@@ -9,4 +9,5 @@
 @interface YHSingleton : NSObject
 +(instancetype)shareSingleton;
 @property (strong,nonatomic) UserInfo *userInfo;
+@property (copy,nonatomic) NSString *out_trade_no;
 @end

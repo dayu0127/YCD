@@ -104,7 +104,25 @@
         if ([url.host isEqualToString:@"safepay"]) {
             //跳转支付宝钱包进行支付，处理支付结果
             [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-                [YHHud showWithMessage:resultDic[@"memo"]];
+                NSDictionary *dic = [NSDictionary dictionary];
+                if ([resultDic[@"resultStatus"] isEqualToString:@"9000"]) {//订单支付成功
+                    dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"result":resultDic[@"result"],@"code":resultDic[@"resultStatus"]};
+                }else{
+                    dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"out_trade_no":[YHSingleton shareSingleton].out_trade_no,@"code":resultDic[@"resultStatus"]};
+                }
+                [YHWebRequest YHWebRequestForPOST:@"http://www.zhongshuo.cn:8088/payAPI/API/ALI_Sign_checkAPI" parameters:dic success:^(NSDictionary *json) {
+                    if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                        if ([json[@"payType"] isEqualToString:@"SUCCESS"]) {
+                            [YHHud showWithSuccess:@"支付成功"];
+                        }else{
+                            [YHHud showWithMessage:@"支付失败"];
+                        }
+                    }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                        [YHHud showWithMessage:@"服务器出错了，请稍后重试"];
+                    }else{
+                        [YHHud showWithMessage:@"支付失败"];
+                    }
+                }];
             }];
         }
     }else{
@@ -114,16 +132,16 @@
     return result;
 }
 -(void)onResp:(BaseResp*)resp{
-    if ([resp isKindOfClass:[PayResp class]]) {
-        PayResp *response = (PayResp *)resp;
-        switch (response.errCode) {
-            case WXSuccess:
-               
-                break;
-            default:
-                [YHHud showWithMessage:@"支付失败"];
-                break;
-        }
-    }
+//    if ([resp isKindOfClass:[PayResp class]]) {
+//        PayResp *response = (PayResp *)resp;
+//        switch (response.errCode) {
+//            case WXSuccess:
+//               [YHHud showWithSuccess:@"支付成功"];
+//                break;
+//            default:
+//                [YHHud showWithMessage:@"支付失败"];
+//                break;
+//        }
+//    }
 }
 @end
