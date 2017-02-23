@@ -47,16 +47,30 @@
         }
     }else if([resp isKindOfClass:[PayResp class]]){
         //支付返回结果，实际支付结果需要去微信服务器端查询
-        if (resp.errCode == 0) {
-            [YHHud showWithSuccess:@"支付成功"];
-            NSLog(@"支付成功－PaySuccess，retcode = %d", resp.errCode);
-        }else if (resp.errCode == -2){
-            [YHHud showWithMessage:@"用户取消支付"];
-            NSLog(@"错误，retcode = %d, retstr = %@", resp.errCode,resp.errStr);
-        }else{
-            [YHHud showWithMessage:@"支付失败"];
-            NSLog(@"错误，retcode = %d, retstr = %@", resp.errCode,resp.errStr);
-        }
+//        if (resp.errCode == 0) {
+//            [YHHud showWithSuccess:@"支付成功"];
+//            NSLog(@"支付成功－PaySuccess，retcode = %d", resp.errCode);
+//        }else if (resp.errCode == -2){
+//            [YHHud showWithMessage:@"用户取消支付"];
+//            NSLog(@"错误，retcode = %d, retstr = %@", resp.errCode,resp.errStr);
+//        }else{
+//            [YHHud showWithMessage:@"支付失败"];
+//            NSLog(@"错误，retcode = %d, retstr = %@", resp.errCode,resp.errStr);
+//        }
+        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"out_trade_no":[YHSingleton shareSingleton].wx_out_trade_no};
+        [YHWebRequest YHWebRequestForPOST:@"http://www.zhongshuo.cn:8088/payAPI/API/wx_orderqueryAPI" parameters:dic success:^(NSDictionary *json) {
+            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                if ([json[@"payType"] isEqualToString:@"SUCCESS"]) {
+                    [YHHud showWithSuccess:@"支付成功"];
+                }else{
+                    [YHHud showWithMessage:@"支付失败"];
+                }
+            }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                [YHHud showWithMessage:@"服务器出错了，请稍后重试"];
+            }else{
+                [YHHud showWithMessage:@"支付失败"];
+            }
+        }];
     }
 }
 

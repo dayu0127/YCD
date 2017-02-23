@@ -108,7 +108,7 @@
                 if ([resultDic[@"resultStatus"] isEqualToString:@"9000"]) {//订单支付成功
                     dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"result":resultDic[@"result"],@"code":resultDic[@"resultStatus"]};
                 }else{
-                    dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"out_trade_no":[YHSingleton shareSingleton].out_trade_no,@"code":resultDic[@"resultStatus"]};
+                    dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"out_trade_no":[YHSingleton shareSingleton].ali_out_trade_no,@"code":resultDic[@"resultStatus"]};
                 }
                 [YHWebRequest YHWebRequestForPOST:@"http://www.zhongshuo.cn:8088/payAPI/API/ALI_Sign_checkAPI" parameters:dic success:^(NSDictionary *json) {
                     if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
@@ -130,18 +130,5 @@
         [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     }
     return result;
-}
--(void)onResp:(BaseResp*)resp{
-//    if ([resp isKindOfClass:[PayResp class]]) {
-//        PayResp *response = (PayResp *)resp;
-//        switch (response.errCode) {
-//            case WXSuccess:
-//               [YHHud showWithSuccess:@"支付成功"];
-//                break;
-//            default:
-//                [YHHud showWithMessage:@"支付失败"];
-//                break;
-//        }
-//    }
 }
 @end

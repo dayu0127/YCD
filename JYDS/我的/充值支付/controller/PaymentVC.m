@@ -54,11 +54,11 @@
      [YHHud showWithStatus:@"准备支付"];
     if (indexPath.row == 0) {
         //支付宝支付
-        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"total_amount":@"0.01"};
-        [YHWebRequest YHWebRequestForPOST:@"http://www.zhongshuo.cn:8088/payAPI/API/order_generateAPI" parameters:dic success:^(NSDictionary *json) {
+        NSDictionary *paraDic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"total_amount":@"0.01"};
+        [YHWebRequest YHWebRequestForPOST:@"http://www.zhongshuo.cn:8088/payAPI/API/order_generateAPI" parameters:paraDic success:^(NSDictionary *json) {
             [YHHud dismiss];
             if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                [YHSingleton shareSingleton].out_trade_no = json[@"out_trade_no"];
+                [YHSingleton shareSingleton].ali_out_trade_no = json[@"out_trade_no"];
                 NSMutableDictionary *jsonDic = [[NSMutableDictionary alloc] initWithDictionary:json];
                 [jsonDic removeObjectForKey:@"code"];
                 [jsonDic removeObjectForKey:@"out_trade_no"];
@@ -108,9 +108,11 @@
             [YHHud dismiss];
             [YHHud showWithMessage:@" 请您先安装微信"];
         }else{
-            [YHWebRequest YHWebRequestForPOST:@"http://www.zhongshuo.cn:8088/payAPI/API/wx_unifiedorderAPI" parameters:nil success:^(NSDictionary *json) {
+            NSDictionary *paraDic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"total_fee":@"0.01"};
+            [YHWebRequest YHWebRequestForPOST:@"http://www.zhongshuo.cn:8088/payAPI/API/wx_unifiedorderAPI" parameters:paraDic success:^(NSDictionary *json) {
                 [YHHud dismiss];
-                if (![json[@"prepayId"] isEqualToString:@""]) {
+                [YHSingleton shareSingleton].wx_out_trade_no = json[@"out_trade_no"];
+                if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                     PayReq *request = [[PayReq alloc] init];
                     request.partnerId = json[@"partnerId"];
                     request.prepayId = json[@"prepayId"];
@@ -120,6 +122,8 @@
                     request.sign = json[@"sign"];
                      //调起微信支付
                     [WXApi sendReq:request];
+                }else{
+                    [YHHud showWithMessage:@"创建订单失败"];
                 }
             }];
         }

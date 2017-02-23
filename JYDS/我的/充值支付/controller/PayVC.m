@@ -9,6 +9,7 @@
 #import "PayVC.h"
 #import "PaymentVC.h"
 #import "RememberWordSingleWordCell.h"
+#import "OtherAmountCell.h"
 @interface PayVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (assign,nonatomic) NSInteger money;
@@ -45,7 +46,7 @@
     payLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     [payView addSubview:payLabel];
     [self.view addSubview:payView];
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(payView.frame), WIDTH, PAY_ARRAY.count*44) style:UITableViewStyleGrouped];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(payView.frame), WIDTH, (PAY_ARRAY.count+1)*44) style:UITableViewStyleGrouped];
     tableView.delegate = self;
     tableView.dataSource = self;
     tableView.bounces = NO;
@@ -53,6 +54,7 @@
     tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:tableView];
     [tableView registerNib:[UINib nibWithNibName:@"RememberWordSingleWordCell" bundle:nil] forCellReuseIdentifier:@"RememberWordSingleWordCell"];
+    [tableView registerNib:[UINib nibWithNibName:@"OtherAmountCell" bundle:nil] forCellReuseIdentifier:@"OtherAmountCell"];
 }
 - (void)nightModeConfiguration{
     _bgView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
@@ -62,7 +64,7 @@
     [_contactServiceButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return PAY_ARRAY.count;
+    return PAY_ARRAY.count+1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 0.00001;
@@ -71,10 +73,15 @@
     return 0.00001;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    RememberWordSingleWordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RememberWordSingleWordCell" forIndexPath:indexPath];
-    cell.word.text = [NSString stringWithFormat:@"%@学习豆",[PAY_ARRAY objectAtIndex:indexPath.row]];
-    cell.wordPrice.text = [NSString stringWithFormat:@"%d元",[[PAY_ARRAY objectAtIndex:indexPath.row] intValue]*PAY_PROPORTION];
-    return cell;
+    if (indexPath.row!=PAY_ARRAY.count) {
+        RememberWordSingleWordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RememberWordSingleWordCell" forIndexPath:indexPath];
+        cell.word.text = [NSString stringWithFormat:@"%@学习豆",[PAY_ARRAY objectAtIndex:indexPath.row]];
+        cell.wordPrice.text = [NSString stringWithFormat:@"%d元",[[PAY_ARRAY objectAtIndex:indexPath.row] intValue]*PAY_PROPORTION];
+        return cell;
+    }else{
+        OtherAmountCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OtherAmountCell" forIndexPath:indexPath];
+        return cell;
+    }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -89,8 +96,8 @@
 }
 - (IBAction)contactServiceClick:(UIButton *)sender {
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *telephone = [UIAlertAction actionWithTitle:@"400-021-008" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"400-021-008"];
+    UIAlertAction *telephone = [UIAlertAction actionWithTitle:@"021-50725551" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"021-50725551"];
         UIWebView *callWebview = [[UIWebView alloc] init];
         [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
         [self.view addSubview:callWebview];

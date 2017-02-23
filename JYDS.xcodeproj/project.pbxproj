@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6013E80C1E5EE37E007E257A /* OtherAmountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6013E80A1E5EE37E007E257A /* OtherAmountCell.m */; };
+		6013E80D1E5EE37E007E257A /* OtherAmountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6013E80B1E5EE37E007E257A /* OtherAmountCell.xib */; };
 		60190AAE1E2A07C0009C9450 /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = 60190A491E2A07C0009C9450 /* 0.png */; };
 		60190AAF1E2A07C0009C9450 /* 00.png in Resources */ = {isa = PBXBuildFile; fileRef = 60190A4A1E2A07C0009C9450 /* 00.png */; };
 		60190AB01E2A07C0009C9450 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 60190A4B1E2A07C0009C9450 /* 1.png */; };
@@ -212,6 +214,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6013E8091E5EE37E007E257A /* OtherAmountCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherAmountCell.h; sourceTree = "<group>"; };
+		6013E80A1E5EE37E007E257A /* OtherAmountCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherAmountCell.m; sourceTree = "<group>"; };
+		6013E80B1E5EE37E007E257A /* OtherAmountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OtherAmountCell.xib; sourceTree = "<group>"; };
 		60190A491E2A07C0009C9450 /* 0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.png; sourceTree = "<group>"; };
 		60190A4A1E2A07C0009C9450 /* 00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 00.png; sourceTree = "<group>"; };
 		60190A4B1E2A07C0009C9450 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
@@ -1166,6 +1171,9 @@
 				609F06091E16218B009F4986 /* PaymentCell.h */,
 				609F060A1E16218B009F4986 /* PaymentCell.m */,
 				609F060B1E16218B009F4986 /* PaymentCell.xib */,
+				6013E8091E5EE37E007E257A /* OtherAmountCell.h */,
+				6013E80A1E5EE37E007E257A /* OtherAmountCell.m */,
+				6013E80B1E5EE37E007E257A /* OtherAmountCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1373,6 +1381,7 @@
 				60190AFD1E2A07C0009C9450 /* 78.png in Resources */,
 				60190AE11E2A07C0009C9450 /* 50.png in Resources */,
 				60190AE51E2A07C0009C9450 /* 54.png in Resources */,
+				6013E80D1E5EE37E007E257A /* OtherAmountCell.xib in Resources */,
 				60190AAF1E2A07C0009C9450 /* 00.png in Resources */,
 				60190B0C1E2A07C0009C9450 /* 93.png in Resources */,
 				60190AD11E2A07C0009C9450 /* 34.png in Resources */,
@@ -1570,6 +1579,7 @@
 				6078D2201E161AF20089D40F /* MJChiBaoZiFooter.m in Sources */,
 				609F062A1E1621BD009F4986 /* UpdatePwdVC.m in Sources */,
 				609F05E71E161DE5009F4986 /* CourseVideo.m in Sources */,
+				6013E80C1E5EE37E007E257A /* OtherAmountCell.m in Sources */,
 				609F061B1E162190009F4986 /* PayVC.m in Sources */,
 				6078D1C51E1613180089D40F /* RememberWordSingleWordDetailVC.m in Sources */,
 				6078D1F61E1613180089D40F /* DataVerifier.m in Sources */,

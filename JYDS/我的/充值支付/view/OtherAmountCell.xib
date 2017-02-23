@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="KGk-i7-Jjw" customClass="OtherAmountCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="word" translatesAutoresizingMaskIntoConstraints="NO" id="eUX-VX-7CH">
+                        <rect key="frame" x="15" y="12" width="19" height="19"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="19" id="7fS-Su-RTx"/>
+                            <constraint firstAttribute="height" constant="19" id="kJV-Jl-ggb"/>
+                        </constraints>
+                    </imageView>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="其他金额" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="15M-SZ-3DM" userLabel="amount">
+                        <rect key="frame" x="51" y="6" width="72" height="30"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="72" id="oMn-Dg-GGl"/>
+                        </constraints>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1学习豆" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Co-po-c7O" userLabel="money">
+                        <rect key="frame" x="297" y="11" width="45" height="20"/>
+                        <color key="backgroundColor" red="1" green="0.73185000099999997" blue="0.28383037950000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="J1J-ap-wRm"/>
+                            <constraint firstAttribute="width" constant="45" id="QXa-Bg-Q1I"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="3"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="eUX-VX-7CH" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="IlO-q4-8rp"/>
+                    <constraint firstItem="eUX-VX-7CH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="JGp-qw-tLe"/>
+                    <constraint firstItem="15M-SZ-3DM" firstAttribute="leading" secondItem="eUX-VX-7CH" secondAttribute="trailing" constant="17" id="OBD-1y-4fw"/>
+                    <constraint firstItem="5Co-po-c7O" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="fuC-Eo-LqT"/>
+                    <constraint firstAttribute="trailing" secondItem="5Co-po-c7O" secondAttribute="trailing" id="mHR-dc-JYv"/>
+                    <constraint firstItem="15M-SZ-3DM" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="uwt-Oo-0w3"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="amount" destination="15M-SZ-3DM" id="tBw-VO-8La"/>
+                <outlet property="momeyLabelWidth" destination="QXa-Bg-Q1I" id="g6q-Pn-7Gc"/>
+                <outlet property="money" destination="5Co-po-c7O" id="5Mv-SF-WUB"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="word" width="19" height="19"/>
+    </resources>
+</document>
