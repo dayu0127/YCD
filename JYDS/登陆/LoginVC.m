@@ -109,16 +109,5 @@
 - (void)autoFillUserName:(NSString *)userName{
     _phoneText.text = userName;
 }
-- (IBAction)logout:(id)sender {
-    [YHWebRequest YHWebRequestForPOST:LOGOUT parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"type":@"1"} success:^(id  _Nonnull json) {}];
-}
-- (IBAction)removeAllSub:(id)sender {
-    [YHWebRequest YHWebRequestForPOST:BOSSAPI(@"test") parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(id  _Nonnull json) {}];
-}
-- (IBAction)setZeroBean:(id)sender {
-    [YHWebRequest YHWebRequestForPOST:BOSSAPI(@"test2") parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(id  _Nonnull json) {}];
-}
-- (IBAction)set999999Bean:(id)sender {
-    [YHWebRequest YHWebRequestForPOST:BOSSAPI(@"test1") parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(id  _Nonnull json) {}];
-}
+
 @end

@@ -37,8 +37,9 @@
     _scrollView.delegate = self;
     _scrollView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:_scrollView];
+    [self createRecordTableView];
     [_scrollView addSubview:self.ruleView];
-    [_scrollView addSubview:self.recordTableView];
+    
 }
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     if (_scrollView.contentOffset.x == 0) {
@@ -138,16 +139,27 @@
     return _ruleView;
 }
 #pragma mark 记录页面
-- (UITableView *)recordTableView{
+- (void)createRecordTableView{
     if (!_recordTableView) {
-        _recordTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT-164) style:UITableViewStylePlain];
-        _recordTableView.delegate = self;
-        _recordTableView.dataSource = self;
-        _recordTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _recordTableView.backgroundColor = [UIColor clearColor];
-         [_recordTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
+        [YHWebRequest YHWebRequestForPOST:INVITATION parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
+            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                _tableViewArray = json[@"data"];
+                if (_tableViewArray.count>0) {
+                    _recordTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT-164) style:UITableViewStylePlain];
+                    _recordTableView.delegate = self;
+                    _recordTableView.dataSource = self;
+                    _recordTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+                    _recordTableView.backgroundColor = [UIColor clearColor];
+                    [_recordTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
+                    [_scrollView addSubview:self.recordTableView];
+                }
+            }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                [YHHud showWithMessage:@"服务器错误"];
+            }else{
+                [YHHud showWithMessage:@"数据异常"];
+            }
+        }];
     }
-    return _recordTableView;
 }
 #pragma mark 点击复制互学码
 - (void)inviteCodeClick:(UIButton *)sender {
@@ -222,19 +234,19 @@
         }];
     }
 }
-- (NSArray *)tableViewArray{
-    if (!_tableViewArray) {
-        _tableViewArray = @[@"用户 139****1231 加入记忆大师，您获得了5个学习豆",@"用户 139****1231 加入记忆大师，您获得了5个学习豆",@"用户 139****1231 加入记忆大师，您获得了5个学习豆"];
-    }
-    return _tableViewArray;
-}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.tableViewArray.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellid" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];
-    cell.textLabel.text = self.tableViewArray[indexPath.row];
+    NSString *str = _tableViewArray[indexPath.row][@"userNumber"];
+    NSMutableString *phoneStr = [NSMutableString string];
+    if (![@"" isEqualToString:str]) {
+       phoneStr = [NSMutableString stringWithString:str];
+       [phoneStr replaceCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+    }
+    cell.textLabel.text = [NSString stringWithFormat:@"用户%@加入记忆大师，您将享受%zd折优惠",phoneStr,9-indexPath.row];
     cell.textLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

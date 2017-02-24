@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface OtherAmountCell : UITableViewCell
+@protocol OtherAmountCellDelegate <NSObject>
+- (void)getOtherAmount:(NSString *)amount;
+@end
+@interface OtherAmountCell : UITableViewCell<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *amount;
+@property (weak, nonatomic) IBOutlet UILabel *studyBeanLabel;
 @property (weak, nonatomic) IBOutlet UILabel *money;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *momeyLabelWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *amountLabelWidth;
+@property (weak, nonatomic) id<OtherAmountCellDelegate> delegate;
 @end

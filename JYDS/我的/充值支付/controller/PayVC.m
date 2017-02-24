@@ -10,17 +10,20 @@
 #import "PaymentVC.h"
 #import "RememberWordSingleWordCell.h"
 #import "OtherAmountCell.h"
-@interface PayVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface PayVC ()<UITableViewDelegate,UITableViewDataSource,OtherAmountCellDelegate>
 
 @property (assign,nonatomic) NSInteger money;
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
 @property (weak, nonatomic) IBOutlet UIButton *contactServiceButton;
 @property (weak, nonatomic) IBOutlet UILabel *payBean;
+@property (strong, nonatomic) OtherAmountCell *cell;
 
 @end
 
 @implementation PayVC
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
@@ -79,19 +82,26 @@
         cell.wordPrice.text = [NSString stringWithFormat:@"%d元",[[PAY_ARRAY objectAtIndex:indexPath.row] intValue]*PAY_PROPORTION];
         return cell;
     }else{
-        OtherAmountCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OtherAmountCell" forIndexPath:indexPath];
-        return cell;
+        _cell = [tableView dequeueReusableCellWithIdentifier:@"OtherAmountCell" forIndexPath:indexPath];
+        _cell.delegate = self;
+        return _cell;
     }
+}
+- (void)getOtherAmount:(NSString *)amount{
+    _cell.selectionStyle = UITableViewCellSelectionStyleDefault;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    _money = [[PAY_ARRAY objectAtIndex:indexPath.row] integerValue]*PAY_PROPORTION;
-    [self performSegueWithIdentifier:@"toPayment" sender:self];
-}
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"toPayment"]) {
-        PaymentVC *paymentVC = segue.destinationViewController;
-        paymentVC.money = _money;
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    PaymentVC *paymentVC = [sb instantiateViewControllerWithIdentifier:@"payment"];
+    if (indexPath.row!=PAY_ARRAY.count) {
+        paymentVC.money = [[PAY_ARRAY objectAtIndex:indexPath.row] integerValue]*PAY_PROPORTION;
+        [self.navigationController pushViewController:paymentVC animated:YES];
+    }else if (![_cell.amount.text isEqualToString:@""] && [_cell.amount.text integerValue] > 0){
+        paymentVC.money = [[NSString stringWithFormat:@"%zd",[_cell.amount.text integerValue]] integerValue];
+        [self.navigationController pushViewController:paymentVC animated:YES];
+    }else if(REGEX(NUM_RE,_cell.amount.text) == NO){
+        [YHHud showWithMessage:@"请输入大于0的数字"];
     }
 }
 - (IBAction)contactServiceClick:(UIButton *)sender {

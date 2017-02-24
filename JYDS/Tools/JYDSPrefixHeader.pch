@@ -60,7 +60,7 @@
 #define CHECHCODE_RE @"^\\d{4}$" //验证码
 #define PWD_RE @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$" //密码
 #define NICK_RE @"^([\u4e00-\u9fa5]|\\w){1,12}$"  //昵称
-
+#define NUM_RE @"^[1-9]\\d*$"  //数字
 //验证码倒计时时间
 #define COUNTDOWN 10.0f
 
@@ -96,6 +96,7 @@
 #define UNITWORDBYID API(@"selUnitAllWord") //根据ID查询本单元单词
 #define ALLWORD API(@"getAllWords") //获取所有单词
 #define GAME API(@"gameDetil") //获取练习题订阅状态
+#define INVITATION API(@"Invitation") //邀请列表
 
 //练习题等级数组
 #define LEVELARRAY @[@"60",@"50",@"40",@"30",@"25",@"20",@"15",@"13",@"10"]
