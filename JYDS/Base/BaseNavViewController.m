@@ -7,21 +7,21 @@
 //
 
 #import "BaseNavViewController.h"
-
+#import "Reachability.h"
 @interface BaseNavViewController ()
-
 @end
 
 @implementation BaseNavViewController
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initNaBar:_navTitle];
     self.view.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
 }
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = YES;
-}
+
 - (void)initNaBar:(NSString *)title{
     _navBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 64)];
     _navBar.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);

@@ -20,6 +20,8 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //监测网络状态
+    [self checkNetStatus];
     //初始化设置
     [self getBannerInfo];
     [self initSettings];
@@ -43,6 +45,29 @@
     [self.window makeKeyAndVisible];
     return YES;
 }
+
+- (void)checkNetStatus{
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    [[AFNetworkReachabilityManager sharedManager ] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusUnknown:
+                [YHHud showWithMessage:@"未知网络"];
+                break;
+            case AFNetworkReachabilityStatusNotReachable:
+                [YHHud showWithMessage:@"网络断开连接"];
+                break;
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+                [YHHud showWithMessage:@"已连接数据网络"];
+                break;
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+                [YHHud showWithMessage:@"已连接WiFi网络"];
+                break;
+            default:
+                break;
+        }
+    }];
+}
+
 #pragma mark 初始化设置
 - (void)initSettings{
     //取消返回按钮文字

@@ -116,6 +116,7 @@
 		60190B1F1E2A0A6C009C9450 /* ResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60190B1E1E2A0A6C009C9450 /* ResultView.m */; };
 		60190B221E2A0A9A009C9450 /* FailedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60190B211E2A0A9A009C9450 /* FailedView.m */; };
 		6019F2721E45AC3200E6E8A1 /* codeName.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6019F2711E45AC3200E6E8A1 /* codeName.plist */; };
+		601D6BD01E62B708002F2AE9 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 601D6BCF1E62B708002F2AE9 /* Reachability.m */; };
 		605D2ED01E2DB97000A7E01B /* SuccessView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 605D2ECF1E2DB97000A7E01B /* SuccessView.xib */; };
 		605D2ED21E2DB9B200A7E01B /* FailedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 605D2ED11E2DB9B200A7E01B /* FailedView.xib */; };
 		606A94E41E51A89E00A0279D /* SecretsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94E31E51A89E00A0279D /* SecretsVC.m */; };
@@ -329,6 +330,8 @@
 		60190B201E2A0A9A009C9450 /* FailedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FailedView.h; sourceTree = "<group>"; };
 		60190B211E2A0A9A009C9450 /* FailedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FailedView.m; sourceTree = "<group>"; };
 		6019F2711E45AC3200E6E8A1 /* codeName.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = codeName.plist; path = "JYDS/我的/记忆法练习题/codeName.plist"; sourceTree = SOURCE_ROOT; };
+		601D6BCE1E62B708002F2AE9 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		601D6BCF1E62B708002F2AE9 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		605D2ECF1E2DB97000A7E01B /* SuccessView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuccessView.xib; sourceTree = "<group>"; };
 		605D2ED11E2DB9B200A7E01B /* FailedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FailedView.xib; sourceTree = "<group>"; };
 		606A94E21E51A89E00A0279D /* SecretsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecretsVC.h; sourceTree = "<group>"; };
@@ -1056,6 +1059,8 @@
 				6078D21D1E161AF20089D40F /* YHSingleton.m */,
 				6078D21E1E161AF20089D40F /* YHWebRequest.h */,
 				6078D21F1E161AF20089D40F /* YHWebRequest.m */,
+				601D6BCE1E62B708002F2AE9 /* Reachability.h */,
+				601D6BCF1E62B708002F2AE9 /* Reachability.m */,
 			);
 			name = Tools;
 			path = JYDS/Tools;
@@ -1517,6 +1522,7 @@
 				6078D2081E1613180089D40F /* RootTabBarController.m in Sources */,
 				609F06291E1621BD009F4986 /* UpdateNickNameVC.m in Sources */,
 				6078D1C61E1613180089D40F /* RememberWordVC.m in Sources */,
+				601D6BD01E62B708002F2AE9 /* Reachability.m in Sources */,
 				609F062D1E1621C5009F4986 /* MemoryExercisesVC.m in Sources */,
 				609F05E11E161D1A009F4986 /* RegisterVC.m in Sources */,
 				6078D2241E161AF20089D40F /* YHHud.m in Sources */,
