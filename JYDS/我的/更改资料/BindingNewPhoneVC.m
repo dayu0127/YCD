@@ -114,23 +114,23 @@
     }else{
         [SMSSDK commitVerificationCode:_codeText.text phoneNumber:_phoneText.text zone:@"86" result:^(SMSSDKUserInfo *userInfo, NSError *error) {
             if (!error) {
-                NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"oldMobile":[YHSingleton shareSingleton].userInfo.userName,@"newMobile":_phoneText.text,@"password":_pwdText.text};
-                [YHWebRequest YHWebRequestForPOST:BNEWPHONE parameters:dic success:^(NSDictionary *json) {
-                    if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                        [YHHud showWithSuccess:@"绑定成功"];
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            //更新用户信息
-                            [YHSingleton shareSingleton].userInfo.userName = _phoneText.text;
-                            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
-                            [[NSNotificationCenter defaultCenter] postNotificationName:@"updatePhoneNum" object:nil userInfo:@{@"phoneNum":_phoneText.text}];
-                            [self.navigationController popViewControllerAnimated:YES];
-                        });
-                    }else if([json[@"code"] isEqualToString:@"ERROR"]){
-                        [YHHud showWithMessage:@"服务器错误"];
-                    }else{
-                        [YHHud showWithMessage:@"绑定失败"];
-                    }
-                }];
+//                NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"oldMobile":[YHSingleton shareSingleton].userInfo.userName,@"newMobile":_phoneText.text,@"password":_pwdText.text};
+//                [YHWebRequest YHWebRequestForPOST:BNEWPHONE parameters:dic success:^(NSDictionary *json) {
+//                    if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//                        [YHHud showWithSuccess:@"绑定成功"];
+//                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                            //更新用户信息
+//                            [YHSingleton shareSingleton].userInfo.userName = _phoneText.text;
+//                            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
+//                            [[NSNotificationCenter defaultCenter] postNotificationName:@"updatePhoneNum" object:nil userInfo:@{@"phoneNum":_phoneText.text}];
+//                            [self.navigationController popViewControllerAnimated:YES];
+//                        });
+//                    }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//                        [YHHud showWithMessage:@"服务器错误"];
+//                    }else{
+//                        [YHHud showWithMessage:@"绑定失败"];
+//                    }
+//                }];
             }else{
                 NSLog(@"%@",error);
                 [YHHud showWithMessage:@"验证码错误"];

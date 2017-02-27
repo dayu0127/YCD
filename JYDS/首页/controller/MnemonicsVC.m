@@ -78,7 +78,7 @@
     //NSLog(@"%ld",index);
 }
 - (void)initTableView{
-    NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID};
+    NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
     [YHWebRequest YHWebRequestForPOST:MEMORY parameters:dic success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _memoryArray = json[@"data"];
@@ -147,9 +147,20 @@
     [self.navigationController pushViewController:courseVC animated:YES];
 }
 - (void)reloadMemoryList{
-    NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID};
+    NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
     [YHWebRequest YHWebRequestForPOST:MEMORY parameters:dic success:^(NSDictionary *json) {
-        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+        if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
+                [app.window setRootViewController:loginVC];
+                [app.window makeKeyWindow];
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
+        }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _memoryArray = json[@"data"];
             [_tableView reloadData];
             NSInteger totalPrice = [self getTotalPrice];
@@ -206,9 +217,20 @@
             });
         }else{
             //学习豆充足
-            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"payStudyBean":[NSString stringWithFormat:@"%zd",totalPrice],@"type":@"memory"};
+            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"payStudyBean":[NSString stringWithFormat:@"%zd",totalPrice],@"type":@"memory",@"device_id":DEVICEID};
             [YHWebRequest YHWebRequestForPOST:SUBALL parameters:dic success:^(NSDictionary  *json) {
-                if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
+                    [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                        LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
+                        [app.window setRootViewController:loginVC];
+                        [app.window makeKeyWindow];
+                    }]];
+                    [self presentViewController:alert animated:YES completion:nil];
+                }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                     _tableView.frame = CGRectMake(0, 64, WIDTH, HEIGHT-113);
                     _buttomBgView.alpha = 0;
                     NSMutableArray *arr = [NSMutableArray arrayWithArray:_memoryArray];

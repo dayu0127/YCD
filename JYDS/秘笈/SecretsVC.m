@@ -141,8 +141,19 @@
 #pragma mark 记录页面
 - (void)createRecordTableView{
     if (!_recordTableView) {
-        [YHWebRequest YHWebRequestForPOST:INVITATION parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
-            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+        [YHWebRequest YHWebRequestForPOST:INVITATION parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                    LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
+                    [app.window setRootViewController:loginVC];
+                    [app.window makeKeyWindow];
+                }]];
+                [self presentViewController:alert animated:YES completion:nil];
+            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                 _tableViewArray = json[@"data"];
                 if (_tableViewArray.count>0) {
                     _recordTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT-164) style:UITableViewStylePlain];

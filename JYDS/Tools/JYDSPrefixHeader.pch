@@ -17,6 +17,8 @@
 #import <YYModel.h>
 #import "UserInfo.h"
 #import "YHSingleton.h"
+#import "AppDelegate.h"
+#import "LoginNC.h"
 //屏幕高宽
 #define WIDTH [UIScreen mainScreen].bounds.size.width
 #define HEIGHT [UIScreen mainScreen].bounds.size.height
@@ -68,39 +70,33 @@
 #define API(api) [NSString stringWithFormat:@"http://www.zhongshuo.cn:8088/jyds/API/%@API",api]
 #define BOSSAPI(api) [NSString stringWithFormat:@"http://www.zhongshuo.cn:8088/jyds/API/%@",api]
 
+#define BANNER API(@"banner") //轮播图
+#define MEMORY API(@"course") //记忆法列表
+#define SUBALL API(@"subAll") //全部订阅
+#define SUB API(@"sub") //单个订阅
+#define COURSE API(@"getReciteWords") //记单词目录
+#define WORD API(@"getWords") //分类单词
+#define ALLWORD API(@"getAllWords") //获取所有单词
+#define UPLOADHEADIMAGE API(@"upload") //上传头像
+#define MEMORYBYID API(@"memoryIDSel") //记忆法id查详情
 #define LOGIN API(@"login") //登录
 #define REGISTER API(@"register") //注册
-#define FORGETPWD API(@"forgetPwd") //忘记密码
-#define UPDATEPWD API(@"updatePwd") //更改密码
-#define LOGOUT API(@"logout") //退出登录
-#define BANNER API(@"banner") //轮播图
-#define MEMORY API(@"course") //记忆法课程
-#define SUBALL API(@"subAll") //订阅全部
-#define COURSE API(@"getReciteWords") //课程列表
-#define COURSEVIDEO API(@"getCourseVideo") //记单词视频目录
-#define WORD API(@"getWords") //记单词单词目录
-#define SUBVIDEO API(@"subscribedVideo")  //已订阅视频目录
-#define SUBWORD API(@"subscribedWord")  //已订阅单词目录
+#define FORGETPWD API(@"forgetPwd") //密码找回
+#define UPDATEPWD API(@"updatePwd") //修改密码
+#define COSTDETAIL API(@"getCostDetail")  //支付明细
 #define PAYDETAIL API(@"getPayDetail")  //充值明细
-#define COSTDETAIL API(@"getCostDetail")  //消费明细
+#define BEANS API(@"getBeans")  //获取用户学习豆
 #define UPDNICK API(@"updateNickName")  //修改昵称
-#define BEANS API(@"getBeans")  //获取学习豆
-#define FEEDBACK API(@"fedBack") //用户反馈
-#define BNEWPHONE API(@"updateMobile")  //绑定新手机
-#define UPLOADHEADIMAGE API(@"upload") //上传头像
-#define SUB API(@"sub") //订阅
-#define MEMORYBYID API(@"memoryIDSel") //根据ID查询记忆法
-#define WORDBYVIDEOID API(@"selVideoID") //根据视频ID获取本节单词
-#define VIDEOBYID API(@"videoIDSel") //根据ID查询视频
-#define WORDBYID API(@"wordIDSel") //根据ID查询单词
-#define UNITWORDBYID API(@"selUnitAllWord") //根据ID查询本单元单词
-#define ALLWORD API(@"getAllWords") //获取所有单词
-#define GAME API(@"gameDetil") //获取练习题订阅状态
+#define FEEDBACK API(@"fedBack") //反馈
 #define INVITATION API(@"Invitation") //邀请列表
+#define LOGOUT API(@"logout") //退出登录
 
 //练习题等级数组
 #define LEVELARRAY @[@"60",@"50",@"40",@"30",@"25",@"20",@"15",@"13",@"10"]
 //练习题价格
 #define GAMEPRICE 10
+
+//UUID
+#define DEVICEID [[[UIDevice currentDevice] identifierForVendor] UUIDString]
 
 #endif /* JYDSPrefixHeader_pch */

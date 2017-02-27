@@ -41,12 +41,23 @@
         AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
         mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
         mgr.responseSerializer.acceptableContentTypes =[NSSet setWithObjects:@"application/json",@"text/json",@"text/JavaScript",@"text/html",@"text/plain",nil];
-        [mgr POST:UPLOADHEADIMAGE parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [mgr POST:UPLOADHEADIMAGE parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             NSData *data = UIImagePNGRepresentation(_headImageView.image);
             [formData appendPartWithFileData:data name:@"posterFile" fileName:@"headImage.png" mimeType:@"image/png"];
         } progress:^(NSProgress * _Nonnull uploadProgress) {} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil];
-            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                    LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
+                    [app.window setRootViewController:loginVC];
+                    [app.window makeKeyWindow];
+                }]];
+                [self presentViewController:alert animated:YES completion:nil];
+            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                 //通知我的VC更新头像图片
                 NSDictionary *dic = [NSDictionary dictionaryWithObject:_headImageView.image forKey:@"headImage"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadImage" object:nil userInfo:dic];

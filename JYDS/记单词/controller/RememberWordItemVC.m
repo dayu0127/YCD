@@ -148,9 +148,20 @@
             if (studyBean < [_wordPrice integerValue]) {
                 [self pushPayVC];
             }else{
-                NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"productID":_wordID,@"type":@"word",@"money":_wordPrice};
+                NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"productID":_wordID,@"type":@"word",@"money":_wordPrice,@"device_id":DEVICEID};
                 [YHWebRequest YHWebRequestForPOST:SUB parameters:dic success:^(NSDictionary *json) {
-                    if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                    if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+                        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
+                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
+                        [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                            AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                            LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
+                            [app.window setRootViewController:loginVC];
+                            [app.window makeKeyWindow];
+                        }]];
+                        [self presentViewController:alert animated:YES completion:nil];
+                    }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                         for (NSInteger i = 0; i<_wordArray.count; i++) {
                             NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:[_wordArray objectAtIndex:i]];
                             NSMutableArray *arr = [NSMutableArray arrayWithArray:[dic objectForKey:@"wordData"]];
@@ -184,9 +195,20 @@
             }else{
                 //学习豆充足
                 _allWordPrice = [self getTotalPrice];
-                NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"payStudyBean":[NSString stringWithFormat:@"%zd",_allWordPrice],@"type":@"words",@"classifyID":_classifyID};
+                NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"payStudyBean":[NSString stringWithFormat:@"%zd",_allWordPrice],@"type":@"words",@"classifyID":_classifyID,@"device_id":DEVICEID};
                 [YHWebRequest YHWebRequestForPOST:SUBALL parameters:dic success:^(NSDictionary  *json) {
-                    if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                    if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+                        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
+                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
+                        [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                            AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                            LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
+                            [app.window setRootViewController:loginVC];
+                            [app.window makeKeyWindow];
+                        }]];
+                        [self presentViewController:alert animated:YES completion:nil];
+                    }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                         _tableView.frame = CGRectMake(0, 64, WIDTH, HEIGHT-64);
                         _footerBgView.alpha = 0;
                         for (NSInteger i = 0; i<_wordArray.count; i++) {

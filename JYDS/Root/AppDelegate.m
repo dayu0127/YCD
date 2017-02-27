@@ -20,6 +20,7 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    self.isReachable = YES;
     //监测网络状态
     [self checkNetStatus];
     //初始化设置
@@ -49,18 +50,21 @@
 - (void)checkNetStatus{
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     [[AFNetworkReachabilityManager sharedManager ] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        [YHHud dismiss];
         switch (status) {
             case AFNetworkReachabilityStatusUnknown:
-                [YHHud showWithMessage:@"未知网络"];
+                self.isReachable = NO;
                 break;
             case AFNetworkReachabilityStatusNotReachable:
-                [YHHud showWithMessage:@"网络断开连接"];
+                self.isReachable = NO;
                 break;
             case AFNetworkReachabilityStatusReachableViaWWAN:
                 [YHHud showWithMessage:@"已连接数据网络"];
+                self.isReachable = YES;
                 break;
             case AFNetworkReachabilityStatusReachableViaWiFi:
                 [YHHud showWithMessage:@"已连接WiFi网络"];
+                self.isReachable = YES;
                 break;
             default:
                 break;
