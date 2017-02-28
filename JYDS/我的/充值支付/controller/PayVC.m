@@ -108,7 +108,7 @@
         paymentVC.money = [[PAY_ARRAY objectAtIndex:indexPath.row] integerValue]*PAY_PROPORTION;
         [self.navigationController pushViewController:paymentVC animated:YES];
     }else if (![_cell.amount.text isEqualToString:@""] && [_cell.amount.text integerValue] > 0){
-        paymentVC.money = [[NSString stringWithFormat:@"%zd",[_cell.amount.text integerValue]] integerValue];
+        paymentVC.money = [[NSString stringWithFormat:@"%zd学习豆",[_cell.amount.text integerValue]] integerValue];
         [self.navigationController pushViewController:paymentVC animated:YES];
     }else if(REGEX(NUM_RE,_cell.amount.text) == NO){
         [YHHud showWithMessage:@"请输入大于0的数字"];
