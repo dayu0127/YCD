@@ -20,6 +20,7 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    _isReachable = YES;
     //监测网络状态
     [self checkNetStatus];
     //初始化设置
@@ -51,16 +52,20 @@
     [[AFNetworkReachabilityManager sharedManager ] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         switch (status) {
             case AFNetworkReachabilityStatusUnknown:
-                [YHHud showWithMessage:@"未知网络"];
+//                [YHHud showWithMessage:@"未知网络"];
+                _isReachable = NO;
                 break;
             case AFNetworkReachabilityStatusNotReachable:
-                [YHHud showWithMessage:@"网络断开连接"];
+//                [YHHud showWithMessage:@"网络断开连接"];
+                _isReachable = NO;
                 break;
             case AFNetworkReachabilityStatusReachableViaWWAN:
                 [YHHud showWithMessage:@"已连接数据网络"];
+                _isReachable = YES;
                 break;
             case AFNetworkReachabilityStatusReachableViaWiFi:
                 [YHHud showWithMessage:@"已连接WiFi网络"];
+                _isReachable = YES;
                 break;
             default:
                 break;
@@ -111,15 +116,19 @@
     [WXApi registerApp:@"wx7658d0735b233185"];
 }
 - (void)getBannerInfo{
-    [YHWebRequest YHWebRequestForPOST:BANNER parameters:nil success:^(NSDictionary *json) {
-        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-            [[NSUserDefaults standardUserDefaults] setObject:json[@"data"] forKey:@"banner"];
-        }else if ([json[@"code"] isEqualToString:@"ERROR"]){
-            [YHHud showWithMessage:@"服务器错误"];
-        }else{
-            [YHHud showWithMessage:@"数据异常"];
-        }
-    }];
+    if (_isReachable == NO) {
+        [YHHud showWithMessage:@"网络错误，请检查网络设置"];
+    }else{
+        [YHWebRequest YHWebRequestForPOST:BANNER parameters:nil success:^(NSDictionary *json) {
+            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                [[NSUserDefaults standardUserDefaults] setObject:json[@"data"] forKey:@"banner"];
+            }else if ([json[@"code"] isEqualToString:@"ERROR"]){
+                [YHHud showWithMessage:@"服务器错误"];
+            }else{
+                [YHHud showWithMessage:@"数据异常"];
+            }
+        }];
+    }
 }
 #pragma mark 设置系统回调(支持所有iOS系统)
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{

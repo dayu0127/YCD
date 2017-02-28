@@ -9,5 +9,5 @@
 #import <AFNetworkReachabilityManager.h>
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 @property (strong, nonatomic) UIWindow *window;
-@property (assign, nonatomic) AFNetworkReachabilityStatus netStatus;
+@property (assign, nonatomic) BOOL isReachable;
 @end
