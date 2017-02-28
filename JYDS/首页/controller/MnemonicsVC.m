@@ -19,7 +19,6 @@
 @interface MnemonicsVC ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,YHAlertViewDelegate,MemoryCourseVCDelegate>
 @property (strong,nonatomic) NSMutableArray *netImages;  //网络图片
 @property (strong,nonatomic) SDCycleScrollView *cycleScrollView;//轮播器
-//@property (strong, nonatomic) BaseTableView *tableView;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong,nonatomic) JCAlertView *alertView;
 @property (strong,nonatomic) NSArray *bannerInfoArray;
@@ -80,12 +79,13 @@
 - (void)initTableView{
     NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
     [YHWebRequest YHWebRequestForPOST:MEMORY parameters:dic success:^(NSDictionary *json) {
-        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+        if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+            [self returnToLogin];
+        }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _memoryArray = json[@"data"];
             //显示总价
             NSInteger totalPrice = [self getTotalPrice];
             _subLabel.text = [NSString stringWithFormat:@"一次订阅所有记忆法课程，仅需%zd学习豆!",totalPrice];
-//            _tableView = [[BaseTableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-157) style:UITableViewStyleGrouped];
             //计算tableView的高度
             CGFloat h = 0;
             NSInteger count = 0;
@@ -106,12 +106,30 @@
             _tableView.rowHeight = 100;
             _tableView.separatorInset = UIEdgeInsetsZero;
             _tableView.backgroundColor = [UIColor clearColor];
-//            [_tableView setRefreshData:^{
-//                //        NSLog(@"下拉刷新数据");
-//            }];
-//            [_tableView setLoadMoreData:^{
-//                //        NSLog(@"上拉加载更多");
-//            }];
+            //下拉刷新
+            MJChiBaoZiHeader *header =  [MJChiBaoZiHeader headerWithRefreshingBlock:^{
+                NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
+                [YHWebRequest YHWebRequestForPOST:MEMORY parameters:dic success:^(NSDictionary *json) {
+                    if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+                       [self returnToLogin];
+                    }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                        [_tableView.mj_header endRefreshing];
+                        _memoryArray = json[@"data"];
+                        [self.tableView reloadData];
+                        _subLabel.text = [NSString stringWithFormat:@"一次订阅所有记忆法课程，仅需%zd学习豆!",[self getTotalPrice]];
+                    }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                        [YHHud showWithMessage:@"服务器错误"];
+                    }else{
+                        [YHHud showWithMessage:@"数据异常"];
+                    }
+                }];
+            }];
+            // 隐藏时间
+            header.lastUpdatedTimeLabel.hidden = YES;
+            // 马上进入刷新状态
+            [header beginRefreshing];
+            // 设置header
+            _tableView.mj_header = header;
             [_tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
             [self.view addSubview:_tableView];
         }else if([json[@"code"] isEqualToString:@"ERROR"]){
@@ -150,16 +168,7 @@
     NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
     [YHWebRequest YHWebRequestForPOST:MEMORY parameters:dic success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-                [app.window setRootViewController:loginVC];
-                [app.window makeKeyWindow];
-            }]];
-            [self presentViewController:alert animated:YES completion:nil];
+            [self returnToLogin];
         }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _memoryArray = json[@"data"];
             [_tableView reloadData];
@@ -176,11 +185,9 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, WIDTH, 9/16.0*WIDTH) delegate:self placeholderImage:[UIImage imageNamed:@"banner"]];
     if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
-        self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControl"];
-        self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_select"];
+        [self dayMode];
     }else{
-        self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlN"];
-        self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_selectN"];
+        [self nightMode];
     }
     self.cycleScrollView.imageURLStringsGroup = self.netImages;
     self.cycleScrollView.autoScrollTimeInterval = 3.0f;
@@ -220,16 +227,7 @@
             NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"payStudyBean":[NSString stringWithFormat:@"%zd",totalPrice],@"type":@"memory",@"device_id":DEVICEID};
             [YHWebRequest YHWebRequestForPOST:SUBALL parameters:dic success:^(NSDictionary  *json) {
                 if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
-                    [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                        LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-                        [app.window setRootViewController:loginVC];
-                        [app.window makeKeyWindow];
-                    }]];
-                    [self presentViewController:alert animated:YES completion:nil];
+                    [self returnToLogin];
                 }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                     _tableView.frame = CGRectMake(0, 64, WIDTH, HEIGHT-113);
                     _buttomBgView.alpha = 0;
@@ -252,6 +250,18 @@
         }
     }
     [_alertView dismissWithCompletion:nil];
+}
+- (void)returnToLogin{
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
+        [app.window setRootViewController:loginVC];
+        [app.window makeKeyWindow];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];

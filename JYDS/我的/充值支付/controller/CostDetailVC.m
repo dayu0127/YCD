@@ -83,7 +83,7 @@
     PayDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PayDetailCell" forIndexPath:indexPath];
     cell.payType.text = _dataArray[indexPath.row][@"payType"];
     cell.payDate.text = _dataArray[indexPath.row][@"payTime"];
-    cell.payMoney.text = [NSString stringWithFormat:@"%@元", _dataArray[indexPath.row][@"money"]];
+    cell.payMoney.text = [NSString stringWithFormat:@"%@个", _dataArray[indexPath.row][@"money"]];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

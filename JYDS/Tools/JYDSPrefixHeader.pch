@@ -19,6 +19,8 @@
 #import "YHSingleton.h"
 #import "AppDelegate.h"
 #import "LoginNC.h"
+#import "MJChiBaoZiHeader.h"
+#import <MJRefresh.h>
 //屏幕高宽
 #define WIDTH [UIScreen mainScreen].bounds.size.width
 #define HEIGHT [UIScreen mainScreen].bounds.size.height

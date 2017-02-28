@@ -17,6 +17,9 @@
 - (void)nightModeConfiguration{
     self.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     _amount.delegate = self;
+    _amount.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    _amount.backgroundColor = [UIColor clearColor];
+    _amount.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"其他余额" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:15.0f],NSFontAttributeName,[UIColor lightGrayColor],NSForegroundColorAttributeName, nil]];
     _studyBeanLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _money.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     self.selectedBackgroundView = [[UIView alloc]initWithFrame:self.frame];

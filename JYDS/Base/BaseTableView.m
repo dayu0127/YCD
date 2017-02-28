@@ -63,18 +63,18 @@ static const CGFloat MJDuration = 2.0;
 //        // 马上进入刷新状态
 //        [self.mj_header beginRefreshing];
         // 设置footer
-        self.mj_footer = [MJChiBaoZiFooter footerWithRefreshingBlock:^{
-            if (_loadMoreData) {
-                self.loadMoreData();
-            }
-            // 2.模拟2秒后刷新表格UI（真实开发中，可以移除这段gcd代码）
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(MJDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                // 刷新表格
-                [self reloadData];
-                // 拿到当前的上拉刷新控件，结束刷新状态
-                [self.mj_footer endRefreshing];
-            });
-        }];
+//        self.mj_footer = [MJChiBaoZiFooter footerWithRefreshingBlock:^{
+//            if (_loadMoreData) {
+//                self.loadMoreData();
+//            }
+//            // 2.模拟2秒后刷新表格UI（真实开发中，可以移除这段gcd代码）
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(MJDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                // 刷新表格
+//                [self reloadData];
+//                // 拿到当前的上拉刷新控件，结束刷新状态
+//                [self.mj_footer endRefreshing];
+//            });
+//        }];
     }
     return self;
 }

@@ -23,7 +23,6 @@
 
 @implementation PayVC
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
