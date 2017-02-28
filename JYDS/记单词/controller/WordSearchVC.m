@@ -87,17 +87,23 @@
     cell.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     cell.textLabel.text = _resultArray[indexPath.row][@"word"];
     cell.textLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
+    cell.selectedBackgroundView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_SELT,N_CELL_SELT,RED);
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
-    wordDetailVC.hidesBottomBarWhenPushed = YES;
-    wordDetailVC.word = [Words yy_modelWithJSON:_resultArray[indexPath.row]];
-    [self.navigationController pushViewController:wordDetailVC animated:YES];
-    _searchBar.text = @"";
-    [_resultArray removeAllObjects];
-    [_tableView removeFromSuperview];
-    _tableView = nil;
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if ([_resultArray[indexPath.row][@"payType"] integerValue] == 1) {//已经订阅直接跳转
+        RememberWordSingleWordDetailVC *wordDetailVC = [[RememberWordSingleWordDetailVC alloc] init];
+        wordDetailVC.hidesBottomBarWhenPushed = YES;
+        wordDetailVC.word = [Words yy_modelWithJSON:_resultArray[indexPath.row]];
+        [self.navigationController pushViewController:wordDetailVC animated:YES];
+        _searchBar.text = @"";
+        [_resultArray removeAllObjects];
+        [_tableView removeFromSuperview];
+        _tableView = nil;
+    }else{
+        [YHHud showWithMessage:@"该单词未来订阅，请先订阅"];
+    }
 }
 @end

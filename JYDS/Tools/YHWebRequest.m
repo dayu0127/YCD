@@ -7,6 +7,7 @@
 //
 
 #import "YHWebRequest.h"
+#import "AppDelegate.h"
 @implementation YHWebRequest
 + (AFHTTPSessionManager *)shareManager{
     static AFHTTPSessionManager *manager;
@@ -31,17 +32,20 @@
 + (void)YHWebRequestForPOST:(nullable NSString *)URLString
                              parameters:(nullable NSDictionary *)parameters
                                  success:(nullable void(^)(id _Nonnull json))success{
-    
-    //字符串处理
-    NSString * string =[URLString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:URLString]];
-    [[YHWebRequest shareManager]POST:string parameters:parameters progress:^(NSProgress *_Nonnull uploadProgress) {
-    } success:^(NSURLSessionDataTask * _Nonnull task,id _Nullable responseObject) {
-        if (success) {
-            success([NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil]);
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError *_Nonnull error) {
-//        [YHHud showWithMessage:@"网络错误"];
-        NSLog(@"网络异常 - T_T%@", error);
-    }];
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    if (app.isReachable == NO) {
+        [YHHud showWithMessage:@"断网了"];
+    }else{
+        //字符串处理
+        NSString * string =[URLString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:URLString]];
+        [[YHWebRequest shareManager] POST:string parameters:parameters progress:^(NSProgress *_Nonnull uploadProgress) {
+        } success:^(NSURLSessionDataTask * _Nonnull task,id _Nullable responseObject) {
+            if (success) {
+                success([NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil]);
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError *_Nonnull error) {
+            NSLog(@"网络异常 - T_T%@", error);
+        }];
+    }
 }
 @end

@@ -141,8 +141,10 @@
 #pragma mark 记录页面
 - (void)createRecordTableView{
     if (!_recordTableView) {
-        [YHWebRequest YHWebRequestForPOST:INVITATION parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {
-            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+        [YHWebRequest YHWebRequestForPOST:INVITATION parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+                [self returnToLogin];
+            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                 _tableViewArray = json[@"data"];
                 if (_tableViewArray.count>0) {
                     _recordTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT-164) style:UITableViewStylePlain];
@@ -151,6 +153,27 @@
                     _recordTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
                     _recordTableView.backgroundColor = [UIColor clearColor];
                     [_recordTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
+                    MJChiBaoZiHeader *header = [MJChiBaoZiHeader headerWithRefreshingBlock:^{
+                        [YHWebRequest YHWebRequestForPOST:INVITATION parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+                            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+                                [self returnToLogin];
+                            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                                [self.recordTableView.mj_header endRefreshing];
+                                _tableViewArray = json[@"data"];
+                                [_recordTableView reloadData];
+                            }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                                [YHHud showWithMessage:@"服务器错误"];
+                            }else{
+                                [YHHud showWithMessage:@"数据异常"];
+                            }
+                        }];
+                    }];
+                    // 隐藏时间
+                    header.lastUpdatedTimeLabel.hidden = YES;
+                    // 马上进入刷新状态
+                    [header beginRefreshing];
+                    // 设置header
+                    _recordTableView.mj_header = header;
                     [_scrollView addSubview:self.recordTableView];
                 }
             }else if([json[@"code"] isEqualToString:@"ERROR"]){
@@ -251,5 +274,17 @@
     cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+- (void)returnToLogin{
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
+        [app.window setRootViewController:loginVC];
+        [app.window makeKeyWindow];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 @end

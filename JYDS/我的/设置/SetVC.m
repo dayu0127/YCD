@@ -7,9 +7,6 @@
 //
 
 #import "SetVC.h"
-#import "LoginNC.h"
-#import "AppDelegate.h"
-#import "LoginVC.h"
 #import <UIImageView+WebCache.h>
 
 @interface SetVC ()<UITableViewDelegate,UITableViewDataSource,YHAlertViewDelegate>
@@ -98,17 +95,15 @@
 - (void)buttonClickIndex:(NSInteger)buttonIndex{
     [_alertView dismissWithCompletion:nil];
     if (buttonIndex == 1) {
-        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"type":@"1"};
+        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
         [YHWebRequest YHWebRequestForPOST:LOGOUT parameters:dic success:^(NSDictionary *json) {
-            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            if ([json[@"code"] isEqualToString:@"SUCCESS"]||[json[@"code"] isEqualToString:@"TYPEERR"]) {
                 UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
                 LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
                 [app.window setRootViewController:loginVC];
                 [app.window makeKeyWindow];
                 [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
-            }else if([json[@"code"] isEqualToString:@"TYPEERR"]){
-                [YHHud showWithMessage:@"该账号未登录"];
             }else if([json[@"code"] isEqualToString:@"ERROR"]){
                 [YHHud showWithMessage:@"服务器错误"];
             }else{

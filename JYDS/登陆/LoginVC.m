@@ -74,7 +74,7 @@
     }else{
         //--实现登录--
         [YHHud showWithStatus:@"正在登陆"];
-        NSDictionary *dic = @{@"userName":_phoneText.text,@"password":_pwdText.text};
+        NSDictionary *dic = @{@"userName":_phoneText.text,@"password":_pwdText.text,@"device_id":DEVICEID};
         [YHWebRequest YHWebRequestForPOST:LOGIN parameters:dic success:^(NSDictionary *json) {
             [YHHud dismiss];
             if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
