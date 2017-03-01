@@ -22,6 +22,28 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [YHHud showWithStatus:@"正在读取单词"];
+    [YHWebRequest YHWebRequestForPOST:ALLWORD parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+//        [YHHud dismiss];
+        if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
+                [app.window setRootViewController:loginVC];
+                [app.window makeKeyWindow];
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
+        }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            _wordArray = json[@"data"];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
+        }
+    }];
     self.resultArray = [NSMutableArray array];
     [self initNavBar];
 }
@@ -61,7 +83,7 @@
         }
     }
     if (_resultArray.count>0) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-108) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64) style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.rowHeight = 44;

@@ -24,7 +24,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self nightModeConfiguration];
+    [YHHud showWithStatus:@"拼命加载中..."];
     [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+        [YHHud dismiss];
         if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
@@ -44,7 +46,9 @@
             [YHHud showWithMessage:@"数据异常"];
         }
     }];
+    
     [YHWebRequest YHWebRequestForPOST:COSTDETAIL parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+        
         if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];

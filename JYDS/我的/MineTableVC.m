@@ -31,16 +31,7 @@
 - (void)updateBean{
     [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-                [app.window setRootViewController:loginVC];
-                [app.window makeKeyWindow];
-            }]];
-            [self presentViewController:alert animated:YES completion:nil];
+            [self returnToLogin];
         }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _studyBean.text = [NSString stringWithFormat:@"%@",json[@"data"][@"restBean"]];
             _costStudyBean.text = [NSString stringWithFormat:@"%@",json[@"data"][@"consumeBean"]];
@@ -61,22 +52,13 @@
     //下拉刷新
     MJChiBaoZiHeader *header =  [MJChiBaoZiHeader headerWithRefreshingBlock:^{
         [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+            [self.tableView.mj_header endRefreshing];
             if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                    LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-                    [app.window setRootViewController:loginVC];
-                    [app.window makeKeyWindow];
-                }]];
-                [self presentViewController:alert animated:YES completion:nil];
+                [self returnToLogin];
             }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                 _studyBean.text = [NSString stringWithFormat:@"%@",json[@"data"][@"restBean"]];
                 _costStudyBean.text = [NSString stringWithFormat:@"%@",json[@"data"][@"consumeBean"]];
                 // 拿到当前的下拉刷新控件，结束刷新状态
-                [self.tableView.mj_header endRefreshing];
             }else if([json[@"code"] isEqualToString:@"ERROR"]){
                 [YHHud showWithMessage:@"服务器错误"];
             }else{
@@ -128,8 +110,16 @@
     _nickNameLabel.text = str;
 }
 
-//- (void)updatePhoneNum:(NSNotification *)sender{
-//    NSString *str = sender.userInfo[@"phoneNum"];
-//    _phoneNumLabel.text = str;
-//}
+- (void)returnToLogin{
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
+        [app.window setRootViewController:loginVC];
+        [app.window makeKeyWindow];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 @end

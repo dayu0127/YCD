@@ -155,10 +155,10 @@
                     [_recordTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
                     MJChiBaoZiHeader *header = [MJChiBaoZiHeader headerWithRefreshingBlock:^{
                         [YHWebRequest YHWebRequestForPOST:INVITATION parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+                            [self.recordTableView.mj_header endRefreshing];
                             if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
                                 [self returnToLogin];
                             }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                                [self.recordTableView.mj_header endRefreshing];
                                 _tableViewArray = json[@"data"];
                                 [_recordTableView reloadData];
                             }else if([json[@"code"] isEqualToString:@"ERROR"]){

@@ -35,34 +35,16 @@
 }
 #pragma mark 搜索框开始编辑
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
-    [YHWebRequest YHWebRequestForPOST:ALLWORD parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
-        if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-                [app.window setRootViewController:loginVC];
-                [app.window makeKeyWindow];
-            }]];
-            [self presentViewController:alert animated:YES completion:nil];
-        }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-            WordSearchVC *wordSearch = [[WordSearchVC alloc] init];
-            wordSearch.hidesBottomBarWhenPushed = YES;
-            wordSearch.wordArray = json[@"data"];
-            [self.navigationController pushViewController:wordSearch animated:YES];
-        }else if([json[@"code"] isEqualToString:@"ERROR"]){
-            [YHHud showWithMessage:@"服务器错误"];
-        }else{
-            [YHHud showWithMessage:@"数据异常"];
-        }
-    }];
+    WordSearchVC *wordSearch = [[WordSearchVC alloc] init];
+    wordSearch.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:wordSearch animated:YES];
     return NO;
 }
 #pragma mark 创建主视图
 - (void)createMainScrollView{
+    [YHHud showWithStatus:@"拼命加载中..."];
     [YHWebRequest YHWebRequestForPOST:COURSE parameters:nil success:^(NSDictionary  *json) {
+        [YHHud dismiss];
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             NSArray *dataArray = json[@"data"];
             UIView *lastView = nil;
@@ -101,36 +83,14 @@
 }
 #pragma mark itemView的点击事件
 - (void)itemClickWithClassifyID:(NSInteger)classifyID title:(NSString *)title{
-    NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"classifyID":[NSString stringWithFormat:@"%zd",classifyID],@"device_id":DEVICEID};
-    [YHWebRequest YHWebRequestForPOST:WORD parameters:dic success:^(NSDictionary *json) {
-        if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-                [app.window setRootViewController:loginVC];
-                [app.window makeKeyWindow];
-            }]];
-            [self presentViewController:alert animated:YES completion:nil];
-        }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-            _itemTitle = title;
-            _classifyID = [NSString stringWithFormat:@"%zd",classifyID];
-            _wordArray = [NSMutableArray arrayWithArray:json[@"data"]];
-            [self performSegueWithIdentifier:@"toItemDetail" sender:self];
-        }else if([json[@"code"] isEqualToString:@"ERROR"]){
-            [YHHud showWithMessage:@"服务器错误"];
-        }else{
-            [YHHud showWithMessage:@"数据异常"];
-        }
-    }];
+    _itemTitle = title;
+    _classifyID = [NSString stringWithFormat:@"%zd",classifyID];
+    [self performSegueWithIdentifier:@"toItemDetail" sender:self];
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"toItemDetail"]) {
         RememberWordItemVC *itemVC = segue.destinationViewController;
         itemVC.navTitle = _itemTitle;
-        itemVC.wordArray = _wordArray;
         itemVC.classifyID = _classifyID;
         itemVC.hidesBottomBarWhenPushed = YES;
     }
