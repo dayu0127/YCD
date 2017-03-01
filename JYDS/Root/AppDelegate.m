@@ -111,19 +111,15 @@
     [WXApi registerApp:@"wx7658d0735b233185"];
 }
 - (void)getBannerInfo{
-    if (_isReachable == NO) {
-        [YHHud showWithMessage:@"网络错误，请检查网络设置"];
-    }else{
-        [YHWebRequest YHWebRequestForPOST:BANNER parameters:nil success:^(NSDictionary *json) {
-            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                [[NSUserDefaults standardUserDefaults] setObject:json[@"data"] forKey:@"banner"];
-            }else if ([json[@"code"] isEqualToString:@"ERROR"]){
-                [YHHud showWithMessage:@"服务器错误"];
-            }else{
-                [YHHud showWithMessage:@"数据异常"];
-            }
-        }];
-    }
+    [YHWebRequest YHWebRequestForPOST:BANNER parameters:nil success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            [[NSUserDefaults standardUserDefaults] setObject:json[@"data"] forKey:@"banner"];
+        }else if ([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
+        }
+    }];
 }
 #pragma mark 设置系统回调(支持所有iOS系统)
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{

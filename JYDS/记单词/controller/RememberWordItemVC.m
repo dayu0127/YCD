@@ -148,7 +148,7 @@
             if (studyBean < [_wordPrice integerValue]) {
                 [self pushPayVC];
             }else{
-                NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"productID":_wordID,@"type":@"word",@"money":_wordPrice,@"device_id":DEVICEID};
+                NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"productID":_wordID,@"type":@"word",@"device_id":DEVICEID};
                 [YHWebRequest YHWebRequestForPOST:SUB parameters:dic success:^(NSDictionary *json) {
                     if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
                         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
@@ -195,7 +195,7 @@
             }else{
                 //学习豆充足
                 _allWordPrice = [self getTotalPrice];
-                NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"payStudyBean":[NSString stringWithFormat:@"%zd",_allWordPrice],@"type":@"words",@"classifyID":_classifyID,@"device_id":DEVICEID};
+                NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"type":@"words",@"classifyID":_classifyID,@"device_id":DEVICEID};
                 [YHWebRequest YHWebRequestForPOST:SUBALL parameters:dic success:^(NSDictionary  *json) {
                     if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
                         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];

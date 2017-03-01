@@ -10,7 +10,6 @@
 #import <SDCycleScrollView.h>
 #import "MnemonicsCell.h"
 #import "MemoryCourseVC.h"
-#import "BaseTableView.h"
 #import "BannerDetailVC.h"
 #import "Mnemonics.h"
 #import <UIImageView+WebCache.h>
@@ -50,7 +49,8 @@
     [self initTableView];
 }
 - (void)nightModeConfiguration{
-    _buttomBgView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
+//    _buttomBgView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
+    _buttomBgView.alpha = 0;
     _subLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _subBtn.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
 }
@@ -87,20 +87,20 @@
             NSInteger totalPrice = [self getTotalPrice];
             _subLabel.text = [NSString stringWithFormat:@"一次订阅所有记忆法课程，仅需%zd学习豆!",totalPrice];
             //计算tableView的高度
-            CGFloat h = 0;
+//            CGFloat h = 0;
             NSInteger count = 0;
             for (NSDictionary *dic in _memoryArray) {
                 if ([dic[@"coursePayStatus"] integerValue] == 1) {
                     count++;
                 }
             }
-            if (count == _memoryArray.count) {
-                h = HEIGHT-113;
-                _buttomBgView.alpha = 0;
-            }else{
-                h = HEIGHT-157;
-            }
-            _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, h) style:UITableViewStyleGrouped];
+//            if (count == _memoryArray.count) {
+//                h = HEIGHT-113;
+//                _buttomBgView.alpha = 0;
+//            }else{
+//                h = HEIGHT-157;
+//            }
+            _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-113) style:UITableViewStyleGrouped];
             _tableView.delegate = self;
             _tableView.dataSource =  self;
             _tableView.rowHeight = 100;
@@ -193,7 +193,7 @@
     self.cycleScrollView.autoScrollTimeInterval = 3.0f;
     return _cycleScrollView;
 }
-#pragma mark 订阅所有课程
+#pragma mark 订阅所有记忆法
 - (IBAction)subscribe:(id)sender {
     YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 250, 155) title:@"· 确认订阅 ·" message:@"如果确定，将一次订阅所有记忆法课程"];
     alertView.delegate = self;
@@ -211,9 +211,8 @@
 }
 - (void)buttonClickIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
-        NSInteger totalPrice = [self getTotalPrice];
         //学习豆不足
-        if (totalPrice>[[YHSingleton shareSingleton].userInfo.studyBean integerValue]) {
+        if ([self getTotalPrice]>[[YHSingleton shareSingleton].userInfo.studyBean integerValue]) {
             [YHHud showWithMessage:@"您的学习豆不足，请充值"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 _isHiddenNav = YES;
@@ -224,7 +223,7 @@
             });
         }else{
             //学习豆充足
-            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"payStudyBean":[NSString stringWithFormat:@"%zd",totalPrice],@"type":@"memory",@"device_id":DEVICEID};
+            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"type":@"memory",@"device_id":DEVICEID};
             [YHWebRequest YHWebRequestForPOST:SUBALL parameters:dic success:^(NSDictionary  *json) {
                 if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
                     [self returnToLogin];

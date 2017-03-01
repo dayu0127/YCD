@@ -147,7 +147,6 @@
 		6078D1FA1E1613180089D40F /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D1961E1613180089D40F /* RSADataSigner.m */; };
 		6078D1FB1E1613180089D40F /* RSADataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D1981E1613180089D40F /* RSADataVerifier.m */; };
 		6078D1FC1E1613180089D40F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6078D1991E1613180089D40F /* Assets.xcassets */; };
-		6078D1FD1E1613180089D40F /* BaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D19C1E1613180089D40F /* BaseTableView.m */; };
 		6078D1FE1E1613180089D40F /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D19E1E1613180089D40F /* BaseViewController.m */; };
 		6078D1FF1E1613180089D40F /* BaseWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D1A01E1613180089D40F /* BaseWKWebView.m */; };
 		6078D2001E1613180089D40F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6078D1A21E1613180089D40F /* LaunchScreen.storyboard */; };
@@ -458,8 +457,6 @@
 		6078D1971E1613180089D40F /* RSADataVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSADataVerifier.h; sourceTree = "<group>"; };
 		6078D1981E1613180089D40F /* RSADataVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataVerifier.m; sourceTree = "<group>"; };
 		6078D1991E1613180089D40F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = JYDS/Assets.xcassets; sourceTree = SOURCE_ROOT; };
-		6078D19B1E1613180089D40F /* BaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableView.h; sourceTree = "<group>"; };
-		6078D19C1E1613180089D40F /* BaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableView.m; sourceTree = "<group>"; };
 		6078D19D1E1613180089D40F /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		6078D19E1E1613180089D40F /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		6078D19F1E1613180089D40F /* BaseWKWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseWKWebView.h; sourceTree = "<group>"; };
@@ -998,8 +995,6 @@
 		6078D19A1E1613180089D40F /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				6078D19B1E1613180089D40F /* BaseTableView.h */,
-				6078D19C1E1613180089D40F /* BaseTableView.m */,
 				6078D19D1E1613180089D40F /* BaseViewController.h */,
 				6078D19E1E1613180089D40F /* BaseViewController.m */,
 				6078D19F1E1613180089D40F /* BaseWKWebView.h */,
@@ -1546,7 +1541,6 @@
 				609F060C1E16218B009F4986 /* PayDetailCell.m in Sources */,
 				6078D1CE1E1613180089D40F /* RememberWordVideoCell.m in Sources */,
 				609F06191E162190009F4986 /* PayDetailVC.m in Sources */,
-				6078D1FD1E1613180089D40F /* BaseTableView.m in Sources */,
 				606A94F81E51A8CA00A0279D /* MnemonicsCell.m in Sources */,
 				60190B161E2A0969009C9450 /* LevelView.m in Sources */,
 				609F06181E162190009F4986 /* CostDetailVC.m in Sources */,
