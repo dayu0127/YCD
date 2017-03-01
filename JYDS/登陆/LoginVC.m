@@ -77,6 +77,7 @@
         NSDictionary *dic = @{@"userName":_phoneText.text,@"password":_pwdText.text,@"device_id":DEVICEID};
         [YHWebRequest YHWebRequestForPOST:LOGIN parameters:dic success:^(NSDictionary *json) {
             [YHHud dismiss];
+            NSLog(@"%@",json);
             if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                 //保存用户信息
                 [[NSUserDefaults standardUserDefaults] setObject:json[@"data"] forKey:@"userInfo"];

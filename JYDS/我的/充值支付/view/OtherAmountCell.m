@@ -19,8 +19,8 @@
     _amount.delegate = self;
     _amount.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _amount.backgroundColor = [UIColor clearColor];
-    _amount.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"其他余额" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:15.0f],NSFontAttributeName,[UIColor lightGrayColor],NSForegroundColorAttributeName, nil]];
-    _studyBeanLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    _amount.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"其他金额" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:15.0f],NSFontAttributeName,[UIColor lightGrayColor],NSForegroundColorAttributeName, nil]];
+    
     _money.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     self.selectedBackgroundView = [[UIView alloc]initWithFrame:self.frame];
     self.selectedBackgroundView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_SELT,N_CELL_SELT,RED);
@@ -40,14 +40,15 @@
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     if (![textField.text isEqualToString:@""] && [textField.text integerValue] > 0) {
-        textField.text = [NSString stringWithFormat:@"%zd",[textField.text integerValue]];
+        NSInteger amount = [textField.text integerValue];
+        textField.text = [NSString stringWithFormat:@"%zd学习豆",amount];
         
         [_delegate getOtherAmount:textField.text];
         
         _amountLabelWidth.constant  = [textField.text boundingRectWithSize:CGSizeMake(1000, 30) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:15.0f] forKey:NSFontAttributeName] context:nil].size.width+15;
         
         _money.alpha = 1;
-        _money.text = [NSString stringWithFormat:@"%@元",textField.text];
+        _money.text = [NSString stringWithFormat:@"%zd元",amount];
         CGFloat width = [_money.text boundingRectWithSize:CGSizeMake(1000, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:10.0f] forKey:NSFontAttributeName] context:nil].size.width+10;
         _momeyLabelWidth.constant = width<55 ? 55 : width;
     }else{

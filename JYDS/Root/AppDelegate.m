@@ -20,7 +20,7 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.isReachable = YES;
+    _isReachable = YES;
     //监测网络状态
     [self checkNetStatus];
     //初始化设置
@@ -53,19 +53,18 @@
         [YHHud dismiss];
         switch (status) {
             case AFNetworkReachabilityStatusUnknown:
-                self.isReachable = NO;
+                _isReachable = NO;
                 break;
             case AFNetworkReachabilityStatusNotReachable:
-                self.isReachable = NO;
+                _isReachable = NO;
                 break;
             case AFNetworkReachabilityStatusReachableViaWWAN:
                 [YHHud showWithMessage:@"已连接数据网络"];
-                self.isReachable = YES;
+                _isReachable = YES;
                 break;
             case AFNetworkReachabilityStatusReachableViaWiFi:
                 [YHHud showWithMessage:@"已连接WiFi网络"];
-                self.isReachable = YES;
-                break;
+                _isReachable = YES;
             default:
                 break;
         }
@@ -80,9 +79,6 @@
     //设置
     [UINavigationBar appearance].titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     [UITableView appearance].separatorColor = SEPCOLOR;
-//    UIImage *backImage = [UIImage imageNamed:@"back"];
-//    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[backImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, backImage.size.width, 0, 0)]forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-//    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-233, 0) forBarMetrics:UIBarMetricsDefault];
     //判断是否加载夜间模式
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isNightMode"]==YES) {
         [[DKNightVersionManager sharedManager] nightFalling];

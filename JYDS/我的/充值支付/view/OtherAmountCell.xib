@@ -55,20 +55,12 @@
                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学习豆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TmR-6k-Bgu">
-                        <rect key="frame" x="120" y="13" width="46" height="18"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="eUX-VX-7CH" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="IlO-q4-8rp"/>
                     <constraint firstItem="eUX-VX-7CH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="JGp-qw-tLe"/>
-                    <constraint firstItem="TmR-6k-Bgu" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Jig-nS-oiy"/>
                     <constraint firstItem="15M-SZ-3DM" firstAttribute="leading" secondItem="eUX-VX-7CH" secondAttribute="trailing" constant="10" id="OBD-1y-4fw"/>
                     <constraint firstItem="5Co-po-c7O" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="fuC-Eo-LqT"/>
-                    <constraint firstItem="TmR-6k-Bgu" firstAttribute="leading" secondItem="15M-SZ-3DM" secondAttribute="trailing" id="in1-nI-het"/>
                     <constraint firstAttribute="trailing" secondItem="5Co-po-c7O" secondAttribute="trailing" id="mHR-dc-JYv"/>
                     <constraint firstItem="15M-SZ-3DM" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="uwt-Oo-0w3"/>
                 </constraints>
@@ -78,7 +70,6 @@
                 <outlet property="amountLabelWidth" destination="oMn-Dg-GGl" id="SAa-kT-F7f"/>
                 <outlet property="momeyLabelWidth" destination="QXa-Bg-Q1I" id="g6q-Pn-7Gc"/>
                 <outlet property="money" destination="5Co-po-c7O" id="5Mv-SF-WUB"/>
-                <outlet property="studyBeanLabel" destination="TmR-6k-Bgu" id="wzB-L7-13H"/>
             </connections>
         </tableViewCell>
     </objects>

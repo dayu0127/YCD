@@ -177,7 +177,7 @@
                 [self.navigationController pushViewController:payVC animated:YES];
             });
         }else{
-            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"productID":_memory.courseID,@"type":@"memory",@"money":_memory.coursePrice,@"device_id":DEVICEID};
+            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"productID":_memory.courseID,@"type":@"memory",@"device_id":DEVICEID};
             [YHWebRequest YHWebRequestForPOST:SUB parameters:dic success:^(NSDictionary *json) {
                 if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
                     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];

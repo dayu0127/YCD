@@ -44,7 +44,6 @@
                 success([NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil]);
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError *_Nonnull error) {
-//            [YHHud showWithMessage:@"获取数据失败"];
             NSLog(@"网络异常 - T_T%@", error);
         }];
     }
