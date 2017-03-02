@@ -33,8 +33,11 @@
     [self addPromptContent];
 }
 - (void)addPromptContent{
-    _promptLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 10, 200, 14)];
+    CGFloat y = WIDTH>375 ? 0 : 5;
+    NSInteger line = WIDTH>375 ? 1 : 2;
+    _promptLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, y, WIDTH-40, 35)];
     _promptLabel.text = @"如果您对记忆大师有什么意见或建议，请在这里告诉我们";
+    _promptLabel.numberOfLines = line;
     _promptLabel.textColor = [UIColor lightGrayColor];
     _promptLabel.font = [UIFont systemFontOfSize:14.0f];
     [_textView addSubview:_promptLabel];

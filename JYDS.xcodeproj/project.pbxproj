@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6013E80C1E5EE37E007E257A /* OtherAmountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6013E80A1E5EE37E007E257A /* OtherAmountCell.m */; };
 		6013E80D1E5EE37E007E257A /* OtherAmountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6013E80B1E5EE37E007E257A /* OtherAmountCell.xib */; };
+		6017B8E71E682C0D0007375F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6017B8E51E682C0D0007375F /* Assets.xcassets */; };
 		60190AAE1E2A07C0009C9450 /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = 60190A491E2A07C0009C9450 /* 0.png */; };
 		60190AAF1E2A07C0009C9450 /* 00.png in Resources */ = {isa = PBXBuildFile; fileRef = 60190A4A1E2A07C0009C9450 /* 00.png */; };
 		60190AB01E2A07C0009C9450 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 60190A4B1E2A07C0009C9450 /* 1.png */; };
@@ -146,7 +147,6 @@
 		6078D1F91E1613180089D40F /* openssl_wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D1941E1613180089D40F /* openssl_wrapper.m */; };
 		6078D1FA1E1613180089D40F /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D1961E1613180089D40F /* RSADataSigner.m */; };
 		6078D1FB1E1613180089D40F /* RSADataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D1981E1613180089D40F /* RSADataVerifier.m */; };
-		6078D1FC1E1613180089D40F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6078D1991E1613180089D40F /* Assets.xcassets */; };
 		6078D1FE1E1613180089D40F /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D19E1E1613180089D40F /* BaseViewController.m */; };
 		6078D1FF1E1613180089D40F /* BaseWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D1A01E1613180089D40F /* BaseWKWebView.m */; };
 		6078D2001E1613180089D40F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6078D1A21E1613180089D40F /* LaunchScreen.storyboard */; };
@@ -216,6 +216,7 @@
 		6013E8091E5EE37E007E257A /* OtherAmountCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherAmountCell.h; sourceTree = "<group>"; };
 		6013E80A1E5EE37E007E257A /* OtherAmountCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherAmountCell.m; sourceTree = "<group>"; };
 		6013E80B1E5EE37E007E257A /* OtherAmountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OtherAmountCell.xib; sourceTree = "<group>"; };
+		6017B8E61E682C0D0007375F /* Base */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Base; path = Assets.xcassets; sourceTree = "<group>"; };
 		60190A491E2A07C0009C9450 /* 0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.png; sourceTree = "<group>"; };
 		60190A4A1E2A07C0009C9450 /* 00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 00.png; sourceTree = "<group>"; };
 		60190A4B1E2A07C0009C9450 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
@@ -456,7 +457,6 @@
 		6078D1961E1613180089D40F /* RSADataSigner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataSigner.m; sourceTree = "<group>"; };
 		6078D1971E1613180089D40F /* RSADataVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSADataVerifier.h; sourceTree = "<group>"; };
 		6078D1981E1613180089D40F /* RSADataVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataVerifier.m; sourceTree = "<group>"; };
-		6078D1991E1613180089D40F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = JYDS/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		6078D19D1E1613180089D40F /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		6078D19E1E1613180089D40F /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		6078D19F1E1613180089D40F /* BaseWKWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseWKWebView.h; sourceTree = "<group>"; };
@@ -1011,6 +1011,7 @@
 			children = (
 				6078D1A21E1613180089D40F /* LaunchScreen.storyboard */,
 				6078D1A41E1613180089D40F /* Main.storyboard */,
+				6017B8E51E682C0D0007375F /* Assets.xcassets */,
 			);
 			name = Base.lproj;
 			path = JYDS/Base.lproj;
@@ -1235,7 +1236,6 @@
 				6078D1341E1613180089D40F /* Alipay */,
 				60E2DCFA1E5A94C300D45986 /* WeChatPay */,
 				6078D1A11E1613180089D40F /* Base.lproj */,
-				6078D1991E1613180089D40F /* Assets.xcassets */,
 				6078D1A61E1613180089D40F /* Info.plist */,
 				6019F2711E45AC3200E6E8A1 /* codeName.plist */,
 				6078D1A71E1613180089D40F /* main.m */,
@@ -1360,6 +1360,7 @@
 				60190AE71E2A07C0009C9450 /* 56.png in Resources */,
 				60190ACC1E2A07C0009C9450 /* 29.png in Resources */,
 				60190AF01E2A07C0009C9450 /* 65.png in Resources */,
+				6017B8E71E682C0D0007375F /* Assets.xcassets in Resources */,
 				60190AC01E2A07C0009C9450 /* 17.png in Resources */,
 				60190AD01E2A07C0009C9450 /* 33.png in Resources */,
 				60190B0E1E2A07C0009C9450 /* 95.png in Resources */,
@@ -1439,7 +1440,6 @@
 				60190B041E2A07C0009C9450 /* 85.png in Resources */,
 				605D2ED01E2DB97000A7E01B /* SuccessView.xib in Resources */,
 				60190ADD1E2A07C0009C9450 /* 46.png in Resources */,
-				6078D1FC1E1613180089D40F /* Assets.xcassets in Resources */,
 				60190AF51E2A07C0009C9450 /* 70.png in Resources */,
 				60190B001E2A07C0009C9450 /* 81.png in Resources */,
 				605D2ED21E2DB9B200A7E01B /* FailedView.xib in Resources */,
@@ -1585,6 +1585,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		6017B8E51E682C0D0007375F /* Assets.xcassets */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6017B8E61E682C0D0007375F /* Base */,
+			);
+			name = Assets.xcassets;
+			sourceTree = "<group>";
+		};
 		6078D1A21E1613180089D40F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

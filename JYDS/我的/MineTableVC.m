@@ -10,7 +10,7 @@
 #import <UIImageView+WebCache.h>
 #import <MJRefresh.h>
 #import "MJChiBaoZiHeader.h"
-
+#import "PayVC.h"
 @interface MineTableVC ()
 
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
@@ -69,7 +69,7 @@
     // 隐藏时间
     header.lastUpdatedTimeLabel.hidden = YES;
     // 马上进入刷新状态
-    [header beginRefreshing];
+//    [header beginRefreshing];
     // 设置header
     self.tableView.mj_header = header;
 }
@@ -108,6 +108,13 @@
 - (void)updateNickName:(NSNotification *)sender{
     NSString *str = sender.userInfo[@"nickName"];
     _nickNameLabel.text = str;
+}
+
+- (IBAction)pushToPayVC:(UIButton *)sender {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    PayVC *payVc = [sb instantiateViewControllerWithIdentifier:@"pay"];
+    payVc.balance = _studyBean.text;
+    [self.navigationController pushViewController:payVc animated:YES];
 }
 
 - (void)returnToLogin{

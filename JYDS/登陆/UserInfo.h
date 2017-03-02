@@ -17,5 +17,5 @@
 @property (strong,nonatomic) NSString *studyCode;   //互学码
 @property (strong,nonatomic) NSString *loginStatus; //登录状态
 @property (strong,nonatomic) NSString *studyBean;   //剩余学习豆
-
+@property (strong,nonatomic) NSString *rechargeBean;   //充值学习豆
 @end

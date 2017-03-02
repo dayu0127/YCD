@@ -9,4 +9,5 @@
 //#import "BaseNavViewController.h"
 @interface PayVC : BaseViewController
 @property (assign,nonatomic) BOOL isHiddenNav;
+@property (copy,nonatomic) NSString *balance;
 @end

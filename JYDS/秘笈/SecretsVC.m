@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIView *leftLineView;
 @property (weak, nonatomic) IBOutlet UIView *rightLineView;
 @property (strong,nonatomic) UIScrollView *scrollView;
-@property (strong,nonatomic) UIView *ruleView;
+@property (strong,nonatomic) UIScrollView *ruleView;
 @property (strong,nonatomic) UITableView *recordTableView;
 @property (strong,nonatomic) NSArray *tableViewArray;
 
@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self nightModeConfiguration];
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 115, WIDTH, HEIGHT-164)];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 116, WIDTH, HEIGHT-164)];
     _scrollView.contentSize = CGSizeMake(WIDTH*2, HEIGHT-164);
     _scrollView.pagingEnabled = YES;
     _scrollView.bounces = NO;
@@ -83,9 +83,10 @@
     _leftLineView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
 }
 #pragma mark 规则页面
-- (UIView *)ruleView{
+- (UIScrollView *)ruleView{
     if (!_ruleView) {
-        _ruleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT-164)];
+        _ruleView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT-164)];
+        _ruleView.contentSize = CGSizeMake(WIDTH, HEIGHT);
         //您的邀请码
         //标题
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 38, WIDTH, 17)];
@@ -124,17 +125,20 @@
         [sendToFriendButton addTarget:self action:@selector(sendToFriendClick) forControlEvents:UIControlEventTouchUpInside];
         [_ruleView addSubview:sendToFriendButton];
         //邀请规则
-        UILabel *rewardRulesLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(sendToFriendButton.frame)+20, WIDTH-40, 50)];
-        rewardRulesLabel.text = @"邀请好友加入记忆大师，每一位好友使用该互学码注册加入，双方均可获得5学习豆奖励。";
-        rewardRulesLabel.font = [UIFont systemFontOfSize:12.0f];
-        rewardRulesLabel.numberOfLines = 2;
-        rewardRulesLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor groupTableViewBackgroundColor],RED);
-        NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:rewardRulesLabel.text];
-        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        [paragraphStyle setLineSpacing:10];
-        [content addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, rewardRulesLabel.text.length)];
-        rewardRulesLabel.attributedText = content;
-        [_ruleView addSubview:rewardRulesLabel];
+//        UILabel *rewardRulesLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(sendToFriendButton.frame)+20, WIDTH-40, 50)];
+//        rewardRulesLabel.text = @"邀请好友加入记忆大师，每一位好友使用该互学码注册加入，双方均可获得5学习豆奖励。";
+//        rewardRulesLabel.font = [UIFont systemFontOfSize:12.0f];
+//        rewardRulesLabel.numberOfLines = 2;
+//        rewardRulesLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor groupTableViewBackgroundColor],RED);
+//        NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:rewardRulesLabel.text];
+//        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+//        [paragraphStyle setLineSpacing:10];
+//        [content addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, rewardRulesLabel.text.length)];
+//        rewardRulesLabel.attributedText = content;
+//        [_ruleView addSubview:rewardRulesLabel];
+        UIImageView *rewardRulesImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,  CGRectGetMaxY(sendToFriendButton.frame)+20, WIDTH, WIDTH*6/5.0)];
+        rewardRulesImageView.image = [UIImage imageNamed:@"Invitation"];
+        [_ruleView addSubview:rewardRulesImageView];
     }
     return _ruleView;
 }

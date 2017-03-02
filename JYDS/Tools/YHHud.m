@@ -54,7 +54,7 @@ static YHHud * hud = nil;
     UIImageView *heartImageView = [[UIImageView alloc]initWithFrame:CGRectMake(customView.frame.size.width/2-50, 10,100, 80.0)];
     [customView addSubview:heartImageView];
     NSMutableArray *images = [[NSMutableArray alloc]initWithCapacity:7];
-    for (int i=1; i<=5; i++){
+    for (int i=1; i<=2; i++){
         [images addObject:[UIImage imageNamed:[NSString stringWithFormat:@"car%d.png",i]]];
     }
     heartImageView.animationImages = images;

@@ -69,8 +69,7 @@
 #define COUNTDOWN 10.0f
 
 //接口
-#define API(api) [NSString stringWithFormat:@"http://www.zhongshuo.cn:8088/jyds/API/%@API",api] //测试
-//#define API(api) [NSString stringWithFormat:@"http://www.jydsapp.com//jyds/API/%@API",api] //正式
+#define API(api) [NSString stringWithFormat:@"http://www.jydsapp.com//jyds/API/%@API",api] //正式
 
 #define BANNER API(@"banner") //轮播图
 #define MEMORY API(@"course") //记忆法列表

@@ -44,6 +44,7 @@
                 success([NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil]);
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError *_Nonnull error) {
+            [YHHud dismiss];
             NSLog(@"网络异常 - T_T%@", error);
         }];
     }

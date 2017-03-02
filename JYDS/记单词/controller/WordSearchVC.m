@@ -22,9 +22,9 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [YHHud showWithStatus:@"正在读取单词"];
+    [YHHud showWithStatus:@"正在读取单词"];
     [YHWebRequest YHWebRequestForPOST:ALLWORD parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
-//        [YHHud dismiss];
+        [YHHud dismiss];
         if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
