@@ -65,6 +65,10 @@
     _searchBar.dk_barTintColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
     _searchBar.placeholder = @"请搜索单词";
     _searchBar.delegate = self;
+    _searchBar.layer.masksToBounds = YES;
+    _searchBar.layer.cornerRadius = 3.0;
+    _searchBar.layer.dk_borderColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+    _searchBar.layer.borderWidth = 1.0f;
     [navBar addSubview:_searchBar];
     
     [self.view addSubview:navBar];

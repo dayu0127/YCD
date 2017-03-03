@@ -26,14 +26,27 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBean) name:@"updateBean" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateRechargeBean) name:@"updateRechargeBean" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCostBean) name:@"updateCostBean" object:nil];
 }
-- (void)updateBean{
+- (void)updateRechargeBean{
     [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
             [self returnToLogin];
         }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _studyBean.text = [NSString stringWithFormat:@"%@",json[@"data"][@"restBean"]];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
+        }
+    }];
+}
+- (void)updateCostBean{
+    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+            [self returnToLogin];
+        }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _costStudyBean.text = [NSString stringWithFormat:@"%@",json[@"data"][@"consumeBean"]];
         }else if([json[@"code"] isEqualToString:@"ERROR"]){
             [YHHud showWithMessage:@"服务器错误"];
@@ -50,7 +63,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeadImage:) name:@"updateHeadImage" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNickName:) name:@"updateNickName" object:nil];
     //下拉刷新
-    MJChiBaoZiHeader *header =  [MJChiBaoZiHeader headerWithRefreshingBlock:^{
+//    MJChiBaoZiHeader *header =  [MJChiBaoZiHeader headerWithRefreshingBlock:^{
+//        
+//    }];
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
             [self.tableView.mj_header endRefreshing];
             if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
@@ -66,10 +82,12 @@
             }
         }];
     }];
+    // 设置自动切换透明度(在导航栏下面自动隐藏)
+    header.automaticallyChangeAlpha = YES;
     // 隐藏时间
     header.lastUpdatedTimeLabel.hidden = YES;
     // 马上进入刷新状态
-//    [header beginRefreshing];
+    [header beginRefreshing];
     // 设置header
     self.tableView.mj_header = header;
 }

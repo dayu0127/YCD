@@ -89,7 +89,7 @@ static YHHud * hud = nil;
     label.text = successString;
     label.textAlignment = NSTextAlignmentCenter;
     label.font = [UIFont boldSystemFontOfSize:16];
-    label.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    label.textColor = [UIColor whiteColor];
     [customView addSubview:label];
     [UIView animateWithDuration:5.0 animations:^{
         [[UIApplication sharedApplication].keyWindow addSubview:hud];

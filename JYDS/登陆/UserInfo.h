@@ -14,7 +14,7 @@
 @property (strong,nonatomic) NSString *nickName;    //昵称
 @property (strong,nonatomic) NSString *headImageUrl;    //头像
 @property (strong,nonatomic) NSString *costStudyBean;   //已消耗学习豆
-@property (strong,nonatomic) NSString *studyCode;   //互学码
+@property (strong,nonatomic) NSString *studyCode;   //邀请码
 @property (strong,nonatomic) NSString *loginStatus; //登录状态
 @property (strong,nonatomic) NSString *studyBean;   //剩余学习豆
 @property (strong,nonatomic) NSString *rechargeBean;   //充值学习豆

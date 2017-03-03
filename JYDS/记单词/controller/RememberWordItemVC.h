@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseNavViewController.h"
+@protocol RememberWordItemVCDelegate<NSObject>
+- (void)updateSubBean;
+@end
 @interface RememberWordItemVC : BaseNavViewController
 
 @property (nonatomic,strong) NSString *classifyID;
-@property (nonatomic,strong) NSMutableArray *wordArray;
+@property (nonatomic,strong) NSString *unitID;
+@property (nonatomic,weak) id<RememberWordItemVCDelegate> delegate;
 
 @end

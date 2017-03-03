@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *copyrightLabelCollection;
 @property (strong,nonatomic) NSArray *dataArray;
+@property (copy,nonatomic) NSString *linkUrl;
 @end
 
 @implementation AboutUsVC
@@ -65,4 +66,5 @@
         [self performSegueWithIdentifier:@"userAgreement" sender:self];
     }
 }
+
 @end

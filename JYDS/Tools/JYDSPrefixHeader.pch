@@ -76,6 +76,7 @@
 #define SUBALL API(@"subAll") //全部订阅
 #define SUB API(@"sub") //单个订阅
 #define COURSE API(@"getReciteWords") //记单词目录
+#define UNITLIST API(@"getUnitList") //获取单元列表
 #define WORD API(@"getWords") //分类单词
 #define ALLWORD API(@"getAllWords") //获取所有单词
 #define UPLOADHEADIMAGE API(@"upload") //上传头像
@@ -99,5 +100,9 @@
 
 //UUID
 #define DEVICEID [[[UIDevice currentDevice] identifierForVendor] UUIDString]
+//关于我们url
+#define IntroduceUrl @"http://www.jydsapp.com/introduce.html"
+#define UseHelpUrl @"http://www.jydsapp.com/help.html"
+#define UserAgreementUrl @"http://www.jydsapp.com/agreement.html"
 
 #endif /* JYDSPrefixHeader_pch */

@@ -9,7 +9,7 @@
 #import "RememberWordVC.h"
 #import "RememberWordItemView.h"
 #import "WordSearchVC.h"
-#import "RememberWordItemVC.h"
+#import "RememberWordModuleVC.h"
 
 @interface RememberWordVC ()<UISearchBarDelegate,RememberWordItemViewDelegate>
 
@@ -31,6 +31,8 @@
     [super viewDidLoad];
     [self initNaBar:@"记单词"];
     _searchBar.dk_barTintColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+    _searchBar.layer.dk_borderColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+    _searchBar.layer.borderWidth = 1.0f;
     [self createMainScrollView];
 }
 #pragma mark 搜索框开始编辑
@@ -89,7 +91,7 @@
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"toItemDetail"]) {
-        RememberWordItemVC *itemVC = segue.destinationViewController;
+        RememberWordModuleVC *itemVC = segue.destinationViewController;
         itemVC.navTitle = _itemTitle;
         itemVC.classifyID = _classifyID;
         itemVC.hidesBottomBarWhenPushed = YES;

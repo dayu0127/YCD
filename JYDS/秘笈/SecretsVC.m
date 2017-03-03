@@ -157,7 +157,7 @@
                     _recordTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
                     _recordTableView.backgroundColor = [UIColor clearColor];
                     [_recordTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
-                    MJChiBaoZiHeader *header = [MJChiBaoZiHeader headerWithRefreshingBlock:^{
+                    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
                         [YHWebRequest YHWebRequestForPOST:INVITATION parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
                             [self.recordTableView.mj_header endRefreshing];
                             if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
@@ -172,12 +172,14 @@
                             }
                         }];
                     }];
+                    // 设置自动切换透明度(在导航栏下面自动隐藏)
+                    header.automaticallyChangeAlpha = YES;
                     // 隐藏时间
                     header.lastUpdatedTimeLabel.hidden = YES;
                     // 马上进入刷新状态
                     [header beginRefreshing];
                     // 设置header
-                    _recordTableView.mj_header = header;
+                    self.recordTableView.mj_header = header;
                     [_scrollView addSubview:self.recordTableView];
                 }
             }else if([json[@"code"] isEqualToString:@"ERROR"]){
@@ -194,13 +196,15 @@
     [paste setString:sender.titleLabel.text];
     [YHHud showWithMessage:@"邀请码已复制到剪贴板"];
 }
-#pragma mark 设置分享内容
-#pragma mark 分享文本
-- (void)shareTextToPlatformType:(UMSocialPlatformType)platformType{
+#pragma mark 设置分享内容(图文链接)
+- (void)shareImageAndTextUrlToPlatformType:(UMSocialPlatformType)platformType{
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-    //设置文本
-    messageObject.text = @"记忆大师分享内容";
+    //分享的网页地址对象
+    NSString *text = [NSString stringWithFormat:@"我的邀请码是%@\n快来加入记忆大师",[YHSingleton shareSingleton].userInfo.studyCode];
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"记忆大师邀请码" descr:text thumImage:[UIImage imageNamed:@"appLogo"]];
+    shareObject.webpageUrl = @"https://www.jydsapp.com";
+    messageObject.shareObject = shareObject;
     //调用分享接口
     [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
         if (error) {
@@ -212,7 +216,6 @@
                 UMSocialLogInfo(@"response message is %@",resp.message);
                 //第三方原始返回的数据
                 UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
-                
             }else{
                 UMSocialLogInfo(@"response data is %@",data);
             }
@@ -257,7 +260,7 @@
         [UMSocialUIManager setPreDefinePlatforms:[NSArray arrayWithArray:platformArray]];
         //显示分享面板
         [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
-            [weakSelf shareTextToPlatformType:platformType];
+            [weakSelf shareImageAndTextUrlToPlatformType:platformType];
         }];
     }
 }
