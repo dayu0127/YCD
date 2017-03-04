@@ -19,11 +19,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _scrollView.contentSize = CGSizeMake(WIDTH*3, HEIGHT);
-    for (NSInteger i = 0; i<3; i++) {
+    _scrollView.contentSize = CGSizeMake(WIDTH*2, HEIGHT);
+    for (int i = 0; i<2; i++) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH*i, 0, WIDTH, HEIGHT)];
-        imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%02zd",i]];
-        if (i==2) {
+        imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"guide%d",i+1]];
+        if (i==1) {
             imageView.userInteractionEnabled = YES;
             [imageView addSubview:self.entryButton];
         }

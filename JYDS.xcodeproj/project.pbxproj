@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		6013E80C1E5EE37E007E257A /* OtherAmountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6013E80A1E5EE37E007E257A /* OtherAmountCell.m */; };
 		6013E80D1E5EE37E007E257A /* OtherAmountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6013E80B1E5EE37E007E257A /* OtherAmountCell.xib */; };
-		6017B8E71E682C0D0007375F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6017B8E51E682C0D0007375F /* Assets.xcassets */; };
+		601810C41E6B057000C8DCCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 601810C31E6B057000C8DCCD /* Assets.xcassets */; };
 		60190AAE1E2A07C0009C9450 /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = 60190A491E2A07C0009C9450 /* 0.png */; };
 		60190AAF1E2A07C0009C9450 /* 00.png in Resources */ = {isa = PBXBuildFile; fileRef = 60190A4A1E2A07C0009C9450 /* 00.png */; };
 		60190AB01E2A07C0009C9450 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 60190A4B1E2A07C0009C9450 /* 1.png */; };
@@ -218,7 +218,7 @@
 		6013E8091E5EE37E007E257A /* OtherAmountCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherAmountCell.h; sourceTree = "<group>"; };
 		6013E80A1E5EE37E007E257A /* OtherAmountCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherAmountCell.m; sourceTree = "<group>"; };
 		6013E80B1E5EE37E007E257A /* OtherAmountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OtherAmountCell.xib; sourceTree = "<group>"; };
-		6017B8E61E682C0D0007375F /* Base */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Base; path = Assets.xcassets; sourceTree = "<group>"; };
+		601810C31E6B057000C8DCCD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = JYDS/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		60190A491E2A07C0009C9450 /* 0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.png; sourceTree = "<group>"; };
 		60190A4A1E2A07C0009C9450 /* 00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 00.png; sourceTree = "<group>"; };
 		60190A4B1E2A07C0009C9450 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
@@ -1019,7 +1019,6 @@
 			children = (
 				6078D1A21E1613180089D40F /* LaunchScreen.storyboard */,
 				6078D1A41E1613180089D40F /* Main.storyboard */,
-				6017B8E51E682C0D0007375F /* Assets.xcassets */,
 			);
 			name = Base.lproj;
 			path = JYDS/Base.lproj;
@@ -1247,6 +1246,7 @@
 				6078D1A61E1613180089D40F /* Info.plist */,
 				6019F2711E45AC3200E6E8A1 /* codeName.plist */,
 				6078D1A71E1613180089D40F /* main.m */,
+				601810C31E6B057000C8DCCD /* Assets.xcassets */,
 			);
 			name = JYDS;
 			path = YCD;
@@ -1369,7 +1369,6 @@
 				60190AE71E2A07C0009C9450 /* 56.png in Resources */,
 				60190ACC1E2A07C0009C9450 /* 29.png in Resources */,
 				60190AF01E2A07C0009C9450 /* 65.png in Resources */,
-				6017B8E71E682C0D0007375F /* Assets.xcassets in Resources */,
 				60190AC01E2A07C0009C9450 /* 17.png in Resources */,
 				60190AD01E2A07C0009C9450 /* 33.png in Resources */,
 				60190B0E1E2A07C0009C9450 /* 95.png in Resources */,
@@ -1440,6 +1439,7 @@
 				60190AC31E2A07C0009C9450 /* 20.png in Resources */,
 				60190ACD1E2A07C0009C9450 /* 30.png in Resources */,
 				60190AEF1E2A07C0009C9450 /* 64.png in Resources */,
+				601810C41E6B057000C8DCCD /* Assets.xcassets in Resources */,
 				60190AD61E2A07C0009C9450 /* 39.png in Resources */,
 				609F060D1E16218B009F4986 /* PayDetailCell.xib in Resources */,
 				60190ADB1E2A07C0009C9450 /* 44.png in Resources */,
@@ -1595,14 +1595,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		6017B8E51E682C0D0007375F /* Assets.xcassets */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6017B8E61E682C0D0007375F /* Base */,
-			);
-			name = Assets.xcassets;
-			sourceTree = "<group>";
-		};
 		6078D1A21E1613180089D40F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
