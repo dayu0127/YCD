@@ -23,7 +23,7 @@
 //        manager.operationQueue.maxConcurrentOperationCount = 5;
         //请求超时的时间
         [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
-        manager.requestSerializer.timeoutInterval = 15.f;
+        manager.requestSerializer.timeoutInterval = 15.0f;
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
     });
     return manager;
@@ -31,7 +31,8 @@
 //创建post请求
 + (void)YHWebRequestForPOST:(nullable NSString *)URLString
                              parameters:(nullable NSDictionary *)parameters
-                                 success:(nullable void(^)(id _Nonnull json))success{
+                                 success:(nullable void(^)(id _Nonnull json))success
+                                   {
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     if (app.isReachable == NO) {
         [YHHud showWithMessage:@"断网了"];
@@ -46,6 +47,9 @@
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError *_Nonnull error) {
             [YHHud dismiss];
             NSLog(@"网络异常 - T_T%@", error);
+//            if (failure) {
+//                failure(error);
+//            }
         }];
     }
 }

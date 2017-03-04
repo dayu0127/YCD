@@ -58,10 +58,11 @@
 //            NSLog(@"错误，retcode = %d, retstr = %@", resp.errCode,resp.errStr);
 //        }
         NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"out_trade_no":[YHSingleton shareSingleton].wx_out_trade_no};
-        [YHWebRequest YHWebRequestForPOST:@"http://www.zhongshuo.cn:8088/payAPI/API/wx_orderqueryAPI" parameters:dic success:^(NSDictionary *json) {
+        [YHWebRequest YHWebRequestForPOST:@"http://www.jydsapp.com/jyds/API/wx_orderqueryAPI" parameters:dic success:^(NSDictionary *json) {
             if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                 if ([json[@"payType"] isEqualToString:@"SUCCESS"]) {
                     [YHHud showWithSuccess:@"支付成功"];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateRechargeBean" object:nil];
                 }else{
                     [YHHud showWithMessage:@"支付失败"];
                 }

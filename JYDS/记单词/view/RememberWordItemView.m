@@ -37,9 +37,9 @@
         [item_btn dk_setTitleColorPicker:DKColorPickerWithColors([UIColor darkGrayColor],[UIColor whiteColor],RED) forState:UIControlStateNormal];
         [item_btn setTitle:itemDic[@"classifyName"] forState:UIControlStateNormal];
         item_btn.layer.cornerRadius = 6.0f;
-        item_btn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+        item_btn.titleLabel.font = [UIFont systemFontOfSize:12.0f];
         if (WIDTH<=320) {
-            item_btn.titleLabel.font = [UIFont systemFontOfSize:11.0f];
+            item_btn.titleLabel.font = [UIFont systemFontOfSize:10.0f];
         }
         item_btn.dk_backgroundColorPicker = DKColorPickerWithColors(D_BTN_BG,N_CELL_BG,RED);
         [item_btn addTarget:self action:@selector(itemClick:) forControlEvents:UIControlEventTouchUpInside];

@@ -107,13 +107,13 @@
             _tableView.separatorInset = UIEdgeInsetsZero;
             _tableView.backgroundColor = [UIColor clearColor];
             //下拉刷新
-            MJChiBaoZiHeader *header =  [MJChiBaoZiHeader headerWithRefreshingBlock:^{
+            MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
                 NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
                 [YHWebRequest YHWebRequestForPOST:MEMORY parameters:dic success:^(NSDictionary *json) {
+                    [self.tableView.mj_header endRefreshing];
                     if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-                       [self returnToLogin];
+                        [self returnToLogin];
                     }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                        [_tableView.mj_header endRefreshing];
                         _memoryArray = json[@"data"];
                         [self.tableView reloadData];
                         _subLabel.text = [NSString stringWithFormat:@"一次订阅所有记忆法课程，仅需%zd学习豆!",[self getTotalPrice]];
@@ -124,12 +124,14 @@
                     }
                 }];
             }];
+            // 设置自动切换透明度(在导航栏下面自动隐藏)
+            header.automaticallyChangeAlpha = YES;
             // 隐藏时间
             header.lastUpdatedTimeLabel.hidden = YES;
             // 马上进入刷新状态
             [header beginRefreshing];
             // 设置header
-            _tableView.mj_header = header;
+            self.tableView.mj_header = header;
             [_tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
             [self.view addSubview:_tableView];
         }else if([json[@"code"] isEqualToString:@"ERROR"]){
@@ -239,7 +241,7 @@
                     _memoryArray = [NSArray arrayWithArray:arr];
                     [_tableView reloadData];
                     [YHHud showWithSuccess:@"订阅成功"];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBean" object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCostBean" object:nil];
                 }else if([json[@"code"] isEqualToString:@"ERROR"]){
                     [YHHud showWithMessage:@"服务器错误"];
                 }else{

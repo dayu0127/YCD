@@ -194,7 +194,7 @@
                     [YHHud showWithSuccess:@"订阅成功"];
                     _opaqueView.alpha = 0;
                     [_delegate reloadMemoryList];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBean" object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCostBean" object:nil];
                 }else if([json[@"code"] isEqualToString:@"ERROR"]){
                     [YHHud showWithMessage:@"服务器错误"];
                 }else{
@@ -225,73 +225,14 @@
         [self loadOtherCourse];
     }
 }
-#pragma mark 设置分享内容
-#pragma mark 分享文本
-- (void)shareTextToPlatformType:(UMSocialPlatformType)platformType{
+#pragma mark 设置分享内容(图文链接)
+- (void)shareImageAndTextUrlToPlatformType:(UMSocialPlatformType)platformType{
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-    //设置文本
-    messageObject.text = @"记忆大师分享内容";
-    //调用分享接口
-    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
-        if (error) {
-            UMSocialLogInfo(@"************Share fail with error %@*********",error);
-        }else{
-            if ([data isKindOfClass:[UMSocialShareResponse class]]) {
-                UMSocialShareResponse *resp = data;
-                //分享结果消息
-                UMSocialLogInfo(@"response message is %@",resp.message);
-                //第三方原始返回的数据
-                UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
-                
-            }else{
-                UMSocialLogInfo(@"response data is %@",data);
-            }
-        }
-        [self alertWithError:error];
-    }];
-}
-#pragma mark 分享(本地/网络)图片
-- (void)shareImageToPlatformType:(UMSocialPlatformType)platformType{
-    //创建分享消息对象
-    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-    //创建图片内容对象
-    UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
-    //如果有缩略图，则设置缩略图(本地/网络)
-    shareObject.thumbImage = [UIImage imageNamed:@"icon"];
-    [shareObject setShareImage:[UIImage imageNamed:@"logo"]];
-    //分享消息对象设置分享内容对象
-    messageObject.shareObject = shareObject;
-    //调用分享接口
-    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
-        if (error) {
-            UMSocialLogInfo(@"************Share fail with error %@*********",error);
-        }else{
-            if ([data isKindOfClass:[UMSocialShareResponse class]]) {
-                UMSocialShareResponse *resp = data;
-                //分享结果消息
-                UMSocialLogInfo(@"response message is %@",resp.message);
-                //第三方原始返回的数据
-                UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
-            }else{
-                UMSocialLogInfo(@"response data is %@",data);
-            }
-        }
-        [self alertWithError:error];
-    }];
-}
-#pragma mark 分享图文（新浪支持，微信/QQ仅支持图片或文本分享)
-- (void)shareImageAndTextToPlatformType:(UMSocialPlatformType)platformType{
-    //创建分享消息对象
-    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-    //设置文本
-    messageObject.text = @"记忆大师分享内容";
-    //创建图片内容对象
-    UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
-    //如果有缩略图，则设置缩略图
-    shareObject.thumbImage = [UIImage imageNamed:@"icon"];
-    shareObject.shareImage = [UIImage imageNamed:@"logo"];
-    //分享消息对象设置分享内容对象
+    //分享的网页地址对象
+    NSString *text = [NSString stringWithFormat:@"我的邀请码是%@\n快来加入记忆大师",[YHSingleton shareSingleton].userInfo.studyCode];
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"记忆大师邀请码" descr:text thumImage:[UIImage imageNamed:@"appLogo"]];
+    shareObject.webpageUrl = @"www.jydsapp.com";
     messageObject.shareObject = shareObject;
     //调用分享接口
     [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
@@ -341,7 +282,7 @@
         [UMSocialUIManager setPreDefinePlatforms:[NSArray arrayWithArray:platformArray]];
         //显示分享面板
         [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
-            [weakSelf shareTextToPlatformType:platformType];
+            [weakSelf shareImageAndTextUrlToPlatformType:platformType];
         }];
     }
 }
