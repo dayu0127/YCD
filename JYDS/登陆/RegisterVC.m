@@ -181,6 +181,8 @@
         }else{
             [YHHud showWithMessage:@"注册失败"];
         }
+    } failure:^(NSError * _Nonnull error) {
+        [YHHud showWithMessage:@"数据请求失败"];
     }];
 }
 - (void)buttonClickIndex:(NSInteger)buttonIndex{

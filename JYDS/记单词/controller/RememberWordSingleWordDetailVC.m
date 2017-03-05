@@ -70,39 +70,39 @@
     //联想
     UILabel *associateTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25,CGRectGetMaxY(splitTitleLabel.frame)+8, 40, 15)];
     associateTitleLabel.text = @"联 想";
-    associateTitleLabel.dk_textColorPicker = DKColorPickerWithColors(D_BLUE,D_BLUE,RED);
+    associateTitleLabel.textColor = D_BLUE;
     associateTitleLabel.textAlignment = NSTextAlignmentCenter;
     associateTitleLabel.font = [UIFont systemFontOfSize:12.0f];
     associateTitleLabel.layer.masksToBounds = YES;
     associateTitleLabel.layer.cornerRadius = 3.0f;
-    associateTitleLabel.layer.dk_borderColorPicker = DKColorPickerWithColors(D_BLUE,D_BLUE,RED);
+    associateTitleLabel.layer.borderColor = D_BLUE.CGColor;
     associateTitleLabel.layer.borderWidth = 1.0f;
     [self.view addSubview:associateTitleLabel];
     UILabel *associateLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(associateTitleLabel.frame)+10, CGRectGetMaxY(splitTitleLabel.frame)+8, WIDTH-CGRectGetMaxX(associateTitleLabel.frame)-35, 15)];
-    associateLabel.text = _word.wordAssociate;
     associateLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     associateLabel.font = [UIFont systemFontOfSize:13.0f];
+    associateLabel.attributedText = [self setColorForString:_word.wordAssociate];
     [self.view addSubview:associateLabel];
     //上一个
-    UIButton *preButton = [[UIButton alloc] initWithFrame:CGRectMake((WIDTH-200)*0.5, CGRectGetMaxY(associateLabel.frame)+57*(HEIGHT-64)/603, 200, 38)];
-    [preButton setTitle:@"上一个" forState:UIControlStateNormal];
-    [preButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    preButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
-    preButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-    preButton.layer.masksToBounds = YES;
-    preButton.layer.cornerRadius = 6.0f;
-    [preButton addTarget:self action:@selector(preButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:preButton];
-    //下一个
-    UIButton *nextButton = [[UIButton alloc] initWithFrame:CGRectMake((WIDTH-200)*0.5, CGRectGetMaxY(preButton.frame)+10, 200, 38)];
-    [nextButton setTitle:@"下一个" forState:UIControlStateNormal];
-    [nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    nextButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
-    nextButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-    nextButton.layer.masksToBounds = YES;
-    nextButton.layer.cornerRadius = 6.0f;
-    [nextButton addTarget:self action:@selector(nextButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:nextButton];
+//    UIButton *preButton = [[UIButton alloc] initWithFrame:CGRectMake((WIDTH-200)*0.5, CGRectGetMaxY(associateLabel.frame)+57*(HEIGHT-64)/603, 200, 38)];
+//    [preButton setTitle:@"上一个" forState:UIControlStateNormal];
+//    [preButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    preButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+//    preButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+//    preButton.layer.masksToBounds = YES;
+//    preButton.layer.cornerRadius = 6.0f;
+//    [preButton addTarget:self action:@selector(preButtonClick) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:preButton];
+//    //下一个
+//    UIButton *nextButton = [[UIButton alloc] initWithFrame:CGRectMake((WIDTH-200)*0.5, CGRectGetMaxY(preButton.frame)+10, 200, 38)];
+//    [nextButton setTitle:@"下一个" forState:UIControlStateNormal];
+//    [nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    nextButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+//    nextButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+//    nextButton.layer.masksToBounds = YES;
+//    nextButton.layer.cornerRadius = 6.0f;
+//    [nextButton addTarget:self action:@selector(nextButtonClick) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:nextButton];
 }
 #pragma mark 单词读音按钮点击
 - (void)soundClick{
@@ -114,6 +114,30 @@
     utterance.pitchMultiplier    = 1.0;  //设置语调 (0.5-2.0)
     utterance.postUtteranceDelay = 1; //目的是让语音合成器播放下一语句前有短暂的暂停
     [_player speakUtterance:utterance];
+}
+#pragma mark 给两个"~"之间的字上色
+- (NSMutableAttributedString *)setColorForString:(NSString *)str{
+    NSArray *arr = [str componentsSeparatedByString:@"~"];
+    NSString *str0 = arr[0];
+    NSString *str1 = arr[1];
+    NSUInteger loc = 0;
+    if ([@"" isEqualToString:str0]) {
+        loc = 1;
+    }else{
+        loc = str0.length+1;
+    }
+    NSUInteger len = str1.length;
+    NSMutableString *string = [NSMutableString stringWithString:str];
+    for (int i= 0; i<string.length; i++) {
+        unichar item = [string characterAtIndex:i];
+        if (item == '~') {
+            [string replaceCharactersInRange:NSMakeRange(i, 1) withString:@" "];
+        }
+    }
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:string];
+    NSDictionary *dic = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:15.0f],NSForegroundColorAttributeName:D_BLUE};
+    [attrStr addAttributes:dic range:NSMakeRange(loc, len)];
+    return attrStr;
 }
 #pragma mark 上一个
 - (void)preButtonClick{

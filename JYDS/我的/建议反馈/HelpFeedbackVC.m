@@ -61,16 +61,7 @@
         NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"content":_textView.text,@"device_id":DEVICEID};
         [YHWebRequest YHWebRequestForPOST:FEEDBACK parameters:dic success:^(NSDictionary *json) {
             if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                    LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-                    [app.window setRootViewController:loginVC];
-                    [app.window makeKeyWindow];
-                }]];
-                [self presentViewController:alert animated:YES completion:nil];
+                [self returnToLogin];
             }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                 [YHHud showWithSuccess:@"提交成功"];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -81,6 +72,8 @@
             }else{
                 [YHHud showWithMessage:@"提交失败"];
             }
+        } failure:^(NSError * _Nonnull error) {
+            [YHHud showWithMessage:@"数据请求失败"];
         }];
     }
 }

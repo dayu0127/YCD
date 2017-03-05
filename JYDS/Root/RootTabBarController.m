@@ -15,6 +15,13 @@
     self.tabBar.tintColor = [UIColor whiteColor];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dayMode) name:@"dayMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightMode) name:@"nightMode" object:nil];
+    //去除默认状态下UITabBarItem的图标和文字的渲染
+    for (UITabBarItem *item in self.tabBar.items) {
+        item.image = [item.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        [item setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateNormal];
+    }
+    //去除tabBar透明化
+    self.tabBar.translucent = NO;
     [self nightModeConfiguration];
 }
 - (void)nightModeConfiguration{
@@ -23,10 +30,6 @@
         nav.navigationBar.tintColor = [UIColor whiteColor];
     }
     self.tabBar.dk_barTintColorPicker = DKColorPickerWithColors(D_BLUE,N_TABBAR_BG,RED);
-    for (UITabBarItem *item in self.tabBar.items) {
-        item.image = [item.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        [item setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateNormal];
-    }
     if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
         [self dayMode];
     }else{
