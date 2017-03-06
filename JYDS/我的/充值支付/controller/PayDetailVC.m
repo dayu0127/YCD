@@ -37,6 +37,8 @@
         }else{
             [YHHud showWithMessage:@"数据异常"];
         }
+    } failure:^(NSError * _Nonnull error) {
+        [YHHud showWithMessage:@"数据请求失败"];
     }];
 }
 - (void)viewDidLoad {
@@ -45,7 +47,6 @@
     _payBean.text = [NSString stringWithFormat:@"%@元",[YHSingleton shareSingleton].userInfo.rechargeBean];
     [YHHud showWithStatus:@"拼命加载中..."];
     [YHWebRequest YHWebRequestForPOST:PAYDETAIL parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
-        [YHHud dismiss];
         if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
             [self returnToLogin];
         }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
@@ -57,6 +58,8 @@
         }else{
             [YHHud showWithMessage:@"数据异常"];
         }
+    } failure:^(NSError * _Nonnull error) {
+        [YHHud showWithMessage:@"数据请求失败"];
     }];
 }
 - (void)nightModeConfiguration{
@@ -78,17 +81,5 @@
     cell.payMoney.text = [NSString stringWithFormat:@"%@元", _dataArray[indexPath.row][@"rechargeMoney"]];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
-}
-- (void)returnToLogin{
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-        [app.window setRootViewController:loginVC];
-        [app.window makeKeyWindow];
-    }]];
-    [self presentViewController:alert animated:YES completion:nil];
 }
 @end

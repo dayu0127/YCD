@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *studyBean;
 @property (weak, nonatomic) IBOutlet UILabel *costStudyBean;
 @property (weak, nonatomic) IBOutlet UIButton *payButton;
+@property (strong,nonatomic) MJRefreshNormalHeader *header;
 
 @end
 @implementation MineTableVC
@@ -40,6 +41,8 @@
         }else{
             [YHHud showWithMessage:@"数据异常"];
         }
+    } failure:^(NSError * _Nonnull error) {
+        [YHHud showWithMessage:@"数据请求失败"];
     }];
 }
 - (void)updateCostBean{
@@ -53,6 +56,8 @@
         }else{
             [YHHud showWithMessage:@"数据异常"];
         }
+    } failure:^(NSError * _Nonnull error) {
+        [YHHud showWithMessage:@"数据请求失败"];
     }];
 }
 - (void)viewDidLoad {
@@ -62,11 +67,10 @@
     [self userConfiguration];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeadImage:) name:@"updateHeadImage" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNickName:) name:@"updateNickName" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dayMode) name:@"dayMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightMode) name:@"nightMode" object:nil];
     //下拉刷新
-//    MJChiBaoZiHeader *header =  [MJChiBaoZiHeader headerWithRefreshingBlock:^{
-//        
-//    }];
-    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    _header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
             [self.tableView.mj_header endRefreshing];
             if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
@@ -80,18 +84,31 @@
             }else{
                 [YHHud showWithMessage:@"数据异常"];
             }
+        } failure:^(NSError * _Nonnull error) {
+            NSLog(@"111111111111");
+            [self.tableView.mj_header endRefreshing];
+            [YHHud showWithMessage:@"数据请求失败"];
         }];
     }];
     // 设置自动切换透明度(在导航栏下面自动隐藏)
-    header.automaticallyChangeAlpha = YES;
+    _header.automaticallyChangeAlpha = YES;
     // 隐藏时间
-    header.lastUpdatedTimeLabel.hidden = YES;
-    // 马上进入刷新状态
-    [header beginRefreshing];
+    _header.lastUpdatedTimeLabel.hidden = YES;
+    // 设置菊花样式
+    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
+        _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    }else{
+        _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    }
     // 设置header
-    self.tableView.mj_header = header;
+    self.tableView.mj_header = _header;
 }
-
+- (void)dayMode{
+    _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+}
+- (void)nightMode{
+    _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+}
 - (void)nightModeConfiguration{
     self.tableView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
     _studyBean.dk_textColorPicker = DKColorPickerWithColors(D_BLUE,[UIColor whiteColor],RED);
@@ -134,7 +151,6 @@
     payVc.balance = _studyBean.text;
     [self.navigationController pushViewController:payVc animated:YES];
 }
-
 - (void)returnToLogin{
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];

@@ -55,6 +55,8 @@
         }else{
             [YHHud showWithMessage:@"数据异常"];
         }
+    } failure:^(NSError * _Nonnull error) {
+        [YHHud showWithMessage:@"网络请求失败"];
     }];
 }
 - (void)nightModeConfiguration{
@@ -98,6 +100,8 @@
         }else{
             [YHHud showWithMessage:@"数据异常"];
         }
+    } failure:^(NSError * _Nonnull error) {
+        [YHHud showWithMessage:@"网络请求失败"];
     }];
 }
 - (void)pushPayVC{
@@ -121,49 +125,30 @@
 - (void)buttonClickIndex:(NSInteger)buttonIndex{
     [_alertView dismissWithCompletion:nil];
     if (buttonIndex == 1) {
-            //学习豆不足
-            if ([_subBean integerValue]>[[YHSingleton shareSingleton].userInfo.studyBean integerValue]) {
-                [self pushPayVC];
-            }else{
-                //学习豆充足
-                NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"type":@"words",@"classifyID":_classifyID,@"device_id":DEVICEID};
-                [YHWebRequest YHWebRequestForPOST:SUBALL parameters:dic success:^(NSDictionary  *json) {
-                    if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-                        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
-                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
-                        [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                            AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                            LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-                            [app.window setRootViewController:loginVC];
-                            [app.window makeKeyWindow];
-                        }]];
-                        [self presentViewController:alert animated:YES completion:nil];
-                    }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                        _tableView.frame = CGRectMake(0, 64, WIDTH, HEIGHT-64);
-                        _footerBgView.alpha = 0;
-                        [YHHud showWithSuccess:@"订阅成功"];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCostBean" object:nil];
-                    }else if([json[@"code"] isEqualToString:@"ERROR"]){
-                        [YHHud showWithMessage:@"服务器错误"];
-                    }else{
-                        [YHHud showWithMessage:@"订阅失败"];
-                    }
-                }];
+        //学习豆不足
+        if ([_subBean integerValue]>[[YHSingleton shareSingleton].userInfo.studyBean integerValue]) {
+            [self pushPayVC];
+        }else{
+            //学习豆充足
+            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"type":@"words",@"classifyID":_classifyID,@"device_id":DEVICEID};
+            [YHWebRequest YHWebRequestForPOST:SUBALL parameters:dic success:^(NSDictionary  *json) {
+                if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+                    [self returnToLogin];
+                }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                    _tableView.frame = CGRectMake(0, 64, WIDTH, HEIGHT-64);
+                    _footerBgView.alpha = 0;
+                    [YHHud showWithSuccess:@"订阅成功"];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCostBean" object:nil];
+                }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                    [YHHud showWithMessage:@"服务器错误"];
+                }else{
+                    [YHHud showWithMessage:@"订阅失败"];
+                }
+            } failure:^(NSError * _Nonnull error) {
+                [YHHud showWithMessage:@"网络请求失败"];
+            }];
         }
     }
-}
-- (void)returnToLogin{
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-        [app.window setRootViewController:loginVC];
-        [app.window makeKeyWindow];
-    }]];
-    [self presentViewController:alert animated:YES completion:nil];
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];

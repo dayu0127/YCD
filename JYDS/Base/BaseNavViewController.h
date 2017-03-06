@@ -15,5 +15,6 @@
 @property (strong, nonatomic) UIButton *rightBarButton;
 
 - (void)initNaBar:(NSString *)title;
+- (void)returnToLogin;
 
 @end

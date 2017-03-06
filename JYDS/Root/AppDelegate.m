@@ -120,6 +120,8 @@
         }else{
             [YHHud showWithMessage:@"数据异常"];
         }
+    }failure:^(NSError * _Nonnull error) {
+         [YHHud showWithMessage:@"数据请求失败"];
     }];
 }
 #pragma mark 设置系统回调(支持所有iOS系统)
@@ -149,6 +151,8 @@
                     }else{
                         [YHHud showWithMessage:@"支付失败"];
                     }
+                } failure:^(NSError * _Nonnull error) {
+                    [YHHud showWithMessage:@"数据请求失败"];
                 }];
             }];
         }

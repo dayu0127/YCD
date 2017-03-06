@@ -25,7 +25,6 @@
 @property (nonatomic,strong) UIView *underLine;
 @property (nonatomic,strong) UIView *line;
 @property (nonatomic,strong) UITextView *contentText;
-@property (nonatomic,strong) NSMutableArray *courceArray;
 @property (nonatomic,strong) UICollectionView *collectionView;
 @property (nonatomic,strong) UIDocumentInteractionController *documentController;
 @property (nonatomic,strong) NSMutableArray *buttonArray;
@@ -180,16 +179,7 @@
             NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"productID":_memory.courseID,@"type":@"memory",@"device_id":DEVICEID};
             [YHWebRequest YHWebRequestForPOST:SUB parameters:dic success:^(NSDictionary *json) {
                 if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
-                    [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                        LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-                        [app.window setRootViewController:loginVC];
-                        [app.window makeKeyWindow];
-                    }]];
-                    [self presentViewController:alert animated:YES completion:nil];
+                    [self returnToLogin];
                 }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                     [YHHud showWithSuccess:@"订阅成功"];
                     _opaqueView.alpha = 0;
@@ -200,15 +190,11 @@
                 }else{
                     [YHHud showWithMessage:@"订阅失败"];
                 }
+            } failure:^(NSError * _Nonnull error) {
+                [YHHud showWithMessage:@"数据请求失败"];
             }];
         }
     }
-}
-- (NSMutableArray *)courceArray{
-    if (!_courceArray) {
-        _courceArray = [NSMutableArray arrayWithObjects:@"记忆法课程",@"记忆法课程",@"记忆法课程",@"记忆法课程",@"记忆法课程",@"记忆法课程",@"记忆法课程",@"记忆法课程", nil];
-    }
-    return _courceArray;
 }
 #pragma mark 选项卡标题点击
 - (void)titleButtonClick:(UIButton *)sender{
@@ -232,7 +218,7 @@
     //分享的网页地址对象
     NSString *text = [NSString stringWithFormat:@"我的邀请码是%@\n快来加入记忆大师",[YHSingleton shareSingleton].userInfo.studyCode];
     UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"记忆大师邀请码" descr:text thumImage:[UIImage imageNamed:@"appLogo"]];
-    shareObject.webpageUrl = @"www.jydsapp.com";
+    shareObject.webpageUrl = @"https://www.jydsapp.com";
     messageObject.shareObject = shareObject;
     //调用分享接口
     [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
@@ -360,16 +346,7 @@
     NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"id":[NSString stringWithFormat:@"%zd",sender.tag],@"device_id":DEVICEID};
     [YHWebRequest YHWebRequestForPOST:MEMORYBYID parameters:dic success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-                [app.window setRootViewController:loginVC];
-                [app.window makeKeyWindow];
-            }]];
-            [self presentViewController:alert animated:YES completion:nil];
+            [self returnToLogin];
         }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _memory = [Mnemonics yy_modelWithJSON:json[@"data"]];
             _playerModel = [[ZFPlayerModel alloc] init];
@@ -390,6 +367,8 @@
         }else{
             [YHHud showWithMessage:@"数据异常"];
         }
+    } failure:^(NSError * _Nonnull error) {
+        [YHHud showWithMessage:@"数据请求失败"];
     }];
 }
 #pragma mark 分享错误信息提示

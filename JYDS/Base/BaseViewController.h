@@ -7,4 +7,5 @@
 //
 #import <UIKit/UIKit.h>
 @interface BaseViewController : UIViewController
+- (void)returnToLogin;
 @end

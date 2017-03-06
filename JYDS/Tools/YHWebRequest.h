@@ -11,5 +11,6 @@
 @interface YHWebRequest : NSObject
 + (void)YHWebRequestForPOST:(nullable NSString *)URLString
                              parameters:(nullable NSDictionary *)parameters
-                                 success:(nullable void(^)(id _Nonnull json))success;
+                                 success:(nullable void(^)(id _Nonnull json))success
+                                   failure:(nullable void (^)(NSError *_Nonnull error))failure;
 @end

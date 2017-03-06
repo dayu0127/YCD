@@ -127,6 +127,8 @@
                     }else{
                          [YHHud showWithMessage:@"重置密码失败"];
                     }
+                } failure:^(NSError * _Nonnull error) {
+                    [YHHud showWithMessage:@"数据请求失败"];
                 }];
             }else{
                 [YHHud showWithMessage:@"验证码错误"];

@@ -29,8 +29,8 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Tqe-VF-mwP"/>
                                 </connections>
                             </scrollView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="KhZ-2b-q2M">
-                                <rect key="frame" x="168" y="630" width="39" height="37"/>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="KhZ-2b-q2M">
+                                <rect key="frame" x="176" y="630" width="23" height="37"/>
                                 <color key="currentPageIndicatorTintColor" red="0.95686274510000002" green="0.64313725489999995" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
                             </pageControl>
                         </subviews>
@@ -722,7 +722,9 @@
         <scene sceneID="BP6-lk-IrY">
             <objects>
                 <navigationController id="lb2-iQ-doq" userLabel="记忆大师NC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="首页" image="memory" selectedImage="memory" id="kkB-4X-SRU"/>
+                    <tabBarItem key="tabBarItem" title="首页" image="memory" selectedImage="memory" id="kkB-4X-SRU">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-3"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dXW-5b-O0M">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -811,7 +813,9 @@
         <scene sceneID="s6v-kD-aHZ">
             <objects>
                 <navigationController id="gWu-Wr-HpE" userLabel="秘笈NC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="2" title="秘笈" image="subscribed" selectedImage="subscribed" id="ePU-bT-C1P" userLabel="已订阅"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="秘笈" image="subscribed" selectedImage="subscribed" id="ePU-bT-C1P" userLabel="已订阅">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-3"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8qf-QI-Qtb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1531,7 +1535,9 @@
         <scene sceneID="Ggg-99-FNh">
             <objects>
                 <navigationController id="gAc-le-btV" userLabel="我的NC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="3" title="我的" image="mine" selectedImage="mine" id="G4q-KT-FmY"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="我的" image="mine" selectedImage="mine" id="G4q-KT-FmY">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-3"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="lt1-ik-vN3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -2472,7 +2478,9 @@
         <scene sceneID="wTu-bq-OX9">
             <objects>
                 <navigationController id="bTa-4g-t41" userLabel="记单词NC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="1" title="记单词" image="rememberWord" selectedImage="rememberWord" id="Gpr-Ms-7lq"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="记单词" image="rememberWord" selectedImage="rememberWord" id="Gpr-Ms-7lq">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-3"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8vF-Va-64d">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

@@ -11,7 +11,7 @@
 - (void)reloadMemoryList;
 @end
 @class Mnemonics;
-@interface MemoryCourseVC : UIViewController
+@interface MemoryCourseVC : BaseViewController
 
 @property (nonatomic,strong) Mnemonics *memory;
 @property (nonatomic,strong) NSArray *memoryArray;

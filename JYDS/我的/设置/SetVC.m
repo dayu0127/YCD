@@ -109,6 +109,8 @@
             }else{
                 [YHHud showWithMessage:@"退出登录失败"];
             }
+        } failure:^(NSError * _Nonnull error) {
+            [YHHud showWithMessage:@"数据请求失败"];
         }];
     }
 }

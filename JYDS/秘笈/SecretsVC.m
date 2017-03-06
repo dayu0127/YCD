@@ -12,6 +12,9 @@
 #import <UMSocialCore/UMSocialResponse.h>
 #import <WXApi.h>
 #import <TencentOpenAPI/QQApiInterface.h>
+#import "BaseWKWebView.h"
+#import <UIImageView+WebCache.h>
+
 @interface SecretsVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIButton *ruleButton;
@@ -22,11 +25,25 @@
 @property (strong,nonatomic) UIScrollView *ruleView;
 @property (strong,nonatomic) UITableView *recordTableView;
 @property (strong,nonatomic) NSArray *tableViewArray;
+@property (strong,nonatomic) MJRefreshNormalHeader *header;
+@property (strong,nonatomic) WKWebView *wkWebView;
+@property (strong,nonatomic) UIImageView *rewardRulesImageView;
 
 @end
 
 @implementation SecretsVC
-
+- (void)viewWillAppear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dayMode) name:@"dayMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightMode) name:@"nightMode" object:nil];
+}
+- (void)dayMode{
+    _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [_rewardRulesImageView sd_setImageWithURL:[NSURL URLWithString:InvitationDayUrl] placeholderImage:nil];
+}
+- (void)nightMode{
+    _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    [_rewardRulesImageView sd_setImageWithURL:[NSURL URLWithString:InvitationNightUrl] placeholderImage:nil];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self nightModeConfiguration];
@@ -35,11 +52,9 @@
     _scrollView.pagingEnabled = YES;
     _scrollView.bounces = NO;
     _scrollView.delegate = self;
-    _scrollView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:_scrollView];
-    [self createRecordTableView];
     [_scrollView addSubview:self.ruleView];
-    
+    [self createRecordTableView];
 }
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     if (_scrollView.contentOffset.x == 0) {
@@ -81,12 +96,13 @@
     _ruleButton.selected = NO;
     _rightLineView.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     _leftLineView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
+    [self reloadRecordData];
 }
 #pragma mark 规则页面
 - (UIScrollView *)ruleView{
     if (!_ruleView) {
         _ruleView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT-164)];
-        _ruleView.contentSize = CGSizeMake(WIDTH, HEIGHT);
+        _ruleView.contentSize = CGSizeMake(WIDTH, 208+WIDTH*730/414.0);
         //您的邀请码
         //标题
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 38, WIDTH, 17)];
@@ -136,57 +152,78 @@
 //        [content addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, rewardRulesLabel.text.length)];
 //        rewardRulesLabel.attributedText = content;
 //        [_ruleView addSubview:rewardRulesLabel];
-        UIImageView *rewardRulesImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,  CGRectGetMaxY(sendToFriendButton.frame)+20, WIDTH, WIDTH*6/5.0)];
-        rewardRulesImageView.image = [UIImage imageNamed:@"Invitation"];
-        [_ruleView addSubview:rewardRulesImageView];
+        
+//        _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0,  CGRectGetMaxY(sendToFriendButton.frame)+20, WIDTH, 500)];
+//        _wkWebView.scrollView.bounces = NO;
+//        NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:InvitationUrl]];
+//        [_wkWebView loadRequest:request];
+//        [_ruleView addSubview:_wkWebView];
+        _rewardRulesImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,  CGRectGetMaxY(sendToFriendButton.frame)+20, WIDTH, WIDTH*730/414.0)];
+        if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
+            [_rewardRulesImageView sd_setImageWithURL:[NSURL URLWithString:InvitationDayUrl]];
+        }else{
+            [_rewardRulesImageView sd_setImageWithURL:[NSURL URLWithString:InvitationNightUrl]];
+        }
+        [_ruleView addSubview:_rewardRulesImageView];
     }
     return _ruleView;
 }
 #pragma mark 记录页面
 - (void)createRecordTableView{
-    if (!_recordTableView) {
+    _recordTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT-164) style:UITableViewStylePlain];
+    _recordTableView.delegate = self;
+    _recordTableView.dataSource = self;
+    _recordTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _recordTableView.backgroundColor = [UIColor clearColor];
+    [_recordTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
+    _header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [YHWebRequest YHWebRequestForPOST:INVITATION parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+            [self.recordTableView.mj_header endRefreshing];
             if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
                 [self returnToLogin];
             }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                 _tableViewArray = json[@"data"];
-                if (_tableViewArray.count>0) {
-                    _recordTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT-164) style:UITableViewStylePlain];
-                    _recordTableView.delegate = self;
-                    _recordTableView.dataSource = self;
-                    _recordTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-                    _recordTableView.backgroundColor = [UIColor clearColor];
-                    [_recordTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
-                    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-                        [YHWebRequest YHWebRequestForPOST:INVITATION parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
-                            [self.recordTableView.mj_header endRefreshing];
-                            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-                                [self returnToLogin];
-                            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                                _tableViewArray = json[@"data"];
-                                [_recordTableView reloadData];
-                            }else if([json[@"code"] isEqualToString:@"ERROR"]){
-                                [YHHud showWithMessage:@"服务器错误"];
-                            }else{
-                                [YHHud showWithMessage:@"数据异常"];
-                            }
-                        }];
-                    }];
-                    // 设置自动切换透明度(在导航栏下面自动隐藏)
-                    header.automaticallyChangeAlpha = YES;
-                    // 隐藏时间
-                    header.lastUpdatedTimeLabel.hidden = YES;
-                    // 马上进入刷新状态
-                    [header beginRefreshing];
-                    // 设置header
-                    self.recordTableView.mj_header = header;
-                    [_scrollView addSubview:self.recordTableView];
-                }
+                [_recordTableView reloadData];
             }else if([json[@"code"] isEqualToString:@"ERROR"]){
                 [YHHud showWithMessage:@"服务器错误"];
             }else{
                 [YHHud showWithMessage:@"数据异常"];
             }
+        } failure:^(NSError * _Nonnull error) {
+            [self.recordTableView.mj_header endRefreshing];
+            [YHHud showWithMessage:@"数据请求失败"];
+        }];
+    }];
+    // 设置自动切换透明度(在导航栏下面自动隐藏)
+    _header.automaticallyChangeAlpha = YES;
+    // 隐藏时间
+    _header.lastUpdatedTimeLabel.hidden = YES;
+    // 设置菊花样式
+    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
+        _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    }else{
+        _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    }
+    // 设置header
+    self.recordTableView.mj_header = _header;
+    [_scrollView addSubview:self.recordTableView];
+    
+}
+- (void)reloadRecordData{
+    if (_tableViewArray == nil) {
+        [YHWebRequest YHWebRequestForPOST:INVITATION parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+                [self returnToLogin];
+            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                _tableViewArray = json[@"data"];
+                [_recordTableView reloadData];
+            }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                [YHHud showWithMessage:@"服务器错误"];
+            }else{
+                [YHHud showWithMessage:@"数据异常"];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            [YHHud showWithMessage:@"数据请求失败"];
         }];
     }
 }
@@ -281,17 +318,5 @@
     cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
-}
-- (void)returnToLogin{
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-        [app.window setRootViewController:loginVC];
-        [app.window makeKeyWindow];
-    }]];
-    [self presentViewController:alert animated:YES completion:nil];
 }
 @end

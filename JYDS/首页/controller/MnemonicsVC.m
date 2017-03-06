@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *subBtn;
 @property (strong,nonatomic) NSArray *memoryArray;
 @property (assign,nonatomic) BOOL isHiddenNav;
+@property (strong,nonatomic) MJRefreshNormalHeader *header;
 
 @end
 
@@ -33,11 +34,11 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dayMode) name:@"dayMode" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightMode) name:@"nightMode" object:nil];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dayMode) name:@"dayMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightMode) name:@"nightMode" object:nil];
     [self initNaBar:@"记忆大师"];
     [self nightModeConfiguration];
     _netImages = [NSMutableArray array];
@@ -57,89 +58,69 @@
 - (void)dayMode{
     self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControl"];
     self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_select"];
+    _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
 }
 - (void)nightMode{
     self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlN"];
     self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_selectN"];
+    _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
 }
 #pragma mark 轮播器代理方法
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
-    BannerDetailVC *bannerVC = [[BannerDetailVC alloc] init];
-    bannerVC.navTitle = _bannerInfoArray[index][@"topTitle"];
-    bannerVC.linkUrl = _bannerInfoArray[index][@"linkUrl"];
-    bannerVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:bannerVC animated:YES];
+//    BannerDetailVC *bannerVC = [[BannerDetailVC alloc] init];
+//    bannerVC.navTitle = _bannerInfoArray[index][@"topTitle"];
+//    bannerVC.linkUrl = _bannerInfoArray[index][@"linkUrl"];
+//    bannerVC.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:bannerVC animated:YES];
 }
-
 /** 图片滚动回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index{
     //NSLog(@"%ld",index);
 }
 - (void)initTableView{
-    NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
-    [YHWebRequest YHWebRequestForPOST:MEMORY parameters:dic success:^(NSDictionary *json) {
-        if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-            [self returnToLogin];
-        }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-            _memoryArray = json[@"data"];
-            //显示总价
-            NSInteger totalPrice = [self getTotalPrice];
-            _subLabel.text = [NSString stringWithFormat:@"一次订阅所有记忆法课程，仅需%zd学习豆!",totalPrice];
-            //计算tableView的高度
-//            CGFloat h = 0;
-            NSInteger count = 0;
-            for (NSDictionary *dic in _memoryArray) {
-                if ([dic[@"coursePayStatus"] integerValue] == 1) {
-                    count++;
-                }
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-113) style:UITableViewStyleGrouped];
+    _tableView.delegate = self;
+    _tableView.dataSource =  self;
+    _tableView.rowHeight = 100;
+    _tableView.separatorInset = UIEdgeInsetsZero;
+    _tableView.backgroundColor = [UIColor clearColor];
+    [_tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
+    [self.view addSubview:_tableView];
+    //下拉刷新
+    _header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
+        [YHWebRequest YHWebRequestForPOST:MEMORY parameters:dic success:^(NSDictionary *json) {
+            [self.tableView.mj_header endRefreshing];
+            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+                [self returnToLogin];
+            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                _memoryArray = json[@"data"];
+                [self.tableView reloadData];
+            }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                [YHHud showWithMessage:@"服务器错误"];
+            }else{
+                [YHHud showWithMessage:@"数据异常"];
             }
-//            if (count == _memoryArray.count) {
-//                h = HEIGHT-113;
-//                _buttomBgView.alpha = 0;
-//            }else{
-//                h = HEIGHT-157;
-//            }
-            _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-113) style:UITableViewStyleGrouped];
-            _tableView.delegate = self;
-            _tableView.dataSource =  self;
-            _tableView.rowHeight = 100;
-            _tableView.separatorInset = UIEdgeInsetsZero;
-            _tableView.backgroundColor = [UIColor clearColor];
-            //下拉刷新
-            MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-                NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
-                [YHWebRequest YHWebRequestForPOST:MEMORY parameters:dic success:^(NSDictionary *json) {
-                    [self.tableView.mj_header endRefreshing];
-                    if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-                        [self returnToLogin];
-                    }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                        _memoryArray = json[@"data"];
-                        [self.tableView reloadData];
-                        _subLabel.text = [NSString stringWithFormat:@"一次订阅所有记忆法课程，仅需%zd学习豆!",[self getTotalPrice]];
-                    }else if([json[@"code"] isEqualToString:@"ERROR"]){
-                        [YHHud showWithMessage:@"服务器错误"];
-                    }else{
-                        [YHHud showWithMessage:@"数据异常"];
-                    }
-                }];
-            }];
-            // 设置自动切换透明度(在导航栏下面自动隐藏)
-            header.automaticallyChangeAlpha = YES;
-            // 隐藏时间
-            header.lastUpdatedTimeLabel.hidden = YES;
-            // 马上进入刷新状态
-            [header beginRefreshing];
-            // 设置header
-            self.tableView.mj_header = header;
-            [_tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
-            [self.view addSubview:_tableView];
-        }else if([json[@"code"] isEqualToString:@"ERROR"]){
-            [YHHud showWithMessage:@"服务器错误"];
-        }else{
-            [YHHud showWithMessage:@"数据异常"];
-        }
+        } failure:^(NSError * _Nonnull error) {
+            [self.tableView.mj_header endRefreshing];
+            [YHHud showWithMessage:@"数据请求失败"];
+        }];
     }];
+    // 设置自动切换透明度(在导航栏下面自动隐藏)
+    _header.automaticallyChangeAlpha = YES;
+    // 隐藏时间
+    _header.lastUpdatedTimeLabel.hidden = YES;
+    // 设置菊花样式
+    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
+        _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    }else{
+        _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    }
+    // 设置header
+    self.tableView.mj_header = _header;
+    // 加载数据
+    [self reloadMemoryList];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _memoryArray.count;
@@ -174,22 +155,25 @@
         }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _memoryArray = json[@"data"];
             [_tableView reloadData];
-            NSInteger totalPrice = [self getTotalPrice];
-            _subLabel.text = [NSString stringWithFormat:@"一次订阅所有记忆法课程，仅需%zd学习豆!",totalPrice];
+            _subLabel.text = [NSString stringWithFormat:@"一次订阅所有记忆法课程，仅需%zd学习豆!",[self getTotalPrice]];
         }else if([json[@"code"] isEqualToString:@"ERROR"]){
             [YHHud showWithMessage:@"服务器错误"];
         }else{
             [YHHud showWithMessage:@"数据异常"];
         }
+    } failure:^(NSError * _Nonnull error) {
+        [YHHud showWithMessage:@"数据请求失败"];
     }];
 }
 #pragma mark 轮播图
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, WIDTH, 9/16.0*WIDTH) delegate:self placeholderImage:[UIImage imageNamed:@"banner"]];
     if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
-        [self dayMode];
+        self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControl"];
+        self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_select"];
     }else{
-        [self nightMode];
+        self.cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlN"];
+        self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_selectN"];
     }
     self.cycleScrollView.imageURLStringsGroup = self.netImages;
     self.cycleScrollView.autoScrollTimeInterval = 3.0f;
@@ -247,22 +231,12 @@
                 }else{
                     [YHHud showWithMessage:@"订阅失败"];
                 }
+            } failure:^(NSError * _Nonnull error) {
+                [YHHud showWithMessage:@"数据请求失败"];
             }];
         }
     }
     [_alertView dismissWithCompletion:nil];
-}
-- (void)returnToLogin{
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-        [app.window setRootViewController:loginVC];
-        [app.window makeKeyWindow];
-    }]];
-    [self presentViewController:alert animated:YES completion:nil];
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
