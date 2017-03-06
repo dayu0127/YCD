@@ -54,7 +54,7 @@
     if (indexPath.row == 0) {
         //支付宝支付
         NSDictionary *paraDic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"total_amount":@"0.01"};
-        [YHWebRequest YHWebRequestForPOST:@"http://www.jydsapp.com/jyds/API/order_generateAPI" parameters:paraDic success:^(NSDictionary *json) {
+        [YHWebRequest YHWebRequestForPOST:ALISIGN parameters:paraDic success:^(NSDictionary *json) {
             if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                 [YHSingleton shareSingleton].ali_out_trade_no = json[@"out_trade_no"];
                 NSMutableDictionary *jsonDic = [[NSMutableDictionary alloc] initWithDictionary:json];
@@ -81,7 +81,7 @@
                         dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"out_trade_no":json[@"out_trade_no"],@"code":resultDic[@"resultStatus"]};
                     }
 //                    NSLog(@"%@",dic);
-                    [YHWebRequest YHWebRequestForPOST:@"http://www.jydsapp.com/jyds/API/ALI_Sign_checkAPI" parameters:dic success:^(NSDictionary *json) {
+                    [YHWebRequest YHWebRequestForPOST:ALICHECK parameters:dic success:^(NSDictionary *json) {
                         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
 //                            NSLog(@"%@",json[@"msg"]);
                             if ([json[@"payType"] isEqualToString:@"SUCCESS"]) {
@@ -111,7 +111,7 @@
             [YHHud showWithMessage:@" 请您先安装微信"];
         }else{
             NSDictionary *paraDic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"total_fee":@"0.01"};
-            [YHWebRequest YHWebRequestForPOST:@"http://www.jydsapp.com/jyds/API/wx_unifiedorderAPI" parameters:paraDic success:^(NSDictionary *json) {
+            [YHWebRequest YHWebRequestForPOST:WXSIGN parameters:paraDic success:^(NSDictionary *json) {
                 [YHSingleton shareSingleton].wx_out_trade_no = json[@"out_trade_no"];
                 if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                     PayReq *request = [[PayReq alloc] init];

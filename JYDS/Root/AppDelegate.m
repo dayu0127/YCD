@@ -138,7 +138,7 @@
                 }else{
                     dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"out_trade_no":[YHSingleton shareSingleton].ali_out_trade_no,@"code":resultDic[@"resultStatus"]};
                 }
-                [YHWebRequest YHWebRequestForPOST:@"http://www.jydsapp.com/jyds/API/ALI_Sign_checkAPI" parameters:dic success:^(NSDictionary *json) {
+                [YHWebRequest YHWebRequestForPOST:ALICHECK parameters:dic success:^(NSDictionary *json) {
                     if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                         if ([json[@"payType"] isEqualToString:@"SUCCESS"]) {
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateRechargeBean" object:nil];
