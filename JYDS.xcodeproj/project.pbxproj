@@ -126,6 +126,7 @@
 		606A94F91E51A8CA00A0279D /* MnemonicsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 606A94EF1E51A8CA00A0279D /* MnemonicsCell.xib */; };
 		606A94FA1E51A8CA00A0279D /* MemoryCourseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94F21E51A8CA00A0279D /* MemoryCourseVC.m */; };
 		606A94FB1E51A8CA00A0279D /* BannerDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94F51E51A8CA00A0279D /* BannerDetailVC.m */; };
+		606F12D41E6EB49A00875F1B /* ca.cer in Resources */ = {isa = PBXBuildFile; fileRef = 606F12D31E6EB49A00875F1B /* ca.cer */; };
 		6078D1C41E1613180089D40F /* RememberWordItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0DC1E1613180089D40F /* RememberWordItemVC.m */; };
 		6078D1C51E1613180089D40F /* RememberWordSingleWordDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0DE1E1613180089D40F /* RememberWordSingleWordDetailVC.m */; };
 		6078D1C61E1613180089D40F /* RememberWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0E01E1613180089D40F /* RememberWordVC.m */; };
@@ -134,8 +135,6 @@
 		6078D1CB1E1613180089D40F /* RememberWordItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6078D0EA1E1613180089D40F /* RememberWordItemView.xib */; };
 		6078D1CC1E1613180089D40F /* RememberWordSingleWordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0EC1E1613180089D40F /* RememberWordSingleWordCell.m */; };
 		6078D1CD1E1613180089D40F /* RememberWordSingleWordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6078D0ED1E1613180089D40F /* RememberWordSingleWordCell.xib */; };
-		6078D1CE1E1613180089D40F /* RememberWordVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0EF1E1613180089D40F /* RememberWordVideoCell.m */; };
-		6078D1CF1E1613180089D40F /* RememberWordVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6078D0F01E1613180089D40F /* RememberWordVideoCell.xib */; };
 		6078D1EF1E1613180089D40F /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6078D1351E1613180089D40F /* AlipaySDK.bundle */; };
 		6078D1F01E1613180089D40F /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6078D1361E1613180089D40F /* AlipaySDK.framework */; };
 		6078D1F11E1613180089D40F /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6078D1371E1613180089D40F /* libcrypto.a */; };
@@ -345,6 +344,7 @@
 		606A94F21E51A8CA00A0279D /* MemoryCourseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryCourseVC.m; sourceTree = "<group>"; };
 		606A94F41E51A8CA00A0279D /* BannerDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerDetailVC.h; sourceTree = "<group>"; };
 		606A94F51E51A8CA00A0279D /* BannerDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerDetailVC.m; sourceTree = "<group>"; };
+		606F12D31E6EB49A00875F1B /* ca.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = ca.cer; path = JYDS/ca.cer; sourceTree = SOURCE_ROOT; };
 		6078D0DB1E1613180089D40F /* RememberWordItemVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordItemVC.h; sourceTree = "<group>"; };
 		6078D0DC1E1613180089D40F /* RememberWordItemVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordItemVC.m; sourceTree = "<group>"; };
 		6078D0DD1E1613180089D40F /* RememberWordSingleWordDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordSingleWordDetailVC.h; sourceTree = "<group>"; };
@@ -359,9 +359,6 @@
 		6078D0EB1E1613180089D40F /* RememberWordSingleWordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordSingleWordCell.h; sourceTree = "<group>"; };
 		6078D0EC1E1613180089D40F /* RememberWordSingleWordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordSingleWordCell.m; sourceTree = "<group>"; };
 		6078D0ED1E1613180089D40F /* RememberWordSingleWordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RememberWordSingleWordCell.xib; sourceTree = "<group>"; };
-		6078D0EE1E1613180089D40F /* RememberWordVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordVideoCell.h; sourceTree = "<group>"; };
-		6078D0EF1E1613180089D40F /* RememberWordVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordVideoCell.m; sourceTree = "<group>"; };
-		6078D0F01E1613180089D40F /* RememberWordVideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RememberWordVideoCell.xib; sourceTree = "<group>"; };
 		6078D1351E1613180089D40F /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		6078D1361E1613180089D40F /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		6078D1371E1613180089D40F /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
@@ -849,9 +846,6 @@
 				6078D0E81E1613180089D40F /* RememberWordItemView.h */,
 				6078D0E91E1613180089D40F /* RememberWordItemView.m */,
 				6078D0EA1E1613180089D40F /* RememberWordItemView.xib */,
-				6078D0EE1E1613180089D40F /* RememberWordVideoCell.h */,
-				6078D0EF1E1613180089D40F /* RememberWordVideoCell.m */,
-				6078D0F01E1613180089D40F /* RememberWordVideoCell.xib */,
 				6078D0EB1E1613180089D40F /* RememberWordSingleWordCell.h */,
 				6078D0EC1E1613180089D40F /* RememberWordSingleWordCell.m */,
 				6078D0ED1E1613180089D40F /* RememberWordSingleWordCell.xib */,
@@ -1241,6 +1235,7 @@
 				60E2DCFA1E5A94C300D45986 /* WeChatPay */,
 				6078D1A11E1613180089D40F /* Base.lproj */,
 				6078D1A61E1613180089D40F /* Info.plist */,
+				606F12D31E6EB49A00875F1B /* ca.cer */,
 				6019F2711E45AC3200E6E8A1 /* codeName.plist */,
 				6078D1A71E1613180089D40F /* main.m */,
 				601810C31E6B057000C8DCCD /* Assets.xcassets */,
@@ -1311,7 +1306,7 @@
 				TargetAttributes = {
 					69B129E01DE2C6490093D841 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = AE5L29EYR8;
+						DevelopmentTeam = VL3XXNWR94;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1408,7 +1403,6 @@
 				60190AF61E2A07C0009C9450 /* 71.png in Resources */,
 				6078D1CD1E1613180089D40F /* RememberWordSingleWordCell.xib in Resources */,
 				60190AFE1E2A07C0009C9450 /* 79.png in Resources */,
-				6078D1CF1E1613180089D40F /* RememberWordVideoCell.xib in Resources */,
 				6078D1EF1E1613180089D40F /* AlipaySDK.bundle in Resources */,
 				60190AD51E2A07C0009C9450 /* 38.png in Resources */,
 				60190AD81E2A07C0009C9450 /* 41.png in Resources */,
@@ -1443,6 +1437,7 @@
 				60190AFB1E2A07C0009C9450 /* 76.png in Resources */,
 				60190ACB1E2A07C0009C9450 /* 28.png in Resources */,
 				60190B041E2A07C0009C9450 /* 85.png in Resources */,
+				606F12D41E6EB49A00875F1B /* ca.cer in Resources */,
 				605D2ED01E2DB97000A7E01B /* SuccessView.xib in Resources */,
 				60190ADD1E2A07C0009C9450 /* 46.png in Resources */,
 				60190AF51E2A07C0009C9450 /* 70.png in Resources */,
@@ -1545,7 +1540,6 @@
 				6078D1F81E1613180089D40F /* NSDataEx.m in Sources */,
 				6078D1CA1E1613180089D40F /* RememberWordItemView.m in Sources */,
 				609F060C1E16218B009F4986 /* PayDetailCell.m in Sources */,
-				6078D1CE1E1613180089D40F /* RememberWordVideoCell.m in Sources */,
 				609F06191E162190009F4986 /* PayDetailVC.m in Sources */,
 				606A94F81E51A8CA00A0279D /* MnemonicsCell.m in Sources */,
 				60190B161E2A0969009C9450 /* LevelView.m in Sources */,
@@ -1709,7 +1703,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AE5L29EYR8;
+				DEVELOPMENT_TEAM = VL3XXNWR94;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1828,7 +1822,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AE5L29EYR8;
+				DEVELOPMENT_TEAM = VL3XXNWR94;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

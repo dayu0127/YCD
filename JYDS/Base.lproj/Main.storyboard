@@ -31,7 +31,7 @@
                             </scrollView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="KhZ-2b-q2M">
                                 <rect key="frame" x="176" y="630" width="23" height="37"/>
-                                <color key="currentPageIndicatorTintColor" red="0.95686274510000002" green="0.64313725489999995" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="currentPageIndicatorTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </pageControl>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2230,13 +2230,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="练习题可以帮助你快速掌握编码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hl7-lK-0Uj">
-                                <rect key="frame" x="94.5" y="205" width="186" height="16"/>
+                                <rect key="frame" x="95" y="205" width="186" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MW6-De-Nse">
-                                <rect key="frame" x="87.5" y="248" width="200" height="38"/>
+                                <rect key="frame" x="88" y="248" width="200" height="38"/>
                                 <color key="backgroundColor" red="0.40000000000000002" green="0.59999999999999998" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="DWO-bn-73F"/>
@@ -2255,6 +2255,23 @@
                                     <action selector="beginButtonClick:" destination="L7E-cv-c7Q" eventType="touchUpInside" id="K8b-uJ-C2S"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xuO-hz-VCr">
+                                <rect key="frame" x="46" y="423" width="283" height="140"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="140" id="Ncf-9Y-LPO"/>
+                                    <constraint firstAttribute="width" constant="283" id="PCe-qf-B87"/>
+                                </constraints>
+                                <string key="text">       点击页面右上角“编码表”，仔细观察记忆101个数字和图片，记下之后返回至“开始练习”，选择练习题等级，建议从难度系数最低的60秒开始测试。我们可以看到，画面上圆圈里的数字一直在跳动，出现一个数字，脑海里要能想起对应的图片。如果想不起来，就点击“否”。测试结束后，练习结果会将你想不起来的数字和图片呈现出来。如果全部记住，那么恭喜你，可以继续挑战更高一级难度的测试了。</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="使用方法" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6kQ-dV-cNQ">
+                                <rect key="frame" x="157" y="405" width="62" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -2262,8 +2279,12 @@
                             <constraint firstItem="MW6-De-Nse" firstAttribute="centerX" secondItem="YTi-JS-Z25" secondAttribute="centerX" id="BuC-pb-F7e"/>
                             <constraint firstItem="MW6-De-Nse" firstAttribute="top" secondItem="hl7-lK-0Uj" secondAttribute="bottom" constant="27" id="Ghp-MI-gIh"/>
                             <constraint firstItem="hl7-lK-0Uj" firstAttribute="centerX" secondItem="YTi-JS-Z25" secondAttribute="centerX" id="KRA-LI-WKi"/>
+                            <constraint firstItem="xuO-hz-VCr" firstAttribute="centerX" secondItem="YTi-JS-Z25" secondAttribute="centerX" id="LBM-bq-UQZ"/>
                             <constraint firstItem="hl7-lK-0Uj" firstAttribute="top" secondItem="jKP-TV-Fep" secondAttribute="bottom" constant="17" id="T9O-IV-u98"/>
+                            <constraint firstItem="6kQ-dV-cNQ" firstAttribute="centerX" secondItem="YTi-JS-Z25" secondAttribute="centerX" id="pzm-ga-aI9"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="xuO-hz-VCr" secondAttribute="bottom" constant="40" id="sMf-O3-9Xz"/>
                             <constraint firstItem="jKP-TV-Fep" firstAttribute="centerX" secondItem="YTi-JS-Z25" secondAttribute="centerX" id="wB8-5N-cCF"/>
+                            <constraint firstItem="xuO-hz-VCr" firstAttribute="top" secondItem="6kQ-dV-cNQ" secondAttribute="bottom" id="zMZ-DW-usb"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="右脑训练" id="DN0-RY-9SM">
@@ -2278,6 +2299,8 @@
                         <outlet property="beginButton" destination="MW6-De-Nse" id="Cwh-EB-KCv"/>
                         <outlet property="imageView" destination="jKP-TV-Fep" id="C1x-Ev-yNt"/>
                         <outlet property="titleLabel" destination="hl7-lK-0Uj" id="PPl-2R-KXd"/>
+                        <outlet property="useTextView" destination="xuO-hz-VCr" id="gXF-s6-RD9"/>
+                        <outlet property="useTitle" destination="6kQ-dV-cNQ" id="mnd-eG-KsE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qox-vX-znb" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -27,38 +27,20 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateRechargeBean) name:@"updateRechargeBean" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStudyBean) name:@"updateStudyBean" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCostBean) name:@"updateCostBean" object:nil];
 }
-- (void)updateRechargeBean{
-    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
-        if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-            [self returnToLogin];
-        }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-            _studyBean.text = [NSString stringWithFormat:@"%@",json[@"data"][@"restBean"]];
-        }else if([json[@"code"] isEqualToString:@"ERROR"]){
-            [YHHud showWithMessage:@"服务器错误"];
-        }else{
-            [YHHud showWithMessage:@"数据异常"];
-        }
-    } failure:^(NSError * _Nonnull error) {
-        [YHHud showWithMessage:@"数据请求失败"];
-    }];
+#pragma mark 更新剩余学习豆
+- (void)updateStudyBean{
+    NSDictionary *userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+    UserInfo *model = [UserInfo yy_modelWithDictionary:userDic];
+    _studyBean.text = model.studyBean;
 }
+#pragma mark 更新消费学习豆
 - (void)updateCostBean{
-    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
-        if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-            [self returnToLogin];
-        }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-            _costStudyBean.text = [NSString stringWithFormat:@"%@",json[@"data"][@"consumeBean"]];
-        }else if([json[@"code"] isEqualToString:@"ERROR"]){
-            [YHHud showWithMessage:@"服务器错误"];
-        }else{
-            [YHHud showWithMessage:@"数据异常"];
-        }
-    } failure:^(NSError * _Nonnull error) {
-        [YHHud showWithMessage:@"数据请求失败"];
-    }];
+    NSDictionary *userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+    UserInfo *model = [UserInfo yy_modelWithDictionary:userDic];
+    _costStudyBean.text = model.costStudyBean;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -124,10 +106,12 @@
     _payButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
 }
 - (void)userConfiguration{
-    [_headImageView sd_setImageWithURL:[NSURL URLWithString:[YHSingleton shareSingleton].userInfo.headImageUrl] placeholderImage:[UIImage imageNamed:@"headImage"]];
-    _nickNameLabel.text = [YHSingleton shareSingleton].userInfo.nickName;
-    _studyBean.text = [YHSingleton shareSingleton].userInfo.studyBean;
-    _costStudyBean.text = [YHSingleton shareSingleton].userInfo.costStudyBean;
+    NSDictionary *userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+    UserInfo *model = [UserInfo yy_modelWithDictionary:userDic];
+    [_headImageView sd_setImageWithURL:[NSURL URLWithString:model.headImageUrl] placeholderImage:[UIImage imageNamed:@"headImage"]];
+    _nickNameLabel.text = model.nickName;
+    _studyBean.text = model.studyBean;
+    _costStudyBean.text = model.costStudyBean;
 }
 #pragma mark - Table view data source
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

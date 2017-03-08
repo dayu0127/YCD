@@ -144,7 +144,7 @@
     if (REGEX(PHONE_RE, _phoneText.text)==NO) {
         [YHHud showWithMessage:@"请输入有效11位手机号"];
     }else if(REGEX(CHECHCODE_RE, _idCodeText.text)==NO){
-        [YHHud showWithMessage:@"验证码错误11111"];
+        [YHHud showWithMessage:@"验证码错误"];
     }else if (REGEX(PWD_RE, _pwdText.text)==NO){
         [YHHud showWithMessage:@"请输入6~15位字母+数字组合的密码"];
     }else {

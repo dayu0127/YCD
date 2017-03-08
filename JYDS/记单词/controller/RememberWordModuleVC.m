@@ -116,7 +116,7 @@
 }
 #pragma mark 全部订阅
 - (IBAction)subscriptionClick:(UIButton *)sender {
-    NSString *message = @"如果确定，将一次订阅当前所有单词";
+    NSString *message = @"邀请朋友注册，享受更大优惠！";
     YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 250, 155) title:@"· 确认订阅 ·" message:message];
     alertView.delegate = self;
     _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
@@ -138,7 +138,7 @@
                     _tableView.frame = CGRectMake(0, 64, WIDTH, HEIGHT-64);
                     _footerBgView.alpha = 0;
                     [YHHud showWithSuccess:@"订阅成功"];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCostBean" object:nil];
+                    [self updateCostBean];
                 }else if([json[@"code"] isEqualToString:@"ERROR"]){
                     [YHHud showWithMessage:@"服务器错误"];
                 }else{
@@ -149,6 +149,22 @@
             }];
         }
     }
+}
+#pragma mark 更新用户的消费学习豆
+- (void)updateCostBean{
+    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            [YHSingleton shareSingleton].userInfo.costStudyBean = [NSString stringWithFormat:@"%@",json[@"data"][@"consumeBean"]];
+            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCostBean" object:nil];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        [YHHud showWithMessage:@"数据请求失败"];
+    }];
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];

@@ -44,7 +44,7 @@
         _playerModel                  = [[ZFPlayerModel alloc] init];
         _playerModel.title            = _memory.courseName;
         _playerModel.videoURL         = [NSURL URLWithString:_memory.courseVideo];
-//        _playerModel.placeholderImage = [UIImage imageNamed:@""];
+        _playerModel.placeholderImageURLString = _memory.courseImageUrl;
         _playerModel.fatherView       = self.playerFatherView;
     }
     return _playerModel;
@@ -352,6 +352,7 @@
             _playerModel = [[ZFPlayerModel alloc] init];
             _playerModel.title = _memory.courseName;
             _playerModel.fatherView = self.playerFatherView;
+            _playerModel.placeholderImageURLString = _memory.courseImageUrl;
             _playerModel.videoURL = [NSURL URLWithString:_memory.courseVideo];
             [_playerView resetPlayer];
             [_playerView playerControlView:nil playerModel:_playerModel];

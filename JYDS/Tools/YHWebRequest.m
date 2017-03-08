@@ -15,6 +15,11 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager =[AFHTTPSessionManager manager];
+        NSString * cerPath = [[NSBundle mainBundle] pathForResource:@"ca" ofType:@"cer"];
+        NSData * cerData = [NSData dataWithContentsOfFile:cerPath];
+        NSSet *cerSet = [[NSSet alloc]initWithObjects:cerData, nil];
+        manager.securityPolicy  = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate withPinnedCertificates:cerSet];
+        [manager.securityPolicy setValidatesDomainName:NO];
         //解析加密的HTTPS网络请求数据
         manager.securityPolicy.allowInvalidCertificates =  YES;
         //可以接受的类型
@@ -41,12 +46,10 @@
         //字符串处理
         NSString * string =[URLString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:URLString]];
         [[YHWebRequest shareManager] POST:string parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task,id _Nullable responseObject) {
-            [YHHud dismiss];
             if (success) {
                 success([NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil]);
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError *_Nonnull error) {
-            [YHHud dismiss];
             if (failure) {
                 failure(error);
             }

@@ -25,26 +25,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCostBean) name:@"updateCostBean" object:nil];
 }
 - (void)updateCostBean{
-    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
-        if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-            [self returnToLogin];
-        }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-            _costBean.text = [NSString stringWithFormat:@"%@",json[@"data"][@"consumeBean"]];
-        }else if([json[@"code"] isEqualToString:@"ERROR"]){
-            [YHHud showWithMessage:@"服务器错误"];
-        }else{
-            [YHHud showWithMessage:@"数据异常"];
-        }
-    } failure:^(NSError * _Nonnull error) {
-        [YHHud showWithMessage:@"数据请求失败"];
-    }];
+    NSDictionary *userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+    UserInfo *model = [UserInfo yy_modelWithDictionary:userDic];
+    _costBean.text = [NSString stringWithFormat:@"%@个",model.costStudyBean];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self nightModeConfiguration];
-    _costBean.text = [NSString stringWithFormat:@"%@个",[YHSingleton shareSingleton].userInfo.costStudyBean];
+    [self updateCostBean];
     [YHHud showWithStatus:@"拼命加载中..."];
     [YHWebRequest YHWebRequestForPOST:COSTDETAIL parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+        [YHHud dismiss];
         if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
             [self returnToLogin];
         }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
@@ -57,6 +48,7 @@
             [YHHud showWithMessage:@"数据异常"];
         }
     } failure:^(NSError * _Nonnull error) {
+        [YHHud dismiss];
         [YHHud showWithMessage:@"数据请求失败"];
     }];
 }

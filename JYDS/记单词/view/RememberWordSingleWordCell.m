@@ -37,16 +37,11 @@
 - (void)addModelWithDic:(NSDictionary *)dic{
     Words *model = [Words yy_modelWithJSON:dic];
     self.word.text = model.word;
-    NSString *wordPrice = @"";
     if ([model.payType isEqualToString:@"0"]) {
-        wordPrice = [NSString stringWithFormat:@"%@学习豆",model.wordPrice];
+        self.wordPrice.alpha = 0;
     }else{
-        if ([model.wordPrice isEqualToString:@"0"]) {
-            wordPrice = @"免费";
-        }else{
-            wordPrice = @"已订阅";
-        }
+        self.wordPrice.alpha = 1;
+        self.wordPrice.text = @"已订阅";
     }
-    self.wordPrice.text = wordPrice;
 }
 @end

@@ -36,6 +36,7 @@
     [YHHud showWithStatus:@"单词加载中..."];
     NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"classifyID":_classifyID,@"device_id":DEVICEID,@"unitID":_unitID};
     [YHWebRequest YHWebRequestForPOST:WORD parameters:dic success:^(NSDictionary *json) {
+        [YHHud dismiss];
         if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
             [self returnToLogin];
         }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
@@ -47,6 +48,7 @@
             [YHHud showWithMessage:@"数据异常"];
         }
     } failure:^(NSError * _Nonnull error) {
+        [YHHud dismiss];
         [YHHud showWithMessage:@"数据请求失败"];
     }];
 }
@@ -82,9 +84,11 @@
     if ([self.wordArray[indexPath.row][@"payType"] intValue] == 0) {
         //单个单词订阅
         _wordID = self.wordArray[indexPath.row][@"wordID"];
-        _wordPrice = self.wordArray[indexPath.row][@"wordPrice"];
+//        _wordPrice = self.wordArray[indexPath.row][@"wordPrice"];
         _indexPathArray = @[indexPath];
-        YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 255, 100) title:@"确定购买？" message:nil];
+        NSDictionary *usrDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+        UserInfo *userInfo = [UserInfo yy_modelWithDictionary:usrDic];
+        YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 255, 155) title:@"确认订阅"  message:[NSString stringWithFormat:@"免费单词订阅次数为:%@",userInfo.freeCount]];
         alertView.delegate = self;
         _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
         [_alertView show];
@@ -99,16 +103,22 @@
 - (void)buttonClickIndex:(NSInteger)buttonIndex{
     [_alertView dismissWithCompletion:nil];
     if (buttonIndex == 1) {
-        //用户学习豆不够，跳转到充值页面
-        NSInteger studyBean = [[YHSingleton shareSingleton].userInfo.studyBean integerValue];
-        if (studyBean < [_wordPrice integerValue]) {
-            [self pushPayVC];
+        //用户免费订阅次数不够
+        NSDictionary *usrDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+        UserInfo *userInfo = [UserInfo yy_modelWithDictionary:usrDic];
+        if ([userInfo.freeCount integerValue] == 0) {
+            [YHHud showWithMessage:@"您的单词免费订阅次数为0，请前往订阅"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
         }else{
-            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"productID":_wordID,@"type":@"word",@"device_id":DEVICEID};
-            [YHWebRequest YHWebRequestForPOST:SUB parameters:dic success:^(NSDictionary *json) {
+            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"wordID":_wordID,@"device_id":DEVICEID};
+            [YHWebRequest YHWebRequestForPOST:FREEWORD parameters:dic success:^(NSDictionary *json) {
                 if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
                     [self returnToLogin];
                 }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                    [YHSingleton shareSingleton].userInfo.freeCount = [NSString stringWithFormat:@"%@",json[@"freeCount"]];
+                    [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
                     for (NSInteger i = 0; i<_wordArray.count; i++) {
 //                        NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:[_wordArray objectAtIndex:i]];
 //                        NSMutableArray *arr = [NSMutableArray arrayWithArray:[dic objectForKey:@"wordData"]];
@@ -130,8 +140,8 @@
                     //刷新当前cell的数据
                     [_tableView reloadRowsAtIndexPaths:_indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
                     [YHHud showWithSuccess:@"订阅成功"];
-                    [_delegate updateSubBean];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCostBean" object:nil];
+//                    [_delegate updateSubBean];
+//                    [self updateCostBean];
                 }else if([json[@"code"] isEqualToString:@"ERROR"]){
                     [YHHud showWithMessage:@"服务器错误"];
                 }else{
@@ -143,6 +153,22 @@
         }
     }
 }
+//#pragma mark 更新用户的消费学习豆
+//- (void)updateCostBean{
+//    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+//        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//            [YHSingleton shareSingleton].userInfo.costStudyBean = [NSString stringWithFormat:@"%@",json[@"data"][@"consumeBean"]];
+//            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCostBean" object:nil];
+//        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//            [YHHud showWithMessage:@"服务器错误"];
+//        }else{
+//            [YHHud showWithMessage:@"数据异常"];
+//        }
+//    } failure:^(NSError * _Nonnull error) {
+//        [YHHud showWithMessage:@"数据请求失败"];
+//    }];
+//}
 - (void)pushPayVC{
     [YHHud showWithMessage:@"您的学习豆不足，请充值"];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
