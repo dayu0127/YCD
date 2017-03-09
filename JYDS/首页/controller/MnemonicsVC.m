@@ -44,9 +44,7 @@
     _netImages = [NSMutableArray array];
     _bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"];
     for (NSDictionary *dic in _bannerInfoArray) {
-        NSMutableString *imageUrlStr = [NSMutableString stringWithString:dic[@"topImageUrl"]];
-        [imageUrlStr replaceCharactersInRange:[imageUrlStr rangeOfString:@"http"] withString:@"https"];
-        [_netImages addObject:[NSString stringWithFormat:@"%@",imageUrlStr]];
+        [_netImages addObject:[NSString stringWithFormat:@"%@",dic[@"topImageUrl"]]];
     }
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self initTableView];

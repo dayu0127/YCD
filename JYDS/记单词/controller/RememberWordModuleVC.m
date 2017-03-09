@@ -33,10 +33,10 @@
             [self returnToLogin];
         }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _unitArray = json[@"data"];
-            _subBean = [NSString stringWithFormat:@"%@",json[@"subBean"]];
+            _subBean = json[@"subALLBean"];
             CGFloat h = 0;
             if ([_subBean integerValue] > 0) {
-                _subscriptionLabel.text = [NSString stringWithFormat:@"一次性订阅%@的所有单词，仅需%@学习豆",self.navTitle,_subBean];
+                _subscriptionLabel.text = json[@"subBean"];
                 h = HEIGHT-108;
             }else{
                 _footerBgView.alpha = 0;
@@ -82,6 +82,11 @@
     itemVC.classifyID = _classifyID;
     itemVC.unitID = _unitArray[indexPath.row][@"id"];
     itemVC.navTitle = _unitArray[indexPath.row][@"unitName"];
+    BOOL isSub = NO;
+    if ([_subBean integerValue] == 0) {
+        isSub = YES;
+    }
+    itemVC.isSub = isSub;
     itemVC.delegate = self;
     [self.navigationController pushViewController:itemVC animated:YES];
 }
@@ -90,8 +95,9 @@
         if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
             [self returnToLogin];
         }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            _subBean = json[@"subALLBean"];
             if ([_subBean integerValue] > 0) {
-                _subscriptionLabel.text = [NSString stringWithFormat:@"一次性订阅%@的所有单词，仅需%@学习豆",self.navTitle,json[@"subBean"]];
+                _subscriptionLabel.text = json[@"subBean"];
             }else{
                 _footerBgView.alpha = 0;
             }
@@ -137,6 +143,16 @@
                 }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                     _tableView.frame = CGRectMake(0, 64, WIDTH, HEIGHT-64);
                     _footerBgView.alpha = 0;
+                    //更新本地单词数据缓存
+//                    NSMutableArray *allWordArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"allWord"];
+//                    for (NSInteger i = 0; i<allWordArray.count; i++) {
+//                        NSMutableDictionary *item = [[NSMutableDictionary alloc] initWithDictionary:[allWordArray objectAtIndex:i]];
+//                        if ([item[@"wordID"] integerValue] == [_wordID integerValue]) {
+//                            [item setObject:[NSNumber numberWithInt:1] forKey:@"payType"];
+//                        }
+//                        [_wordArray replaceObjectAtIndex:i withObject:[NSDictionary dictionaryWithDictionary:item]];
+//                    }
+//                    [[NSUserDefaults standardUserDefaults] setObject:_wordArray forKey:@"allWord"];
                     [YHHud showWithSuccess:@"订阅成功"];
                     [self updateCostBean];
                 }else if([json[@"code"] isEqualToString:@"ERROR"]){
@@ -172,4 +188,5 @@
         self.navigationController.navigationBar.hidden = NO;
     }
 }
+
 @end

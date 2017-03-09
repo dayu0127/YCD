@@ -12,5 +12,8 @@
 @interface RememberWordSingleWordDetailVC : BaseNavViewController
 
 @property (nonatomic,strong) Words *word;
+@property (nonatomic,strong) NSArray *wordIDArray;
+@property (nonatomic,assign) NSInteger wordIndex;
+@property (nonatomic,assign) BOOL isSub;
 
 @end

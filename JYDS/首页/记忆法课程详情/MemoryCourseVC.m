@@ -15,13 +15,12 @@
 #import <WXApi.h>
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <WeiboSDK.h>
-@interface MemoryCourseVC ()<UICollectionViewDelegate,UICollectionViewDataSource,ZFPlayerDelegate,YHAlertViewDelegate>
+@interface MemoryCourseVC ()<ZFPlayerDelegate,YHAlertViewDelegate>
 
 @property (nonatomic, strong) UIView *playerFatherView;
 @property (nonatomic,strong) ZFPlayerView *playerView;
 @property (nonatomic,strong) ZFPlayerModel *playerModel;
-@property (nonatomic,strong) UIButton *titleButton1;
-@property (nonatomic,strong) UIButton *titleButton2;
+@property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UIView *underLine;
 @property (nonatomic,strong) UIView *line;
 @property (nonatomic,strong) UITextView *contentText;
@@ -43,7 +42,7 @@
     if (!_playerModel) {
         _playerModel                  = [[ZFPlayerModel alloc] init];
         _playerModel.title            = _memory.courseName;
-        _playerModel.videoURL         = [NSURL URLWithString:_memory.courseVideo];
+        _playerModel.videoURL         = [NSURL URLWithString:_memory.course_standby__videourl];
         _playerModel.placeholderImageURLString = _memory.courseImageUrl;
         _playerModel.fatherView       = self.playerFatherView;
     }
@@ -71,30 +70,18 @@
     _playerView = [[ZFPlayerView alloc] init];
     _playerView.delegate = self;
     [_playerView playerControlView:nil playerModel:self.playerModel];
-    [self loadPlayerOpaqueView:_memory.coursePrice subStatus:_memory.coursePayStatus];
+//    [self loadPlayerOpaqueView:_memory.coursePrice subStatus:_memory.coursePayStatus];
     //标题视图
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 20+9/16.0*WIDTH, WIDTH, 39)];
     titleView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
     [self.view addSubview:titleView];
     //本节说明
-    _titleButton1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0.24*WIDTH, 38)];
-    [_titleButton1 setTitle:@"本节说明" forState:UIControlStateNormal];
-    _titleButton1.selected = YES;
-    [_titleButton1 dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
-    [_titleButton1 dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateSelected];
-    _titleButton1.titleLabel.font = [UIFont systemFontOfSize:15.0f];
-    _titleButton1.tag = 0;
-    [_titleButton1 addTarget:self action:@selector(titleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [titleView addSubview:_titleButton1];
-    //其他课程
-    _titleButton2 = [[UIButton alloc] initWithFrame:CGRectMake(0.24*WIDTH, 0, 0.24*WIDTH, 38)];
-    [_titleButton2 setTitle:@"其他课程" forState:UIControlStateNormal];
-    [_titleButton2 dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
-    [_titleButton2 dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateSelected];
-    _titleButton2.titleLabel.font = [UIFont systemFontOfSize:15.0f];
-    _titleButton2.tag = 1;
-    [_titleButton2 addTarget:self action:@selector(titleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [titleView addSubview:_titleButton2];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0.24*WIDTH, 38)];
+    _titleLabel.text = @"本节说明";
+    _titleLabel.textAlignment = NSTextAlignmentCenter;
+    _titleLabel.dk_textColorPicker= DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+    _titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    [titleView addSubview:_titleLabel];
     //下划线
     _underLine = [[UIView alloc] initWithFrame:CGRectMake(0, 38, 0.24*WIDTH, 1)];
     _underLine.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
@@ -196,21 +183,6 @@
         }
     }
 }
-#pragma mark 选项卡标题点击
-- (void)titleButtonClick:(UIButton *)sender{
-    [sender dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateNormal];
-    sender.selected = YES;
-    _underLine.frame = CGRectMake(0.24*WIDTH*sender.tag, 38, 0.24*WIDTH, 1);
-    if (sender.tag == 0) { //点击本节说明
-        [_titleButton2 dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
-        _titleButton2.selected = NO;
-        [self loadCurrentSectionExplain:_memory.courseInstructions];
-    }else{  //点击其他课程
-        [_titleButton1 dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
-        _titleButton1.selected = NO;
-        [self loadOtherCourse];
-    }
-}
 #pragma mark 设置分享内容(图文链接)
 - (void)shareImageAndTextUrlToPlatformType:(UMSocialPlatformType)platformType{
     //创建分享消息对象
@@ -274,10 +246,6 @@
 }
 #pragma mark 加载本节说明
 - (void)loadCurrentSectionExplain:(NSString *)text{
-    if (_contentText!=nil) {
-        [_contentText removeFromSuperview];
-        _contentText = nil;
-    }
     _contentText = [[UITextView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_line.frame), WIDTH, HEIGHT-CGRectGetMaxY(_line.frame))];
     _contentText.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
     _contentText.editable = NO;
@@ -292,100 +260,13 @@
     _contentText.font = [UIFont systemFontOfSize:12.0f];
     [self.view addSubview:_contentText];
 }
-#pragma mark 加载其他课程
-- (void)loadOtherCourse{
-    if (_collectionView!=nil) {
-        [_collectionView removeFromSuperview];
-        _collectionView = nil;
-        [_buttonArray removeAllObjects];
-        _buttonArray = nil;
-    }
-    _buttonArray = [NSMutableArray array];
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.itemSize = CGSizeMake((WIDTH-60)*0.5, 44);
-    layout.minimumLineSpacing = 15; //上下的间距 可以设置0看下效果
-    layout.sectionInset = UIEdgeInsetsMake(15,15,15,15);
-    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_line.frame), WIDTH, HEIGHT-CGRectGetMaxY(_line.frame)) collectionViewLayout:layout];
-    _collectionView.delegate = self;
-    _collectionView.dataSource =self;
-    _collectionView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
-    [self.view addSubview:_collectionView];
-    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
-}
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return _memoryArray.count;
-}
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    UIButton *courseItemButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, (WIDTH-60)*0.5, 44)];
-    Mnemonics *model = [Mnemonics yy_modelWithJSON:_memoryArray[indexPath.row]];
-    [courseItemButton setTitle:model.courseName forState:UIControlStateNormal];
-    courseItemButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
-    [courseItemButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
-    if ([model.courseID isEqualToString:_memory.courseID]) {
-        courseItemButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
-    }else{
-        courseItemButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BTN_BG,N_CELL_BG,RED);
-    }
-    courseItemButton.layer.masksToBounds = YES;
-    courseItemButton.layer.cornerRadius = 8.0f;
-    courseItemButton.tag = [model.courseID integerValue];
-    [courseItemButton addTarget:self action:@selector(courseItemButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
-    [courseItemButton addTarget:self action:@selector(courseItemButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.contentView addSubview:courseItemButton];
-    [_buttonArray addObject:courseItemButton];
-    return cell;
-}
-- (void)courseItemButtonTouchDown:(UIButton *)sender{
-    for (UIButton *btn in _buttonArray) {
-        btn.dk_backgroundColorPicker = DKColorPickerWithColors(D_BTN_BG,N_CELL_BG,RED);
-    }
-    sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
-}
-- (void)courseItemButtonClick:(UIButton *)sender{
-    NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"id":[NSString stringWithFormat:@"%zd",sender.tag],@"device_id":DEVICEID};
-    [YHWebRequest YHWebRequestForPOST:MEMORYBYID parameters:dic success:^(NSDictionary *json) {
-        if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-            [self returnToLogin];
-        }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-            _memory = [Mnemonics yy_modelWithJSON:json[@"data"]];
-            _playerModel = [[ZFPlayerModel alloc] init];
-            _playerModel.title = _memory.courseName;
-            _playerModel.fatherView = self.playerFatherView;
-            _playerModel.placeholderImageURLString = _memory.courseImageUrl;
-            _playerModel.videoURL = [NSURL URLWithString:_memory.courseVideo];
-            [_playerView resetPlayer];
-            [_playerView playerControlView:nil playerModel:_playerModel];
-            [self loadPlayerOpaqueView:_memory.coursePrice subStatus:_memory.coursePayStatus];
-            [_titleButton1 dk_setTitleColorPicker:DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED) forState:UIControlStateNormal];
-            _titleButton1.selected = YES;
-            _underLine.frame = CGRectMake(0, 38, 0.24*WIDTH, 1);
-            [_titleButton2 dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
-            _titleButton2.selected = NO;
-            [self loadCurrentSectionExplain:_memory.courseInstructions];
-        }else if([json[@"code"] isEqualToString:@"ERROR"]){
-            [YHHud showWithMessage:@"服务器错误"];
-        }else{
-            [YHHud showWithMessage:@"数据异常"];
-        }
-    } failure:^(NSError * _Nonnull error) {
-        [YHHud showWithMessage:@"数据请求失败"];
-    }];
-}
 #pragma mark 分享错误信息提示
 - (void)alertWithError:(NSError *)error{
     NSString *result = nil;
     if (!error) {
         result = [NSString stringWithFormat:@"分享成功"];
     }else{
-//        NSMutableString *str = [NSMutableString string];
-//        if (error.userInfo) {
-//            for (NSString *key in error.userInfo) {
-//                [str appendFormat:@"%@ = %@\n", key, error.userInfo[key]];
-//            }
-//        }
         if (error) {
-//            result = [NSString stringWithFormat:@"Share fail with error code: %d\n%@",(int)error.code, str];
             result = [NSString stringWithFormat:@"分享被取消"];
         }else{
             result = [NSString stringWithFormat:@"分享失败"];

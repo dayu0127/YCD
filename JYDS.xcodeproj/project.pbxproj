@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A1EB556E63E28FFA4C24D83 /* libPods-JYDS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1303B7A5C1A41C70CD494C6C /* libPods-JYDS.a */; };
 		6013E80C1E5EE37E007E257A /* OtherAmountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6013E80A1E5EE37E007E257A /* OtherAmountCell.m */; };
 		6013E80D1E5EE37E007E257A /* OtherAmountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6013E80B1E5EE37E007E257A /* OtherAmountCell.xib */; };
 		601810C41E6B057000C8DCCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 601810C31E6B057000C8DCCD /* Assets.xcassets */; };
@@ -163,6 +164,8 @@
 		6078D2251E161AF20089D40F /* YHSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D21D1E161AF20089D40F /* YHSingleton.m */; };
 		6078D2261E161AF20089D40F /* YHWebRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D21F1E161AF20089D40F /* YHWebRequest.m */; };
 		6085D4C81E1C85DC00C4CDDC /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6085D4C71E1C85DC00C4CDDC /* UserInfo.m */; };
+		60884F2A1E7131EE008058B5 /* WordSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60884F281E7131EE008058B5 /* WordSearchCell.m */; };
+		60884F2B1E7131EE008058B5 /* WordSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60884F291E7131EE008058B5 /* WordSearchCell.xib */; };
 		609D6D521E17782D000BCD65 /* BaseNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 609D6D511E17782D000BCD65 /* BaseNavViewController.m */; };
 		609F05D81E161C57009F4986 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6078D1381E1613180089D40F /* libssl.a */; };
 		609F05DF1E161D1A009F4986 /* ForgetPwdVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F05DA1E161D1A009F4986 /* ForgetPwdVC.m */; };
@@ -213,6 +216,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1303B7A5C1A41C70CD494C6C /* libPods-JYDS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JYDS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6013E8091E5EE37E007E257A /* OtherAmountCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherAmountCell.h; sourceTree = "<group>"; };
 		6013E80A1E5EE37E007E257A /* OtherAmountCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherAmountCell.m; sourceTree = "<group>"; };
 		6013E80B1E5EE37E007E257A /* OtherAmountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OtherAmountCell.xib; sourceTree = "<group>"; };
@@ -489,6 +493,9 @@
 		6078D21F1E161AF20089D40F /* YHWebRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHWebRequest.m; sourceTree = "<group>"; };
 		6085D4C61E1C85DC00C4CDDC /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		6085D4C71E1C85DC00C4CDDC /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
+		60884F271E7131EE008058B5 /* WordSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordSearchCell.h; sourceTree = "<group>"; };
+		60884F281E7131EE008058B5 /* WordSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordSearchCell.m; sourceTree = "<group>"; };
+		60884F291E7131EE008058B5 /* WordSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WordSearchCell.xib; sourceTree = "<group>"; };
 		609D6D501E17782D000BCD65 /* BaseNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavViewController.h; sourceTree = "<group>"; };
 		609D6D511E17782D000BCD65 /* BaseNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavViewController.m; sourceTree = "<group>"; };
 		609F05D91E161D1A009F4986 /* ForgetPwdVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPwdVC.h; sourceTree = "<group>"; };
@@ -594,6 +601,7 @@
 				60FF51631E0A5EA900DA6693 /* SystemConfiguration.framework in Frameworks */,
 				60FF51611E0A5E8C00DA6693 /* libz.tbd in Frameworks */,
 				60FF515F1E0A5E3B00DA6693 /* libc++.tbd in Frameworks */,
+				1A1EB556E63E28FFA4C24D83 /* libPods-JYDS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -849,6 +857,9 @@
 				6078D0EB1E1613180089D40F /* RememberWordSingleWordCell.h */,
 				6078D0EC1E1613180089D40F /* RememberWordSingleWordCell.m */,
 				6078D0ED1E1613180089D40F /* RememberWordSingleWordCell.xib */,
+				60884F271E7131EE008058B5 /* WordSearchCell.h */,
+				60884F281E7131EE008058B5 /* WordSearchCell.m */,
+				60884F291E7131EE008058B5 /* WordSearchCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1268,6 +1279,7 @@
 				60FF51621E0A5EA900DA6693 /* SystemConfiguration.framework */,
 				60FF51601E0A5E8C00DA6693 /* libz.tbd */,
 				60FF515E1E0A5E3B00DA6693 /* libc++.tbd */,
+				1303B7A5C1A41C70CD494C6C /* libPods-JYDS.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1306,7 +1318,7 @@
 				TargetAttributes = {
 					69B129E01DE2C6490093D841 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = VL3XXNWR94;
+						DevelopmentTeam = AE5L29EYR8;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1354,6 +1366,7 @@
 				60190B101E2A07C0009C9450 /* 97.png in Resources */,
 				60190ACF1E2A07C0009C9450 /* 32.png in Resources */,
 				60190AF11E2A07C0009C9450 /* 66.png in Resources */,
+				60884F2B1E7131EE008058B5 /* WordSearchCell.xib in Resources */,
 				60190AFA1E2A07C0009C9450 /* 75.png in Resources */,
 				60190AF81E2A07C0009C9450 /* 73.png in Resources */,
 				60190AC61E2A07C0009C9450 /* 23.png in Resources */,
@@ -1561,6 +1574,7 @@
 				606A94F61E51A8CA00A0279D /* MnemonicsVC.m in Sources */,
 				609F06281E1621BD009F4986 /* UpdateInfoTableVC.m in Sources */,
 				60190B191E2A09B3009C9450 /* ExerciseView.m in Sources */,
+				60884F2A1E7131EE008058B5 /* WordSearchCell.m in Sources */,
 				609F063D1E1621D9009F4986 /* IntroduceVC.m in Sources */,
 				6085D4C81E1C85DC00C4CDDC /* UserInfo.m in Sources */,
 				60190B1C1E2A0A5C009C9450 /* SuccessView.m in Sources */,
@@ -1703,7 +1717,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = VL3XXNWR94;
+				DEVELOPMENT_TEAM = AE5L29EYR8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1822,7 +1836,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = VL3XXNWR94;
+				DEVELOPMENT_TEAM = AE5L29EYR8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

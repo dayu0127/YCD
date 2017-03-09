@@ -81,6 +81,7 @@
 #define ALLWORD API(@"getAllWords") //获取所有单词
 #define UPLOADHEADIMAGE API(@"upload") //上传头像
 #define MEMORYBYID API(@"memoryIDSel") //记忆法id查详情
+#define WORDBYID API(@"wordIDSel") //单词id查详情
 #define LOGIN API(@"login") //登录
 #define REGISTER API(@"register") //注册
 #define FORGETPWD API(@"forgetPwd") //密码找回

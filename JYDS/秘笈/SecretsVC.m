@@ -33,6 +33,7 @@
 
 @implementation SecretsVC
 - (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dayMode) name:@"dayMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightMode) name:@"nightMode" object:nil];
 }
