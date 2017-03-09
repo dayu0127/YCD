@@ -16,5 +16,6 @@
 @property (nonatomic,strong) NSString *classifyID;
 @property (nonatomic,strong) NSString *unitID;
 @property (nonatomic,weak) id<RememberWordItemVCDelegate> delegate;
+@property (nonatomic,assign) BOOL isSub;
 
 @end

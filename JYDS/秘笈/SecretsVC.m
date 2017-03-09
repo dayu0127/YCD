@@ -12,6 +12,9 @@
 #import <UMSocialCore/UMSocialResponse.h>
 #import <WXApi.h>
 #import <TencentOpenAPI/QQApiInterface.h>
+#import "BaseWKWebView.h"
+#import <UIImageView+WebCache.h>
+
 @interface SecretsVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIButton *ruleButton;
@@ -23,19 +26,24 @@
 @property (strong,nonatomic) UITableView *recordTableView;
 @property (strong,nonatomic) NSArray *tableViewArray;
 @property (strong,nonatomic) MJRefreshNormalHeader *header;
+@property (strong,nonatomic) WKWebView *wkWebView;
+@property (strong,nonatomic) UIImageView *rewardRulesImageView;
 
 @end
 
 @implementation SecretsVC
 - (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dayMode) name:@"dayMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightMode) name:@"nightMode" object:nil];
 }
 - (void)dayMode{
     _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [_rewardRulesImageView sd_setImageWithURL:[NSURL URLWithString:InvitationDayUrl] placeholderImage:nil];
 }
 - (void)nightMode{
     _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    [_rewardRulesImageView sd_setImageWithURL:[NSURL URLWithString:InvitationNightUrl] placeholderImage:nil];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,7 +53,6 @@
     _scrollView.pagingEnabled = YES;
     _scrollView.bounces = NO;
     _scrollView.delegate = self;
-    _scrollView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:_scrollView];
     [_scrollView addSubview:self.ruleView];
     [self createRecordTableView];
@@ -96,7 +103,7 @@
 - (UIScrollView *)ruleView{
     if (!_ruleView) {
         _ruleView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT-164)];
-        _ruleView.contentSize = CGSizeMake(WIDTH, HEIGHT);
+        _ruleView.contentSize = CGSizeMake(WIDTH, 208+WIDTH*730/414.0);
         //您的邀请码
         //标题
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 38, WIDTH, 17)];
@@ -146,9 +153,19 @@
 //        [content addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, rewardRulesLabel.text.length)];
 //        rewardRulesLabel.attributedText = content;
 //        [_ruleView addSubview:rewardRulesLabel];
-        UIImageView *rewardRulesImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,  CGRectGetMaxY(sendToFriendButton.frame)+20, WIDTH, WIDTH*6/5.0)];
-        rewardRulesImageView.image = [UIImage imageNamed:@"Invitation"];
-        [_ruleView addSubview:rewardRulesImageView];
+        
+//        _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0,  CGRectGetMaxY(sendToFriendButton.frame)+20, WIDTH, 500)];
+//        _wkWebView.scrollView.bounces = NO;
+//        NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:InvitationUrl]];
+//        [_wkWebView loadRequest:request];
+//        [_ruleView addSubview:_wkWebView];
+        _rewardRulesImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,  CGRectGetMaxY(sendToFriendButton.frame)+20, WIDTH, WIDTH*730/414.0)];
+        if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
+            [_rewardRulesImageView sd_setImageWithURL:[NSURL URLWithString:InvitationDayUrl]];
+        }else{
+            [_rewardRulesImageView sd_setImageWithURL:[NSURL URLWithString:InvitationNightUrl]];
+        }
+        [_ruleView addSubview:_rewardRulesImageView];
     }
     return _ruleView;
 }

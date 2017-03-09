@@ -76,6 +76,7 @@
         [YHHud showWithStatus:@"正在登陆"];
         NSDictionary *dic = @{@"userName":_phoneText.text,@"password":_pwdText.text,@"device_id":DEVICEID};
         [YHWebRequest YHWebRequestForPOST:LOGIN parameters:dic success:^(NSDictionary *json) {
+            [YHHud dismiss];
             if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                 //保存用户信息
                 [[NSUserDefaults standardUserDefaults] setObject:json[@"data"] forKey:@"userInfo"];
@@ -89,14 +90,13 @@
                     [app.window makeKeyWindow];
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"login"];
                 });
-            }else if ([json[@"code"] isEqualToString:@"REPEAT_LOGIN"]){
-                [YHHud showWithMessage:@"该账户已其他设备登陆"];
             }else if ([json[@"code"] isEqualToString:@"USAPWERR"]){
                 [YHHud showWithMessage:@"用户名或密码错误"];
             }else{
                 [YHHud showWithMessage:@"登录失败"];
             }
         } failure:^(NSError * _Nonnull error) {
+            [YHHud dismiss];
             [YHHud showWithMessage:@"数据请求失败"];
         }];
     }

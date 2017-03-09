@@ -16,6 +16,6 @@
 @property (copy,nonatomic) NSString *coursePayStatus;
 @property (copy,nonatomic) NSString *coursePrice;
 @property (copy,nonatomic) NSString *courseTitle;
-@property (copy,nonatomic) NSString *courseVideo;
+@property (copy,nonatomic) NSString *course_standby__videourl;
 
 @end

@@ -8,5 +8,5 @@
 
 #import <UIKit/UIKit.h>
 @interface WordSearchVC : BaseViewController
-@property (strong,nonatomic)NSArray *wordArray;
+@property (strong,nonatomic)NSMutableArray *wordArray;
 @end

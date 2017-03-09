@@ -35,13 +35,11 @@
 }
 - (UIButton *)entryButton{
     if (!_entryButton) {
-        _entryButton = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH*0.5-60, HEIGHT - 90, 120, 30)];
-        [_entryButton setTitle:@"进入体验" forState:UIControlStateNormal];
-        [_entryButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        _entryButton.backgroundColor = [UIColor whiteColor];
-        _entryButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
-        _entryButton.layer.masksToBounds = YES;
-        _entryButton.layer.cornerRadius = 5.0f;
+        UIImage *img = [UIImage imageNamed:@"entry"];
+        CGFloat w = img.size.width;
+        CGFloat h = img.size.height;
+        _entryButton = [[UIButton alloc] initWithFrame:CGRectMake((WIDTH-w)*0.5, HEIGHT - 125*HEIGHT/667, w, h)];
+        [_entryButton setImage:img forState:UIControlStateNormal];
         [_entryButton addTarget:self action:@selector(entryRootVC) forControlEvents:UIControlEventTouchUpInside];
     }
     return _entryButton;

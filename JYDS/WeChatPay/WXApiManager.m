@@ -58,11 +58,11 @@
 //            NSLog(@"错误，retcode = %d, retstr = %@", resp.errCode,resp.errStr);
 //        }
         NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"out_trade_no":[YHSingleton shareSingleton].wx_out_trade_no};
-        [YHWebRequest YHWebRequestForPOST:@"http://www.jydsapp.com/jyds/API/wx_orderqueryAPI" parameters:dic success:^(NSDictionary *json) {
+        [YHWebRequest YHWebRequestForPOST:WXCHECK parameters:dic success:^(NSDictionary *json) {
             if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                 if ([json[@"payType"] isEqualToString:@"SUCCESS"]) {
                     [YHHud showWithSuccess:@"支付成功"];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateRechargeBean" object:nil];
+                    [self updateStudyBean];
                 }else{
                     [YHHud showWithMessage:@"支付失败"];
                 }
@@ -76,7 +76,23 @@
         }];
     }
 }
-
+#pragma mark 更新用户剩余和充值的学习豆
+- (void)updateStudyBean{
+    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            [YHSingleton shareSingleton].userInfo.studyBean = [NSString stringWithFormat:@"%@",json[@"data"][@"restBean"]];
+            [YHSingleton shareSingleton].userInfo.rechargeBean = [NSString stringWithFormat:@"%@",json[@"data"][@"rechargeBean"]];
+            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateStudyBean" object:nil];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        [YHHud showWithMessage:@"数据请求失败"];
+    }];
+}
 - (void)onReq:(BaseReq *)req {
     if ([req isKindOfClass:[GetMessageFromWXReq class]]) {
         if (_delegate

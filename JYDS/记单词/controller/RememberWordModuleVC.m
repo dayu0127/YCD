@@ -33,10 +33,10 @@
             [self returnToLogin];
         }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _unitArray = json[@"data"];
-            _subBean = [NSString stringWithFormat:@"%@",json[@"subBean"]];
+            _subBean = json[@"subALLBean"];
             CGFloat h = 0;
             if ([_subBean integerValue] > 0) {
-                _subscriptionLabel.text = [NSString stringWithFormat:@"一次性订阅%@的所有单词，仅需%@学习豆",self.navTitle,_subBean];
+                _subscriptionLabel.text = json[@"subBean"];
                 h = HEIGHT-108;
             }else{
                 _footerBgView.alpha = 0;
@@ -82,6 +82,11 @@
     itemVC.classifyID = _classifyID;
     itemVC.unitID = _unitArray[indexPath.row][@"id"];
     itemVC.navTitle = _unitArray[indexPath.row][@"unitName"];
+    BOOL isSub = NO;
+    if ([_subBean integerValue] == 0) {
+        isSub = YES;
+    }
+    itemVC.isSub = isSub;
     itemVC.delegate = self;
     [self.navigationController pushViewController:itemVC animated:YES];
 }
@@ -90,8 +95,9 @@
         if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
             [self returnToLogin];
         }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            _subBean = json[@"subALLBean"];
             if ([_subBean integerValue] > 0) {
-                _subscriptionLabel.text = [NSString stringWithFormat:@"一次性订阅%@的所有单词，仅需%@学习豆",self.navTitle,json[@"subBean"]];
+                _subscriptionLabel.text = json[@"subBean"];
             }else{
                 _footerBgView.alpha = 0;
             }
@@ -116,7 +122,7 @@
 }
 #pragma mark 全部订阅
 - (IBAction)subscriptionClick:(UIButton *)sender {
-    NSString *message = @"如果确定，将一次订阅当前所有单词";
+    NSString *message = @"邀请朋友注册，享受更大优惠！";
     YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 250, 155) title:@"· 确认订阅 ·" message:message];
     alertView.delegate = self;
     _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
@@ -137,8 +143,18 @@
                 }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                     _tableView.frame = CGRectMake(0, 64, WIDTH, HEIGHT-64);
                     _footerBgView.alpha = 0;
+                    //更新本地单词数据缓存
+//                    NSMutableArray *allWordArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"allWord"];
+//                    for (NSInteger i = 0; i<allWordArray.count; i++) {
+//                        NSMutableDictionary *item = [[NSMutableDictionary alloc] initWithDictionary:[allWordArray objectAtIndex:i]];
+//                        if ([item[@"wordID"] integerValue] == [_wordID integerValue]) {
+//                            [item setObject:[NSNumber numberWithInt:1] forKey:@"payType"];
+//                        }
+//                        [_wordArray replaceObjectAtIndex:i withObject:[NSDictionary dictionaryWithDictionary:item]];
+//                    }
+//                    [[NSUserDefaults standardUserDefaults] setObject:_wordArray forKey:@"allWord"];
                     [YHHud showWithSuccess:@"订阅成功"];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCostBean" object:nil];
+                    [self updateCostBean];
                 }else if([json[@"code"] isEqualToString:@"ERROR"]){
                     [YHHud showWithMessage:@"服务器错误"];
                 }else{
@@ -150,10 +166,27 @@
         }
     }
 }
+#pragma mark 更新用户的消费学习豆
+- (void)updateCostBean{
+    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            [YHSingleton shareSingleton].userInfo.costStudyBean = [NSString stringWithFormat:@"%@",json[@"data"][@"consumeBean"]];
+            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCostBean" object:nil];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        [YHHud showWithMessage:@"数据请求失败"];
+    }];
+}
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     if (_isHiddenNav == YES) {
         self.navigationController.navigationBar.hidden = NO;
     }
 }
+
 @end

@@ -69,7 +69,7 @@
 #define COUNTDOWN 10.0f
 
 //接口
-#define API(api) [NSString stringWithFormat:@"http://www.jydsapp.com//jyds/API/%@API",api] //正式
+#define API(api) [NSString stringWithFormat:@"https://www.jydsapp.com/jyds/API/%@API",api] //正式
 
 #define BANNER API(@"banner") //轮播图
 #define MEMORY API(@"course") //记忆法列表
@@ -81,6 +81,7 @@
 #define ALLWORD API(@"getAllWords") //获取所有单词
 #define UPLOADHEADIMAGE API(@"upload") //上传头像
 #define MEMORYBYID API(@"memoryIDSel") //记忆法id查详情
+#define WORDBYID API(@"wordIDSel") //单词id查详情
 #define LOGIN API(@"login") //登录
 #define REGISTER API(@"register") //注册
 #define FORGETPWD API(@"forgetPwd") //密码找回
@@ -92,6 +93,11 @@
 #define FEEDBACK API(@"fedBack") //反馈
 #define INVITATION API(@"Invitation") //邀请列表
 #define LOGOUT API(@"logout") //退出登录
+#define ALISIGN API(@"order_generate") //支付宝签名
+#define ALICHECK API(@"ALI_Sign_check") //支付宝验签
+#define WXSIGN API(@"wx_unifiedorder") //微信统一下单(生成订单并签名)
+#define WXCHECK API(@"wx_orderquery") //微信订单查询(验签)
+#define FREEWORD API(@"userFreeCount")   //免费单词订阅
 
 //练习题等级数组
 #define LEVELARRAY @[@"60",@"50",@"40",@"30",@"25",@"20",@"15",@"13",@"10"]
@@ -100,9 +106,13 @@
 
 //UUID
 #define DEVICEID [[[UIDevice currentDevice] identifierForVendor] UUIDString]
+
+//邀请规则
+#define InvitationDayUrl @"https://www.jydsapp.com/jyds/static/img/upload/reward.png"
+#define InvitationNightUrl @"https://www.jydsapp.com/jyds/static/img/upload/reward_black.png"
 //关于我们url
-#define IntroduceUrl @"http://www.jydsapp.com/introduce.html"
-#define UseHelpUrl @"http://www.jydsapp.com/help.html"
-#define UserAgreementUrl @"http://www.jydsapp.com/agreement.html"
+#define IntroduceUrl @"https://www.jydsapp.com/introduce.html"
+#define UseHelpUrl @"https://www.jydsapp.com/help.html"
+#define UserAgreementUrl @"https://www.jydsapp.com/agreement.html"
 
 #endif /* JYDSPrefixHeader_pch */

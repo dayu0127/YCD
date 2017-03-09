@@ -106,7 +106,7 @@
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"2098975700"  appSecret:@"1b7c4892f9a69a82058bd084445537fa" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
     //SMSSDK集成短信验证码
-    [SMSSDK registerApp:@"1a0b01a59d9bc" withSecret:@"35cdf0e4465e6cc8b0ddf8e0b3ca2480"];
+    [SMSSDK registerApp:@"1a0a96a7aca8e" withSecret:@"84dcd3028b078eb4ecbe9bed5c669dec"];
     
     //微信支付注册APPID
     [WXApi registerApp:@"wx7658d0735b233185"];
@@ -138,11 +138,11 @@
                 }else{
                     dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"out_trade_no":[YHSingleton shareSingleton].ali_out_trade_no,@"code":resultDic[@"resultStatus"]};
                 }
-                [YHWebRequest YHWebRequestForPOST:@"http://www.jydsapp.com/jyds/API/ALI_Sign_checkAPI" parameters:dic success:^(NSDictionary *json) {
+                [YHWebRequest YHWebRequestForPOST:ALICHECK parameters:dic success:^(NSDictionary *json) {
                     if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                         if ([json[@"payType"] isEqualToString:@"SUCCESS"]) {
-                            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateRechargeBean" object:nil];
                             [YHHud showWithSuccess:@"支付成功"];
+                            [self updateStudyBean];
                         }else{
                             [YHHud showWithMessage:@"支付失败"];
                         }
@@ -161,5 +161,22 @@
         [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     }
     return result;
+}
+#pragma mark 更新用户剩余和充值的学习豆
+- (void)updateStudyBean{
+    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            [YHSingleton shareSingleton].userInfo.studyBean = [NSString stringWithFormat:@"%@",json[@"data"][@"restBean"]];
+            [YHSingleton shareSingleton].userInfo.rechargeBean = [NSString stringWithFormat:@"%@",json[@"data"][@"rechargeBean"]];
+            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateStudyBean" object:nil];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        [YHHud showWithMessage:@"数据请求失败"];
+    }];
 }
 @end

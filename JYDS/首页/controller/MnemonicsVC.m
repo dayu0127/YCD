@@ -44,7 +44,7 @@
     _netImages = [NSMutableArray array];
     _bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"];
     for (NSDictionary *dic in _bannerInfoArray) {
-        [_netImages addObject:dic[@"topImageUrl"]];
+        [_netImages addObject:[NSString stringWithFormat:@"%@",dic[@"topImageUrl"]]];
     }
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self initTableView];
@@ -68,11 +68,11 @@
 #pragma mark 轮播器代理方法
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
-    BannerDetailVC *bannerVC = [[BannerDetailVC alloc] init];
-    bannerVC.navTitle = _bannerInfoArray[index][@"topTitle"];
-    bannerVC.linkUrl = _bannerInfoArray[index][@"linkUrl"];
-    bannerVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:bannerVC animated:YES];
+//    BannerDetailVC *bannerVC = [[BannerDetailVC alloc] init];
+//    bannerVC.navTitle = _bannerInfoArray[index][@"topTitle"];
+//    bannerVC.linkUrl = _bannerInfoArray[index][@"linkUrl"];
+//    bannerVC.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:bannerVC animated:YES];
 }
 /** 图片滚动回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index{
@@ -225,7 +225,7 @@
                     _memoryArray = [NSArray arrayWithArray:arr];
                     [_tableView reloadData];
                     [YHHud showWithSuccess:@"订阅成功"];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCostBean" object:nil];
+                    [self updateCostBean];
                 }else if([json[@"code"] isEqualToString:@"ERROR"]){
                     [YHHud showWithMessage:@"服务器错误"];
                 }else{
@@ -237,6 +237,22 @@
         }
     }
     [_alertView dismissWithCompletion:nil];
+}
+#pragma mark 更新用户的消费学习豆
+- (void)updateCostBean{
+    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+            [YHSingleton shareSingleton].userInfo.costStudyBean = [NSString stringWithFormat:@"%@",json[@"data"][@"consumeBean"]];
+            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCostBean" object:nil];
+        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+            [YHHud showWithMessage:@"服务器错误"];
+        }else{
+            [YHHud showWithMessage:@"数据异常"];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        [YHHud showWithMessage:@"数据请求失败"];
+    }];
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];

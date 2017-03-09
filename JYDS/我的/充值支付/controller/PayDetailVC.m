@@ -24,14 +24,18 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateRechargeBean) name:@"updateRechargeBean" object:nil];
 }
-- (void)updateRechargeBean{
+- (void)updateStudyBean{
+
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self nightModeConfiguration];
     [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
             [self returnToLogin];
         }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-            _payBean.text = [NSString stringWithFormat:@"%@",json[@"data"][@"rechargeBean"]];
+            _payBean.text = [NSString stringWithFormat:@"%@元",json[@"data"][@"rechargeBean"]];
         }else if([json[@"code"] isEqualToString:@"ERROR"]){
             [YHHud showWithMessage:@"服务器错误"];
         }else{
@@ -40,13 +44,9 @@
     } failure:^(NSError * _Nonnull error) {
         [YHHud showWithMessage:@"数据请求失败"];
     }];
-}
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self nightModeConfiguration];
-    _payBean.text = [NSString stringWithFormat:@"%@元",[YHSingleton shareSingleton].userInfo.rechargeBean];
     [YHHud showWithStatus:@"拼命加载中..."];
     [YHWebRequest YHWebRequestForPOST:PAYDETAIL parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+        [YHHud dismiss];
         if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
             [self returnToLogin];
         }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
@@ -59,6 +59,7 @@
             [YHHud showWithMessage:@"数据异常"];
         }
     } failure:^(NSError * _Nonnull error) {
+        [YHHud dismiss];
         [YHHud showWithMessage:@"数据请求失败"];
     }];
 }

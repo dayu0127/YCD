@@ -18,7 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *beginButton;
-//@property (strong,nonatomic) JCAlertView *alertView;
+@property (weak, nonatomic) IBOutlet UILabel *useTitle;
+@property (weak, nonatomic) IBOutlet UITextView *useTextView;
 @property (strong,nonatomic) LevelView *levelView;
 @property (strong,nonatomic) NSMutableArray *errorNumArray;
 @property (strong,nonatomic) ExerciseView *exerciseView;
@@ -38,6 +39,8 @@
     [super viewDidLoad];
     _titleLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _beginButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+    _useTitle.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    _useTextView.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _errorNumArray = [NSMutableArray array];
     _exerciseNum = 1;
 //    [YHWebRequest YHWebRequestForPOST:GAME parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID} success:^(NSDictionary *json) {

@@ -22,11 +22,20 @@
 @end
 
 @implementation PayVC
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStudyBean) name:@"updateStudyBean" object:nil];
+}
+#pragma mark 更新剩余学习豆
+- (void)updateStudyBean{
+    NSDictionary *userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+    UserInfo *model = [UserInfo yy_modelWithDictionary:userDic];
+    _payBean.text = [NSString stringWithFormat:@"%@个",model.studyBean];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self nightModeConfiguration];
-    _payBean.text = [NSString stringWithFormat:@"%@个",[YHSingleton shareSingleton].userInfo.studyBean];
+    [self updateStudyBean];
     CGFloat y = 0;
     if (_isHiddenNav == YES) {
         y = CGRectGetMaxY(_bgView.frame) + 64;

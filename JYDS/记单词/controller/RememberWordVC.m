@@ -46,6 +46,7 @@
 - (void)createMainScrollView{
     [YHHud showWithStatus:@"拼命加载中..."];
     [YHWebRequest YHWebRequestForPOST:COURSE parameters:nil success:^(NSDictionary  *json) {
+        [YHHud dismiss];
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             NSArray *dataArray = json[@"data"];
             UIView *lastView = nil;
@@ -81,6 +82,7 @@
             [YHHud showWithMessage:@"数据异常"];
         }
     } failure:^(NSError * _Nonnull error) {
+        [YHHud dismiss];
         [YHHud showWithMessage:@"数据请求失败"];
     }];
 }
