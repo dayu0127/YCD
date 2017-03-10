@@ -65,6 +65,7 @@
 #define PWD_RE @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$" //密码
 #define NICK_RE @"^([\u4e00-\u9fa5]|\\w){1,12}$"  //昵称
 #define NUM_RE @"^[1-9]\\d*$"  //数字
+#define LETTER_RE @"^[A-Za-z]+$" //英文字母
 //验证码倒计时时间
 #define COUNTDOWN 10.0f
 
@@ -78,7 +79,8 @@
 #define COURSE API(@"getReciteWords") //记单词目录
 #define UNITLIST API(@"getUnitList") //获取单元列表
 #define WORD API(@"getWords") //分类单词
-#define ALLWORD API(@"getAllWords") //获取所有单词
+//#define ALLWORD API(@"getAllWords") //获取所有单词
+#define SEARCHWORD API(@"wordSel")    //搜索单词
 #define UPLOADHEADIMAGE API(@"upload") //上传头像
 #define MEMORYBYID API(@"memoryIDSel") //记忆法id查详情
 #define WORDBYID API(@"wordIDSel") //单词id查详情

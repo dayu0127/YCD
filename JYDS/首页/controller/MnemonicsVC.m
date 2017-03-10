@@ -200,13 +200,13 @@
         //学习豆不足
         if ([self getTotalPrice]>[[YHSingleton shareSingleton].userInfo.studyBean integerValue]) {
             [YHHud showWithMessage:@"您的学习豆不足，请充值"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                _isHiddenNav = YES;
-                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-                PayVC *payVC = [sb instantiateViewControllerWithIdentifier:@"pay"];
-                payVC.isHiddenNav = YES;
-                [self.navigationController pushViewController:payVC animated:YES];
-            });
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                _isHiddenNav = YES;
+//                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+//                PayVC *payVC = [sb instantiateViewControllerWithIdentifier:@"pay"];
+//                payVC.isHiddenNav = YES;
+//                [self.navigationController pushViewController:payVC animated:YES];
+//            });
         }else{
             //学习豆充足
             NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"type":@"memory",@"device_id":DEVICEID};

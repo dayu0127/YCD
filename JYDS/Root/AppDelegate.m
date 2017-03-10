@@ -59,11 +59,11 @@
                 _isReachable = NO;
                 break;
             case AFNetworkReachabilityStatusReachableViaWWAN:
-                [YHHud showWithMessage:@"已连接数据网络"];
+//                [YHHud showWithMessage:@"已连接数据网络"];
                 _isReachable = YES;
                 break;
             case AFNetworkReachabilityStatusReachableViaWiFi:
-                [YHHud showWithMessage:@"已连接WiFi网络"];
+//                [YHHud showWithMessage:@"已连接WiFi网络"];
                 _isReachable = YES;
             default:
                 break;
@@ -103,7 +103,7 @@
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105811937"  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
     
     //设置新浪的appKey和appSecret
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"2098975700"  appSecret:@"1b7c4892f9a69a82058bd084445537fa" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"1292322940"  appSecret:@"c1ad238284f47072b0caaf27d4d3afb3" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
     //SMSSDK集成短信验证码
     [SMSSDK registerApp:@"1a0a96a7aca8e" withSecret:@"84dcd3028b078eb4ecbe9bed5c669dec"];

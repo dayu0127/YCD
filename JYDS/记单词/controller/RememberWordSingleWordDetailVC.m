@@ -30,15 +30,40 @@
 @end
 
 @implementation RememberWordSingleWordDetailVC
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dayMode) name:@"dayMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightMode) name:@"nightMode" object:nil];
+}
+- (void)dayMode{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+}
+- (void)nightMode{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initNaBar:@"单词详情"];
-    self.leftBarButton.hidden = NO;
+    
+    self.navigationController.navigationBar.hidden = YES;
+    self.view.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
+    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
+        [self dayMode];
+    }else{
+        [self nightMode];
+    }
+    //返回按钮
+    UIButton *leftBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftBarButton.frame = CGRectMake(0, 20, 44, 44);
+    [leftBarButton dk_setImage:DKImagePickerWithNames(@"back_night",@"back",@"") forState:UIControlStateNormal];
+    leftBarButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [leftBarButton sizeToFit];
+    [leftBarButton addTarget:self action:@selector(backVC) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:leftBarButton];
+    
     BOOL hasImage = [_word.wordImgUrl isEqualToString:@""];
     //单词
-    CGFloat y1 = hasImage ? 78 : 58;
-    _wordLabel = [[UILabel alloc] initWithFrame:CGRectMake(25,  64+y1*(HEIGHT-64)/603, WIDTH-50, 22)];
+    CGFloat y1 = hasImage ?  78*(HEIGHT-64)/603 : 28;
+    _wordLabel = [[UILabel alloc] initWithFrame:CGRectMake(25,  y1, WIDTH-50, 30)];
     _wordLabel.text = _word.word;
     _wordLabel.dk_textColorPicker = DKColorPickerWithColors(D_BLUE,[UIColor whiteColor],RED);
     _wordLabel.font = [UIFont boldSystemFontOfSize:22.0f];
@@ -46,7 +71,7 @@
     [self.view addSubview:_wordLabel];
     
     //音标
-    CGFloat w1 = [_word.phonogram boundingRectWithSize:CGSizeMake(1000, 12) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12.0f],NSFontAttributeName, nil] context:nil].size.width;
+    CGFloat w1 = [_word.phonogram boundingRectWithSize:CGSizeMake(1000, 15) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:15.0f],NSFontAttributeName, nil] context:nil].size.width;
     UIImage *soundImage = [UIImage imageNamed:@"sound"];
     CGFloat w2 = soundImage.size.width;
     CGFloat h = soundImage.size.height;
@@ -58,7 +83,7 @@
     _soundmarkLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, w1, h)];
     _soundmarkLabel.text = _word.phonogram;
     _soundmarkLabel.textAlignment = NSTextAlignmentRight;
-    _soundmarkLabel.font = [UIFont systemFontOfSize:12.0f];
+    _soundmarkLabel.font = [UIFont systemFontOfSize:15.0f];
     _soundmarkLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     [_soundmarkView addSubview:_soundmarkLabel];
     //音标发音按钮
@@ -80,13 +105,14 @@
         _line.dk_backgroundColorPicker = DKColorPickerWithColors(SEPCOLOR,[UIColor whiteColor],RED);
         [self.view addSubview:_line];
     }else{
-        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(25, CGRectGetMaxY(_detailLabel.frame)+30*603/(HEIGHT-64), WIDTH-50, (WIDTH-50)*9/16.0)];
-        [_imageView sd_setImageWithURL:[NSURL URLWithString:_word.wordImgUrl] placeholderImage:[UIImage imageNamed:@"banner"]];
+        _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"banner"]];
+        _imageView.frame = CGRectMake(25, CGRectGetMaxY(_detailLabel.frame)+30*603/(HEIGHT-64), WIDTH-50, WIDTH-50);
+        [_imageView sd_setImageWithURL:[NSURL URLWithString:_word.wordImgUrl]];
         [self.view addSubview:_imageView];
     }
     //若有图片
     //拆分
-    CGFloat y4 = hasImage ? CGRectGetMaxY(_detailLabel.frame)+66*603/(HEIGHT-64)+0.7 : CGRectGetMaxY(_detailLabel.frame)+45*603/(HEIGHT-64)+ (WIDTH-50)*9/16.0;
+    CGFloat y4 = hasImage ? CGRectGetMaxY(_detailLabel.frame)+66*603/(HEIGHT-64)+0.7 : CGRectGetMaxY(_detailLabel.frame)+45*603/(HEIGHT-64)+ (WIDTH-50);
     _splitTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, y4, 40, 15)];
     _splitTitleLabel.text = @"拆 分";
     _splitTitleLabel.textColor = GREEN;
@@ -100,10 +126,15 @@
     _splitLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_splitTitleLabel.frame)+10, y4, WIDTH-CGRectGetMaxX(_splitTitleLabel.frame)-35, 15)];
     _splitLabel.text = _word.wordSplit;
     _splitLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    _splitLabel.numberOfLines = 0;
+    _splitLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _splitLabel.font = [UIFont systemFontOfSize:13.0f];
+    CGRect frame = _splitLabel.frame;
+    frame.size.height = [_splitLabel.text boundingRectWithSize:CGSizeMake(WIDTH-CGRectGetMaxX(_splitTitleLabel.frame)-35, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:_splitLabel.font,NSFontAttributeName, nil] context:nil].size.height;
+    _splitLabel.frame = frame;
     [self.view addSubview:_splitLabel];
     //联想
-    _associateTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25,CGRectGetMaxY(_splitTitleLabel.frame)+8, 40, 15)];
+    _associateTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25,CGRectGetMaxY(_splitLabel.frame)+8, 40, 15)];
     _associateTitleLabel.text = @"联 想";
     _associateTitleLabel.textColor = D_BLUE;
     _associateTitleLabel.textAlignment = NSTextAlignmentCenter;
@@ -113,15 +144,21 @@
     _associateTitleLabel.layer.borderColor = D_BLUE.CGColor;
     _associateTitleLabel.layer.borderWidth = 1.0f;
     [self.view addSubview:_associateTitleLabel];
-    _associateLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_associateTitleLabel.frame)+10, CGRectGetMaxY(_splitTitleLabel.frame)+8, WIDTH-CGRectGetMaxX(_associateTitleLabel.frame)-35, 15)];
+    _associateLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_associateTitleLabel.frame)+10, CGRectGetMaxY(_splitLabel.frame)+6, WIDTH-CGRectGetMaxX(_associateTitleLabel.frame)-35, 15)];
+    _associateLabel.numberOfLines = 0;
+    _associateLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _associateLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _associateLabel.font = [UIFont systemFontOfSize:13.0f];
     _associateLabel.attributedText = [self setColorForString:_word.wordAssociate];
+    CGRect frame1 = _associateLabel.frame;
+    frame1.size.height = [_associateLabel.attributedText boundingRectWithSize:CGSizeMake(WIDTH-CGRectGetMaxX(_associateTitleLabel.frame)-35, 1000) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size.height;
+    _associateLabel.frame = frame1;
     [self.view addSubview:_associateLabel];
     if (_isSub == YES) {
         //上一个
+        CGFloat butWidth = (WIDTH - 75)*0.5;
         _preButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        _preButton.frame = CGRectMake((WIDTH-200)*0.5, CGRectGetMaxY(_associateLabel.frame)+57*(HEIGHT-64)/603, 200, 38);
+        _preButton.frame = CGRectMake(25, HEIGHT - 38 - 25*(HEIGHT-64)/603, butWidth, 38);
         [_preButton setTitle:@"上一个" forState:UIControlStateNormal];
         [_preButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _preButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
@@ -132,7 +169,7 @@
         [self.view addSubview:_preButton];
         //下一个
         _nextButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        _nextButton.frame = CGRectMake((WIDTH-200)*0.5, CGRectGetMaxY(_preButton.frame)+10, 200, 38);
+        _nextButton.frame = CGRectMake(50+butWidth, HEIGHT - 38 - 25*(HEIGHT-64)/603, butWidth, 38);
         [_nextButton setTitle:@"下一个" forState:UIControlStateNormal];
         [_nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _nextButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
@@ -143,6 +180,9 @@
         [self.view addSubview:_nextButton];
     }
 }
+- (void)backVC{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 #pragma mark 单词读音按钮点击
 - (void)soundClick{
     _player  = [[AVSpeechSynthesizer alloc]init];
@@ -151,21 +191,54 @@
     utterance.rate   = 0.5;  //设置语速
     utterance.volume = 1.0;  //设置音量（0.0~1.0）默认为1.0
     utterance.pitchMultiplier    = 1.0;  //设置语调 (0.5-2.0)
-    utterance.postUtteranceDelay = 1; //目的是让语音合成器播放下一语句前有短暂的暂停
+    utterance.postUtteranceDelay = 0; //目的是让语音合成器播放下一语句前有短暂的暂停
     [_player speakUtterance:utterance];
 }
 #pragma mark 给两个"~"之间的字上色
 - (NSMutableAttributedString *)setColorForString:(NSString *)str{
+//    NSArray *arr = [str componentsSeparatedByString:@"~"];
+//    NSString *str0 = arr[0];
+//    NSString *str1 = arr[1];
+//    NSUInteger loc = 0;
+//    if ([@"" isEqualToString:str0]) {
+//        loc = 1;
+//    }else{
+//        loc = str0.length+1;
+//    }
+//    NSUInteger len = str1.length;
+//    NSMutableString *string = [NSMutableString stringWithString:str];
+//    for (int i= 0; i<string.length; i++) {
+//        unichar item = [string characterAtIndex:i];
+//        if (item == '~') {
+//            [string replaceCharactersInRange:NSMakeRange(i, 1) withString:@" "];
+//        }
+//    }
+//    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:string];
+//    NSDictionary *dic = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:15.0f],NSForegroundColorAttributeName:RED};
+//    [attrStr addAttributes:dic range:NSMakeRange(loc, len)];
+//    return attrStr;
+//    NSMutableString *string = [NSMutableString stringWithString:str];
+//    NSMutableArray *indexArray = [NSMutableArray array];
+//    for (int i= 0; i<string.length; i++) {
+//        unichar item = [string characterAtIndex:i];
+//        NSString *itemStr = [NSString stringWithFormat:@"%c",item];
+//        [indexArray addObject:];
+//    }
+//    for (<#type *object#> in <#collection#>) {
+//        <#statements#>
+//    }
     NSArray *arr = [str componentsSeparatedByString:@"~"];
-    NSString *str0 = arr[0];
-    NSString *str1 = arr[1];
-    NSUInteger loc = 0;
-    if ([@"" isEqualToString:str0]) {
-        loc = 1;
-    }else{
-        loc = str0.length+1;
+    NSMutableArray *indexArray = [NSMutableArray array];
+    for (NSInteger i = 0; i<arr.count; i++) {
+        if (i%2==1) {
+            NSString *item = arr[i];
+            NSString *itemStr = [item substringWithRange:NSMakeRange(0, 1)];
+            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+            [dic setObject:[NSString stringWithFormat:@"%zd",[str rangeOfString:itemStr].location] forKey:@"loc"];
+            [dic setObject:[NSString stringWithFormat:@"%zd",item.length] forKey:@"len"];
+            [indexArray addObject:dic];
+        }
     }
-    NSUInteger len = str1.length;
     NSMutableString *string = [NSMutableString stringWithString:str];
     for (int i= 0; i<string.length; i++) {
         unichar item = [string characterAtIndex:i];
@@ -175,7 +248,11 @@
     }
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:string];
     NSDictionary *dic = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:15.0f],NSForegroundColorAttributeName:RED};
-    [attrStr addAttributes:dic range:NSMakeRange(loc, len)];
+    for (NSMutableDictionary *itemDic in indexArray) {
+        NSInteger loc = [itemDic[@"loc"] integerValue];
+        NSInteger len = [itemDic[@"len"] integerValue];
+        [attrStr addAttributes:dic range:NSMakeRange(loc, len)];
+    }
     return attrStr;
 }
 #pragma mark 上一个
@@ -215,11 +292,12 @@
 - (void)updateUIAndData:(NSDictionary *)dataDic{
     BOOL hasImage = [dataDic[@"wordImgUrl"] isEqualToString:@""];
     //单词
-    _wordLabel.frame = CGRectMake(25,  64+(hasImage ? 78 : 58)*(HEIGHT-64)/603, WIDTH-50, 22);
+    _word.word = dataDic[@"word"];
+    _wordLabel.frame = CGRectMake(25,  (hasImage ? 78*(HEIGHT-64)/603 : 28)*(HEIGHT-64)/603, WIDTH-50, 22);
     _wordLabel.textAlignment = hasImage ? NSTextAlignmentLeft : NSTextAlignmentCenter;
     _wordLabel.text = dataDic[@"word"];
     //音标
-    CGFloat w1 = [dataDic[@"phonogram"] boundingRectWithSize:CGSizeMake(1000, 12) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12.0f],NSFontAttributeName, nil] context:nil].size.width;
+    CGFloat w1 = [dataDic[@"phonogram"] boundingRectWithSize:CGSizeMake(1000, 15) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:15.0f],NSFontAttributeName, nil] context:nil].size.width;
     UIImage *soundImage = [UIImage imageNamed:@"sound"];
     CGFloat w2 = soundImage.size.width;
     CGFloat h = soundImage.size.height;
@@ -249,22 +327,41 @@
         _line.dk_backgroundColorPicker = DKColorPickerWithColors(SEPCOLOR,[UIColor whiteColor],RED);
         [self.view addSubview:_line];
     }else{
-        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(25, CGRectGetMaxY(_detailLabel.frame)+30*603/(HEIGHT-64), WIDTH-50, (WIDTH-50)*9/16.0)];
-        [_imageView sd_setImageWithURL:[NSURL URLWithString:dataDic[@"wordImgUrl"]] placeholderImage:[UIImage imageNamed:@"banner"]];
+        _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"banner"]];
+        _imageView.frame = CGRectMake(25, CGRectGetMaxY(_detailLabel.frame)+30*603/(HEIGHT-64), WIDTH-50, WIDTH-50);
+        [_imageView sd_setImageWithURL:[NSURL URLWithString:dataDic[@"wordImgUrl"]]];
         [self.view addSubview:_imageView];
     }
     //拆分
-    CGFloat y4 = hasImage ? CGRectGetMaxY(_detailLabel.frame)+66*603/(HEIGHT-64)+0.7 : CGRectGetMaxY(_detailLabel.frame)+45*603/(HEIGHT-64)+ (WIDTH-50)*9/16.0;
+    CGFloat y4 = hasImage ? CGRectGetMaxY(_detailLabel.frame)+66*603/(HEIGHT-64)+0.7 : CGRectGetMaxY(_detailLabel.frame)+45*603/(HEIGHT-64)+ (WIDTH-50);
     _splitTitleLabel.frame = CGRectMake(25, y4, 40, 15);
     _splitLabel.frame = CGRectMake(CGRectGetMaxX(_splitTitleLabel.frame)+10, y4, WIDTH-CGRectGetMaxX(_splitTitleLabel.frame)-35, 15);
     _splitLabel.text = dataDic[@"wordSplit"];
+    CGRect frame = _splitLabel.frame;
+    frame.size.height = [_splitLabel.text boundingRectWithSize:CGSizeMake(WIDTH-CGRectGetMaxX(_splitTitleLabel.frame)-35, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:_splitLabel.font,NSFontAttributeName, nil] context:nil].size.height;
+    _splitLabel.frame = frame;
     //联想
-    _associateTitleLabel.frame = CGRectMake(25,CGRectGetMaxY(_splitTitleLabel.frame)+8, 40, 15);
-    _associateLabel.frame = CGRectMake(CGRectGetMaxX(_associateTitleLabel.frame)+10, CGRectGetMaxY(_splitTitleLabel.frame)+8, WIDTH-CGRectGetMaxX(_associateTitleLabel.frame)-35, 15);
+    _associateTitleLabel.frame = CGRectMake(25,CGRectGetMaxY(_splitLabel.frame)+8, 40, 15);
+    _associateLabel.frame = CGRectMake(CGRectGetMaxX(_associateTitleLabel.frame)+10, CGRectGetMaxY(_splitLabel.frame)+6, WIDTH-CGRectGetMaxX(_associateTitleLabel.frame)-35, 15);
     _associateLabel.attributedText = [self setColorForString:dataDic[@"wordAssociate"]];
-    //上一个
-    _preButton.frame = CGRectMake((WIDTH-200)*0.5, CGRectGetMaxY(_associateLabel.frame)+57*(HEIGHT-64)/603, 200, 38);
-    //下一个
-    _nextButton.frame = CGRectMake((WIDTH-200)*0.5, CGRectGetMaxY(_preButton.frame)+10, 200, 38);
+    CGRect frame1 = _associateLabel.frame;
+    frame1.size.height = [_associateLabel.attributedText boundingRectWithSize:CGSizeMake(WIDTH-CGRectGetMaxX(_associateTitleLabel.frame)-35, 1000) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size.height;
+    _associateLabel.frame = frame1;
+}
+- (void)returnToLogin{
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
+        [app.window setRootViewController:loginVC];
+        [app.window makeKeyWindow];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 @end
