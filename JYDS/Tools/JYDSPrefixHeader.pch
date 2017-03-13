@@ -112,6 +112,9 @@
 //邀请规则
 #define InvitationDayUrl @"https://www.jydsapp.com/jyds/static/img/upload/reward.png"
 #define InvitationNightUrl @"https://www.jydsapp.com/jyds/static/img/upload/reward_black.png"
+//邀请规则Url
+#define InvitationDUrl @"https://www.jydsapp.com/reward.html"
+#define InvitationNUrl @"https://www.jydsapp.com/reward_black.html"
 //关于我们url
 #define IntroduceUrl @"https://www.jydsapp.com/introduce.html"
 #define UseHelpUrl @"https://www.jydsapp.com/help.html"

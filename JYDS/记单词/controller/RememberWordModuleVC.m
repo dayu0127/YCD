@@ -153,6 +153,7 @@
 //                        [_wordArray replaceObjectAtIndex:i withObject:[NSDictionary dictionaryWithDictionary:item]];
 //                    }
 //                    [[NSUserDefaults standardUserDefaults] setObject:_wordArray forKey:@"allWord"];
+                    _subBean = @"0";
                     [YHHud showWithSuccess:@"订阅成功"];
                     [self updateCostBean];
                 }else if([json[@"code"] isEqualToString:@"ERROR"]){

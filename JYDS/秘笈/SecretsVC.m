@@ -39,11 +39,11 @@
 }
 - (void)dayMode{
     _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    [_rewardRulesImageView sd_setImageWithURL:[NSURL URLWithString:InvitationDayUrl] placeholderImage:nil];
+    [_wkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:InvitationDUrl]]];
 }
 - (void)nightMode{
     _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-    [_rewardRulesImageView sd_setImageWithURL:[NSURL URLWithString:InvitationNightUrl] placeholderImage:nil];
+    [_wkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:InvitationNUrl]]];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -103,7 +103,7 @@
 - (UIScrollView *)ruleView{
     if (!_ruleView) {
         _ruleView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT-164)];
-        _ruleView.contentSize = CGSizeMake(WIDTH, 208+WIDTH*730/414.0);
+        _ruleView.contentSize = CGSizeMake(WIDTH, 1208);
         //您的邀请码
         //标题
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 38, WIDTH, 17)];
@@ -154,18 +154,22 @@
 //        rewardRulesLabel.attributedText = content;
 //        [_ruleView addSubview:rewardRulesLabel];
         
-//        _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0,  CGRectGetMaxY(sendToFriendButton.frame)+20, WIDTH, 500)];
-//        _wkWebView.scrollView.bounces = NO;
-//        NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:InvitationUrl]];
-//        [_wkWebView loadRequest:request];
-//        [_ruleView addSubview:_wkWebView];
-        _rewardRulesImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,  CGRectGetMaxY(sendToFriendButton.frame)+20, WIDTH, WIDTH*730/414.0)];
+        _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0,  CGRectGetMaxY(sendToFriendButton.frame)+20, WIDTH, 1000)];
+        _wkWebView.scrollView.contentSize = CGSizeMake(WIDTH, 1000);
+        _wkWebView.scrollView.bounces = NO;
         if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
-            [_rewardRulesImageView sd_setImageWithURL:[NSURL URLWithString:InvitationDayUrl]];
+            [_wkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:InvitationDUrl]]];
         }else{
-            [_rewardRulesImageView sd_setImageWithURL:[NSURL URLWithString:InvitationNightUrl]];
+            [_wkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:InvitationNUrl]]];
         }
-        [_ruleView addSubview:_rewardRulesImageView];
+        [_ruleView addSubview:_wkWebView];
+//        _rewardRulesImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,  CGRectGetMaxY(sendToFriendButton.frame)+20, WIDTH, WIDTH*730/414.0)];
+//        if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
+//            [_rewardRulesImageView sd_setImageWithURL:[NSURL URLWithString:InvitationDayUrl]];
+//        }else{
+//            [_rewardRulesImageView sd_setImageWithURL:[NSURL URLWithString:InvitationNightUrl]];
+//        }
+//        [_ruleView addSubview:_rewardRulesImageView];
     }
     return _ruleView;
 }
