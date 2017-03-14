@@ -14,6 +14,7 @@
 #import <AlipaySDK/AlipaySDK.h>
 #import <WXApi.h>
 #import "WXApiManager.h"
+#import <SMS_SDK/Extend/SMSSDK+AddressBookMethods.h>
 
 @interface AppDelegate ()
 @end
@@ -107,6 +108,7 @@
     
     //SMSSDK集成短信验证码
     [SMSSDK registerApp:@"1a0a96a7aca8e" withSecret:@"84dcd3028b078eb4ecbe9bed5c669dec"];
+    [SMSSDK enableAppContactFriends:NO];
     
     //微信支付注册APPID
     [WXApi registerApp:@"wx7658d0735b233185"];

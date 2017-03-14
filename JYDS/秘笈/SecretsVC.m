@@ -51,6 +51,7 @@
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 116, WIDTH, HEIGHT-164)];
     _scrollView.contentSize = CGSizeMake(WIDTH*2, HEIGHT-164);
     _scrollView.pagingEnabled = YES;
+    _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.bounces = NO;
     _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
@@ -187,7 +188,7 @@
             if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
                 [self returnToLogin];
             }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                _tableViewArray = json[@"data"];
+                _tableViewArray = [self joinTheArray:json[@"data"]];
                 [_recordTableView reloadData];
             }else if([json[@"code"] isEqualToString:@"ERROR"]){
                 [YHHud showWithMessage:@"服务器错误"];
@@ -220,7 +221,7 @@
             if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
                 [self returnToLogin];
             }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                _tableViewArray = json[@"data"];
+                _tableViewArray = [self joinTheArray:json[@"data"]];
                 [_recordTableView reloadData];
             }else if([json[@"code"] isEqualToString:@"ERROR"]){
                 [YHHud showWithMessage:@"服务器错误"];
@@ -312,16 +313,31 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellid" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];
-    NSString *str = _tableViewArray[indexPath.row][@"userNumber"];
-    NSMutableString *phoneStr = [NSMutableString string];
-    if (![@"" isEqualToString:str]) {
-       phoneStr = [NSMutableString stringWithString:str];
-       [phoneStr replaceCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
-    }
-    cell.textLabel.text = [NSString stringWithFormat:@"用户%@加入记忆大师，您将享受%zd折优惠",phoneStr,9-indexPath.row];
+    cell.textLabel.text =  _tableViewArray[indexPath.row];
     cell.textLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+- (NSArray *)joinTheArray:(NSArray *)arr{
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:arr.count];
+    if (arr.count == 1&&[arr[0][@"count_Invitation"] integerValue] == 0) {
+        [array addObject:@"您还没邀请任何人加入记忆大师"];
+    }else{
+        for (NSInteger i = 0; i<arr.count; i++) {
+            NSString *str = arr[i][@"userNumber"];
+            NSMutableString *phoneStr = [NSMutableString string];
+            if (![@"" isEqualToString:str]) {
+               phoneStr = [NSMutableString stringWithString:str];
+               [phoneStr replaceCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+            }
+            if (i<5) {
+                [array addObject:[NSString stringWithFormat:@"用户%@加入记忆大师，您将享受%zd折优惠",phoneStr,5-i]];
+            }else if([arr[i][@"type"] integerValue] ==1){
+                [array addObject:[NSString stringWithFormat:@"用户%@加入记忆大师，奖励您5个学习豆",phoneStr]];
+            }
+        }
+    }
+    return [NSArray arrayWithArray:array];
 }
 @end

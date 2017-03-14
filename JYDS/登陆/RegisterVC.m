@@ -151,7 +151,7 @@
         [SMSSDK commitVerificationCode:_idCodeText.text phoneNumber:_phoneText.text zone:@"86" result:^(SMSSDKUserInfo *userInfo, NSError *error) {
             if (!error) {
                 if ([_studyCodeText.text isEqualToString:@""]) {
-                    YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 255, 155) title:@"温馨提示" message:@"您输入的互学码为空，确定注册？"];
+                    YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 255, 155) title:@"温馨提示" message:@"您输入的邀请码为空，确定注册？"];
                     alertView.delegate = self;
                     _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
                     [_alertView show];

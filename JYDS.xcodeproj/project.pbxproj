@@ -1319,7 +1319,7 @@
 					69B129E01DE2C6490093D841 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = VL3XXNWR94;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -1722,7 +1722,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: You Xia (VL3XXNWR94)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: You Xia (VL3XXNWR94)";
 				DEVELOPMENT_TEAM = VL3XXNWR94;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1825,10 +1825,10 @@
 					"-framework",
 					"\"AlipaySDK\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "9e527d52-8187-4f56-bb0c-f73640d7302b";
+				PROVISIONING_PROFILE_SPECIFIER = iOS_Distribution1;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -1844,7 +1844,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: You Xia (VL3XXNWR94)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: You Xia (VL3XXNWR94)";
 				DEVELOPMENT_TEAM = VL3XXNWR94;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1947,10 +1947,10 @@
 					"-framework",
 					"\"AlipaySDK\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "9e527d52-8187-4f56-bb0c-f73640d7302b";
+				PROVISIONING_PROFILE_SPECIFIER = iOS_Distribution1;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";
