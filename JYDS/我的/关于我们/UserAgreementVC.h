@@ -7,4 +7,5 @@
 //
 #import <UIKit/UIKit.h>
 @interface UserAgreementVC : BaseViewController
+@property (assign,nonatomic) BOOL isRegister;
 @end

@@ -218,31 +218,24 @@
     [UMSocialShareUIConfig shareInstance].shareTitleViewConfig.shareTitleViewTitleString = @"请选择分享平台";
     [UMSocialShareUIConfig shareInstance].shareCancelControlConfig.shareCancelControlText = @"取消分享";
     //判断是否安装QQ,微信,微博
-    BOOL hasWX = [WXApi isWXAppInstalled];
-    BOOL hasQQ = [QQApiInterface isQQInstalled];
-    BOOL hasWeibo = [WeiboSDK isWeiboAppInstalled];
-    if (!hasQQ&&!hasWX&&!hasWeibo) {
-        [YHHud showWithMessage:@"请您先安装微信，QQ或新浪微博"];
-    }else{
-        NSMutableArray *platformArray = [NSMutableArray array];
-        if (hasWX) {
-            [platformArray addObject:@(UMSocialPlatformType_WechatSession)];
-            [platformArray addObject:@(UMSocialPlatformType_WechatTimeLine)];
-        }
-        if (hasQQ) {
-            [platformArray addObject:@(UMSocialPlatformType_QQ)];
-            [platformArray addObject:@(UMSocialPlatformType_Qzone)];
-        }
-        if (hasWeibo) {
-            [platformArray addObject:@(UMSocialPlatformType_Sina)];
-        }
-        //预定义平台
-        [UMSocialUIManager setPreDefinePlatforms:[NSArray arrayWithArray:platformArray]];
-        //显示分享面板
-        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
-            [weakSelf shareImageAndTextUrlToPlatformType:platformType];
-        }];
+    NSMutableArray *platformArray = [NSMutableArray array];
+    if ([WXApi isWXAppInstalled]) {
+        [platformArray addObject:@(UMSocialPlatformType_WechatSession)];
+        [platformArray addObject:@(UMSocialPlatformType_WechatTimeLine)];
     }
+    if ([QQApiInterface isQQInstalled]) {
+        [platformArray addObject:@(UMSocialPlatformType_QQ)];
+        [platformArray addObject:@(UMSocialPlatformType_Qzone)];
+    }
+    if ([WeiboSDK isWeiboAppInstalled]) {
+        [platformArray addObject:@(UMSocialPlatformType_Sina)];
+    }
+    //预定义平台
+    [UMSocialUIManager setPreDefinePlatforms:[NSArray arrayWithArray:platformArray]];
+    //显示分享面板
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        [weakSelf shareImageAndTextUrlToPlatformType:platformType];
+    }];
 }
 #pragma mark 加载本节说明
 - (void)loadCurrentSectionExplain:(NSString *)text{

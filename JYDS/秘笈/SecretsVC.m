@@ -158,6 +158,8 @@
         _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0,  CGRectGetMaxY(sendToFriendButton.frame)+20, WIDTH, 1000)];
         _wkWebView.scrollView.contentSize = CGSizeMake(WIDTH, 1000);
         _wkWebView.scrollView.bounces = NO;
+        _wkWebView.backgroundColor = [UIColor clearColor];
+        _wkWebView.scrollView.backgroundColor = [UIColor clearColor];
         if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
             [_wkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:InvitationDUrl]]];
         }else{
@@ -287,25 +289,19 @@
     [UMSocialShareUIConfig shareInstance].shareTitleViewConfig.isShow = NO;
     [UMSocialShareUIConfig shareInstance].shareCancelControlConfig.shareCancelControlText = @"取消";
     //判断是否安装QQ,微信,微博
-    BOOL hasWX = [WXApi isWXAppInstalled];
-    BOOL hasQQ = [QQApiInterface isQQInstalled];
-    if (!hasQQ&&!hasWX) {
-        [YHHud showWithMessage:@"请您先安装微信或QQ"];
-    }else{
-        NSMutableArray *platformArray = [NSMutableArray array];
-        if (hasWX) {
-            [platformArray addObject:@(UMSocialPlatformType_WechatSession)];
-        }
-        if (hasQQ) {
-            [platformArray addObject:@(UMSocialPlatformType_QQ)];
-        }
-        //预定义平台
-        [UMSocialUIManager setPreDefinePlatforms:[NSArray arrayWithArray:platformArray]];
-        //显示分享面板
-        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
-            [weakSelf shareImageAndTextUrlToPlatformType:platformType];
-        }];
+    NSMutableArray *platformArray = [NSMutableArray array];
+    if ([WXApi isWXAppInstalled]) {
+        [platformArray addObject:@(UMSocialPlatformType_WechatSession)];
     }
+    if ([QQApiInterface isQQInstalled]) {
+        [platformArray addObject:@(UMSocialPlatformType_QQ)];
+    }
+    //预定义平台
+    [UMSocialUIManager setPreDefinePlatforms:[NSArray arrayWithArray:platformArray]];
+    //显示分享面板
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        [weakSelf shareImageAndTextUrlToPlatformType:platformType];
+    }];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.tableViewArray.count;

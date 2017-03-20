@@ -67,7 +67,7 @@
 #define NUM_RE @"^[1-9]\\d*$"  //数字
 #define LETTER_RE @"^[A-Za-z]+$" //英文字母
 //验证码倒计时时间
-#define COUNTDOWN 10.0f
+#define COUNTDOWN 30.0f
 
 //接口
 #define API(api) [NSString stringWithFormat:@"https://www.jydsapp.com/jyds/API/%@API",api] //正式

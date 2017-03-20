@@ -88,8 +88,15 @@
     [_tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
     [self.view addSubview:_tableView];
     //下拉刷新
+    
     _header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
+        NSDictionary *dic = [NSDictionary dictionary];
+        if ([YHSingleton shareSingleton].userInfo == nil) {
+            dic = @{@"userID":@"-1",@"device_id":@"0"};
+        }else{
+            dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
+        }
+        
         [YHWebRequest YHWebRequestForPOST:MEMORY parameters:dic success:^(NSDictionary *json) {
             [self.tableView.mj_header endRefreshing];
             if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
@@ -148,7 +155,12 @@
     [self.navigationController pushViewController:courseVC animated:YES];
 }
 - (void)reloadMemoryList{
-    NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
+    NSDictionary *dic = [NSDictionary dictionary];
+    if ([YHSingleton shareSingleton].userInfo == nil) {
+        dic = @{@"userID":@"-1",@"device_id":@"0"};
+    }else{
+        dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
+    }
     [YHWebRequest YHWebRequestForPOST:MEMORY parameters:dic success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
             [self returnToLogin];

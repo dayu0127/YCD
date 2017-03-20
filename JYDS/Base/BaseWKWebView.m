@@ -13,7 +13,9 @@
         self.navigationDelegate = self;
         self.scrollView.bounces = NO;
         _opaqueView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+        _opaqueView.backgroundColor = [UIColor clearColor];
         _activityIndicatorView = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+        _activityIndicatorView.backgroundColor = [UIColor clearColor];
         _activityIndicatorView.center = _opaqueView.center;
         _activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
         [_opaqueView addSubview:_activityIndicatorView];

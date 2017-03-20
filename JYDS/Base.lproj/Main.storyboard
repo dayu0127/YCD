@@ -393,7 +393,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gaa-vL-ZRL" userLabel="注册按钮">
-                                <rect key="frame" x="25" y="351" width="325" height="40"/>
+                                <rect key="frame" x="25" y="371" width="325" height="40"/>
                                 <color key="backgroundColor" red="0.40000000000000002" green="0.59999999999999998" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="oC6-gR-MuQ"/>
@@ -423,6 +423,38 @@
                                     <action selector="showPwd:" destination="DdM-kr-qZd" eventType="touchUpInside" id="WBU-G7-BVE"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D66-y0-CKT" userLabel="checkBox">
+                                <rect key="frame" x="25" y="341" width="16" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="aug-9P-5im"/>
+                                    <constraint firstAttribute="width" constant="16" id="wQc-nc-fSm"/>
+                                </constraints>
+                                <state key="normal" image="checkbox_no"/>
+                                <state key="selected" image="checkbox_yes"/>
+                                <connections>
+                                    <action selector="checkBoxClick:" destination="DdM-kr-qZd" eventType="touchUpInside" id="OuU-ha-02R"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="注册即表示同意" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bIh-TJ-SsE">
+                                <rect key="frame" x="46" y="341" width="93" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="Z3R-Gf-U1N"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KGl-2b-VNk">
+                                <rect key="frame" x="139" y="341" width="133" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="48n-AI-aBc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="《记忆大师用户协议》"/>
+                                <connections>
+                                    <action selector="userAgreementClick:" destination="DdM-kr-qZd" eventType="touchUpInside" id="oqT-sT-9We"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -443,7 +475,10 @@
                             <constraint firstAttribute="trailingMargin" secondItem="B2t-Xp-uRU" secondAttribute="trailing" constant="24" id="Kem-CQ-kWc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="HZd-7R-Cvg" secondAttribute="trailing" constant="9" id="L2O-7x-QEV"/>
                             <constraint firstAttribute="trailingMargin" secondItem="zjM-1U-Wse" secondAttribute="trailing" constant="9" id="L4j-9O-Fru"/>
+                            <constraint firstItem="bIh-TJ-SsE" firstAttribute="top" secondItem="UaL-PI-L7D" secondAttribute="bottom" constant="15" id="ODw-tK-jKM"/>
+                            <constraint firstItem="D66-y0-CKT" firstAttribute="top" secondItem="UaL-PI-L7D" secondAttribute="bottom" constant="15" id="ObJ-BG-ht5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="UaL-PI-L7D" secondAttribute="trailing" constant="9" id="Pc2-VZ-4JH"/>
+                            <constraint firstItem="KGl-2b-VNk" firstAttribute="leading" secondItem="bIh-TJ-SsE" secondAttribute="trailing" id="Rmz-I7-8Lw"/>
                             <constraint firstItem="HZd-7R-Cvg" firstAttribute="leading" secondItem="4RC-oe-B0p" secondAttribute="leadingMargin" constant="9" id="Twf-9s-cx6"/>
                             <constraint firstItem="QtD-3e-eSs" firstAttribute="leading" secondItem="fmc-4C-SH6" secondAttribute="trailing" constant="14" id="XYJ-6F-Lda"/>
                             <constraint firstItem="K5z-IC-9Lu" firstAttribute="leading" secondItem="4RC-oe-B0p" secondAttribute="leadingMargin" constant="9" id="YOB-j1-Zaf"/>
@@ -462,12 +497,15 @@
                             <constraint firstItem="zjM-1U-Wse" firstAttribute="top" secondItem="y52-dI-ejf" secondAttribute="bottom" id="mXv-qx-nYF"/>
                             <constraint firstItem="QtD-3e-eSs" firstAttribute="top" secondItem="HZd-7R-Cvg" secondAttribute="bottom" id="mbn-Dt-qj7"/>
                             <constraint firstItem="iIG-PF-arn" firstAttribute="leading" secondItem="zjM-1U-Wse" secondAttribute="leading" id="pZA-VY-pQx"/>
+                            <constraint firstItem="KGl-2b-VNk" firstAttribute="top" secondItem="UaL-PI-L7D" secondAttribute="bottom" constant="15" id="ppr-cm-lAS"/>
                             <constraint firstItem="er3-tY-Oac" firstAttribute="centerY" secondItem="9Mw-Sf-zQx" secondAttribute="centerY" id="q0y-Df-Edl"/>
                             <constraint firstAttribute="trailingMargin" secondItem="A1t-kz-vmA" secondAttribute="trailing" constant="9" id="sef-7e-aZW"/>
                             <constraint firstItem="HZd-7R-Cvg" firstAttribute="top" secondItem="iIG-PF-arn" secondAttribute="bottom" id="shg-bi-qIe"/>
                             <constraint firstItem="QtD-3e-eSs" firstAttribute="leading" secondItem="iIG-PF-arn" secondAttribute="leading" id="tdB-xW-3Uh"/>
-                            <constraint firstItem="gaa-vL-ZRL" firstAttribute="top" secondItem="UaL-PI-L7D" secondAttribute="bottom" constant="25" id="vPa-Sj-HO6"/>
+                            <constraint firstItem="gaa-vL-ZRL" firstAttribute="top" secondItem="UaL-PI-L7D" secondAttribute="bottom" constant="45" id="vPa-Sj-HO6"/>
                             <constraint firstItem="B2t-Xp-uRU" firstAttribute="centerY" secondItem="iIG-PF-arn" secondAttribute="centerY" id="vmt-Bt-fsT"/>
+                            <constraint firstItem="bIh-TJ-SsE" firstAttribute="leading" secondItem="D66-y0-CKT" secondAttribute="trailing" constant="5" id="zEe-pK-Hsr"/>
+                            <constraint firstItem="D66-y0-CKT" firstAttribute="leading" secondItem="4RC-oe-B0p" secondAttribute="leadingMargin" constant="9" id="zSv-U6-Tty"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="注册" id="01b-oe-EC0"/>
@@ -487,6 +525,7 @@
                         <outletCollection property="lineCollection" destination="A1t-kz-vmA" id="ao7-Eh-NUc"/>
                         <outletCollection property="lineCollection" destination="HZd-7R-Cvg" id="3hU-CR-AXI"/>
                         <outletCollection property="lineCollection" destination="UaL-PI-L7D" id="3Ad-8D-f8H"/>
+                        <outletCollection property="labelCollection" destination="bIh-TJ-SsE" id="yvq-lQ-DYa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lp5-sy-ca8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3028,6 +3067,8 @@
     <resources>
         <image name="aboutUs" width="18" height="22"/>
         <image name="appLogo" width="77" height="77"/>
+        <image name="checkbox_no" width="16" height="16"/>
+        <image name="checkbox_yes" width="16" height="16"/>
         <image name="contacts" width="93" height="93"/>
         <image name="exercises" width="22" height="22"/>
         <image name="feedback" width="22" height="15"/>
