@@ -77,6 +77,7 @@
     return 0.0001;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     RememberWordItemVC *itemVC = [[RememberWordItemVC alloc] init];
     itemVC.classifyID = _classifyID;
@@ -112,13 +113,6 @@
 }
 - (void)pushPayVC{
     [YHHud showWithMessage:@"您的学习豆不足，请充值"];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        _isHiddenNav = YES;
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-        PayVC *payVC = [sb instantiateViewControllerWithIdentifier:@"pay"];
-        payVC.isHiddenNav = YES;
-        [self.navigationController pushViewController:payVC animated:YES];
-    });
 }
 #pragma mark 全部订阅
 - (IBAction)subscriptionClick:(UIButton *)sender {

@@ -67,7 +67,7 @@
 #define NUM_RE @"^[1-9]\\d*$"  //数字
 #define LETTER_RE @"^[A-Za-z]+$" //英文字母
 //验证码倒计时时间
-#define COUNTDOWN 30.0f
+#define COUNTDOWN 60.0f
 
 //接口
 #define API(api) [NSString stringWithFormat:@"https://www.jydsapp.com/jyds/API/%@API",api] //正式
@@ -100,6 +100,7 @@
 #define WXSIGN API(@"wx_unifiedorder") //微信统一下单(生成订单并签名)
 #define WXCHECK API(@"wx_orderquery") //微信订单查询(验签)
 #define FREEWORD API(@"userFreeCount")   //免费单词订阅
+#define HAHA API(@"IOS")
 
 //练习题等级数组
 #define LEVELARRAY @[@"60",@"50",@"40",@"30",@"25",@"20",@"15",@"13",@"10"]

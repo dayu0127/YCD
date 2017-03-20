@@ -208,6 +208,7 @@
     return totalPrice;
 }
 - (void)buttonClickIndex:(NSInteger)buttonIndex{
+    [_alertView dismissWithCompletion:nil];
     if (buttonIndex == 1) {
         //学习豆不足
         if ([self getTotalPrice]>[[YHSingleton shareSingleton].userInfo.studyBean integerValue]) {
@@ -248,7 +249,7 @@
             }];
         }
     }
-    [_alertView dismissWithCompletion:nil];
+    
 }
 #pragma mark 更新用户的消费学习豆
 - (void)updateCostBean{
