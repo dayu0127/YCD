@@ -25,9 +25,6 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;
 }
-- (void)updateStudyBean{
-
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self nightModeConfiguration];

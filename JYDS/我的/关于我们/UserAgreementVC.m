@@ -13,7 +13,7 @@
 @implementation UserAgreementVC
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT-64)];
+    _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, (_isRegister ? HEIGHT : HEIGHT-64))];
     NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:UserAgreementUrl]];
     [_wkWebView loadRequest:request];
     [self.view addSubview:_wkWebView];

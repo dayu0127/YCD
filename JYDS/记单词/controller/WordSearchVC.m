@@ -69,35 +69,29 @@
     [self.view addSubview:self.tableView];
     [_tableView registerNib:[UINib nibWithNibName:@"WordSearchCell" bundle:nil] forCellReuseIdentifier:@"WordSearchCell"];
 }
-//#pragma mark 搜索框输入监听
-//- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-//    [_resultArray removeAllObjects];
-//    [_tableView removeFromSuperview];
-//    _tableView = nil;
-//    for (NSDictionary *dic in self.wordArray) {
-//        if ([dic[@"word"] hasPrefix:searchText]) {
-//            [_resultArray addObject:dic];
-//        }
-//    }
-//}
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-    if (![searchBar.text isEqualToString:@""]) {
-        [_resultArray removeAllObjects];
-        NSDictionary *dic = @{@"keyWord":searchBar.text,@"userID":[YHSingleton shareSingleton].userInfo.userID};
-        [YHWebRequest YHWebRequestForPOST:SEARCHWORD parameters:dic success:^(id  _Nonnull json) {
-            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-                [self returnToLogin];
-            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                _resultArray = [NSMutableArray arrayWithArray:json[@"data"]];
-                [_tableView reloadData];
-            }else if([json[@"code"] isEqualToString:@"ERROR"]){
-                [YHHud showWithMessage:@"服务器错误"];
-            }else{
-                [YHHud showWithMessage:@"数据异常"];
-            }
-        } failure:^(NSError * _Nonnull error) {
-            [YHHud showWithMessage:@"数据请求失败"];
-        }];
+    searchBar.text = [searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (REGEX(LETTER_RE, searchBar.text) == NO) {
+        [YHHud showWithMessage:@"请输入英文单词"];
+    }else{
+        if (![searchBar.text isEqualToString:@""]) {
+            [_resultArray removeAllObjects];
+            NSDictionary *dic = @{@"keyWord":searchBar.text,@"userID":[YHSingleton shareSingleton].userInfo.userID};
+            [YHWebRequest YHWebRequestForPOST:SEARCHWORD parameters:dic success:^(id  _Nonnull json) {
+                if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+                    [self returnToLogin];
+                }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+                    _resultArray = [NSMutableArray arrayWithArray:json[@"data"]];
+                    [_tableView reloadData];
+                }else if([json[@"code"] isEqualToString:@"ERROR"]){
+                    [YHHud showWithMessage:@"服务器错误"];
+                }else{
+                    [YHHud showWithMessage:@"数据异常"];
+                }
+            } failure:^(NSError * _Nonnull error) {
+                [YHHud showWithMessage:@"数据请求失败"];
+            }];
+        }
     }
 }
 #pragma mark tableView代理方法

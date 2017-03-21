@@ -19,6 +19,7 @@
 @property (strong, nonatomic) IBOutletCollection(UITableViewCell) NSArray *tableViewCellCollection;
 @property (weak, nonatomic) IBOutlet UILabel *studyBean;
 @property (weak, nonatomic) IBOutlet UILabel *costStudyBean;
+@property (weak, nonatomic) IBOutlet UILabel *banner;
 @property (weak, nonatomic) IBOutlet UIButton *payButton;
 @property (strong,nonatomic) MJRefreshNormalHeader *header;
 
@@ -116,6 +117,17 @@
 #pragma mark - Table view data source
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 0.0001;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"ios"] isEqualToString:@"0"]) {
+        if (indexPath.row == 1) {
+            return 0.00000001;
+        }else{
+            return 44;
+        }
+    }else{
+        return 44;
+    }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

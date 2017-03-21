@@ -10,7 +10,7 @@
 
 @implementation YHHud
 
-static YHHud * hud = nil;
+static YHHud *hud = nil;
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self=[super initWithFrame:frame]){
         self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
@@ -19,6 +19,9 @@ static YHHud * hud = nil;
 }
 
 + (void)showWithMessage:(NSString *)message{
+    if (hud!=nil) {
+        [hud removeFromSuperview];
+    }
     //添加背景
     hud = [[YHHud alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [[UIApplication sharedApplication].keyWindow addSubview:hud];
@@ -42,6 +45,9 @@ static YHHud * hud = nil;
 
 
 +(void)showWithStatus:(NSString*)text{
+    if (hud!=nil) {
+        [hud removeFromSuperview];
+    }
     hud = [[YHHud alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [[UIApplication sharedApplication].keyWindow addSubview:hud];
     
@@ -71,6 +77,9 @@ static YHHud * hud = nil;
 }
 
 +(void)showWithSuccess:(NSString*)successString{//成功提示
+    if (hud!=nil) {
+        [hud removeFromSuperview];
+    }
     hud = [[YHHud alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [[UIApplication sharedApplication].keyWindow addSubview:hud];
     

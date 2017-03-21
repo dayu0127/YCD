@@ -40,8 +40,12 @@
     if ([model.payType isEqualToString:@"0"]) {
         self.wordPrice.alpha = 0;
     }else{
-        self.wordPrice.alpha = 1;
-        self.wordPrice.text = @"已订阅";
+        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"ios"] isEqualToString:@"0"]) {
+            self.wordPrice.alpha = 0;
+        }else{
+            self.wordPrice.alpha = 1;
+            self.wordPrice.text = @"已订阅";
+        }
     }
 }
 @end

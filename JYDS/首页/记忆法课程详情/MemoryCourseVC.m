@@ -52,14 +52,6 @@
 - (void)zf_playerBackAction{
     [self.navigationController popViewControllerAnimated:YES];
 }
-//- (void)zf_playerDownload:(NSString *)url
-//{
-//    // 此处是截取的下载地址，可以自己根据服务器的视频名称来赋值
-//    NSString *name = [url lastPathComponent];
-//    [[ZFDownloadManager sharedDownloadManager] downFileUrl:url filename:name fileimage:nil];
-//    // 设置最多同时下载个数（默认是3）
-//    [ZFDownloadManager sharedDownloadManager].maxCount = 4;
-//}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
@@ -131,7 +123,7 @@
     UILabel *payPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(playImageView.frame)+14, WIDTH, 15)];
     payPriceLabel.font = [UIFont systemFontOfSize:15.0f];
     payPriceLabel.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
-    payPriceLabel.text = [NSString stringWithFormat:@"需花费%@学习豆",price];
+    payPriceLabel.text = [NSString stringWithFormat:@"需花费%@%@",price,[YHSingleton shareSingleton].bannerTxt];
     payPriceLabel.textAlignment = NSTextAlignmentCenter;
     [_opaqueView addSubview:payPriceLabel];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buyMemoryCourse)];
@@ -155,13 +147,7 @@
         //用户学习豆不够，跳转到充值页面
         NSInteger studyBean = [[YHSingleton shareSingleton].userInfo.studyBean integerValue];
         if (studyBean < [_memory.coursePrice integerValue]) {
-            [YHHud showWithMessage:@"您的学习豆不足，请充值"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-                PayVC *payVC = [sb instantiateViewControllerWithIdentifier:@"pay"];
-                payVC.isHiddenNav = YES;
-                [self.navigationController pushViewController:payVC animated:YES];
-            });
+            [YHHud showWithMessage:@"余额不足"];
         }else{
             NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"productID":_memory.courseID,@"type":@"memory",@"device_id":DEVICEID};
             [YHWebRequest YHWebRequestForPOST:SUB parameters:dic success:^(NSDictionary *json) {
@@ -218,31 +204,24 @@
     [UMSocialShareUIConfig shareInstance].shareTitleViewConfig.shareTitleViewTitleString = @"请选择分享平台";
     [UMSocialShareUIConfig shareInstance].shareCancelControlConfig.shareCancelControlText = @"取消分享";
     //判断是否安装QQ,微信,微博
-    BOOL hasWX = [WXApi isWXAppInstalled];
-    BOOL hasQQ = [QQApiInterface isQQInstalled];
-    BOOL hasWeibo = [WeiboSDK isWeiboAppInstalled];
-    if (!hasQQ&&!hasWX&&!hasWeibo) {
-        [YHHud showWithMessage:@"请您先安装微信，QQ或新浪微博"];
-    }else{
-        NSMutableArray *platformArray = [NSMutableArray array];
-        if (hasWX) {
-            [platformArray addObject:@(UMSocialPlatformType_WechatSession)];
-            [platformArray addObject:@(UMSocialPlatformType_WechatTimeLine)];
-        }
-        if (hasQQ) {
-            [platformArray addObject:@(UMSocialPlatformType_QQ)];
-            [platformArray addObject:@(UMSocialPlatformType_Qzone)];
-        }
-        if (hasWeibo) {
-            [platformArray addObject:@(UMSocialPlatformType_Sina)];
-        }
-        //预定义平台
-        [UMSocialUIManager setPreDefinePlatforms:[NSArray arrayWithArray:platformArray]];
-        //显示分享面板
-        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
-            [weakSelf shareImageAndTextUrlToPlatformType:platformType];
-        }];
+    NSMutableArray *platformArray = [NSMutableArray array];
+    if ([WXApi isWXAppInstalled]) {
+        [platformArray addObject:@(UMSocialPlatformType_WechatSession)];
+        [platformArray addObject:@(UMSocialPlatformType_WechatTimeLine)];
     }
+    if ([QQApiInterface isQQInstalled]) {
+        [platformArray addObject:@(UMSocialPlatformType_QQ)];
+        [platformArray addObject:@(UMSocialPlatformType_Qzone)];
+    }
+    if ([WeiboSDK isWeiboAppInstalled]) {
+        [platformArray addObject:@(UMSocialPlatformType_Sina)];
+    }
+    //预定义平台
+    [UMSocialUIManager setPreDefinePlatforms:[NSArray arrayWithArray:platformArray]];
+    //显示分享面板
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        [weakSelf shareImageAndTextUrlToPlatformType:platformType];
+    }];
 }
 #pragma mark 加载本节说明
 - (void)loadCurrentSectionExplain:(NSString *)text{

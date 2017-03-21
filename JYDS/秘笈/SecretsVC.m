@@ -39,11 +39,11 @@
 }
 - (void)dayMode{
     _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    [_rewardRulesImageView sd_setImageWithURL:[NSURL URLWithString:InvitationDayUrl] placeholderImage:nil];
+    [_wkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:InvitationDUrl]]];
 }
 - (void)nightMode{
     _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-    [_rewardRulesImageView sd_setImageWithURL:[NSURL URLWithString:InvitationNightUrl] placeholderImage:nil];
+    [_wkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:InvitationNUrl]]];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -51,6 +51,7 @@
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 116, WIDTH, HEIGHT-164)];
     _scrollView.contentSize = CGSizeMake(WIDTH*2, HEIGHT-164);
     _scrollView.pagingEnabled = YES;
+    _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.bounces = NO;
     _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
@@ -103,7 +104,7 @@
 - (UIScrollView *)ruleView{
     if (!_ruleView) {
         _ruleView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT-164)];
-        _ruleView.contentSize = CGSizeMake(WIDTH, 208+WIDTH*730/414.0);
+        _ruleView.contentSize = CGSizeMake(WIDTH, 1208);
         //您的邀请码
         //标题
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 38, WIDTH, 17)];
@@ -154,18 +155,17 @@
 //        rewardRulesLabel.attributedText = content;
 //        [_ruleView addSubview:rewardRulesLabel];
         
-//        _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0,  CGRectGetMaxY(sendToFriendButton.frame)+20, WIDTH, 500)];
-//        _wkWebView.scrollView.bounces = NO;
-//        NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:InvitationUrl]];
-//        [_wkWebView loadRequest:request];
-//        [_ruleView addSubview:_wkWebView];
-        _rewardRulesImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,  CGRectGetMaxY(sendToFriendButton.frame)+20, WIDTH, WIDTH*730/414.0)];
+        _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0,  CGRectGetMaxY(sendToFriendButton.frame)+20, WIDTH, 1000)];
+        _wkWebView.scrollView.contentSize = CGSizeMake(WIDTH, 1000);
+        _wkWebView.scrollView.bounces = NO;
+        _wkWebView.backgroundColor = [UIColor clearColor];
+        _wkWebView.scrollView.backgroundColor = [UIColor clearColor];
         if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
-            [_rewardRulesImageView sd_setImageWithURL:[NSURL URLWithString:InvitationDayUrl]];
+            [_wkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:InvitationDUrl]]];
         }else{
-            [_rewardRulesImageView sd_setImageWithURL:[NSURL URLWithString:InvitationNightUrl]];
+            [_wkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:InvitationNUrl]]];
         }
-        [_ruleView addSubview:_rewardRulesImageView];
+        [_ruleView addSubview:_wkWebView];
     }
     return _ruleView;
 }
@@ -183,7 +183,7 @@
             if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
                 [self returnToLogin];
             }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                _tableViewArray = json[@"data"];
+                _tableViewArray = [self joinTheArray:json[@"data"]];
                 [_recordTableView reloadData];
             }else if([json[@"code"] isEqualToString:@"ERROR"]){
                 [YHHud showWithMessage:@"服务器错误"];
@@ -216,7 +216,7 @@
             if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
                 [self returnToLogin];
             }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                _tableViewArray = json[@"data"];
+                _tableViewArray = [self joinTheArray:json[@"data"]];
                 [_recordTableView reloadData];
             }else if([json[@"code"] isEqualToString:@"ERROR"]){
                 [YHHud showWithMessage:@"服务器错误"];
@@ -282,25 +282,19 @@
     [UMSocialShareUIConfig shareInstance].shareTitleViewConfig.isShow = NO;
     [UMSocialShareUIConfig shareInstance].shareCancelControlConfig.shareCancelControlText = @"取消";
     //判断是否安装QQ,微信,微博
-    BOOL hasWX = [WXApi isWXAppInstalled];
-    BOOL hasQQ = [QQApiInterface isQQInstalled];
-    if (!hasQQ&&!hasWX) {
-        [YHHud showWithMessage:@"请您先安装微信或QQ"];
-    }else{
-        NSMutableArray *platformArray = [NSMutableArray array];
-        if (hasWX) {
-            [platformArray addObject:@(UMSocialPlatformType_WechatSession)];
-        }
-        if (hasQQ) {
-            [platformArray addObject:@(UMSocialPlatformType_QQ)];
-        }
-        //预定义平台
-        [UMSocialUIManager setPreDefinePlatforms:[NSArray arrayWithArray:platformArray]];
-        //显示分享面板
-        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
-            [weakSelf shareImageAndTextUrlToPlatformType:platformType];
-        }];
+    NSMutableArray *platformArray = [NSMutableArray array];
+    if ([WXApi isWXAppInstalled]) {
+        [platformArray addObject:@(UMSocialPlatformType_WechatSession)];
     }
+    if ([QQApiInterface isQQInstalled]) {
+        [platformArray addObject:@(UMSocialPlatformType_QQ)];
+    }
+    //预定义平台
+    [UMSocialUIManager setPreDefinePlatforms:[NSArray arrayWithArray:platformArray]];
+    //显示分享面板
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        [weakSelf shareImageAndTextUrlToPlatformType:platformType];
+    }];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.tableViewArray.count;
@@ -308,16 +302,31 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellid" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];
-    NSString *str = _tableViewArray[indexPath.row][@"userNumber"];
-    NSMutableString *phoneStr = [NSMutableString string];
-    if (![@"" isEqualToString:str]) {
-       phoneStr = [NSMutableString stringWithString:str];
-       [phoneStr replaceCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
-    }
-    cell.textLabel.text = [NSString stringWithFormat:@"用户%@加入记忆大师，您将享受%zd折优惠",phoneStr,9-indexPath.row];
+    cell.textLabel.text =  _tableViewArray[indexPath.row];
     cell.textLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+- (NSArray *)joinTheArray:(NSArray *)arr{
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:arr.count];
+    if (arr.count == 1&&[arr[0][@"count_Invitation"] integerValue] == 0) {
+        [array addObject:@"您还没邀请任何人加入记忆大师"];
+    }else{
+        for (NSInteger i = 0; i<arr.count; i++) {
+            NSString *str = arr[i][@"userNumber"];
+            NSMutableString *phoneStr = [NSMutableString string];
+            if (![@"" isEqualToString:str]) {
+               phoneStr = [NSMutableString stringWithString:str];
+               [phoneStr replaceCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+            }
+            if (i<5) {
+                [array addObject:[NSString stringWithFormat:@"用户%@加入记忆大师，您将享受%zd折优惠",phoneStr,5-i]];
+            }else if([arr[i][@"type"] integerValue] ==1){
+                [array addObject:[NSString stringWithFormat:@"用户%@加入记忆大师，奖励您5%@",phoneStr,[YHSingleton shareSingleton].bannerTxt]];
+            }
+        }
+    }
+    return [NSArray arrayWithArray:array];
 }
 @end

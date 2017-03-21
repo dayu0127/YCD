@@ -88,8 +88,15 @@
     [_tableView registerNib:[UINib nibWithNibName:@"MnemonicsCell" bundle:nil] forCellReuseIdentifier:@"MnemonicsCell"];
     [self.view addSubview:_tableView];
     //下拉刷新
+    
     _header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
+        NSDictionary *dic = [NSDictionary dictionary];
+        if ([YHSingleton shareSingleton].userInfo == nil) {
+            dic = @{@"userID":@"-1",@"device_id":@"0"};
+        }else{
+            dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
+        }
+        
         [YHWebRequest YHWebRequestForPOST:MEMORY parameters:dic success:^(NSDictionary *json) {
             [self.tableView.mj_header endRefreshing];
             if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
@@ -148,14 +155,19 @@
     [self.navigationController pushViewController:courseVC animated:YES];
 }
 - (void)reloadMemoryList{
-    NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
+    NSDictionary *dic = [NSDictionary dictionary];
+    if ([YHSingleton shareSingleton].userInfo == nil) {
+        dic = @{@"userID":@"-1",@"device_id":@"0"};
+    }else{
+        dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
+    }
     [YHWebRequest YHWebRequestForPOST:MEMORY parameters:dic success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
             [self returnToLogin];
         }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _memoryArray = json[@"data"];
             [_tableView reloadData];
-            _subLabel.text = [NSString stringWithFormat:@"一次订阅所有记忆法课程，仅需%zd学习豆!",[self getTotalPrice]];
+//            _subLabel.text = [NSString stringWithFormat:@"一次订阅所有记忆法课程，仅需%zd学习豆!",[self getTotalPrice]];
         }else if([json[@"code"] isEqualToString:@"ERROR"]){
             [YHHud showWithMessage:@"服务器错误"];
         }else{
@@ -196,17 +208,18 @@
     return totalPrice;
 }
 - (void)buttonClickIndex:(NSInteger)buttonIndex{
+    [_alertView dismissWithCompletion:nil];
     if (buttonIndex == 1) {
         //学习豆不足
         if ([self getTotalPrice]>[[YHSingleton shareSingleton].userInfo.studyBean integerValue]) {
-            [YHHud showWithMessage:@"您的学习豆不足，请充值"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                _isHiddenNav = YES;
-                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-                PayVC *payVC = [sb instantiateViewControllerWithIdentifier:@"pay"];
-                payVC.isHiddenNav = YES;
-                [self.navigationController pushViewController:payVC animated:YES];
-            });
+            [YHHud showWithMessage:@"余额不足"];
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                _isHiddenNav = YES;
+//                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+//                PayVC *payVC = [sb instantiateViewControllerWithIdentifier:@"pay"];
+//                payVC.isHiddenNav = YES;
+//                [self.navigationController pushViewController:payVC animated:YES];
+//            });
         }else{
             //学习豆充足
             NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"type":@"memory",@"device_id":DEVICEID};
@@ -236,7 +249,7 @@
             }];
         }
     }
-    [_alertView dismissWithCompletion:nil];
+    
 }
 #pragma mark 更新用户的消费学习豆
 - (void)updateCostBean{

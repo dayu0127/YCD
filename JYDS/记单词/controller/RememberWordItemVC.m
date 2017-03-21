@@ -167,17 +167,6 @@
                 [YHSingleton shareSingleton].userInfo.freeCount = [NSString stringWithFormat:@"%@",json[@"freeCount"]];
                 [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
                 for (NSInteger i = 0; i<_wordArray.count; i++) {
-//                        NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:[_wordArray objectAtIndex:i]];
-//                        NSMutableArray *arr = [NSMutableArray arrayWithArray:[dic objectForKey:@"wordData"]];
-//                        for (NSInteger j = 0; j<arr.count; j++) {
-//                            NSMutableDictionary *item = [[NSMutableDictionary alloc] initWithDictionary:[arr objectAtIndex:j]];
-//                            if ([item[@"wordID"] integerValue] == [_wordID integerValue]) {
-//                                [item setObject:[NSNumber numberWithInt:1] forKey:@"payType"];
-//                            }
-//                            [arr replaceObjectAtIndex:j withObject:[NSDictionary dictionaryWithDictionary:item]];
-//                        }
-//                        [dic setObject:arr forKey:@"wordData"];
-//                        [_wordArray replaceObjectAtIndex:i withObject:[NSDictionary dictionaryWithDictionary:dic]];
                     NSMutableDictionary *item = [[NSMutableDictionary alloc] initWithDictionary:[_wordArray objectAtIndex:i]];
                     if ([item[@"wordID"] integerValue] == [_wordID integerValue]) {
                         [item setObject:[NSNumber numberWithInt:1] forKey:@"payType"];
@@ -188,7 +177,6 @@
                 [_tableView reloadRowsAtIndexPaths:_indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
                 [YHHud showWithSuccess:@"订阅成功"];
                 [_delegate updateSubBean];
-//                    [self updateCostBean];
             }else if([json[@"code"] isEqualToString:@"ERROR"]){
                 [YHHud showWithMessage:@"服务器错误"];
             }else{
@@ -199,36 +187,4 @@
         }];
     }
 }
-//#pragma mark 更新用户的消费学习豆
-//- (void)updateCostBean{
-//    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
-//        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-//            [YHSingleton shareSingleton].userInfo.costStudyBean = [NSString stringWithFormat:@"%@",json[@"data"][@"consumeBean"]];
-//            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCostBean" object:nil];
-//        }else if([json[@"code"] isEqualToString:@"ERROR"]){
-//            [YHHud showWithMessage:@"服务器错误"];
-//        }else{
-//            [YHHud showWithMessage:@"数据异常"];
-//        }
-//    } failure:^(NSError * _Nonnull error) {
-//        [YHHud showWithMessage:@"数据请求失败"];
-//    }];
-//}
-//- (void)pushPayVC{
-//    [YHHud showWithMessage:@"您的学习豆不足，请充值"];
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        _isHiddenNav = YES;
-//        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-//        PayVC *payVC = [sb instantiateViewControllerWithIdentifier:@"pay"];
-//        payVC.isHiddenNav = YES;
-//        [self.navigationController pushViewController:payVC animated:YES];
-//    });
-//}
-//- (void)viewWillDisappear:(BOOL)animated{
-//    [super viewWillDisappear:animated];
-//    if (_isHiddenNav == YES) {
-//        self.navigationController.navigationBar.hidden = NO;
-//    }
-//}
 @end

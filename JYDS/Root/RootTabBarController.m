@@ -6,6 +6,7 @@
 //  Copyright © 2016年 dayu. All rights reserved.
 //
 #import "RootTabBarController.h"
+#import "LoginNC.h"
 @interface RootTabBarController ()
 @end
 @implementation RootTabBarController

@@ -7,6 +7,7 @@
 //
 #import "RegisterVC.h"
 #import <SMS_SDK/SMSSDK.h>
+#import "UserAgreementVC.h"
 @interface RegisterVC ()<UITextFieldDelegate,YHAlertViewDelegate>
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
@@ -151,7 +152,7 @@
         [SMSSDK commitVerificationCode:_idCodeText.text phoneNumber:_phoneText.text zone:@"86" result:^(SMSSDKUserInfo *userInfo, NSError *error) {
             if (!error) {
                 if ([_studyCodeText.text isEqualToString:@""]) {
-                    YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 255, 155) title:@"温馨提示" message:@"您输入的互学码为空，确定注册？"];
+                    YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 255, 155) title:@"温馨提示" message:@"您输入的邀请码为空，确定注册？"];
                     alertView.delegate = self;
                     _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
                     [_alertView show];
@@ -191,6 +192,23 @@
         [self userRegister];
     }
 }
+- (IBAction)checkBoxClick:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    if (sender.selected == YES) {
+        _registerButton.enabled = YES;
+        _registerButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+    }else{
+        _registerButton.enabled = NO;
+        _registerButton.backgroundColor = [UIColor lightGrayColor];
+    }
+}
+- (IBAction)userAgreementClick:(id)sender {
+    UserAgreementVC *ag = [[UserAgreementVC alloc] init];
+    ag.title = @"记忆大师用户协议";
+    ag.isRegister = YES;
+    [self.navigationController pushViewController:ag animated:YES];
+}
+
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [_countDownTimer invalidate];

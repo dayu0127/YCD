@@ -74,12 +74,6 @@
 //    if (buttonIndex == 1) {
 //        if (20>[[YHSingleton shareSingleton].userInfo.studyBean integerValue]) {
 //            [YHHud showWithMessage:@"您的学习豆不足，请充值"];
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-//                PayVC *payVC = [sb instantiateViewControllerWithIdentifier:@"pay"];
-//                payVC.isHiddenNav = NO;
-//                [self.navigationController pushViewController:payVC animated:YES];
-//            });
 //        }else{
 //            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"payStudyBean":@"20",@"type":@"game"};
 //            [YHWebRequest YHWebRequestForPOST:SUBALL parameters:dic success:^(NSDictionary *json) {
