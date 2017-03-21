@@ -69,17 +69,6 @@
     [self.view addSubview:self.tableView];
     [_tableView registerNib:[UINib nibWithNibName:@"WordSearchCell" bundle:nil] forCellReuseIdentifier:@"WordSearchCell"];
 }
-//#pragma mark 搜索框输入监听
-//- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-//    [_resultArray removeAllObjects];
-//    [_tableView removeFromSuperview];
-//    _tableView = nil;
-//    for (NSDictionary *dic in self.wordArray) {
-//        if ([dic[@"word"] hasPrefix:searchText]) {
-//            [_resultArray addObject:dic];
-//        }
-//    }
-//}
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     searchBar.text = [searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (REGEX(LETTER_RE, searchBar.text) == NO) {

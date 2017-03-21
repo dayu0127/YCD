@@ -11,14 +11,18 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *appVersionLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableHeight;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *copyrightLabelCollection;
 @property (strong,nonatomic) NSArray *dataArray;
 @property (copy,nonatomic) NSString *linkUrl;
+@property (copy,nonatomic) NSString *typeStr;
 @end
 
 @implementation AboutUsVC
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _typeStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"ios"];
+    _tableHeight.constant = [_typeStr isEqualToString:@"0"] ? 88 : 132;
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *appName = [infoDictionary objectForKey:@"CFBundleDisplayName"];
     NSString *version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
@@ -32,12 +36,16 @@
 }
 - (NSArray *)dataArray{
     if(!_dataArray){
-        _dataArray = @[@"使用帮助",@"介绍",@"用户协议"];
+        if ([_typeStr isEqualToString:@"0"]) {
+            _dataArray = @[@"介绍",@"用户协议"];
+        }else{
+            _dataArray = @[@"使用帮助",@"介绍",@"用户协议"];
+        }
     }
     return _dataArray;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+   return [_typeStr isEqualToString:@"0"] ? 2 : 3;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 0.0001;
@@ -58,12 +66,20 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row == 0) {
-        [self performSegueWithIdentifier:@"useHelp" sender:self];
-    }else if(indexPath.row == 1){
-        [self performSegueWithIdentifier:@"introduce" sender:self];
+    if ([_typeStr isEqualToString:@"0"]) {
+        if(indexPath.row == 0){
+            [self performSegueWithIdentifier:@"introduce" sender:self];
+        }else{
+            [self performSegueWithIdentifier:@"userAgreement" sender:self];
+        }
     }else{
-        [self performSegueWithIdentifier:@"userAgreement" sender:self];
+        if (indexPath.row == 0) {
+            [self performSegueWithIdentifier:@"useHelp" sender:self];
+        }else if(indexPath.row == 1){
+            [self performSegueWithIdentifier:@"introduce" sender:self];
+        }else{
+            [self performSegueWithIdentifier:@"userAgreement" sender:self];
+        }
     }
 }
 

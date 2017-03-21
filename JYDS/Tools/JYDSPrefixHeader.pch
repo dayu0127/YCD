@@ -72,7 +72,7 @@
 //接口
 #define API(api) [NSString stringWithFormat:@"https://www.jydsapp.com/jyds/API/%@API",api] //正式
 
-#define BANNER API(@"banner") //轮播图
+#define BANNER API(@"IOSbanner") //轮播图
 #define MEMORY API(@"course") //记忆法列表
 #define SUBALL API(@"subAll") //全部订阅
 #define SUB API(@"sub") //单个订阅
@@ -114,7 +114,7 @@
 #define InvitationDayUrl @"https://www.jydsapp.com/jyds/static/img/upload/reward.png"
 #define InvitationNightUrl @"https://www.jydsapp.com/jyds/static/img/upload/reward_black.png"
 //邀请规则Url
-#define InvitationDUrl @"https://www.jydsapp.com/reward.html"
+#define InvitationDUrl @"https://www.jydsapp.com/IOSreward.html"
 #define InvitationNUrl @"https://www.jydsapp.com/reward_black.html"
 //关于我们url
 #define IntroduceUrl @"https://www.jydsapp.com/introduce.html"

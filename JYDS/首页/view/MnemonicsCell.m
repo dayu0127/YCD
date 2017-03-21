@@ -43,12 +43,16 @@
     self.courseTitle.text = model.courseTitle;
     NSString *coursePrice = @"";
     if ([model.coursePayStatus isEqualToString:@"0"]) {
-        coursePrice = [NSString stringWithFormat:@"%@学习豆",model.coursePrice];
+        coursePrice = [NSString stringWithFormat:@"%@%@",model.coursePrice,[YHSingleton shareSingleton].bannerTxt];
     }else{
-        if ([model.coursePrice isEqualToString:@"0"]) {
-            coursePrice = @"免费";
+        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"ios"] isEqualToString:@"0"]) {
+            self.coursePrice.alpha = 0;
         }else{
-            coursePrice = @"已订阅";
+            if ([model.coursePrice isEqualToString:@"0"]) {
+                coursePrice = @"免费";
+            }else{
+                coursePrice = @"已订阅";
+            }
         }
     }
     self.coursePrice.text = coursePrice;

@@ -167,7 +167,7 @@
         }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             _memoryArray = json[@"data"];
             [_tableView reloadData];
-            _subLabel.text = [NSString stringWithFormat:@"一次订阅所有记忆法课程，仅需%zd学习豆!",[self getTotalPrice]];
+//            _subLabel.text = [NSString stringWithFormat:@"一次订阅所有记忆法课程，仅需%zd学习豆!",[self getTotalPrice]];
         }else if([json[@"code"] isEqualToString:@"ERROR"]){
             [YHHud showWithMessage:@"服务器错误"];
         }else{
@@ -212,7 +212,7 @@
     if (buttonIndex == 1) {
         //学习豆不足
         if ([self getTotalPrice]>[[YHSingleton shareSingleton].userInfo.studyBean integerValue]) {
-            [YHHud showWithMessage:@"您的学习豆不足，请充值"];
+            [YHHud showWithMessage:@"余额不足"];
 //            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //                _isHiddenNav = YES;
 //                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];

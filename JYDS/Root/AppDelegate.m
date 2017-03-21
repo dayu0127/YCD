@@ -60,11 +60,9 @@
                 _isReachable = NO;
                 break;
             case AFNetworkReachabilityStatusReachableViaWWAN:
-//                [YHHud showWithMessage:@"已连接数据网络"];
                 _isReachable = YES;
                 break;
             case AFNetworkReachabilityStatusReachableViaWiFi:
-//                [YHHud showWithMessage:@"已连接WiFi网络"];
                 _isReachable = YES;
             default:
                 break;
@@ -80,7 +78,6 @@
     //设置
     [UINavigationBar appearance].titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     [UITableView appearance].separatorColor = SEPCOLOR;
-//    [UITabBar appearance].translucent = NO;
     //判断是否加载夜间模式
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isNightMode"]==YES) {
         [[DKNightVersionManager sharedManager] nightFalling];
@@ -117,6 +114,13 @@
     [YHWebRequest YHWebRequestForPOST:BANNER parameters:nil success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
             [[NSUserDefaults standardUserDefaults] setObject:json[@"data"] forKey:@"banner"];
+            [YHSingleton shareSingleton].bannerTxt = @"元";
+            [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",json[@"IOS"]] forKey:@"ios"];
+            if ([[NSString stringWithFormat:@"%@",json[@"IOS"]] isEqualToString:@"0"]) {
+                [YHSingleton shareSingleton].bannerTxt = @"元";
+            }else if([[NSString stringWithFormat:@"%@",json[@"IOS"]] isEqualToString:@"1"]){
+                [YHSingleton shareSingleton].bannerTxt = @"学习豆";
+            }
         }else if ([json[@"code"] isEqualToString:@"ERROR"]){
             [YHHud showWithMessage:@"服务器错误"];
         }else{

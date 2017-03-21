@@ -196,37 +196,6 @@
 }
 #pragma mark 给两个"~"之间的字上色
 - (NSMutableAttributedString *)setColorForString:(NSString *)str{
-//    NSArray *arr = [str componentsSeparatedByString:@"~"];
-//    NSString *str0 = arr[0];
-//    NSString *str1 = arr[1];
-//    NSUInteger loc = 0;
-//    if ([@"" isEqualToString:str0]) {
-//        loc = 1;
-//    }else{
-//        loc = str0.length+1;
-//    }
-//    NSUInteger len = str1.length;
-//    NSMutableString *string = [NSMutableString stringWithString:str];
-//    for (int i= 0; i<string.length; i++) {
-//        unichar item = [string characterAtIndex:i];
-//        if (item == '~') {
-//            [string replaceCharactersInRange:NSMakeRange(i, 1) withString:@" "];
-//        }
-//    }
-//    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:string];
-//    NSDictionary *dic = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:15.0f],NSForegroundColorAttributeName:RED};
-//    [attrStr addAttributes:dic range:NSMakeRange(loc, len)];
-//    return attrStr;
-//    NSMutableString *string = [NSMutableString stringWithString:str];
-//    NSMutableArray *indexArray = [NSMutableArray array];
-//    for (int i= 0; i<string.length; i++) {
-//        unichar item = [string characterAtIndex:i];
-//        NSString *itemStr = [NSString stringWithFormat:@"%c",item];
-//        [indexArray addObject:];
-//    }
-//    for (<#type *object#> in <#collection#>) {
-//        <#statements#>
-//    }
     NSArray *arr = [str componentsSeparatedByString:@"~"];
     NSMutableArray *indexArray = [NSMutableArray array];
     for (NSInteger i = 0; i<arr.count; i++) {

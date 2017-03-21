@@ -63,39 +63,4 @@
     UIGraphicsEndImageContext();
     self.tabBar.selectionIndicatorImage = img;
 }
-//- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
-//    if (item.tag != 0) {
-//        self.selectedIndex = 0;
-//        [self returnToLogin];
-//    }
-//}
-
-//- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
-//{
-//    BOOL result = NO;
-//    if (viewController == [tabBarController.viewControllers objectAtIndex:1]) //assuming the index of uinavigationcontroller is 2
-//    {
-//        NSLog(@"Write your code based on condition");
-//        result = NO;
-//    }
-//    else {
-//        result = YES;
-//    }
-//    return result;
-//}
-
-//- (void)returnToLogin{
-//    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"请先您登录" message:nil preferredStyle:UIAlertControllerStyleAlert];
-//    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"以后再说" style:UIAlertActionStyleCancel handler:nil];
-//    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"立即登录" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//        LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-//        [app.window setRootViewController:loginVC];
-//        [app.window makeKeyWindow];
-//    }];
-//    [alertVC addAction:cancel];
-//    [alertVC addAction:sure];
-//    [self presentViewController:alertVC animated:YES completion:nil];
-//}
 @end

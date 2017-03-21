@@ -52,14 +52,6 @@
 - (void)zf_playerBackAction{
     [self.navigationController popViewControllerAnimated:YES];
 }
-//- (void)zf_playerDownload:(NSString *)url
-//{
-//    // 此处是截取的下载地址，可以自己根据服务器的视频名称来赋值
-//    NSString *name = [url lastPathComponent];
-//    [[ZFDownloadManager sharedDownloadManager] downFileUrl:url filename:name fileimage:nil];
-//    // 设置最多同时下载个数（默认是3）
-//    [ZFDownloadManager sharedDownloadManager].maxCount = 4;
-//}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
@@ -131,7 +123,7 @@
     UILabel *payPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(playImageView.frame)+14, WIDTH, 15)];
     payPriceLabel.font = [UIFont systemFontOfSize:15.0f];
     payPriceLabel.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
-    payPriceLabel.text = [NSString stringWithFormat:@"需花费%@学习豆",price];
+    payPriceLabel.text = [NSString stringWithFormat:@"需花费%@%@",price,[YHSingleton shareSingleton].bannerTxt];
     payPriceLabel.textAlignment = NSTextAlignmentCenter;
     [_opaqueView addSubview:payPriceLabel];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buyMemoryCourse)];
@@ -155,7 +147,7 @@
         //用户学习豆不够，跳转到充值页面
         NSInteger studyBean = [[YHSingleton shareSingleton].userInfo.studyBean integerValue];
         if (studyBean < [_memory.coursePrice integerValue]) {
-            [YHHud showWithMessage:@"您的学习豆不足，请充值"];
+            [YHHud showWithMessage:@"余额不足"];
         }else{
             NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"productID":_memory.courseID,@"type":@"memory",@"device_id":DEVICEID};
             [YHWebRequest YHWebRequestForPOST:SUB parameters:dic success:^(NSDictionary *json) {

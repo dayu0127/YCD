@@ -166,13 +166,6 @@
             [_wkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:InvitationNUrl]]];
         }
         [_ruleView addSubview:_wkWebView];
-//        _rewardRulesImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,  CGRectGetMaxY(sendToFriendButton.frame)+20, WIDTH, WIDTH*730/414.0)];
-//        if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
-//            [_rewardRulesImageView sd_setImageWithURL:[NSURL URLWithString:InvitationDayUrl]];
-//        }else{
-//            [_rewardRulesImageView sd_setImageWithURL:[NSURL URLWithString:InvitationNightUrl]];
-//        }
-//        [_ruleView addSubview:_rewardRulesImageView];
     }
     return _ruleView;
 }
@@ -330,7 +323,7 @@
             if (i<5) {
                 [array addObject:[NSString stringWithFormat:@"用户%@加入记忆大师，您将享受%zd折优惠",phoneStr,5-i]];
             }else if([arr[i][@"type"] integerValue] ==1){
-                [array addObject:[NSString stringWithFormat:@"用户%@加入记忆大师，奖励您5个学习豆",phoneStr]];
+                [array addObject:[NSString stringWithFormat:@"用户%@加入记忆大师，奖励您5%@",phoneStr,[YHSingleton shareSingleton].bannerTxt]];
             }
         }
     }

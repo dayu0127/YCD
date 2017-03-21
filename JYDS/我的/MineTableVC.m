@@ -19,6 +19,7 @@
 @property (strong, nonatomic) IBOutletCollection(UITableViewCell) NSArray *tableViewCellCollection;
 @property (weak, nonatomic) IBOutlet UILabel *studyBean;
 @property (weak, nonatomic) IBOutlet UILabel *costStudyBean;
+@property (weak, nonatomic) IBOutlet UILabel *banner;
 @property (weak, nonatomic) IBOutlet UIButton *payButton;
 @property (strong,nonatomic) MJRefreshNormalHeader *header;
 
@@ -29,15 +30,6 @@
     self.navigationController.navigationBar.hidden = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStudyBean) name:@"updateStudyBean" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCostBean) name:@"updateCostBean" object:nil];
-    [YHWebRequest YHWebRequestForPOST:HAHA parameters:nil success:^(NSDictionary *json) {
-        if ([[NSString stringWithFormat:@"%@",json[@"code"]] isEqualToString:@"0"]) {
-            _payButton.alpha = 0;
-        }else{
-            _payButton.alpha = 1;
-        }
-    } failure:^(NSError * _Nonnull error) {
-        NSLog(@"数据请求失败");
-    }];
 }
 #pragma mark 更新剩余学习豆
 - (void)updateStudyBean{
@@ -125,6 +117,17 @@
 #pragma mark - Table view data source
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 0.0001;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"ios"] isEqualToString:@"0"]) {
+        if (indexPath.row == 1) {
+            return 0.00000001;
+        }else{
+            return 44;
+        }
+    }else{
+        return 44;
+    }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

@@ -28,6 +28,11 @@
     [self initNaBar:self.navTitle];
     self.leftBarButton.hidden = NO;
     [self nightModeConfiguration];
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"ios"] isEqualToString:@"0"]) {
+        _footerBgView.alpha = 0;
+    }else if([[[NSUserDefaults standardUserDefaults] objectForKey:@"ios"] isEqualToString:@"1"]){
+        _footerBgView.alpha = 1;
+    }
     [YHWebRequest YHWebRequestForPOST:UNITLIST parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"classifyID":_classifyID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
         if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
             [self returnToLogin];
@@ -112,7 +117,7 @@
     }];
 }
 - (void)pushPayVC{
-    [YHHud showWithMessage:@"您的学习豆不足，请充值"];
+    [YHHud showWithMessage:@"余额不足"];
 }
 #pragma mark 全部订阅
 - (IBAction)subscriptionClick:(UIButton *)sender {
@@ -138,15 +143,6 @@
                     _tableView.frame = CGRectMake(0, 64, WIDTH, HEIGHT-64);
                     _footerBgView.alpha = 0;
                     //更新本地单词数据缓存
-//                    NSMutableArray *allWordArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"allWord"];
-//                    for (NSInteger i = 0; i<allWordArray.count; i++) {
-//                        NSMutableDictionary *item = [[NSMutableDictionary alloc] initWithDictionary:[allWordArray objectAtIndex:i]];
-//                        if ([item[@"wordID"] integerValue] == [_wordID integerValue]) {
-//                            [item setObject:[NSNumber numberWithInt:1] forKey:@"payType"];
-//                        }
-//                        [_wordArray replaceObjectAtIndex:i withObject:[NSDictionary dictionaryWithDictionary:item]];
-//                    }
-//                    [[NSUserDefaults standardUserDefaults] setObject:_wordArray forKey:@"allWord"];
                     _subBean = @"0";
                     [YHHud showWithSuccess:@"订阅成功"];
                     [self updateCostBean];

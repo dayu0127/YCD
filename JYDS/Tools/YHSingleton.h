@@ -11,5 +11,6 @@
 @property (strong,nonatomic) UserInfo *userInfo;
 @property (copy,nonatomic) NSString *ali_out_trade_no;//支付宝订单号
 @property (copy,nonatomic) NSString *wx_out_trade_no;//微信订单号
+@property (copy,nonatomic) NSString *bannerTxt; 
 
 @end
