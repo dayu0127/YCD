@@ -121,4 +121,10 @@
 #define UseHelpUrl @"https://www.jydsapp.com/help.html"
 #define UserAgreementUrl @"https://www.jydsapp.com/agreement.html"
 
+
+
+
+//橙红色
+#define ORANGERED RGB(255,78,0) //#FF4E00
+
 #endif /* JYDSPrefixHeader_pch */
