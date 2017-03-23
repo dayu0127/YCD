@@ -13,9 +13,13 @@
 #import "BannerDetailVC.h"
 #import "Mnemonics.h"
 #import <UIImageView+WebCache.h>
+#import "BannerCell.h"
+#import "PlanCell.h"
+#import "MemoryHeaderView.h"
+#import "MemoryCell.h"
 #import "PayVC.h"
 
-@interface MnemonicsVC ()/**<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,YHAlertViewDelegate,MemoryCourseVCDelegate>*/
+@interface MnemonicsVC ()<UITableViewDelegate,UITableViewDataSource>
 //@property (strong,nonatomic) NSMutableArray *netImages;  //网络图片
 //@property (strong,nonatomic) SDCycleScrollView *cycleScrollView;//轮播器
 //@property (strong, nonatomic) UITableView *tableView;
@@ -27,6 +31,7 @@
 //@property (strong,nonatomic) NSArray *memoryArray;
 //@property (assign,nonatomic) BOOL isHiddenNav;
 //@property (strong,nonatomic) MJRefreshNormalHeader *header;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -37,6 +42,9 @@
 //}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [_tableView registerNib:[UINib nibWithNibName:@"BannerCell" bundle:nil] forCellReuseIdentifier:@"BannerCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"PlanCell" bundle:nil] forCellReuseIdentifier:@"PlanCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"MemoryCell" bundle:nil] forCellReuseIdentifier:@"MemoryCell"];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dayMode) name:@"dayMode" object:nil];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightMode) name:@"nightMode" object:nil];
 //    [self initNaBar:@"记忆大师"];
@@ -77,6 +85,52 @@
 /** 图片滚动回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index{
     //NSLog(@"%ld",index);
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            return 36/75.0*WIDTH;
+        }else{
+            return 206.0;
+        }
+    }else{
+        return 75.0;
+    }
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.0001;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return section == 0 ? 0.0001 : 44;
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 2;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return section == 0 ? 2 : 3;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            BannerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BannerCell" forIndexPath:indexPath];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }else{
+            PlanCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlanCell" forIndexPath:indexPath];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
+    }else{
+        MemoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MemoryCell" forIndexPath:indexPath];
+        return cell;
+    }
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (section == 1) {
+        MemoryHeaderView *headerView = [MemoryHeaderView loadView];
+        return headerView;
+    }
+    return nil;
 }
 //- (void)initTableView{
 //    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-113) style:UITableViewStyleGrouped];

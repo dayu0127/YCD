@@ -15,7 +15,6 @@
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     self.tabBar.tintColor = [UIColor whiteColor];
     for (UINavigationController *nav in self.viewControllers) {
-        nav.navigationBar.barTintColor = ORANGERED;
         nav.navigationBar.tintColor = [UIColor whiteColor];
     }
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dayMode) name:@"dayMode" object:nil];
@@ -23,11 +22,11 @@
     //去除默认状态下UITabBarItem的图标和文字的渲染
     for (UITabBarItem *item in self.tabBar.items) {
         item.image = [item.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        [item setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateNormal];
+        item.selectedImage = [item.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        [item setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:240/255.0 green:178/255.0 blue:164/255.0 alpha:1.0]} forState:UIControlStateNormal];
+        [item setTitleTextAttributes:@{NSForegroundColorAttributeName:ORANGERED} forState:UIControlStateSelected];
     }
-    //去除tabBar透明化
-    self.tabBar.translucent = NO;
-//    [self nightModeConfiguration];
+    [self.tabBar setClipsToBounds:YES];
 }
 //- (void)nightModeConfiguration{
 //    for (UINavigationController *nav in self.viewControllers) {

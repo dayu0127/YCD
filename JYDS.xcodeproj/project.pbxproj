@@ -10,7 +10,6 @@
 		1A1EB556E63E28FFA4C24D83 /* libPods-JYDS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1303B7A5C1A41C70CD494C6C /* libPods-JYDS.a */; };
 		6013E80C1E5EE37E007E257A /* OtherAmountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6013E80A1E5EE37E007E257A /* OtherAmountCell.m */; };
 		6013E80D1E5EE37E007E257A /* OtherAmountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6013E80B1E5EE37E007E257A /* OtherAmountCell.xib */; };
-		601810C41E6B057000C8DCCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 601810C31E6B057000C8DCCD /* Assets.xcassets */; };
 		60190AAE1E2A07C0009C9450 /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = 60190A491E2A07C0009C9450 /* 0.png */; };
 		60190AAF1E2A07C0009C9450 /* 00.png in Resources */ = {isa = PBXBuildFile; fileRef = 60190A4A1E2A07C0009C9450 /* 00.png */; };
 		60190AB01E2A07C0009C9450 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 60190A4B1E2A07C0009C9450 /* 1.png */; };
@@ -118,6 +117,15 @@
 		6019F2721E45AC3200E6E8A1 /* codeName.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6019F2711E45AC3200E6E8A1 /* codeName.plist */; };
 		602926001E8100E5004DDED1 /* 35.png in Resources */ = {isa = PBXBuildFile; fileRef = 602925FE1E8100E5004DDED1 /* 35.png */; };
 		602926011E8100E5004DDED1 /* 98.png in Resources */ = {isa = PBXBuildFile; fileRef = 602925FF1E8100E5004DDED1 /* 98.png */; };
+		602BDD2F1E8366E300C6CB92 /* BannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 602BDD2D1E8366E300C6CB92 /* BannerCell.m */; };
+		602BDD301E8366E300C6CB92 /* BannerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 602BDD2E1E8366E300C6CB92 /* BannerCell.xib */; };
+		602BDD341E83679C00C6CB92 /* PlanCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 602BDD321E83679C00C6CB92 /* PlanCell.m */; };
+		602BDD351E83679C00C6CB92 /* PlanCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 602BDD331E83679C00C6CB92 /* PlanCell.xib */; };
+		602BDD381E83686F00C6CB92 /* MemoryHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 602BDD371E83686F00C6CB92 /* MemoryHeaderView.m */; };
+		602BDD3A1E83688C00C6CB92 /* MemoryHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 602BDD391E83688C00C6CB92 /* MemoryHeaderView.xib */; };
+		602BDD411E83697700C6CB92 /* MemoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 602BDD3F1E83697700C6CB92 /* MemoryCell.m */; };
+		602BDD421E83697700C6CB92 /* MemoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 602BDD401E83697700C6CB92 /* MemoryCell.xib */; };
+		603A42D61E83F71300134150 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 603A42D51E83F71300134150 /* Assets.xcassets */; };
 		605D2ED01E2DB97000A7E01B /* SuccessView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 605D2ECF1E2DB97000A7E01B /* SuccessView.xib */; };
 		605D2ED21E2DB9B200A7E01B /* FailedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 605D2ED11E2DB9B200A7E01B /* FailedView.xib */; };
 		606A94E41E51A89E00A0279D /* SecretsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94E31E51A89E00A0279D /* SecretsVC.m */; };
@@ -219,7 +227,6 @@
 		6013E8091E5EE37E007E257A /* OtherAmountCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherAmountCell.h; sourceTree = "<group>"; };
 		6013E80A1E5EE37E007E257A /* OtherAmountCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherAmountCell.m; sourceTree = "<group>"; };
 		6013E80B1E5EE37E007E257A /* OtherAmountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OtherAmountCell.xib; sourceTree = "<group>"; };
-		601810C31E6B057000C8DCCD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = JYDS/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		60190A491E2A07C0009C9450 /* 0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.png; sourceTree = "<group>"; };
 		60190A4A1E2A07C0009C9450 /* 00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 00.png; sourceTree = "<group>"; };
 		60190A4B1E2A07C0009C9450 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
@@ -332,6 +339,19 @@
 		6019F2711E45AC3200E6E8A1 /* codeName.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = codeName.plist; path = "JYDS/我的/记忆法练习题/codeName.plist"; sourceTree = SOURCE_ROOT; };
 		602925FE1E8100E5004DDED1 /* 35.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 35.png; sourceTree = "<group>"; };
 		602925FF1E8100E5004DDED1 /* 98.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 98.png; sourceTree = "<group>"; };
+		602BDD2C1E8366E300C6CB92 /* BannerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerCell.h; sourceTree = "<group>"; };
+		602BDD2D1E8366E300C6CB92 /* BannerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerCell.m; sourceTree = "<group>"; };
+		602BDD2E1E8366E300C6CB92 /* BannerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BannerCell.xib; sourceTree = "<group>"; };
+		602BDD311E83679C00C6CB92 /* PlanCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlanCell.h; sourceTree = "<group>"; };
+		602BDD321E83679C00C6CB92 /* PlanCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlanCell.m; sourceTree = "<group>"; };
+		602BDD331E83679C00C6CB92 /* PlanCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlanCell.xib; sourceTree = "<group>"; };
+		602BDD361E83686F00C6CB92 /* MemoryHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryHeaderView.h; sourceTree = "<group>"; };
+		602BDD371E83686F00C6CB92 /* MemoryHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryHeaderView.m; sourceTree = "<group>"; };
+		602BDD391E83688C00C6CB92 /* MemoryHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MemoryHeaderView.xib; sourceTree = "<group>"; };
+		602BDD3E1E83697700C6CB92 /* MemoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryCell.h; sourceTree = "<group>"; };
+		602BDD3F1E83697700C6CB92 /* MemoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryCell.m; sourceTree = "<group>"; };
+		602BDD401E83697700C6CB92 /* MemoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MemoryCell.xib; sourceTree = "<group>"; };
+		603A42D51E83F71300134150 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = JYDS/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		605D2ECF1E2DB97000A7E01B /* SuccessView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuccessView.xib; sourceTree = "<group>"; };
 		605D2ED11E2DB9B200A7E01B /* FailedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FailedView.xib; sourceTree = "<group>"; };
 		606A94E21E51A89E00A0279D /* SecretsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecretsVC.h; sourceTree = "<group>"; };
@@ -779,6 +799,18 @@
 				606A94ED1E51A8CA00A0279D /* MnemonicsCell.h */,
 				606A94EE1E51A8CA00A0279D /* MnemonicsCell.m */,
 				606A94EF1E51A8CA00A0279D /* MnemonicsCell.xib */,
+				602BDD2C1E8366E300C6CB92 /* BannerCell.h */,
+				602BDD2D1E8366E300C6CB92 /* BannerCell.m */,
+				602BDD2E1E8366E300C6CB92 /* BannerCell.xib */,
+				602BDD311E83679C00C6CB92 /* PlanCell.h */,
+				602BDD321E83679C00C6CB92 /* PlanCell.m */,
+				602BDD331E83679C00C6CB92 /* PlanCell.xib */,
+				602BDD361E83686F00C6CB92 /* MemoryHeaderView.h */,
+				602BDD371E83686F00C6CB92 /* MemoryHeaderView.m */,
+				602BDD391E83688C00C6CB92 /* MemoryHeaderView.xib */,
+				602BDD3E1E83697700C6CB92 /* MemoryCell.h */,
+				602BDD3F1E83697700C6CB92 /* MemoryCell.m */,
+				602BDD401E83697700C6CB92 /* MemoryCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1236,7 +1268,7 @@
 				606F12D31E6EB49A00875F1B /* ca.cer */,
 				6019F2711E45AC3200E6E8A1 /* codeName.plist */,
 				6078D1A71E1613180089D40F /* main.m */,
-				601810C31E6B057000C8DCCD /* Assets.xcassets */,
+				603A42D51E83F71300134150 /* Assets.xcassets */,
 			);
 			name = JYDS;
 			path = YCD;
@@ -1368,6 +1400,7 @@
 				60190B021E2A07C0009C9450 /* 83.png in Resources */,
 				60190AD71E2A07C0009C9450 /* 40.png in Resources */,
 				60190AAE1E2A07C0009C9450 /* 0.png in Resources */,
+				602BDD351E83679C00C6CB92 /* PlanCell.xib in Resources */,
 				60190AF91E2A07C0009C9450 /* 74.png in Resources */,
 				60190AD91E2A07C0009C9450 /* 42.png in Resources */,
 				60190AFF1E2A07C0009C9450 /* 80.png in Resources */,
@@ -1378,6 +1411,7 @@
 				6013E80D1E5EE37E007E257A /* OtherAmountCell.xib in Resources */,
 				60190AAF1E2A07C0009C9450 /* 00.png in Resources */,
 				60190B0C1E2A07C0009C9450 /* 93.png in Resources */,
+				603A42D61E83F71300134150 /* Assets.xcassets in Resources */,
 				60190AD11E2A07C0009C9450 /* 34.png in Resources */,
 				60190AB11E2A07C0009C9450 /* 2.png in Resources */,
 				60190AC21E2A07C0009C9450 /* 19.png in Resources */,
@@ -1390,6 +1424,7 @@
 				60190B0D1E2A07C0009C9450 /* 94.png in Resources */,
 				60190AEC1E2A07C0009C9450 /* 61.png in Resources */,
 				60190AE21E2A07C0009C9450 /* 51.png in Resources */,
+				602BDD3A1E83688C00C6CB92 /* MemoryHeaderView.xib in Resources */,
 				60190AB81E2A07C0009C9450 /* 9.png in Resources */,
 				60190B0B1E2A07C0009C9450 /* 92.png in Resources */,
 				60190B091E2A07C0009C9450 /* 90.png in Resources */,
@@ -1424,16 +1459,17 @@
 				60190B121E2A07C0009C9450 /* 99.png in Resources */,
 				60190AB31E2A07C0009C9450 /* 4.png in Resources */,
 				60190ABC1E2A07C0009C9450 /* 13.png in Resources */,
+				602BDD301E8366E300C6CB92 /* BannerCell.xib in Resources */,
 				60190AF71E2A07C0009C9450 /* 72.png in Resources */,
 				60190AC31E2A07C0009C9450 /* 20.png in Resources */,
 				60190ACD1E2A07C0009C9450 /* 30.png in Resources */,
 				602926001E8100E5004DDED1 /* 35.png in Resources */,
 				60190AEF1E2A07C0009C9450 /* 64.png in Resources */,
-				601810C41E6B057000C8DCCD /* Assets.xcassets in Resources */,
 				60190AD61E2A07C0009C9450 /* 39.png in Resources */,
 				609F060D1E16218B009F4986 /* PayDetailCell.xib in Resources */,
 				60190ADB1E2A07C0009C9450 /* 44.png in Resources */,
 				60190AF21E2A07C0009C9450 /* 67.png in Resources */,
+				602BDD421E83697700C6CB92 /* MemoryCell.xib in Resources */,
 				60190AFB1E2A07C0009C9450 /* 76.png in Resources */,
 				60190ACB1E2A07C0009C9450 /* 28.png in Resources */,
 				60190B041E2A07C0009C9450 /* 85.png in Resources */,
@@ -1513,6 +1549,7 @@
 				609F06291E1621BD009F4986 /* UpdateNickNameVC.m in Sources */,
 				60F7321F1E691B4900907D1E /* RememberWordModuleVC.m in Sources */,
 				6078D1C61E1613180089D40F /* RememberWordVC.m in Sources */,
+				602BDD2F1E8366E300C6CB92 /* BannerCell.m in Sources */,
 				609F062D1E1621C5009F4986 /* MemoryExercisesVC.m in Sources */,
 				609F05E11E161D1A009F4986 /* RegisterVC.m in Sources */,
 				6078D2241E161AF20089D40F /* YHHud.m in Sources */,
@@ -1525,10 +1562,12 @@
 				606A94E41E51A89E00A0279D /* SecretsVC.m in Sources */,
 				6078D2261E161AF20089D40F /* YHWebRequest.m in Sources */,
 				6078D1C41E1613180089D40F /* RememberWordItemVC.m in Sources */,
+				602BDD411E83697700C6CB92 /* MemoryCell.m in Sources */,
 				606A94FB1E51A8CA00A0279D /* BannerDetailVC.m in Sources */,
 				609F06271E1621BD009F4986 /* UpdateHeadImageVC.m in Sources */,
 				6078D1CC1E1613180089D40F /* RememberWordSingleWordCell.m in Sources */,
 				6078D2231E161AF20089D40F /* YHDataSource.m in Sources */,
+				602BDD381E83686F00C6CB92 /* MemoryHeaderView.m in Sources */,
 				60E2DD041E5AA22F00D45986 /* WXApiManager.m in Sources */,
 				609F061A1E162190009F4986 /* PaymentVC.m in Sources */,
 				6078D2061E1613180089D40F /* AppDelegate.m in Sources */,
@@ -1538,6 +1577,7 @@
 				6078D1F51E1613180089D40F /* DataSigner.m in Sources */,
 				609F063E1E1621D9009F4986 /* UseHelpVC.m in Sources */,
 				6078D1F81E1613180089D40F /* NSDataEx.m in Sources */,
+				602BDD341E83679C00C6CB92 /* PlanCell.m in Sources */,
 				6078D1CA1E1613180089D40F /* RememberWordItemView.m in Sources */,
 				609F060C1E16218B009F4986 /* PayDetailCell.m in Sources */,
 				609F06191E162190009F4986 /* PayDetailVC.m in Sources */,

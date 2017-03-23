@@ -805,7 +805,7 @@
         <scene sceneID="h4a-QZ-jBO">
             <objects>
                 <tabBarController storyboardIdentifier="root" id="YRA-et-d6M" userLabel="RootTBC" customClass="RootTabBarController" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="fMX-dO-iM3">
+                    <tabBar key="tabBar" contentMode="scaleToFill" backgroundImage="tabbar_bg" id="fMX-dO-iM3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -813,7 +813,6 @@
                     <connections>
                         <segue destination="lb2-iQ-doq" kind="relationship" relationship="viewControllers" id="ejs-lv-oJ1"/>
                         <segue destination="bTa-4g-t41" kind="relationship" relationship="viewControllers" id="tSw-sS-3hS"/>
-                        <segue destination="gWu-Wr-HpE" kind="relationship" relationship="viewControllers" id="Nd8-7N-aLg"/>
                         <segue destination="gAc-le-btV" kind="relationship" relationship="viewControllers" id="rkq-Tr-Ouw"/>
                     </connections>
                 </tabBarController>
@@ -824,13 +823,14 @@
         <!--首页NC-->
         <scene sceneID="BP6-lk-IrY">
             <objects>
-                <navigationController id="lb2-iQ-doq" userLabel="首页NC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="首页" image="memory" selectedImage="memory" id="kkB-4X-SRU">
+                <navigationController navigationBarHidden="YES" id="lb2-iQ-doq" userLabel="首页NC" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="首页" image="tabbar_home" selectedImage="tabbar_home_HL" id="kkB-4X-SRU">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-3"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dXW-5b-O0M">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="1" green="0.30588235289999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="MO3-TH-P5F" kind="relationship" relationship="rootViewController" id="Pgm-2q-quc"/>
@@ -851,18 +851,79 @@
                     <view key="view" contentMode="scaleToFill" id="pee-eG-Sd5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x7p-8T-w4D" userLabel="navView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="首页" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HaQ-aa-HSQ">
+                                        <rect key="frame" x="171" y="20" width="33" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="dGw-Qa-Qki"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="exX-iM-LRf">
+                                        <rect key="frame" x="10" y="31" width="20" height="22"/>
+                                        <state key="normal" image="home_top_message"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U31-AX-jOZ">
+                                        <rect key="frame" x="321" y="33" width="54" height="19"/>
+                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="11"/>
+                                        <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="签到" backgroundImage="home_top_sign_in"/>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_top_beans" translatesAutoresizingMaskIntoConstraints="NO" id="SBY-dK-CA7">
+                                        <rect key="frame" x="351" y="38" width="14" height="9"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.30588235289999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="U31-AX-jOZ" firstAttribute="centerY" secondItem="HaQ-aa-HSQ" secondAttribute="centerY" id="4rY-pO-qn0"/>
+                                    <constraint firstAttribute="height" constant="64" id="TKw-Nm-GMc"/>
+                                    <constraint firstItem="exX-iM-LRf" firstAttribute="leading" secondItem="x7p-8T-w4D" secondAttribute="leading" constant="10" id="UCi-sY-aX9"/>
+                                    <constraint firstItem="HaQ-aa-HSQ" firstAttribute="centerX" secondItem="x7p-8T-w4D" secondAttribute="centerX" id="UJD-3O-neY"/>
+                                    <constraint firstAttribute="trailing" secondItem="SBY-dK-CA7" secondAttribute="trailing" constant="10" id="Y6o-gf-KOc"/>
+                                    <constraint firstAttribute="trailing" secondItem="U31-AX-jOZ" secondAttribute="trailing" id="ms3-jw-Fc0"/>
+                                    <constraint firstItem="HaQ-aa-HSQ" firstAttribute="top" secondItem="x7p-8T-w4D" secondAttribute="top" constant="20" id="rDO-il-RGp"/>
+                                    <constraint firstItem="SBY-dK-CA7" firstAttribute="centerY" secondItem="U31-AX-jOZ" secondAttribute="centerY" id="yLf-Tu-J9S"/>
+                                    <constraint firstItem="exX-iM-LRf" firstAttribute="centerY" secondItem="HaQ-aa-HSQ" secondAttribute="centerY" id="zOJ-Z4-P6b"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="FY4-kC-L8n">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="MO3-TH-P5F" id="xx2-2t-O5H"/>
+                                    <outlet property="delegate" destination="MO3-TH-P5F" id="GaH-wq-hEM"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ctt-tW-VIg" firstAttribute="top" secondItem="FY4-kC-L8n" secondAttribute="bottom" id="6td-QB-6vj"/>
+                            <constraint firstItem="x7p-8T-w4D" firstAttribute="leading" secondItem="pee-eG-Sd5" secondAttribute="leading" id="FN2-Sy-PRx"/>
+                            <constraint firstAttribute="trailing" secondItem="FY4-kC-L8n" secondAttribute="trailing" id="Htn-MA-OOb"/>
+                            <constraint firstItem="x7p-8T-w4D" firstAttribute="top" secondItem="pee-eG-Sd5" secondAttribute="top" id="KIe-Ay-w59"/>
+                            <constraint firstItem="FY4-kC-L8n" firstAttribute="leading" secondItem="pee-eG-Sd5" secondAttribute="leading" id="PlJ-nb-e99"/>
+                            <constraint firstItem="FY4-kC-L8n" firstAttribute="top" secondItem="x7p-8T-w4D" secondAttribute="bottom" id="egG-um-vz3"/>
+                            <constraint firstAttribute="trailing" secondItem="x7p-8T-w4D" secondAttribute="trailing" id="sOx-2B-1gU"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="首页" id="IKc-wc-ADp"/>
+                    <connections>
+                        <outlet property="tableView" destination="FY4-kC-L8n" id="GyL-f5-7VH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bIr-u5-mNl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4573.6000000000004" y="36.431784107946029"/>
+            <point key="canvasLocation" x="4602.3999999999996" y="21.139430284857571"/>
         </scene>
         <!--秘笈NC-->
         <scene sceneID="s6v-kD-aHZ">
             <objects>
-                <navigationController id="gWu-Wr-HpE" userLabel="秘笈NC" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="AAA" id="gWu-Wr-HpE" userLabel="秘笈NC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="2" title="秘笈" image="subscribed" selectedImage="subscribed" id="ePU-bT-C1P" userLabel="已订阅">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-3"/>
                     </tabBarItem>
@@ -1012,7 +1073,7 @@
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BeH-cm-a8o" id="QHi-ro-wNw">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WU8-H8-fxc">
@@ -1048,7 +1109,7 @@
                                         <rect key="frame" x="0.0" y="79" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xGV-BA-orO" id="hfY-IA-dGC">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epQ-3A-GzL">
@@ -1079,7 +1140,7 @@
                                         <rect key="frame" x="0.0" y="123" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zfa-R3-8sQ" id="2ce-TN-GzV">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="头像" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6c-Pe-dwe">
@@ -1111,7 +1172,7 @@
                                         <rect key="frame" x="0.0" y="167" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hQj-Nw-jtG" id="7vE-qK-mab">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昵称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Gq-kh-nAT">
@@ -1585,7 +1646,7 @@
         <scene sceneID="Ggg-99-FNh">
             <objects>
                 <navigationController id="gAc-le-btV" userLabel="我的NC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="3" title="我的" image="mine" selectedImage="mine" id="G4q-KT-FmY">
+                    <tabBarItem key="tabBarItem" tag="3" title="我的" image="tabbar_me" selectedImage="tabbar_me_HL" id="G4q-KT-FmY">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-3"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="lt1-ik-vN3">
@@ -1861,7 +1922,7 @@
                                         <rect key="frame" x="0.0" y="35" width="375" height="47"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N6q-Ns-R4b" id="4qF-gj-Zf1">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="47"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="46"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headImage" translatesAutoresizingMaskIntoConstraints="NO" id="GYh-a7-q7v" userLabel="头像ImageView">
@@ -1893,7 +1954,7 @@
                                         <rect key="frame" x="0.0" y="82" width="375" height="47"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mjB-ym-xG3" id="fBw-cX-cQb">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="47"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="5Td-a9-XBf" userLabel="学习豆ImageView">
@@ -1968,7 +2029,7 @@
                                         <rect key="frame" x="0.0" y="129" width="375" height="47"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Oyh-Mi-I8X" id="RTc-u7-O0a">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="47"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="46"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="exercises" translatesAutoresizingMaskIntoConstraints="NO" id="pHy-cn-4TL" userLabel="学习豆ImageView">
@@ -2000,7 +2061,7 @@
                                         <rect key="frame" x="0.0" y="176" width="375" height="47"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ARn-lU-7Hm" id="fBY-8V-O9m">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="47"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="46"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aboutUs" translatesAutoresizingMaskIntoConstraints="NO" id="Izb-sL-Y8q">
@@ -2032,7 +2093,7 @@
                                         <rect key="frame" x="0.0" y="223" width="375" height="47"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Szd-Xb-cFA" id="ZtH-Jt-Ck1">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="47"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="46"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="feedback" translatesAutoresizingMaskIntoConstraints="NO" id="0sH-fa-APo">
@@ -2064,7 +2125,7 @@
                                         <rect key="frame" x="0.0" y="270" width="375" height="47"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pn8-KH-PTI" id="LVu-mh-x95">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="47"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="46"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="set" translatesAutoresizingMaskIntoConstraints="NO" id="IrD-0t-poh">
@@ -2419,7 +2480,7 @@
         <scene sceneID="wTu-bq-OX9">
             <objects>
                 <navigationController id="bTa-4g-t41" userLabel="记单词NC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="1" title="记单词" image="rememberWord" selectedImage="rememberWord" id="Gpr-Ms-7lq">
+                    <tabBarItem key="tabBarItem" tag="1" title="记单词" image="tabbar_word" selectedImage="tabbar_word_HL" id="Gpr-Ms-7lq">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-3"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8vF-Va-64d">
@@ -2954,20 +3015,27 @@
         <image name="headImage" width="17" height="17"/>
         <image name="headImageBig" width="100" height="100"/>
         <image name="hidePwd" width="20" height="11"/>
+        <image name="home_top_beans" width="14" height="9"/>
+        <image name="home_top_message" width="20" height="14"/>
+        <image name="home_top_sign_in" width="54" height="19"/>
         <image name="login_back" width="10" height="17"/>
         <image name="login_bg" width="375" height="667"/>
         <image name="login_pwd" width="11" height="15"/>
         <image name="login_qq" width="41" height="41"/>
         <image name="login_user" width="14" height="14"/>
         <image name="login_wx" width="41" height="41"/>
-        <image name="memory" width="23" height="18"/>
-        <image name="mine" width="18" height="19"/>
-        <image name="rememberWord" width="20" height="19"/>
         <image name="service" width="47" height="40"/>
         <image name="set" width="22" height="22"/>
         <image name="showPwd" width="20" height="12"/>
         <image name="star" width="23" height="22"/>
         <image name="subscribed" width="19" height="18"/>
+        <image name="tabbar_bg" width="375" height="52"/>
+        <image name="tabbar_home" width="19" height="19"/>
+        <image name="tabbar_home_HL" width="23" height="24"/>
+        <image name="tabbar_me" width="24" height="24"/>
+        <image name="tabbar_me_HL" width="20" height="20"/>
+        <image name="tabbar_word" width="24" height="23"/>
+        <image name="tabbar_word_HL" width="19" height="18"/>
         <image name="wallet" width="23" height="17"/>
     </resources>
 </document>
