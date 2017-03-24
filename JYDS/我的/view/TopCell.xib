@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="TopCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="38"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="37"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mine_beans" translatesAutoresizingMaskIntoConstraints="NO" id="Adx-Tm-ten">
+                        <rect key="frame" x="15" y="8" width="15" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="15" id="0pu-mx-pJA"/>
+                            <constraint firstAttribute="height" constant="15" id="PjM-3K-wde"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学习豆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4yK-WV-lqT">
+                        <rect key="frame" x="39" y="6.5" width="46" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="1" green="0.30588235289999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mine_arrows" translatesAutoresizingMaskIntoConstraints="NO" id="S0G-qr-Vs6">
+                        <rect key="frame" x="357.5" y="9.5" width="7.5" height="12.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="7.5" id="VaW-88-0ea"/>
+                            <constraint firstAttribute="height" constant="12.5" id="Z0z-1Y-1so"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jkM-io-IKA">
+                        <rect key="frame" x="342" y="7.5" width="9.5" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="1" green="0.30588235289999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="jkM-io-IKA" firstAttribute="centerY" secondItem="S0G-qr-Vs6" secondAttribute="centerY" id="4WH-C7-IdD"/>
+                    <constraint firstAttribute="trailing" secondItem="S0G-qr-Vs6" secondAttribute="trailing" constant="10" id="JC5-v9-Q8O"/>
+                    <constraint firstItem="4yK-WV-lqT" firstAttribute="centerY" secondItem="Adx-Tm-ten" secondAttribute="centerY" id="Y8J-aD-P00"/>
+                    <constraint firstItem="4yK-WV-lqT" firstAttribute="leading" secondItem="Adx-Tm-ten" secondAttribute="trailing" constant="9" id="a0P-JA-DTe"/>
+                    <constraint firstItem="Adx-Tm-ten" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="bng-Hk-Gvp"/>
+                    <constraint firstItem="S0G-qr-Vs6" firstAttribute="centerY" secondItem="4yK-WV-lqT" secondAttribute="centerY" id="lOb-4Q-K72"/>
+                    <constraint firstItem="S0G-qr-Vs6" firstAttribute="leading" secondItem="jkM-io-IKA" secondAttribute="trailing" constant="6" id="p5r-9v-Hg8"/>
+                    <constraint firstItem="Adx-Tm-ten" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="r4h-Ih-CZ0"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="30.5" y="60"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="mine_arrows" width="7" height="12"/>
+        <image name="mine_beans" width="15" height="14"/>
+    </resources>
+</document>

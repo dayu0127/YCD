@@ -128,5 +128,7 @@
 #define ORANGERED RGB(255,78,0) //#FF4E00
 //线色
 #define LINECOLOR RGB(228,228,228) //#E4E4E4
+//灰色
+#define GRAYCOLOR RGB(153,153,153) //#999999
 
 #endif /* JYDSPrefixHeader_pch */
