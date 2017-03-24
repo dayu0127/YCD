@@ -26,33 +26,7 @@
         [item setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:240/255.0 green:178/255.0 blue:164/255.0 alpha:1.0]} forState:UIControlStateNormal];
         [item setTitleTextAttributes:@{NSForegroundColorAttributeName:ORANGERED} forState:UIControlStateSelected];
     }
-//    [[UITabBar appearance] setShadowImage:nil];
-//    [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"tabbar_bg"]];
     [self.tabBar setClipsToBounds:YES];
-//    [self.tabBar setShadowImage:[UIImage imageNamed:@"tabbar_bg"]];
-//    [self.tabBar setBackgroundImage:[UIImage imageNamed:@"tabbar_bg"]];
-//    self.tabBar.barStyle = UIBarStyleDefault;
-//    CGRect rect = CGRectMake(0, 0, WIDTH, HEIGHT);
-//    
-//    UIGraphicsBeginImageContext(rect.size);
-//    
-//    CGContextRef context = UIGraphicsGetCurrentContext();
-//    
-//    CGContextSetFillColorWithColor(context, [[UIColor clearColor] CGColor]);
-//    
-//    CGContextFillRect(context, rect);
-//    
-//    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
-//    
-//    UIGraphicsEndImageContext();
-//    
-//    [self.tabBar setBackgroundImage:[UIImage imageNamed:@"tabbar_bg"]];
-//    [self.tabBar setShadowImage:img];
-//    [self.tabBar setBackgroundColor:[UIColor whiteColor]];
-//    self.tabBar.shadowImage = [[UIImage alloc] init];
-//    self.tabBar.backgroundImage = [[UIImage alloc] init];
-    //去除tabBar透明化
-//    [self nightModeConfiguration];
 }
 //- (void)nightModeConfiguration{
 //    for (UINavigationController *nav in self.viewControllers) {
