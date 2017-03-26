@@ -56,6 +56,19 @@
 //        [item dk_setTitleColorPicker:DKColorPickerWithColors(D_BLUE,[UIColor whiteColor],RED) forState:UIControlStateNormal];
 //    }
 //}
+- (IBAction)backToHome:(id)sender {
+    [self returnToHome];
+}
+- (IBAction)codeLoginClick:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+- (void)returnToHome{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    RootTabBarController *rootTBC = [sb instantiateViewControllerWithIdentifier:@"root"];
+    [app.window setRootViewController:rootTBC];
+    [app.window makeKeyWindow];
+}
 - (IBAction)phoneEditingChanged:(UITextField *)sender {
     if (sender.text.length==0) {
         _loginButton.enabled = NO;
@@ -88,6 +101,9 @@
 }
 #pragma mark 点击登录
 - (IBAction)loginButtonClick:(UIButton *)sender {
+    [self returnToHome];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
 //    if (REGEX(PHONE_RE, _phoneText.text)==NO) {
 //        [YHHud showWithMessage:@"请输入有效的11位手机号"];
 //    }else if (REGEX(PWD_RE, _pwdText.text)==NO){
@@ -104,11 +120,7 @@
 //                [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:json[@"data"]];
 //                [YHHud showWithSuccess:@"登陆成功"];
 //                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                    RootTabBarController *rootTBC = [sb instantiateViewControllerWithIdentifier:@"root"];
-                    [app.window setRootViewController:rootTBC];
-                    [app.window makeKeyWindow];
+    
 //                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"login"];
 //                });
 //            }else if ([json[@"code"] isEqualToString:@"USAPWERR"]){

@@ -7,10 +7,11 @@
 //
 
 #import "MineVC.h"
-#import "TopHeaderView.h"
 #import "TopCell.h"
 #import "MineCell.h"
 #import "ButtomCell.h"
+#import "NoLoginHeaderView.h"
+#import "LoggedInHeaderView.h"
 @interface MineVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) NSArray *arr1;
@@ -18,7 +19,13 @@
 @end
 
 @implementation MineVC
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeaderView) name:@"updateHeaderView" object:nil];
+}
+- (void)updateHeaderView{
+    _tableView.tableHeaderView = [[LoggedInHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 187)];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = false;
@@ -30,25 +37,11 @@
                   @{@"img":@"mine_training",@"title":@"右脑训练"}];
     _arr2 = @[@{@"img":@"mine_aboutus",@"title":@"关于我们"},
                   @{@"img":@"mine_feedback",@"title":@"意见反馈"}];
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 187)];
-    bgView.backgroundColor = [UIColor whiteColor];
-    UIImageView *topImageView = [[UIImageView alloc] initWithFrame:bgView.bounds];
-    topImageView.image = [UIImage imageNamed:@"mine_top"];
-    topImageView.userInteractionEnabled = YES;
-    [bgView addSubview:topImageView];
-    UIButton *loginButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    loginButton.center = topImageView.center;
-    loginButton.bounds = CGRectMake(0, 0, 103, 33);
-    [loginButton setTitle:@"登录 / 注册" forState:UIControlStateNormal];
-    loginButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
-    [loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    loginButton.layer.masksToBounds = YES;
-    loginButton.layer.cornerRadius = 3.0f;
-    loginButton.layer.borderWidth = 1.0f;
-    loginButton.layer.borderColor = [UIColor whiteColor].CGColor;
-    [loginButton addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
-    [topImageView addSubview:loginButton];
-    _tableView.tableHeaderView = bgView;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogin"] == YES) {
+        _tableView.tableHeaderView = [[LoggedInHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 187)];
+    }else{
+        _tableView.tableHeaderView = [[NoLoginHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 187)];
+    }
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 4;

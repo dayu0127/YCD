@@ -62,7 +62,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="CSS-cW-s3G" kind="relationship" relationship="rootViewController" id="IKZ-3n-cst"/>
+                        <segue destination="Yvy-FO-jfd" kind="relationship" relationship="rootViewController" id="wAK-0O-fGu"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q3m-qd-nhW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -91,6 +91,9 @@
                                     <constraint firstAttribute="height" constant="17" id="woG-p1-3Tu"/>
                                 </constraints>
                                 <state key="normal" image="login_back"/>
+                                <connections>
+                                    <action selector="backToHome:" destination="Yvy-FO-jfd" eventType="touchUpInside" id="6Dh-Dr-iFJ"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="验证码登录" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Odf-PN-DKV">
                                 <rect key="frame" x="147" y="32" width="82" height="20"/>
@@ -108,7 +111,7 @@
                                     <color key="titleColor" red="1" green="0.30588235289999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="pwdLoginClick:" destination="Yvy-FO-jfd" eventType="touchUpInside" id="4JK-3y-4qR"/>
+                                    <segue destination="CSS-cW-s3G" kind="show" id="Zfd-hc-9f5"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  请输入手机号" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LdG-g9-9bq">
@@ -226,6 +229,9 @@
                                 <state key="normal" title="登录">
                                     <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="loginButtonClick:" destination="Yvy-FO-jfd" eventType="touchUpInside" id="XEy-A5-P6Q"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第三方登录" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KHg-El-dCt">
                                 <rect key="frame" x="157" y="552" width="62" height="15"/>
@@ -261,7 +267,7 @@
                                     <constraint firstAttribute="width" constant="41" id="9cm-X1-U3U"/>
                                     <constraint firstAttribute="height" constant="41" id="fB3-5W-giI"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="login_qq"/>
+                                <state key="normal" image="login_qq"/>
                                 <connections>
                                     <action selector="qqLogin:" destination="Yvy-FO-jfd" eventType="touchUpInside" id="bWl-rI-SOD"/>
                                 </connections>
@@ -339,13 +345,14 @@
                             <constraint firstItem="z2v-az-VwZ" firstAttribute="centerY" secondItem="KHg-El-dCt" secondAttribute="centerY" id="zFQ-wZ-cUg"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="UeT-92-DQY"/>
                     <connections>
                         <outlet property="loginButton" destination="Mg1-G0-1An" id="sBe-sv-WYA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iKr-lA-Qic" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2428" y="-719.19040479760122"/>
+            <point key="canvasLocation" x="1561" y="36"/>
         </scene>
         <!--密码登陆VC-->
         <scene sceneID="4Ug-2u-fdY">
@@ -369,6 +376,9 @@
                                     <constraint firstAttribute="width" constant="14" id="nE9-hm-VMg"/>
                                 </constraints>
                                 <state key="normal" image="login_back"/>
+                                <connections>
+                                    <action selector="backToHome:" destination="CSS-cW-s3G" eventType="touchUpInside" id="SKt-2B-kGI"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码登录" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VFh-BR-SsV">
                                 <rect key="frame" x="155" y="32" width="66" height="20"/>
@@ -386,7 +396,7 @@
                                     <color key="titleColor" red="1" green="0.30588235289999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Yvy-FO-jfd" kind="show" id="1AV-W8-ZHb"/>
+                                    <action selector="codeLoginClick:" destination="CSS-cW-s3G" eventType="touchUpInside" id="Q3g-am-HtB"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  请输入手机号" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yNh-nJ-QjL">
@@ -516,7 +526,7 @@
                                     <constraint firstAttribute="width" constant="41" id="KLe-Pz-SPJ"/>
                                     <constraint firstAttribute="height" constant="41" id="qeO-xl-TCz"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="login_qq"/>
+                                <state key="normal" image="login_qq"/>
                                 <connections>
                                     <action selector="qqLogin:" destination="CSS-cW-s3G" eventType="touchUpInside" id="IAr-lU-rTJ"/>
                                 </connections>
@@ -593,7 +603,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8aP-02-ap6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1652" y="48.125937031484263"/>
+            <point key="canvasLocation" x="1561" y="732"/>
         </scene>
         <!--注册VC-->
         <scene sceneID="THp-Fy-hYW">
@@ -886,7 +896,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lp5-sy-ca8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1296.8" y="877.51124437781118"/>
+            <point key="canvasLocation" x="1233" y="1490"/>
         </scene>
         <!--忘记密码VC-->
         <scene sceneID="UhS-Q4-ZBY">
@@ -1161,7 +1171,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fyM-v7-DRx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1973.5999999999999" y="877.51124437781118"/>
+            <point key="canvasLocation" x="1937" y="1489"/>
         </scene>
         <!--RootTBC-->
         <scene sceneID="h4a-QZ-jBO">
@@ -1435,7 +1445,7 @@
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BeH-cm-a8o" id="QHi-ro-wNw">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WU8-H8-fxc">
@@ -1471,7 +1481,7 @@
                                         <rect key="frame" x="0.0" y="79" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xGV-BA-orO" id="hfY-IA-dGC">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epQ-3A-GzL">
@@ -1502,7 +1512,7 @@
                                         <rect key="frame" x="0.0" y="123" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zfa-R3-8sQ" id="2ce-TN-GzV">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="头像" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6c-Pe-dwe">
@@ -1534,7 +1544,7 @@
                                         <rect key="frame" x="0.0" y="167" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hQj-Nw-jtG" id="7vE-qK-mab">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昵称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Gq-kh-nAT">

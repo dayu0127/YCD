@@ -129,8 +129,6 @@
 		60402E421E84BD5700B1AD91 /* LoginCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60402E411E84BD5700B1AD91 /* LoginCodeVC.m */; };
 		60402E481E850FFD00B1AD91 /* MineTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60402E471E850FFD00B1AD91 /* MineTableVC.m */; };
 		60402E4B1E8518B300B1AD91 /* MineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60402E4A1E8518B300B1AD91 /* MineVC.m */; };
-		60402E4E1E85198E00B1AD91 /* TopHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60402E4D1E85198E00B1AD91 /* TopHeaderView.m */; };
-		60402E501E851B9300B1AD91 /* TopHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60402E4F1E851B9300B1AD91 /* TopHeaderView.xib */; };
 		60402E541E851E7000B1AD91 /* TopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60402E521E851E7000B1AD91 /* TopCell.m */; };
 		60402E551E851E7000B1AD91 /* TopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60402E531E851E7000B1AD91 /* TopCell.xib */; };
 		60402E591E8527EA00B1AD91 /* MineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60402E571E8527EA00B1AD91 /* MineCell.m */; };
@@ -147,6 +145,8 @@
 		606A94FA1E51A8CA00A0279D /* MemoryCourseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94F21E51A8CA00A0279D /* MemoryCourseVC.m */; };
 		606A94FB1E51A8CA00A0279D /* BannerDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94F51E51A8CA00A0279D /* BannerDetailVC.m */; };
 		606F12D41E6EB49A00875F1B /* ca.cer in Resources */ = {isa = PBXBuildFile; fileRef = 606F12D31E6EB49A00875F1B /* ca.cer */; };
+		6076CEF51E8601F5006E5F6F /* NoLoginHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6076CEF41E8601F5006E5F6F /* NoLoginHeaderView.m */; };
+		6076CEF81E86020C006E5F6F /* LoggedInHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6076CEF71E86020C006E5F6F /* LoggedInHeaderView.m */; };
 		6078D1C41E1613180089D40F /* RememberWordItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0DC1E1613180089D40F /* RememberWordItemVC.m */; };
 		6078D1C51E1613180089D40F /* RememberWordSingleWordDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0DE1E1613180089D40F /* RememberWordSingleWordDetailVC.m */; };
 		6078D1C61E1613180089D40F /* RememberWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0E01E1613180089D40F /* RememberWordVC.m */; };
@@ -368,9 +368,6 @@
 		60402E471E850FFD00B1AD91 /* MineTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTableVC.m; sourceTree = "<group>"; };
 		60402E491E8518B300B1AD91 /* MineVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineVC.h; sourceTree = "<group>"; };
 		60402E4A1E8518B300B1AD91 /* MineVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineVC.m; sourceTree = "<group>"; };
-		60402E4C1E85198E00B1AD91 /* TopHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopHeaderView.h; sourceTree = "<group>"; };
-		60402E4D1E85198E00B1AD91 /* TopHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopHeaderView.m; sourceTree = "<group>"; };
-		60402E4F1E851B9300B1AD91 /* TopHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopHeaderView.xib; sourceTree = "<group>"; };
 		60402E511E851E7000B1AD91 /* TopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopCell.h; sourceTree = "<group>"; };
 		60402E521E851E7000B1AD91 /* TopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopCell.m; sourceTree = "<group>"; };
 		60402E531E851E7000B1AD91 /* TopCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopCell.xib; sourceTree = "<group>"; };
@@ -396,6 +393,10 @@
 		606A94F41E51A8CA00A0279D /* BannerDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerDetailVC.h; sourceTree = "<group>"; };
 		606A94F51E51A8CA00A0279D /* BannerDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerDetailVC.m; sourceTree = "<group>"; };
 		606F12D31E6EB49A00875F1B /* ca.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = ca.cer; path = JYDS/ca.cer; sourceTree = SOURCE_ROOT; };
+		6076CEF31E8601F5006E5F6F /* NoLoginHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoLoginHeaderView.h; sourceTree = "<group>"; };
+		6076CEF41E8601F5006E5F6F /* NoLoginHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoLoginHeaderView.m; sourceTree = "<group>"; };
+		6076CEF61E86020C006E5F6F /* LoggedInHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggedInHeaderView.h; sourceTree = "<group>"; };
+		6076CEF71E86020C006E5F6F /* LoggedInHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggedInHeaderView.m; sourceTree = "<group>"; };
 		6078D0DB1E1613180089D40F /* RememberWordItemVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordItemVC.h; sourceTree = "<group>"; };
 		6078D0DC1E1613180089D40F /* RememberWordItemVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordItemVC.m; sourceTree = "<group>"; };
 		6078D0DD1E1613180089D40F /* RememberWordSingleWordDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordSingleWordDetailVC.h; sourceTree = "<group>"; };
@@ -799,9 +800,10 @@
 		60402E451E850FD000B1AD91 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				60402E4C1E85198E00B1AD91 /* TopHeaderView.h */,
-				60402E4D1E85198E00B1AD91 /* TopHeaderView.m */,
-				60402E4F1E851B9300B1AD91 /* TopHeaderView.xib */,
+				6076CEF31E8601F5006E5F6F /* NoLoginHeaderView.h */,
+				6076CEF41E8601F5006E5F6F /* NoLoginHeaderView.m */,
+				6076CEF61E86020C006E5F6F /* LoggedInHeaderView.h */,
+				6076CEF71E86020C006E5F6F /* LoggedInHeaderView.m */,
 				60402E511E851E7000B1AD91 /* TopCell.h */,
 				60402E521E851E7000B1AD91 /* TopCell.m */,
 				60402E531E851E7000B1AD91 /* TopCell.xib */,
@@ -1537,7 +1539,6 @@
 				60190AD61E2A07C0009C9450 /* 39.png in Resources */,
 				609F060D1E16218B009F4986 /* PayDetailCell.xib in Resources */,
 				60190ADB1E2A07C0009C9450 /* 44.png in Resources */,
-				60402E501E851B9300B1AD91 /* TopHeaderView.xib in Resources */,
 				60190AF21E2A07C0009C9450 /* 67.png in Resources */,
 				602BDD421E83697700C6CB92 /* MemoryCell.xib in Resources */,
 				60190AFB1E2A07C0009C9450 /* 76.png in Resources */,
@@ -1644,11 +1645,13 @@
 				609F061A1E162190009F4986 /* PaymentVC.m in Sources */,
 				6078D2061E1613180089D40F /* AppDelegate.m in Sources */,
 				6078D1FA1E1613180089D40F /* RSADataSigner.m in Sources */,
+				6076CEF51E8601F5006E5F6F /* NoLoginHeaderView.m in Sources */,
 				6078D1C81E1613180089D40F /* WordSearchVC.m in Sources */,
 				6078D2211E161AF20089D40F /* MJChiBaoZiHeader.m in Sources */,
 				6078D1F51E1613180089D40F /* DataSigner.m in Sources */,
 				609F063E1E1621D9009F4986 /* UseHelpVC.m in Sources */,
 				6078D1F81E1613180089D40F /* NSDataEx.m in Sources */,
+				6076CEF81E86020C006E5F6F /* LoggedInHeaderView.m in Sources */,
 				602BDD341E83679C00C6CB92 /* PlanCell.m in Sources */,
 				6078D1CA1E1613180089D40F /* RememberWordItemView.m in Sources */,
 				609F060C1E16218B009F4986 /* PayDetailCell.m in Sources */,
@@ -1666,7 +1669,6 @@
 				6078D2221E161AF20089D40F /* YHAlertView.m in Sources */,
 				60190B221E2A0A9A009C9450 /* FailedView.m in Sources */,
 				609F06331E1621D1009F4986 /* NotificationVC.m in Sources */,
-				60402E4E1E85198E00B1AD91 /* TopHeaderView.m in Sources */,
 				6078D2091E1613180089D40F /* UserGuideViewController.m in Sources */,
 				6078D2031E1613180089D40F /* main.m in Sources */,
 				609F05DF1E161D1A009F4986 /* ForgetPwdVC.m in Sources */,

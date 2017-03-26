@@ -8,6 +8,7 @@
 
 #import "LoginCodeVC.h"
 #import <UMSocialCore/UMSocialCore.h>
+#import "RootTabBarController.h"
 @interface LoginCodeVC ()
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
@@ -51,8 +52,20 @@
     // Pass the selected object to the new view controller.
 }
 */
-- (IBAction)pwdLoginClick:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+- (IBAction)backToHome:(id)sender {
+    [self returnToHome];
+}
+- (void)returnToHome{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    RootTabBarController *rootTBC = [sb instantiateViewControllerWithIdentifier:@"root"];
+    [app.window setRootViewController:rootTBC];
+    [app.window makeKeyWindow];
+}
+- (IBAction)loginButtonClick:(id)sender {
+    [self returnToHome];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
 }
 - (IBAction)qqLogin:(id)sender {
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_QQ currentViewController:nil completion:^(id result, NSError *error) {
