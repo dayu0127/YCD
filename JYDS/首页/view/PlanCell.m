@@ -7,18 +7,27 @@
 //
 
 #import "PlanCell.h"
-
+#import "UIButton+ImageTitleSpacing.h"
 @implementation PlanCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    for (UIButton *itemButton in _buttonCollection) {
+        [itemButton layoutButtonWithEdgeInsetsStyle:YHButtonEdgeInsetsStyleTop imageTitleSpace:8.0f];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+- (IBAction)mySubClick:(UIButton *)sender {
+}
+- (IBAction)memoryClick:(UIButton *)sender {
+}
+- (IBAction)invitationClick:(UIButton *)sender {
 }
 
 @end

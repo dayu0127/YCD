@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface PlanCell : UITableViewCell
-
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonCollection;
 @end

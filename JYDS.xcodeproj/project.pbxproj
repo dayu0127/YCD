@@ -220,6 +220,7 @@
 		60E2DD011E5A94F500D45986 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 60E2DCFC1E5A94F500D45986 /* README.txt */; };
 		60E2DD041E5AA22F00D45986 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E2DD031E5AA22F00D45986 /* WXApiManager.m */; };
 		60E5D43D1E35EF31006D6834 /* CodeListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E5D43C1E35EF31006D6834 /* CodeListVC.m */; };
+		60F308861E8A487600476E32 /* UIButton+ImageTitleSpacing.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F308851E8A487600476E32 /* UIButton+ImageTitleSpacing.m */; };
 		60F7321F1E691B4900907D1E /* RememberWordModuleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F7321E1E691B4900907D1E /* RememberWordModuleVC.m */; };
 		60FF515F1E0A5E3B00DA6693 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF515E1E0A5E3B00DA6693 /* libc++.tbd */; };
 		60FF51611E0A5E8C00DA6693 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF51601E0A5E8C00DA6693 /* libz.tbd */; };
@@ -611,6 +612,8 @@
 		60E2DD031E5AA22F00D45986 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
 		60E5D43B1E35EF31006D6834 /* CodeListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeListVC.h; sourceTree = "<group>"; };
 		60E5D43C1E35EF31006D6834 /* CodeListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeListVC.m; sourceTree = "<group>"; };
+		60F308841E8A487600476E32 /* UIButton+ImageTitleSpacing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+ImageTitleSpacing.h"; sourceTree = "<group>"; };
+		60F308851E8A487600476E32 /* UIButton+ImageTitleSpacing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+ImageTitleSpacing.m"; sourceTree = "<group>"; };
 		60F7321D1E691B4900907D1E /* RememberWordModuleVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordModuleVC.h; sourceTree = "<group>"; };
 		60F7321E1E691B4900907D1E /* RememberWordModuleVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordModuleVC.m; sourceTree = "<group>"; };
 		60FF515E1E0A5E3B00DA6693 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -1165,6 +1168,8 @@
 				6078D21D1E161AF20089D40F /* YHSingleton.m */,
 				6078D21E1E161AF20089D40F /* YHWebRequest.h */,
 				6078D21F1E161AF20089D40F /* YHWebRequest.m */,
+				60F308841E8A487600476E32 /* UIButton+ImageTitleSpacing.h */,
+				60F308851E8A487600476E32 /* UIButton+ImageTitleSpacing.m */,
 			);
 			name = Tools;
 			path = JYDS/Tools;
@@ -1638,6 +1643,7 @@
 				6078D1FF1E1613180089D40F /* BaseWKWebView.m in Sources */,
 				6078D1F71E1613180089D40F /* MD5DataSigner.m in Sources */,
 				60402E421E84BD5700B1AD91 /* LoginCodeVC.m in Sources */,
+				60F308861E8A487600476E32 /* UIButton+ImageTitleSpacing.m in Sources */,
 				6078D2071E1613180089D40F /* LoginNC.m in Sources */,
 				609F060E1E16218B009F4986 /* PaymentCell.m in Sources */,
 				606A94E41E51A89E00A0279D /* SecretsVC.m in Sources */,

@@ -32,7 +32,8 @@
     [_tableView registerNib:[UINib nibWithNibName:@"TopCell" bundle:nil] forCellReuseIdentifier:@"TopCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"MineCell" bundle:nil] forCellReuseIdentifier:@"MineCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"ButtomCell" bundle:nil] forCellReuseIdentifier:@"ButtomCell"];
-    _arr1 = @[@{@"img":@"mine_collect",@"title":@"我的收藏"},
+    _arr1 = @[@{@"img":@"mine_mysub",@"title":@"我的订阅"},
+                  @{@"img":@"mine_collect",@"title":@"我的收藏"},
                   @{@"img":@"mine_invitation",@"title":@"邀请奖励"},
                   @{@"img":@"mine_training",@"title":@"右脑训练"}];
     _arr2 = @[@{@"img":@"mine_aboutus",@"title":@"关于我们"},
@@ -50,7 +51,7 @@
     if (section==0) {
         return 1;
     }else if (section==1){
-        return 3;
+        return 4;
     }else{
         return 2;
     }
@@ -62,7 +63,7 @@
     if (indexPath.section==0) {
         return 38;
     }else if (indexPath.section==3&&indexPath.row ==1){
-        return 69;
+        return 75;
     }else{
         return 41;
     }

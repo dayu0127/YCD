@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,35 +16,38 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0iV-yg-OdW" userLabel="Button1">
                         <rect key="frame" x="0.0" y="0.0" width="125" height="69.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <inset key="titleEdgeInsets" minX="-29" minY="35" maxX="0.0" maxY="0.0"/>
-                        <inset key="imageEdgeInsets" minX="46" minY="-20" maxX="-4" maxY="0.0"/>
                         <state key="normal" title="我的订阅" image="home_mysub">
                             <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
+                        <connections>
+                            <action selector="mySubClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="xL5-c1-XJj"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hI7-mZ-JbX" userLabel="Button2">
                         <rect key="frame" x="125" y="0.0" width="125" height="69.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <inset key="titleEdgeInsets" minX="-31" minY="35" maxX="0.0" maxY="0.0"/>
-                        <inset key="imageEdgeInsets" minX="37" minY="-20" maxX="0.0" maxY="0.0"/>
                         <state key="normal" title="记忆法" image="home_memory">
                             <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
+                        <connections>
+                            <action selector="memoryClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="huN-bK-xut"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="97G-zt-tFq" userLabel="Button3">
                         <rect key="frame" x="250" y="0.0" width="125" height="69.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <inset key="titleEdgeInsets" minX="-29" minY="35" maxX="0.0" maxY="0.0"/>
-                        <inset key="imageEdgeInsets" minX="46" minY="-20" maxX="-4" maxY="0.0"/>
                         <state key="normal" title="邀请好友" image="home_invitation">
                             <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
+                        <connections>
+                            <action selector="invitationClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="EZ9-dQ-fhy"/>
+                        </connections>
                     </button>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -64,6 +67,11 @@
                 </constraints>
             </tableViewCellContentView>
             <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <connections>
+                <outletCollection property="buttonCollection" destination="0iV-yg-OdW" id="xNe-Xq-4CX"/>
+                <outletCollection property="buttonCollection" destination="hI7-mZ-JbX" id="eL6-mc-eeg"/>
+                <outletCollection property="buttonCollection" destination="97G-zt-tFq" id="1JP-lX-njj"/>
+            </connections>
             <point key="canvasLocation" x="63.5" y="57"/>
         </tableViewCell>
     </objects>
