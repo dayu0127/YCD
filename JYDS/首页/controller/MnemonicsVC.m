@@ -16,6 +16,7 @@
 #import "BannerCell.h"
 #import "PlanCell.h"
 #import "MemoryHeaderView.h"
+#import "DynamicCell.h"
 #import "MemoryCell.h"
 #import "PayVC.h"
 
@@ -32,7 +33,6 @@
 //@property (assign,nonatomic) BOOL isHiddenNav;
 //@property (strong,nonatomic) MJRefreshNormalHeader *header;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
 @end
 
 @implementation MnemonicsVC
@@ -44,6 +44,7 @@
     [super viewDidLoad];
     [_tableView registerNib:[UINib nibWithNibName:@"BannerCell" bundle:nil] forCellReuseIdentifier:@"BannerCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"PlanCell" bundle:nil] forCellReuseIdentifier:@"PlanCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"DynamicCell" bundle:nil] forCellReuseIdentifier:@"DynamicCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"MemoryCell" bundle:nil] forCellReuseIdentifier:@"MemoryCell"];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dayMode) name:@"dayMode" object:nil];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightMode) name:@"nightMode" object:nil];
@@ -89,25 +90,33 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            return 36/75.0*WIDTH;
+            return 112/375.0*WIDTH;
         }else{
-            return 206.0;
+            return 70.0f;
         }
+    }else if(indexPath.section == 1){
+        return 216.0f;
     }else{
-        return 75.0;
+        return 260;
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.0001;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return section == 0 ? 0.0001 : 44;
+    return section == 0 ? 0.0001 : 41;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 3;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return section == 0 ? 2 : 3;
+    if (section==0) {
+        return 2;
+    }else if(section ==1){
+        return 1;
+    }else{
+        return 3;
+    }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
@@ -120,8 +129,12 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
+    }else if(indexPath.section == 1){
+        DynamicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DynamicCell" forIndexPath:indexPath];
+        return cell;
     }else{
         MemoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MemoryCell" forIndexPath:indexPath];
+        cell.memoryImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"k%zd",indexPath.row+1]];
         return cell;
     }
 }
@@ -129,8 +142,13 @@
     if (section == 1) {
         MemoryHeaderView *headerView = [MemoryHeaderView loadView];
         return headerView;
+    }else if(section == 2){
+        MemoryHeaderView *headerView = [MemoryHeaderView loadView];
+        headerView.title.text = @"记忆法课程";
+        return headerView;
+    }else{
+        return nil;
     }
-    return nil;
 }
 //- (void)initTableView{
 //    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-113) style:UITableViewStyleGrouped];

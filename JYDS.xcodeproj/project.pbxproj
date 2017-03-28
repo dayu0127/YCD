@@ -214,6 +214,8 @@
 		609F06421E1621DF009F4986 /* HelpFeedbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F06411E1621DF009F4986 /* HelpFeedbackVC.m */; };
 		609F06451E1621E5009F4986 /* SetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F06441E1621E5009F4986 /* SetVC.m */; };
 		609F06471E1638CC009F4986 /* libPods-JYDS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 609F06461E1638CC009F4986 /* libPods-JYDS.a */; };
+		60A976C71E8A0B2400F5461B /* DynamicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A976C51E8A0B2400F5461B /* DynamicCell.m */; };
+		60A976C81E8A0B2400F5461B /* DynamicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60A976C61E8A0B2400F5461B /* DynamicCell.xib */; };
 		60E2DD001E5A94F500D45986 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60E2DCFB1E5A94F500D45986 /* libWeChatSDK.a */; };
 		60E2DD011E5A94F500D45986 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 60E2DCFC1E5A94F500D45986 /* README.txt */; };
 		60E2DD041E5AA22F00D45986 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E2DD031E5AA22F00D45986 /* WXApiManager.m */; };
@@ -597,6 +599,9 @@
 		609F06431E1621E5009F4986 /* SetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetVC.h; sourceTree = "<group>"; };
 		609F06441E1621E5009F4986 /* SetVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetVC.m; sourceTree = "<group>"; };
 		609F06461E1638CC009F4986 /* libPods-JYDS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-JYDS.a"; path = "../../Library/Developer/Xcode/DerivedData/JYDS-fqdknxlehibyzhblnywoodytclot/Build/Products/Debug-iphonesimulator/libPods-JYDS.a"; sourceTree = "<group>"; };
+		60A976C41E8A0B2400F5461B /* DynamicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicCell.h; sourceTree = "<group>"; };
+		60A976C51E8A0B2400F5461B /* DynamicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicCell.m; sourceTree = "<group>"; };
+		60A976C61E8A0B2400F5461B /* DynamicCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DynamicCell.xib; sourceTree = "<group>"; };
 		60E2DCFB1E5A94F500D45986 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		60E2DCFC1E5A94F500D45986 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		60E2DCFD1E5A94F500D45986 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
@@ -870,6 +875,9 @@
 				602BDD311E83679C00C6CB92 /* PlanCell.h */,
 				602BDD321E83679C00C6CB92 /* PlanCell.m */,
 				602BDD331E83679C00C6CB92 /* PlanCell.xib */,
+				60A976C41E8A0B2400F5461B /* DynamicCell.h */,
+				60A976C51E8A0B2400F5461B /* DynamicCell.m */,
+				60A976C61E8A0B2400F5461B /* DynamicCell.xib */,
 				602BDD361E83686F00C6CB92 /* MemoryHeaderView.h */,
 				602BDD371E83686F00C6CB92 /* MemoryHeaderView.m */,
 				602BDD391E83688C00C6CB92 /* MemoryHeaderView.xib */,
@@ -1457,6 +1465,7 @@
 				60190AF81E2A07C0009C9450 /* 73.png in Resources */,
 				60190AC61E2A07C0009C9450 /* 23.png in Resources */,
 				60190AE71E2A07C0009C9450 /* 56.png in Resources */,
+				60A976C81E8A0B2400F5461B /* DynamicCell.xib in Resources */,
 				60190ACC1E2A07C0009C9450 /* 29.png in Resources */,
 				60190AF01E2A07C0009C9450 /* 65.png in Resources */,
 				60190AC01E2A07C0009C9450 /* 17.png in Resources */,
@@ -1677,6 +1686,7 @@
 				609F063C1E1621D9009F4986 /* AboutUsVC.m in Sources */,
 				606A94F61E51A8CA00A0279D /* MnemonicsVC.m in Sources */,
 				609F06281E1621BD009F4986 /* UpdateInfoTableVC.m in Sources */,
+				60A976C71E8A0B2400F5461B /* DynamicCell.m in Sources */,
 				60190B191E2A09B3009C9450 /* ExerciseView.m in Sources */,
 				60884F2A1E7131EE008058B5 /* WordSearchCell.m in Sources */,
 				609F063D1E1621D9009F4986 /* IntroduceVC.m in Sources */,

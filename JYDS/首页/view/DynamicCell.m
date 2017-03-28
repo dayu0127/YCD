@@ -1,19 +1,18 @@
 //
-//  MemoryCell.m
+//  DynamicCell.m
 //  JYDS
 //
-//  Created by liyu on 2017/3/23.
+//  Created by 大雨 on 2017/3/28.
 //  Copyright © 2017年 dayu. All rights reserved.
 //
 
-#import "MemoryCell.h"
+#import "DynamicCell.h"
 
-@implementation MemoryCell
+@implementation DynamicCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

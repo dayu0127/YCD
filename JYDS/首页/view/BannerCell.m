@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, WIDTH, 36/75.0*WIDTH) delegate:self placeholderImage:[UIImage imageNamed:@"banner"]];
+    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, WIDTH, 112/375.0*WIDTH) delegate:self placeholderImage:[UIImage imageNamed:@"zuixin"]];
     if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
         cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControl"];
         cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_select"];

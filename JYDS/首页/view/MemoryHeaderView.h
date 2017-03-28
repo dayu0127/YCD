@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MemoryHeaderView : UIView
+@property (weak, nonatomic) IBOutlet UILabel *title;
 + (instancetype)loadView;
 @end

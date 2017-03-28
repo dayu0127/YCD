@@ -126,7 +126,7 @@
 
 
 //橙红色
-#define ORANGERED RGB(255,78,0) //#FF4E00
+#define ORANGERED RGB(255,78,0) //#FE514A
 //线色
 #define LINECOLOR RGB(228,228,228) //#E4E4E4
 //灰色
