@@ -21,6 +21,7 @@
 #import "LoginNC.h"
 #import "MJChiBaoZiHeader.h"
 #import <MJRefresh.h>
+#import <Masonry.h>
 //屏幕高宽
 #define WIDTH [UIScreen mainScreen].bounds.size.width
 #define HEIGHT [UIScreen mainScreen].bounds.size.height

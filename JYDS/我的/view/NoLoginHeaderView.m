@@ -7,19 +7,21 @@
 //
 
 #import "NoLoginHeaderView.h"
-
 @implementation NoLoginHeaderView
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        UIImageView *topImageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        //背景图
+        UIImageView *topImageView = [UIImageView new];
         topImageView.image = [UIImage imageNamed:@"mine_top"];
         topImageView.userInteractionEnabled = YES;
         [self addSubview:topImageView];
+        [topImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self);
+        }];
+        //登录注册按钮
         UIButton *loginButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        loginButton.center = topImageView.center;
-        loginButton.bounds = CGRectMake(0, 0, 103, 33);
         [loginButton setTitle:@"登录 / 注册" forState:UIControlStateNormal];
         loginButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
         [loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -29,6 +31,11 @@
         loginButton.layer.borderColor = [UIColor whiteColor].CGColor;
         [loginButton addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
         [topImageView addSubview:loginButton];
+        [loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(self);
+            make.width.mas_equalTo(@103);
+            make.height.mas_equalTo(@33);
+        }];
     }
     return self;
 }
