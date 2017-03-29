@@ -977,6 +977,7 @@
 				60402E431E850FD000B1AD91 /* controller */,
 				60402E441E850FD000B1AD91 /* model */,
 				60402E451E850FD000B1AD91 /* view */,
+				6083CC661E8AC2D800F393AD /* 个人信息 */,
 				609F05FC1E162057009F4986 /* 更改资料 */,
 				609F05FD1E162057009F4986 /* 充值支付 */,
 				609F05FE1E162057009F4986 /* 记忆法练习题 */,
@@ -1174,6 +1175,13 @@
 			name = Tools;
 			path = JYDS/Tools;
 			sourceTree = SOURCE_ROOT;
+		};
+		6083CC661E8AC2D800F393AD /* 个人信息 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "个人信息";
+			sourceTree = "<group>";
 		};
 		609F05E21E161DD2009F4986 /* model */ = {
 			isa = PBXGroup;
