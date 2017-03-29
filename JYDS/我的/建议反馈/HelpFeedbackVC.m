@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    _textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 10, WIDTH-20, 200)];
+    _textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 74, WIDTH-20, 200)];
     _textView.font = [UIFont systemFontOfSize:13.0f];
     _textView.delegate = self;
     _textView.layer.borderWidth = 1;
@@ -31,6 +31,9 @@
     _textView.layer.cornerRadius = 6.0f;
     [self.view addSubview:_textView];
     [self addPromptContent];
+}
+- (IBAction)backClick:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)addPromptContent{
     CGFloat y = WIDTH>375 ? 0 : 5;

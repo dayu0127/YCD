@@ -20,7 +20,7 @@
     for (UILabel *label in _labelCollection) {
         label.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     }
-    _continueButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+//    _continueButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
 }
 - (void)updateConstraints{
     [super updateConstraints];

@@ -9,11 +9,10 @@
 #import "SetVC.h"
 #import <UIImageView+WebCache.h>
 
-@interface SetVC ()<UITableViewDelegate,UITableViewDataSource,YHAlertViewDelegate>
+@interface SetVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSArray *arr;
-@property (weak, nonatomic) IBOutlet UIButton *logoutButton;
 @property (nonatomic,strong) JCAlertView *alertView;
 
 @end
@@ -28,7 +27,9 @@
     _tableView.separatorInset = UIEdgeInsetsZero;
     _tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
-    _logoutButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+}
+- (IBAction)backClick:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (NSArray *)arr{
     if (!_arr) {
@@ -86,32 +87,32 @@
     }
     [[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:@"isNightMode"];
 }
-- (IBAction)logoutButtonClick:(UIButton *)sender {
-    YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 255, 100) title:@"确定退出登录?" message:nil];
-    alertView.delegate = self;
-    _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
-    [_alertView show];
-}
-- (void)buttonClickIndex:(NSInteger)buttonIndex{
-    [_alertView dismissWithCompletion:nil];
-    if (buttonIndex == 1) {
-        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
-        [YHWebRequest YHWebRequestForPOST:LOGOUT parameters:dic success:^(NSDictionary *json) {
-            if ([json[@"code"] isEqualToString:@"SUCCESS"]||[json[@"code"] isEqualToString:@"TYPEERR"]) {
-                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-                [app.window setRootViewController:loginVC];
-                [app.window makeKeyWindow];
-                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
-            }else if([json[@"code"] isEqualToString:@"ERROR"]){
-                [YHHud showWithMessage:@"服务器错误"];
-            }else{
-                [YHHud showWithMessage:@"退出登录失败"];
-            }
-        } failure:^(NSError * _Nonnull error) {
-            [YHHud showWithMessage:@"数据请求失败"];
-        }];
-    }
-}
+//- (IBAction)logoutButtonClick:(UIButton *)sender {
+//    YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 255, 100) title:@"确定退出登录?" message:nil];
+//    alertView.delegate = self;
+//    _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
+//    [_alertView show];
+//}
+//- (void)buttonClickIndex:(NSInteger)buttonIndex{
+//    [_alertView dismissWithCompletion:nil];
+//    if (buttonIndex == 1) {
+//        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
+//        [YHWebRequest YHWebRequestForPOST:LOGOUT parameters:dic success:^(NSDictionary *json) {
+//            if ([json[@"code"] isEqualToString:@"SUCCESS"]||[json[@"code"] isEqualToString:@"TYPEERR"]) {
+//                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//                AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//                LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
+//                [app.window setRootViewController:loginVC];
+//                [app.window makeKeyWindow];
+//                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
+//            }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//                [YHHud showWithMessage:@"服务器错误"];
+//            }else{
+//                [YHHud showWithMessage:@"退出登录失败"];
+//            }
+//        } failure:^(NSError * _Nonnull error) {
+//            [YHHud showWithMessage:@"数据请求失败"];
+//        }];
+//    }
+//}
 @end

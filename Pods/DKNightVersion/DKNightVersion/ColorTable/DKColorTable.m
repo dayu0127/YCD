@@ -13,7 +13,8 @@
 @end
 
 @implementation NSString (Trimming)
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 - (NSString *)stringByTrimmingTrailingCharactersInSet:(NSCharacterSet *)characterSet {
     NSUInteger location = 0;
     NSUInteger length = [self length];

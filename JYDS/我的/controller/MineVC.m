@@ -12,7 +12,7 @@
 #import "ButtomCell.h"
 #import "NoLoginHeaderView.h"
 #import "LoggedInHeaderView.h"
-@interface MineVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface MineVC ()<UITableViewDelegate,UITableViewDataSource,LoggedInHeaderViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) NSArray *arr1;
 @property (strong,nonatomic) NSArray *arr2;
@@ -39,7 +39,9 @@
     _arr2 = @[@{@"img":@"mine_aboutus",@"title":@"关于我们"},
                   @{@"img":@"mine_feedback",@"title":@"意见反馈"}];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogin"] == YES) {
-        _tableView.tableHeaderView = [[LoggedInHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 187)];
+        LoggedInHeaderView *logged = [[LoggedInHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 187)];
+        logged.delegate = self;
+        _tableView.tableHeaderView = logged;
     }else{
         _tableView.tableHeaderView = [[NoLoginHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 187)];
     }
@@ -106,7 +108,27 @@
         }
     }
 }
+- (void)pushToUserInfo{
+    [self performSegueWithIdentifier:@"toUserInfo" sender:self];
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 1) {
+        if (indexPath.row == 0) {//我的订阅
+            [self performSegueWithIdentifier:@"toMySub" sender:self];
+        }else if(indexPath.row == 1){//我的收藏
+            [self performSegueWithIdentifier:@"toMyCollect" sender:self];
+        }else if (indexPath.row == 2){
+        
+        }else{//右脑训练
+            [self performSegueWithIdentifier:@"toExercises" sender:self];
+        }
+    }else if (indexPath.section == 2){
+        if (indexPath.row == 0) {
+            [self performSegueWithIdentifier:@"toAboutUs" sender:self];
+        }else{
+            [self performSegueWithIdentifier:@"toFeedback" sender:self];
+        }
+    }
 }
 @end

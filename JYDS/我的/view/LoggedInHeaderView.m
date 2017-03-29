@@ -23,12 +23,14 @@
             make.edges.equalTo(self);
         }];
         //头像
-        _headImageView = [UIImageView new];
-        _headImageView.image = [UIImage imageNamed:@"mine_headimage"];
-        _headImageView.layer.masksToBounds = YES;
-        _headImageView.layer.cornerRadius = 33.5f;
-        [self addSubview:_headImageView];
-        [_headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _headImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//        _headImageButton.imageView.image = [UIImage imageNamed:@"mine_headimage"];
+        [_headImageButton setImage:[UIImage imageNamed:@"mine_headimage"] forState:UIControlStateNormal];
+        _headImageButton.layer.masksToBounds = YES;
+        _headImageButton.layer.cornerRadius = 33.5f;
+        [_headImageButton addTarget:self action:@selector(userInfoClick) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_headImageButton];
+        [_headImageButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.mas_equalTo(self.mas_centerX);
             make.top.mas_equalTo(self.mas_top).offset(41);
             make.width.and.height.mas_equalTo(@67);
@@ -42,7 +44,7 @@
         [self addSubview:_nameLabel];
         [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.mas_equalTo(self.mas_centerX);
-            make.top.mas_equalTo(_headImageView.mas_bottom).offset(13);
+            make.top.mas_equalTo(_headImageButton.mas_bottom).offset(13);
             make.height.mas_equalTo(@14);
         }];
         //电话
@@ -59,5 +61,8 @@
         }];
     }
     return self;
+}
+- (void)userInfoClick{
+    [_delegate pushToUserInfo];
 }
 @end
