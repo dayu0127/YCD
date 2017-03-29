@@ -129,6 +129,8 @@
         }else{
             [self performSegueWithIdentifier:@"toFeedback" sender:self];
         }
+    }else if(indexPath.section == 3&&indexPath.row == 0){
+        [self performSegueWithIdentifier:@"toSet" sender:self];
     }
 }
 @end
