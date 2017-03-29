@@ -13,9 +13,12 @@
 @implementation UseHelpVC
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT-64)];
+    _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64)];
     NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:UseHelpUrl]];
     [_wkWebView loadRequest:request];
     [self.view addSubview:_wkWebView];
+}
+- (IBAction)backClick:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 @end

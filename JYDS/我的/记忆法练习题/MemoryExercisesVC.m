@@ -38,7 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _titleLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    _beginButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+//    _beginButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
     _useTitle.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _useTextView.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     _errorNumArray = [NSMutableArray array];
@@ -54,6 +54,9 @@
 //            [YHHud showWithMessage:@"数据异常"];
 //        }
 //    }];
+}
+- (IBAction)backClick:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark 开始练习
 - (IBAction)beginButtonClick:(UIButton *)sender {
@@ -94,7 +97,7 @@
 #pragma mark 选择等级
 - (void)levelButtonClick:(NSInteger)buttonIndex{
     _currentLevel = buttonIndex;
-    _exerciseView = [[ExerciseView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT-64) ExerciseNum:1 level:buttonIndex];
+    _exerciseView = [[ExerciseView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64) ExerciseNum:1 level:buttonIndex];
     _exerciseView.delegate = self;
     [self.view addSubview:_exerciseView];
 }
@@ -114,17 +117,17 @@
     if (arr.count == 0) {
         _successView = [[NSBundle mainBundle] loadNibNamed:
                         @"SuccessView" owner:nil options:nil ].lastObject;
-        _successView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64);
+        _successView.frame = CGRectMake(0, 64, WIDTH, HEIGHT-64);
         _successView.delegate = self;
         [self.view addSubview:_successView];
     }else if (arr.count>0&&arr.count<10){
-        _resultView = [[ResultView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT-64) imageNameArray:arr];
+        _resultView = [[ResultView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64) imageNameArray:arr];
         _resultView.delegate = self;
         [self.view addSubview:_resultView];
     }else{
         _failedView = [[NSBundle mainBundle] loadNibNamed:
                         @"FailedView" owner:nil options:nil ].lastObject;
-        _failedView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64);
+        _failedView.frame = CGRectMake(0, 64, WIDTH, HEIGHT-64);
         _failedView.delegate = self;
         [self.view addSubview:_failedView];
     }
@@ -146,7 +149,7 @@
 }
 - (void)backToExerciselView{
     [self backToLevelView];
-    _exerciseView = [[ExerciseView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT-64) ExerciseNum:_exerciseNum+1 level:_currentLevel];
+    _exerciseView = [[ExerciseView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64) ExerciseNum:_exerciseNum+1 level:_currentLevel];
     _exerciseView.delegate = self;
     [self.view addSubview:_exerciseView];
 }

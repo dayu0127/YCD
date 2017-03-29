@@ -34,6 +34,9 @@
     }
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
 }
+- (IBAction)backClick:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 - (NSArray *)dataArray{
     if(!_dataArray){
         if ([_typeStr isEqualToString:@"0"]) {

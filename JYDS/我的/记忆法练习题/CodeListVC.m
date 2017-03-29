@@ -20,12 +20,15 @@
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     layout.itemSize = CGSizeMake((WIDTH-20)/3.0, (WIDTH-20)/3.0);
     layout.minimumLineSpacing = 10; //上下的间距 可以设置0看下效果
-    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT-64) collectionViewLayout:layout];
+    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64) collectionViewLayout:layout];
     _collectionView.delegate = self;
     _collectionView.dataSource =self;
     _collectionView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_collectionView];
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+}
+- (IBAction)backClick:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (NSMutableArray *)arr{
     if (!_arr) {

@@ -136,11 +136,12 @@
             }
         }];
         //pass
-        UIButton *passButton = [[UIButton alloc] initWithFrame:CGRectMake((WIDTH-200)*0.5, CGRectGetMaxY(currentNumBgImageView.frame)+120, 200, 37)];
+        UIButton *passButton = [[UIButton alloc] initWithFrame:CGRectMake((WIDTH-200)*0.5, frame.size.height-60, 200, 37)];
         passButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
         [passButton setTitle:@"否" forState:UIControlStateNormal];
         [passButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        passButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+//        passButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+        passButton.backgroundColor = ORANGERED;
         passButton.layer.masksToBounds = YES;
         passButton.layer.cornerRadius = 6.0f;
         [passButton addTarget:self action:@selector(passClick) forControlEvents:UIControlEventTouchDown];
