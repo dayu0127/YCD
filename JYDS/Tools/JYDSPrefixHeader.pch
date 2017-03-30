@@ -71,37 +71,38 @@
 #define COUNTDOWN 60.0f
 
 //接口
-#define API(api) [NSString stringWithFormat:@"https://www.jydsapp.com/jyds/API/%@API",api] //正式
+#define API(api) [NSString stringWithFormat:@"http://www.zhongshuo.cn:8088/api/%@",api] //正式
 
-#define BANNER API(@"IOSbanner") //轮播图
-#define MEMORY API(@"course") //记忆法列表
-#define SUBALL API(@"subAll") //全部订阅
-#define SUB API(@"sub") //单个订阅
-#define COURSE API(@"getReciteWords") //记单词目录
-#define UNITLIST API(@"getUnitList") //获取单元列表
-#define WORD API(@"getWords") //分类单词
-//#define ALLWORD API(@"getAllWords") //获取所有单词
-#define SEARCHWORD API(@"wordSel")    //搜索单词
-#define UPLOADHEADIMAGE API(@"upload") //上传头像
-#define MEMORYBYID API(@"memoryIDSel") //记忆法id查详情
-#define WORDBYID API(@"wordIDSel") //单词id查详情
-#define LOGIN API(@"login") //登录
-#define REGISTER API(@"register") //注册
-#define FORGETPWD API(@"forgetPwd") //密码找回
-#define UPDATEPWD API(@"updatePwd") //修改密码
-#define COSTDETAIL API(@"getCostDetail")  //支付明细
-#define PAYDETAIL API(@"getPayDetail")  //充值明细
-#define BEANS API(@"getBeans")  //获取用户学习豆
-#define UPDNICK API(@"updateNickName")  //修改昵称
-#define FEEDBACK API(@"fedBack") //反馈
-#define INVITATION API(@"Invitation") //邀请列表
-#define LOGOUT API(@"logout") //退出登录
-#define ALISIGN API(@"order_generate") //支付宝签名
-#define ALICHECK API(@"ALI_Sign_check") //支付宝验签
-#define WXSIGN API(@"wx_unifiedorder") //微信统一下单(生成订单并签名)
-#define WXCHECK API(@"wx_orderquery") //微信订单查询(验签)
-#define FREEWORD API(@"userFreeCount")   //免费单词订阅
-#define HAHA API(@"IOS")
+//#define BANNER API(@"IOSbanner") //轮播图
+//#define MEMORY API(@"course") //记忆法列表
+//#define SUBALL API(@"subAll") //全部订阅
+//#define SUB API(@"sub") //单个订阅
+//#define COURSE API(@"getReciteWords") //记单词目录
+//#define UNITLIST API(@"getUnitList") //获取单元列表
+//#define WORD API(@"getWords") //分类单词
+////#define ALLWORD API(@"getAllWords") //获取所有单词
+//#define SEARCHWORD API(@"wordSel")    //搜索单词
+//#define UPLOADHEADIMAGE API(@"upload") //上传头像
+//#define MEMORYBYID API(@"memoryIDSel") //记忆法id查详情
+//#define WORDBYID API(@"wordIDSel") //单词id查详情
+//#define LOGIN API(@"login") //登录
+//#define REGISTER API(@"register") //注册
+//#define FORGETPWD API(@"forgetPwd") //密码找回
+//#define UPDATEPWD API(@"updatePwd") //修改密码
+//#define COSTDETAIL API(@"getCostDetail")  //支付明细
+//#define PAYDETAIL API(@"getPayDetail")  //充值明细
+//#define BEANS API(@"getBeans")  //获取用户学习豆
+//#define UPDNICK API(@"updateNickName")  //修改昵称
+//#define FEEDBACK API(@"fedBack") //反馈
+//#define INVITATION API(@"Invitation") //邀请列表
+//#define LOGOUT API(@"logout") //退出登录
+//#define ALISIGN API(@"order_generate") //支付宝签名
+//#define ALICHECK API(@"ALI_Sign_check") //支付宝验签
+//#define WXSIGN API(@"wx_unifiedorder") //微信统一下单(生成订单并签名)
+//#define WXCHECK API(@"wx_orderquery") //微信订单查询(验签)
+//#define FREEWORD API(@"userFreeCount")   //免费单词订阅
+//#define HAHA API(@"IOS")
+#define kGetCheckCode API(@"") //
 
 //练习题等级数组
 #define LEVELARRAY @[@"60",@"50",@"40",@"30",@"25",@"20",@"15",@"13",@"10"]

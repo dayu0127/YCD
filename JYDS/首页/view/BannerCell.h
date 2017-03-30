@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <SDCycleScrollView.h>
 @interface BannerCell : UITableViewCell<SDCycleScrollViewDelegate>
-
+@property (strong,nonatomic) NSMutableArray *netImages;  //网络图片
+@property (strong,nonatomic) NSArray *bannerInfoArray;
 @end

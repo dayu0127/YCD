@@ -8,10 +8,13 @@
 
 #import "SetVC.h"
 #import <UIImageView+WebCache.h>
-
+#import "SetCell.h"
+#import "SetCell0.h"
+#import "SetCell1.h"
 @interface SetVC ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic,strong) UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @property (nonatomic,strong) NSArray *arr;
 @property (nonatomic,strong) JCAlertView *alertView;
 
@@ -20,13 +23,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT-120) style:UITableViewStyleGrouped];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    _tableView.bounces = NO;
-    _tableView.separatorInset = UIEdgeInsetsZero;
-    _tableView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:_tableView];
+    [_tableView registerNib:[UINib nibWithNibName:@"SetCell" bundle:nil] forCellReuseIdentifier:@"SetCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"SetCell0" bundle:nil] forCellReuseIdentifier:@"SetCell0"];
+    [_tableView registerNib:[UINib nibWithNibName:@"SetCell1" bundle:nil] forCellReuseIdentifier:@"SetCell1"];
 }
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -38,34 +37,27 @@
     return _arr;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return 3;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 13;
+    return 0.00001;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 44)];
-    cell.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(16, 0, 100, 44)];
-    label.text = self.arr[indexPath.row];
-    label.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    label.font = [UIFont systemFontOfSize:15.0f];
-    [cell.contentView addSubview:label];
-    if (indexPath.row==0) {
-        UISwitch *sw = [[UISwitch alloc] initWithFrame:CGRectMake((WIDTH-67), 6.5, 51, 31)];
-        [sw addTarget:self action:@selector(openNight:) forControlEvents:UIControlEventValueChanged];
-        [sw setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"isNightMode"]];
-        [cell.contentView addSubview:sw];
+    if (indexPath.row == 0) {
+        SetCell0 *cell = [tableView dequeueReusableCellWithIdentifier:@"SetCell0" forIndexPath:indexPath];
+        return cell;
+    }else if (indexPath.row == 1){
+        SetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SetCell" forIndexPath:indexPath];
+        return cell;
     }else{
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
-        cell.selectedBackgroundView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_SELT,N_CELL_SELT,RED);
+        SetCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"SetCell1" forIndexPath:indexPath];
+        return cell;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 1) {
+    if (indexPath.row == 0) {
+        [self performSegueWithIdentifier:@"toAccountSet" sender:self];
+    }else if (indexPath.row == 1) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         [YHHud showWithStatus:@"正在清除"];
         [[SDImageCache sharedImageCache] clearDisk];

@@ -207,12 +207,7 @@
 //        _registerButton.backgroundColor = [UIColor lightGrayColor];
 //    }
 //}
-- (IBAction)userAgreementClick:(id)sender {
-    UserAgreementVC *ag = [[UserAgreementVC alloc] init];
-    ag.title = @"记忆大师用户协议";
-    ag.isRegister = YES;
-    [self.navigationController pushViewController:ag animated:YES];
-}
+
 
 //- (void)viewWillDisappear:(BOOL)animated{
 //    [super viewWillDisappear:animated];

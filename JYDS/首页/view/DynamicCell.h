@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DynamicCell : UITableViewCell
-
+@interface DynamicCell : UITableViewCell<UIScrollViewDelegate>
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (assign,nonatomic) NSInteger imageCount;
+@property (strong,nonatomic) UIButton *leftButton;
+@property (strong,nonatomic) UIButton *rightButton;
 @end

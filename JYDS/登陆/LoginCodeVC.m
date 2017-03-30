@@ -25,10 +25,6 @@
     _loginButton.layer.borderColor = GRAYCOLOR.CGColor;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 - (IBAction)phoneEditingChanged:(UITextField *)sender {
     if (sender.text.length==0) {
         _loginButton.enabled = NO;
@@ -61,6 +57,9 @@
     RootTabBarController *rootTBC = [sb instantiateViewControllerWithIdentifier:@"root"];
     [app.window setRootViewController:rootTBC];
     [app.window makeKeyWindow];
+}
+- (IBAction)getCodeClick:(id)sender {
+    
 }
 - (IBAction)loginButtonClick:(id)sender {
     [self returnToHome];
