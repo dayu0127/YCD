@@ -43,29 +43,29 @@
 }
 - (void)createWordTable{
     [self initTableView];
-    [YHHud showWithStatus:@"单词加载中..."];
-    NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"classifyID":_classifyID,@"device_id":DEVICEID,@"unitID":_unitID};
-    [YHWebRequest YHWebRequestForPOST:WORD parameters:dic success:^(NSDictionary *json) {
-        [YHHud dismiss];
-        if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-            [self returnToLogin];
-        }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-            self.wordArray = [NSMutableArray arrayWithArray:json[@"data"]];
-            [self.tableView reloadData];
-            // 获取所有单词的ID数组
-            _wordIDArray = [NSMutableArray array];
-            for (NSInteger i = 0; i < self.wordArray.count; i++) {
-                [_wordIDArray addObject:self.wordArray[i][@"wordID"]];
-            }
-        }else if([json[@"code"] isEqualToString:@"ERROR"]){
-            [YHHud showWithMessage:@"服务器错误"];
-        }else{
-            [YHHud showWithMessage:@"数据异常"];
-        }
-    } failure:^(NSError * _Nonnull error) {
-        [YHHud dismiss];
-        [YHHud showWithMessage:@"数据请求失败"];
-    }];
+//    [YHHud showWithStatus:@"单词加载中..."];
+//    NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"classifyID":_classifyID,@"device_id":DEVICEID,@"unitID":_unitID};
+//    [YHWebRequest YHWebRequestForPOST:WORD parameters:dic success:^(NSDictionary *json) {
+//        [YHHud dismiss];
+//        if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+//            [self returnToLogin];
+//        }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//            self.wordArray = [NSMutableArray arrayWithArray:json[@"data"]];
+//            [self.tableView reloadData];
+//            // 获取所有单词的ID数组
+//            _wordIDArray = [NSMutableArray array];
+//            for (NSInteger i = 0; i < self.wordArray.count; i++) {
+//                [_wordIDArray addObject:self.wordArray[i][@"wordID"]];
+//            }
+//        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//            [YHHud showWithMessage:@"服务器错误"];
+//        }else{
+//            [YHHud showWithMessage:@"数据异常"];
+//        }
+//    } failure:^(NSError * _Nonnull error) {
+//        [YHHud dismiss];
+//        [YHHud showWithMessage:@"数据请求失败"];
+//    }];
 }
 #pragma mark 初始化TableView
 - (void)initTableView{
@@ -76,43 +76,43 @@
     _tableView.separatorInset = UIEdgeInsetsZero;
     _tableView.backgroundColor = [UIColor clearColor];
     [_tableView registerNib:[UINib nibWithNibName:@"RememberWordSingleWordCell" bundle:nil] forCellReuseIdentifier:@"RememberWordSingleWordCell"];
-    _header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"classifyID":_classifyID,@"device_id":DEVICEID,@"unitID":_unitID};
-        [YHWebRequest YHWebRequestForPOST:WORD parameters:dic success:^(NSDictionary *json) {
-            [_tableView.mj_header endRefreshing];
-            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-                [self returnToLogin];
-            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                self.wordArray = [NSMutableArray arrayWithArray:json[@"data"]];
-                [self.tableView reloadData];
-                // 获取所有单词的ID数组
-                _wordIDArray = [NSMutableArray array];
-                for (NSInteger i = 0; i < self.wordArray.count; i++) {
-                    [_wordIDArray addObject:self.wordArray[i][@"wordID"]];
-                }
-            }else if([json[@"code"] isEqualToString:@"ERROR"]){
-                [YHHud showWithMessage:@"服务器错误"];
-            }else{
-                [YHHud showWithMessage:@"数据异常"];
-            }
-        } failure:^(NSError * _Nonnull error) {
-            [_tableView.mj_header endRefreshing];
-            [YHHud showWithMessage:@"数据请求失败"];
-        }];
-    }];
-    // 设置自动切换透明度(在导航栏下面自动隐藏)
-    _header.automaticallyChangeAlpha = YES;
-    // 隐藏时间
-    _header.lastUpdatedTimeLabel.hidden = YES;
-    // 设置菊花样式
-    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
-        _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    }else{
-        _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-    }
-    // 设置header
-    self.tableView.mj_header = _header;
-    [self.view addSubview:self.tableView];
+//    _header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"classifyID":_classifyID,@"device_id":DEVICEID,@"unitID":_unitID};
+//        [YHWebRequest YHWebRequestForPOST:WORD parameters:dic success:^(NSDictionary *json) {
+//            [_tableView.mj_header endRefreshing];
+//            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+//                [self returnToLogin];
+//            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//                self.wordArray = [NSMutableArray arrayWithArray:json[@"data"]];
+//                [self.tableView reloadData];
+//                // 获取所有单词的ID数组
+//                _wordIDArray = [NSMutableArray array];
+//                for (NSInteger i = 0; i < self.wordArray.count; i++) {
+//                    [_wordIDArray addObject:self.wordArray[i][@"wordID"]];
+//                }
+//            }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//                [YHHud showWithMessage:@"服务器错误"];
+//            }else{
+//                [YHHud showWithMessage:@"数据异常"];
+//            }
+//        } failure:^(NSError * _Nonnull error) {
+//            [_tableView.mj_header endRefreshing];
+//            [YHHud showWithMessage:@"数据请求失败"];
+//        }];
+//    }];
+//    // 设置自动切换透明度(在导航栏下面自动隐藏)
+//    _header.automaticallyChangeAlpha = YES;
+//    // 隐藏时间
+//    _header.lastUpdatedTimeLabel.hidden = YES;
+//    // 设置菊花样式
+//    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
+//        _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+//    }else{
+//        _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+//    }
+//    // 设置header
+//    self.tableView.mj_header = _header;
+//    [self.view addSubview:self.tableView];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -159,32 +159,32 @@
 - (void)buttonClickIndex:(NSInteger)buttonIndex{
     [_alertView dismissWithCompletion:nil];
     if (buttonIndex == 1) {
-        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"wordID":_wordID,@"device_id":DEVICEID};
-        [YHWebRequest YHWebRequestForPOST:FREEWORD parameters:dic success:^(NSDictionary *json) {
-            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-                [self returnToLogin];
-            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                [YHSingleton shareSingleton].userInfo.freeCount = [NSString stringWithFormat:@"%@",json[@"freeCount"]];
-                [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
-                for (NSInteger i = 0; i<_wordArray.count; i++) {
-                    NSMutableDictionary *item = [[NSMutableDictionary alloc] initWithDictionary:[_wordArray objectAtIndex:i]];
-                    if ([item[@"wordID"] integerValue] == [_wordID integerValue]) {
-                        [item setObject:[NSNumber numberWithInt:1] forKey:@"payType"];
-                    }
-                    [_wordArray replaceObjectAtIndex:i withObject:[NSDictionary dictionaryWithDictionary:item]];
-                }
-                //刷新当前cell的数据
-                [_tableView reloadRowsAtIndexPaths:_indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
-                [YHHud showWithSuccess:@"订阅成功"];
-                [_delegate updateSubBean];
-            }else if([json[@"code"] isEqualToString:@"ERROR"]){
-                [YHHud showWithMessage:@"服务器错误"];
-            }else{
-                [YHHud showWithMessage:@"订阅失败"];
-            }
-        } failure:^(NSError * _Nonnull error) {
-            [YHHud showWithMessage:@"数据请求失败"];
-        }];
+//        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"wordID":_wordID,@"device_id":DEVICEID};
+//        [YHWebRequest YHWebRequestForPOST:FREEWORD parameters:dic success:^(NSDictionary *json) {
+//            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+//                [self returnToLogin];
+//            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//                [YHSingleton shareSingleton].userInfo.freeCount = [NSString stringWithFormat:@"%@",json[@"freeCount"]];
+//                [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
+//                for (NSInteger i = 0; i<_wordArray.count; i++) {
+//                    NSMutableDictionary *item = [[NSMutableDictionary alloc] initWithDictionary:[_wordArray objectAtIndex:i]];
+//                    if ([item[@"wordID"] integerValue] == [_wordID integerValue]) {
+//                        [item setObject:[NSNumber numberWithInt:1] forKey:@"payType"];
+//                    }
+//                    [_wordArray replaceObjectAtIndex:i withObject:[NSDictionary dictionaryWithDictionary:item]];
+//                }
+//                //刷新当前cell的数据
+//                [_tableView reloadRowsAtIndexPaths:_indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
+//                [YHHud showWithSuccess:@"订阅成功"];
+//                [_delegate updateSubBean];
+//            }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//                [YHHud showWithMessage:@"服务器错误"];
+//            }else{
+//                [YHHud showWithMessage:@"订阅失败"];
+//            }
+//        } failure:^(NSError * _Nonnull error) {
+//            [YHHud showWithMessage:@"数据请求失败"];
+//        }];
     }
 }
 @end

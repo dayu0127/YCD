@@ -22,6 +22,8 @@
 #import "MJChiBaoZiHeader.h"
 #import <MJRefresh.h>
 #import <Masonry.h>
+#import "NSDictionary+FromNSString.h"
+#import "NSString+FromNSDictionary.h"
 //屏幕高宽
 #define WIDTH [UIScreen mainScreen].bounds.size.width
 #define HEIGHT [UIScreen mainScreen].bounds.size.height
@@ -71,7 +73,8 @@
 #define COUNTDOWN 60.0f
 
 //接口
-#define API(api) [NSString stringWithFormat:@"http://www.zhongshuo.cn:8088/api/%@",api] //正式
+#define API(api) [NSString stringWithFormat:@"https://www.jydsapp.com/jydsApi/api/v2%@",api] //正式
+//#define API(api) [NSString stringWithFormat:@"http://www.zhongshuo.cn/jyds/jydsApi/api/v2%@",api] //正式
 
 //#define BANNER API(@"IOSbanner") //轮播图
 //#define MEMORY API(@"course") //记忆法列表
@@ -102,7 +105,24 @@
 //#define WXCHECK API(@"wx_orderquery") //微信订单查询(验签)
 //#define FREEWORD API(@"userFreeCount")   //免费单词订阅
 //#define HAHA API(@"IOS")
-#define kGetCheckCode API(@"") //
+
+#define kRegister API(@"/login/register") //注册接口
+#define kPwdLogin API(@"/login/phonePasswordLogin") //用户手机密码登录
+#define kCodeLogin API(@"/login/phoneVerifyLogin") //用户手机验证码登录
+#define kQQLogin API(@"/login/qqLogin") //用户qq登录
+#define kWXLogin API(@"/login/weixinLogin") //用户微信登录
+#define kSendCheckCode API(@"/sms/sendCode") //发送验证码统一入口
+#define kUpdatePwd API(@"/user/modifyPassword") //用户修改密码
+#define kSetPwd API(@"/user/findPassword") //用户找回(设置)密码
+#define kBindingQQ API(@"/user/bindingQq") //用户绑定qq
+#define kBindingWX API(@"/user/bindingWeixin") //用户绑定微信
+#define kBindingPhone API(@"/user/bindingPhone") //用户绑定手机号
+#define kUpdateHead API(@"/user/updateUserImg") //更新头像
+#define kGradeList API(@"/study/getSectionList") //获取年段列表
+#define kNicknameSex API(@"/user/updateUser") //更新用户昵称和性别
+#define kPlayerSet API(@"/system/getPlayerSys") //获取播放器设置
+#define kBanner API(@"/common/getIndexImages") //获取轮播图
+
 
 //练习题等级数组
 #define LEVELARRAY @[@"60",@"50",@"40",@"30",@"25",@"20",@"15",@"13",@"10"]

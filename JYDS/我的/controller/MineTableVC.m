@@ -53,38 +53,38 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dayMode) name:@"dayMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightMode) name:@"nightMode" object:nil];
     //下拉刷新
-    _header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
-            [self.tableView.mj_header endRefreshing];
-            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-                [self returnToLogin];
-            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                _studyBean.text = [NSString stringWithFormat:@"%@",json[@"data"][@"restBean"]];
-                _costStudyBean.text = [NSString stringWithFormat:@"%@",json[@"data"][@"consumeBean"]];
-                // 拿到当前的下拉刷新控件，结束刷新状态
-            }else if([json[@"code"] isEqualToString:@"ERROR"]){
-                [YHHud showWithMessage:@"服务器错误"];
-            }else{
-                [YHHud showWithMessage:@"数据异常"];
-            }
-        } failure:^(NSError * _Nonnull error) {
-            NSLog(@"111111111111");
-            [self.tableView.mj_header endRefreshing];
-            [YHHud showWithMessage:@"数据请求失败"];
-        }];
-    }];
-    // 设置自动切换透明度(在导航栏下面自动隐藏)
-    _header.automaticallyChangeAlpha = YES;
-    // 隐藏时间
-    _header.lastUpdatedTimeLabel.hidden = YES;
-    // 设置菊花样式
-    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
-        _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    }else{
-        _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-    }
-    // 设置header
-    self.tableView.mj_header = _header;
+//    _header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+//            [self.tableView.mj_header endRefreshing];
+//            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+//                [self returnToLogin];
+//            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//                _studyBean.text = [NSString stringWithFormat:@"%@",json[@"data"][@"restBean"]];
+//                _costStudyBean.text = [NSString stringWithFormat:@"%@",json[@"data"][@"consumeBean"]];
+//                // 拿到当前的下拉刷新控件，结束刷新状态
+//            }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//                [YHHud showWithMessage:@"服务器错误"];
+//            }else{
+//                [YHHud showWithMessage:@"数据异常"];
+//            }
+//        } failure:^(NSError * _Nonnull error) {
+//            NSLog(@"111111111111");
+//            [self.tableView.mj_header endRefreshing];
+//            [YHHud showWithMessage:@"数据请求失败"];
+//        }];
+//    }];
+//    // 设置自动切换透明度(在导航栏下面自动隐藏)
+//    _header.automaticallyChangeAlpha = YES;
+//    // 隐藏时间
+//    _header.lastUpdatedTimeLabel.hidden = YES;
+//    // 设置菊花样式
+//    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNormal]) {
+//        _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+//    }else{
+//        _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+//    }
+//    // 设置header
+//    self.tableView.mj_header = _header;
 }
 - (void)dayMode{
     _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;

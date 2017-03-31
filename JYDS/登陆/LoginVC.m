@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *phoneText;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 //@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonCollection;
+@property (weak, nonatomic) IBOutlet UITextField *pwdTxt;
 @end
 
 @implementation LoginVC
@@ -101,9 +102,36 @@
 }
 #pragma mark 点击登录
 - (IBAction)loginButtonClick:(UIButton *)sender {
-    [self returnToHome];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
+//    {
+//        "phoneNum":"13300001111",#手机号
+//        "password":"123456",     #密码
+//        "deviceNum":"123456",    #设备码（选填）
+//        "deviceType":"ios",      #设备类型（选填）
+//        "deviceSize":"5.5"       #设备尺寸（选填）
+//        "deviceOem":"iPhone6s",  #设备名称（选填）
+//        "deviceOs" :"5.1.1"      #设备操作系统（选填）
+//    }
+    NSString *phoneNum = _phoneText.text;
+    NSString *password = _pwdTxt.text;
+    NSDictionary *jsonDic = @{
+                                      @"phoneNum" :phoneNum,             // #用户名
+                                      @"password":password,               //    #密码
+                                      @"deviceNum":DEVICEID,    //#设备码（选填）
+                                      };
+    [YHWebRequest YHWebRequestForPOST:kPwdLogin parameters:jsonDic success:^(NSDictionary *json) {
+        if ([json[@"code"] integerValue] == 200) {
+            [[NSUserDefaults standardUserDefaults] setObject:[NSDictionary dictionaryWithJsonString:json[@"data"]][@"token"] forKey:@"token"];
+            [YHHud showWithSuccess:@"登录成功"];
+            [[NSUserDefaults standardUserDefaults] setObject:phoneNum forKey:@"phoneNum"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"login"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self returnToHome];
+            });
+        }
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
 //    if (REGEX(PHONE_RE, _phoneText.text)==NO) {
 //        [YHHud showWithMessage:@"请输入有效的11位手机号"];
 //    }else if (REGEX(PWD_RE, _pwdText.text)==NO){
@@ -170,6 +198,33 @@
             
             // 第三方平台SDK源数据
             NSLog(@"QQ originalResponse: %@", resp.originalResponse);
+            
+//            {
+//                "associatedQq":"dfdsfsdfsdf",   #第三方绑定的uid 唯一标识
+//                "country":"",                   #国家（选填）
+//                "province":"",                  #省市（选填）
+//                "city":"",                      #城市（选填）
+//                "genter":""                     #性别 1男 0女  （选填）     
+//            }
+            NSString *associatedQq = resp.uid;
+            NSString *genter = resp.gender;
+            NSDictionary *jsonDic = @{
+                                                 @"associatedQq" :associatedQq,             // #第三方绑定的uid 唯一标识
+                                                 @"genter":genter               //   #性别 1男 0女  （选填
+                                              };
+            [YHWebRequest YHWebRequestForPOST:kQQLogin parameters:jsonDic success:^(NSDictionary *json) {
+                if ([json[@"code"] integerValue] == 200) {
+                    [YHSingleton shareSingleton].userInfo.associatedQq = associatedQq;
+                    [YHHud showWithSuccess:@"登录成功"];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self returnToHome];
+                    });
+                }
+            } failure:^(NSError * _Nonnull error) {
+                NSLog(@"%@",error);
+            }];
         }
     }];
 }
@@ -194,6 +249,34 @@
             
             // 第三方平台SDK源数据
             NSLog(@"Wechat originalResponse: %@", resp.originalResponse);
+            
+//            {
+//                "associatedWx":"dfdsfsdfsdf"    #第三方绑定的uid 唯一标识
+//                "country":"",                   #国家（选填）
+//                "province":"",                  #省市（选填）
+//                "city":"",                      #城市（选填）
+//                "genter":""                     #性别 1男 0女  （选填）
+//            }
+            NSString *associatedWx = resp.uid;
+            NSString *genter = resp.gender;
+            NSDictionary *jsonDic = @{
+                                              @"associatedWx" :associatedWx,             // #第三方绑定的uid 唯一标识
+                                              @"genter":genter               //   #性别 1男 0女  （选填
+                                              };
+            [YHWebRequest YHWebRequestForPOST:kQQLogin parameters:jsonDic success:^(NSDictionary *json) {
+                if ([json[@"code"] integerValue] == 200) {
+                    
+                    [YHSingleton shareSingleton].userInfo.associatedWx = associatedWx;
+                    [YHHud showWithSuccess:json[@"message"]];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self returnToHome];
+                    });
+                }
+            } failure:^(NSError * _Nonnull error) {
+                NSLog(@"%@",error);
+            }];
         }
     }];
 }

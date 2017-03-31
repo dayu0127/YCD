@@ -38,28 +38,28 @@
     if (REGEX(NICK_RE, _nickNameTextField.text)==NO) {
         [YHHud showWithMessage:@"只能是数字,字母,下划线和汉字哦"];
     }else{
-        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"nickName":_nickNameTextField.text,@"device_id":DEVICEID};
-        [YHWebRequest YHWebRequestForPOST:UPDNICK parameters:dic success:^(NSDictionary *json) {
-            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-                [self returnToLogin];
-            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                [YHHud showWithSuccess:@"修改成功"];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    //更新用户信息
-                    [YHSingleton shareSingleton].userInfo.nickName = _nickNameTextField.text;
-                    [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
-                    NSDictionary *dic = [NSDictionary dictionaryWithObject:_nickNameTextField.text forKey:@"nickName"];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateNickName" object:nil userInfo:dic];
-                    [self.navigationController popViewControllerAnimated:YES];
-                });
-            }else if([json[@"code"] isEqualToString:@"ERROR"]){
-                [YHHud showWithMessage:@"服务器错误"];
-            }else{
-                [YHHud showWithMessage:@"修改失败"];
-            }
-        } failure:^(NSError * _Nonnull error) {
-            [YHHud showWithMessage:@"网络请求失败"];
-        }];
+//        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"nickName":_nickNameTextField.text,@"device_id":DEVICEID};
+//        [YHWebRequest YHWebRequestForPOST:UPDNICK parameters:dic success:^(NSDictionary *json) {
+//            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+//                [self returnToLogin];
+//            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//                [YHHud showWithSuccess:@"修改成功"];
+//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                    //更新用户信息
+//                    [YHSingleton shareSingleton].userInfo.nickName = _nickNameTextField.text;
+//                    [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
+//                    NSDictionary *dic = [NSDictionary dictionaryWithObject:_nickNameTextField.text forKey:@"nickName"];
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateNickName" object:nil userInfo:dic];
+//                    [self.navigationController popViewControllerAnimated:YES];
+//                });
+//            }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//                [YHHud showWithMessage:@"服务器错误"];
+//            }else{
+//                [YHHud showWithMessage:@"修改失败"];
+//            }
+//        } failure:^(NSError * _Nonnull error) {
+//            [YHHud showWithMessage:@"网络请求失败"];
+//        }];
     }
 }
 @end

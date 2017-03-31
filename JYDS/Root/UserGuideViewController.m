@@ -11,7 +11,7 @@
 #import "AppDelegate.h"
 @interface UserGuideViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+//@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong,nonatomic) UIButton *entryButton;
 @end
 
@@ -23,27 +23,46 @@
     for (int i = 0; i<3; i++) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH*i, 0, WIDTH, HEIGHT)];
         imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"guide%d",i+1]];
-        if (i==2) {
-            imageView.userInteractionEnabled = YES;
-            [imageView addSubview:self.entryButton];
+        imageView.userInteractionEnabled = YES;
+        if (i!=2) {
+            UIButton *skipButton = [UIButton buttonWithType:UIButtonTypeSystem];
+            [skipButton setTitle:@"跳过" forState:UIControlStateNormal];
+            skipButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
+            [skipButton setTitleColor:ORANGERED forState:UIControlStateNormal];
+            skipButton.layer.masksToBounds = YES;
+            skipButton.layer.cornerRadius = 9.0f;
+            skipButton.layer.borderWidth = 2;
+            skipButton.layer.borderColor = ORANGERED.CGColor;
+            [skipButton addTarget:self action:@selector(entryRootVC) forControlEvents:UIControlEventTouchUpInside];
+            [imageView addSubview:skipButton];
+            [skipButton mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(imageView).offset(33);
+                make.right.equalTo(imageView).offset(-10);
+                make.width.mas_equalTo(@45);
+                make.height.mas_equalTo(@18);
+            }];
+        }else{
+            UIButton *startButton = [UIButton buttonWithType:UIButtonTypeSystem];
+            [startButton setTitle:@"开始体验" forState:UIControlStateNormal];
+            startButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+            [startButton setTitleColor:ORANGERED forState:UIControlStateNormal];
+            startButton.layer.masksToBounds = YES;
+            startButton.layer.cornerRadius = 15.0f;
+            startButton.layer.borderWidth = 2;
+            startButton.layer.borderColor = ORANGERED.CGColor;
+            [startButton addTarget:self action:@selector(entryRootVC) forControlEvents:UIControlEventTouchUpInside];
+            [imageView addSubview:startButton];
+            [startButton mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(imageView);
+                make.bottom.equalTo(imageView).offset(-40);
+                make.width.mas_equalTo(@109);
+                make.height.mas_equalTo(@30);
+            }];
         }
         [_scrollView addSubview:imageView];
     }
 }
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    _pageControl.currentPage = _scrollView.contentOffset.x/WIDTH;
-}
-- (UIButton *)entryButton{
-    if (!_entryButton) {
-        UIImage *img = [UIImage imageNamed:@"entry"];
-        CGFloat w = img.size.width;
-        CGFloat h = img.size.height;
-        _entryButton = [[UIButton alloc] initWithFrame:CGRectMake((WIDTH-w)*0.5, HEIGHT - 125*HEIGHT/667, w, h)];
-        [_entryButton setImage:img forState:UIControlStateNormal];
-        [_entryButton addTarget:self action:@selector(entryRootVC) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _entryButton;
-}
+
 - (void)entryRootVC{
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;

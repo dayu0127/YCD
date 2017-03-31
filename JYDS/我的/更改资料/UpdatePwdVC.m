@@ -69,27 +69,27 @@
     }else if ([_surePwdText.text isEqualToString:_pwdText.text] == NO){
         [YHHud showWithMessage:@"两次密码输入不一致"];
     }else{
-        NSDictionary *dic = @{@"userName":[YHSingleton shareSingleton].userInfo.userName,@"oldPassword":_oldPwdText.text,@"newPassword":_pwdText.text,@"device_id":DEVICEID};
-        [YHWebRequest YHWebRequestForPOST:UPDATEPWD parameters:dic success:^(NSDictionary *json) {
-            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-                [self returnToLogin];
-            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                [YHHud showWithMessage:@"修改成功，请重新登录"];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                    app.window.rootViewController = [sb instantiateViewControllerWithIdentifier:@"login"];
-                    [app.window makeKeyWindow];
-                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
-                });
-            }else if([json[@"code"] isEqualToString:@"ERROR"]){
-                [YHHud showWithMessage:@"服务器错误"];
-            }else{
-                [YHHud showWithMessage:@"修改失败"];
-            }
-        } failure:^(NSError * _Nonnull error) {
-            [YHHud showWithMessage:@"数据请求失败"];
-        }];
+//        NSDictionary *dic = @{@"userName":[YHSingleton shareSingleton].userInfo.userName,@"oldPassword":_oldPwdText.text,@"newPassword":_pwdText.text,@"device_id":DEVICEID};
+//        [YHWebRequest YHWebRequestForPOST:UPDATEPWD parameters:dic success:^(NSDictionary *json) {
+//            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+//                [self returnToLogin];
+//            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//                [YHHud showWithMessage:@"修改成功，请重新登录"];
+//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//                    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//                    app.window.rootViewController = [sb instantiateViewControllerWithIdentifier:@"login"];
+//                    [app.window makeKeyWindow];
+//                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
+//                });
+//            }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//                [YHHud showWithMessage:@"服务器错误"];
+//            }else{
+//                [YHHud showWithMessage:@"修改失败"];
+//            }
+//        } failure:^(NSError * _Nonnull error) {
+//            [YHHud showWithMessage:@"数据请求失败"];
+//        }];
     }
 }
 @end

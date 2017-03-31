@@ -149,23 +149,23 @@
         if (studyBean < [_memory.coursePrice integerValue]) {
             [YHHud showWithMessage:@"余额不足"];
         }else{
-            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"productID":_memory.courseID,@"type":@"memory",@"device_id":DEVICEID};
-            [YHWebRequest YHWebRequestForPOST:SUB parameters:dic success:^(NSDictionary *json) {
-                if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-                    [self returnToLogin];
-                }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                    [YHHud showWithSuccess:@"订阅成功"];
-                    _opaqueView.alpha = 0;
-                    [_delegate reloadMemoryList];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCostBean" object:nil];
-                }else if([json[@"code"] isEqualToString:@"ERROR"]){
-                    [YHHud showWithMessage:@"服务器错误"];
-                }else{
-                    [YHHud showWithMessage:@"订阅失败"];
-                }
-            } failure:^(NSError * _Nonnull error) {
-                [YHHud showWithMessage:@"数据请求失败"];
-            }];
+//            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"productID":_memory.courseID,@"type":@"memory",@"device_id":DEVICEID};
+//            [YHWebRequest YHWebRequestForPOST:SUB parameters:dic success:^(NSDictionary *json) {
+//                if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+//                    [self returnToLogin];
+//                }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//                    [YHHud showWithSuccess:@"订阅成功"];
+//                    _opaqueView.alpha = 0;
+//                    [_delegate reloadMemoryList];
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCostBean" object:nil];
+//                }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//                    [YHHud showWithMessage:@"服务器错误"];
+//                }else{
+//                    [YHHud showWithMessage:@"订阅失败"];
+//                }
+//            } failure:^(NSError * _Nonnull error) {
+//                [YHHud showWithMessage:@"数据请求失败"];
+//            }];
         }
     }
 }

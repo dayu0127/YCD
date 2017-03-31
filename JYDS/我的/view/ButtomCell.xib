@@ -28,12 +28,12 @@
                                     <constraint firstAttribute="width" constant="24" id="nZl-ht-FG5"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="400-9292-22" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Us-Rv-Xav">
-                                <rect key="frame" x="32" y="0.0" width="93" height="13"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="021-58327007" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Us-Rv-Xav">
+                                <rect key="frame" x="31.5" y="0.0" width="93.5" height="13"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="13" id="ZXZ-RH-icg"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13.5"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -60,10 +60,22 @@
                             <constraint firstItem="Iri-hv-oWq" firstAttribute="top" secondItem="Ls0-gS-3ct" secondAttribute="top" id="ynx-Ek-HgB"/>
                         </constraints>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYQ-Su-3od">
+                        <rect key="frame" x="127" y="25" width="120" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="FEj-8h-erB"/>
+                            <constraint firstAttribute="width" constant="120" id="Iw3-Rf-ErT"/>
+                        </constraints>
+                        <connections>
+                            <action selector="telClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="luH-ls-W3U"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Ls0-gS-3ct" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="0qZ-Cd-dj4"/>
+                    <constraint firstItem="gYQ-Su-3od" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="E7p-ZM-bul"/>
                     <constraint firstItem="Ls0-gS-3ct" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="JpS-VP-SWo"/>
+                    <constraint firstItem="gYQ-Su-3od" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="X5h-g6-TAG"/>
                 </constraints>
             </tableViewCellContentView>
             <point key="canvasLocation" x="24.5" y="51.5"/>

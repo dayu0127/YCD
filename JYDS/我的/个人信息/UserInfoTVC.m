@@ -95,6 +95,28 @@
         [self presentViewController:_alertVC animated:YES completion:nil];
     }
 }
+- (IBAction)saveClick:(id)sender {
+//    {
+//        "userID":"**********",      #用户ID
+//        "newNickName":"*****",      #用户新昵称（选填字段）
+//        "sex":"男"                   #用户性别（选填字段）
+//    }
+//    NSString *phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum;
+//    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+//    NSString *associatedWx = [YHSingleton shareSingleton].userInfo.associatedWx;
+//    NSDictionary *jsonDic = @{@"paramStr":@{
+//                                      @"phoneNum":phoneNum,      // #用户手机号
+//                                      @"token":token,            //   #令牌
+//                                      @"associatedWx":associatedWx  // #第三方绑定的uid 唯一标识
+//                                      }};
+//    [YHWebRequest YHWebRequestForPOST:kBindingWX parameters:jsonDic success:^(NSDictionary *json) {
+//        if ([json[@"code"] integerValue] == 200) {
+//            [YHHud showWithSuccess:@"绑定成功"];
+//        }
+//    } failure:^(NSError * _Nonnull error) {
+//        NSLog(@"%@",error);
+//    }];
+}
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];

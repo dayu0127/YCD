@@ -15,9 +15,9 @@
     [super awakeFromNib];
     // Initialization code
     NSMutableArray *netImages = [NSMutableArray array];
-    NSArray *bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"];
+    NSArray *bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexImages"];
     for (NSDictionary *dic in bannerInfoArray) {
-        [netImages addObject:[NSString stringWithFormat:@"%@",dic[@"topImageUrl"]]];
+        [netImages addObject:[NSString stringWithFormat:@"%@",dic[@"url"]]];
     }
     _imageCount = netImages.count;
     CGFloat w = WIDTH-20;

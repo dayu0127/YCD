@@ -12,7 +12,7 @@
 #import "ButtomCell.h"
 #import "NoLoginHeaderView.h"
 #import "LoggedInHeaderView.h"
-@interface MineVC ()<UITableViewDelegate,UITableViewDataSource,LoggedInHeaderViewDelegate>
+@interface MineVC ()<UITableViewDelegate,UITableViewDataSource,LoggedInHeaderViewDelegate,ButtomCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) NSArray *arr1;
 @property (strong,nonatomic) NSArray *arr2;
@@ -24,7 +24,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeaderView) name:@"updateHeaderView" object:nil];
 }
 - (void)updateHeaderView{
-    _tableView.tableHeaderView = [[LoggedInHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 187)];
+    LoggedInHeaderView *logged = [[LoggedInHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 187)];
+    logged.delegate = self;
+    _tableView.tableHeaderView = logged;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -104,6 +106,7 @@
         }else{
             ButtomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ButtomCell" forIndexPath:indexPath];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.delegate = self;
             return cell;
         }
     }
@@ -132,5 +135,18 @@
     }else if(indexPath.section == 3&&indexPath.row == 0){
         [self performSegueWithIdentifier:@"toSet" sender:self];
     }
+}
+- (void)telephoneClick{
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *telephone = [UIAlertAction actionWithTitle:@"021-50725551" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"021-50725551"];
+        UIWebView *callWebview = [[UIWebView alloc] init];
+        [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+        [self.view addSubview:callWebview];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertVC addAction:telephone];
+    [alertVC addAction:cancel];
+    [self presentViewController:alertVC animated:YES completion:nil];
 }
 @end

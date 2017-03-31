@@ -138,6 +138,8 @@
 		6042E0F41E8D0BFF00756A61 /* MessageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6042E0F31E8D0BFF00756A61 /* MessageVC.m */; };
 		6042E0F81E8D0D8300756A61 /* MessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6042E0F61E8D0D8300756A61 /* MessageCell.m */; };
 		6042E0F91E8D0D8300756A61 /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6042E0F71E8D0D8300756A61 /* MessageCell.xib */; };
+		604DBF2A1E8E22D10025E50C /* NSDictionary+FromNSString.m in Sources */ = {isa = PBXBuildFile; fileRef = 604DBF291E8E22D10025E50C /* NSDictionary+FromNSString.m */; };
+		604DBF301E8E6CAB0025E50C /* NSString+FromNSDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 604DBF2F1E8E6CAB0025E50C /* NSString+FromNSDictionary.m */; };
 		605D2ED01E2DB97000A7E01B /* SuccessView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 605D2ECF1E2DB97000A7E01B /* SuccessView.xib */; };
 		605D2ED21E2DB9B200A7E01B /* FailedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 605D2ED11E2DB9B200A7E01B /* FailedView.xib */; };
 		606A94E41E51A89E00A0279D /* SecretsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94E31E51A89E00A0279D /* SecretsVC.m */; };
@@ -406,6 +408,10 @@
 		6042E0F51E8D0D8300756A61 /* MessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCell.h; sourceTree = "<group>"; };
 		6042E0F61E8D0D8300756A61 /* MessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCell.m; sourceTree = "<group>"; };
 		6042E0F71E8D0D8300756A61 /* MessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageCell.xib; sourceTree = "<group>"; };
+		604DBF281E8E22D10025E50C /* NSDictionary+FromNSString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+FromNSString.h"; sourceTree = "<group>"; };
+		604DBF291E8E22D10025E50C /* NSDictionary+FromNSString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+FromNSString.m"; sourceTree = "<group>"; };
+		604DBF2E1E8E6CAB0025E50C /* NSString+FromNSDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FromNSDictionary.h"; sourceTree = "<group>"; };
+		604DBF2F1E8E6CAB0025E50C /* NSString+FromNSDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FromNSDictionary.m"; sourceTree = "<group>"; };
 		605D2ECF1E2DB97000A7E01B /* SuccessView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuccessView.xib; sourceTree = "<group>"; };
 		605D2ED11E2DB9B200A7E01B /* FailedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FailedView.xib; sourceTree = "<group>"; };
 		606A94E21E51A89E00A0279D /* SecretsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecretsVC.h; sourceTree = "<group>"; };
@@ -1257,6 +1263,10 @@
 				6078D21F1E161AF20089D40F /* YHWebRequest.m */,
 				60F308841E8A487600476E32 /* UIButton+ImageTitleSpacing.h */,
 				60F308851E8A487600476E32 /* UIButton+ImageTitleSpacing.m */,
+				604DBF281E8E22D10025E50C /* NSDictionary+FromNSString.h */,
+				604DBF291E8E22D10025E50C /* NSDictionary+FromNSString.m */,
+				604DBF2E1E8E6CAB0025E50C /* NSString+FromNSDictionary.h */,
+				604DBF2F1E8E6CAB0025E50C /* NSString+FromNSDictionary.m */,
 			);
 			name = Tools;
 			path = JYDS/Tools;
@@ -1830,6 +1840,7 @@
 				602BDD2F1E8366E300C6CB92 /* BannerCell.m in Sources */,
 				609F062D1E1621C5009F4986 /* MemoryExercisesVC.m in Sources */,
 				609F05E11E161D1A009F4986 /* RegisterVC.m in Sources */,
+				604DBF301E8E6CAB0025E50C /* NSString+FromNSDictionary.m in Sources */,
 				6078D2241E161AF20089D40F /* YHHud.m in Sources */,
 				609F06261E1621BD009F4986 /* BindingNewPhoneVC.m in Sources */,
 				6078D1FE1E1613180089D40F /* BaseViewController.m in Sources */,
@@ -1874,6 +1885,7 @@
 				60402E4B1E8518B300B1AD91 /* MineVC.m in Sources */,
 				609F06181E162190009F4986 /* CostDetailVC.m in Sources */,
 				6078D1F41E1613180089D40F /* base64.m in Sources */,
+				604DBF2A1E8E22D10025E50C /* NSDictionary+FromNSString.m in Sources */,
 				609F063F1E1621D9009F4986 /* UserAgreementVC.m in Sources */,
 				609D6D521E17782D000BCD65 /* BaseNavViewController.m in Sources */,
 				609F06421E1621DF009F4986 /* HelpFeedbackVC.m in Sources */,

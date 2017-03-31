@@ -12,6 +12,9 @@
 //@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
 //@property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
 //@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *lineCollection;
+@property (weak, nonatomic) IBOutlet UITextField *phoneTxt;
+@property (weak, nonatomic) IBOutlet UITextField *checkCodeTxt;
+@property (weak, nonatomic) IBOutlet UITextField *pwdTxt;
 @property (weak, nonatomic) IBOutlet UIButton *checkButton;
 @property (weak, nonatomic) IBOutlet UIButton *sureButton;
 //@property (strong,nonatomic) UITextField *phoneText;
@@ -107,6 +110,24 @@
 //            }
 //        }];
 //    }
+    //    {
+    //        "phoneNum":"13300001111",  #手机号
+    //        "stype":1,                 #类型  1注册 2登录 3找回密码
+    //        "deviceNum":"123456",      #设备码（选填）
+    //    }
+    NSString *phoneNum = _phoneTxt.text;
+    NSDictionary *jsonDic = @{
+                                      @"phoneNum" :phoneNum,             // #用户名
+                                      @"stype":@"3",               //    #类型  1注册 2登录 3找回密码
+                                      @"deviceNum":DEVICEID,               //     #设备码（选填）
+                                      };
+    [YHWebRequest YHWebRequestForPOST:kSendCheckCode parameters:jsonDic success:^(NSDictionary *json) {
+        if ([json[@"code"] integerValue] == 200) {
+            [YHHud showWithSuccess:json[@"message"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
 }
 //- (IBAction)showPwd:(UIButton *)sender {
 //    sender.selected = !sender.selected;
@@ -145,6 +166,30 @@
 //            }
 //        }];
 //    }
+    
+//    {
+//        phoneNum:"13300001111",    #用户手机号
+//        password:"",               #新密码
+//        verifyCode:"",             #短信验证码
+//    }
+    NSString *phoneNum = _phoneTxt.text;
+    NSString *password = _pwdTxt.text;
+    NSString *verifyCode = _checkCodeTxt.text;
+    NSDictionary *jsonDic = @{
+                                        @"phoneNum" :phoneNum,             // #用户手机号
+                                        @"password":password,               //    #新密码
+                                        @"verifyCode":verifyCode             //     #短信验证码
+                                      };
+    [YHWebRequest YHWebRequestForPOST:kSetPwd parameters:jsonDic success:^(NSDictionary *json) {
+        if ([json[@"code"] integerValue] == 200) {
+            [YHHud showWithSuccess:@"修改成功"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+        }
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];

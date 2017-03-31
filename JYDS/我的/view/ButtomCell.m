@@ -20,5 +20,8 @@
 
     // Configure the view for the selected state
 }
+- (IBAction)telClick:(id)sender {
+    [_delegate telephoneClick];
+}
 
 @end

@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol ButtomCellDelegate<NSObject>
+- (void)telephoneClick;
+@end
 @interface ButtomCell : UITableViewCell
-
+@property (weak,nonatomic) id<ButtomCellDelegate> delegate;
 @end

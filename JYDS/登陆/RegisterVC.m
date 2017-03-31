@@ -22,6 +22,10 @@
 //@property (assign,nonatomic)int countDown;
 //@property (weak, nonatomic) IBOutlet UIButton *showPwdButton;
 //@property (strong,nonatomic) JCAlertView *alertView;
+@property (weak, nonatomic) IBOutlet UITextField *phoneTxt;
+@property (weak, nonatomic) IBOutlet UITextField *checkCodeTxt;
+@property (weak, nonatomic) IBOutlet UITextField *pwdTxt;
+@property (weak, nonatomic) IBOutlet UITextField *invitationPhoneTxt;
 @end
 
 @implementation RegisterVC
@@ -145,8 +149,53 @@
 //        });
 //        dispatch_resume(_timer);
 //    }
+    
+//    {
+//        "phoneNum":"13300001111",  #手机号
+//        "stype":1,                 #类型  1注册 2登录 3找回密码
+//        "deviceNum":"123456",      #设备码（选填）
+//    }
+    NSString *phoneNum = _phoneTxt.text;
+    NSDictionary *jsonDic = @{@"phoneNum" :phoneNum,             // #用户名
+                                          @"stype":@"1",               //    #类型  1注册 2登录 3找回密码
+                                          @"deviceNum":DEVICEID             //     #设备码（选填）
+                                      };
+    [YHWebRequest YHWebRequestForPOST:kSendCheckCode parameters:jsonDic success:^(NSDictionary *json) {
+        if ([json[@"code"] integerValue] == 200) {
+//            [YHHud showWithSuccess:json[@"message"]];
+            NSLog(@"1111");
+        }
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
 }
 - (IBAction)registerButtonClick:(UIButton *)sender {
+    //    {
+    //        "phoneNum" :"13300001111",               #用户名
+    //        "verifyCode":"123456",                   #验证码
+    //        "password":"9ijn0okm",                   #密码
+    //        "invitePhoneNum" :"13300001111"          #推荐人手机号
+    //    }
+    NSString *phoneNum = _phoneTxt.text;
+    NSString *verifyCode = _checkCodeTxt.text;
+    NSString *password = _pwdTxt.text;
+    NSString *invitePhoneNum = _invitationPhoneTxt.text;
+    NSDictionary *jsonDic = @{@"phoneNum" :phoneNum,             // #用户名
+                                          @"verifyCode":verifyCode,               //    #验证码
+                                          @"password":password,               //    #密码
+                                          @"invitePhoneNum" :invitePhoneNum     //#推荐人手机号
+                                      };
+    [YHWebRequest YHWebRequestForPOST:kRegister parameters:jsonDic success:^(NSDictionary *json) {
+        if ([json[@"code"] integerValue] == 200) {
+            [YHHud showWithSuccess:@"注册成功"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [_delegate autoFillUserName:_phoneTxt.text];
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+        }
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
 //    if (REGEX(PHONE_RE, _phoneText.text)==NO) {
 //        [YHHud showWithMessage:@"请输入有效11位手机号"];
 //    }else if(REGEX(CHECHCODE_RE, _idCodeText.text)==NO){

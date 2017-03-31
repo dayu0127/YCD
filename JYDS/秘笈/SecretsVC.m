@@ -177,24 +177,24 @@
     _recordTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _recordTableView.backgroundColor = [UIColor clearColor];
     [_recordTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
-    _header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [YHWebRequest YHWebRequestForPOST:INVITATION parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
-            [self.recordTableView.mj_header endRefreshing];
-            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-                [self returnToLogin];
-            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                _tableViewArray = [self joinTheArray:json[@"data"]];
-                [_recordTableView reloadData];
-            }else if([json[@"code"] isEqualToString:@"ERROR"]){
-                [YHHud showWithMessage:@"服务器错误"];
-            }else{
-                [YHHud showWithMessage:@"数据异常"];
-            }
-        } failure:^(NSError * _Nonnull error) {
-            [self.recordTableView.mj_header endRefreshing];
-            [YHHud showWithMessage:@"数据请求失败"];
-        }];
-    }];
+//    _header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        [YHWebRequest YHWebRequestForPOST:INVITATION parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+//            [self.recordTableView.mj_header endRefreshing];
+//            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+//                [self returnToLogin];
+//            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//                _tableViewArray = [self joinTheArray:json[@"data"]];
+//                [_recordTableView reloadData];
+//            }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//                [YHHud showWithMessage:@"服务器错误"];
+//            }else{
+//                [YHHud showWithMessage:@"数据异常"];
+//            }
+//        } failure:^(NSError * _Nonnull error) {
+//            [self.recordTableView.mj_header endRefreshing];
+//            [YHHud showWithMessage:@"数据请求失败"];
+//        }];
+//    }];
     // 设置自动切换透明度(在导航栏下面自动隐藏)
     _header.automaticallyChangeAlpha = YES;
     // 隐藏时间
@@ -212,20 +212,20 @@
 }
 - (void)reloadRecordData{
     if (_tableViewArray == nil) {
-        [YHWebRequest YHWebRequestForPOST:INVITATION parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
-            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-                [self returnToLogin];
-            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                _tableViewArray = [self joinTheArray:json[@"data"]];
-                [_recordTableView reloadData];
-            }else if([json[@"code"] isEqualToString:@"ERROR"]){
-                [YHHud showWithMessage:@"服务器错误"];
-            }else{
-                [YHHud showWithMessage:@"数据异常"];
-            }
-        } failure:^(NSError * _Nonnull error) {
-            [YHHud showWithMessage:@"数据请求失败"];
-        }];
+//        [YHWebRequest YHWebRequestForPOST:INVITATION parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+//            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+//                [self returnToLogin];
+//            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//                _tableViewArray = [self joinTheArray:json[@"data"]];
+//                [_recordTableView reloadData];
+//            }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//                [YHHud showWithMessage:@"服务器错误"];
+//            }else{
+//                [YHHud showWithMessage:@"数据异常"];
+//            }
+//        } failure:^(NSError * _Nonnull error) {
+//            [YHHud showWithMessage:@"数据请求失败"];
+//        }];
     }
 }
 #pragma mark 点击复制互学码

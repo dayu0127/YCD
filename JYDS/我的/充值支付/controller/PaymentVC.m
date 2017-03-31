@@ -68,55 +68,55 @@
 }
 - (void)alipayCell{
     //支付宝支付
-    NSDictionary *paraDic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"total_amount":[NSString stringWithFormat:@"%zd",_money]};
-    [YHWebRequest YHWebRequestForPOST:ALISIGN parameters:paraDic success:^(NSDictionary *json) {
-        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-            [YHSingleton shareSingleton].ali_out_trade_no = json[@"out_trade_no"];
-            NSMutableDictionary *jsonDic = [[NSMutableDictionary alloc] initWithDictionary:json];
-            [jsonDic removeObjectForKey:@"code"];
-            [jsonDic removeObjectForKey:@"out_trade_no"];
-            NSArray* sortedKeyArray = [[jsonDic allKeys] sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                return [obj1 compare:obj2];
-            }];
-            NSMutableArray *tmpArray = [NSMutableArray array];
-            for (NSString* key in sortedKeyArray) {
-                NSString *value = jsonDic[key];
-                value = (__bridge_transfer  NSString*)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)value, NULL, (__bridge CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8 );
-                NSString* orderItem = [NSString stringWithFormat:@"%@=%@", key, value];
-                [tmpArray addObject:orderItem];
-            }
-            NSString *orderString = [tmpArray componentsJoinedByString:@"&"];
-            //调起支付宝支付
-            [[AlipaySDK defaultService] payOrder:orderString fromScheme:@"jydsapp58327007" callback:^(NSDictionary *resultDic) {
-                NSDictionary *dic = [NSDictionary dictionary];
-                if ([resultDic[@"resultStatus"] isEqualToString:@"9000"]) {//订单支付成功
-                    dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"result":resultDic[@"result"],@"code":resultDic[@"resultStatus"]};
-                }else{
-                    dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"out_trade_no":json[@"out_trade_no"],@"code":resultDic[@"resultStatus"]};
-                }
-                [YHWebRequest YHWebRequestForPOST:ALICHECK parameters:dic success:^(NSDictionary *json) {
-                    if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                        if ([json[@"payType"] isEqualToString:@"SUCCESS"]) {
-                            [YHHud showWithSuccess:@"支付成功"];
-                            [self updateStudyBean];
-                        }else{
-                            [YHHud showWithMessage:@"支付失败"];
-                        }
-                    }else if([json[@"code"] isEqualToString:@"ERROR"]){
-                        [YHHud showWithMessage:@"服务器出错了，请稍后重试"];
-                    }else{
-                        [YHHud showWithMessage:@"支付失败"];
-                    }
-                } failure:^(NSError * _Nonnull error) {
-                    [YHHud showWithMessage:@"数据请求失败"];
-                }];
-            }];
-        }else{
-            [YHHud showWithMessage:@"创建订单失败"];
-        }
-    } failure:^(NSError * _Nonnull error) {
-        [YHHud showWithMessage:@"数据请求失败"];
-    }];
+//    NSDictionary *paraDic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"total_amount":[NSString stringWithFormat:@"%zd",_money]};
+//    [YHWebRequest YHWebRequestForPOST:ALISIGN parameters:paraDic success:^(NSDictionary *json) {
+//        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//            [YHSingleton shareSingleton].ali_out_trade_no = json[@"out_trade_no"];
+//            NSMutableDictionary *jsonDic = [[NSMutableDictionary alloc] initWithDictionary:json];
+//            [jsonDic removeObjectForKey:@"code"];
+//            [jsonDic removeObjectForKey:@"out_trade_no"];
+//            NSArray* sortedKeyArray = [[jsonDic allKeys] sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+//                return [obj1 compare:obj2];
+//            }];
+//            NSMutableArray *tmpArray = [NSMutableArray array];
+//            for (NSString* key in sortedKeyArray) {
+//                NSString *value = jsonDic[key];
+//                value = (__bridge_transfer  NSString*)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)value, NULL, (__bridge CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8 );
+//                NSString* orderItem = [NSString stringWithFormat:@"%@=%@", key, value];
+//                [tmpArray addObject:orderItem];
+//            }
+//            NSString *orderString = [tmpArray componentsJoinedByString:@"&"];
+//            //调起支付宝支付
+//            [[AlipaySDK defaultService] payOrder:orderString fromScheme:@"jydsapp58327007" callback:^(NSDictionary *resultDic) {
+//                NSDictionary *dic = [NSDictionary dictionary];
+//                if ([resultDic[@"resultStatus"] isEqualToString:@"9000"]) {//订单支付成功
+//                    dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"result":resultDic[@"result"],@"code":resultDic[@"resultStatus"]};
+//                }else{
+//                    dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"out_trade_no":json[@"out_trade_no"],@"code":resultDic[@"resultStatus"]};
+//                }
+//                [YHWebRequest YHWebRequestForPOST:ALICHECK parameters:dic success:^(NSDictionary *json) {
+//                    if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//                        if ([json[@"payType"] isEqualToString:@"SUCCESS"]) {
+//                            [YHHud showWithSuccess:@"支付成功"];
+//                            [self updateStudyBean];
+//                        }else{
+//                            [YHHud showWithMessage:@"支付失败"];
+//                        }
+//                    }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//                        [YHHud showWithMessage:@"服务器出错了，请稍后重试"];
+//                    }else{
+//                        [YHHud showWithMessage:@"支付失败"];
+//                    }
+//                } failure:^(NSError * _Nonnull error) {
+//                    [YHHud showWithMessage:@"数据请求失败"];
+//                }];
+//            }];
+//        }else{
+//            [YHHud showWithMessage:@"创建订单失败"];
+//        }
+//    } failure:^(NSError * _Nonnull error) {
+//        [YHHud showWithMessage:@"数据请求失败"];
+//    }];
 }
 - (void)wxpayCell{
     //微信支付
@@ -124,42 +124,42 @@
         [YHHud dismiss];
         [YHHud showWithMessage:@" 请您先安装微信"];
     }else{
-        NSDictionary *paraDic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"total_fee":[NSString stringWithFormat:@"%zd",_money]};
-        [YHWebRequest YHWebRequestForPOST:WXSIGN parameters:paraDic success:^(NSDictionary *json) {
-            [YHSingleton shareSingleton].wx_out_trade_no = json[@"out_trade_no"];
-            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                PayReq *request = [[PayReq alloc] init];
-                request.partnerId = json[@"partnerId"];
-                request.prepayId = json[@"prepayId"];
-                request.package = json[@"package"];
-                request.nonceStr= json[@"nonceStr"];
-                request.timeStamp = [json[@"timestamp"] intValue];
-                request.sign = json[@"sign"];
-                //调起微信支付
-                [WXApi sendReq:request];
-            }else{
-                [YHHud showWithMessage:@"创建订单失败"];
-            }
-        } failure:^(NSError * _Nonnull error) {
-            [YHHud showWithMessage:@"数据请求失败"];
-        }];
+//        NSDictionary *paraDic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"total_fee":[NSString stringWithFormat:@"%zd",_money]};
+//        [YHWebRequest YHWebRequestForPOST:WXSIGN parameters:paraDic success:^(NSDictionary *json) {
+//            [YHSingleton shareSingleton].wx_out_trade_no = json[@"out_trade_no"];
+//            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//                PayReq *request = [[PayReq alloc] init];
+//                request.partnerId = json[@"partnerId"];
+//                request.prepayId = json[@"prepayId"];
+//                request.package = json[@"package"];
+//                request.nonceStr= json[@"nonceStr"];
+//                request.timeStamp = [json[@"timestamp"] intValue];
+//                request.sign = json[@"sign"];
+//                //调起微信支付
+//                [WXApi sendReq:request];
+//            }else{
+//                [YHHud showWithMessage:@"创建订单失败"];
+//            }
+//        } failure:^(NSError * _Nonnull error) {
+//            [YHHud showWithMessage:@"数据请求失败"];
+//        }];
     }
 }
 #pragma mark 更新用户剩余和充值的学习豆
 - (void)updateStudyBean{
-    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
-        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-            [YHSingleton shareSingleton].userInfo.studyBean = [NSString stringWithFormat:@"%@",json[@"data"][@"restBean"]];
-            [YHSingleton shareSingleton].userInfo.rechargeBean = [NSString stringWithFormat:@"%@",json[@"data"][@"rechargeBean"]];
-            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateStudyBean" object:nil];
-        }else if([json[@"code"] isEqualToString:@"ERROR"]){
-            [YHHud showWithMessage:@"服务器错误"];
-        }else{
-            [YHHud showWithMessage:@"数据异常"];
-        }
-    } failure:^(NSError * _Nonnull error) {
-        [YHHud showWithMessage:@"数据请求失败"];
-    }];
+//    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+//        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//            [YHSingleton shareSingleton].userInfo.studyBean = [NSString stringWithFormat:@"%@",json[@"data"][@"restBean"]];
+//            [YHSingleton shareSingleton].userInfo.rechargeBean = [NSString stringWithFormat:@"%@",json[@"data"][@"rechargeBean"]];
+//            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateStudyBean" object:nil];
+//        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//            [YHHud showWithMessage:@"服务器错误"];
+//        }else{
+//            [YHHud showWithMessage:@"数据异常"];
+//        }
+//    } failure:^(NSError * _Nonnull error) {
+//        [YHHud showWithMessage:@"数据请求失败"];
+//    }];
 }
 @end

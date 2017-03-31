@@ -9,7 +9,8 @@
 #import "AccountSetVC.h"
 #import "SetCell.h"
 #import "AccountSetCell.h"
-@interface AccountSetVC ()<UITableViewDataSource>
+#import <UMSocialCore/UMSocialCore.h>
+@interface AccountSetVC ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -49,7 +50,84 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == 1) {
+//        {
+//            "phoneNum":"13300001111",       #用户手机号
+//            "token: "zzzzzz",               #令牌
+//            "associatedWx":"dfdsfsdfsdf",   #第三方绑定的uid 唯一标识
+//            "country":"",                   #国家（选填）
+//            "province":"",                  #省市（选填）
+//            "city":"",                      #城市（选填）
+//            "genter":""                     #性别 1男 0女  （选填）
+//            
+//        }
+        NSString *phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum;
+        NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+        NSString *associatedWx = [YHSingleton shareSingleton].userInfo.associatedWx;
+        NSDictionary *jsonDic = @{
+                                          @"phoneNum":phoneNum,      // #用户手机号
+                                          @"token":token,            //   #令牌
+                                          @"associatedWx":associatedWx  // #第三方绑定的uid 唯一标识
+                                          };
+        [YHWebRequest YHWebRequestForPOST:kBindingWX parameters:jsonDic success:^(NSDictionary *json) {
+            if ([json[@"code"] integerValue] == 200) {
+                [YHHud showWithSuccess:@"绑定成功"];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+        }];
+    }else if (indexPath.row == 2) {
+//        {
+//            "phoneNum":"13300001111",       #用户手机号
+//            "token: "zzzzzz",               #令牌
+//            "associatedQq":"dfdsfsdfsdf",   #第三方绑定的uid 唯一标识
+//            "country":"",                   #国家（选填）
+//            "province":"",                  #省市（选填）
+//            "city":"",                      #城市（选填）
+//            "genter":""                     #性别 1男 0女  （选填）
+//            
+//        }
+        [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_QQ currentViewController:nil completion:^(id result, NSError *error) {
+            if (error) {
+                
+            } else {
+                UMSocialUserInfoResponse *resp = result;
+                
+                // 授权信息
+                NSLog(@"QQ uid: %@", resp.uid);
+                NSLog(@"QQ openid: %@", resp.openid);
+                NSLog(@"QQ accessToken: %@", resp.accessToken);
+                NSLog(@"QQ expiration: %@", resp.expiration);
+                
+                // 用户信息
+                NSLog(@"QQ name: %@", resp.name);
+                NSLog(@"QQ iconurl: %@", resp.iconurl);
+                NSLog(@"QQ gender: %@", resp.gender);
+                
+                // 第三方平台SDK源数据
+                NSLog(@"QQ originalResponse: %@", resp.originalResponse);
+                
+                NSString *phoneNum = [[NSUserDefaults standardUserDefaults] objectForKey:@"phoneNum"];
+                NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+                NSString *associatedQq = resp.uid;
+                NSDictionary *jsonDic = @{
+                                          @"phoneNum":phoneNum,      // #用户手机号
+                                          @"token":token,            //   #令牌
+                                          @"associatedQq":associatedQq  // #第三方绑定的uid 唯一标识
+                                          };
+                [YHWebRequest YHWebRequestForPOST:kBindingQQ parameters:jsonDic success:^(NSDictionary *json) {
+                    if ([json[@"code"] integerValue] == 200) {
+                        [YHHud showWithSuccess:@"绑定成功"];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    NSLog(@"%@",error);
+                }];
+            }
+        }];
 
+    }
+}
 /*
 #pragma mark - Navigation
 

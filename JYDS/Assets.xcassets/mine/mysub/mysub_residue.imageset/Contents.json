@@ -6,12 +6,12 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "mysub_subbed@2x.png",
+      "filename" : "mysub_residue@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "mysub_subbed@3x.png",
+      "filename" : "mysub_residue@3x.png",
       "scale" : "3x"
     }
   ],

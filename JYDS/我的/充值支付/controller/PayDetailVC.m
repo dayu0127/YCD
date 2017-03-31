@@ -28,37 +28,37 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self nightModeConfiguration];
-    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
-        if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-            [self returnToLogin];
-        }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-            _payBean.text = [NSString stringWithFormat:@"%@元",json[@"data"][@"rechargeBean"]];
-        }else if([json[@"code"] isEqualToString:@"ERROR"]){
-            [YHHud showWithMessage:@"服务器错误"];
-        }else{
-            [YHHud showWithMessage:@"数据异常"];
-        }
-    } failure:^(NSError * _Nonnull error) {
-        [YHHud showWithMessage:@"数据请求失败"];
-    }];
-    [YHHud showWithStatus:@"拼命加载中..."];
-    [YHWebRequest YHWebRequestForPOST:PAYDETAIL parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
-        [YHHud dismiss];
-        if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-            [self returnToLogin];
-        }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-            _dataArray = json[@"data"];
-            [_tableView registerNib:[UINib nibWithNibName:@"PayDetailCell" bundle:nil] forCellReuseIdentifier:@"PayDetailCell"];
-            [_tableView reloadData];
-        }else if([json[@"code"] isEqualToString:@"ERROR"]){
-            [YHHud showWithMessage:@"服务器错误"];
-        }else{
-            [YHHud showWithMessage:@"数据异常"];
-        }
-    } failure:^(NSError * _Nonnull error) {
-        [YHHud dismiss];
-        [YHHud showWithMessage:@"数据请求失败"];
-    }];
+//    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+//        if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+//            [self returnToLogin];
+//        }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//            _payBean.text = [NSString stringWithFormat:@"%@元",json[@"data"][@"rechargeBean"]];
+//        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//            [YHHud showWithMessage:@"服务器错误"];
+//        }else{
+//            [YHHud showWithMessage:@"数据异常"];
+//        }
+//    } failure:^(NSError * _Nonnull error) {
+//        [YHHud showWithMessage:@"数据请求失败"];
+//    }];
+//    [YHHud showWithStatus:@"拼命加载中..."];
+//    [YHWebRequest YHWebRequestForPOST:PAYDETAIL parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+//        [YHHud dismiss];
+//        if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+//            [self returnToLogin];
+//        }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//            _dataArray = json[@"data"];
+//            [_tableView registerNib:[UINib nibWithNibName:@"PayDetailCell" bundle:nil] forCellReuseIdentifier:@"PayDetailCell"];
+//            [_tableView reloadData];
+//        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//            [YHHud showWithMessage:@"服务器错误"];
+//        }else{
+//            [YHHud showWithMessage:@"数据异常"];
+//        }
+//    } failure:^(NSError * _Nonnull error) {
+//        [YHHud dismiss];
+//        [YHHud showWithMessage:@"数据请求失败"];
+//    }];
 }
 - (void)nightModeConfiguration{
     _bgView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);

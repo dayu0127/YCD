@@ -243,20 +243,20 @@
     }
 }
 - (void)updateUIByWordID:(NSString *)wordID{
-    NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"id":wordID,@"device_id":DEVICEID};
-    [YHWebRequest YHWebRequestForPOST:WORDBYID parameters:dic success:^(NSDictionary *json) {
-        if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-            [self returnToLogin];
-        }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-            [self updateUIAndData:json[@"data"]];
-        }else if([json[@"code"] isEqualToString:@"ERROR"]){
-            [YHHud showWithMessage:@"服务器错误"];
-        }else{
-            [YHHud showWithMessage:@"数据异常"];
-        }
-    } failure:^(NSError * _Nonnull error) {
-        [YHHud showWithMessage:@"数据请求失败"];
-    }];
+//    NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"id":wordID,@"device_id":DEVICEID};
+//    [YHWebRequest YHWebRequestForPOST:WORDBYID parameters:dic success:^(NSDictionary *json) {
+//        if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
+//            [self returnToLogin];
+//        }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//            [self updateUIAndData:json[@"data"]];
+//        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//            [YHHud showWithMessage:@"服务器错误"];
+//        }else{
+//            [YHHud showWithMessage:@"数据异常"];
+//        }
+//    } failure:^(NSError * _Nonnull error) {
+//        [YHHud showWithMessage:@"数据请求失败"];
+//    }];
 }
 - (void)updateUIAndData:(NSDictionary *)dataDic{
     BOOL hasImage = [dataDic[@"wordImgUrl"] isEqualToString:@""];

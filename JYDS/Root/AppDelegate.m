@@ -40,7 +40,7 @@
 //        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"login"] == YES) { //登录了
 //            [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
             self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"root"];
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isLogin"];
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isLogin"];
 //        }else{ //未登录
 //            self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"login"];
 //        }
@@ -112,78 +112,68 @@
     [WXApi registerApp:@"wx7658d0735b233185"];
 }
 - (void)getBannerInfo{
-    [YHWebRequest YHWebRequestForPOST:BANNER parameters:nil success:^(NSDictionary *json) {
-        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-            [[NSUserDefaults standardUserDefaults] setObject:json[@"data"] forKey:@"banner"];
-            [YHSingleton shareSingleton].bannerTxt = @"元";
-            [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",json[@"IOS"]] forKey:@"ios"];
-            if ([[NSString stringWithFormat:@"%@",json[@"IOS"]] isEqualToString:@"0"]) {
-                [YHSingleton shareSingleton].bannerTxt = @"元";
-            }else if([[NSString stringWithFormat:@"%@",json[@"IOS"]] isEqualToString:@"1"]){
-                [YHSingleton shareSingleton].bannerTxt = @"学习豆";
-            }
-        }else if ([json[@"code"] isEqualToString:@"ERROR"]){
-            [YHHud showWithMessage:@"服务器错误"];
-        }else{
-            [YHHud showWithMessage:@"数据异常"];
+    [YHWebRequest YHWebRequestForPOST:kBanner parameters:nil success:^(NSDictionary *json) {
+        if ([json[@"code"] integerValue] == 200) {
+            NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+            [[NSUserDefaults standardUserDefaults] setObject:dataDic forKey:@"banner"];
         }
     }failure:^(NSError * _Nonnull error) {
-         [YHHud showWithMessage:@"数据请求失败"];
+        NSLog(@"%@",error);
     }];
 }
 #pragma mark 设置系统回调(支持所有iOS系统)
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
-    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
-    if (!result) {
-        // 支付宝SDK的回调
-        if ([url.host isEqualToString:@"safepay"]) {
-            //跳转支付宝钱包进行支付，处理支付结果
-            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-                NSDictionary *dic = [NSDictionary dictionary];
-                if ([resultDic[@"resultStatus"] isEqualToString:@"9000"]) {//订单支付成功
-                    dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"result":resultDic[@"result"],@"code":resultDic[@"resultStatus"]};
-                }else{
-                    dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"out_trade_no":[YHSingleton shareSingleton].ali_out_trade_no,@"code":resultDic[@"resultStatus"]};
-                }
-                [YHWebRequest YHWebRequestForPOST:ALICHECK parameters:dic success:^(NSDictionary *json) {
-                    if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-                        if ([json[@"payType"] isEqualToString:@"SUCCESS"]) {
-                            [YHHud showWithSuccess:@"支付成功"];
-                            [self updateStudyBean];
-                        }else{
-                            [YHHud showWithMessage:@"支付失败"];
-                        }
-                    }else if([json[@"code"] isEqualToString:@"ERROR"]){
-                        [YHHud showWithMessage:@"服务器出错了，请稍后重试"];
-                    }else{
-                        [YHHud showWithMessage:@"支付失败"];
-                    }
-                } failure:^(NSError * _Nonnull error) {
-                    [YHHud showWithMessage:@"数据请求失败"];
-                }];
-            }];
-        }
-    }else{
-        // 微信SDK的回调
-        [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
-    }
-    return result;
-}
+//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+//    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+//    if (!result) {
+//        // 支付宝SDK的回调
+//        if ([url.host isEqualToString:@"safepay"]) {
+//            //跳转支付宝钱包进行支付，处理支付结果
+//            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+//                NSDictionary *dic = [NSDictionary dictionary];
+//                if ([resultDic[@"resultStatus"] isEqualToString:@"9000"]) {//订单支付成功
+//                    dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"result":resultDic[@"result"],@"code":resultDic[@"resultStatus"]};
+//                }else{
+//                    dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"out_trade_no":[YHSingleton shareSingleton].ali_out_trade_no,@"code":resultDic[@"resultStatus"]};
+//                }
+//                [YHWebRequest YHWebRequestForPOST:ALICHECK parameters:dic success:^(NSDictionary *json) {
+//                    if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//                        if ([json[@"payType"] isEqualToString:@"SUCCESS"]) {
+//                            [YHHud showWithSuccess:@"支付成功"];
+//                            [self updateStudyBean];
+//                        }else{
+//                            [YHHud showWithMessage:@"支付失败"];
+//                        }
+//                    }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//                        [YHHud showWithMessage:@"服务器出错了，请稍后重试"];
+//                    }else{
+//                        [YHHud showWithMessage:@"支付失败"];
+//                    }
+//                } failure:^(NSError * _Nonnull error) {
+//                    [YHHud showWithMessage:@"数据请求失败"];
+//                }];
+//            }];
+//        }
+//    }else{
+//        // 微信SDK的回调
+//        [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+//    }
+//    return result;
+//}
 #pragma mark 更新用户剩余和充值的学习豆
 - (void)updateStudyBean{
-    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
-        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-            [YHSingleton shareSingleton].userInfo.studyBean = [NSString stringWithFormat:@"%@",json[@"data"][@"restBean"]];
-            [YHSingleton shareSingleton].userInfo.rechargeBean = [NSString stringWithFormat:@"%@",json[@"data"][@"rechargeBean"]];
-            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateStudyBean" object:nil];
-        }else if([json[@"code"] isEqualToString:@"ERROR"]){
-            [YHHud showWithMessage:@"服务器错误"];
-        }else{
-            [YHHud showWithMessage:@"数据异常"];
-        }
-    } failure:^(NSError * _Nonnull error) {
-        [YHHud showWithMessage:@"数据请求失败"];
-    }];
+//    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
+//        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
+//            [YHSingleton shareSingleton].userInfo.studyBean = [NSString stringWithFormat:@"%@",json[@"data"][@"restBean"]];
+//            [YHSingleton shareSingleton].userInfo.rechargeBean = [NSString stringWithFormat:@"%@",json[@"data"][@"rechargeBean"]];
+//            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateStudyBean" object:nil];
+//        }else if([json[@"code"] isEqualToString:@"ERROR"]){
+//            [YHHud showWithMessage:@"服务器错误"];
+//        }else{
+//            [YHHud showWithMessage:@"数据异常"];
+//        }
+//    } failure:^(NSError * _Nonnull error) {
+//        [YHHud showWithMessage:@"数据请求失败"];
+//    }];
 }
 @end

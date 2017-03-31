@@ -17,7 +17,7 @@
         manager =[AFHTTPSessionManager manager];
         NSString * cerPath = [[NSBundle mainBundle] pathForResource:@"ca" ofType:@"cer"];
         NSData * cerData = [NSData dataWithContentsOfFile:cerPath];
-        NSSet *cerSet = [[NSSet alloc]initWithObjects:cerData, nil];
+        NSSet *cerSet = [[NSSet alloc] initWithObjects:cerData, nil];
         manager.securityPolicy  = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate withPinnedCertificates:cerSet];
         [manager.securityPolicy setValidatesDomainName:NO];
         //解析加密的HTTPS网络请求数据
@@ -45,7 +45,12 @@
     }else{
         //字符串处理
         NSString * string =[URLString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:URLString]];
-        [[YHWebRequest shareManager] POST:string parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task,id _Nullable responseObject) {
+        // 参数转成JSON
+        NSDictionary *paramDic = nil;
+        if (parameters!=nil) {
+            paramDic = @{@"paramStr":[NSString dictionaryToJson:parameters]};
+        }
+        [[YHWebRequest shareManager] POST:string parameters:paramDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task,id _Nullable responseObject) {
             if (success) {
                 success([NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil]);
             }

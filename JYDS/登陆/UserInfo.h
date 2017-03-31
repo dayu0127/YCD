@@ -19,4 +19,9 @@
 @property (strong,nonatomic) NSString *studyBean;   //剩余学习豆
 @property (strong,nonatomic) NSString *rechargeBean;   //充值学习豆
 @property (strong,nonatomic) NSString *freeCount;   //免费单词订阅次数
+
+@property (strong,nonatomic) NSString *phoneNum;  //用户手机号
+@property (strong,nonatomic) NSString *associatedQq;  //QQ绑定的uid (唯一标识)
+@property (strong,nonatomic) NSString *associatedWx;  //微信绑定的uid (唯一标识)
+
 @end

@@ -19,8 +19,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [_tableView registerNib:[UINib nibWithNibName:@"MySubCell" bundle:nil] forCellReuseIdentifier:@"MySubCell"];
-    _arr = @[@{@"img":@"mine_collect1",@"title":@"已订阅单词数"},
-              @{@"img":@"mysub_subbed",@"title":@"已订阅课程"}];
+    _arr = @[@{@"img":@"mysub_word",@"title":@"已订阅单词数"},
+              @{@"img":@"mysub_course",@"title":@"已订阅课程"}];
 }
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
