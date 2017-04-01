@@ -87,19 +87,25 @@
 //    }
     NSString *phoneNum = _phoneTxt.text;
     NSString *verifyCode = _checkCodeTxt.text;
-    NSDictionary *jsonDic = @{
-                                      @"phoneNum" :phoneNum,             // #用户名
-                                      @"verifyCode":verifyCode,               //    #验证码
+    NSDictionary *jsonDic = @{@"phoneNum" :phoneNum,             // #用户名
+                                          @"verifyCode":verifyCode,               //    #验证码
                                       };
     [YHWebRequest YHWebRequestForPOST:kCodeLogin parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
-            NSLog(@"%@",json);
-            [YHHud showWithSuccess:@"登录成功"];
-            [YHSingleton shareSingleton].userInfo.phoneNum = phoneNum;
+            NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
+            //改变我的页面，显示头像,昵称和手机号
             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
+            NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+            //保存token
+            [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"token"] forKey:@"token"];
+            //保存用户信息
+            [YHSingleton shareSingleton].userInfo.phoneNum = dataDic[@"user"][@"phoneNum"]; //手机号
+            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
+            //保存登录保存登录状态
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
-            [[NSUserDefaults standardUserDefaults] setObject:[NSDictionary dictionaryWithJsonString:json[@"data"]][@"token"] forKey:@"token"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            //登录成功跳转首页
+            [YHHud showWithSuccess:@"登录成功"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self returnToHome];
             });
         }
@@ -159,11 +165,12 @@
 }
 - (IBAction)wxLogin:(id)sender {
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:nil completion:^(id result, NSError *error) {
+        NSLog(@"---------%@",result);
+        NSLog(@"---------------------------%@",error);
         if (error) {
-            
+
         } else {
             UMSocialUserInfoResponse *resp = result;
-            
             // 授权信息
             NSLog(@"Wechat uid: %@", resp.uid);
             NSLog(@"Wechat openid: %@", resp.openid);
@@ -188,10 +195,9 @@
             //            }
             NSString *associatedWx = resp.uid;
             NSString *genter = resp.gender;
-            NSDictionary *jsonDic = @{
-                                              @"associatedWx" :associatedWx,             // #第三方绑定的uid 唯一标识
-                                              @"genter":genter               //   #性别 1男 0女  （选填
-                                              };
+            NSDictionary *jsonDic = @{@"associatedWx" :associatedWx,             // #第三方绑定的uid 唯一标识
+                                                 @"genter":genter};               //   #性别 1男 0女  （选填
+            
             [YHWebRequest YHWebRequestForPOST:kQQLogin parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {
                     [YHSingleton shareSingleton].userInfo.associatedWx = associatedWx;

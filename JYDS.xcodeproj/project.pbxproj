@@ -125,6 +125,7 @@
 		602BDD3A1E83688C00C6CB92 /* MemoryHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 602BDD391E83688C00C6CB92 /* MemoryHeaderView.xib */; };
 		602BDD411E83697700C6CB92 /* MemoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 602BDD3F1E83697700C6CB92 /* MemoryCell.m */; };
 		602BDD421E83697700C6CB92 /* MemoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 602BDD401E83697700C6CB92 /* MemoryCell.xib */; };
+		602F8C431E8F6AC4006DC754 /* BingingPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 602F8C421E8F6AC4006DC754 /* BingingPhoneVC.m */; };
 		603A42D61E83F71300134150 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 603A42D51E83F71300134150 /* Assets.xcassets */; };
 		60402E421E84BD5700B1AD91 /* LoginCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60402E411E84BD5700B1AD91 /* LoginCodeVC.m */; };
 		60402E481E850FFD00B1AD91 /* MineTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60402E471E850FFD00B1AD91 /* MineTableVC.m */; };
@@ -233,12 +234,8 @@
 		60A976C81E8A0B2400F5461B /* DynamicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60A976C61E8A0B2400F5461B /* DynamicCell.xib */; };
 		60B3A99A1E8BFA05007E47F5 /* SetCell0.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B3A9981E8BFA05007E47F5 /* SetCell0.m */; };
 		60B3A99B1E8BFA05007E47F5 /* SetCell0.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60B3A9991E8BFA05007E47F5 /* SetCell0.xib */; };
-		60B3A99F1E8BFAAD007E47F5 /* SetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B3A99D1E8BFAAD007E47F5 /* SetCell.m */; };
-		60B3A9A01E8BFAAD007E47F5 /* SetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60B3A99E1E8BFAAD007E47F5 /* SetCell.xib */; };
 		60B3A9A41E8BFAC6007E47F5 /* SetCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B3A9A21E8BFAC6007E47F5 /* SetCell1.m */; };
 		60B3A9A51E8BFAC6007E47F5 /* SetCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60B3A9A31E8BFAC6007E47F5 /* SetCell1.xib */; };
-		60B3A9A91E8BFADE007E47F5 /* AccountSetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B3A9A71E8BFADE007E47F5 /* AccountSetCell.m */; };
-		60B3A9AA1E8BFADE007E47F5 /* AccountSetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60B3A9A81E8BFADE007E47F5 /* AccountSetCell.xib */; };
 		60E2DD001E5A94F500D45986 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60E2DCFB1E5A94F500D45986 /* libWeChatSDK.a */; };
 		60E2DD011E5A94F500D45986 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 60E2DCFC1E5A94F500D45986 /* README.txt */; };
 		60E2DD041E5AA22F00D45986 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E2DD031E5AA22F00D45986 /* WXApiManager.m */; };
@@ -387,6 +384,8 @@
 		602BDD3E1E83697700C6CB92 /* MemoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryCell.h; sourceTree = "<group>"; };
 		602BDD3F1E83697700C6CB92 /* MemoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryCell.m; sourceTree = "<group>"; };
 		602BDD401E83697700C6CB92 /* MemoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MemoryCell.xib; sourceTree = "<group>"; };
+		602F8C411E8F6AC4006DC754 /* BingingPhoneVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BingingPhoneVC.h; sourceTree = "<group>"; };
+		602F8C421E8F6AC4006DC754 /* BingingPhoneVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BingingPhoneVC.m; sourceTree = "<group>"; };
 		603A42D51E83F71300134150 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = JYDS/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		60402E401E84BD5700B1AD91 /* LoginCodeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginCodeVC.h; sourceTree = "<group>"; };
 		60402E411E84BD5700B1AD91 /* LoginCodeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginCodeVC.m; sourceTree = "<group>"; };
@@ -655,15 +654,9 @@
 		60B3A9971E8BFA05007E47F5 /* SetCell0.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetCell0.h; path = "JYDS/我的/SetCell0.h"; sourceTree = SOURCE_ROOT; };
 		60B3A9981E8BFA05007E47F5 /* SetCell0.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SetCell0.m; path = "JYDS/我的/SetCell0.m"; sourceTree = SOURCE_ROOT; };
 		60B3A9991E8BFA05007E47F5 /* SetCell0.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SetCell0.xib; path = "JYDS/我的/SetCell0.xib"; sourceTree = SOURCE_ROOT; };
-		60B3A99C1E8BFAAD007E47F5 /* SetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetCell.h; path = "JYDS/我的/SetCell.h"; sourceTree = SOURCE_ROOT; };
-		60B3A99D1E8BFAAD007E47F5 /* SetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SetCell.m; path = "JYDS/我的/SetCell.m"; sourceTree = SOURCE_ROOT; };
-		60B3A99E1E8BFAAD007E47F5 /* SetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SetCell.xib; path = "JYDS/我的/SetCell.xib"; sourceTree = SOURCE_ROOT; };
 		60B3A9A11E8BFAC6007E47F5 /* SetCell1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetCell1.h; path = "JYDS/我的/SetCell1.h"; sourceTree = SOURCE_ROOT; };
 		60B3A9A21E8BFAC6007E47F5 /* SetCell1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SetCell1.m; path = "JYDS/我的/SetCell1.m"; sourceTree = SOURCE_ROOT; };
 		60B3A9A31E8BFAC6007E47F5 /* SetCell1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SetCell1.xib; path = "JYDS/我的/SetCell1.xib"; sourceTree = SOURCE_ROOT; };
-		60B3A9A61E8BFADE007E47F5 /* AccountSetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccountSetCell.h; path = "JYDS/我的/AccountSetCell.h"; sourceTree = SOURCE_ROOT; };
-		60B3A9A71E8BFADE007E47F5 /* AccountSetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountSetCell.m; path = "JYDS/我的/AccountSetCell.m"; sourceTree = SOURCE_ROOT; };
-		60B3A9A81E8BFADE007E47F5 /* AccountSetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountSetCell.xib; path = "JYDS/我的/AccountSetCell.xib"; sourceTree = SOURCE_ROOT; };
 		60E2DCFB1E5A94F500D45986 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		60E2DCFC1E5A94F500D45986 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		60E2DCFD1E5A94F500D45986 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
@@ -1470,6 +1463,8 @@
 				60A5C7CF1E8BDB94007D2366 /* SetVC.m */,
 				60A5C7D21E8BE27F007D2366 /* AccountSetVC.h */,
 				60A5C7D31E8BE27F007D2366 /* AccountSetVC.m */,
+				602F8C411E8F6AC4006DC754 /* BingingPhoneVC.h */,
+				602F8C421E8F6AC4006DC754 /* BingingPhoneVC.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1477,18 +1472,12 @@
 		60A5C7D01E8BDB94007D2366 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				60B3A99C1E8BFAAD007E47F5 /* SetCell.h */,
-				60B3A99D1E8BFAAD007E47F5 /* SetCell.m */,
-				60B3A99E1E8BFAAD007E47F5 /* SetCell.xib */,
 				60B3A9971E8BFA05007E47F5 /* SetCell0.h */,
 				60B3A9981E8BFA05007E47F5 /* SetCell0.m */,
 				60B3A9991E8BFA05007E47F5 /* SetCell0.xib */,
 				60B3A9A11E8BFAC6007E47F5 /* SetCell1.h */,
 				60B3A9A21E8BFAC6007E47F5 /* SetCell1.m */,
 				60B3A9A31E8BFAC6007E47F5 /* SetCell1.xib */,
-				60B3A9A61E8BFADE007E47F5 /* AccountSetCell.h */,
-				60B3A9A71E8BFADE007E47F5 /* AccountSetCell.m */,
-				60B3A9A81E8BFADE007E47F5 /* AccountSetCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1613,7 +1602,7 @@
 				TargetAttributes = {
 					69B129E01DE2C6490093D841 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = AE5L29EYR8;
+						DevelopmentTeam = VL3XXNWR94;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1686,7 +1675,6 @@
 				60190AE81E2A07C0009C9450 /* 57.png in Resources */,
 				60190AFD1E2A07C0009C9450 /* 78.png in Resources */,
 				60190AE11E2A07C0009C9450 /* 50.png in Resources */,
-				60B3A9AA1E8BFADE007E47F5 /* AccountSetCell.xib in Resources */,
 				60190AE51E2A07C0009C9450 /* 54.png in Resources */,
 				6013E80D1E5EE37E007E257A /* OtherAmountCell.xib in Resources */,
 				60190AAF1E2A07C0009C9450 /* 00.png in Resources */,
@@ -1762,7 +1750,6 @@
 				606F12D41E6EB49A00875F1B /* ca.cer in Resources */,
 				605D2ED01E2DB97000A7E01B /* SuccessView.xib in Resources */,
 				60190ADD1E2A07C0009C9450 /* 46.png in Resources */,
-				60B3A9A01E8BFAAD007E47F5 /* SetCell.xib in Resources */,
 				60190AF51E2A07C0009C9450 /* 70.png in Resources */,
 				60190B001E2A07C0009C9450 /* 81.png in Resources */,
 				605D2ED21E2DB9B200A7E01B /* FailedView.xib in Resources */,
@@ -1868,6 +1855,7 @@
 				6078D2061E1613180089D40F /* AppDelegate.m in Sources */,
 				6078D1FA1E1613180089D40F /* RSADataSigner.m in Sources */,
 				60B3A9A41E8BFAC6007E47F5 /* SetCell1.m in Sources */,
+				602F8C431E8F6AC4006DC754 /* BingingPhoneVC.m in Sources */,
 				6076CEF51E8601F5006E5F6F /* NoLoginHeaderView.m in Sources */,
 				6042E0F81E8D0D8300756A61 /* MessageCell.m in Sources */,
 				6078D1C81E1613180089D40F /* WordSearchVC.m in Sources */,
@@ -1897,7 +1885,6 @@
 				60190B221E2A0A9A009C9450 /* FailedView.m in Sources */,
 				609F06331E1621D1009F4986 /* NotificationVC.m in Sources */,
 				60A5C7BB1E8B8238007D2366 /* CollectHeadCell.m in Sources */,
-				60B3A9A91E8BFADE007E47F5 /* AccountSetCell.m in Sources */,
 				6078D2091E1613180089D40F /* UserGuideViewController.m in Sources */,
 				6078D2031E1613180089D40F /* main.m in Sources */,
 				609F05DF1E161D1A009F4986 /* ForgetPwdVC.m in Sources */,
@@ -1915,7 +1902,6 @@
 				60190B1C1E2A0A5C009C9450 /* SuccessView.m in Sources */,
 				6078D2251E161AF20089D40F /* YHSingleton.m in Sources */,
 				60190B1F1E2A0A6C009C9450 /* ResultView.m in Sources */,
-				60B3A99F1E8BFAAD007E47F5 /* SetCell.m in Sources */,
 				609F05E01E161D1A009F4986 /* LoginVC.m in Sources */,
 				609F05E81E161DE5009F4986 /* Words.m in Sources */,
 				60A5C7D11E8BDB94007D2366 /* SetVC.m in Sources */,
@@ -2061,7 +2047,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: You Xia (VL3XXNWR94)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AE5L29EYR8;
+				DEVELOPMENT_TEAM = VL3XXNWR94;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2183,7 +2169,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: You Xia (VL3XXNWR94)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AE5L29EYR8;
+				DEVELOPMENT_TEAM = VL3XXNWR94;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

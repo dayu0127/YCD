@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface SetCell0 : UITableViewCell
-
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel0;
+@property (strong,nonatomic) UILabel *bingingLabel;
+@property (strong,nonatomic) UIImageView *arrows;
+@property (strong,nonatomic) UILabel *titleLabel1;
+- (void)setCellWithString:(NSString *)str;
 @end

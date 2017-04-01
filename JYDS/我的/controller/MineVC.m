@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) NSArray *arr1;
 @property (strong,nonatomic) NSArray *arr2;
+@property (strong,nonatomic) LoggedInHeaderView *logged;
 @end
 
 @implementation MineVC
@@ -24,9 +25,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeaderView) name:@"updateHeaderView" object:nil];
 }
 - (void)updateHeaderView{
-    LoggedInHeaderView *logged = [[LoggedInHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 187)];
-    logged.delegate = self;
-    _tableView.tableHeaderView = logged;
+    _logged = [[LoggedInHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 187)];
+    _logged.delegate = self;
+    _tableView.tableHeaderView = _logged;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,6 +35,7 @@
     [_tableView registerNib:[UINib nibWithNibName:@"TopCell" bundle:nil] forCellReuseIdentifier:@"TopCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"MineCell" bundle:nil] forCellReuseIdentifier:@"MineCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"ButtomCell" bundle:nil] forCellReuseIdentifier:@"ButtomCell"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeadImageAndNickname:) name:@"updateHeadImageAndNickname" object:nil];
     _arr1 = @[@{@"img":@"mine_mysub",@"title":@"我的订阅"},
                   @{@"img":@"mine_collect",@"title":@"我的收藏"},
                   @{@"img":@"mine_invitation",@"title":@"邀请奖励"},
@@ -41,12 +43,18 @@
     _arr2 = @[@{@"img":@"mine_aboutus",@"title":@"关于我们"},
                   @{@"img":@"mine_feedback",@"title":@"意见反馈"}];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogin"] == YES) {
-        LoggedInHeaderView *logged = [[LoggedInHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 187)];
-        logged.delegate = self;
-        _tableView.tableHeaderView = logged;
+        _logged = [[LoggedInHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 187)];
+        _logged.delegate = self;
+        _tableView.tableHeaderView = _logged;
     }else{
         _tableView.tableHeaderView = [[NoLoginHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 187)];
     }
+}
+- (void)updateHeadImageAndNickname:(NSNotification *)sender{
+    UIImage *headImage = sender.userInfo[@"headImage"];
+    [_logged.headImageButton setImage:headImage forState:UIControlStateNormal];
+    NSString *str = sender.userInfo[@"nickName"];
+    _logged.nameLabel.text = str;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 4;

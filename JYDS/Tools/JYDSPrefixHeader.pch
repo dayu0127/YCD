@@ -142,9 +142,8 @@
 #define IntroduceUrl @"https://www.jydsapp.com/introduce.html"
 #define UseHelpUrl @"https://www.jydsapp.com/help.html"
 #define UserAgreementUrl @"https://www.jydsapp.com/agreement.html"
-
-
-
+//头像上传路径
+#define kHeadImageUrl @"http://onio1a06g.bkt.clouddn.com/"
 
 //橙红色
 #define ORANGERED RGB(255,78,0) //#FE514A
@@ -152,5 +151,6 @@
 #define LINECOLOR RGB(228,228,228) //#E4E4E4
 //灰色
 #define GRAYCOLOR RGB(153,153,153) //#999999
-
+//首页消息提醒色
+#define MSGEDGECOLOR RGB(145,219,79)  //#91DB4F
 #endif /* JYDSPrefixHeader_pch */

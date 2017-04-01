@@ -7,8 +7,8 @@
 //
 
 #import "AccountSetVC.h"
-#import "SetCell.h"
-#import "AccountSetCell.h"
+
+#import "SetCell0.h"
 #import <UMSocialCore/UMSocialCore.h>
 @interface AccountSetVC ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -20,8 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [_tableView registerNib:[UINib nibWithNibName:@"SetCell" bundle:nil] forCellReuseIdentifier:@"SetCell"];
-    [_tableView registerNib:[UINib nibWithNibName:@"AccountSetCell" bundle:nil] forCellReuseIdentifier:@"AccountSetCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"SetCell0" bundle:nil] forCellReuseIdentifier:@"SetCell0"];
+    [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
 }
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -30,54 +30,68 @@
     return 3;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    SetCell0 *cell = [tableView dequeueReusableCellWithIdentifier:@"SetCell0" forIndexPath:indexPath];
     if (indexPath.row == 0) {
-        SetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SetCell" forIndexPath:indexPath];
-        cell.title1.text = @"手机号码";
-        cell.title2.font = [UIFont systemFontOfSize:12.0f];
-        cell.title2.text = @"13712345678";
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
+        cell.titleLabel0.text = @"手机号码";
+        [cell setCellWithString:[YHSingleton shareSingleton].userInfo.phoneNum];
     }else if (indexPath.row == 1){
-        AccountSetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AccountSetCell" forIndexPath:indexPath];
-        return cell;
+        cell.titleLabel0.text = @"微信账号";
+        [cell setCellWithString:[YHSingleton shareSingleton].userInfo.associatedWx];
     }else{
-        AccountSetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AccountSetCell" forIndexPath:indexPath];
-        cell.titleLabel.text = @"QQ账号";
-        return cell;
+        cell.titleLabel0.text = @"QQ账号";
+        [cell setCellWithString:[YHSingleton shareSingleton].userInfo.associatedQq];
     }
+    return cell;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 1) {
-//        {
-//            "phoneNum":"13300001111",       #用户手机号
-//            "token: "zzzzzz",               #令牌
-//            "associatedWx":"dfdsfsdfsdf",   #第三方绑定的uid 唯一标识
-//            "country":"",                   #国家（选填）
-//            "province":"",                  #省市（选填）
-//            "city":"",                      #城市（选填）
-//            "genter":""                     #性别 1男 0女  （选填）
-//            
-//        }
-        NSString *phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum;
-        NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
-        NSString *associatedWx = [YHSingleton shareSingleton].userInfo.associatedWx;
-        NSDictionary *jsonDic = @{
-                                          @"phoneNum":phoneNum,      // #用户手机号
-                                          @"token":token,            //   #令牌
-                                          @"associatedWx":associatedWx  // #第三方绑定的uid 唯一标识
-                                          };
-        [YHWebRequest YHWebRequestForPOST:kBindingWX parameters:jsonDic success:^(NSDictionary *json) {
-            if ([json[@"code"] integerValue] == 200) {
-                [YHHud showWithSuccess:@"绑定成功"];
-            }
-        } failure:^(NSError * _Nonnull error) {
-            NSLog(@"%@",error);
-        }];
-    }else if (indexPath.row == 2) {
+    if (indexPath.row == 0) {//手机号绑定
+        if ([[YHSingleton shareSingleton].userInfo.phoneNum isEqualToString:@""]) {
+            [self performSegueWithIdentifier:@"toBingingPhone" sender:self];
+        }
+    }else if (indexPath.row == 1) {//微信绑定
+        if ([[YHSingleton shareSingleton].userInfo.associatedWx isEqualToString:@""]) {
+            [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:nil completion:^(id result, NSError *error) {
+                if (error) {
+                    NSLog(@"%@",error);
+                } else {
+                    UMSocialUserInfoResponse *resp = result;
+                    //                {
+                    //                    "phoneNum":"13300001111",       #用户手机号
+                    //                    "token: "zzzzzz",               #令牌
+                    //                    "associatedWx":"dfdsfsdfsdf",   #第三方绑定的uid 唯一标识
+                    //                    "country":"",                   #国家（选填）
+                    //                    "province":"",                  #省市（选填）
+                    //                    "city":"",                      #城市（选填）
+                    //                    "genter":""                     #性别 1男 0女  （选填）
+                    //
+                    //                }
+                    NSString *phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum;
+                    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+                    NSString *associatedWx = resp.uid;
+                    NSDictionary *jsonDic = @{@"phoneNum":phoneNum,      // #用户手机号
+                                                          @"token":token,            //   #令牌
+                                                         @"associatedWx":associatedWx};  // #第三方绑定的uid 唯一标识
+                    NSLog(@"%@",jsonDic);
+                    [YHWebRequest YHWebRequestForPOST:kBindingWX parameters:jsonDic success:^(NSDictionary *json) {
+                        if ([json[@"code"] integerValue] == 200) {
+                            NSLog(@"%@",json);
+                            [YHHud showWithSuccess:@"绑定成功"];
+                            [YHSingleton shareSingleton].userInfo.associatedWx = associatedWx;
+                            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
+                            [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                        }
+                    } failure:^(NSError * _Nonnull error) {
+                        NSLog(@"%@",error);
+                    }];
+                }
+            }];
+        }
+    }else {//QQ绑定
 //        {
 //            "phoneNum":"13300001111",       #用户手机号
 //            "token: "zzzzzz",               #令牌
@@ -88,45 +102,49 @@
 //            "genter":""                     #性别 1男 0女  （选填）
 //            
 //        }
-        [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_QQ currentViewController:nil completion:^(id result, NSError *error) {
-            if (error) {
-                
-            } else {
-                UMSocialUserInfoResponse *resp = result;
-                
-                // 授权信息
-                NSLog(@"QQ uid: %@", resp.uid);
-                NSLog(@"QQ openid: %@", resp.openid);
-                NSLog(@"QQ accessToken: %@", resp.accessToken);
-                NSLog(@"QQ expiration: %@", resp.expiration);
-                
-                // 用户信息
-                NSLog(@"QQ name: %@", resp.name);
-                NSLog(@"QQ iconurl: %@", resp.iconurl);
-                NSLog(@"QQ gender: %@", resp.gender);
-                
-                // 第三方平台SDK源数据
-                NSLog(@"QQ originalResponse: %@", resp.originalResponse);
-                
-                NSString *phoneNum = [[NSUserDefaults standardUserDefaults] objectForKey:@"phoneNum"];
-                NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
-                NSString *associatedQq = resp.uid;
-                NSDictionary *jsonDic = @{
-                                          @"phoneNum":phoneNum,      // #用户手机号
-                                          @"token":token,            //   #令牌
-                                          @"associatedQq":associatedQq  // #第三方绑定的uid 唯一标识
-                                          };
-                [YHWebRequest YHWebRequestForPOST:kBindingQQ parameters:jsonDic success:^(NSDictionary *json) {
-                    if ([json[@"code"] integerValue] == 200) {
-                        [YHHud showWithSuccess:@"绑定成功"];
-                    }
-                } failure:^(NSError * _Nonnull error) {
-                    NSLog(@"%@",error);
-                }];
-            }
-        }];
-
+        if ([[YHSingleton shareSingleton].userInfo.associatedQq isEqualToString:@""]) {
+            [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_QQ currentViewController:nil completion:^(id result, NSError *error) {
+                if (error) {
+                    
+                } else {
+                    UMSocialUserInfoResponse *resp = result;
+                    NSString *phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum;
+                    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+                    NSString *associatedQq = resp.uid;
+                    NSDictionary *jsonDic = @{@"phoneNum":phoneNum,      // #用户手机号
+                                              @"token":token,            //   #令牌
+                                              @"associatedQq":associatedQq};  // #第三方绑定的uid 唯一标识
+                    NSLog(@"%@",jsonDic);
+                    [YHWebRequest YHWebRequestForPOST:kBindingQQ parameters:jsonDic success:^(NSDictionary *json) {
+                        NSLog(@"%@",json);
+                        if ([json[@"code"] integerValue] == 200) {
+                            [YHHud showWithMessage:@"绑定成功"];
+                            [YHSingleton shareSingleton].userInfo.associatedQq = associatedQq;
+                            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
+                            [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                        }
+                    } failure:^(NSError * _Nonnull error) {
+                        NSLog(@"%@",error);
+                    }];
+                }
+            }];
+        }
     }
+}
+#pragma mark 退出当前账号
+- (IBAction)logoutClick:(id)sender {
+    //清空token
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"tolen"];
+    //清空个人信息
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfo"];
+    //改变登录状态
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isLogin"];
+    //跳转到登录页面
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
+    [app.window setRootViewController:loginVC];
+    [app.window makeKeyWindow];
 }
 /*
 #pragma mark - Navigation

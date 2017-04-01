@@ -8,7 +8,6 @@
 
 #import "SetVC.h"
 #import <UIImageView+WebCache.h>
-#import "SetCell.h"
 #import "SetCell0.h"
 #import "SetCell1.h"
 @interface SetVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -45,9 +44,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
         SetCell0 *cell = [tableView dequeueReusableCellWithIdentifier:@"SetCell0" forIndexPath:indexPath];
+        cell.titleLabel0.text = @"账号设置";
+        [cell setCellWithString:@""];
+        cell.bingingLabel.alpha = 0;
         return cell;
     }else if (indexPath.row == 1){
-        SetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SetCell" forIndexPath:indexPath];
+        SetCell0 *cell = [tableView dequeueReusableCellWithIdentifier:@"SetCell0" forIndexPath:indexPath];
+        cell.titleLabel0.text = @"清除缓存";
+        [cell setCellWithString:@"0k"];
+        cell.titleLabel1.text = @"666k";
+        cell.titleLabel1.textColor = ORANGERED;
         return cell;
     }else{
         SetCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"SetCell1" forIndexPath:indexPath];

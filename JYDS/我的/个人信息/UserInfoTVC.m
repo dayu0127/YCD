@@ -7,14 +7,19 @@
 //
 
 #import "UserInfoTVC.h"
-
-@interface UserInfoTVC ()
+#import <UIButton+WebCache.h>
+#import<AVFoundation/AVCaptureDevice.h>
+#import <AVFoundation/AVMediaFormat.h>
+#import<AssetsLibrary/AssetsLibrary.h>
+#import<CoreLocation/CoreLocation.h>
+@interface UserInfoTVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *headImageButton;
 @property (strong,nonatomic) UIAlertController *alertVC;
 @property (strong,nonatomic) UITextField *nickNameText;
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sexLabel;
 @property (strong,nonatomic) UIAlertAction *updateAction;
+@property (strong,nonatomic) UIImage *oldImage;
 @end
 
 @implementation UserInfoTVC
@@ -24,6 +29,11 @@
     self.automaticallyAdjustsScrollViewInsets = false;
     _headImageButton.layer.masksToBounds = YES;
     _headImageButton.layer.cornerRadius = 45.5f;
+    //加载头像昵称性别
+    NSString *headImageUrl = [NSString stringWithFormat:@"%@%@",kHeadImageUrl,[YHSingleton shareSingleton].userInfo.headImg];
+    [_headImageButton sd_setImageWithURL:[NSURL URLWithString:headImageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"mine_headimage"]];
+    _nickNameLabel.text = [YHSingleton shareSingleton].userInfo.nickName;
+    _sexLabel.text = [YHSingleton shareSingleton].userInfo.genter;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -42,6 +52,51 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+#pragma mark 头像上传
+- (IBAction)headImageClick:(id)sender {
+    _alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *manAction = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        //相册权限(上线开启注释)
+        ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
+        if (author ==kCLAuthorizationStatusRestricted || author ==kCLAuthorizationStatusDenied){
+            //无权限 引导去开启
+            NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+            if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                [[UIApplication sharedApplication] openURL:url];
+            }
+        }
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:picker animated:YES completion:nil];
+    }];
+    UIAlertAction *nvAction = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        //相机权限(上线开启注释)
+        AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        if (authStatus ==AVAuthorizationStatusRestricted ||//此应用程序没有被授权访问的照片数据。可能是家长控制权限
+            authStatus ==AVAuthorizationStatusDenied)  //用户已经明确否认了这一照片数据的应用程序访问
+        {
+            // 无权限 引导去开启
+            NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+            if ([[UIApplication sharedApplication]canOpenURL:url]) {
+                [[UIApplication sharedApplication]openURL:url];
+            }
+        }
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self presentViewController:picker animated:YES completion:nil];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [_alertVC addAction:manAction];
+    [_alertVC addAction:nvAction];
+    [_alertVC addAction:cancel];
+    [self presentViewController:_alertVC animated:YES completion:nil];
 }
 
 #pragma mark - Table view data source
@@ -95,6 +150,7 @@
         [self presentViewController:_alertVC animated:YES completion:nil];
     }
 }
+#pragma 保存昵称和性别
 - (IBAction)saveClick:(id)sender {
 //    {
 //        "userID":"**********",      #用户ID
@@ -116,6 +172,92 @@
 //    } failure:^(NSError * _Nonnull error) {
 //        NSLog(@"%@",error);
 //    }];
+//    {
+//        "userPhone":"**********",       #用户手机号
+//        "newNickName":"*****",      #用户新昵称（选填字段）
+//        "sex":"男"                   #用户性别（选填字段）
+//    }
+    NSDictionary *jsonDic = @{@"userPhone":[YHSingleton shareSingleton].userInfo.phoneNum,    //#用户手机号
+                                            @"newNickName":_nickNameLabel.text,         //#用户新昵称（选填字段）
+                                            @"sex":_sexLabel.text};     //#用户性别（选填字段）
+    [YHWebRequest YHWebRequestForPOST:kNicknameSex parameters:jsonDic success:^(NSDictionary *json) {
+        if ([json[@"code"] integerValue] == 200) {
+            [YHHud showWithSuccess:@"修改成功"];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
+}
+#pragma mark UIImagePickerController回调方法
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    UIImage *headImage = info[UIImagePickerControllerEditedImage];
+    [_headImageButton setImage:[self compressImage:headImage newWidth:200] forState:UIControlStateNormal];
+    [self dismissViewControllerAnimated:YES completion:^{
+        //头像上传
+        //上传头像图片到服务器
+        AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+        mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
+        mgr.responseSerializer.acceptableContentTypes =[NSSet setWithObjects:@"application/json",@"text/json",@"text/JavaScript",@"text/html",@"text/plain",nil];
+        [mgr POST:kUpdateHead parameters:@{@"paramStr":[NSString dictionaryToJson:@{@"userPhone":[YHSingleton shareSingleton].userInfo.phoneNum}]} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+            NSData *data = UIImagePNGRepresentation(_headImageButton.imageView.image);
+            [formData appendPartWithFileData:data name:@"posterFile" fileName:@"headImage.png" mimeType:@"image/png"];
+        } progress:^(NSProgress * _Nonnull uploadProgress) {} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil];
+            if ([json[@"code"] integerValue] == 200) {
+                //把头像图片保存在沙盒中
+                NSString *path_sandox = NSHomeDirectory();
+                //设置头像图片路径
+                NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/headImage.png"];
+                //把头像图片直接保存到指定的路径（同时应该把头像图片的路径imagePath存起来，下次就可以直接用来取）
+                [UIImagePNGRepresentation(_headImageButton.imageView.image) writeToFile:imagePath atomically:YES];
+                //更新本地头像url
+                //                [YHSingleton shareSingleton].userInfo.headImageUrl = json[@"url"];
+                //                [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
+                //更新昵称和性别
+                [YHSingleton shareSingleton].userInfo.nickName = _nickNameLabel.text;
+                [YHSingleton shareSingleton].userInfo.genter = _sexLabel.text;
+                //更新我的页面的头像和昵称
+                NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:_headImageButton.imageView.image,@"headImage",_nickNameText.text,@"nickName",nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadImageAndNickName" object:nil userInfo:dic];
+                [YHHud showWithSuccess:@"修改成功"];
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            [YHHud showWithMessage:@"上传失败"];
+        }];
+    }];
+}
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+#pragma mark 压缩图片(图片宽度:像素)
+- (UIImage *)compressImage:(UIImage *)image newWidth:(CGFloat)newImageWidth{
+    if (!image) return nil;
+    float imageWidth = image.size.width;
+    float imageHeight = image.size.height;
+    float width = newImageWidth;
+    float height = image.size.height/(image.size.width/width);
+    
+    float widthScale = imageWidth /width;
+    float heightScale = imageHeight /height;
+    
+    // 创建一个bitmap的context
+    // 并把它设置成为当前正在使用的context
+    UIGraphicsBeginImageContext(CGSizeMake(width, height));
+    
+    if (widthScale > heightScale) {
+        [image drawInRect:CGRectMake(0, 0, imageWidth /heightScale , height)];
+    }
+    else {
+        [image drawInRect:CGRectMake(0, 0, width , imageHeight /widthScale)];
+    }
+    
+    // 从当前context中创建一个改变大小后的图片
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    // 使当前的context出堆栈
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+    
 }
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

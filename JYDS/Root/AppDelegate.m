@@ -16,6 +16,7 @@
 #import "WXApiManager.h"
 #import <SMS_SDK/Extend/SMSSDK+AddressBookMethods.h>
 
+
 @interface AppDelegate ()
 @end
 @implementation AppDelegate
@@ -37,7 +38,7 @@
         self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"userGuide"];
     } else {
         //不是第一次启动
-//        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"login"] == YES) { //登录了
+//        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogin"] == YES) { //登录了
 //            [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
             self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"root"];
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isLogin"];
@@ -94,7 +95,7 @@
     
     // 获取友盟social版本号
     //NSLog(@"UMeng social version: %@", [UMSocialGlobal umSocialSDKVersion]);
-    
+
     //设置微信的appKey和appSecret
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx7658d0735b233185" appSecret:@"07f165e769707ce2d10955666edbeb1c" redirectURL:@"http://mobile.umeng.com/social"];
     
@@ -122,12 +123,12 @@
     }];
 }
 #pragma mark 设置系统回调(支持所有iOS系统)
-//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
-//    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
-//    if (!result) {
-//        // 支付宝SDK的回调
-//        if ([url.host isEqualToString:@"safepay"]) {
-//            //跳转支付宝钱包进行支付，处理支付结果
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+    if (!result) {
+        // 支付宝SDK的回调
+        if ([url.host isEqualToString:@"safepay"]) {
+            //跳转支付宝钱包进行支付，处理支付结果
 //            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
 //                NSDictionary *dic = [NSDictionary dictionary];
 //                if ([resultDic[@"resultStatus"] isEqualToString:@"9000"]) {//订单支付成功
@@ -152,13 +153,13 @@
 //                    [YHHud showWithMessage:@"数据请求失败"];
 //                }];
 //            }];
-//        }
-//    }else{
-//        // 微信SDK的回调
-//        [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
-//    }
-//    return result;
-//}
+        }
+    }else{
+        // 微信SDK的回调
+        [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+    }
+    return result;
+}
 #pragma mark 更新用户剩余和充值的学习豆
 - (void)updateStudyBean{
 //    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
@@ -176,4 +177,8 @@
 //        [YHHud showWithMessage:@"数据请求失败"];
 //    }];
 }
+//- (void)applicationDidBecomeActive:(UIApplication *)application
+//{
+//    [UMSocialSnsService  applicationDidBecomeActive];
+//}
 @end
