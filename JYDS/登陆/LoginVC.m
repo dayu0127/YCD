@@ -102,76 +102,56 @@
 }
 #pragma mark 点击登录
 - (IBAction)loginButtonClick:(UIButton *)sender {
-//    {
-//        "phoneNum":"13300001111",#手机号
-//        "password":"123456",     #密码
-//        "deviceNum":"123456",    #设备码（选填）
-//        "deviceType":"ios",      #设备类型（选填）
-//        "deviceSize":"5.5"       #设备尺寸（选填）
-//        "deviceOem":"iPhone6s",  #设备名称（选填）
-//        "deviceOs" :"5.1.1"      #设备操作系统（选填）
-//    }
-     [YHHud showWithStatus:@"正在登陆"];
-    NSString *phoneNum = _phoneText.text;
-    NSString *password = _pwdTxt.text;
-    NSDictionary *jsonDic = @{
-                                      @"phoneNum" :phoneNum,             // #用户名
-                                      @"password":password,               //    #密码
-                                      @"deviceNum":DEVICEID,    //#设备码（选填）
-                                      };
-    [YHWebRequest YHWebRequestForPOST:kPwdLogin parameters:jsonDic success:^(NSDictionary *json) {
-        [YHHud dismiss];
-        if ([json[@"code"] integerValue] == 200) {
-            NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
-            //改变我的页面，显示头像,昵称和手机号
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
-            NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-            //保存token
-            [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"token"] forKey:@"token"];
-            //保存用户信息
-            [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
-            [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
-            //保存登录保存登录状态
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
-            //登录成功跳转首页
-            [YHHud showWithSuccess:@"登录成功"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self returnToHome];
-            });
-        }
-    } failure:^(NSError * _Nonnull error) {
-        [YHHud dismiss];
-        NSLog(@"%@",error);
-    }];
-//    if (REGEX(PHONE_RE, _phoneText.text)==NO) {
-//        [YHHud showWithMessage:@"请输入有效的11位手机号"];
-//    }else if (REGEX(PWD_RE, _pwdText.text)==NO){
+    if (REGEX(PHONE_RE, _phoneText.text)==NO) {
+        [YHHud showWithMessage:@"请输入有效的11位手机号"];
+    }
+//    else if (REGEX(PWD_RE, _pwdTxt.text)==NO){
 //        [YHHud showWithMessage:@"请输入6~15位字母+数字组合的密码"];
-//    }else{
-        //--实现登录--
-//        [YHHud showWithStatus:@"正在登陆"];
-//        NSDictionary *dic = @{@"userName":_phoneText.text,@"password":_pwdText.text,@"device_id":DEVICEID};
-//        [YHWebRequest YHWebRequestForPOST:LOGIN parameters:dic success:^(NSDictionary *json) {
-//            [YHHud dismiss];
-//            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-//                //保存用户信息
-//                [[NSUserDefaults standardUserDefaults] setObject:json[@"data"] forKey:@"userInfo"];
-//                [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:json[@"data"]];
-//                [YHHud showWithSuccess:@"登陆成功"];
-//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    
-//                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"login"];
-//                });
-//            }else if ([json[@"code"] isEqualToString:@"USAPWERR"]){
-//                [YHHud showWithMessage:@"用户名或密码错误"];
-//            }else{
-//                [YHHud showWithMessage:@"登录失败"];
-//            }
-//        } failure:^(NSError * _Nonnull error) {
-//            [YHHud dismiss];
-//            [YHHud showWithMessage:@"数据请求失败"];
-//        }];
 //    }
+    else{
+        //    {
+        //        "phoneNum":"13300001111",#手机号
+        //        "password":"123456",     #密码
+        //        "deviceNum":"123456",    #设备码（选填）
+        //        "deviceType":"ios",      #设备类型（选填）
+        //        "deviceSize":"5.5"       #设备尺寸（选填）
+        //        "deviceOem":"iPhone6s",  #设备名称（选填）
+        //        "deviceOs" :"5.1.1"      #设备操作系统（选填）
+        //    }
+        //--实现登录--
+        [YHHud showWithStatus:@"正在登陆"];
+        NSString *phoneNum = _phoneText.text;
+        NSString *password = _pwdTxt.text;
+        NSDictionary *jsonDic = @{
+                                  @"phoneNum" :phoneNum,             // #用户名
+                                  @"password":password,               //    #密码
+                                  @"deviceNum":DEVICEID,    //#设备码（选填）
+                                  };
+        [YHWebRequest YHWebRequestForPOST:kPwdLogin parameters:jsonDic success:^(NSDictionary *json) {
+            [YHHud dismiss];
+            if ([json[@"code"] integerValue] == 200) {
+                NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
+                //改变我的页面，显示头像,昵称和手机号
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
+                NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+                //保存token
+                [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"token"] forKey:@"token"];
+                //保存用户信息
+                [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
+                [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
+                //保存登录保存登录状态
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
+                //登录成功跳转首页
+                [YHHud showWithSuccess:@"登录成功"];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self returnToHome];
+                });
+            }
+        } failure:^(NSError * _Nonnull error) {
+            [YHHud dismiss];
+            NSLog(@"%@",error);
+        }];
+    }
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"register"]) {
@@ -223,6 +203,7 @@
                                                   @"genter":genter};               //   #性别 1男 0女  （选填
             [YHWebRequest YHWebRequestForPOST:kQQLogin parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {
+                    NSLog(@"%@",json);
                     [YHSingleton shareSingleton].userInfo.associatedQq = associatedQq;
                     [YHHud showWithSuccess:@"登录成功"];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];

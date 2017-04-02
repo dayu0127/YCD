@@ -8,7 +8,7 @@
 
 #import "MessageVC.h"
 #import "MessageCell.h"
-@interface MessageVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface MessageVC ()<UITableViewDelegate,UITableViewDataSource,MessageCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -37,7 +37,11 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessageCell" forIndexPath:indexPath];
+    cell.delegate = self;
     return cell;
+}
+- (void)messageDetail{
+    [self performSegueWithIdentifier:@"toMessageDetail" sender:self];
 }
 /*
 #pragma mark - Navigation

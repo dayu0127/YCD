@@ -8,10 +8,8 @@
 
 #import "MnemonicsVC.h"
 #import <SDCycleScrollView.h>
-#import "MnemonicsCell.h"
 #import "MemoryCourseVC.h"
 #import "BannerDetailVC.h"
-#import "Mnemonics.h"
 #import <UIImageView+WebCache.h>
 #import "BannerCell.h"
 #import "PlanCell.h"

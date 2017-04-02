@@ -129,18 +129,18 @@
             [self performSegueWithIdentifier:@"toMySub" sender:self];
         }else if(indexPath.row == 1){//我的收藏
             [self performSegueWithIdentifier:@"toMyCollect" sender:self];
-        }else if (indexPath.row == 2){
-        
+        }else if (indexPath.row == 2){//邀请奖励
+            [self performSegueWithIdentifier:@"toInviteRewards" sender:self];
         }else{//右脑训练
             [self performSegueWithIdentifier:@"toExercises" sender:self];
         }
     }else if (indexPath.section == 2){
-        if (indexPath.row == 0) {
+        if (indexPath.row == 0) {//关于我们
             [self performSegueWithIdentifier:@"toAboutUs" sender:self];
-        }else{
+        }else{//意见反馈
             [self performSegueWithIdentifier:@"toFeedback" sender:self];
         }
-    }else if(indexPath.section == 3&&indexPath.row == 0){
+    }else if(indexPath.section == 3&&indexPath.row == 0){//设置
         [self performSegueWithIdentifier:@"toSet" sender:self];
     }
 }

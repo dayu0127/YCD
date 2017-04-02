@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="263"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="262.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="263"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17-03-11" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqj-Kb-nxA">
@@ -55,14 +55,17 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NyH-B5-cx3">
-                                <rect key="frame" x="288" y="208" width="57" height="12"/>
+                                <rect key="frame" x="288" y="198" width="57" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="12" id="NZQ-wG-5fz"/>
+                                    <constraint firstAttribute="height" constant="32" id="NZQ-wG-5fz"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="查看详情&gt;">
                                     <color key="titleColor" red="0.99607843137254903" green="0.31764705882352939" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="detailClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0Pu-1o-Mhz"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -73,7 +76,7 @@
                             <constraint firstItem="hpt-b5-mRL" firstAttribute="leading" secondItem="Flq-MS-HpR" secondAttribute="leading" constant="10" id="QUV-77-OCn"/>
                             <constraint firstAttribute="trailing" secondItem="hpt-b5-mRL" secondAttribute="trailing" constant="10" id="Wfz-dl-OLg"/>
                             <constraint firstItem="XVd-a1-lnb" firstAttribute="leading" secondItem="Flq-MS-HpR" secondAttribute="leading" constant="10" id="cXl-zh-joZ"/>
-                            <constraint firstAttribute="bottom" secondItem="NyH-B5-cx3" secondAttribute="bottom" constant="10" id="hH9-Ty-Dag"/>
+                            <constraint firstAttribute="bottom" secondItem="NyH-B5-cx3" secondAttribute="bottom" id="hH9-Ty-Dag"/>
                             <constraint firstAttribute="trailing" secondItem="XVd-a1-lnb" secondAttribute="trailing" constant="10" id="pi4-LJ-SPa"/>
                             <constraint firstItem="hpt-b5-mRL" firstAttribute="top" secondItem="XVd-a1-lnb" secondAttribute="bottom" constant="16" id="vdh-Rq-7Df"/>
                         </constraints>

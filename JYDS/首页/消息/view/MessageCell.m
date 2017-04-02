@@ -20,5 +20,8 @@
 
     // Configure the view for the selected state
 }
+- (IBAction)detailClick:(id)sender {
+    [_delegate messageDetail];
+}
 
 @end
