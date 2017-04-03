@@ -13,6 +13,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *phoneTxt;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UITextField *checkCodeTxt;
+@property (weak, nonatomic) IBOutlet UIImageView *login_code_img;
+@property (weak, nonatomic) IBOutlet UITextField *imgCodeTxt;
+@property (weak, nonatomic) IBOutlet UIImageView *codeImage;
+@property (weak, nonatomic) IBOutlet UIView *line2;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceForImageCode;
 
 @end
 
@@ -25,6 +30,12 @@
     _loginButton.layer.cornerRadius = 7.5f;
     _loginButton.layer.borderWidth = 1.0f;
     _loginButton.layer.borderColor = GRAYCOLOR.CGColor;
+    //默认图形验证码隐藏
+    _login_code_img.alpha = 0;
+    _imgCodeTxt.alpha = 0;
+    _codeImage.alpha = 0;
+    _line2.alpha = 0;
+    _spaceForImageCode.constant = 22;
 }
 
 - (IBAction)phoneEditingChanged:(UITextField *)sender {
@@ -40,16 +51,6 @@
         sender.text = [sender.text substringToIndex:11];
     }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 - (IBAction)backToHome:(id)sender {
     [self returnToHome];
 }
@@ -60,18 +61,23 @@
     [app.window setRootViewController:rootTBC];
     [app.window makeKeyWindow];
 }
+#pragma mark 获取验证码
 - (IBAction)getCodeClick:(id)sender {
+    //点击显示图形验证(测试环境)
+    _login_code_img.alpha = 1;
+    _imgCodeTxt.alpha = 1;
+    _codeImage.alpha = 1;
+    _line2.alpha = 1;
+    _spaceForImageCode.constant = 79.5;
 //    {
 //        "phoneNum":"13300001111",  #手机号
 //        "stype":1,                 #类型  1注册 2登录 3找回密码
 //        "deviceNum":"123456",      #设备码（选填）
 //    }
     NSString *phoneNum = _phoneTxt.text;
-    NSDictionary *jsonDic = @{
-                                      @"phoneNum" :phoneNum,             // #用户名
-                                      @"stype":@"2",               //    #类型  1注册 2登录 3找回密码
-                                      @"deviceNum":DEVICEID,               //     #设备码（选填）
-                                      };
+    NSDictionary *jsonDic = @{@"phoneNum" :phoneNum,             // #用户名
+                                          @"stype":@"2",               //    #类型  1注册 2登录 3找回密码
+                                          @"deviceNum":DEVICEID};               //     #设备码（选填）
     [YHWebRequest YHWebRequestForPOST:kSendCheckCode parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
             [YHHud showWithSuccess:json[@"message"]];
@@ -80,6 +86,7 @@
         NSLog(@"%@",error);
     }];
 }
+#pragma mark 验证码登录按钮点击事件
 - (IBAction)loginButtonClick:(id)sender {
 //    {
 //        "phoneNum":"13300001111",#手机号
@@ -88,8 +95,7 @@
     NSString *phoneNum = _phoneTxt.text;
     NSString *verifyCode = _checkCodeTxt.text;
     NSDictionary *jsonDic = @{@"phoneNum" :phoneNum,             // #用户名
-                                          @"verifyCode":verifyCode,               //    #验证码
-                                      };
+                                          @"verifyCode":verifyCode};               //    #验证码
     [YHWebRequest YHWebRequestForPOST:kCodeLogin parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
             NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
@@ -143,11 +149,10 @@
             //            }
             NSString *associatedQq = resp.uid;
             NSString *genter = resp.gender;
-            NSDictionary *jsonDic = @{
-                                              @"associatedQq" :associatedQq,             // #第三方绑定的uid 唯一标识
-                                              @"genter":genter               //   #性别 1男 0女  （选填
-                                              };
+            NSDictionary *jsonDic = @{@"associatedQq" :associatedQq,             // #第三方绑定的uid 唯一标识
+                                                  @"genter":genter};               //   #性别 1男 0女  （选填
             [YHWebRequest YHWebRequestForPOST:kQQLogin parameters:jsonDic success:^(NSDictionary *json) {
+                NSLog(@"%@",json);
                 if ([json[@"code"] integerValue] == 200) {
                     [YHSingleton shareSingleton].userInfo.associatedQq = associatedQq;
                     [YHHud showWithSuccess:@"登录成功"];
@@ -165,8 +170,6 @@
 }
 - (IBAction)wxLogin:(id)sender {
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:nil completion:^(id result, NSError *error) {
-        NSLog(@"---------%@",result);
-        NSLog(@"---------------------------%@",error);
         if (error) {
 
         } else {
@@ -197,8 +200,8 @@
             NSString *genter = resp.gender;
             NSDictionary *jsonDic = @{@"associatedWx" :associatedWx,             // #第三方绑定的uid 唯一标识
                                                  @"genter":genter};               //   #性别 1男 0女  （选填
-            
             [YHWebRequest YHWebRequestForPOST:kQQLogin parameters:jsonDic success:^(NSDictionary *json) {
+                NSLog(@"%@",json);
                 if ([json[@"code"] integerValue] == 200) {
                     [YHSingleton shareSingleton].userInfo.associatedWx = associatedWx;
                     [YHHud showWithSuccess:@"登录成功"];

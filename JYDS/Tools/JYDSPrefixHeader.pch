@@ -132,16 +132,17 @@
 //UUID
 #define DEVICEID [[[UIDevice currentDevice] identifierForVendor] UUIDString]
 
-//邀请规则
-#define InvitationDayUrl @"https://www.jydsapp.com/jyds/static/img/upload/reward.png"
-#define InvitationNightUrl @"https://www.jydsapp.com/jyds/static/img/upload/reward_black.png"
+//消息详情
+#define kMessageDetail @"https://www.jydsapp.com/jydsApi/h5/noticePage.html"
+//邀请奖励
+#define kInviteRewards @"https://www.jydsapp.com/jydsApi/h5/reward.html"
 //邀请规则Url
 #define InvitationDUrl @"https://www.jydsapp.com/IOSreward.html"
 #define InvitationNUrl @"https://www.jydsapp.com/reward_black.html"
 //关于我们url
-#define IntroduceUrl @"https://www.jydsapp.com/introduce.html"
-#define UseHelpUrl @"https://www.jydsapp.com/help.html"
-#define UserAgreementUrl @"https://www.jydsapp.com/agreement.html"
+#define IntroduceUrl @"https://www.jydsapp.com/jydsApi/h5/introduce.html"
+#define UseHelpUrl @"https://www.jydsapp.com/jydsApi/h5/help.html"
+#define UserAgreementUrl @"https://www.jydsapp.com/jydsApi/h5/agreement.html"
 //头像上传路径
 #define kHeadImageUrl @"http://onio1a06g.bkt.clouddn.com/"
 

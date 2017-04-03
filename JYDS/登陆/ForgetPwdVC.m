@@ -12,6 +12,11 @@
 //@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
 //@property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
 //@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *lineCollection;
+@property (weak, nonatomic) IBOutlet UIImageView *login_code_img;
+@property (weak, nonatomic) IBOutlet UITextField *imgCodeTxt;
+@property (weak, nonatomic) IBOutlet UIImageView *codeImage;
+@property (weak, nonatomic) IBOutlet UIView *line2;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceForImageCheck;
 @property (weak, nonatomic) IBOutlet UITextField *phoneTxt;
 @property (weak, nonatomic) IBOutlet UITextField *checkCodeTxt;
 @property (weak, nonatomic) IBOutlet UITextField *pwdTxt;
@@ -33,6 +38,12 @@
     _sureButton.layer.cornerRadius = 7.5f;
     _sureButton.layer.borderWidth = 1.0f;
     _sureButton.layer.borderColor = GRAYCOLOR.CGColor;
+    //默认图形验证码隐藏
+    _login_code_img.alpha = 0;
+    _imgCodeTxt.alpha = 0;
+    _codeImage.alpha = 0;
+    _line2.alpha = 0;
+    _spaceForImageCheck.constant = 22;
 //    [self nightModeConfiguration];
 //    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateNormal];
 //    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateHighlighted];
@@ -85,6 +96,12 @@
 //    }
 //}
 - (IBAction)checkButtonClick:(UIButton *)sender {
+    //点击显示图形验证(测试环境)
+    _login_code_img.alpha = 1;
+    _imgCodeTxt.alpha = 1;
+    _codeImage.alpha = 1;
+    _line2.alpha = 1;
+    _spaceForImageCheck.constant = 79.5;
 //    if (REGEX(PHONE_RE, _phoneText.text)==NO) {
 //        [YHHud showWithMessage:@"无效手机号"];
 //    }else{

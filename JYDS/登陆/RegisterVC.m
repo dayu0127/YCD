@@ -18,10 +18,15 @@
 //@property (strong,nonatomic)UITextField *idCodeText;
 //@property (strong,nonatomic)UITextField *pwdText;
 //@property (strong,nonatomic)UITextField *studyCodeText;
-//@property (strong,nonatomic)NSTimer *countDownTimer;
-//@property (assign,nonatomic)int countDown;
+@property (strong,nonatomic)NSTimer *countDownTimer;
+@property (assign,nonatomic)int countDown;
 //@property (weak, nonatomic) IBOutlet UIButton *showPwdButton;
 //@property (strong,nonatomic) JCAlertView *alertView;
+@property (weak, nonatomic) IBOutlet UIImageView *login_code_img;
+@property (weak, nonatomic) IBOutlet UITextField *imgCodeTxt;
+@property (weak, nonatomic) IBOutlet UIImageView *codeImage;
+@property (weak, nonatomic) IBOutlet UIView *line2;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceForImageCheck;
 @property (weak, nonatomic) IBOutlet UITextField *phoneTxt;
 @property (weak, nonatomic) IBOutlet UITextField *checkCodeTxt;
 @property (weak, nonatomic) IBOutlet UITextField *pwdTxt;
@@ -36,6 +41,12 @@
     _registerButton.layer.cornerRadius = 7.5f;
     _registerButton.layer.borderWidth = 1.0f;
     _registerButton.layer.borderColor = GRAYCOLOR.CGColor;
+    //默认图形验证码隐藏
+    _login_code_img.alpha = 0;
+    _imgCodeTxt.alpha = 0;
+    _codeImage.alpha = 0;
+    _line2.alpha = 0;
+    _spaceForImageCheck.constant = 22;
 //    [self nightModeConfiguration];
 //    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateNormal];
 //    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateHighlighted];
@@ -97,6 +108,27 @@
 //    中国联通号码：130、131、132、145（无线上网卡）、155、156、185（iPhone5上市后开放）、186、176（4G号段）、175（2015年9月10日正式启用，暂只对北京、上海和广东投放办理）
 //    中国电信号码：133、153、180、181、189、177、173、149
 //    虚拟运营商：170、1718、1719
+    //点击显示图形验证(测试环境)
+    _login_code_img.alpha = 1;
+    _imgCodeTxt.alpha = 1;
+    _codeImage.alpha = 1;
+    _line2.alpha = 1;
+    _spaceForImageCheck.constant = 79.5;
+    //验证码按钮倒计时
+    _countDown = COUNTDOWN;
+    sender.enabled = NO;
+    sender.backgroundColor = [UIColor lightGrayColor];
+    [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
+    _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        _countDown--;
+        [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
+        if (_countDown == 0) {
+            [timer invalidate];
+            sender.enabled = YES;
+            [sender setTitle:@"获取验证码" forState:UIControlStateNormal];
+            sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+        }
+    }];
 //    if (REGEX(PHONE_RE, _phoneText.text)==NO) {
 //        [YHHud showWithMessage:@"无效手机号"];
 //    }else{

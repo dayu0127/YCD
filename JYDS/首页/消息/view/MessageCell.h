@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol MessageCellDelegate<NSObject>
+- (void)messageDetail;
+@end
 @interface MessageCell : UITableViewCell
-
+@property (weak,nonatomic) id<MessageCellDelegate> delegate;
 @end
