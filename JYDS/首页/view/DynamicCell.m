@@ -15,7 +15,7 @@
     [super awakeFromNib];
     // Initialization code
     NSMutableArray *netImages = [NSMutableArray array];
-    NSArray *bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexImages"];
+    NSArray *bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexDynamic"];
     for (NSDictionary *dic in bannerInfoArray) {
         [netImages addObject:[NSString stringWithFormat:@"%@",dic[@"url"]]];
     }

@@ -109,11 +109,11 @@
 //    中国电信号码：133、153、180、181、189、177、173、149
 //    虚拟运营商：170、1718、1719
     //点击显示图形验证(测试环境)
-    _login_code_img.alpha = 1;
-    _imgCodeTxt.alpha = 1;
-    _codeImage.alpha = 1;
-    _line2.alpha = 1;
-    _spaceForImageCheck.constant = 79.5;
+//    _login_code_img.alpha = 1;
+//    _imgCodeTxt.alpha = 1;
+//    _codeImage.alpha = 1;
+//    _line2.alpha = 1;
+//    _spaceForImageCheck.constant = 80;
     //验证码按钮倒计时
     _countDown = COUNTDOWN;
     sender.enabled = NO;
@@ -215,8 +215,7 @@
     NSDictionary *jsonDic = @{@"phoneNum" :phoneNum,             // #用户名
                                           @"verifyCode":verifyCode,               //    #验证码
                                           @"password":password,               //    #密码
-                                          @"invitePhoneNum" :invitePhoneNum     //#推荐人手机号
-                                      };
+                                          @"invitePhoneNum" :invitePhoneNum};     //#推荐人手机号
     [YHWebRequest YHWebRequestForPOST:kRegister parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
             [YHHud showWithSuccess:@"注册成功"];

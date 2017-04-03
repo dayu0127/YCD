@@ -106,7 +106,7 @@
                                     <segue destination="CSS-cW-s3G" kind="show" id="Zfd-hc-9f5"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="13764071963" placeholder="请输入手机号" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LdG-g9-9bq">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LdG-g9-9bq">
                                 <rect key="frame" x="56" y="127" width="263" height="35"/>
                                 <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -130,7 +130,7 @@
                                 <rect key="frame" x="27" y="162" width="321" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="2ol-fm-Soa"/>
+                                    <constraint firstAttribute="height" constant="1" id="2ol-fm-Soa"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入图形码" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="j9W-7g-xtO">
@@ -161,7 +161,7 @@
                                 <rect key="frame" x="27" y="220" width="321" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="W0b-G0-we2"/>
+                                    <constraint firstAttribute="height" constant="1" id="W0b-G0-we2"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入短信码" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R5d-oQ-19D">
@@ -205,7 +205,7 @@
                                 <rect key="frame" x="27" y="278" width="321" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="U3n-x0-A7q"/>
+                                    <constraint firstAttribute="height" constant="1" id="U3n-x0-A7q"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mg1-G0-1An">
@@ -230,14 +230,14 @@
                                 <rect key="frame" x="27" y="559" width="120" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="mt5-JR-foe"/>
+                                    <constraint firstAttribute="height" constant="1" id="mt5-JR-foe"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z2v-az-VwZ" userLabel="line_right">
                                 <rect key="frame" x="229" y="559" width="119" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="iOO-A0-W88"/>
+                                    <constraint firstAttribute="height" constant="1" id="iOO-A0-W88"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qu7-e4-iib" userLabel="view_buttom">
@@ -391,7 +391,7 @@
                                     <action selector="codeLoginClick:" destination="CSS-cW-s3G" eventType="touchUpInside" id="Q3g-am-HtB"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="13764071963" placeholder="请输入手机号" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yNh-nJ-QjL">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yNh-nJ-QjL">
                                 <rect key="frame" x="56" y="127" width="263" height="35"/>
                                 <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -415,7 +415,7 @@
                                 <rect key="frame" x="27" y="162" width="321" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="njJ-xa-1MC"/>
+                                    <constraint firstAttribute="height" constant="1" id="njJ-xa-1MC"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="GWB-WB-6aJ">
@@ -442,7 +442,7 @@
                                 <rect key="frame" x="27" y="220" width="321" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="q5J-ly-X9n"/>
+                                    <constraint firstAttribute="height" constant="1" id="q5J-ly-X9n"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pbg-V3-AGy">
@@ -494,14 +494,14 @@
                                 <rect key="frame" x="27" y="559" width="120" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="rRA-6o-1Gm"/>
+                                    <constraint firstAttribute="height" constant="1" id="rRA-6o-1Gm"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="poS-5I-yfs" userLabel="line_right">
                                 <rect key="frame" x="229" y="559" width="119" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="FCW-T0-Qwz"/>
+                                    <constraint firstAttribute="height" constant="1" id="FCW-T0-Qwz"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OMO-nA-bQu" userLabel="view_buttom">
@@ -654,7 +654,7 @@
                                 <rect key="frame" x="27" y="162" width="321" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="lzm-SI-yCa"/>
+                                    <constraint firstAttribute="height" constant="1" id="lzm-SI-yCa"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入图形码" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q0k-kF-dqX">
@@ -685,7 +685,7 @@
                                 <rect key="frame" x="27" y="220" width="321" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="8Kp-az-b94"/>
+                                    <constraint firstAttribute="height" constant="1" id="8Kp-az-b94"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入短信码" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ibF-nP-eTM">
@@ -727,7 +727,7 @@
                                 <rect key="frame" x="27" y="278" width="321" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="gpd-O9-4rx"/>
+                                    <constraint firstAttribute="height" constant="1" id="gpd-O9-4rx"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LLR-Uc-Oxe">
@@ -751,7 +751,7 @@
                                 <rect key="frame" x="27" y="336" width="321" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="aAS-wx-fnr"/>
+                                    <constraint firstAttribute="height" constant="1" id="aAS-wx-fnr"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LjE-91-qIa">
@@ -774,7 +774,7 @@
                                 <rect key="frame" x="27" y="394" width="321" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="qax-SV-CGo"/>
+                                    <constraint firstAttribute="height" constant="1" id="qax-SV-CGo"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="注册表示同意" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfV-Kg-yD2">
@@ -945,7 +945,7 @@
                                 <rect key="frame" x="27" y="162" width="321" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="WVN-H9-i6Y"/>
+                                    <constraint firstAttribute="height" constant="1" id="WVN-H9-i6Y"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入图形码" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xwp-Wa-pcz">
@@ -976,7 +976,7 @@
                                 <rect key="frame" x="27" y="220" width="321" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="kxL-Vi-WtV"/>
+                                    <constraint firstAttribute="height" constant="1" id="kxL-Vi-WtV"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入短信码" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Db6-XA-AIy">
@@ -1020,7 +1020,7 @@
                                 <rect key="frame" x="27" y="278" width="321" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="e7x-4C-7bW"/>
+                                    <constraint firstAttribute="height" constant="1" id="e7x-4C-7bW"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入新密码" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xzf-kg-izH">
@@ -1044,7 +1044,7 @@
                                 <rect key="frame" x="27" y="336" width="321" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="dex-Fa-rUM"/>
+                                    <constraint firstAttribute="height" constant="1" id="dex-Fa-rUM"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入新密码" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="N1S-s1-HBv" userLabel="请输入新密码">
@@ -1068,7 +1068,7 @@
                                 <rect key="frame" x="27" y="394" width="321" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="o3p-n2-y3e"/>
+                                    <constraint firstAttribute="height" constant="1" id="o3p-n2-y3e"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="22L-Vz-sBc">
@@ -3087,7 +3087,7 @@
                                 <rect key="frame" x="27" y="162" width="321" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="veK-be-cPC"/>
+                                    <constraint firstAttribute="height" constant="1" id="veK-be-cPC"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入短信码" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nrw-aU-X5l">
@@ -3131,7 +3131,7 @@
                                 <rect key="frame" x="27" y="220" width="321" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="C0f-Ql-GXO"/>
+                                    <constraint firstAttribute="height" constant="1" id="C0f-Ql-GXO"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ged-0z-ajx">
@@ -3168,7 +3168,7 @@
                                 <rect key="frame" x="27" y="278" width="321" height="1"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="y2T-3r-4Hy"/>
+                                    <constraint firstAttribute="height" constant="1" id="y2T-3r-4Hy"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  请输入手机号" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="19s-Sz-mA2">
@@ -3261,6 +3261,6 @@
         <image name="wallet" width="23" height="17"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Lnr-u8-mNA"/>
+        <segue reference="rhJ-wj-NYw"/>
     </inferredMetricsTieBreakers>
 </document>
