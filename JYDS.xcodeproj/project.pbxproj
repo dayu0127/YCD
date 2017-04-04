@@ -152,6 +152,10 @@
 		6042E0F91E8D0D8300756A61 /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6042E0F71E8D0D8300756A61 /* MessageCell.xib */; };
 		604DBF2A1E8E22D10025E50C /* NSDictionary+FromNSString.m in Sources */ = {isa = PBXBuildFile; fileRef = 604DBF291E8E22D10025E50C /* NSDictionary+FromNSString.m */; };
 		604DBF301E8E6CAB0025E50C /* NSString+FromNSDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 604DBF2F1E8E6CAB0025E50C /* NSString+FromNSDictionary.m */; };
+		605C2EA41E934BCF00B4BF61 /* CourseMemoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 605C2EA31E934BCF00B4BF61 /* CourseMemoryVC.m */; };
+		605C2EA71E93751A00B4BF61 /* CourseMemoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 605C2EA61E93751A00B4BF61 /* CourseMemoryView.m */; };
+		605C2EAE1E93805C00B4BF61 /* CourseMemoryView1.m in Sources */ = {isa = PBXBuildFile; fileRef = 605C2EAD1E93805C00B4BF61 /* CourseMemoryView1.m */; };
+		605C2EB21E93850200B4BF61 /* courselist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 605C2EB11E93850200B4BF61 /* courselist.plist */; };
 		606A94E41E51A89E00A0279D /* SecretsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94E31E51A89E00A0279D /* SecretsVC.m */; };
 		606A94F61E51A8CA00A0279D /* MnemonicsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94E81E51A8CA00A0279D /* MnemonicsVC.m */; };
 		606A94FA1E51A8CA00A0279D /* MemoryCourseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94F21E51A8CA00A0279D /* MemoryCourseVC.m */; };
@@ -426,6 +430,13 @@
 		604DBF291E8E22D10025E50C /* NSDictionary+FromNSString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+FromNSString.m"; sourceTree = "<group>"; };
 		604DBF2E1E8E6CAB0025E50C /* NSString+FromNSDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FromNSDictionary.h"; sourceTree = "<group>"; };
 		604DBF2F1E8E6CAB0025E50C /* NSString+FromNSDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FromNSDictionary.m"; sourceTree = "<group>"; };
+		605C2EA21E934BCF00B4BF61 /* CourseMemoryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseMemoryVC.h; sourceTree = "<group>"; };
+		605C2EA31E934BCF00B4BF61 /* CourseMemoryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseMemoryVC.m; sourceTree = "<group>"; };
+		605C2EA51E93751A00B4BF61 /* CourseMemoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseMemoryView.h; sourceTree = "<group>"; };
+		605C2EA61E93751A00B4BF61 /* CourseMemoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseMemoryView.m; sourceTree = "<group>"; };
+		605C2EAC1E93805C00B4BF61 /* CourseMemoryView1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseMemoryView1.h; sourceTree = "<group>"; };
+		605C2EAD1E93805C00B4BF61 /* CourseMemoryView1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseMemoryView1.m; sourceTree = "<group>"; };
+		605C2EB11E93850200B4BF61 /* courselist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = courselist.plist; sourceTree = "<group>"; };
 		606A94E21E51A89E00A0279D /* SecretsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecretsVC.h; sourceTree = "<group>"; };
 		606A94E31E51A89E00A0279D /* SecretsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecretsVC.m; sourceTree = "<group>"; };
 		606A94E71E51A8CA00A0279D /* MnemonicsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnemonicsVC.h; sourceTree = "<group>"; };
@@ -942,6 +953,45 @@
 				6010FEB71E91230D00071610 /* MessageDetailVC.m */,
 			);
 			path = controller;
+			sourceTree = "<group>";
+		};
+		605C2E9E1E934B8300B4BF61 /* 学课记忆 */ = {
+			isa = PBXGroup;
+			children = (
+				605C2E9F1E934BB300B4BF61 /* model */,
+				605C2EA11E934BB300B4BF61 /* view */,
+				605C2EA01E934BB300B4BF61 /* controller */,
+			);
+			name = "学课记忆";
+			path = "JYDS/学课记忆";
+			sourceTree = SOURCE_ROOT;
+		};
+		605C2E9F1E934BB300B4BF61 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				605C2EB11E93850200B4BF61 /* courselist.plist */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		605C2EA01E934BB300B4BF61 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				605C2EA21E934BCF00B4BF61 /* CourseMemoryVC.h */,
+				605C2EA31E934BCF00B4BF61 /* CourseMemoryVC.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		605C2EA11E934BB300B4BF61 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				605C2EA51E93751A00B4BF61 /* CourseMemoryView.h */,
+				605C2EA61E93751A00B4BF61 /* CourseMemoryView.m */,
+				605C2EAC1E93805C00B4BF61 /* CourseMemoryView1.h */,
+				605C2EAD1E93805C00B4BF61 /* CourseMemoryView1.m */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		606A94E11E51A89E00A0279D /* 秘笈 */ = {
@@ -1518,6 +1568,7 @@
 				6078D0D11E1613180089D40F /* 登陆 */,
 				606A94E51E51A8CA00A0279D /* 首页 */,
 				6078D0D91E1613180089D40F /* 记单词 */,
+				605C2E9E1E934B8300B4BF61 /* 学课记忆 */,
 				606A94E11E51A89E00A0279D /* 秘笈 */,
 				6078D1011E1613180089D40F /* 我的 */,
 				6078D1341E1613180089D40F /* Alipay */,
@@ -1676,6 +1727,7 @@
 				6010FF621E9128DB00071610 /* 5.png in Resources */,
 				6078D2011E1613180089D40F /* Main.storyboard in Resources */,
 				6010FF951E9128DB00071610 /* 96.png in Resources */,
+				605C2EB21E93850200B4BF61 /* courselist.plist in Resources */,
 				6010FF491E9128DB00071610 /* 27.png in Resources */,
 				6010FF6D1E9128DB00071610 /* 6.png in Resources */,
 				6010FF421E9128DB00071610 /* 20.png in Resources */,
@@ -1843,11 +1895,13 @@
 				60A5C7A51E8B7C95007D2366 /* MyCollectVC.m in Sources */,
 				602BDD411E83697700C6CB92 /* MemoryCell.m in Sources */,
 				606A94FB1E51A8CA00A0279D /* BannerDetailVC.m in Sources */,
+				605C2EA41E934BCF00B4BF61 /* CourseMemoryVC.m in Sources */,
 				609F06271E1621BD009F4986 /* UpdateHeadImageVC.m in Sources */,
 				6078D1CC1E1613180089D40F /* RememberWordSingleWordCell.m in Sources */,
 				602BDD381E83686F00C6CB92 /* MemoryHeaderView.m in Sources */,
 				60E2DD041E5AA22F00D45986 /* WXApiManager.m in Sources */,
 				60A5C79C1E8B67A7007D2366 /* UserInfoTVC.m in Sources */,
+				605C2EAE1E93805C00B4BF61 /* CourseMemoryView1.m in Sources */,
 				609F061A1E162190009F4986 /* PaymentVC.m in Sources */,
 				6078D2061E1613180089D40F /* AppDelegate.m in Sources */,
 				6078D1FA1E1613180089D40F /* RSADataSigner.m in Sources */,
@@ -1902,6 +1956,7 @@
 				609F062A1E1621BD009F4986 /* UpdatePwdVC.m in Sources */,
 				6010FF9F1E9128DB00071610 /* SuccessView.m in Sources */,
 				6013E80C1E5EE37E007E257A /* OtherAmountCell.m in Sources */,
+				605C2EA71E93751A00B4BF61 /* CourseMemoryView.m in Sources */,
 				609F061B1E162190009F4986 /* PayVC.m in Sources */,
 				6078D1C51E1613180089D40F /* RememberWordSingleWordDetailVC.m in Sources */,
 				6078D1F61E1613180089D40F /* DataVerifier.m in Sources */,

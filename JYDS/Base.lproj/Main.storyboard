@@ -2424,11 +2424,11 @@
             </objects>
             <point key="canvasLocation" x="5918" y="3307"/>
         </scene>
-        <!--记单词NC-->
+        <!--学课记忆NC-->
         <scene sceneID="wTu-bq-OX9">
             <objects>
-                <navigationController id="bTa-4g-t41" userLabel="记单词NC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="1" title="记单词" image="tabbar_word" selectedImage="tabbar_word_HL" id="Gpr-Ms-7lq">
+                <navigationController navigationBarHidden="YES" id="bTa-4g-t41" userLabel="学课记忆NC" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" tag="1" title="学课记忆" image="tabbar_word" selectedImage="tabbar_word_HL" id="Gpr-Ms-7lq">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-3"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8vF-Va-64d">
@@ -2443,10 +2443,10 @@
             </objects>
             <point key="canvasLocation" x="3350" y="37"/>
         </scene>
-        <!--记单词VC-->
+        <!--学课记忆VC-->
         <scene sceneID="qmd-AT-Khb">
             <objects>
-                <viewController title="记单词" id="HF3-hN-zKd" userLabel="记单词VC" customClass="RememberWordVC" sceneMemberID="viewController">
+                <viewController title="记单词" id="HF3-hN-zKd" userLabel="学课记忆VC" customClass="CourseMemoryVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8Ck-eC-cfK"/>
                         <viewControllerLayoutGuide type="bottom" id="DB2-HM-jUj"/>
@@ -2455,40 +2455,52 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" placeholder="请输入单词" translatesAutoresizingMaskIntoConstraints="NO" id="lqU-UK-SjW">
-                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="HF3-hN-zKd" id="2H8-yq-Qho"/>
-                                </connections>
-                            </searchBar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DuV-lo-5bj">
-                                <rect key="frame" x="0.0" y="108" width="375" height="510"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M4E-48-7AT" userLabel="navView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学课记忆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X5j-cC-GPJ">
+                                        <rect key="frame" x="152.5" y="20" width="69.5" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="b4O-rQ-ipP"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.99607843139999996" green="0.31764705879999999" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="X5j-cC-GPJ" firstAttribute="centerX" secondItem="M4E-48-7AT" secondAttribute="centerX" id="Bob-8s-nap"/>
+                                    <constraint firstItem="X5j-cC-GPJ" firstAttribute="top" secondItem="M4E-48-7AT" secondAttribute="top" constant="20" id="R7i-Je-1AM"/>
+                                    <constraint firstAttribute="height" constant="64" id="cww-Ga-QEk"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="lqU-UK-SjW" secondAttribute="trailing" id="0Wt-Oe-9Xb"/>
-                            <constraint firstItem="DuV-lo-5bj" firstAttribute="top" secondItem="lqU-UK-SjW" secondAttribute="bottom" id="CbF-iX-DA4"/>
+                            <constraint firstItem="M4E-48-7AT" firstAttribute="top" secondItem="5ER-QC-Nkl" secondAttribute="top" id="5RO-3h-Wcl"/>
                             <constraint firstAttribute="trailing" secondItem="DuV-lo-5bj" secondAttribute="trailing" id="Nqk-Se-4Ws"/>
-                            <constraint firstItem="lqU-UK-SjW" firstAttribute="top" secondItem="5ER-QC-Nkl" secondAttribute="top" constant="64" id="T6j-rz-sn6"/>
-                            <constraint firstItem="lqU-UK-SjW" firstAttribute="leading" secondItem="5ER-QC-Nkl" secondAttribute="leading" id="WB3-IF-aZy"/>
                             <constraint firstItem="DB2-HM-jUj" firstAttribute="top" secondItem="DuV-lo-5bj" secondAttribute="bottom" id="YeJ-sq-nHD"/>
                             <constraint firstItem="DuV-lo-5bj" firstAttribute="leading" secondItem="5ER-QC-Nkl" secondAttribute="leading" id="czg-U4-13X"/>
+                            <constraint firstItem="M4E-48-7AT" firstAttribute="leading" secondItem="5ER-QC-Nkl" secondAttribute="leading" id="kZK-h8-3fR"/>
+                            <constraint firstAttribute="trailing" secondItem="M4E-48-7AT" secondAttribute="trailing" id="tsH-nb-7XA"/>
+                            <constraint firstItem="DuV-lo-5bj" firstAttribute="top" secondItem="M4E-48-7AT" secondAttribute="bottom" id="vhg-Jx-Gyk"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="记单词" id="e3n-N4-xzC"/>
+                    <navigationItem key="navigationItem" title="学课记忆" id="e3n-N4-xzC"/>
                     <connections>
-                        <outlet property="scrollView" destination="DuV-lo-5bj" id="wd1-Hj-cWQ"/>
-                        <outlet property="searchBar" destination="lqU-UK-SjW" id="8bW-H4-VzI"/>
+                        <outlet property="scrollView" destination="DuV-lo-5bj" id="uzL-g4-e31"/>
                         <segue destination="HBv-VM-i9P" kind="show" identifier="toItemDetail" id="DfK-bN-o54"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l8g-nf-P5Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4145" y="37"/>
+            <point key="canvasLocation" x="4144.8000000000002" y="36.431784107946029"/>
         </scene>
         <!--单元VC-->
         <scene sceneID="0rf-2U-SCc">

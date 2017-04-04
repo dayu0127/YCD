@@ -17,7 +17,7 @@
     NSMutableArray *netImages = [NSMutableArray array];
     NSArray *bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexDynamic"];
     for (NSDictionary *dic in bannerInfoArray) {
-        [netImages addObject:[NSString stringWithFormat:@"%@",dic[@"url"]]];
+        [netImages addObject:dic[@"url"]];
     }
     _imageCount = netImages.count;
     CGFloat w = WIDTH-20;

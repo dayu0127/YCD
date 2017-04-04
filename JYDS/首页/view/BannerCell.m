@@ -15,7 +15,7 @@
     _netImages = [NSMutableArray array];
     _bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexImages"];
     for (NSDictionary *dic in _bannerInfoArray) {
-        [_netImages addObject:[NSString stringWithFormat:@"%@",dic[@"url"]]];
+        [_netImages addObject:dic[@"url"]];
     }
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, WIDTH, 112/375.0*WIDTH) delegate:self placeholderImage:[UIImage imageNamed:@"zuixin"]];
     cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
