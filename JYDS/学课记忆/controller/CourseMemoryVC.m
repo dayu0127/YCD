@@ -25,18 +25,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     CGFloat c = WIDTH/3.0;
-    _scrollView.contentSize = CGSizeMake(WIDTH, c*4);
+    _scrollView.contentSize = CGSizeMake(WIDTH, (c+16)*4);
     self.automaticallyAdjustsScrollViewInsets = NO;
     for (int row = 0; row<4; row++) {
         for (int col=0; col<3; col++) {
             if (row==0) {
-                CourseMemoryView *cmv = [[CourseMemoryView alloc] initWithFrame:CGRectMake(col*c, 0, c, c)];
+                CourseMemoryView *cmv = [[CourseMemoryView alloc] initWithFrame:CGRectMake(col*c, 0, c, c+16)];
                 [cmv setDic:self.arr[col]];
                 cmv.courseButton.tag = col;
                 [cmv.courseButton addTarget:self action:@selector(itemClick:) forControlEvents:UIControlEventTouchUpInside];
                 [_scrollView addSubview:cmv];
             }else{
-                CourseMemoryView1 *cmv1 = [[CourseMemoryView1 alloc] initWithFrame:CGRectMake(col*c, row*c, c, c)];
+                CourseMemoryView1 *cmv1 = [[CourseMemoryView1 alloc] initWithFrame:CGRectMake(col*c, row*(c+16), c, c+16)];
                 [cmv1 setDic:self.arr[row*3+col]];
                 cmv1.courseButton.tag = row*3+col;
                 [cmv1.courseButton addTarget:self action:@selector(itemClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -47,5 +47,6 @@
 }
 - (void)itemClick:(UIButton *)sender{
     NSLog(@"%zd",sender.tag);
+    [self performSegueWithIdentifier:@"toItemDetail" sender:self];
 }
 @end

@@ -13,15 +13,18 @@
         _courseButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self addSubview:_courseButton];
         [_courseButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.equalTo(self);
-            make.width.height.mas_equalTo(@68);
+            make.top.equalTo(self).offset(25);
+            make.left.equalTo(self).offset(28);
+            make.right.equalTo(self).offset(-28);
+            make.height.mas_equalTo(@(WIDTH/3.0-56));
         }];
         _courseLabel = [UILabel new];
         _courseLabel.font = [UIFont systemFontOfSize:14.0f];
+        _courseLabel.textColor = DGRAYCOLOR;
         [self addSubview:_courseLabel];
         [_courseLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self);
-            make.bottom.equalTo(self);
+            make.bottom.equalTo(self).offset(-12);
         }];
     }
     return self;

@@ -152,6 +152,8 @@
 #define LINECOLOR RGB(228,228,228) //#E4E4E4
 //灰色
 #define GRAYCOLOR RGB(153,153,153) //#999999
+//深灰色
+#define DGRAYCOLOR RGB(51,51,51)  //#333333
 //首页消息提醒色
 #define MSGEDGECOLOR RGB(145,219,79)  //#91DB4F
 #endif /* JYDSPrefixHeader_pch */

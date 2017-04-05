@@ -15,21 +15,24 @@
         _courseButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_courseButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _courseButton.layer.masksToBounds = YES;
-        _courseButton.layer.cornerRadius = 34.0f;
-        _courseButton.titleLabel.font = [UIFont systemFontOfSize:24.0f];
+        _courseButton.layer.cornerRadius = (WIDTH/3.0-56)/2.0;
+        _courseButton.titleLabel.font = [UIFont systemFontOfSize:(WIDTH/3.0-56)/3.0];
         _courseButton.backgroundColor = [UIColor colorWithRed:195/255.0 green:195/255.0 blue:195/255.0 alpha:1.0]; 
         [self addSubview:_courseButton];
         [_courseButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.equalTo(self);
-            make.width.height.mas_equalTo(@68);
+            make.top.equalTo(self).offset(25);
+            make.left.equalTo(self).offset(28);
+            make.right.equalTo(self).offset(-28);
+            make.height.mas_equalTo(@(WIDTH/3.0-56));
         }];
         
         _courseLabel = [UILabel new];
         _courseLabel.font = [UIFont systemFontOfSize:14.0f];
+        _courseLabel.textColor = DGRAYCOLOR;
         [self addSubview:_courseLabel];
         [_courseLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self);
-            make.bottom.equalTo(self);
+            make.bottom.equalTo(self).offset(-12);
         }];
     }
     return self;
