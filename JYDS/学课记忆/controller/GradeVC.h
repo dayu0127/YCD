@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface GradeVC : UIViewController
-
+@property (copy,nonatomic) NSString *grade_type;
 @end

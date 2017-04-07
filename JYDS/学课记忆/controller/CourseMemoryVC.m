@@ -9,9 +9,11 @@
 #import "CourseMemoryVC.h"
 #import "CourseMemoryView.h"
 #import "CourseMemoryView1.h"
+#import "GradeVC.h"
 @interface CourseMemoryVC ()
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property(strong,nonatomic) NSArray *arr;
+@property (copy,nonatomic) NSString *grade_type;
 @end
 
 @implementation CourseMemoryVC
@@ -46,7 +48,13 @@
     }
 }
 - (void)itemClick:(UIButton *)sender{
-    NSLog(@"%zd",sender.tag);
+    _grade_type = [NSString stringWithFormat:@"%zd",sender.tag];
     [self performSegueWithIdentifier:@"toItemDetail" sender:self];
+}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"toItemDetail"]) {
+        GradeVC *gradeVC = segue.destinationViewController;
+        gradeVC.grade_type =_grade_type;
+    }
 }
 @end

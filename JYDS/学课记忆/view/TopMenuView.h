@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @protocol TopMenuViewDelegate<NSObject>
-- (void)menuClick:(NSInteger)index;
+- (void)menuClick:(UIButton *)sender;
 @end
 @interface TopMenuView : UIView
 @property (weak,nonatomic) id<TopMenuViewDelegate> delegate;

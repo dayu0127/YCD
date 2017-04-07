@@ -118,10 +118,11 @@
 #define kBindingWX API(@"/user/bindingWeixin") //用户绑定微信
 #define kBindingPhone API(@"/user/bindingPhone") //用户绑定手机号
 #define kUpdateHead API(@"/user/updateUserImg") //更新头像
-#define kGradeList API(@"/study/getSectionList") //获取年段列表
+#define kSectionList API(@"/study/getSectionList") //获取年段列表
 #define kNicknameSex API(@"/user/updateUser") //更新用户昵称和性别
 #define kPlayerSet API(@"/system/getPlayerSys") //获取播放器设置
 #define kBanner API(@"/common/getIndexImages") //获取轮播图
+#define kGradeList API(@"/study/getGradeList") //年级列表
 
 
 //练习题等级数组
@@ -156,4 +157,6 @@
 #define DGRAYCOLOR RGB(51,51,51)  //#333333
 //首页消息提醒色
 #define MSGEDGECOLOR RGB(145,219,79)  //#91DB4F
+//未订阅
+#define SUBEDCOLOR RGB(57,196,130)  //#39C482
 #endif /* JYDSPrefixHeader_pch */

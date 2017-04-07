@@ -41,6 +41,6 @@
     return self;
 }
 - (void)btnClick:(UIButton *)sender{
-    [_delegate menuClick:sender.tag];
+    [_delegate menuClick:sender];
 }
 @end

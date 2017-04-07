@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,37 +35,56 @@
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="course_image" translatesAutoresizingMaskIntoConstraints="NO" id="Vhe-SW-xDW">
                         <rect key="frame" x="40" y="55" width="295" height="239.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="Vhe-SW-xDW" secondAttribute="height" multiplier="295:239" id="M8n-1O-kUb"/>
+                        </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="68Z-IB-dLW">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NsS-kH-2kB">
                         <rect key="frame" x="327" y="258.5" width="30" height="30"/>
                         <state key="normal" image="course_write"/>
+                        <state key="highlighted" image="course_write_select"/>
+                        <connections>
+                            <action selector="showWriteClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="jjq-bB-b7G"/>
+                        </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g5C-Dz-Ywm">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rY2-nP-K54">
                         <rect key="frame" x="279" y="258" width="30" height="30"/>
                         <state key="normal" image="course_read"/>
+                        <state key="highlighted" image="course_read_select"/>
+                        <connections>
+                            <action selector="showReadClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ihY-mI-knb"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="Vhe-SW-xDW" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="0bK-61-msz"/>
                     <constraint firstItem="cdG-Qx-muX" firstAttribute="leading" secondItem="wgt-DZ-I5X" secondAttribute="trailing" constant="7" id="2oO-Ho-wGy"/>
-                    <constraint firstItem="g5C-Dz-Ywm" firstAttribute="centerY" secondItem="68Z-IB-dLW" secondAttribute="centerY" id="8ZX-lB-bCC"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="68Z-IB-dLW" secondAttribute="bottom" constant="19" id="FJT-lb-MaP"/>
-                    <constraint firstItem="68Z-IB-dLW" firstAttribute="leading" secondItem="g5C-Dz-Ywm" secondAttribute="trailing" constant="18" id="FTA-SV-tXZ"/>
+                    <constraint firstItem="NsS-kH-2kB" firstAttribute="leading" secondItem="rY2-nP-K54" secondAttribute="trailing" constant="18" id="Dd9-Uh-LS8"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="NsS-kH-2kB" secondAttribute="bottom" constant="19" id="Grj-lx-GWQ"/>
+                    <constraint firstItem="rY2-nP-K54" firstAttribute="centerY" secondItem="NsS-kH-2kB" secondAttribute="centerY" id="MeI-R1-5WX"/>
                     <constraint firstItem="wgt-DZ-I5X" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="15" id="Pfd-wI-xbf"/>
-                    <constraint firstItem="Vhe-SW-xDW" firstAttribute="top" secondItem="cdG-Qx-muX" secondAttribute="bottom" constant="15" id="QJn-Kw-VHg"/>
                     <constraint firstItem="Vhe-SW-xDW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="32" id="TIY-Gn-Dpg"/>
                     <constraint firstItem="cdG-Qx-muX" firstAttribute="centerY" secondItem="wgt-DZ-I5X" secondAttribute="centerY" id="WXi-xS-jrO"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="Vhe-SW-xDW" secondAttribute="bottom" constant="13" id="d48-iY-q0k"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="68Z-IB-dLW" secondAttribute="trailing" constant="10" id="jEB-z3-O2c"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="NsS-kH-2kB" secondAttribute="trailing" constant="10" id="cOY-tJ-e3m"/>
                     <constraint firstItem="wgt-DZ-I5X" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="lVm-ni-bq7"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="Vhe-SW-xDW" secondAttribute="trailing" constant="32" id="p7i-dx-Zaf"/>
+                    <constraint firstItem="Vhe-SW-xDW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="47" id="zSD-Hd-Fv1"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="btnBottomSpace" destination="Grj-lx-GWQ" id="ERF-qO-wNa"/>
+                <outlet property="img" destination="Vhe-SW-xDW" id="2nE-W1-7xw"/>
+                <outlet property="leftSpace" destination="TIY-Gn-Dpg" id="obc-zZ-YQr"/>
+                <outlet property="readButton" destination="rY2-nP-K54" id="Hey-aE-u3n"/>
+                <outlet property="writeButton" destination="NsS-kH-2kB" id="F7H-hy-Q1S"/>
+            </connections>
         </tableViewCell>
     </objects>
     <resources>
         <image name="course_image" width="878" height="749"/>
         <image name="course_img" width="16" height="16"/>
         <image name="course_read" width="30" height="30"/>
+        <image name="course_read_select" width="30" height="31"/>
         <image name="course_write" width="30" height="30"/>
+        <image name="course_write_select" width="30" height="30"/>
     </resources>
 </document>

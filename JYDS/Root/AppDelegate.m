@@ -41,7 +41,6 @@
 //        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogin"] == YES) { //登录了
 //            [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
             self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"root"];
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isLogin"];
 //        }else{ //未登录
 //            self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"login"];
 //        }

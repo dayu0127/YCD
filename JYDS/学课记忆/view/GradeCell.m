@@ -7,7 +7,7 @@
 //
 
 #import "GradeCell.h"
-
+#import "Version.h"
 @implementation GradeCell
 
 - (void)awakeFromNib {
@@ -20,5 +20,24 @@
 
     // Configure the view for the selected state
 }
-
+- (void)addModelWithDic:(NSDictionary *)dic{
+    Version *v = [Version yy_modelWithJSON:dic];
+//    \"id\": \"7920306d0f6b11e7a51c02004c4f4f50\",
+//    \"class_name\": \"牛津上海版\",
+//    \"total_words\": 172,
+//    \"full_price\": 3600.00,
+//    \"imgurl\": \"0\",
+//    \"payType\": \"0\"
+    _classNameLabel.text = v.class_name;
+    _gradeNameLabel.text = v.grade_name;
+    _totalWordLabel.text = v.total_words;
+    if ([v.payType integerValue] == 0) {
+        _subStatusLabel.text = @"已订阅";
+        _subStatusLabel.textColor = SUBEDCOLOR;
+    }else{
+        _subStatusLabel.text = @"未订阅";
+        _subStatusLabel.textColor = ORANGERED;
+    }
+    _totalWordLabel.text = [NSString stringWithFormat:@"￥:%@",v.total_words];
+}
 @end
