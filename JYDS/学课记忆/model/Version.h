@@ -15,7 +15,7 @@
 //\"full_price\": 3600.00,
 //\"imgurl\": \"0\",
 //\"payType\": \"0\"
-@property (copy,nonatomic) NSString *version_id;
+@property (copy,nonatomic) NSString *classId;
 @property (copy,nonatomic) NSString *class_name;
 @property (copy,nonatomic) NSString *grade_name;
 @property (copy,nonatomic) NSString *total_words;

@@ -25,7 +25,7 @@
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="course_collected" translatesAutoresizingMaskIntoConstraints="NO" id="c3B-SN-JNK">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="course_collect" translatesAutoresizingMaskIntoConstraints="NO" id="c3B-SN-JNK">
                         <rect key="frame" x="349" y="15" width="16" height="14"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="16" id="T0O-CJ-K3U"/>
@@ -40,10 +40,13 @@
                     <constraint firstItem="e1X-5h-6Xq" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="qE1-mf-Jg3"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="wordLabel" destination="e1X-5h-6Xq" id="IuJ-kI-a1W"/>
+            </connections>
             <point key="canvasLocation" x="37.5" y="59"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="course_collected" width="16" height="14"/>
+        <image name="course_collect" width="16" height="14"/>
     </resources>
 </document>

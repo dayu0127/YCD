@@ -7,7 +7,7 @@
 //
 
 #import "SubedCell.h"
-
+#import "Word.h"
 @implementation SubedCell
 
 - (void)awakeFromNib {
@@ -20,5 +20,8 @@
 
     // Configure the view for the selected state
 }
-
+- (void)addModelWithDic:(NSDictionary *)dic{
+    Word *model = [Word yy_modelWithJSON:dic];
+    _wordLabel.text = model.word;
+}
 @end

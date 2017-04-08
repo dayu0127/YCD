@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ModuleCell : UITableViewCell
-
+@property (weak, nonatomic) IBOutlet UILabel *moduleNameLabel;
+- (void)addModelWithDic:(NSDictionary *)dic;
 @end

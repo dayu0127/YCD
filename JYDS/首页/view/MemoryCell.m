@@ -7,7 +7,7 @@
 //
 
 #import "MemoryCell.h"
-
+#import "Memory.h"
 @implementation MemoryCell
 
 - (void)awakeFromNib {
@@ -21,5 +21,12 @@
 
     // Configure the view for the selected state
 }
-
+- (void)addModelWithDic:(NSDictionary *)dic{
+    Memory *model = [Memory yy_modelWithJSON:dic];
+//    @property (weak, nonatomic) IBOutlet UIImageView *memoryImage;
+//    @property (weak, nonatomic) IBOutlet UILabel *memoryTitle;
+//    @property (weak, nonatomic) IBOutlet UILabel *memoryDetail;
+    _memoryTitle.text = model.title;
+    _memoryDetail.text = model.content;
+}
 @end

@@ -10,4 +10,6 @@
 
 @interface SubedCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *wordLabel;
+- (void)addModelWithDic:(NSDictionary *)dic;
 @end

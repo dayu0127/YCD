@@ -10,6 +10,7 @@
 #import "TopMenuView.h"
 #import "GradeCell.h"
 #import "YBPopupMenu.h"
+#import "ModuleListVC.h"
 @interface GradeVC ()<TopMenuViewDelegate,UITableViewDelegate,UITableViewDataSource,YBPopupMenuDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topMenuBgView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -21,6 +22,14 @@
 @property (strong,nonatomic) NSArray *versionNameNameList;
 @property (strong,nonatomic) NSArray *versionList;
 @property (assign,nonatomic) NSInteger selectIndex;
+/**当前年级ID*/
+@property (strong,nonatomic) NSString *currentGradeID;
+/**当前科目ID*/
+@property (strong,nonatomic) NSString *currentClassID;
+/**当前版本ID*/
+@property (strong,nonatomic) NSString *currentVersionNameID;
+/**选中课本ID*/
+@property (strong,nonatomic) NSString *classId;
 @end
 @implementation GradeVC
 - (void)viewDidLoad {
@@ -61,7 +70,7 @@
             _classTypeList = resultDic[@"classTypeList"];   //科目
             _versionNameList = resultDic[@"versionNameList"];   //版本
             _versionList = resultDic[@"versionList"];   //课本
-            NSLog(@"%@",_versionList);
+            [_tableView reloadData];
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -85,7 +94,79 @@
 }
 #pragma mark - YBPopupMenuDelegate
 - (void)ybPopupMenuDidSelectedAtIndex:(NSInteger)index ybPopupMenu:(YBPopupMenu *)ybPopupMenu{
-
+    NSString *phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum;
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    if (_selectIndex == 0) { //根据年级ID查科目列表和课本列表
+//        {
+//            "gradeId":"******"      #年级ID
+//            "userPhone":"***"       #用户手机号
+//            "token":"****"          #登陆凭证
+//        }
+        _currentGradeID = _gradeList[index][@"gradeId"];
+        NSDictionary *jsonDic = @{@"gradeId":_currentGradeID,        //#年级ID
+                                  @"userPhone":phoneNum,     //  #用户手机号
+                                  @"token":token};       // #登陆凭证
+        [YHWebRequest YHWebRequestForPOST:kClassTypeList parameters:jsonDic success:^(NSDictionary *json) {
+            if([json[@"code"] integerValue] == 200){
+                NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+                _classTypeList = resultDic[@"classTypeList"];   //科目
+                _versionList = resultDic[@"versionList"];   //课本
+                [_tableView reloadData];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+        }];
+    }else if (_selectIndex  == 1){ //根据科目ID查版本列表和课本列表
+//        {
+//            "gradeId":"******"      #年级ID
+//            "classType":"1"         #科目代码
+//            "userPhone":"***"       #用户手机号
+//            "token":"****"          #登陆凭证
+//        }
+        _currentClassID = _classTypeList[index][@"class_type"];
+        NSDictionary *jsonDic = @{@"gradeId":_currentGradeID,        //#年级ID
+                                  @"classType":_currentClassID,  // #科目代码
+                                  @"userPhone":phoneNum,     //  #用户手机号
+                                  @"token":token};       // #登陆凭证
+        [YHWebRequest YHWebRequestForPOST:kClassTypeList parameters:jsonDic success:^(NSDictionary *json) {
+            if([json[@"code"] integerValue] == 200){
+                NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+                _versionNameList = resultDic[@"versionNameList"];   //版本
+//                NSLog(@"%@",_versionNameList);
+                _versionList = resultDic[@"versionList"];   //课本
+                [_tableView reloadData];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+        }];
+    }else{ //根据课本ID查课本列表
+//        {
+//            "gradeType":1           #年段代码（选填：和gradeId填选一个）
+//            "gradeId":"******"      #年级ID（选填：和gradeType填选一个）
+//            "classType":"1"         #科目代码（选填）
+//            "version":"1"           #版本代码（选填）
+//            "userPhone":"***"       #用户手机号
+//            "token":"****"          #登陆凭证
+//        }
+        _currentVersionNameID = _versionNameList[index][@"class_type"];
+        NSDictionary *jsonDic = @{
+            @"gradeType":_grade_type,          // #年段代码（选填：和gradeId填选一个）
+            @"gradeId":_currentGradeID,    //  #年级ID（选填：和gradeType填选一个）
+            @"classType":_currentClassID,     //    #科目代码（选填）
+            @"version":_currentVersionNameID,        //   #版本代码（选填）
+            @"userPhone":phoneNum,     //  #用户手机号
+            @"token":token      //   #登陆凭证
+            };
+        [YHWebRequest YHWebRequestForPOST:kVersionNameList parameters:jsonDic success:^(NSDictionary *json) {
+            if([json[@"code"] integerValue] == 200){
+                NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+                _versionList = resultDic[@"versionList"];   //课本
+                [_tableView reloadData];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+        }];
+    }
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _versionList.count;
@@ -100,10 +181,10 @@
     GradeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GradeCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell addModelWithDic:_versionList[indexPath.row]];
-    NSLog(@"%@",_versionList[indexPath.row]);
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    _classId  = _versionList[indexPath.row][@"classId"];
     [self performSegueWithIdentifier:@"toModuleList" sender:self];
 }
 - (NSArray *)getNameListFromArray:(NSArray *)arr keyName:(NSString *)str{
@@ -112,5 +193,11 @@
         [array addObject:itemDic[str]];
     }
     return [NSArray arrayWithArray:array];
+}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"toModuleList"]) {
+        ModuleListVC *moduleListVC = segue.destinationViewController;
+        moduleListVC.classId =_classId;
+    }
 }
 @end

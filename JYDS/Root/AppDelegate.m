@@ -26,7 +26,6 @@
     //监测网络状态
     [self checkNetStatus];
     //初始化设置
-    [self getBannerInfo];
     [self initSettings];
     //设置根视图控制器
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: [NSBundle mainBundle]];
@@ -46,6 +45,7 @@
 //        }
     }
     [self.window makeKeyAndVisible];
+    [self getBannerInfo];
     return YES;
 }
 
@@ -112,7 +112,13 @@
     [WXApi registerApp:@"wx7658d0735b233185"];
 }
 - (void)getBannerInfo{
-    [YHWebRequest YHWebRequestForPOST:kBanner parameters:nil success:^(NSDictionary *json) {
+//    {
+//        "userPhone":"*****",        #用户手机号
+//        "token":"*****",            #用户登陆凭证
+//    }
+    NSDictionary *jsonDic = @{@"userPhone":[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"][@"phoneNum"],      //  #用户手机号
+                                        @"token":[[NSUserDefaults standardUserDefaults] objectForKey:@"token"]};        //    #用户登陆凭证
+    [YHWebRequest YHWebRequestForPOST:kBanner parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
             NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             [[NSUserDefaults standardUserDefaults] setObject:dataDic forKey:@"banner"];

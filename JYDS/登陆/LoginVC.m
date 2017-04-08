@@ -139,7 +139,7 @@
                 //保存用户信息
                 [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
                 [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
-                
+
                 //保存登录保存登录状态
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
                 //登录成功跳转首页

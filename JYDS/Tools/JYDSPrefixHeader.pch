@@ -83,7 +83,7 @@
 //#define COURSE API(@"getReciteWords") //记单词目录
 //#define UNITLIST API(@"getUnitList") //获取单元列表
 //#define WORD API(@"getWords") //分类单词
-////#define ALLWORD API(@"getAllWords") //获取所有单词
+//#define ALLWORD API(@"getAllWords") //获取所有单词
 //#define SEARCHWORD API(@"wordSel")    //搜索单词
 //#define UPLOADHEADIMAGE API(@"upload") //上传头像
 //#define MEMORYBYID API(@"memoryIDSel") //记忆法id查详情
@@ -121,8 +121,13 @@
 #define kSectionList API(@"/study/getSectionList") //获取年段列表
 #define kNicknameSex API(@"/user/updateUser") //更新用户昵称和性别
 #define kPlayerSet API(@"/system/getPlayerSys") //获取播放器设置
-#define kBanner API(@"/common/getIndexImages") //获取轮播图
+#define kBanner API(@"/common/getIndexImages") //获取首页内容
 #define kGradeList API(@"/study/getGradeList") //年级列表
+#define kClassTypeList API(@"/study/getClassTypeList") //科目列表
+#define kVersionNameList API(@"/study/getVersionNameList") //版本列表
+#define kModuleList API(@"/study/getUnitList") //单元列表
+#define kWordList API(@"/study/getUnitWordList") //单元单词列表
+#define kFreeWord API(@"/study/freeWord") //免费查阅
 
 
 //练习题等级数组

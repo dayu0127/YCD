@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ModuleListVC : UIViewController
-
+@property (copy,nonatomic) NSString *classId;
 @end

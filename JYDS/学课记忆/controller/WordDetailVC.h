@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Word.h"
 @interface WordDetailVC : UIViewController
-
+@property (strong,nonatomic) Word *word;
 @end

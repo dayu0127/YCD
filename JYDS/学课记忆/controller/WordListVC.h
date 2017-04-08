@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface WordListVC : UIViewController
-
+@property (copy,nonatomic) NSString *classId;
+@property (copy,nonatomic) NSString *unitId;
 @end

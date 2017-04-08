@@ -7,7 +7,7 @@
 //
 
 #import "NotSubCell.h"
-
+#import "Word.h"
 @implementation NotSubCell
 
 - (void)awakeFromNib {
@@ -24,5 +24,8 @@
 
     // Configure the view for the selected state
 }
-
+- (void)addModelWithDic:(NSDictionary *)dic{
+    Word *word = [Word yy_modelWithJSON:dic];
+    _wordLabel.text = word.word;
+}
 @end

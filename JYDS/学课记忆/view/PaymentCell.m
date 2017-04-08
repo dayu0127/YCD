@@ -9,8 +9,6 @@
 @implementation PaymentCell
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
-    _title.dk_textColorPicker = DKColorPickerWithKey(TEXT);
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
