@@ -83,7 +83,7 @@
 //#define COURSE API(@"getReciteWords") //记单词目录
 //#define UNITLIST API(@"getUnitList") //获取单元列表
 //#define WORD API(@"getWords") //分类单词
-////#define ALLWORD API(@"getAllWords") //获取所有单词
+//#define ALLWORD API(@"getAllWords") //获取所有单词
 //#define SEARCHWORD API(@"wordSel")    //搜索单词
 //#define UPLOADHEADIMAGE API(@"upload") //上传头像
 //#define MEMORYBYID API(@"memoryIDSel") //记忆法id查详情
@@ -118,10 +118,16 @@
 #define kBindingWX API(@"/user/bindingWeixin") //用户绑定微信
 #define kBindingPhone API(@"/user/bindingPhone") //用户绑定手机号
 #define kUpdateHead API(@"/user/updateUserImg") //更新头像
-#define kGradeList API(@"/study/getSectionList") //获取年段列表
+#define kSectionList API(@"/study/getSectionList") //获取年段列表
 #define kNicknameSex API(@"/user/updateUser") //更新用户昵称和性别
 #define kPlayerSet API(@"/system/getPlayerSys") //获取播放器设置
-#define kBanner API(@"/common/getIndexImages") //获取轮播图
+#define kBanner API(@"/common/getIndexImages") //获取首页内容
+#define kGradeList API(@"/study/getGradeList") //年级列表
+#define kClassTypeList API(@"/study/getClassTypeList") //科目列表
+#define kVersionNameList API(@"/study/getVersionNameList") //版本列表
+#define kModuleList API(@"/study/getUnitList") //单元列表
+#define kWordList API(@"/study/getUnitWordList") //单元单词列表
+#define kFreeWord API(@"/study/freeWord") //免费查阅
 
 
 //练习题等级数组
@@ -152,6 +158,10 @@
 #define LINECOLOR RGB(228,228,228) //#E4E4E4
 //灰色
 #define GRAYCOLOR RGB(153,153,153) //#999999
+//深灰色
+#define DGRAYCOLOR RGB(51,51,51)  //#333333
 //首页消息提醒色
 #define MSGEDGECOLOR RGB(145,219,79)  //#91DB4F
+//未订阅
+#define SUBEDCOLOR RGB(57,196,130)  //#39C482
 #endif /* JYDSPrefixHeader_pch */

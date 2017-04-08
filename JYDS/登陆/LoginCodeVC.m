@@ -18,7 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *codeImage;
 @property (weak, nonatomic) IBOutlet UIView *line2;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceForImageCode;
-
+@property (strong,nonatomic) NSTimer *countDownTimer;
+@property (assign,nonatomic)int countDown;
 @end
 
 @implementation LoginCodeVC
@@ -62,18 +63,34 @@
     [app.window makeKeyWindow];
 }
 #pragma mark 获取验证码
-- (IBAction)getCodeClick:(id)sender {
+- (IBAction)getCodeClick:(UIButton *)sender {
+    
     //点击显示图形验证(测试环境)
-    _login_code_img.alpha = 1;
-    _imgCodeTxt.alpha = 1;
-    _codeImage.alpha = 1;
-    _line2.alpha = 1;
-    _spaceForImageCode.constant = 79.5;
+//    _login_code_img.alpha = 1;
+//    _imgCodeTxt.alpha = 1;
+//    _codeImage.alpha = 1;
+//    _line2.alpha = 1;
+//    _spaceForImageCode.constant = 80;
 //    {
 //        "phoneNum":"13300001111",  #手机号
 //        "stype":1,                 #类型  1注册 2登录 3找回密码
 //        "deviceNum":"123456",      #设备码（选填）
 //    }
+    //验证码按钮倒计时
+    _countDown = COUNTDOWN;
+    sender.enabled = NO;
+    sender.backgroundColor = [UIColor lightGrayColor];
+    [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
+    _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        _countDown--;
+        [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
+        if (_countDown == 0) {
+            [timer invalidate];
+            sender.enabled = YES;
+            [sender setTitle:@"获取验证码" forState:UIControlStateNormal];
+            sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+        }
+    }];
     NSString *phoneNum = _phoneTxt.text;
     NSDictionary *jsonDic = @{@"phoneNum" :phoneNum,             // #用户名
                                           @"stype":@"2",               //    #类型  1注册 2登录 3找回密码
@@ -149,8 +166,10 @@
             //            }
             NSString *associatedQq = resp.uid;
             NSString *genter = resp.gender;
+            NSString *nickName = resp.name;
             NSDictionary *jsonDic = @{@"associatedQq" :associatedQq,             // #第三方绑定的uid 唯一标识
-                                                  @"genter":genter};               //   #性别 1男 0女  （选填
+                                                  @"genter":genter,
+                                                  @"nickName":nickName};               //   #性别 1男 0女  （选填
             [YHWebRequest YHWebRequestForPOST:kQQLogin parameters:jsonDic success:^(NSDictionary *json) {
                 NSLog(@"%@",json);
                 if ([json[@"code"] integerValue] == 200) {
@@ -195,13 +214,15 @@
             //                "province":"",                  #省市（选填）
             //                "city":"",                      #城市（选填）
             //                "genter":""                     #性别 1男 0女  （选填）
+            //                "nickName":"Winner.z"           #昵称(选填)
             //            }
             NSString *associatedWx = resp.uid;
             NSString *genter = resp.gender;
+            NSString *nickName = resp.name;
             NSDictionary *jsonDic = @{@"associatedWx" :associatedWx,             // #第三方绑定的uid 唯一标识
-                                                 @"genter":genter};               //   #性别 1男 0女  （选填
-            [YHWebRequest YHWebRequestForPOST:kQQLogin parameters:jsonDic success:^(NSDictionary *json) {
-                NSLog(@"%@",json);
+                                                 @"genter":genter,
+                                                 @"nickName":nickName};               //   #性别 1男 0女  （选填
+            [YHWebRequest YHWebRequestForPOST:kWXLogin parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {
                     [YHSingleton shareSingleton].userInfo.associatedWx = associatedWx;
                     [YHHud showWithSuccess:@"登录成功"];

@@ -139,6 +139,7 @@
                 //保存用户信息
                 [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
                 [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
+
                 //保存登录保存登录状态
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
                 //登录成功跳转首页
@@ -146,6 +147,8 @@
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self returnToHome];
                 });
+            }else{
+                [YHHud showWithMessage:json[@"message" ]];
             }
         } failure:^(NSError * _Nonnull error) {
             [YHHud dismiss];
@@ -195,12 +198,15 @@
 //                "country":"",                   #国家（选填）
 //                "province":"",                  #省市（选填）
 //                "city":"",                      #城市（选填）
-//                "genter":""                     #性别 1男 0女  （选填）     
+//                "genter":""                     #性别 1男 0女  （选填）
+//                "nickName":"Winner.z"           #昵称(选填)
 //            }
             NSString *associatedQq = resp.uid;
             NSString *genter = resp.gender;
+            NSString *nickName = resp.name;
             NSDictionary *jsonDic = @{@"associatedQq" :associatedQq,             // #第三方绑定的uid 唯一标识
-                                                  @"genter":genter};               //   #性别 1男 0女  （选填
+                                                  @"genter":genter,
+                                                  @"nickName":nickName};               //   #性别 1男 0女  （选填
             [YHWebRequest YHWebRequestForPOST:kQQLogin parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {
                     NSLog(@"%@",json);
@@ -249,13 +255,12 @@
 //            }
             NSString *associatedWx = resp.uid;
             NSString *genter = resp.gender;
-            NSDictionary *jsonDic = @{
-                                              @"associatedWx" :associatedWx,             // #第三方绑定的uid 唯一标识
-                                              @"genter":genter               //   #性别 1男 0女  （选填
-                                              };
-            [YHWebRequest YHWebRequestForPOST:kQQLogin parameters:jsonDic success:^(NSDictionary *json) {
+            NSString *nickName = resp.name;
+            NSDictionary *jsonDic = @{@"associatedWx" :associatedWx,             // #第三方绑定的uid 唯一标识
+                                                  @"genter":genter,               //   #性别 1男 0女  （选填
+                                                  @"nickName":nickName};
+            [YHWebRequest YHWebRequestForPOST:kWXLogin parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {
-                    
                     [YHSingleton shareSingleton].userInfo.associatedWx = associatedWx;
                     [YHHud showWithSuccess:json[@"message"]];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];

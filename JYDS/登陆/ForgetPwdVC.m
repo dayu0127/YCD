@@ -97,11 +97,26 @@
 //}
 - (IBAction)checkButtonClick:(UIButton *)sender {
     //点击显示图形验证(测试环境)
-    _login_code_img.alpha = 1;
-    _imgCodeTxt.alpha = 1;
-    _codeImage.alpha = 1;
-    _line2.alpha = 1;
-    _spaceForImageCheck.constant = 79.5;
+//    _login_code_img.alpha = 1;
+//    _imgCodeTxt.alpha = 1;
+//    _codeImage.alpha = 1;
+//    _line2.alpha = 1;
+//    _spaceForImageCheck.constant = 80;
+    //验证码按钮倒计时
+    _countDown = COUNTDOWN;
+    sender.enabled = NO;
+    sender.backgroundColor = [UIColor lightGrayColor];
+    [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
+    _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        _countDown--;
+        [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
+        if (_countDown == 0) {
+            [timer invalidate];
+            sender.enabled = YES;
+            [sender setTitle:@"获取验证码" forState:UIControlStateNormal];
+            sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+        }
+    }];
 //    if (REGEX(PHONE_RE, _phoneText.text)==NO) {
 //        [YHHud showWithMessage:@"无效手机号"];
 //    }else{

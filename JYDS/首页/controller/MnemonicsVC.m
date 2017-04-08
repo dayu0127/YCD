@@ -31,13 +31,11 @@
 //@property (assign,nonatomic) BOOL isHiddenNav;
 //@property (strong,nonatomic) MJRefreshNormalHeader *header;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong,nonatomic) NSArray *memoryList;
 @end
 
 @implementation MnemonicsVC
-//- (void)viewWillAppear:(BOOL)animated{
-//    [super viewWillAppear:animated];
-//    self.navigationController.navigationBar.hidden = YES;
-//}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -45,6 +43,7 @@
     [_tableView registerNib:[UINib nibWithNibName:@"PlanCell" bundle:nil] forCellReuseIdentifier:@"PlanCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"DynamicCell" bundle:nil] forCellReuseIdentifier:@"DynamicCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"MemoryCell" bundle:nil] forCellReuseIdentifier:@"MemoryCell"];
+    _memoryList = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexMemory"];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dayMode) name:@"dayMode" object:nil];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightMode) name:@"nightMode" object:nil];
 //    [self initNaBar:@"记忆大师"];
@@ -114,7 +113,7 @@
     }else if(section ==1){
         return 1;
     }else{
-        return 3;
+        return _memoryList.count;
     }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -134,6 +133,7 @@
     }else{
         MemoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MemoryCell" forIndexPath:indexPath];
         cell.memoryImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"k%zd",indexPath.row+1]];
+        [cell addModelWithDic:_memoryList[indexPath.row]];
         return cell;
     }
 }

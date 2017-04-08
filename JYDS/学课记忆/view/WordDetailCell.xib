@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="93" id="KGk-i7-Jjw" customClass="WordDetailCell">
+            <rect key="frame" x="0.0" y="0.0" width="376" height="93"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="376" height="93"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="course_chai" translatesAutoresizingMaskIntoConstraints="NO" id="579-bi-PG4">
+                        <rect key="frame" x="15" y="23" width="17" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="17" id="Hvo-5a-u8D"/>
+                            <constraint firstAttribute="height" constant="17" id="a0p-DH-Cqm"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="拆分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zSF-kz-lJf">
+                        <rect key="frame" x="39" y="23.5" width="27" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="a一个er儿  op藕片  e鹅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CpN-wt-FBv">
+                        <rect key="frame" x="15" y="51" width="136.5" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="course_voice" translatesAutoresizingMaskIntoConstraints="NO" id="9gG-rX-xCu">
+                        <rect key="frame" x="334" y="39.5" width="15" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="15" id="8Rv-V1-IAI"/>
+                            <constraint firstAttribute="height" constant="14" id="M0M-V1-RoY"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vCO-tA-RUV">
+                        <rect key="frame" x="325" y="30" width="33" height="33"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="33" id="fAR-zP-DUj"/>
+                            <constraint firstAttribute="width" constant="33" id="nHE-Ou-neH"/>
+                        </constraints>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="zSF-kz-lJf" firstAttribute="leading" secondItem="579-bi-PG4" secondAttribute="trailing" constant="7" id="0RQ-oT-yua"/>
+                    <constraint firstItem="579-bi-PG4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="15" id="4tj-i8-RSY"/>
+                    <constraint firstItem="CpN-wt-FBv" firstAttribute="top" secondItem="579-bi-PG4" secondAttribute="bottom" constant="11" id="54M-RK-ua5"/>
+                    <constraint firstItem="579-bi-PG4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="5cI-oq-RDC"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="9gG-rX-xCu" secondAttribute="trailing" constant="19" id="8Qf-SY-DAC"/>
+                    <constraint firstItem="vCO-tA-RUV" firstAttribute="centerX" secondItem="9gG-rX-xCu" secondAttribute="centerX" id="9jy-L3-9Jo"/>
+                    <constraint firstItem="9gG-rX-xCu" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="JeT-g3-99g"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="CpN-wt-FBv" secondAttribute="bottom" constant="14" id="KIq-MO-h9k"/>
+                    <constraint firstItem="vCO-tA-RUV" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="bMf-sY-Z3o"/>
+                    <constraint firstItem="zSF-kz-lJf" firstAttribute="centerY" secondItem="579-bi-PG4" secondAttribute="centerY" id="bxV-3f-Pie"/>
+                    <constraint firstItem="CpN-wt-FBv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="x9P-cM-yKd"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="img" destination="579-bi-PG4" id="8za-ad-PYr"/>
+                <outlet property="splitOrAssociateLabel" destination="CpN-wt-FBv" id="0PP-68-Bc2"/>
+            </connections>
+            <point key="canvasLocation" x="27" y="75.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="course_chai" width="16" height="16"/>
+        <image name="course_voice" width="15" height="14"/>
+    </resources>
+</document>

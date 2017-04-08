@@ -14,4 +14,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *memoryImage;
 @property (weak, nonatomic) IBOutlet UILabel *memoryTitle;
 @property (weak, nonatomic) IBOutlet UILabel *memoryDetail;
+- (void)addModelWithDic:(NSDictionary *)dic;
 @end

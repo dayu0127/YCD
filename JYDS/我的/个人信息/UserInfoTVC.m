@@ -33,7 +33,14 @@
     NSString *headImageUrl = [NSString stringWithFormat:@"%@%@",kHeadImageUrl,[YHSingleton shareSingleton].userInfo.headImg];
     [_headImageButton sd_setImageWithURL:[NSURL URLWithString:headImageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"mine_headimage"]];
     _nickNameLabel.text = [YHSingleton shareSingleton].userInfo.nickName;
-    _sexLabel.text = [YHSingleton shareSingleton].userInfo.genter;
+    _sexLabel.text = [[YHSingleton shareSingleton].userInfo.genter isEqualToString:@""] ? @"保密" : [YHSingleton shareSingleton].userInfo.genter;
+    if ([[YHSingleton shareSingleton].userInfo.genter intValue] == 1) {
+        _sexLabel.text = @"男";
+    }else if ([[YHSingleton shareSingleton].userInfo.genter intValue] == 2){
+        _sexLabel.text = @"女";
+    }else{
+        _sexLabel.text = @"保密";
+    }
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -177,9 +184,17 @@
 //        "newNickName":"*****",      #用户新昵称（选填字段）
 //        "sex":"男"                   #用户性别（选填字段）
 //    }
+    NSString *sex = _sexLabel.text;
+    if ([sex isEqualToString:@"男"]) {
+        sex = @"1";
+    }else if ([sex isEqualToString:@"女"]){
+        sex = @"0";
+    }else{
+        sex = @"2";
+    }
     NSDictionary *jsonDic = @{@"userPhone":[YHSingleton shareSingleton].userInfo.phoneNum,    //#用户手机号
-                                            @"newNickName":_nickNameLabel.text,         //#用户新昵称（选填字段）
-                                            @"sex":_sexLabel.text};     //#用户性别（选填字段）
+                                          @"newNickName":_nickNameLabel.text,         //#用户新昵称（选填字段）
+                                          @"sex":sex};     //#用户性别（选填字段）
     [YHWebRequest YHWebRequestForPOST:kNicknameSex parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
             [YHHud showWithSuccess:@"修改成功"];

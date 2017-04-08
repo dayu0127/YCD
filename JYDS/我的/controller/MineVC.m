@@ -25,13 +25,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeaderView) name:@"updateHeaderView" object:nil];
 }
 - (void)updateHeaderView{
+    [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
     _logged = [[LoggedInHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 187)];
     _logged.delegate = self;
+    _logged.nameLabel.text = [YHSingleton shareSingleton].userInfo.nickName;
+    _logged.phoneLabel.text = [YHSingleton shareSingleton].userInfo.phoneNum;
     _tableView.tableHeaderView = _logged;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = false;
+     [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
     [_tableView registerNib:[UINib nibWithNibName:@"TopCell" bundle:nil] forCellReuseIdentifier:@"TopCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"MineCell" bundle:nil] forCellReuseIdentifier:@"MineCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"ButtomCell" bundle:nil] forCellReuseIdentifier:@"ButtomCell"];
@@ -45,6 +49,8 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogin"] == YES) {
         _logged = [[LoggedInHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 187)];
         _logged.delegate = self;
+        _logged.nameLabel.text = [YHSingleton shareSingleton].userInfo.nickName;
+        _logged.phoneLabel.text = [YHSingleton shareSingleton].userInfo.phoneNum;
         _tableView.tableHeaderView = _logged;
     }else{
         _tableView.tableHeaderView = [[NoLoginHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 187)];
