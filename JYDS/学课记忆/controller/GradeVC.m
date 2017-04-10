@@ -63,7 +63,10 @@
     NSDictionary *jsonDic = @{@"grade_type":@"1",        //#查询状态 1：小学 2：初中 3：高中
                                           @"userPhone":phoneNum,     //  #用户手机号
                                           @"token":token};       // #登陆凭证
+    NSLog(@"%@",jsonDic);
+    NSLog(@"%@",kGradeList);
     [YHWebRequest YHWebRequestForPOST:kGradeList parameters:jsonDic success:^(NSDictionary *json) {
+            NSLog(@"%@",json);
         if([json[@"code"] integerValue] == 200){
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             _gradeList = resultDic[@"gradeList"];   //年级

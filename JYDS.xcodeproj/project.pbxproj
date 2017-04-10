@@ -268,6 +268,9 @@
 		60E2DD011E5A94F500D45986 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 60E2DCFC1E5A94F500D45986 /* README.txt */; };
 		60E2DD041E5AA22F00D45986 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E2DD031E5AA22F00D45986 /* WXApiManager.m */; };
 		60F308861E8A487600476E32 /* UIButton+ImageTitleSpacing.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F308851E8A487600476E32 /* UIButton+ImageTitleSpacing.m */; };
+		60F4EB651E9B178600DC7AB8 /* SureSubView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F4EB631E9B178600DC7AB8 /* SureSubView.m */; };
+		60F4EB661E9B178600DC7AB8 /* SureSubView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60F4EB641E9B178600DC7AB8 /* SureSubView.xib */; };
+		60F4EB691E9B179F00DC7AB8 /* UILabel+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F4EB681E9B179F00DC7AB8 /* UILabel+Utils.m */; };
 		60F7321F1E691B4900907D1E /* RememberWordModuleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F7321E1E691B4900907D1E /* RememberWordModuleVC.m */; };
 		60FF515F1E0A5E3B00DA6693 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF515E1E0A5E3B00DA6693 /* libc++.tbd */; };
 		60FF51611E0A5E8C00DA6693 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF51601E0A5E8C00DA6693 /* libz.tbd */; };
@@ -741,6 +744,11 @@
 		60E2DD031E5AA22F00D45986 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
 		60F308841E8A487600476E32 /* UIButton+ImageTitleSpacing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+ImageTitleSpacing.h"; sourceTree = "<group>"; };
 		60F308851E8A487600476E32 /* UIButton+ImageTitleSpacing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+ImageTitleSpacing.m"; sourceTree = "<group>"; };
+		60F4EB621E9B178600DC7AB8 /* SureSubView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SureSubView.h; sourceTree = "<group>"; };
+		60F4EB631E9B178600DC7AB8 /* SureSubView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SureSubView.m; sourceTree = "<group>"; };
+		60F4EB641E9B178600DC7AB8 /* SureSubView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SureSubView.xib; sourceTree = "<group>"; };
+		60F4EB671E9B179F00DC7AB8 /* UILabel+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Utils.h"; sourceTree = "<group>"; };
+		60F4EB681E9B179F00DC7AB8 /* UILabel+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Utils.m"; sourceTree = "<group>"; };
 		60F7321D1E691B4900907D1E /* RememberWordModuleVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordModuleVC.h; sourceTree = "<group>"; };
 		60F7321E1E691B4900907D1E /* RememberWordModuleVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordModuleVC.m; sourceTree = "<group>"; };
 		60FF515E1E0A5E3B00DA6693 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -1100,6 +1108,9 @@
 				6062A7941E98FA2300D8F5BB /* SubAlertView.h */,
 				6062A7951E98FA2300D8F5BB /* SubAlertView.m */,
 				6062A7971E9900F100D8F5BB /* SubAlertView.xib */,
+				60F4EB621E9B178600DC7AB8 /* SureSubView.h */,
+				60F4EB631E9B178600DC7AB8 /* SureSubView.m */,
+				60F4EB641E9B178600DC7AB8 /* SureSubView.xib */,
 				6062A79C1E99187A00D8F5BB /* PaymentCell.h */,
 				6062A79D1E99187A00D8F5BB /* PaymentCell.m */,
 				6062A79E1E99187A00D8F5BB /* PaymentCell.xib */,
@@ -1460,6 +1471,8 @@
 				604DBF2F1E8E6CAB0025E50C /* NSString+FromNSDictionary.m */,
 				600259781E977F1700FA3991 /* YBPopupMenu.h */,
 				600259791E977F1700FA3991 /* YBPopupMenu.m */,
+				60F4EB671E9B179F00DC7AB8 /* UILabel+Utils.h */,
+				60F4EB681E9B179F00DC7AB8 /* UILabel+Utils.m */,
 			);
 			name = Tools;
 			path = JYDS/Tools;
@@ -1922,6 +1935,7 @@
 				6010FF751E9128DB00071610 /* 67.png in Resources */,
 				6062A7981E9900F100D8F5BB /* SubAlertView.xib in Resources */,
 				6010FF831E9128DB00071610 /* 8.png in Resources */,
+				60F4EB661E9B178600DC7AB8 /* SureSubView.xib in Resources */,
 				6010FFBF1E912B4400071610 /* SetCell0.xib in Resources */,
 				6010FF3B1E9128DB00071610 /* 14.png in Resources */,
 				6010FF771E9128DB00071610 /* 69.png in Resources */,
@@ -1998,7 +2012,9 @@
 				6062A78A1E98BA8600D8F5BB /* Module.m in Sources */,
 				6078D2241E161AF20089D40F /* YHHud.m in Sources */,
 				609F06261E1621BD009F4986 /* BindingNewPhoneVC.m in Sources */,
+				60F4EB691E9B179F00DC7AB8 /* UILabel+Utils.m in Sources */,
 				6078D1FE1E1613180089D40F /* BaseViewController.m in Sources */,
+				60F4EB651E9B178600DC7AB8 /* SureSubView.m in Sources */,
 				608658C41E94E1D100A20EDC /* ModuleCell.m in Sources */,
 				6010FFC51E912B9F00071610 /* InviteRewardsVC.m in Sources */,
 				6010FFC01E912B4400071610 /* SetCell1.m in Sources */,
