@@ -65,7 +65,7 @@
         [self performSegueWithIdentifier:@"toAccountSet" sender:self];
     }else if (indexPath.row == 1) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        [YHHud showWithStatus:@"正在清除"];
+        [YHHud showWithStatus];
         [[SDImageCache sharedImageCache] clearDisk];
         [[SDImageCache sharedImageCache] clearMemory];//可有可无
         [YHHud dismiss];

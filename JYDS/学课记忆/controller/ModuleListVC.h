@@ -10,4 +10,6 @@
 
 @interface ModuleListVC : UIViewController
 @property (copy,nonatomic) NSString *classId;
+/**当前单元所在课本订阅状态*/
+@property (copy,nonatomic) NSString *payType;
 @end

@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WordListVC : UIViewController
+@interface WordListVC : BaseViewController
 @property (copy,nonatomic) NSString *classId;
 @property (copy,nonatomic) NSString *unitId;
+/**当前单元所在课本订阅状态*/
+@property (copy,nonatomic) NSString *payType;
 @end

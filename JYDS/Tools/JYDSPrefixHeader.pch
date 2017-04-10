@@ -127,9 +127,12 @@
 #define kVersionNameList API(@"/study/getVersionNameList") //版本列表
 #define kModuleList API(@"/study/getUnitList") //单元列表
 #define kWordList API(@"/study/getUnitWordList") //单元单词列表
+#define kWordSubedList API(@"/study/subWordList") //已订阅列表
 #define kFreeWord API(@"/study/freeWord") //免费查阅
-
-
+#define kAlipaySub API(@"/pay/alipayCreateOrder")  //支付宝订阅
+#define kAlipaySignCheck API(@"/pay/alipaySignCheck")  //支付宝验签
+#define kWXSub API(@"/pay/weixinCreateOrder")  //微信订阅
+#define kWXSignCheck API(@"/pay/weixinSignCheck")  //微信验签
 //练习题等级数组
 #define LEVELARRAY @[@"60",@"50",@"40",@"30",@"25",@"20",@"15",@"13",@"10"]
 //练习题价格
@@ -156,8 +159,10 @@
 #define ORANGERED RGB(255,78,0) //#FE514A
 //线色
 #define LINECOLOR RGB(228,228,228) //#E4E4E4
+//浅灰色
+#define LIGHTGRAYCOLOR RGB(153,153,153) //#999999
 //灰色
-#define GRAYCOLOR RGB(153,153,153) //#999999
+#define GRAYCOLOR RGB(102,102,102)  //#666666
 //深灰色
 #define DGRAYCOLOR RGB(51,51,51)  //#333333
 //首页消息提醒色

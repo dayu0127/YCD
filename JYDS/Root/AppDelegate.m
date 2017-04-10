@@ -12,7 +12,7 @@
 #import <UMSocialCore/UMSocialCore.h>
 #import <SMS_SDK/SMSSDK.h>
 #import <AlipaySDK/AlipaySDK.h>
-#import <WXApi.h>
+#import "WXApi.h"
 #import "WXApiManager.h"
 #import <SMS_SDK/Extend/SMSSDK+AddressBookMethods.h>
 
@@ -26,6 +26,7 @@
     //监测网络状态
     [self checkNetStatus];
     //初始化设置
+    [self getBannerInfo];
     [self initSettings];
     //设置根视图控制器
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: [NSBundle mainBundle]];
@@ -45,7 +46,6 @@
 //        }
     }
     [self.window makeKeyAndVisible];
-    [self getBannerInfo];
     return YES;
 }
 
@@ -80,11 +80,11 @@
     [UINavigationBar appearance].titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     [UITableView appearance].separatorColor = SEPCOLOR;
     //判断是否加载夜间模式
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isNightMode"]==YES) {
-        [[DKNightVersionManager sharedManager] nightFalling];
-    }else{
-        [[DKNightVersionManager sharedManager] dawnComing];
-    }
+//    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isNightMode"]==YES) {
+//        [[DKNightVersionManager sharedManager] nightFalling];
+//    }else{
+//        [[DKNightVersionManager sharedManager] dawnComing];
+//    }
     //分享
     //打开调试日志
     [[UMSocialManager defaultManager] openLog:YES];
@@ -134,30 +134,31 @@
         // 支付宝SDK的回调
         if ([url.host isEqualToString:@"safepay"]) {
             //跳转支付宝钱包进行支付，处理支付结果
-//            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-//                NSDictionary *dic = [NSDictionary dictionary];
-//                if ([resultDic[@"resultStatus"] isEqualToString:@"9000"]) {//订单支付成功
-//                    dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"result":resultDic[@"result"],@"code":resultDic[@"resultStatus"]};
-//                }else{
-//                    dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"out_trade_no":[YHSingleton shareSingleton].ali_out_trade_no,@"code":resultDic[@"resultStatus"]};
-//                }
-//                [YHWebRequest YHWebRequestForPOST:ALICHECK parameters:dic success:^(NSDictionary *json) {
-//                    if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-//                        if ([json[@"payType"] isEqualToString:@"SUCCESS"]) {
-//                            [YHHud showWithSuccess:@"支付成功"];
-//                            [self updateStudyBean];
-//                        }else{
-//                            [YHHud showWithMessage:@"支付失败"];
-//                        }
-//                    }else if([json[@"code"] isEqualToString:@"ERROR"]){
-//                        [YHHud showWithMessage:@"服务器出错了，请稍后重试"];
-//                    }else{
-//                        [YHHud showWithMessage:@"支付失败"];
-//                    }
-//                } failure:^(NSError * _Nonnull error) {
-//                    [YHHud showWithMessage:@"数据请求失败"];
-//                }];
-//            }];
+            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+                //                {
+                //                    "userPhone":"******"    #用户手机号
+                //                    "code":"***"            #支付宝支付状态码
+                //                    "out_trade_no":"***"    #商户订单号（选填，与transaction_id二选一）
+                //                    "result":"***"          #支付宝返回的订单信息
+                //                    "token":"****"          #登陆凭证
+                //                }
+                NSDictionary *jsonDic = @{@"userPhone":[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"][@"phoneNum"],   // #用户手机号
+                                          @"code":resultDic[@"resultStatus"],        //    #支付宝支付状态码
+                                          @"out_trade_no":[YHSingleton shareSingleton].ali_out_trade_no, //   #商户订单号（选填，与transaction_id二选一）
+                                          @"result":resultDic[@"result"],      //    #支付宝返回的订单信息
+                                          @"token":[[NSUserDefaults standardUserDefaults] objectForKey:@"token"]};       //   #登陆凭证
+                [YHWebRequest YHWebRequestForPOST:kAlipaySignCheck parameters:jsonDic success:^(NSDictionary *json) {
+                    if ([json[@"code"] integerValue] == 200) {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateSubStatus" object:nil];
+                        [YHHud showWithSuccess:@"支付成功"];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"back" object:nil];
+                    }else{
+                        [YHHud showWithSuccess:json[@"message"]];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    NSLog(@"%@",error);
+                }];
+            }];
         }
     }else{
         // 微信SDK的回调

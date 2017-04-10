@@ -10,7 +10,7 @@
 
 @interface YHHud : UIView
 +(void)showWithMessage:(NSString*)text;//消息提示
-+(void)showWithStatus:(NSString*)text;//加载视图
++(void)showWithStatus;//加载视图
 +(void)dismiss;
 +(void)showWithSuccess:(NSString*)successString;//成功提示
 @end

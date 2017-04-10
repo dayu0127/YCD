@@ -24,7 +24,7 @@
     _sureButton.layer.masksToBounds = YES;
     _sureButton.layer.cornerRadius = 7.5f;
     _sureButton.layer.borderWidth = 1.0f;
-    _sureButton.layer.borderColor = GRAYCOLOR.CGColor;
+    _sureButton.layer.borderColor = LIGHTGRAYCOLOR.CGColor;
 }
 
 - (void)didReceiveMemoryWarning {

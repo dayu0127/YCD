@@ -7,17 +7,19 @@
 //
 
 #import "SubAlertView.h"
-
+#import "UILabel+Utils.h"
 @implementation SubAlertView
 
-- (instancetype)init{
-    self = [super init];
-    if (self) {
-        _subBtn.layer.borderWidth = 1.0;
-        _subBtn.layer.borderColor = DGRAYCOLOR.CGColor;
+- (void)awakeFromNib{
+    [super awakeFromNib];
+    for (UILabel *item in _labels) {
+        [item setText:item.text lineSpacing:7.0f];
     }
-    return self;
+    _subBtn.layer.borderWidth = 1.0;
+    _subBtn.layer.borderColor = [UIColor colorWithRed:0.4 green:0.4 blue:0.4 alpha:1.0].CGColor;
 }
+
+
 - (instancetype)initWithNib{
     return [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil] lastObject];
 }

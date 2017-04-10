@@ -10,7 +10,7 @@
 #import <UMSocialCore/UMSocialCore.h>
 #import <UShareUI/UMSocialUIManager.h>
 #import <UMSocialCore/UMSocialResponse.h>
-#import <WXApi.h>
+#import "WXApi.h"
 #import <TencentOpenAPI/QQApiInterface.h>
 #import "BaseWKWebView.h"
 #import <UIImageView+WebCache.h>

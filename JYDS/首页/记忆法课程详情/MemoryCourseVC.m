@@ -12,7 +12,7 @@
 #import <UMSocialCore/UMSocialResponse.h>
 #import "Mnemonics.h"
 #import "PayVC.h"
-#import <WXApi.h>
+#import "WXApi.h"
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <WeiboSDK.h>
 @interface MemoryCourseVC ()<ZFPlayerDelegate,YHAlertViewDelegate>

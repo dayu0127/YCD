@@ -57,23 +57,27 @@
 //            [YHHud showWithMessage:@"支付失败"];
 //            NSLog(@"错误，retcode = %d, retstr = %@", resp.errCode,resp.errStr);
 //        }
-//        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"out_trade_no":[YHSingleton shareSingleton].wx_out_trade_no};
-//        [YHWebRequest YHWebRequestForPOST:WXCHECK parameters:dic success:^(NSDictionary *json) {
-//            if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-//                if ([json[@"payType"] isEqualToString:@"SUCCESS"]) {
-//                    [YHHud showWithSuccess:@"支付成功"];
-//                    [self updateStudyBean];
-//                }else{
-//                    [YHHud showWithMessage:@"支付失败"];
-//                }
-//            }else if([json[@"code"] isEqualToString:@"ERROR"]){
-//                [YHHud showWithMessage:@"服务器出错了，请稍后重试"];
-//            }else{
-//                [YHHud showWithMessage:@"支付失败"];
-//            }
-//        } failure:^(NSError * _Nonnull error) {
-//            [YHHud showWithMessage:@"数据请求失败"];
-//        }];
+//        {
+//            "userPhone":"******"    #用户手机号
+//            "transaction_id":"***"  #微信官方订单号（选填，与out_trade_no二选一）
+//            "out_trade_no":"***"    #商户订单号（选填，与transaction_id二选一）
+//            "token":"****"          #登陆凭证
+//        }
+        [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
+        NSDictionary *jsonDic = @{@"userPhone":[YHSingleton shareSingleton].userInfo.phoneNum,  //  #用户手机号
+                                  @"out_trade_no":[YHSingleton shareSingleton].wx_out_trade_no,  //  #商户订单号（选填，与transaction_id二选一）
+                                  @"token":[[NSUserDefaults standardUserDefaults] objectForKey:@"token"]};      //    #登陆凭证
+        [YHWebRequest YHWebRequestForPOST:kWXSignCheck parameters:jsonDic success:^(NSDictionary *json) {
+            if ([json[@"code"] integerValue] == 200) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"updateSubStatus" object:nil];
+                [YHHud showWithSuccess:@"支付成功"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"back" object:nil];
+            }else{
+                [YHHud showWithMessage:json[@"message"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+        }];
     }
 }
 #pragma mark 更新用户剩余和充值的学习豆
