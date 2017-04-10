@@ -2778,7 +2778,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Oiu-d1-5mh">
-                                <rect key="frame" x="0.0" y="108" width="375" height="510"/>
+                                <rect key="frame" x="0.0" y="108" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="HBv-VM-i9P" id="Jke-AQ-DZ8"/>
@@ -2789,7 +2789,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="GJt-0o-g6T" secondAttribute="trailing" id="6zZ-5q-hAA"/>
-                            <constraint firstItem="Lfq-yM-raB" firstAttribute="top" secondItem="Oiu-d1-5mh" secondAttribute="bottom" id="796-5a-5rG"/>
                             <constraint firstItem="GJt-0o-g6T" firstAttribute="top" secondItem="qqZ-Bl-Ham" secondAttribute="bottom" id="8oC-SP-im2"/>
                             <constraint firstItem="qqZ-Bl-Ham" firstAttribute="top" secondItem="zc2-Ha-e1h" secondAttribute="top" id="9Qu-EW-cu6"/>
                             <constraint firstItem="GJt-0o-g6T" firstAttribute="leading" secondItem="zc2-Ha-e1h" secondAttribute="leading" id="D3j-Ae-kE0"/>
@@ -2798,6 +2797,7 @@
                             <constraint firstItem="Oiu-d1-5mh" firstAttribute="top" secondItem="GJt-0o-g6T" secondAttribute="bottom" id="eh6-qR-3ax"/>
                             <constraint firstAttribute="trailing" secondItem="Oiu-d1-5mh" secondAttribute="trailing" id="f3v-1I-94g"/>
                             <constraint firstAttribute="trailing" secondItem="qqZ-Bl-Ham" secondAttribute="trailing" id="gbJ-6v-xdq"/>
+                            <constraint firstAttribute="bottom" secondItem="Oiu-d1-5mh" secondAttribute="bottom" id="p48-3u-iNQ"/>
                         </constraints>
                     </view>
                     <connections>
