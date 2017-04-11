@@ -16,6 +16,7 @@
 //    "full_price": 300.00,
 //    "url": "https://omj0kq04d.qnssl.com/video/zqdn.mp4",
 //    "payType": 0
+//    "views":1
 //}
 @property (copy,nonatomic) NSString *memoryId;
 @property (copy,nonatomic) NSString *title;
@@ -23,4 +24,5 @@
 @property (copy,nonatomic) NSString *full_price;
 @property (copy,nonatomic) NSString *url;
 @property (copy,nonatomic) NSString *payType;
+@property (copy,nonatomic) NSString *views;
 @end

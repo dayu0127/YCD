@@ -13,6 +13,7 @@
 #import <AVFoundation/AVFoundation.h>
 @interface WordDetailVC ()<UITableViewDataSource,UITableViewDelegate,WordImageCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *collectButton;
 @property (strong,nonatomic) UIImageView *img;
 @property (strong,nonatomic) WordImageCell *cell;
 @property (strong,nonatomic) UIView *footView;
@@ -26,14 +27,69 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [_tableView registerNib:[UINib nibWithNibName:@"WordDetailCell" bundle:nil] forCellReuseIdentifier:@"WordDetailCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"WordImageCell" bundle:nil] forCellReuseIdentifier:@"WordImageCell"];
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, [self getFootViewHeight:WIDTH])];//86  140  176
     _wordLabel.text = _word.word;
+    if ([_word.collectionType integerValue] == 0) {
+        [_collectButton setImage:[UIImage imageNamed:@"course_collect"] forState:UIControlStateNormal];
+    }else{
+        [_collectButton setImage:[UIImage imageNamed:@"course_collected"] forState:UIControlStateNormal];
+    }
     [_phonogramButton setTitle:_word.phonogram forState:UIControlStateNormal];
     [_phonogramButton layoutButtonWithEdgeInsetsStyle:YHButtonEdgeInsetsStyleRight imageTitleSpace:8];
     _wordExplainLabel.text = _word.word_explain;
+}
+- (IBAction)collectionClick:(UIButton *)sender {
+    if ([_word.collectionType integerValue] == 0) {//单词收藏
+        //        {
+        //            "userPhone":"******"    #用户手机号
+        //            "token":"****"          #登陆凭证
+        //            "unitId"："****"         #单元id
+        //            "classId"："****"        #课本id
+        //            "wordId":"**"           #单词id
+        //        }
+        NSDictionary *jsonDic = @{@"classId":_classId,    //  #版本ID
+                                  @"unitId" :_unitId,    // #单元ID
+                                  @"wordId":_word.wordId,         //  #当前页数
+                                  @"userPhone":self.phoneNum,     //  #用户手机号
+                                  @"token":self.token};       //   #登陆凭证
+        [YHWebRequest YHWebRequestForPOST:kCollectionWord parameters:jsonDic success:^(NSDictionary *json) {
+            if([json[@"code"] integerValue] == 200){
+                //刷新单词收藏图片
+                [sender setImage:[UIImage imageNamed:@"course_collected"] forState:UIControlStateNormal];
+                _word.collectionType = @"1";
+                [_delegate updateWordList];
+                [YHHud showWithMessage:@"收藏成功"];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+        }];
+    }else{//单词取消收藏
+        //        {
+        //            "userPhone":"******"    #用户手机号
+        //            "token":"****"          #登陆凭证
+        //            "unitId"："****"         #单元id
+        //            "classId"："****"        #课本id
+        //            "wordId":"**"           #单词id
+        //        }
+        NSDictionary *jsonDic = @{@"classId":_classId,    //  #版本ID
+                                  @"unitId" :_unitId,    // #单元ID
+                                  @"wordId":_word.wordId,         //  #当前页数
+                                  @"userPhone":self.phoneNum,     //  #用户手机号
+                                  @"token":self.token};       //   #登陆凭证
+        [YHWebRequest YHWebRequestForPOST:kCancelCollectionWord parameters:jsonDic success:^(NSDictionary *json) {
+            if([json[@"code"] integerValue] == 200){
+                //刷新单词收藏图片
+                [sender setImage:[UIImage imageNamed:@"course_collect"] forState:UIControlStateNormal];
+                _word.collectionType = @"0";
+                [_delegate updateWordList];
+                [YHHud showWithMessage:@"已取消收藏"];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+        }];
+    }
 }
 #pragma mark 单词读音按钮点击
 - (IBAction)phonogramButtonClick:(UIButton *)sender {

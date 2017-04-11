@@ -45,7 +45,6 @@
         [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.mas_equalTo(self.mas_centerX);
             make.top.mas_equalTo(_headImageButton.mas_bottom).offset(13);
-            make.height.mas_equalTo(@14);
         }];
         //电话
         _phoneLabel = [UILabel new];

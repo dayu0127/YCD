@@ -21,7 +21,7 @@
     }
     _imageCount = netImages.count;
     CGFloat w = WIDTH-20;
-    CGFloat h = 176;
+    CGFloat h = 177/355.0*(WIDTH-20);
     _scrollView.contentSize = CGSizeMake(w*_imageCount, h);
     _scrollView.delegate = self;
     _leftButton = [UIButton buttonWithType:UIButtonTypeCustom];

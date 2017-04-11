@@ -7,5 +7,7 @@
 //
 #import <UIKit/UIKit.h>
 @interface BaseViewController : UIViewController
-- (void)returnToLogin;
+//- (void)returnToLogin;
+@property (copy,nonatomic) NSString *phoneNum;
+@property (copy,nonatomic) NSString *token;
 @end

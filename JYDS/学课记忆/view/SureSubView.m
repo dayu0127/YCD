@@ -17,8 +17,7 @@
     // Drawing code
 }
 */
-- (instancetype)initWIthNib:(NSString *)freeCount{
-    _messageLabel.text = freeCount;
+- (instancetype)initWithNib{
     return [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil] lastObject];
 }
 - (IBAction)cancelButtonClick:(UIButton *)sender {

@@ -30,10 +30,13 @@
 @property (strong,nonatomic) NSString *currentVersionNameID;
 /**选中课本ID*/
 @property (strong,nonatomic) NSString *classId;
+/**选中课本订阅状态*/
+@property (strong,nonatomic) NSString *payType;
 @end
 @implementation GradeVC
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getGredeList) name:@"updateSubStatus" object:nil];
     [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
     CGFloat c = (WIDTH-2)/3.0;
     NSArray *arr = @[@"年级",@"科目",@"版本"];
@@ -43,7 +46,7 @@
         [_topMenuBgView addSubview:topV];
         if (i<2) {
             UIView *v_line = [[UIView alloc] initWithFrame:CGRectMake(c*(i+1), 18, 1, 13)];
-            v_line.backgroundColor = GRAYCOLOR;
+            v_line.backgroundColor = LIGHTGRAYCOLOR;
             [_topMenuBgView addSubview:v_line];
         }
     }
@@ -63,10 +66,7 @@
     NSDictionary *jsonDic = @{@"grade_type":@"1",        //#查询状态 1：小学 2：初中 3：高中
                                           @"userPhone":phoneNum,     //  #用户手机号
                                           @"token":token};       // #登陆凭证
-    NSLog(@"%@",jsonDic);
-    NSLog(@"%@",kGradeList);
     [YHWebRequest YHWebRequestForPOST:kGradeList parameters:jsonDic success:^(NSDictionary *json) {
-            NSLog(@"%@",json);
         if([json[@"code"] integerValue] == 200){
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             _gradeList = resultDic[@"gradeList"];   //年级
@@ -188,6 +188,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     _classId  = _versionList[indexPath.row][@"classId"];
+    _payType  = [NSString stringWithFormat:@"%@",_versionList[indexPath.row][@"payType"]];
     [self performSegueWithIdentifier:@"toModuleList" sender:self];
 }
 - (NSArray *)getNameListFromArray:(NSArray *)arr keyName:(NSString *)str{
@@ -201,6 +202,7 @@
     if ([segue.identifier isEqualToString:@"toModuleList"]) {
         ModuleListVC *moduleListVC = segue.destinationViewController;
         moduleListVC.classId =_classId;
+        moduleListVC.payType =_payType;
     }
 }
 @end

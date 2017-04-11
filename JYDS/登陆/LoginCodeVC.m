@@ -30,7 +30,7 @@
     _loginButton.layer.masksToBounds = YES;
     _loginButton.layer.cornerRadius = 7.5f;
     _loginButton.layer.borderWidth = 1.0f;
-    _loginButton.layer.borderColor = GRAYCOLOR.CGColor;
+    _loginButton.layer.borderColor = LIGHTGRAYCOLOR.CGColor;
     //默认图形验证码隐藏
     _login_code_img.alpha = 0;
     _imgCodeTxt.alpha = 0;
@@ -43,7 +43,7 @@
     if (sender.text.length==0) {
         _loginButton.enabled = NO;
         [_loginButton setTitleColor:GRAYCOLOR forState:UIControlStateNormal];
-        _loginButton.layer.borderColor = GRAYCOLOR.CGColor;
+        _loginButton.layer.borderColor = LIGHTGRAYCOLOR.CGColor;
     }else if(sender.text.length>0&&sender.text.length<=11){
         _loginButton.enabled = YES;
         [_loginButton setTitleColor:ORANGERED forState:UIControlStateNormal];

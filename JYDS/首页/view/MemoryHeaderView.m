@@ -20,4 +20,7 @@
 + (instancetype)loadView{
     return [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil] lastObject];
 }
+- (IBAction)moreClick:(id)sender {
+    [_delegate pushMoreMemoryList];
+}
 @end

@@ -46,36 +46,50 @@ static YHHud *hud = nil;
 }
 
 
-+(void)showWithStatus:(NSString*)text{
++(void)showWithStatus{
     if (hud!=nil) {
         [hud removeFromSuperview];
     }
+//    hud = [[YHHud alloc]initWithFrame:[UIScreen mainScreen].bounds];
+//    [[UIApplication sharedApplication].keyWindow addSubview:hud];
+//    
+//    UIView * customView = [[UIView alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width/2-75, [UIScreen mainScreen].bounds.size.height/2-50, 150, 150)];
+//    customView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+//    [hud addSubview:customView];
+//    customView.layer.masksToBounds = YES;
+//    customView.layer.cornerRadius=10;
+//    
+//    UIImageView *heartImageView = [[UIImageView alloc]initWithFrame:CGRectMake(customView.frame.size.width/2-50, 10,100, 80.0)];
+//    [customView addSubview:heartImageView];
+//    NSMutableArray *images = [[NSMutableArray alloc]initWithCapacity:7];
+//    for (int i=1; i<=2; i++){
+//        [images addObject:[UIImage imageNamed:[NSString stringWithFormat:@"car%d.png",i]]];
+//    }
+//    heartImageView.animationImages = images;
+//    heartImageView.animationDuration = 0.4 ;
+//    heartImageView.animationRepeatCount = MAXFLOAT;
+//    [heartImageView startAnimating];
+//    
+//    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(customView.frame.size.width/2-50, 80, 100, 40)];
+//    label.text = text;
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.font = [UIFont boldSystemFontOfSize:16];
+//    label.textColor = [UIColor whiteColor];
+//    [customView addSubview:label];
     hud = [[YHHud alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    [[UIApplication sharedApplication].keyWindow addSubview:hud];
-    
-    UIView * customView = [[UIView alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width/2-75, [UIScreen mainScreen].bounds.size.height/2-50, 150, 120)];
-    customView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-    [hud addSubview:customView];
-    customView.layer.masksToBounds = YES;
-    customView.layer.cornerRadius=10;
-    
-    UIImageView *heartImageView = [[UIImageView alloc]initWithFrame:CGRectMake(customView.frame.size.width/2-50, 10,100, 80.0)];
-    [customView addSubview:heartImageView];
-    NSMutableArray *images = [[NSMutableArray alloc]initWithCapacity:7];
-    for (int i=1; i<=2; i++){
-        [images addObject:[UIImage imageNamed:[NSString stringWithFormat:@"car%d.png",i]]];
+    UIImageView *heartImageView =  [[UIImageView alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width/2-75, [UIScreen mainScreen].bounds.size.height/2-75, 150, 150)];
+    heartImageView.bounds = CGRectMake(0, 0, 150, 150);
+    heartImageView.center = hud.center;
+    [hud addSubview:heartImageView];
+    NSMutableArray *images = [[NSMutableArray alloc]initWithCapacity:4];
+    for (int i=1; i<=4; i++){
+        [images addObject:[UIImage imageNamed:[NSString stringWithFormat:@"load%d.png",i]]];
     }
     heartImageView.animationImages = images;
     heartImageView.animationDuration = 0.4 ;
     heartImageView.animationRepeatCount = MAXFLOAT;
     [heartImageView startAnimating];
-    
-    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(customView.frame.size.width/2-50, 80, 100, 40)];
-    label.text = text;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.font = [UIFont boldSystemFontOfSize:16];
-    label.textColor = [UIColor whiteColor];
-    [customView addSubview:label];
+    [[UIApplication sharedApplication].keyWindow addSubview:hud];
 }
 
 +(void)showWithSuccess:(NSString*)successString{//成功提示

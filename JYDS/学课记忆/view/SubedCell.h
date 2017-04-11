@@ -10,6 +10,7 @@
 
 @interface SubedCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *wordLabel;
+@property (strong, nonatomic) UILabel *wordLabel;
+//@property (strong, nonatomic) UIButton *collectButton;
 - (void)addModelWithDic:(NSDictionary *)dic;
 @end

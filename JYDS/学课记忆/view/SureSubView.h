@@ -14,5 +14,5 @@
 @interface SureSubView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak,nonatomic) id<SureSubViewDelegate> delegate;
-- (instancetype)initWIthNib:(NSString *)freeCount;
+- (instancetype)initWithNib;
 @end

@@ -11,13 +11,18 @@
 #import "SubedCell.h"
 #import "WordDetailVC.h"
 #import "Word.h"
-@interface WordListVC ()<UITableViewDelegate,UITableViewDataSource,YHAlertViewDelegate>
+#import "SureSubView.h"
+#import "SubAlertView.h"
+@interface WordListVC ()<UITableViewDelegate,UITableViewDataSource,SureSubViewDelegate,SubAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *notSubBtn;
 @property (weak, nonatomic) IBOutlet UIButton *subedBtn;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewBottomSpace;
+@property (weak, nonatomic) IBOutlet UIView *underLine;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lineLeftSpace;
+@property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
+@property (strong, nonatomic) UITableView *noSubTableView;
+@property (strong, nonatomic) UITableView *subedTableView;
 @property (assign,nonatomic) int tableIndex;
-@property (weak, nonatomic) IBOutlet UIButton *subAllButton;
+@property (strong, nonatomic) UIButton *subAllButton;
 @property (strong,nonatomic) NSMutableArray *noSubWordList;
 @property (strong,nonatomic) NSMutableArray *subedWordList;
 @property (strong,nonatomic) Word *word;
@@ -31,57 +36,162 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _noSubWordList = [NSMutableArray array];
-    _subedWordList = [NSMutableArray array];
-    // Do any additional setup after loading the view.
-    [_tableView registerNib:[UINib nibWithNibName:@"NotSubCell" bundle:nil] forCellReuseIdentifier:@"NotSubCell"];
-    [_tableView registerNib:[UINib nibWithNibName:@"SubedCell" bundle:nil] forCellReuseIdentifier:@"SubedCell"];
-    [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
-//    {
-//        "classId":"******"      #版本ID
-//        "unitId" :"*******"     #单元ID
-//        "pageIndex":1           #当前页数
-//        "userPhone":"***"       #用户手机号
-//        "token":"****"          #登陆凭证
-//    }
-    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSubStatus) name:@"updateSubStatus" object:nil];
+    
+    //scrollView 设置
+    _mainScrollView.contentSize = CGSizeMake(WIDTH*2, 0);
+    CGFloat tableHeight = HEIGHT-108;
+    //未订阅列表
+    _noSubTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, tableHeight-65) style:UITableViewStylePlain];
+    _noSubTableView.delegate = self;
+    _noSubTableView.dataSource = self;
+    _noSubTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _noSubTableView.showsVerticalScrollIndicator = NO;
+    [_mainScrollView addSubview:_noSubTableView];
+    [_noSubTableView registerNib:[UINib nibWithNibName:@"NotSubCell" bundle:nil] forCellReuseIdentifier:@"NotSubCell"];
+    [self getNoSubData];
+    //订阅按钮
+    _subAllButton = [[UIButton alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_noSubTableView.frame)+10, WIDTH-20, 45)];
+    [_subAllButton setTitle:@"点击订阅本书所有单词" forState:UIControlStateNormal];
+    [_subAllButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _subAllButton.backgroundColor = ORANGERED;
+    _subAllButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+    [_subAllButton addTarget:self action:@selector(subAllButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [_mainScrollView addSubview:_subAllButton];
+    if ([_payType isEqualToString:@"0"]) {
+        _subAllButton.alpha = 1;
+    }else{
+        _subAllButton.alpha = 0;
+    }
+    //已订阅列表
+    _subedTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT-108) style:UITableViewStylePlain];
+    _subedTableView.delegate = self;
+    _subedTableView.dataSource = self;
+    _subedTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _subedTableView.showsVerticalScrollIndicator = NO;
+    [_mainScrollView addSubview:_subedTableView];
+    [_subedTableView registerNib:[UINib nibWithNibName:@"SubedCell" bundle:nil] forCellReuseIdentifier:@"SubedCell"];
+}
+- (IBAction)backClick:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+- (void)getNoSubData{
+    //    {
+    //        "classId":"******"      #版本ID
+    //        "unitId" :"*******"     #单元ID
+    //        "pageIndex":1           #当前页数
+    //        "userPhone":"***"       #用户手机号
+    //        "token":"****"          #登陆凭证
+    //    }
     NSDictionary *jsonDic = @{@"classId":_classId,    //  #版本ID
-                                        @"unitId" :_unitId,    // #单元ID
-                                        @"pageIndex":@"1",         //  #当前页数
-                                        @"userPhone":[YHSingleton shareSingleton].userInfo.phoneNum,     //  #用户手机号
-                                        @"token":token};       //   #登陆凭证
+                              @"unitId" :_unitId,    // #单元ID
+                              @"pageIndex":@"1",         //  #当前页数
+                              @"userPhone":self.phoneNum,     //  #用户手机号
+                              @"token":self.token};       //   #登陆凭证
     [YHWebRequest YHWebRequestForPOST:kWordList parameters:jsonDic success:^(NSDictionary *json) {
         if([json[@"code"] integerValue] == 200){
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-            NSArray *wordList = resultDic[@"unitWordList"];
-            for (NSDictionary *wordDic in wordList) {
-                if ([wordDic[@"payType"] integerValue] == 0) {
-                    [_noSubWordList addObject:wordDic];
-                }else{
-                    [_subedWordList addObject:wordDic];
-                }
-            }
-            [_tableView reloadData];
+            _noSubWordList = [NSMutableArray arrayWithArray:resultDic[@"unitWordList"]];
+            _tableIndex = 0;
+            [_noSubTableView reloadData];
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
 }
-
-- (IBAction)backClick:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+- (void)getSubedData{
+    if (_subedWordList!=nil) {
+        _tableIndex = 1;
+        [_subedTableView reloadData];
+    }else{
+        [self loadSubedData];
+    }
 }
-- (IBAction)notSubBtnClick:(UIButton *)sender {
-    _tableIndex = 0;
-    [_tableView reloadData];
-    _subAllButton.alpha = 1;
-    _tableViewBottomSpace.constant = 65;
+- (void)loadSubedData{
+    //    {
+    //        "userPhone":"******"    #用户手机号
+    //        "token":"****"          #登陆凭证
+    //        "unitId"："****"         #单元id
+    //        "classId"："****"        #课本id
+    //        "pageIndex":1           #当前页数
+    //    }
+    [YHHud showWithStatus];
+    NSDictionary *jsonDic = @{@"classId":_classId,    //  #版本ID
+                              @"unitId" :_unitId,    // #单元ID
+                              @"pageIndex":@"1",         //  #当前页数
+                              @"userPhone":self.phoneNum,     //  #用户手机号
+                              @"token":self.token};       //   #登陆凭证
+    [YHWebRequest YHWebRequestForPOST:kWordSubedList parameters:jsonDic success:^(NSDictionary *json) {
+        [YHHud dismiss];
+        if([json[@"code"] integerValue] == 200){
+            NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+            _subedWordList = [NSMutableArray arrayWithArray:resultDic[@"subWordList"]];
+            _tableIndex = 1;
+            [_subedTableView reloadData];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        [YHHud dismiss];
+        NSLog(@"%@",error);
+    }];
 }
-- (IBAction)subedBtnClick:(UIButton *)sender {
-    _tableIndex = 1;
-    [_tableView reloadData];
+#pragma mark 订阅所有单词
+- (void)subAllButtonClick{
+    SubAlertView *sureSubView = [[SubAlertView alloc] initWithNib];
+    sureSubView.delegate = self;
+    _alertView = [[JCAlertView alloc] initWithCustomView:sureSubView dismissWhenTouchedBackground:NO];
+    [_alertView show];
+}
+#pragma mark 继续订阅
+- (void)continueSubClick{
+    [_alertView dismissWithCompletion:nil];
+    [self performSegueWithIdentifier:@"toPayViewController" sender:self];
+}
+#pragma mark 邀请好友
+- (void)invitateFriendClick{
+    [_alertView dismissWithCompletion:nil];
+    NSLog(@"邀请好友");
+}
+#pragma mark 关闭提示框
+- (void)closeClick{
+    [_alertView dismissWithCompletion:nil];
+}
+- (void)updateSubStatus{
     _subAllButton.alpha = 0;
-    _tableViewBottomSpace.constant = 0;
+}
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    if (_mainScrollView.contentOffset.x == WIDTH) {
+        [self rightSet];
+    }else{
+        [self leftSet];
+    }
+}
+
+#pragma mark 未订阅单词按钮点击
+- (IBAction)notSubBtnClick:(UIButton *)sender {
+    [self leftSet];
+}
+#pragma mark 已订阅单词按钮点击
+- (IBAction)subedBtnClick:(UIButton *)sender {
+    [self rightSet];
+}
+- (void)leftSet{
+    [_notSubBtn setTitleColor:ORANGERED forState:UIControlStateNormal];
+    [_subedBtn setTitleColor:GRAYCOLOR forState:UIControlStateNormal];
+    _lineLeftSpace.constant = 0;
+    [_mainScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+//    if ([_payType isEqualToString:@"0"]) {
+//        _subAllButton.alpha = 1;
+//    }
+    _tableIndex = 0;
+    [_noSubTableView reloadData];
+}
+- (void)rightSet{
+    [_subedBtn setTitleColor:ORANGERED forState:UIControlStateNormal];
+    [_notSubBtn setTitleColor:GRAYCOLOR forState:UIControlStateNormal];
+    _lineLeftSpace.constant = WIDTH/2.0;
+    [_mainScrollView setContentOffset:CGPointMake(WIDTH, 0) animated:YES];
+//    _subAllButton.alpha = 0;
+    [self getSubedData];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (_tableIndex == 0) {
@@ -97,6 +207,8 @@
     if (_tableIndex == 0) {
         NotSubCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotSubCell" forIndexPath:indexPath];
         [cell addModelWithDic:_noSubWordList[indexPath.row]];
+        cell.subBtn.tag = indexPath.row;
+        [cell.subBtn addTarget:self action:@selector(freeSubClick:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
     }else{
         SubedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SubedCell" forIndexPath:indexPath];
@@ -104,27 +216,81 @@
         return cell;
     }
 }
-#pragma mark 免费查阅
-- (void)subBtnClick:(UIButton *)sender{
-    //获取用户剩余查询次数
-    
-
+#pragma mark 订阅按钮
+- (void)freeSubClick:(UIButton *)sender{
+    [self freeSub:sender.tag];
+}
+- (void)freeSub:(NSInteger)wordRowIndex{
+    _word = [Word yy_modelWithJSON:_noSubWordList[wordRowIndex]];
+    //单个单词订阅
+    NSString *freeCount = [YHSingleton shareSingleton].userInfo.freeCount;
+    if ([freeCount integerValue] == 0) {
+        [YHHud showWithMessage:@"免费次数已用完，请前去订阅本学期所有单词"];
+    }else{
+        SureSubView *sureSubView = [[SureSubView alloc] initWithNib];
+        sureSubView.messageLabel.text = [NSString stringWithFormat:@"您还有%@次免费订阅的额度",freeCount];
+        sureSubView.delegate = self;
+        _alertView = [[JCAlertView alloc] initWithCustomView:sureSubView dismissWhenTouchedBackground:NO];
+        [_alertView show];
+    }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    _word = [Word yy_modelWithJSON:_noSubWordList[indexPath.row]];
     if (_tableIndex == 0) {//单个单词免费查阅
-        //单个单词订阅
-        NSString *freeCount = [YHSingleton shareSingleton].userInfo.freeCount;
-        if ([freeCount integerValue] == 0) {
-            [YHHud showWithMessage:@"免费次数已用完，请前去订阅本学期所有单词"];
-        }else{
-            YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 255, 155) title:@"确认订阅"  message:[NSString stringWithFormat:@"您还有%@次免费订阅的额度，确定使用吗？",freeCount]];
-            alertView.delegate = self;
-            _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
-            [_alertView show];
-        }
+        [self freeSub:indexPath.row];
     }else{
+        _word = [Word yy_modelWithJSON:_subedWordList[indexPath.row]];
         [self performSegueWithIdentifier:@"toWordDetail" sender:self];
+    }
+}
+- (void)cancelClick{
+    [_alertView dismissWithCompletion:nil];
+}
+#pragma makr 确认订阅
+- (void)sureClick{
+    [_alertView dismissWithCompletion:nil];
+    //        {
+    //            "classId":"******"      #课本ID
+    //            "wordId" :"*******"     #单词ID
+    //            "userPhone":"***"       #用户手机号
+    //            "token":"****"          #登陆凭证
+    //        }
+    NSDictionary *jsonDic = @{@"classId":_classId,    //  #课本ID
+                              @"wordId" :_word.wordId,  //   #单词ID
+                              @"userPhone":self.phoneNum,     //  #用户手机号
+                              @"token":self.token};        //  #登陆凭证
+    [YHWebRequest YHWebRequestForPOST:kFreeWord parameters:jsonDic success:^(NSDictionary *json) {
+        if ([json[@"code"] integerValue] == 200) {
+            NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+            //刷新本地用户订阅次数
+            [YHSingleton shareSingleton].userInfo.freeCount = [NSString stringWithFormat:@"%@",resultDic[@"freeCount"]];
+            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
+            //刷新未订阅列表
+            for (NSInteger i = 0; i<_noSubWordList.count; i++) {
+                NSDictionary *itemDic = _noSubWordList[i];
+                if ([itemDic[@"wordId"] integerValue] == [_word.wordId integerValue]) {
+                    [_noSubWordList removeObjectAtIndex:i];
+                    break;
+                }
+            }
+            [_subedBtn setTitleColor:ORANGERED forState:UIControlStateNormal];
+            [_notSubBtn setTitleColor:GRAYCOLOR forState:UIControlStateNormal];
+            _lineLeftSpace.constant = WIDTH/2.0;
+            [_mainScrollView setContentOffset:CGPointMake(WIDTH, 0) animated:YES];
+            //刷新已订阅列表
+            [self reloadSubedTableView];
+            [YHHud showWithSuccess:@"订阅成功"];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
+}
+- (void)reloadSubedTableView{
+    if (_subedWordList.count!=0) {
+        [_subedWordList addObject:[_word yy_modelToJSONObject]];
+        _tableIndex = 1;
+        [_subedTableView reloadData];
+    }else{
+        [self loadSubedData];
     }
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
@@ -133,66 +299,12 @@
         wordDetail.word = _word;
     }
 }
-- (void)buttonClickIndex:(NSInteger)buttonIndex{
-    [_alertView dismissWithCompletion:nil];
-    if (buttonIndex == 1) {
-//        {
-//            "classId":"******"      #课本ID
-//            "wordId" :"*******"     #单词ID
-//            "userPhone":"***"       #用户手机号
-//            "token":"****"          #登陆凭证
-//        }
-        NSDictionary *jsonDic = @{@"classId":_classId,    //  #课本ID
-                                            @"wordId" :_word.wordId,  //   #单词ID
-                                            @"userPhone":[YHSingleton shareSingleton].userInfo.phoneNum,     //  #用户手机号
-                                            @"token":[[NSUserDefaults standardUserDefaults] objectForKey:@"token"]};        //  #登陆凭证
-        [YHWebRequest YHWebRequestForPOST:kFreeWord parameters:jsonDic success:^(NSDictionary *json) {
-            if ([json[@"code"] integerValue] == 200) {
-                NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-                //刷新本地用户订阅次数
-                [YHSingleton shareSingleton].userInfo.freeCount = [NSString stringWithFormat:@"%@",resultDic[@"freeCount"]];
-                [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
-                //刷新未订阅列表
-                for (NSInteger i = 0; i<_noSubWordList.count; i++) {
-                    NSDictionary *itemDic = _noSubWordList[i];
-                    if ([itemDic[@"wordId"] integerValue] == [_word.wordId integerValue]) {
-                        [_noSubWordList removeObjectAtIndex:i];
-                        break;
-                    }
-                }
-                [_subedWordList addObject:[_word yy_modelToJSONObject]];
-                [_tableView reloadData];
-                [YHHud showWithSuccess:@"订阅成功"];
-            }
-        } failure:^(NSError * _Nonnull error) {
-            NSLog(@"%@",error);
-        }];
-        //        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"wordID":_wordID,@"device_id":DEVICEID};
-        //        [YHWebRequest YHWebRequestForPOST:FREEWORD parameters:dic success:^(NSDictionary *json) {
-        //            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-        //                [self returnToLogin];
-        //            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-        //                [YHSingleton shareSingleton].userInfo.freeCount = [NSString stringWithFormat:@"%@",json[@"freeCount"]];
-        //                [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
-        //                for (NSInteger i = 0; i<_wordArray.count; i++) {
-        //                    NSMutableDictionary *item = [[NSMutableDictionary alloc] initWithDictionary:[_wordArray objectAtIndex:i]];
-        //                    if ([item[@"wordID"] integerValue] == [_wordID integerValue]) {
-        //                        [item setObject:[NSNumber numberWithInt:1] forKey:@"payType"];
-        //                    }
-        //                    [_wordArray replaceObjectAtIndex:i withObject:[NSDictionary dictionaryWithDictionary:item]];
-        //                }
-        //                //刷新当前cell的数据
-        //                [_tableView reloadRowsAtIndexPaths:_indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
-        //                [YHHud showWithSuccess:@"订阅成功"];
-        //                [_delegate updateSubBean];
-        //            }else if([json[@"code"] isEqualToString:@"ERROR"]){
-        //                [YHHud showWithMessage:@"服务器错误"];
-        //            }else{
-        //                [YHHud showWithMessage:@"订阅失败"];
-        //            }
-        //        } failure:^(NSError * _Nonnull error) {
-        //            [YHHud showWithMessage:@"数据请求失败"];
-        //        }];
+#pragma mark 滑动手势处理函数
+- (void)swipe:(UISwipeGestureRecognizer *)sender{
+    if (sender.direction == UISwipeGestureRecognizerDirectionLeft) {
+        [_mainScrollView setContentOffset:CGPointMake(WIDTH, 0) animated:YES];
+    }else{
+        [_mainScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     }
 }
 - (void)viewWillDisappear:(BOOL)animated{

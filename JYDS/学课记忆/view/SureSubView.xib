@@ -105,14 +105,14 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="b4s-C6-uR2" firstAttribute="centerY" secondItem="4po-Cx-kRW" secondAttribute="centerY" id="5U2-6w-i2E"/>
                         <constraint firstItem="b4s-C6-uR2" firstAttribute="centerX" secondItem="4po-Cx-kRW" secondAttribute="centerX" id="dAB-JT-n4S"/>
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="4po-Cx-kRW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3J3-1d-AhE"/>
                 <constraint firstAttribute="bottom" secondItem="4po-Cx-kRW" secondAttribute="bottom" id="Yfq-t2-2ag"/>

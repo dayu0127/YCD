@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface PayViewController : UIViewController
-
+@property (copy,nonatomic) NSString *classId;
 @end

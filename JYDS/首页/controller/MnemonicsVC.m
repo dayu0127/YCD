@@ -18,7 +18,7 @@
 #import "MemoryCell.h"
 #import "PayVC.h"
 
-@interface MnemonicsVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface MnemonicsVC ()<UITableViewDelegate,UITableViewDataSource,MemoryHeaderViewDelegate>
 //@property (strong,nonatomic) NSMutableArray *netImages;  //网络图片
 //@property (strong,nonatomic) SDCycleScrollView *cycleScrollView;//轮播器
 //@property (strong, nonatomic) UITableView *tableView;
@@ -93,9 +93,9 @@
             return 70.0f;
         }
     }else if(indexPath.section == 1){
-        return 218.0f;
+        return 177/355.0*(WIDTH-20)+42;
     }else{
-        return 260;
+        return 36/71.0*(WIDTH-20)+86;
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -144,10 +144,14 @@
     }else if(section == 2){
         MemoryHeaderView *headerView = [MemoryHeaderView loadView];
         headerView.title.text = @"记忆法课程";
+        headerView.delegate = self;
         return headerView;
     }else{
         return nil;
     }
+}
+- (void)pushMoreMemoryList{
+    [self performSegueWithIdentifier:@"toMemoryMore" sender:self];
 }
 //- (void)initTableView{
 //    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-113) style:UITableViewStyleGrouped];

@@ -48,7 +48,7 @@
         } progress:^(NSProgress * _Nonnull uploadProgress) {} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil];
             if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-                [self returnToLogin];
+//                [self returnToLogin];
             }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
                 //通知我的VC更新头像图片
                 NSDictionary *dic = [NSDictionary dictionaryWithObject:_headImageView.image forKey:@"headImage"];

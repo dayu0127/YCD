@@ -29,7 +29,7 @@
     _loginButton.layer.masksToBounds = YES;
     _loginButton.layer.cornerRadius = 7.5f;
     _loginButton.layer.borderWidth = 1.0f;
-    _loginButton.layer.borderColor = GRAYCOLOR.CGColor;
+    _loginButton.layer.borderColor = LIGHTGRAYCOLOR.CGColor;
 //    [_loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
 //    [self nightModeConfiguration];
 //    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateNormal];
@@ -74,7 +74,7 @@
     if (sender.text.length==0) {
         _loginButton.enabled = NO;
         [_loginButton setTitleColor:GRAYCOLOR forState:UIControlStateNormal];
-        _loginButton.layer.borderColor = GRAYCOLOR.CGColor;
+        _loginButton.layer.borderColor = LIGHTGRAYCOLOR.CGColor;
     }else if(sender.text.length>0&&sender.text.length<=11){
         _loginButton.enabled = YES;
         [_loginButton setTitleColor:ORANGERED forState:UIControlStateNormal];
@@ -119,7 +119,7 @@
         //        "deviceOs" :"5.1.1"      #设备操作系统（选填）
         //    }
         //--实现登录--
-        [YHHud showWithStatus:@"正在登陆"];
+        [YHHud showWithStatus];
         NSString *phoneNum = _phoneText.text;
         NSString *password = _pwdTxt.text;
         NSDictionary *jsonDic = @{
