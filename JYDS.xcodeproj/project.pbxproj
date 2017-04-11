@@ -175,6 +175,9 @@
 		606F12D41E6EB49A00875F1B /* ca.cer in Resources */ = {isa = PBXBuildFile; fileRef = 606F12D31E6EB49A00875F1B /* ca.cer */; };
 		6076CEF51E8601F5006E5F6F /* NoLoginHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6076CEF41E8601F5006E5F6F /* NoLoginHeaderView.m */; };
 		6076CEF81E86020C006E5F6F /* LoggedInHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6076CEF71E86020C006E5F6F /* LoggedInHeaderView.m */; };
+		60783C121E9CE29500F0FBE1 /* MemoryListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60783C111E9CE29500F0FBE1 /* MemoryListVC.m */; };
+		60783C161E9CE34C00F0FBE1 /* MemoryMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60783C141E9CE34C00F0FBE1 /* MemoryMoreCell.m */; };
+		60783C171E9CE34C00F0FBE1 /* MemoryMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60783C151E9CE34C00F0FBE1 /* MemoryMoreCell.xib */; };
 		6078D1C41E1613180089D40F /* RememberWordItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0DC1E1613180089D40F /* RememberWordItemVC.m */; };
 		6078D1C51E1613180089D40F /* RememberWordSingleWordDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0DE1E1613180089D40F /* RememberWordSingleWordDetailVC.m */; };
 		6078D1C61E1613180089D40F /* RememberWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D0E01E1613180089D40F /* RememberWordVC.m */; };
@@ -221,7 +224,6 @@
 		608658CF1E94F30200A20EDC /* NotSubCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 608658CD1E94F30200A20EDC /* NotSubCell.m */; };
 		608658D01E94F30200A20EDC /* NotSubCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 608658CE1E94F30200A20EDC /* NotSubCell.xib */; };
 		608658D41E94FB3A00A20EDC /* SubedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 608658D21E94FB3A00A20EDC /* SubedCell.m */; };
-		608658D51E94FB3A00A20EDC /* SubedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 608658D31E94FB3A00A20EDC /* SubedCell.xib */; };
 		608658D81E9502CF00A20EDC /* WordDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 608658D71E9502CF00A20EDC /* WordDetailVC.m */; };
 		608658DC1E950E2C00A20EDC /* WordDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 608658DA1E950E2C00A20EDC /* WordDetailCell.m */; };
 		608658DD1E950E2C00A20EDC /* WordDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 608658DB1E950E2C00A20EDC /* WordDetailCell.xib */; };
@@ -501,6 +503,11 @@
 		6076CEF41E8601F5006E5F6F /* NoLoginHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoLoginHeaderView.m; sourceTree = "<group>"; };
 		6076CEF61E86020C006E5F6F /* LoggedInHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggedInHeaderView.h; sourceTree = "<group>"; };
 		6076CEF71E86020C006E5F6F /* LoggedInHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggedInHeaderView.m; sourceTree = "<group>"; };
+		60783C101E9CE29500F0FBE1 /* MemoryListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryListVC.h; sourceTree = "<group>"; };
+		60783C111E9CE29500F0FBE1 /* MemoryListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryListVC.m; sourceTree = "<group>"; };
+		60783C131E9CE34C00F0FBE1 /* MemoryMoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryMoreCell.h; sourceTree = "<group>"; };
+		60783C141E9CE34C00F0FBE1 /* MemoryMoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryMoreCell.m; sourceTree = "<group>"; };
+		60783C151E9CE34C00F0FBE1 /* MemoryMoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MemoryMoreCell.xib; sourceTree = "<group>"; };
 		6078D0DB1E1613180089D40F /* RememberWordItemVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordItemVC.h; sourceTree = "<group>"; };
 		6078D0DC1E1613180089D40F /* RememberWordItemVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberWordItemVC.m; sourceTree = "<group>"; };
 		6078D0DD1E1613180089D40F /* RememberWordSingleWordDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberWordSingleWordDetailVC.h; sourceTree = "<group>"; };
@@ -661,7 +668,6 @@
 		608658CE1E94F30200A20EDC /* NotSubCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotSubCell.xib; sourceTree = "<group>"; };
 		608658D11E94FB3A00A20EDC /* SubedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubedCell.h; sourceTree = "<group>"; };
 		608658D21E94FB3A00A20EDC /* SubedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubedCell.m; sourceTree = "<group>"; };
-		608658D31E94FB3A00A20EDC /* SubedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubedCell.xib; sourceTree = "<group>"; };
 		608658D61E9502CF00A20EDC /* WordDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordDetailVC.h; sourceTree = "<group>"; };
 		608658D71E9502CF00A20EDC /* WordDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordDetailVC.m; sourceTree = "<group>"; };
 		608658D91E950E2C00A20EDC /* WordDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordDetailCell.h; sourceTree = "<group>"; };
@@ -1100,7 +1106,6 @@
 				608658CE1E94F30200A20EDC /* NotSubCell.xib */,
 				608658D11E94FB3A00A20EDC /* SubedCell.h */,
 				608658D21E94FB3A00A20EDC /* SubedCell.m */,
-				608658D31E94FB3A00A20EDC /* SubedCell.xib */,
 				608658D91E950E2C00A20EDC /* WordDetailCell.h */,
 				608658DA1E950E2C00A20EDC /* WordDetailCell.m */,
 				608658DB1E950E2C00A20EDC /* WordDetailCell.xib */,
@@ -1149,6 +1154,8 @@
 			children = (
 				606A94E71E51A8CA00A0279D /* MnemonicsVC.h */,
 				606A94E81E51A8CA00A0279D /* MnemonicsVC.m */,
+				60783C101E9CE29500F0FBE1 /* MemoryListVC.h */,
+				60783C111E9CE29500F0FBE1 /* MemoryListVC.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1182,6 +1189,9 @@
 				602BDD3E1E83697700C6CB92 /* MemoryCell.h */,
 				602BDD3F1E83697700C6CB92 /* MemoryCell.m */,
 				602BDD401E83697700C6CB92 /* MemoryCell.xib */,
+				60783C131E9CE34C00F0FBE1 /* MemoryMoreCell.h */,
+				60783C141E9CE34C00F0FBE1 /* MemoryMoreCell.m */,
+				60783C151E9CE34C00F0FBE1 /* MemoryMoreCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1843,6 +1853,7 @@
 				6010FF731E9128DB00071610 /* 65.png in Resources */,
 				6010FF471E9128DB00071610 /* 25.png in Resources */,
 				6013E80D1E5EE37E007E257A /* OtherAmountCell.xib in Resources */,
+				60783C171E9CE34C00F0FBE1 /* MemoryMoreCell.xib in Resources */,
 				603A42D61E83F71300134150 /* Assets.xcassets in Resources */,
 				6010FF661E9128DB00071610 /* 53.png in Resources */,
 				6010FF861E9128DB00071610 /* 82.png in Resources */,
@@ -1891,7 +1902,6 @@
 				6010FF781E9128DB00071610 /* 7.png in Resources */,
 				6062A7A01E99187A00D8F5BB /* PaymentCell.xib in Resources */,
 				6010FF4C1E9128DB00071610 /* 3.png in Resources */,
-				608658D51E94FB3A00A20EDC /* SubedCell.xib in Resources */,
 				6010FF9C1E9128DB00071610 /* FailedView.xib in Resources */,
 				6010FF891E9128DB00071610 /* 85.png in Resources */,
 				6010FF4E1E9128DB00071610 /* 31.png in Resources */,
@@ -2027,6 +2037,7 @@
 				60F308861E8A487600476E32 /* UIButton+ImageTitleSpacing.m in Sources */,
 				608658D41E94FB3A00A20EDC /* SubedCell.m in Sources */,
 				608658C81E94E20700A20EDC /* ModuleListVC.m in Sources */,
+				60783C161E9CE34C00F0FBE1 /* MemoryMoreCell.m in Sources */,
 				6062A7901E98EA7700D8F5BB /* Memory.m in Sources */,
 				60A5C7D41E8BE27F007D2366 /* AccountSetVC.m in Sources */,
 				608658E11E950E4000A20EDC /* WordImageCell.m in Sources */,
@@ -2092,6 +2103,7 @@
 				6042E0F41E8D0BFF00756A61 /* MessageVC.m in Sources */,
 				608658CB1E94E8A700A20EDC /* WordListVC.m in Sources */,
 				609F063C1E1621D9009F4986 /* AboutUsVC.m in Sources */,
+				60783C121E9CE29500F0FBE1 /* MemoryListVC.m in Sources */,
 				606A94F61E51A8CA00A0279D /* MnemonicsVC.m in Sources */,
 				609F06281E1621BD009F4986 /* UpdateInfoTableVC.m in Sources */,
 				60A976C71E8A0B2400F5461B /* DynamicCell.m in Sources */,

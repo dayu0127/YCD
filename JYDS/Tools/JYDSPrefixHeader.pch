@@ -122,6 +122,7 @@
 #define kNicknameSex API(@"/user/updateUser") //更新用户昵称和性别
 #define kPlayerSet API(@"/system/getPlayerSys") //获取播放器设置
 #define kBanner API(@"/common/getIndexImages") //获取首页内容
+#define kMemoryVideo API(@"/video/getMemoryVideo") //记忆法视频列表
 #define kGradeList API(@"/study/getGradeList") //年级列表
 #define kClassTypeList API(@"/study/getClassTypeList") //科目列表
 #define kVersionNameList API(@"/study/getVersionNameList") //版本列表
@@ -129,6 +130,8 @@
 #define kWordList API(@"/study/getUnitWordList") //单元单词列表
 #define kWordSubedList API(@"/study/subWordList") //已订阅列表
 #define kFreeWord API(@"/study/freeWord") //免费查阅
+#define kCollectionWord API(@"/study/collectionWord") //单词收藏
+#define kCancelCollectionWord API(@"/study/cancelCollectionWord") //单词取消收藏
 #define kAlipaySub API(@"/pay/alipayCreateOrder")  //支付宝订阅
 #define kAlipaySignCheck API(@"/pay/alipaySignCheck")  //支付宝验签
 #define kWXSub API(@"/pay/weixinCreateOrder")  //微信订阅
@@ -169,4 +172,6 @@
 #define MSGEDGECOLOR RGB(145,219,79)  //#91DB4F
 //未订阅
 #define SUBEDCOLOR RGB(57,196,130)  //#39C482
+//绿色
+#define GREENCOLOR RGB(57,196,130) //#39C482
 #endif /* JYDSPrefixHeader_pch */

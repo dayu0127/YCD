@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1196,7 +1197,6 @@
                     </navigationBar>
                     <connections>
                         <segue destination="MO3-TH-P5F" kind="relationship" relationship="rootViewController" id="Pgm-2q-quc"/>
-                        <segue destination="0jR-eX-LCS" kind="show" identifier="toMemoryDetail" id="f31-w2-GKu"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jIw-vM-ro9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1219,7 +1219,82 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="289-4B-K0E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4145" y="-1236"/>
+            <point key="canvasLocation" x="4076" y="-1121"/>
+        </scene>
+        <!--记忆法列表VC-->
+        <scene sceneID="0PT-u0-9jw">
+            <objects>
+                <viewController hidesBottomBarWhenPushed="YES" id="1Y4-Ef-VMl" userLabel="记忆法列表VC" customClass="MemoryListVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YWL-BK-iX2"/>
+                        <viewControllerLayoutGuide type="bottom" id="K2s-cX-6dw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="S8N-Lx-gPA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oeq-IY-FbZ" userLabel="navView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="记忆法课程" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9wx-oz-Huy">
+                                        <rect key="frame" x="48" y="32.5" width="76.5" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bhp-2u-7XF" userLabel="backButton">
+                                        <rect key="frame" x="7" y="25" width="33" height="33"/>
+                                        <state key="normal" image="back"/>
+                                        <connections>
+                                            <action selector="backClick:" destination="1Y4-Ef-VMl" eventType="touchUpInside" id="7JB-XQ-lZy"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.99607843139999996" green="0.31764705879999999" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="BoT-Mq-4eF"/>
+                                    <constraint firstItem="9wx-oz-Huy" firstAttribute="leading" secondItem="bhp-2u-7XF" secondAttribute="trailing" constant="8" id="GXA-A8-hMt"/>
+                                    <constraint firstItem="bhp-2u-7XF" firstAttribute="top" secondItem="oeq-IY-FbZ" secondAttribute="top" constant="25" id="I8x-63-O9m"/>
+                                    <constraint firstItem="9wx-oz-Huy" firstAttribute="centerY" secondItem="bhp-2u-7XF" secondAttribute="centerY" id="iVG-Nj-8VQ"/>
+                                    <constraint firstItem="bhp-2u-7XF" firstAttribute="leading" secondItem="oeq-IY-FbZ" secondAttribute="leading" constant="7" id="tya-sa-ePM"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_topimg" translatesAutoresizingMaskIntoConstraints="NO" id="EL4-6V-X2I">
+                                <rect key="frame" x="0.0" y="64" width="375" height="112"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="EL4-6V-X2I" secondAttribute="height" multiplier="375:112" id="eya-sT-ZNH"/>
+                                </constraints>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WTu-Kv-R7J">
+                                <rect key="frame" x="0.0" y="196" width="375" height="471"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="1Y4-Ef-VMl" id="Ria-Sd-k2a"/>
+                                    <outlet property="delegate" destination="1Y4-Ef-VMl" id="ch2-Jh-k2b"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="EL4-6V-X2I" secondAttribute="trailing" id="75e-kE-dJr"/>
+                            <constraint firstAttribute="trailing" secondItem="oeq-IY-FbZ" secondAttribute="trailing" id="JmS-49-59s"/>
+                            <constraint firstItem="oeq-IY-FbZ" firstAttribute="leading" secondItem="S8N-Lx-gPA" secondAttribute="leading" id="VvL-Bs-cOr"/>
+                            <constraint firstItem="WTu-Kv-R7J" firstAttribute="leading" secondItem="S8N-Lx-gPA" secondAttribute="leading" id="agD-6z-lcd"/>
+                            <constraint firstItem="oeq-IY-FbZ" firstAttribute="top" secondItem="S8N-Lx-gPA" secondAttribute="top" id="bry-z2-FxF"/>
+                            <constraint firstAttribute="trailing" secondItem="WTu-Kv-R7J" secondAttribute="trailing" id="dCZ-Fu-YXS"/>
+                            <constraint firstItem="WTu-Kv-R7J" firstAttribute="top" secondItem="EL4-6V-X2I" secondAttribute="bottom" constant="20" id="e7W-hC-Dxn"/>
+                            <constraint firstItem="EL4-6V-X2I" firstAttribute="top" secondItem="oeq-IY-FbZ" secondAttribute="bottom" id="fab-jG-mPe"/>
+                            <constraint firstItem="EL4-6V-X2I" firstAttribute="leading" secondItem="S8N-Lx-gPA" secondAttribute="leading" id="wFN-th-7K5"/>
+                            <constraint firstAttribute="bottom" secondItem="WTu-Kv-R7J" secondAttribute="bottom" id="zBa-m8-9qj"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="WTu-Kv-R7J" id="yuz-ha-uSg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JpP-3Z-mdd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4853.6000000000004" y="-1146.4767616191905"/>
         </scene>
         <!--首页VC-->
         <scene sceneID="kNX-YJ-TxJ">
@@ -1298,6 +1373,8 @@
                     <navigationItem key="navigationItem" title="首页" id="IKc-wc-ADp"/>
                     <connections>
                         <outlet property="tableView" destination="FY4-kC-L8n" id="GyL-f5-7VH"/>
+                        <segue destination="0jR-eX-LCS" kind="show" identifier="toMemoryDetail" id="fWR-94-x8F"/>
+                        <segue destination="1Y4-Ef-VMl" kind="show" identifier="toMemoryMore" id="Vio-jd-v7x"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bIr-u5-mNl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2911,10 +2988,10 @@
             </objects>
             <point key="canvasLocation" x="5660" y="35.532233883058474"/>
         </scene>
-        <!--Word Subed List-->
+        <!--已订阅单词列表VC-->
         <scene sceneID="OOG-EU-Aae">
             <objects>
-                <viewController id="UOd-fm-gc1" customClass="WordSubedList" sceneMemberID="viewController">
+                <viewController id="UOd-fm-gc1" userLabel="已订阅单词列表VC" customClass="WordSubedList" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="j79-LH-WH7"/>
                         <viewControllerLayoutGuide type="bottom" id="sdU-iv-g3X"/>
@@ -3147,6 +3224,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Toa-Kq-SHD">
                                         <rect key="frame" x="344" y="30.5" width="16" height="22"/>
                                         <state key="normal" image="course_collect"/>
+                                        <connections>
+                                            <action selector="collectionClick:" destination="mQH-Bd-X9I" eventType="touchUpInside" id="tEX-rt-Qbh"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="aeroplane" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J2s-LW-CAg">
                                         <rect key="frame" x="-0.5" y="50" width="375" height="26.5"/>
@@ -3212,6 +3292,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="collectButton" destination="Toa-Kq-SHD" id="M4F-ri-eVc"/>
                         <outlet property="phonogramButton" destination="awb-jH-D3b" id="Uc0-vA-nto"/>
                         <outlet property="tableView" destination="aGz-Zt-cEm" id="hJo-be-Vhp"/>
                         <outlet property="wordExplainLabel" destination="PNX-GG-NpZ" id="3vB-G3-9Ul"/>
@@ -3902,6 +3983,7 @@
         <image name="home_top_beans" width="14" height="9"/>
         <image name="home_top_message" width="20" height="14"/>
         <image name="home_top_sign_in" width="54" height="19"/>
+        <image name="home_topimg" width="375" height="112"/>
         <image name="icon-40" width="40" height="40"/>
         <image name="login_back" width="18" height="17"/>
         <image name="login_bg" width="375" height="667"/>
@@ -3926,8 +4008,8 @@
         <image name="wallet" width="23" height="17"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="rhJ-wj-NYw"/>
         <segue reference="cV4-mu-ucd"/>
         <segue reference="3Cm-7u-jdT"/>
-        <segue reference="rhJ-wj-NYw"/>
     </inferredMetricsTieBreakers>
 </document>

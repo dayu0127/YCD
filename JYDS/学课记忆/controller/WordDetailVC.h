@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Word.h"
-@interface WordDetailVC : UIViewController
+@protocol WordDetailVCDelegate<NSObject>
+- (void)updateWordList;
+@end
+@interface WordDetailVC : BaseViewController
 @property (strong,nonatomic) Word *word;
+@property (copy,nonatomic) NSString *classId;
+@property (copy,nonatomic) NSString *unitId;
+@property (weak,nonatomic) id<WordDetailVCDelegate> delegate;
 @end

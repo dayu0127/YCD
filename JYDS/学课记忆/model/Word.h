@@ -25,4 +25,5 @@
 @property (copy,nonatomic) NSString *associate;
 @property (copy,nonatomic) NSString *word_explain;
 @property (copy,nonatomic) NSString *unit_id;
+@property (copy,nonatomic) NSString *collectionType;
 @end

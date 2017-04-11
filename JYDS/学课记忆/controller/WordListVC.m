@@ -24,7 +24,7 @@
 @property (assign,nonatomic) int tableIndex;
 @property (strong, nonatomic) UIButton *subAllButton;
 @property (strong,nonatomic) NSMutableArray *noSubWordList;
-@property (strong,nonatomic) NSArray *subedWordList;
+@property (strong,nonatomic) NSMutableArray *subedWordList;
 @property (strong,nonatomic) Word *word;
 @property (strong,nonatomic) JCAlertView *alertView;
 @end
@@ -125,9 +125,9 @@
         [YHHud dismiss];
         if([json[@"code"] integerValue] == 200){
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-            _subedWordList = resultDic[@"subWordList"];
+            _subedWordList = [NSMutableArray arrayWithArray:resultDic[@"subWordList"]];
             _tableIndex = 1;
-            [self loadSubedData];
+            [_subedTableView reloadData];
         }
     } failure:^(NSError * _Nonnull error) {
         [YHHud dismiss];
@@ -183,6 +183,7 @@
 //        _subAllButton.alpha = 1;
 //    }
     _tableIndex = 0;
+    [_noSubTableView reloadData];
 }
 - (void)rightSet{
     [_subedBtn setTitleColor:ORANGERED forState:UIControlStateNormal];
@@ -206,6 +207,8 @@
     if (_tableIndex == 0) {
         NotSubCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotSubCell" forIndexPath:indexPath];
         [cell addModelWithDic:_noSubWordList[indexPath.row]];
+        cell.subBtn.tag = indexPath.row;
+        [cell.subBtn addTarget:self action:@selector(freeSubClick:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
     }else{
         SubedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SubedCell" forIndexPath:indexPath];
@@ -213,21 +216,27 @@
         return cell;
     }
 }
+#pragma mark 订阅按钮
+- (void)freeSubClick:(UIButton *)sender{
+    [self freeSub:sender.tag];
+}
+- (void)freeSub:(NSInteger)wordRowIndex{
+    _word = [Word yy_modelWithJSON:_noSubWordList[wordRowIndex]];
+    //单个单词订阅
+    NSString *freeCount = [YHSingleton shareSingleton].userInfo.freeCount;
+    if ([freeCount integerValue] == 0) {
+        [YHHud showWithMessage:@"免费次数已用完，请前去订阅本学期所有单词"];
+    }else{
+        SureSubView *sureSubView = [[SureSubView alloc] initWithNib];
+        sureSubView.messageLabel.text = [NSString stringWithFormat:@"您还有%@次免费订阅的额度",freeCount];
+        sureSubView.delegate = self;
+        _alertView = [[JCAlertView alloc] initWithCustomView:sureSubView dismissWhenTouchedBackground:NO];
+        [_alertView show];
+    }
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     if (_tableIndex == 0) {//单个单词免费查阅
-        _word = [Word yy_modelWithJSON:_noSubWordList[indexPath.row]];
-        //单个单词订阅
-        NSString *freeCount = [YHSingleton shareSingleton].userInfo.freeCount;
-        if ([freeCount integerValue] == 0) {
-            [YHHud showWithMessage:@"免费次数已用完，请前去订阅本学期所有单词"];
-        }else{
-            SureSubView *sureSubView = [[SureSubView alloc] initWithNib];
-            sureSubView.messageLabel.text = [NSString stringWithFormat:@"您还有%@次免费订阅的额度",freeCount];
-            sureSubView.delegate = self;
-            _alertView = [[JCAlertView alloc] initWithCustomView:sureSubView dismissWhenTouchedBackground:NO];
-            [_alertView show];
-        }
+        [self freeSub:indexPath.row];
     }else{
         _word = [Word yy_modelWithJSON:_subedWordList[indexPath.row]];
         [self performSegueWithIdentifier:@"toWordDetail" sender:self];
@@ -236,6 +245,7 @@
 - (void)cancelClick{
     [_alertView dismissWithCompletion:nil];
 }
+#pragma makr 确认订阅
 - (void)sureClick{
     [_alertView dismissWithCompletion:nil];
     //        {
@@ -266,12 +276,22 @@
             [_notSubBtn setTitleColor:GRAYCOLOR forState:UIControlStateNormal];
             _lineLeftSpace.constant = WIDTH/2.0;
             [_mainScrollView setContentOffset:CGPointMake(WIDTH, 0) animated:YES];
-            [self loadSubedData];
+            //刷新已订阅列表
+            [self reloadSubedTableView];
             [YHHud showWithSuccess:@"订阅成功"];
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
+}
+- (void)reloadSubedTableView{
+    if (_subedWordList.count!=0) {
+        [_subedWordList addObject:[_word yy_modelToJSONObject]];
+        _tableIndex = 1;
+        [_subedTableView reloadData];
+    }else{
+        [self loadSubedData];
+    }
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"toWordDetail"]) {

@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol MemoryHeaderViewDelegate<NSObject>
+- (void)pushMoreMemoryList;
+@end
 @interface MemoryHeaderView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *title;
+@property (weak, nonatomic) id<MemoryHeaderViewDelegate> delegate;
 + (instancetype)loadView;
 @end
