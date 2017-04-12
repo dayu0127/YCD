@@ -15,12 +15,20 @@
 //@property (copy,nonatomic) NSString *full_price;
 //@property (copy,nonatomic) NSString *imgurl;
 //@property (copy,nonatomic) NSString *payType;
-
+//\"classId\": \"7920306d0f6b11e7a51c02004c4f4f50\",
+//\"class_name\": \"牛津上海版\",
+//\"total_words\": 172,
+//\"full_price\": 3600.00,
+//\"imgurl\": \"0\",
+//\"payType\": \"0\",
+//\"orders\": 1,
+//\"grade_name\": \"小学五年级上学期\",
 @property (weak, nonatomic) IBOutlet UIImageView *img;
 @property (weak, nonatomic) IBOutlet UILabel *classNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *gradeNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalWordLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subStatusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *fullPriceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ordersLabel;
 - (void)addModelWithDic:(NSDictionary *)dic;
 @end

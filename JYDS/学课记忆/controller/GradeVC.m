@@ -75,6 +75,7 @@
             _classTypeList = resultDic[@"classTypeList"];   //科目
             _versionNameList = resultDic[@"versionNameList"];   //版本
             _versionList = resultDic[@"versionList"];   //课本
+            NSLog(@"%@",_versionList);
             [_tableView reloadData];
         }
     } failure:^(NSError * _Nonnull error) {

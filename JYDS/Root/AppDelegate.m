@@ -116,11 +116,15 @@
 //        "userPhone":"*****",        #用户手机号
 //        "token":"*****",            #用户登陆凭证
 //    }
-    NSDictionary *jsonDic = @{@"userPhone":[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"][@"phoneNum"],      //  #用户手机号
-                                        @"token":[[NSUserDefaults standardUserDefaults] objectForKey:@"token"]};        //    #用户登陆凭证
+    [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
+    NSString *phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum!=nil ? [YHSingleton shareSingleton].userInfo.phoneNum : @"";
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"]!=nil ? [[NSUserDefaults standardUserDefaults] objectForKey:@"token"] : @"";
+    NSDictionary *jsonDic = @{@"userPhone":phoneNum,      //  #用户手机号
+                                        @"token":token};        //    #用户登陆凭证
     [YHWebRequest YHWebRequestForPOST:kBanner parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
             NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+            NSLog(@"%@",dataDic);
             [[NSUserDefaults standardUserDefaults] setObject:dataDic forKey:@"banner"];
         }
     }failure:^(NSError * _Nonnull error) {

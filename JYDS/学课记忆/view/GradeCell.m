@@ -29,15 +29,16 @@
 //    \"imgurl\": \"0\",
 //    \"payType\": \"0\"
     _classNameLabel.text = v.class_name;
-//    _gradeNameLabel.text = v.grade_name;
+    _gradeNameLabel.text = v.grade_name;
     _totalWordLabel.text = [NSString stringWithFormat:@"%@词",v.total_words];
-//    if ([v.payType integerValue] == 0) {
-//        _subStatusLabel.text = @"已订阅";
-//        _subStatusLabel.textColor = SUBEDCOLOR;
-//    }else{
-//        _subStatusLabel.text = @"未订阅";
-//        _subStatusLabel.textColor = ORANGERED;
-//    }
+    if ([v.payType integerValue] == 0) {
+        _subStatusLabel.text = @"已订阅";
+        _subStatusLabel.textColor = SUBEDCOLOR;
+    }else{
+        _subStatusLabel.text = @"未订阅";
+        _subStatusLabel.textColor = ORANGERED;
+    }
+    _ordersLabel.text = v.orders;
     _fullPriceLabel.text = [NSString stringWithFormat:@"￥:%@",v.full_price];
 }
 @end

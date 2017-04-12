@@ -9,12 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @interface Version : NSObject
-//\"id\": \"7920306d0f6b11e7a51c02004c4f4f50\",
+//\"classId\": \"7920306d0f6b11e7a51c02004c4f4f50\",
 //\"class_name\": \"牛津上海版\",
 //\"total_words\": 172,
 //\"full_price\": 3600.00,
 //\"imgurl\": \"0\",
-//\"payType\": \"0\"
+//\"payType\": \"0\",
+//\"orders\": 1,
+//\"grade_name\": \"小学五年级上学期\",
 @property (copy,nonatomic) NSString *classId;
 @property (copy,nonatomic) NSString *class_name;
 @property (copy,nonatomic) NSString *grade_name;
@@ -22,5 +24,6 @@
 @property (copy,nonatomic) NSString *full_price;
 @property (copy,nonatomic) NSString *imgurl;
 @property (copy,nonatomic) NSString *payType;
+@property (copy,nonatomic) NSString *orders;
 
 @end

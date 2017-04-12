@@ -2227,7 +2227,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-Objc",
+					"-all_load",
+				);
 				PROVISIONING_PROFILE = "3376dc85-9b62-48a0-8e81-8dbb9fe0fd31";
 				SDKROOT = iphoneos;
 			};
@@ -2272,7 +2275,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-Objc",
+					"-all_load",
+				);
 				PROVISIONING_PROFILE = "3376dc85-9b62-48a0-8e81-8dbb9fe0fd31";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
