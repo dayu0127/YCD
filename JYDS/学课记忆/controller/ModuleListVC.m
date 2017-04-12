@@ -12,6 +12,7 @@
 #import "WordSubedList.h"
 #import "SubAlertView.h"
 #import "PayViewController.h"
+#import "UILabel+Utils.h"
 @interface ModuleListVC ()<UITableViewDelegate,UITableViewDataSource,SubAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -25,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSubStatus) name:@"updateSubStatus" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWordSubStatus) name:@"updateWordSubStatus" object:nil];
     [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
     [_tableView registerNib:[UINib nibWithNibName:@"ModuleCell" bundle:nil] forCellReuseIdentifier:@"ModuleCell"];
     if ([_payType isEqualToString:@"0"]) {
@@ -52,7 +53,7 @@
         NSLog(@"%@",error);
     }];
 }
-- (void)updateSubStatus{
+- (void)updateWordSubStatus{
     _subAllButton.alpha = 0;
     _payType = @"1";
 }
@@ -85,6 +86,7 @@
         wordListVC.classId = _classId;
         wordListVC.unitId = _unitId;
         wordListVC.payType = _payType;
+        wordListVC.gradeName = _gradeName;
     }else if([segue.identifier isEqualToString:@"toWordSubedList"]){
         WordSubedList *wordSubedList = segue.destinationViewController;
         wordSubedList.classId = _classId;
@@ -92,23 +94,33 @@
     }else if ([segue.identifier isEqualToString:@"toPayViewController"]){
         PayViewController *payVC = segue.destinationViewController;
         payVC.classId = _classId;
+        payVC.payType = @"0";    //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
+        [YHSingleton shareSingleton].payType = @"0";
     }
 }
 - (IBAction)subAllWordBtnClick:(UIButton *)sender {
-    SubAlertView *sureSubView = [[SubAlertView alloc] initWithNib];
-    sureSubView.delegate = self;
-    _alertView = [[JCAlertView alloc] initWithCustomView:sureSubView dismissWhenTouchedBackground:NO];
+    SubAlertView *subAlertView = [[SubAlertView alloc] initWithNib];
+    NSString *str = [NSString stringWithFormat:@"一次性订阅%@所有单词仅需100元!",_gradeName];
+    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:str];
+    [attStr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:ORANGERED,NSForegroundColorAttributeName,[UIFont systemFontOfSize:16.0f],NSFontAttributeName, nil] range:NSMakeRange(str.length-5, 3)];
+    subAlertView.label_0.attributedText = attStr;
+    subAlertView.label_1.text = [NSString stringWithFormat:@"最多可邀请5个好友，订阅%@所有单词价格低至100元。",_gradeName];
+    [subAlertView.label_1 setText:subAlertView.label_1.text lineSpacing:7.0f];
+    subAlertView.delegate = self;
+    _alertView = [[JCAlertView alloc] initWithCustomView:subAlertView dismissWhenTouchedBackground:NO];
     [_alertView show];
 }
 #pragma mark 继续订阅
 - (void)continueSubClick{
-    [_alertView dismissWithCompletion:nil];
-    [self performSegueWithIdentifier:@"toPayViewController" sender:self];
+    [_alertView dismissWithCompletion:^{
+        [self performSegueWithIdentifier:@"toPayViewController" sender:self];
+    }];
 }
 #pragma mark 邀请好友
 - (void)invitateFriendClick{
-    [_alertView dismissWithCompletion:nil];
-    NSLog(@"邀请好友");
+    [_alertView dismissWithCompletion:^{
+        [self performSegueWithIdentifier:@"moduleListToInviteRewards" sender:self];
+    }];
 }
 #pragma mark 关闭提示框
 - (void)closeClick{

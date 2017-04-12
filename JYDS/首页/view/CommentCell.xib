@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="KGk-i7-Jjw" customClass="CommentCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="157"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="157"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="memory_comment" translatesAutoresizingMaskIntoConstraints="NO" id="ceW-Ac-nCg">
+                        <rect key="frame" x="15" y="15" width="36.5" height="36.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="36" id="hwk-P4-vqr"/>
+                            <constraint firstAttribute="height" constant="36" id="i1x-1P-BVi"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="记忆大师1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T6W-Z6-lpl">
+                        <rect key="frame" x="61.5" y="24" width="72.5" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="memory_collect" translatesAutoresizingMaskIntoConstraints="NO" id="XAY-7U-bm2">
+                        <rect key="frame" x="345.5" y="27" width="14.5" height="13.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="14.5" id="50J-F6-coE"/>
+                            <constraint firstAttribute="height" constant="13.5" id="eRR-Qw-dpN"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="45" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98G-wP-aPo">
+                        <rect key="frame" x="325.5" y="27" width="15.5" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017-03-15 18:10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EEc-7l-KUx">
+                        <rect key="frame" x="61.5" y="114.5" width="100.5" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="12" id="flq-x5-3Be"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="大专院校和高校进行深度合作，对IT人才一走出校门就进行深耕细作。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tHb-GU-jlm">
+                        <rect key="frame" x="61.5" y="57.5" width="288.5" height="42"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dSj-lu-jPg" userLabel="sepLine">
+                        <rect key="frame" x="0.0" y="156" width="375" height="1"/>
+                        <color key="backgroundColor" red="0.89411764705882346" green="0.89411764705882346" blue="0.89411764705882346" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="N3W-8C-7d3"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="T6W-Z6-lpl" firstAttribute="centerY" secondItem="ceW-Ac-nCg" secondAttribute="centerY" id="0uL-SP-c32"/>
+                    <constraint firstItem="tHb-GU-jlm" firstAttribute="leading" secondItem="T6W-Z6-lpl" secondAttribute="leading" id="50N-GW-o8c"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="tHb-GU-jlm" secondAttribute="trailing" constant="17" id="5b3-Hu-waS"/>
+                    <constraint firstItem="ceW-Ac-nCg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="6Ih-Jv-4Is"/>
+                    <constraint firstItem="XAY-7U-bm2" firstAttribute="centerY" secondItem="T6W-Z6-lpl" secondAttribute="centerY" id="Gle-de-vfD"/>
+                    <constraint firstItem="ceW-Ac-nCg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="UJ1-Bs-zju"/>
+                    <constraint firstItem="XAY-7U-bm2" firstAttribute="leading" secondItem="98G-wP-aPo" secondAttribute="trailing" constant="5" id="X4X-uG-IiZ"/>
+                    <constraint firstAttribute="bottom" secondItem="dSj-lu-jPg" secondAttribute="bottom" id="a3r-vB-Qhz"/>
+                    <constraint firstItem="98G-wP-aPo" firstAttribute="centerY" secondItem="XAY-7U-bm2" secondAttribute="centerY" id="aEe-Fx-IBL"/>
+                    <constraint firstItem="tHb-GU-jlm" firstAttribute="top" secondItem="T6W-Z6-lpl" secondAttribute="bottom" constant="14" id="c8z-4T-e2Q"/>
+                    <constraint firstItem="EEc-7l-KUx" firstAttribute="top" secondItem="tHb-GU-jlm" secondAttribute="bottom" constant="15" id="fTA-D2-DHd"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="XAY-7U-bm2" secondAttribute="trailing" constant="7" id="fYU-JJ-tp3"/>
+                    <constraint firstItem="T6W-Z6-lpl" firstAttribute="leading" secondItem="ceW-Ac-nCg" secondAttribute="trailing" constant="10" id="g16-r8-XwW"/>
+                    <constraint firstAttribute="trailing" secondItem="dSj-lu-jPg" secondAttribute="trailing" id="ilE-tm-M8O"/>
+                    <constraint firstItem="dSj-lu-jPg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="j92-lo-mfa"/>
+                    <constraint firstItem="EEc-7l-KUx" firstAttribute="leading" secondItem="T6W-Z6-lpl" secondAttribute="leading" id="lVr-Dj-KlS"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="EEc-7l-KUx" secondAttribute="bottom" constant="22" id="nCX-Y6-CJN"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="commemtLabel" destination="tHb-GU-jlm" id="YIj-db-d7s"/>
+                <outlet property="commentTimeLabel" destination="EEc-7l-KUx" id="4NX-yh-sVh"/>
+                <outlet property="likeCountLabel" destination="98G-wP-aPo" id="96d-PM-eLa"/>
+                <outlet property="nickNameLabel" destination="T6W-Z6-lpl" id="W7y-wN-dwN"/>
+                <outlet property="sepLine" destination="dSj-lu-jPg" id="89k-sd-2JS"/>
+                <outlet property="userHeadImageView" destination="ceW-Ac-nCg" id="vmD-Xb-yj9"/>
+            </connections>
+            <point key="canvasLocation" x="35.5" y="58.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="memory_collect" width="14" height="13"/>
+        <image name="memory_comment" width="36" height="36"/>
+    </resources>
+</document>

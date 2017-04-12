@@ -24,10 +24,12 @@
     // Configure the view for the selected state
 }
 - (IBAction)mySubClick:(UIButton *)sender {
+    [_delegate pushToMySub];
 }
 - (IBAction)memoryClick:(UIButton *)sender {
+    [_delegate pushToMemoryMore];
 }
 - (IBAction)invitationClick:(UIButton *)sender {
+    [_delegate pushToInvitation];
 }
-
 @end

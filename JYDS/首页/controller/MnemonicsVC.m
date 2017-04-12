@@ -18,7 +18,7 @@
 #import "MemoryCell.h"
 #import "PayVC.h"
 
-@interface MnemonicsVC ()<UITableViewDelegate,UITableViewDataSource,MemoryHeaderViewDelegate>
+@interface MnemonicsVC ()<UITableViewDelegate,UITableViewDataSource,PlanCellDelegate,MemoryHeaderViewDelegate>
 //@property (strong,nonatomic) NSMutableArray *netImages;  //网络图片
 //@property (strong,nonatomic) SDCycleScrollView *cycleScrollView;//轮播器
 //@property (strong, nonatomic) UITableView *tableView;
@@ -124,6 +124,7 @@
             return cell;
         }else{
             PlanCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlanCell" forIndexPath:indexPath];
+            cell.delegate = self;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
@@ -136,6 +137,19 @@
         [cell addModelWithDic:_memoryList[indexPath.row]];
         return cell;
     }
+}
+#pragma mark PlanCellDelegate
+#pragma mark 我的订阅
+- (void)pushToMySub{
+    [self performSegueWithIdentifier:@"homeToMySub" sender:self];
+}
+#pragma mark 记忆法课程列表
+- (void)pushToMemoryMore{
+    [self performSegueWithIdentifier:@"toMemoryMore" sender:self];
+}
+#pragma mark 邀请好友
+- (void)pushToInvitation{
+    [self performSegueWithIdentifier:@"homeToInviteRewards" sender:self];
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 1) {
@@ -150,6 +164,7 @@
         return nil;
     }
 }
+#pragma mark 记忆法课程更多
 - (void)pushMoreMemoryList{
     [self performSegueWithIdentifier:@"toMemoryMore" sender:self];
 }

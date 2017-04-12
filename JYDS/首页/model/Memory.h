@@ -17,6 +17,10 @@
 //    "url": "https://omj0kq04d.qnssl.com/video/zqdn.mp4",
 //    "payType": 0
 //    "views":1
+//    "likes":10,
+//    "orders":10,
+//    "create_time":"2011-11-11 12:11:11",
+//    "imgUrl":"http://www.xxx.com"
 //}
 @property (copy,nonatomic) NSString *memoryId;
 @property (copy,nonatomic) NSString *title;
@@ -25,4 +29,9 @@
 @property (copy,nonatomic) NSString *url;
 @property (copy,nonatomic) NSString *payType;
 @property (copy,nonatomic) NSString *views;
+@property (copy,nonatomic) NSString *likes;
+@property (copy,nonatomic) NSString *orders;
+@property (copy,nonatomic) NSString *create_time;
+@property (copy,nonatomic) NSString *imgUrl;
+
 @end

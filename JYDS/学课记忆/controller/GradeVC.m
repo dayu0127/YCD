@@ -32,11 +32,13 @@
 @property (strong,nonatomic) NSString *classId;
 /**选中课本订阅状态*/
 @property (strong,nonatomic) NSString *payType;
+/**选中课本年级名称*/
+@property (strong,nonatomic) NSString *gradeName;
 @end
 @implementation GradeVC
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getGredeList) name:@"updateSubStatus" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getGredeList) name:@"updateWordSubStatus" object:nil];
     [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
     CGFloat c = (WIDTH-2)/3.0;
     NSArray *arr = @[@"年级",@"科目",@"版本"];
@@ -189,6 +191,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     _classId  = _versionList[indexPath.row][@"classId"];
     _payType  = [NSString stringWithFormat:@"%@",_versionList[indexPath.row][@"payType"]];
+    _gradeName = _versionList[indexPath.row][@"grade_name"];
     [self performSegueWithIdentifier:@"toModuleList" sender:self];
 }
 - (NSArray *)getNameListFromArray:(NSArray *)arr keyName:(NSString *)str{
@@ -203,6 +206,7 @@
         ModuleListVC *moduleListVC = segue.destinationViewController;
         moduleListVC.classId =_classId;
         moduleListVC.payType =_payType;
+        moduleListVC.gradeName = _gradeName;
     }
 }
 @end

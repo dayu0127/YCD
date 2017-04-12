@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface MemoryDetailVC : UIViewController
-
+#import "Memory.h"
+@protocol MemoryDetailVCDelegate<NSObject>
+- (void)reloadMemoryList;
+@end
+@interface MemoryDetailVC : BaseViewController
+@property (copy,nonatomic) NSString *commentId;
+@property (strong,nonatomic) Memory *memory;
+@property (weak,nonatomic) id<MemoryDetailVCDelegate> delegate;
 @end

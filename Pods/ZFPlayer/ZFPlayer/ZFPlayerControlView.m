@@ -52,8 +52,7 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
 @property (nonatomic, strong) UIButton                *lockBtn;
 /** 系统菊花 */
 @property (nonatomic, strong) MMMaterialDesignSpinner *activity;
-/** 返回按钮*/
-@property (nonatomic, strong) UIButton                *backBtn;
+
 /** 关闭按钮*/
 @property (nonatomic, strong) UIButton                *closeBtn;
 /** 重播按钮 */
@@ -101,8 +100,7 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
 @property (nonatomic, assign, getter=isDragged) BOOL  dragged;
 /** 是否播放结束 */
 @property (nonatomic, assign, getter=isPlayEnd) BOOL  playeEnd;
-/** 是否全屏播放 */
-@property (nonatomic, assign,getter=isFullScreen)BOOL fullScreen;
+
 @end
 
 @implementation ZFPlayerControlView
@@ -205,12 +203,16 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
         make.centerY.equalTo(self.backBtn.mas_centerY);
     }];
     
+//    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.leading.equalTo(self.backBtn.mas_trailing).offset(5);
+//        make.centerY.equalTo(self.backBtn.mas_centerY);
+//        make.trailing.equalTo(self.resolutionBtn.mas_leading).offset(-10);
+//    }];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.backBtn.mas_trailing).offset(5);
-        make.centerY.equalTo(self.backBtn.mas_centerY);
+        make.leading.equalTo(self.topImageView.mas_leading).offset(15);
+        make.top.equalTo(self.topImageView.mas_top).offset(15);
         make.trailing.equalTo(self.resolutionBtn.mas_leading).offset(-10);
     }];
-    
     [self.bottomImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.bottom.equalTo(self);
         make.height.mas_equalTo(50);

@@ -13,6 +13,8 @@
 #import "Word.h"
 #import "SureSubView.h"
 #import "SubAlertView.h"
+#import "PayViewController.h"
+#import "UILabel+Utils.h"
 @interface WordListVC ()<UITableViewDelegate,UITableViewDataSource,SureSubViewDelegate,SubAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *notSubBtn;
 @property (weak, nonatomic) IBOutlet UIButton *subedBtn;
@@ -36,7 +38,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSubStatus) name:@"updateSubStatus" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWordSubStatus) name:@"updateWordSubStatus" object:nil];
     
     //scrollView 设置
     _mainScrollView.contentSize = CGSizeMake(WIDTH*2, 0);
@@ -70,7 +72,7 @@
     _subedTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _subedTableView.showsVerticalScrollIndicator = NO;
     [_mainScrollView addSubview:_subedTableView];
-    [_subedTableView registerNib:[UINib nibWithNibName:@"SubedCell" bundle:nil] forCellReuseIdentifier:@"SubedCell"];
+    [_subedTableView registerClass:[SubedCell class] forCellReuseIdentifier:@"SubedCell"];
 }
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -136,26 +138,34 @@
 }
 #pragma mark 订阅所有单词
 - (void)subAllButtonClick{
-    SubAlertView *sureSubView = [[SubAlertView alloc] initWithNib];
-    sureSubView.delegate = self;
-    _alertView = [[JCAlertView alloc] initWithCustomView:sureSubView dismissWhenTouchedBackground:NO];
+    SubAlertView *subAlertView = [[SubAlertView alloc] initWithNib];
+    NSString *str = [NSString stringWithFormat:@"一次性订阅%@所有单词仅需100元!",_gradeName];
+    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:str];
+    [attStr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:ORANGERED,NSForegroundColorAttributeName,[UIFont systemFontOfSize:16.0f],NSFontAttributeName, nil] range:NSMakeRange(str.length-5, 3)];
+    subAlertView.label_0.attributedText = attStr;
+    subAlertView.label_1.text = [NSString stringWithFormat:@"最多可邀请5个好友，订阅%@所有单词价格低至100元。",_gradeName];
+    [subAlertView.label_1 setText:subAlertView.label_1.text lineSpacing:7.0f];
+    subAlertView.delegate = self;
+    _alertView = [[JCAlertView alloc] initWithCustomView:subAlertView dismissWhenTouchedBackground:NO];
     [_alertView show];
 }
 #pragma mark 继续订阅
 - (void)continueSubClick{
-    [_alertView dismissWithCompletion:nil];
-    [self performSegueWithIdentifier:@"toPayViewController" sender:self];
+    [_alertView dismissWithCompletion:^{
+        [self performSegueWithIdentifier:@"toPayViewController" sender:self];
+    }];
 }
 #pragma mark 邀请好友
 - (void)invitateFriendClick{
-    [_alertView dismissWithCompletion:nil];
-    NSLog(@"邀请好友");
+    [_alertView dismissWithCompletion:^{
+        [self performSegueWithIdentifier:@"moduleListToInviteRewards" sender:self];
+    }];
 }
 #pragma mark 关闭提示框
 - (void)closeClick{
     [_alertView dismissWithCompletion:nil];
 }
-- (void)updateSubStatus{
+- (void)updateWordSubStatus{
     _subAllButton.alpha = 0;
 }
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
@@ -297,14 +307,11 @@
     if ([segue.identifier isEqualToString:@"toWordDetail"]) {
         WordDetailVC *wordDetail = segue.destinationViewController;
         wordDetail.word = _word;
-    }
-}
-#pragma mark 滑动手势处理函数
-- (void)swipe:(UISwipeGestureRecognizer *)sender{
-    if (sender.direction == UISwipeGestureRecognizerDirectionLeft) {
-        [_mainScrollView setContentOffset:CGPointMake(WIDTH, 0) animated:YES];
-    }else{
-        [_mainScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    }else if ([segue.identifier isEqualToString:@"toPayViewController"]){
+        PayViewController *payVC = segue.destinationViewController;
+        payVC.classId = _classId;
+        payVC.payType = @"0";    //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
+        [YHSingleton shareSingleton].payType = @"0";
     }
 }
 - (void)viewWillDisappear:(BOOL)animated{

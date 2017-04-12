@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PayViewController : UIViewController
+@interface PayViewController : BaseViewController
 @property (copy,nonatomic) NSString *classId;
+@property (copy,nonatomic) NSString *memoryId;
+@property (copy,nonatomic) NSString *payType;
 @end

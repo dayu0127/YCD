@@ -123,6 +123,9 @@
 #define kPlayerSet API(@"/system/getPlayerSys") //获取播放器设置
 #define kBanner API(@"/common/getIndexImages") //获取首页内容
 #define kMemoryVideo API(@"/video/getMemoryVideo") //记忆法视频列表
+#define kMemoryLikes API(@"/common/memoryLikes") //记忆法点赞
+#define kMemoryCommentList API(@"/video/getMemoryCommentList") //记忆法评论列表
+#define kUserComment API(@"/common/userComment") //用户评论
 #define kGradeList API(@"/study/getGradeList") //年级列表
 #define kClassTypeList API(@"/study/getClassTypeList") //科目列表
 #define kVersionNameList API(@"/study/getVersionNameList") //版本列表
@@ -136,6 +139,7 @@
 #define kAlipaySignCheck API(@"/pay/alipaySignCheck")  //支付宝验签
 #define kWXSub API(@"/pay/weixinCreateOrder")  //微信订阅
 #define kWXSignCheck API(@"/pay/weixinSignCheck")  //微信验签
+#define kOrderPrice API(@"/pay/getOrderPrice")  //获取订单价格
 //练习题等级数组
 #define LEVELARRAY @[@"60",@"50",@"40",@"30",@"25",@"20",@"15",@"13",@"10"]
 //练习题价格
@@ -156,7 +160,7 @@
 #define UseHelpUrl @"https://www.jydsapp.com/jydsApi/h5/help.html"
 #define UserAgreementUrl @"https://www.jydsapp.com/jydsApi/h5/agreement.html"
 //头像上传路径
-#define kHeadImageUrl @"http://onio1a06g.bkt.clouddn.com/"
+#define kHeadImageUrl @"http://onq2x5lx5.bkt.clouddn.com"
 
 //橙红色
 #define ORANGERED RGB(255,78,0) //#FE514A

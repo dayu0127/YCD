@@ -17,6 +17,8 @@
 @property (copy,nonatomic) NSString *price;
 @property (weak, nonatomic) IBOutlet UIButton *subBtn;
 @property (weak, nonatomic) IBOutlet UIButton *invitateFriendBtn;
+@property (weak, nonatomic) IBOutlet UILabel *label_0;
+@property (weak, nonatomic) IBOutlet UILabel *label_1;
 @property (weak,nonatomic) id<SubAlertViewDelegate> delegate;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labels;
 - (instancetype)initWithNib;

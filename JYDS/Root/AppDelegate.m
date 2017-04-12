@@ -149,7 +149,11 @@
                                           @"token":[[NSUserDefaults standardUserDefaults] objectForKey:@"token"]};       //   #登陆凭证
                 [YHWebRequest YHWebRequestForPOST:kAlipaySignCheck parameters:jsonDic success:^(NSDictionary *json) {
                     if ([json[@"code"] integerValue] == 200) {
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateSubStatus" object:nil];
+                        if ([[YHSingleton shareSingleton].payType isEqualToString:@"0"]) {
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateWordSubStatus" object:nil];
+                        }else if ([[YHSingleton shareSingleton].payType isEqualToString:@"1"]){
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMemorySubStatus" object:nil];
+                        }
                         [YHHud showWithSuccess:@"支付成功"];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"back" object:nil];
                     }else{

@@ -231,6 +231,10 @@
 		608658E21E950E4000A20EDC /* WordImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 608658E01E950E4000A20EDC /* WordImageCell.xib */; };
 		60884F2A1E7131EE008058B5 /* WordSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60884F281E7131EE008058B5 /* WordSearchCell.m */; };
 		60884F2B1E7131EE008058B5 /* WordSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60884F291E7131EE008058B5 /* WordSearchCell.xib */; };
+		6088518C1E9DD63E004C107E /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6088518A1E9DD63E004C107E /* CommentCell.m */; };
+		6088518D1E9DD63E004C107E /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6088518B1E9DD63E004C107E /* CommentCell.xib */; };
+		608851901E9DDC63004C107E /* MemoryComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6088518F1E9DDC63004C107E /* MemoryComment.m */; };
+		608851931E9E0A9F004C107E /* YHMonitorKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 608851921E9E0A9F004C107E /* YHMonitorKeyboard.m */; };
 		609D6D521E17782D000BCD65 /* BaseNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 609D6D511E17782D000BCD65 /* BaseNavViewController.m */; };
 		609F05D81E161C57009F4986 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6078D1381E1613180089D40F /* libssl.a */; };
 		609F05DF1E161D1A009F4986 /* ForgetPwdVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F05DA1E161D1A009F4986 /* ForgetPwdVC.m */; };
@@ -679,6 +683,13 @@
 		60884F271E7131EE008058B5 /* WordSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordSearchCell.h; sourceTree = "<group>"; };
 		60884F281E7131EE008058B5 /* WordSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordSearchCell.m; sourceTree = "<group>"; };
 		60884F291E7131EE008058B5 /* WordSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WordSearchCell.xib; sourceTree = "<group>"; };
+		608851891E9DD63E004C107E /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
+		6088518A1E9DD63E004C107E /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
+		6088518B1E9DD63E004C107E /* CommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
+		6088518E1E9DDC63004C107E /* MemoryComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryComment.h; sourceTree = "<group>"; };
+		6088518F1E9DDC63004C107E /* MemoryComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryComment.m; sourceTree = "<group>"; };
+		608851911E9E0A9F004C107E /* YHMonitorKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHMonitorKeyboard.h; sourceTree = "<group>"; };
+		608851921E9E0A9F004C107E /* YHMonitorKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHMonitorKeyboard.m; sourceTree = "<group>"; };
 		609D6D501E17782D000BCD65 /* BaseNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavViewController.h; sourceTree = "<group>"; };
 		609D6D511E17782D000BCD65 /* BaseNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavViewController.m; sourceTree = "<group>"; };
 		609F05D91E161D1A009F4986 /* ForgetPwdVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPwdVC.h; sourceTree = "<group>"; };
@@ -1167,6 +1178,8 @@
 				602917831E90B1B400051C0B /* Mnemonics.m */,
 				6062A78E1E98EA7700D8F5BB /* Memory.h */,
 				6062A78F1E98EA7700D8F5BB /* Memory.m */,
+				6088518E1E9DDC63004C107E /* MemoryComment.h */,
+				6088518F1E9DDC63004C107E /* MemoryComment.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1192,6 +1205,9 @@
 				60783C131E9CE34C00F0FBE1 /* MemoryMoreCell.h */,
 				60783C141E9CE34C00F0FBE1 /* MemoryMoreCell.m */,
 				60783C151E9CE34C00F0FBE1 /* MemoryMoreCell.xib */,
+				608851891E9DD63E004C107E /* CommentCell.h */,
+				6088518A1E9DD63E004C107E /* CommentCell.m */,
+				6088518B1E9DD63E004C107E /* CommentCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1485,6 +1501,8 @@
 				600259791E977F1700FA3991 /* YBPopupMenu.m */,
 				60F4EB671E9B179F00DC7AB8 /* UILabel+Utils.h */,
 				60F4EB681E9B179F00DC7AB8 /* UILabel+Utils.m */,
+				608851911E9E0A9F004C107E /* YHMonitorKeyboard.h */,
+				608851921E9E0A9F004C107E /* YHMonitorKeyboard.m */,
 			);
 			name = Tools;
 			path = JYDS/Tools;
@@ -1869,6 +1887,7 @@
 				6010FF621E9128DB00071610 /* 5.png in Resources */,
 				6078D2011E1613180089D40F /* Main.storyboard in Resources */,
 				6010FF951E9128DB00071610 /* 96.png in Resources */,
+				6088518D1E9DD63E004C107E /* CommentCell.xib in Resources */,
 				604FE01B1E9B251400C98A54 /* SubAlertView.xib in Resources */,
 				605C2EB21E93850200B4BF61 /* courselist.plist in Resources */,
 				6010FF491E9128DB00071610 /* 27.png in Resources */,
@@ -2029,6 +2048,7 @@
 				60F4EB651E9B178600DC7AB8 /* SureSubView.m in Sources */,
 				608658C41E94E1D100A20EDC /* ModuleCell.m in Sources */,
 				6010FFC51E912B9F00071610 /* InviteRewardsVC.m in Sources */,
+				608851931E9E0A9F004C107E /* YHMonitorKeyboard.m in Sources */,
 				6010FFC01E912B4400071610 /* SetCell1.m in Sources */,
 				6010FF9B1E9128DB00071610 /* FailedView.m in Sources */,
 				6078D1FF1E1613180089D40F /* BaseWKWebView.m in Sources */,
@@ -2089,7 +2109,9 @@
 				609D6D521E17782D000BCD65 /* BaseNavViewController.m in Sources */,
 				609F06421E1621DF009F4986 /* HelpFeedbackVC.m in Sources */,
 				60A5C7CB1E8B8F61007D2366 /* MySubCell.m in Sources */,
+				608851901E9DDC63004C107E /* MemoryComment.m in Sources */,
 				6078D1FB1E1613180089D40F /* RSADataVerifier.m in Sources */,
+				6088518C1E9DD63E004C107E /* CommentCell.m in Sources */,
 				60A5C7C21E8B8A1A007D2366 /* MySubVC.m in Sources */,
 				6078D2221E161AF20089D40F /* YHAlertView.m in Sources */,
 				60A5C7BB1E8B8238007D2366 /* CollectHeadCell.m in Sources */,

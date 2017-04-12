@@ -49,7 +49,7 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="14" id="3bO-Ez-lAw"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -197,6 +197,8 @@
             </constraints>
             <connections>
                 <outlet property="invitateFriendBtn" destination="q0r-Do-OPc" id="Let-CU-qa5"/>
+                <outlet property="label_0" destination="b8J-WN-ShR" id="VUg-bF-NHi"/>
+                <outlet property="label_1" destination="EPj-7y-8XM" id="8uw-1M-Chq"/>
                 <outlet property="subBtn" destination="dQV-fR-mtg" id="x0W-Zv-Fpu"/>
                 <outletCollection property="labels" destination="EPj-7y-8XM" id="XUf-jd-XVa"/>
                 <outletCollection property="labels" destination="Coo-6G-7FS" id="rDY-wI-NS7"/>

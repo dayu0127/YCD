@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol PlanCellDelegate<NSObject>
+- (void)pushToMySub;
+- (void)pushToMemoryMore;
+- (void)pushToInvitation;
+@end
 @interface PlanCell : UITableViewCell
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonCollection;
+@property (weak,nonatomic) id<PlanCellDelegate> delegate;
 @end
