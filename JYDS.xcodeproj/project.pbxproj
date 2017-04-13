@@ -139,6 +139,9 @@
 		602BDD411E83697700C6CB92 /* MemoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 602BDD3F1E83697700C6CB92 /* MemoryCell.m */; };
 		602BDD421E83697700C6CB92 /* MemoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 602BDD401E83697700C6CB92 /* MemoryCell.xib */; };
 		602F8C431E8F6AC4006DC754 /* BingingPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 602F8C421E8F6AC4006DC754 /* BingingPhoneVC.m */; };
+		6039EEA71E9F1E9800BA4E24 /* MyMemorySubedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6039EEA61E9F1E9800BA4E24 /* MyMemorySubedVC.m */; };
+		6039EEAA1E9F1EBE00BA4E24 /* MyCourseSubedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6039EEA91E9F1EBE00BA4E24 /* MyCourseSubedVC.m */; };
+		6039EEB01E9F366300BA4E24 /* WordCollect.m in Sources */ = {isa = PBXBuildFile; fileRef = 6039EEAF1E9F366300BA4E24 /* WordCollect.m */; };
 		603A42D61E83F71300134150 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 603A42D51E83F71300134150 /* Assets.xcassets */; };
 		60402E421E84BD5700B1AD91 /* LoginCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60402E411E84BD5700B1AD91 /* LoginCodeVC.m */; };
 		60402E481E850FFD00B1AD91 /* MineTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60402E471E850FFD00B1AD91 /* MineTableVC.m */; };
@@ -444,6 +447,12 @@
 		602BDD401E83697700C6CB92 /* MemoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MemoryCell.xib; sourceTree = "<group>"; };
 		602F8C411E8F6AC4006DC754 /* BingingPhoneVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BingingPhoneVC.h; sourceTree = "<group>"; };
 		602F8C421E8F6AC4006DC754 /* BingingPhoneVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BingingPhoneVC.m; sourceTree = "<group>"; };
+		6039EEA51E9F1E9800BA4E24 /* MyMemorySubedVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMemorySubedVC.h; sourceTree = "<group>"; };
+		6039EEA61E9F1E9800BA4E24 /* MyMemorySubedVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMemorySubedVC.m; sourceTree = "<group>"; };
+		6039EEA81E9F1EBE00BA4E24 /* MyCourseSubedVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCourseSubedVC.h; sourceTree = "<group>"; };
+		6039EEA91E9F1EBE00BA4E24 /* MyCourseSubedVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCourseSubedVC.m; sourceTree = "<group>"; };
+		6039EEAE1E9F366300BA4E24 /* WordCollect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCollect.h; sourceTree = "<group>"; };
+		6039EEAF1E9F366300BA4E24 /* WordCollect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordCollect.m; sourceTree = "<group>"; };
 		603A42D51E83F71300134150 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = JYDS/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		60402E401E84BD5700B1AD91 /* LoginCodeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginCodeVC.h; sourceTree = "<group>"; };
 		60402E411E84BD5700B1AD91 /* LoginCodeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginCodeVC.m; sourceTree = "<group>"; };
@@ -981,6 +990,15 @@
 				6010FFC41E912B9F00071610 /* InviteRewardsVC.m */,
 			);
 			path = "邀请奖励";
+			sourceTree = "<group>";
+		};
+		6039EEAD1E9F364600BA4E24 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				6039EEAE1E9F366300BA4E24 /* WordCollect.h */,
+				6039EEAF1E9F366300BA4E24 /* WordCollect.m */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		60402E431E850FD000B1AD91 /* controller */ = {
@@ -1616,6 +1634,7 @@
 		60A5C79D1E8B786B007D2366 /* 我的收藏 */ = {
 			isa = PBXGroup;
 			children = (
+				6039EEAD1E9F364600BA4E24 /* model */,
 				60A5C7A21E8B7C82007D2366 /* controller */,
 				60A5C7A11E8B7C82007D2366 /* view */,
 			);
@@ -1668,6 +1687,10 @@
 			children = (
 				60A5C7C01E8B8A1A007D2366 /* MySubVC.h */,
 				60A5C7C11E8B8A1A007D2366 /* MySubVC.m */,
+				6039EEA51E9F1E9800BA4E24 /* MyMemorySubedVC.h */,
+				6039EEA61E9F1E9800BA4E24 /* MyMemorySubedVC.m */,
+				6039EEA81E9F1EBE00BA4E24 /* MyCourseSubedVC.h */,
+				6039EEA91E9F1EBE00BA4E24 /* MyCourseSubedVC.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -2077,6 +2100,7 @@
 				609F06271E1621BD009F4986 /* UpdateHeadImageVC.m in Sources */,
 				6078D1CC1E1613180089D40F /* RememberWordSingleWordCell.m in Sources */,
 				602BDD381E83686F00C6CB92 /* MemoryHeaderView.m in Sources */,
+				6039EEB01E9F366300BA4E24 /* WordCollect.m in Sources */,
 				60E2DD041E5AA22F00D45986 /* WXApiManager.m in Sources */,
 				60A5C79C1E8B67A7007D2366 /* UserInfoTVC.m in Sources */,
 				605C2EAE1E93805C00B4BF61 /* CourseMemoryView1.m in Sources */,
@@ -2095,6 +2119,7 @@
 				6078D1F81E1613180089D40F /* NSDataEx.m in Sources */,
 				6076CEF81E86020C006E5F6F /* LoggedInHeaderView.m in Sources */,
 				602BDD341E83679C00C6CB92 /* PlanCell.m in Sources */,
+				6039EEA71E9F1E9800BA4E24 /* MyMemorySubedVC.m in Sources */,
 				6078D1CA1E1613180089D40F /* RememberWordItemView.m in Sources */,
 				6002597A1E977F1700FA3991 /* YBPopupMenu.m in Sources */,
 				609F060C1E16218B009F4986 /* PayDetailCell.m in Sources */,
@@ -2140,6 +2165,7 @@
 				609F05E01E161D1A009F4986 /* LoginVC.m in Sources */,
 				609F05E81E161DE5009F4986 /* Words.m in Sources */,
 				60A5C7D11E8BDB94007D2366 /* SetVC.m in Sources */,
+				6039EEAA1E9F1EBE00BA4E24 /* MyCourseSubedVC.m in Sources */,
 				6010FEB81E91230D00071610 /* MessageDetailVC.m in Sources */,
 				6010FF9E1E9128DB00071610 /* ResultView.m in Sources */,
 				6078D1F91E1613180089D40F /* openssl_wrapper.m in Sources */,

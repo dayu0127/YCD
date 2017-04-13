@@ -31,7 +31,7 @@
     _classNameLabel.text = v.class_name;
     _gradeNameLabel.text = v.grade_name;
     _totalWordLabel.text = [NSString stringWithFormat:@"%@词",v.total_words];
-    if ([v.payType integerValue] == 0) {
+    if ([v.payType integerValue] == 1) {
         _subStatusLabel.text = @"已订阅";
         _subStatusLabel.textColor = SUBEDCOLOR;
     }else{

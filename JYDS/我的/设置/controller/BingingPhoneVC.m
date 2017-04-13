@@ -44,6 +44,9 @@
     [YHWebRequest YHWebRequestForPOST:kSendCheckCode parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
             NSLog(@"绑定成功");
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);

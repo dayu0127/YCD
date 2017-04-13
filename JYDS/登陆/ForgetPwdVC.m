@@ -156,6 +156,9 @@
     [YHWebRequest YHWebRequestForPOST:kSendCheckCode parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
             [YHHud showWithSuccess:json[@"message"]];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -218,6 +221,9 @@
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.navigationController popViewControllerAnimated:YES];
             });
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);

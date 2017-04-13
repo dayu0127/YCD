@@ -51,6 +51,9 @@
             float newPrice = [dataDic[@"discountPrice"] floatValue];
             _preferentialPriceLabel.text = [NSString stringWithFormat:@"￥:%0.2f",oldPrice-newPrice];
             _payPriceLabel.text = [NSString stringWithFormat:@"￥:%0.2f",newPrice];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -156,14 +159,16 @@
                             [self.navigationController popViewControllerAnimated:YES];
                         });
                     }else{
-                        [YHHud showWithSuccess:json[@"message"]];
+                        NSLog(@"%@",json[@"code"]);
+                        NSLog(@"%@",json[@"message"]);
                     }
                 } failure:^(NSError * _Nonnull error) {
                     NSLog(@"%@",error);
                 }];
             }];
         }else{
-            [YHHud showWithMessage:json[@"message"]];
+            NSLog(@"%@",json[@"code"]);
+            NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -204,7 +209,8 @@
             //调起微信支付
             [WXApi sendReq:request];
         }else{
-            [YHHud showWithMessage:json[@"message"]];
+            NSLog(@"%@",json[@"code"]);
+            NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);

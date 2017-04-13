@@ -96,6 +96,9 @@
             _noSubWordList = [NSMutableArray arrayWithArray:resultDic[@"unitWordList"]];
             _tableIndex = 0;
             [_noSubTableView reloadData];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -130,6 +133,9 @@
             _subedWordList = [NSMutableArray arrayWithArray:resultDic[@"subWordList"]];
             _tableIndex = 1;
             [_subedTableView reloadData];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
         [YHHud dismiss];
@@ -289,6 +295,9 @@
             //刷新已订阅列表
             [self reloadSubedTableView];
             [YHHud showWithSuccess:@"订阅成功"];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);

@@ -99,6 +99,9 @@
             NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             _memoryCommentList = dataDic[@"commentList"];
             [_tableView reloadData];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -135,6 +138,9 @@
             count++;
             _likeCountLabel.text = [NSString stringWithFormat:@"%zd",count];
             [_delegate reloadMemoryList];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -161,6 +167,9 @@
             if ([json[@"code"] integerValue] == 200) {
                 [YHHud showWithSuccess:@"评论成功"];
                 [self.view endEditing:YES];
+            }else{
+                NSLog(@"%@",json[@"code"]);
+                NSLog(@"%@",json[@"message"]);
             }
         } failure:^(NSError * _Nonnull error) {
             NSLog(@"%@",error);

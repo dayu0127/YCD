@@ -46,8 +46,8 @@
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="后面" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMl-nB-aV4">
-                        <rect key="frame" x="92" y="30" width="27" height="12"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="后面" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMl-nB-aV4">
+                        <rect key="frame" x="92" y="30" width="202.5" height="12"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="KeZ-Uu-buK"/>
                         </constraints>
@@ -56,9 +56,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017-03-20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iaN-aN-Hp7">
-                        <rect key="frame" x="306.5" y="31" width="58.5" height="10"/>
+                        <rect key="frame" x="305" y="31" width="60" height="10"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="cvs-1e-nym"/>
+                            <constraint firstAttribute="width" constant="60" id="sGT-Lk-uzp"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -82,12 +83,19 @@
                     <constraint firstItem="fwJ-aX-1os" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="B4S-d5-Dk6"/>
                     <constraint firstItem="TMl-nB-aV4" firstAttribute="centerY" secondItem="NNa-XH-1e4" secondAttribute="centerY" id="C36-KK-VFu"/>
                     <constraint firstItem="rWR-Vb-rf4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Gny-En-CTv"/>
+                    <constraint firstItem="iaN-aN-Hp7" firstAttribute="leading" secondItem="TMl-nB-aV4" secondAttribute="trailing" constant="10" id="Kcd-Fi-SGs"/>
                     <constraint firstAttribute="trailing" secondItem="rWR-Vb-rf4" secondAttribute="trailing" constant="10" id="Sre-kK-PUC"/>
                     <constraint firstAttribute="trailingMargin" secondItem="iaN-aN-Hp7" secondAttribute="trailing" constant="2" id="cSb-k5-6Mv"/>
                     <constraint firstItem="iaN-aN-Hp7" firstAttribute="centerY" secondItem="TMl-nB-aV4" secondAttribute="centerY" id="pBc-W8-vAW"/>
                     <constraint firstItem="fwJ-aX-1os" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="vNE-kV-nPH"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="createTimeLabel" destination="iaN-aN-Hp7" id="tVX-sE-IKv"/>
+                <outlet property="explainLabel" destination="TMl-nB-aV4" id="BPj-pv-yCx"/>
+                <outlet property="versionLabel" destination="fwJ-aX-1os" id="Gc2-Cv-UOL"/>
+                <outlet property="wordLabel" destination="oWy-Ge-Ttc" id="30P-CP-nhF"/>
+            </connections>
             <point key="canvasLocation" x="24.5" y="52"/>
         </tableViewCell>
     </objects>

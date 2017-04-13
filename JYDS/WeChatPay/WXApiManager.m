@@ -77,7 +77,8 @@
                 [YHHud showWithSuccess:@"支付成功"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"back" object:nil];
             }else{
-                [YHHud showWithMessage:json[@"message"]];
+                NSLog(@"%@",json[@"code"]);
+                NSLog(@"%@",json[@"message"]);
             }
         } failure:^(NSError * _Nonnull error) {
             NSLog(@"%@",error);

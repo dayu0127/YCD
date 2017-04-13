@@ -48,6 +48,9 @@
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             _moduleList = resultDic[@"unitList"];
             [_tableView reloadData];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);

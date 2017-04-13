@@ -129,6 +129,7 @@
 #define kGradeList API(@"/study/getGradeList") //年级列表
 #define kClassTypeList API(@"/study/getClassTypeList") //科目列表
 #define kVersionNameList API(@"/study/getVersionNameList") //版本列表
+#define kVersionList API(@"/study/getVersionList") //课本列表
 #define kModuleList API(@"/study/getUnitList") //单元列表
 #define kWordList API(@"/study/getUnitWordList") //单元单词列表
 #define kWordSubedList API(@"/study/subWordList") //已订阅列表
@@ -140,6 +141,8 @@
 #define kWXSub API(@"/pay/weixinCreateOrder")  //微信订阅
 #define kWXSignCheck API(@"/pay/weixinSignCheck")  //微信验签
 #define kOrderPrice API(@"/pay/getOrderPrice")  //获取订单价格
+#define kFedBack API(@"/system/fedBack")    //用户反馈
+#define kCollectionList API(@"/user/getCollectionList")    //收藏列表
 //练习题等级数组
 #define LEVELARRAY @[@"60",@"50",@"40",@"30",@"25",@"20",@"15",@"13",@"10"]
 //练习题价格

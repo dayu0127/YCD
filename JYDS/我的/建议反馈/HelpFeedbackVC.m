@@ -57,6 +57,32 @@
     [super touchesBegan:touches withEvent:event];
     [self.view endEditing:YES];
 }
+- (IBAction)submitClick:(id)sender {
+    _textView.text = [_textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if ([_textView.text isEqualToString:@""]) {
+        _promptLabel.textColor = ORANGERED;
+    }else{
+//        {
+//            "userPhone":"******"    #用户手机号
+//            "token":"****"          #登陆凭证
+//            "content"："**"          #用户反馈内容
+//        }
+        NSDictionary *jsonDic = @{@"userPhone":self.phoneNum,  //  #用户手机号
+                                              @"token":self.token,      //    #登陆凭证
+                                              @"content":_textView.text};      //    #用户反馈内容
+        [YHWebRequest YHWebRequestForPOST:kFedBack parameters:jsonDic success:^(NSDictionary *json) {
+            if ([json[@"code"] integerValue] == 200) {
+                _textView.text = @"";
+                [YHHud showWithSuccess:@"提交成功"];
+            }else{
+                NSLog(@"%@",json[@"code"]);
+                NSLog(@"%@",json[@"message"]);
+            }
+        } failure:^(NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+        }];
+    }
+}
 - (IBAction)sureButtonClick:(UIBarButtonItem *)sender {
     if ([_textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) {
         _promptLabel.textColor = [UIColor redColor];

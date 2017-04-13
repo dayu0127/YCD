@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface CollectCell : UITableViewCell
-
+@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *wordLabel;
+@property (weak, nonatomic) IBOutlet UILabel *explainLabel;
+@property (weak, nonatomic) IBOutlet UILabel *createTimeLabel;
+- (void)addModelWithDic:(NSDictionary *)dic;
 @end

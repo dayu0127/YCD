@@ -198,6 +198,9 @@
     [YHWebRequest YHWebRequestForPOST:kNicknameSex parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
             [YHHud showWithSuccess:@"修改成功"];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -235,6 +238,9 @@
                 NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:_headImageButton.imageView.image,@"headImage",_nickNameText.text,@"nickName",nil];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadImageAndNickName" object:nil userInfo:dic];
                 [YHHud showWithSuccess:@"修改成功"];
+            }else{
+                NSLog(@"%@",json[@"code"]);
+                NSLog(@"%@",json[@"message"]);
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             [YHHud showWithMessage:@"上传失败"];

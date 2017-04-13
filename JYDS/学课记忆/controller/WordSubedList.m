@@ -45,6 +45,9 @@
             _subedWordList = [NSMutableArray arrayWithArray:resultDic[@"subWordList"]];
             [_tableView reloadData];
             _collectStateArr = [NSMutableArray arrayWithCapacity:_subedWordList.count];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
         [YHHud dismiss];
@@ -109,6 +112,9 @@
                     NSIndexPath *index = [NSIndexPath indexPathForRow:sender.tag inSection:0];
                     [_tableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
                     [YHHud showWithMessage:@"收藏成功"];
+                }else{
+                    NSLog(@"%@",json[@"code"]);
+                    NSLog(@"%@",json[@"message"]);
                 }
             } failure:^(NSError * _Nonnull error) {
                 NSLog(@"%@",error);
@@ -141,6 +147,9 @@
                     [_tableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
 //                    [_tableView reloadData];
                     [YHHud showWithMessage:@"已取消收藏"];
+                }else{
+                    NSLog(@"%@",json[@"code"]);
+                    NSLog(@"%@",json[@"message"]);
                 }
             } failure:^(NSError * _Nonnull error) {
                 NSLog(@"%@",error);
@@ -175,6 +184,9 @@
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             _subedWordList = [NSMutableArray arrayWithArray:resultDic[@"subWordList"]];
             [_tableView reloadData];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);

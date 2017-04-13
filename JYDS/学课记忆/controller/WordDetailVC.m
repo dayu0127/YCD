@@ -61,6 +61,9 @@
                 _word.collectionType = @"1";
                 [_delegate updateWordList];
                 [YHHud showWithMessage:@"收藏成功"];
+            }else{
+                NSLog(@"%@",json[@"code"]);
+                NSLog(@"%@",json[@"message"]);
             }
         } failure:^(NSError * _Nonnull error) {
             NSLog(@"%@",error);
@@ -85,6 +88,9 @@
                 _word.collectionType = @"0";
                 [_delegate updateWordList];
                 [YHHud showWithMessage:@"已取消收藏"];
+            }else{
+                NSLog(@"%@",json[@"code"]);
+                NSLog(@"%@",json[@"message"]);
             }
         } failure:^(NSError * _Nonnull error) {
             NSLog(@"%@",error);

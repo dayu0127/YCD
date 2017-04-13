@@ -42,6 +42,9 @@
         if ([json[@"code"] integerValue] == 200) {
             _memoryVideoList = [NSDictionary dictionaryWithJsonString:json[@"data"]][@"indexMemory"];
             [_tableView reloadData];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
