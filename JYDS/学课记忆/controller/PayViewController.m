@@ -47,10 +47,10 @@
         if ([json[@"code"] integerValue] == 200) {
             NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             _inviteCountLabel.text = [NSString stringWithFormat:@"%@",dataDic[@"inviteNum"]];
-            double oldPrice = [dataDic[@"price"] doubleValue];
-            double newPrice = [dataDic[@"discountPrice"] doubleValue];
-            _preferentialPriceLabel.text = [NSString stringWithFormat:@"￥:%0.2lf",oldPrice-newPrice];
-            _payPriceLabel.text = [NSString stringWithFormat:@"￥:%0.2lf",newPrice];
+            float oldPrice = [dataDic[@"price"] floatValue];
+            float newPrice = [dataDic[@"discountPrice"] floatValue];
+            _preferentialPriceLabel.text = [NSString stringWithFormat:@"￥:%0.2f",oldPrice-newPrice];
+            _payPriceLabel.text = [NSString stringWithFormat:@"￥:%0.2f",newPrice];
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);

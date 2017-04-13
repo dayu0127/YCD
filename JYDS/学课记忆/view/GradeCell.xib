@@ -137,6 +137,7 @@
                 <outlet property="fullPriceLabel" destination="HsJ-PQ-Ema" id="paX-tn-pqb"/>
                 <outlet property="gradeNameLabel" destination="mM7-5N-BKd" id="TGc-60-kMB"/>
                 <outlet property="img" destination="mjA-33-66v" id="Ykx-Vr-1q1"/>
+                <outlet property="ordersLabel" destination="MDu-Yu-Rih" id="MbU-3s-zEB"/>
                 <outlet property="subStatusLabel" destination="2pM-2R-y5Z" id="Ek1-bi-kkQ"/>
                 <outlet property="totalWordLabel" destination="fah-1a-LKG" id="Xbz-Et-bPk"/>
             </connections>

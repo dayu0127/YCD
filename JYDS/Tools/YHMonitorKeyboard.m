@@ -21,7 +21,7 @@ static YHBlock dismissBlock;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHidden:)name:UIKeyboardWillHideNotification object:nil];
 }
 
-+(void)keyBoardWillShow:(NSNotification*) notification{
++(void)keyBoardWillShow:(NSNotification *)notification{
     //获取键盘的高度
     NSDictionary *userInfo = [notification userInfo];
     NSValue* aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
@@ -37,7 +37,7 @@ static YHBlock dismissBlock;
     }];
 }
 
-+(void)keyBoardWillHidden:(NSNotification*) notification{
++(void)keyBoardWillHidden:(NSNotification *)notification{
     NSDictionary *userInfo = [notification userInfo];
     NSValue* aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
     CGFloat interval = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey]floatValue];
