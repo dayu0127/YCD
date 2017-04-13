@@ -9,7 +9,7 @@
 #import "RememberWordModuleVC.h"
 #import "RememberWordSingleWordCell.h"
 #import "RememberWordItemVC.h"
-#import "PayVC.h"
+//#import "PayVC.h"
 @interface RememberWordModuleVC ()<UITableViewDelegate,UITableViewDataSource,YHAlertViewDelegate,RememberWordItemVCDelegate>
 @property (strong,nonatomic) UITableView *tableView;
 @property (assign,nonatomic) BOOL isHiddenNav;

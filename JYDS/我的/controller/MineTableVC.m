@@ -10,7 +10,7 @@
 #import <UIImageView+WebCache.h>
 #import <MJRefresh.h>
 #import "MJChiBaoZiHeader.h"
-#import "PayVC.h"
+//#import "PayVC.h"
 @interface MineTableVC ()
 
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
@@ -141,12 +141,12 @@
     _nickNameLabel.text = str;
 }
 
-- (IBAction)pushToPayVC:(UIButton *)sender {
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    PayVC *payVc = [sb instantiateViewControllerWithIdentifier:@"pay"];
-    payVc.balance = _studyBean.text;
-    [self.navigationController pushViewController:payVc animated:YES];
-}
+//- (IBAction)pushToPayVC:(UIButton *)sender {
+//    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    PayVC *payVc = [sb instantiateViewControllerWithIdentifier:@"pay"];
+//    payVc.balance = _studyBean.text;
+//    [self.navigationController pushViewController:payVc animated:YES];
+//}
 - (void)returnToLogin{
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];

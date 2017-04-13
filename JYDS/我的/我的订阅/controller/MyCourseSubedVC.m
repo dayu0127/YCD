@@ -40,8 +40,6 @@
                               @"userPhone":self.phoneNum,     //  #用户手机号
                               @"token":self.token};       // #登陆凭证
     [YHWebRequest YHWebRequestForPOST:kVersionList parameters:jsonDic success:^(NSDictionary *json) {
-        NSLog(@"%@",json[@"code"]);
-        NSLog(@"%@",json[@"message"]);
         [YHHud dismiss];
         if([json[@"code"] integerValue] == 200){
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];

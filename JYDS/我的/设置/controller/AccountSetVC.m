@@ -53,7 +53,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
-        
+        [self performSegueWithIdentifier:@"toModifyPwdVC" sender:self];
     }else if (indexPath.row == 1) {//手机号绑定
         if ([[YHSingleton shareSingleton].userInfo.phoneNum isEqualToString:@""]) {
             [self performSegueWithIdentifier:@"toBingingPhone" sender:self];

@@ -11,7 +11,7 @@
 #import <UShareUI/UMSocialUIManager.h>
 #import <UMSocialCore/UMSocialResponse.h>
 #import "Mnemonics.h"
-#import "PayVC.h"
+//#import "PayVC.h"
 #import "WXApi.h"
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <WeiboSDK.h>

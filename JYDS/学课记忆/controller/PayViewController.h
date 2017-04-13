@@ -12,4 +12,7 @@
 @property (copy,nonatomic) NSString *classId;
 @property (copy,nonatomic) NSString *memoryId;
 @property (copy,nonatomic) NSString *payType;
+@property (copy,nonatomic) NSString *inviteCount;
+@property (copy,nonatomic) NSString *preferentialPrice;
+@property (copy,nonatomic) NSString *payPrice;
 @end
