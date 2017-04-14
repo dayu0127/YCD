@@ -158,6 +158,7 @@
 //    }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"%@",_subedWordList[indexPath.row]);
     _word = [Word yy_modelWithJSON:_subedWordList[indexPath.row]];
     [self performSegueWithIdentifier:@"toWordSubedDetail" sender:self];
 }

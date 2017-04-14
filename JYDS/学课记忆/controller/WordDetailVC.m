@@ -149,6 +149,7 @@
         return cell;
     }else{
         _cell = [tableView dequeueReusableCellWithIdentifier:@"WordImageCell" forIndexPath:indexPath];
+        [_cell setModel:_word];
         _cell.delegate = self;
         return _cell;
     }

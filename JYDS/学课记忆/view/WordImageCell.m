@@ -9,6 +9,8 @@
 #import "WordImageCell.h"
 #import "iflyMSC/iflyMSC.h"
 #import "IATConfig.h"
+#import "Word.h"
+#import <UIImageView+WebCache.h>
 @implementation WordImageCell
 
 - (void)awakeFromNib {
@@ -64,5 +66,8 @@
 }
 - (IBAction)showWriteClick:(UIButton *)sender {
     [_delegate showWrite];
+}
+- (void)setModel:(Word *)word{
+    [_img sd_setImageWithURL:[NSURL URLWithString:word.imgUrl] placeholderImage:[UIImage imageNamed:@"course_image"]];
 }
 @end

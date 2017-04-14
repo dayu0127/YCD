@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Word;
 @protocol WordImageCellDelegate<NSObject>
 - (void)showRead;
 - (void)showWrite;
@@ -21,4 +22,5 @@
 @property (strong,nonatomic) UIButton *rwButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *btnBottomSpace;
 @property (weak,nonatomic) id<WordImageCellDelegate> delegate;
+- (void)setModel:(Word *)word;
 @end
