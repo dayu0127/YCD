@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 @protocol WordImageCellDelegate<NSObject>
-- (void)showReadAndWrite;
+- (void)showRead;
+- (void)showWrite;
 @end
 @interface WordImageCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *img;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftSpace;
-
 @property (weak, nonatomic) IBOutlet UIButton *readButton;
 @property (weak, nonatomic) IBOutlet UIButton *writeButton;
 @property (strong,nonatomic) UIView *line;

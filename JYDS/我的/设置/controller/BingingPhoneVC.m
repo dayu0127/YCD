@@ -38,7 +38,7 @@
 - (IBAction)getCheckCode:(id)sender {
     NSString *phoneNum = _phoneTxt.text;
     NSDictionary *jsonDic = @{@"phoneNum" :phoneNum,             // #用户名
-                              @"stype":@"2",               //    #类型  1注册 2登录 3找回密码
+                              @"stype":@"1",               //    #类型  1注册 2登录 3找回密码
                               @"deviceNum":DEVICEID             //     #设备码（选填）
                               };
     [YHWebRequest YHWebRequestForPOST:kSendCheckCode parameters:jsonDic success:^(NSDictionary *json) {

@@ -7,11 +7,13 @@
 //
 
 #import "WordImageCell.h"
-
+#import "iflyMSC/iflyMSC.h"
+#import "IATConfig.h"
 @implementation WordImageCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+//    _popUpView = [[PopupView alloc] initWithFrame:CGRectMake(100, 100, 0, 0) withParentView:self];
     //线
     _line = [UIView new];
     [self.contentView addSubview:_line];
@@ -43,7 +45,7 @@
     _rwButton.backgroundColor = [UIColor colorWithRed:131/255.0 green:46/255.0 blue:43/255.0 alpha:1.0];
     _rwButton.layer.masksToBounds = YES;
     _rwButton.layer.cornerRadius = 3.0f;
-    [_rwButton setTitle:@"按住跟读" forState:UIControlStateNormal];
+    [_rwButton setTitle:@"跟读" forState:UIControlStateNormal];
     [_rwButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _rwButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
     [_rwButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -54,25 +56,13 @@
     }];
     _rwButton.alpha = 0;
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 - (IBAction)showReadClick:(UIButton *)sender {
-    [_delegate showReadAndWrite];
-    [_showButton setTitle:@"" forState:UIControlStateNormal];
-    [_showButton setImage:[UIImage imageNamed:@"course_volume"] forState:
-     UIControlStateNormal];
-    _rwButton.backgroundColor = [UIColor colorWithRed:131/255.0 green:46/255.0 blue:43/255.0 alpha:1.0];
-    [_rwButton setTitle:@"按住跟读" forState:UIControlStateNormal];
+    [_delegate showRead];
 }
 - (IBAction)showWriteClick:(UIButton *)sender {
-    [_delegate showReadAndWrite];
-    [_showButton setTitle:@"aeroplane" forState:UIControlStateNormal];
-    [_showButton setImage:nil forState:UIControlStateNormal];
-    _rwButton.backgroundColor = ORANGERED;
-    [_rwButton setTitle:@"跟写" forState:UIControlStateNormal];
+    [_delegate showWrite];
 }
 @end

@@ -15,7 +15,7 @@
 #import "WXApi.h"
 #import "WXApiManager.h"
 #import <SMS_SDK/Extend/SMSSDK+AddressBookMethods.h>
-
+#import "iflyMSC/IFlyMSC.h"
 
 @interface AppDelegate ()
 @end
@@ -110,6 +110,23 @@
     
     //微信支付注册APPID
     [WXApi registerApp:@"wx7658d0735b233185"];
+    
+    //设置sdk的log等级，log保存在下面设置的工作路径中
+    [IFlySetting setLogFile:LVL_ALL];
+    
+    //打开输出在console的log开关
+    [IFlySetting showLogcat:YES];
+    
+    //设置sdk的工作路径
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cachePath = [paths objectAtIndex:0];
+    [IFlySetting setLogFilePath:cachePath];
+    
+    //创建语音配置,appid必须要传入，仅执行一次则可
+    NSString *initString = [[NSString alloc] initWithFormat:@"appid=%@",@"58e78076"];
+    
+    //所有服务启动前，需要确保执行createUtility
+    [IFlySpeechUtility createUtility:initString];
 }
 - (void)getBannerInfo{
 //    {
@@ -174,6 +191,7 @@
     }else{
         // 微信SDK的回调
         [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+        [[IFlySpeechUtility getUtility] handleOpenURL:url];
     }
     return result;
 }
