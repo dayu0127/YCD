@@ -148,7 +148,8 @@
                     [self returnToHome];
                 });
             }else{
-                [YHHud showWithMessage:json[@"message" ]];
+                NSLog(@"%@",json[@"code"]);
+                NSLog(@"%@",json[@"message"]);
             }
         } failure:^(NSError * _Nonnull error) {
             [YHHud dismiss];
@@ -217,6 +218,9 @@
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [self returnToHome];
                     });
+                }else{
+                    NSLog(@"%@",json[@"code"]);
+                    NSLog(@"%@",json[@"message"]);
                 }
             } failure:^(NSError * _Nonnull error) {
                 NSLog(@"%@",error);
@@ -268,6 +272,9 @@
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [self returnToHome];
                     });
+                }else{
+                    NSLog(@"%@",json[@"code"]);
+                    NSLog(@"%@",json[@"message"]);
                 }
             } failure:^(NSError * _Nonnull error) {
                 NSLog(@"%@",error);

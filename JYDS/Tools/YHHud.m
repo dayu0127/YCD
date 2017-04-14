@@ -77,8 +77,8 @@ static YHHud *hud = nil;
 //    label.textColor = [UIColor whiteColor];
 //    [customView addSubview:label];
     hud = [[YHHud alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    UIImageView *heartImageView =  [[UIImageView alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width/2-75, [UIScreen mainScreen].bounds.size.height/2-75, 150, 150)];
-    heartImageView.bounds = CGRectMake(0, 0, 150, 150);
+    UIImageView *heartImageView =  [[UIImageView alloc]initWithFrame:CGRectMake(WIDTH/2.0-50, HEIGHT/2.0-50, 100, 100)];
+    heartImageView.bounds = CGRectMake(0, 0, 100, 100);
     heartImageView.center = hud.center;
     [hud addSubview:heartImageView];
     NSMutableArray *images = [[NSMutableArray alloc]initWithCapacity:4];
@@ -91,8 +91,38 @@ static YHHud *hud = nil;
     [heartImageView startAnimating];
     [[UIApplication sharedApplication].keyWindow addSubview:hud];
 }
-
-+(void)showWithSuccess:(NSString*)successString{//成功提示
++ (void)showRightOrWrong:(NSString *)str{
+    if (hud!=nil) {
+        [hud removeFromSuperview];
+    }
+    CGFloat h = 0;
+    if (WIDTH==320) {
+        h = 86;
+    }else if(WIDTH==375){
+        h = 140;
+    }else if(WIDTH==414){
+        h = 176;
+    }
+    //添加背景
+    hud = [[YHHud alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT-(135+h))];
+    [[UIApplication sharedApplication].keyWindow addSubview:hud];
+    NSString *imgStr = [NSString stringWithFormat:@"course_%@",str];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imgStr]];
+    imageView.center = hud.center;
+    imageView.bounds = CGRectMake(0, 0, 100, 100);
+    [hud addSubview:imageView];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(WIDTH/2.0-50, hud.center.y+58, 100, 15)];
+    titleLabel.text = [str isEqualToString:@"right"] ? @"答对了！" :@"答错了！";
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    [hud addSubview:titleLabel];
+    //视图消失
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [hud removeFromSuperview];
+    });
+}
++ (void)showWithSuccess:(NSString*)successString{//成功提示
     if (hud!=nil) {
         [hud removeFromSuperview];
     }

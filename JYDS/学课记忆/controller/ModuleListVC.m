@@ -20,6 +20,9 @@
 @property (copy,nonatomic) NSString *unitId;
 @property (strong,nonatomic) JCAlertView *alertView;
 @property (weak, nonatomic) IBOutlet UIButton *subAllButton;
+@property (copy,nonatomic) NSString *inviteCount;
+@property (copy,nonatomic) NSString *preferentialPrice;
+@property (copy,nonatomic) NSString *payPrice;
 @end
 
 @implementation ModuleListVC
@@ -48,6 +51,9 @@
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             _moduleList = resultDic[@"unitList"];
             [_tableView reloadData];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -95,6 +101,9 @@
         PayViewController *payVC = segue.destinationViewController;
         payVC.classId = _classId;
         payVC.payType = @"0";    //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
+        payVC.inviteCount = _inviteCount;
+        payVC.preferentialPrice = _preferentialPrice;
+        payVC.payPrice = _payPrice;
         [YHSingleton shareSingleton].payType = @"0";
     }
 }
@@ -113,7 +122,35 @@
 #pragma mark 继续订阅
 - (void)continueSubClick{
     [_alertView dismissWithCompletion:^{
-        [self performSegueWithIdentifier:@"toPayViewController" sender:self];
+//        {
+//            "userPhone":"******"    #用户手机号
+//            "token":"****"          #登陆凭证
+//            "objectId":"****"       #目标id
+//            "payType":"***"         #支付类型 1：记忆法  0：单词课本
+//        }
+        [YHHud showWithStatus];
+        NSDictionary *jsonDic = @{@"userPhone":self.phoneNum,  //  #用户手机号
+                                              @"payType" :@"0",         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
+                                              @"objectId":_classId,       //  #目标id
+                                              @"token":self.token};       //   #登陆凭证
+        [YHWebRequest YHWebRequestForPOST:kOrderPrice parameters:jsonDic success:^(NSDictionary *json) {
+            [YHHud dismiss];
+            if ([json[@"code"] integerValue] == 200) {
+                NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+                _inviteCount = [NSString stringWithFormat:@"%@",dataDic[@"inviteNum"]];
+                float oldPrice = [dataDic[@"price"] floatValue];
+                float newPrice = [dataDic[@"discountPrice"] floatValue];
+                _preferentialPrice = [NSString stringWithFormat:@"￥:%0.2f",oldPrice-newPrice];
+                _payPrice = [NSString stringWithFormat:@"￥:%0.2f",newPrice];
+                [self performSegueWithIdentifier:@"toPayViewController" sender:self];
+            }else{
+                NSLog(@"%@",json[@"code"]);
+                NSLog(@"%@",json[@"message"]);
+            }
+        } failure:^(NSError * _Nonnull error) {
+            [YHHud dismiss];
+            NSLog(@"%@",error);
+        }];
     }];
 }
 #pragma mark 邀请好友

@@ -27,12 +27,15 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return 4;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     SetCell0 *cell = [tableView dequeueReusableCellWithIdentifier:@"SetCell0" forIndexPath:indexPath];
     if (indexPath.row == 0) {
+        cell.titleLabel0.text = @"修改密码";
+        [cell setCellWithString:@""];
+        cell.bingingLabel.alpha = 0;
+    }else if (indexPath.row == 1) {
         cell.titleLabel0.text = @"手机号码";
         [cell setCellWithString:[YHSingleton shareSingleton].userInfo.phoneNum];
     }else if (indexPath.row == 1){
@@ -49,11 +52,13 @@
     // Dispose of any resources that can be recreated.
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 0) {//手机号绑定
+    if (indexPath.row == 0) {
+        [self performSegueWithIdentifier:@"toModifyPwdVC" sender:self];
+    }else if (indexPath.row == 1) {//手机号绑定
         if ([[YHSingleton shareSingleton].userInfo.phoneNum isEqualToString:@""]) {
             [self performSegueWithIdentifier:@"toBingingPhone" sender:self];
         }
-    }else if (indexPath.row == 1) {//微信绑定
+    }else if (indexPath.row == 2) {//微信绑定
         if ([[YHSingleton shareSingleton].userInfo.associatedWx isEqualToString:@""]) {
             [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:nil completion:^(id result, NSError *error) {
                 if (error) {
@@ -84,6 +89,9 @@
                             [YHSingleton shareSingleton].userInfo.associatedWx = associatedWx;
                             [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
                             [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                        }else{
+                            NSLog(@"%@",json[@"code"]);
+                            NSLog(@"%@",json[@"message"]);
                         }
                     } failure:^(NSError * _Nonnull error) {
                         NSLog(@"%@",error);
@@ -114,7 +122,6 @@
                     NSDictionary *jsonDic = @{@"phoneNum":phoneNum,      // #用户手机号
                                               @"token":token,            //   #令牌
                                               @"associatedQq":associatedQq};  // #第三方绑定的uid 唯一标识
-                    NSLog(@"%@",jsonDic);
                     [YHWebRequest YHWebRequestForPOST:kBindingQQ parameters:jsonDic success:^(NSDictionary *json) {
                         NSLog(@"%@",json);
                         if ([json[@"code"] integerValue] == 200) {
@@ -122,6 +129,9 @@
                             [YHSingleton shareSingleton].userInfo.associatedQq = associatedQq;
                             [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
                             [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                        }else{
+                            NSLog(@"%@",json[@"code"]);
+                            NSLog(@"%@",json[@"message"]);
                         }
                     } failure:^(NSError * _Nonnull error) {
                         NSLog(@"%@",error);

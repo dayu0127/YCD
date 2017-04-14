@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyCollectVC : UIViewController
+@interface MyCollectVC : BaseViewController
 
 @end

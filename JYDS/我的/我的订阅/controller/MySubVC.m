@@ -19,14 +19,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [_tableView registerNib:[UINib nibWithNibName:@"MySubCell" bundle:nil] forCellReuseIdentifier:@"MySubCell"];
-    _arr = @[@{@"img":@"mysub_word",@"title":@"已订阅单词数"},
-              @{@"img":@"mysub_course",@"title":@"已订阅课程"}];
+    _arr = @[@{@"img":@"mysub_course",@"title":@"已订阅记忆法课程"},
+                @{@"img":@"mysub_word",@"title":@"已订阅学课记忆"}];
 }
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
-}
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 2;
@@ -37,5 +34,11 @@
     cell.tile.text = _arr[indexPath.row][@"title"];
     return cell;
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == 0) { //记忆法
+        [self performSegueWithIdentifier:@"toMySubMemoryList" sender:self];
+    }else{  //k12
+        [self performSegueWithIdentifier:@"toMySubCourseList" sender:self];
+    }
+}
 @end

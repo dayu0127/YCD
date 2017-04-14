@@ -32,10 +32,20 @@
                             <constraint firstAttribute="height" constant="28" id="kJ6-Yq-lVP"/>
                         </constraints>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kEo-Ag-hV4" userLabel="line">
+                        <rect key="frame" x="0.0" y="42" width="375" height="1"/>
+                        <color key="backgroundColor" red="0.89411764705882346" green="0.89411764705882346" blue="0.89411764705882346" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="K4T-pF-W3w"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
+                    <constraint firstItem="kEo-Ag-hV4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="6WQ-Eb-7cc"/>
+                    <constraint firstAttribute="bottom" secondItem="kEo-Ag-hV4" secondAttribute="bottom" id="9jC-Ap-SF5"/>
+                    <constraint firstAttribute="trailing" secondItem="kEo-Ag-hV4" secondAttribute="trailing" id="9n7-lE-gCs"/>
                     <constraint firstItem="dFz-CV-Abn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="Ojg-4L-tdD"/>
                     <constraint firstItem="69d-3k-OxP" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ZC9-Il-dyg"/>
                     <constraint firstItem="dFz-CV-Abn" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="aoi-8f-mip"/>
@@ -47,6 +57,7 @@
                 <outlet property="imageView1" destination="dFz-CV-Abn" id="RtW-tl-5oi"/>
                 <outlet property="title" destination="69d-3k-OxP" id="2hG-de-Mbc"/>
             </connections>
+            <point key="canvasLocation" x="26.5" y="52"/>
         </tableViewCell>
     </objects>
     <resources>

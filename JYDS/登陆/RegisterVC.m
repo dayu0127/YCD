@@ -196,6 +196,9 @@
         if ([json[@"code"] integerValue] == 200) {
 //            [YHHud showWithSuccess:json[@"message"]];
             NSLog(@"1111");
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -223,6 +226,9 @@
                 [_delegate autoFillUserName:_phoneTxt.text];
                 [self.navigationController popViewControllerAnimated:YES];
             });
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);

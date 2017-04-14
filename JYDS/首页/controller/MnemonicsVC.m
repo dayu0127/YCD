@@ -16,7 +16,7 @@
 #import "MemoryHeaderView.h"
 #import "DynamicCell.h"
 #import "MemoryCell.h"
-#import "PayVC.h"
+//#import "PayVC.h"
 
 @interface MnemonicsVC ()<UITableViewDelegate,UITableViewDataSource,PlanCellDelegate,MemoryHeaderViewDelegate>
 //@property (strong,nonatomic) NSMutableArray *netImages;  //网络图片

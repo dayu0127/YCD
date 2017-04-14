@@ -11,7 +11,7 @@
 #import "SuccessView.h"
 #import "ResultView.h"
 #import "FailedView.h"
-#import "PayVC.h"
+//#import "PayVC.h"
 
 @interface MemoryExercisesVC ()</*YHAlertViewDelegate,*/LevelViewDelegate,ExerciseViewDelegate,SuccessViewDelegate,FailedViewDelegate,ResultViewDelegate>
 

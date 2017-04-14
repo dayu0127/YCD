@@ -8,7 +8,7 @@
 
 #import "RememberWordSingleWordDetailVC.h"
 #import "Words.h"
-#import "PayVC.h"
+//#import "PayVC.h"
 #import <AVFoundation/AVFoundation.h>
 #import <UIImageView+WebCache.h>
 @interface RememberWordSingleWordDetailVC ()

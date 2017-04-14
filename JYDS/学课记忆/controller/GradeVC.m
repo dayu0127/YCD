@@ -75,8 +75,10 @@
             _classTypeList = resultDic[@"classTypeList"];   //科目
             _versionNameList = resultDic[@"versionNameList"];   //版本
             _versionList = resultDic[@"versionList"];   //课本
-            NSLog(@"%@",_versionList);
             [_tableView reloadData];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -118,6 +120,9 @@
                 _classTypeList = resultDic[@"classTypeList"];   //科目
                 _versionList = resultDic[@"versionList"];   //课本
                 [_tableView reloadData];
+            }else{
+                NSLog(@"%@",json[@"code"]);
+                NSLog(@"%@",json[@"message"]);
             }
         } failure:^(NSError * _Nonnull error) {
             NSLog(@"%@",error);
@@ -134,13 +139,15 @@
                                   @"classType":_currentClassID,  // #科目代码
                                   @"userPhone":phoneNum,     //  #用户手机号
                                   @"token":token};       // #登陆凭证
-        [YHWebRequest YHWebRequestForPOST:kClassTypeList parameters:jsonDic success:^(NSDictionary *json) {
+        [YHWebRequest YHWebRequestForPOST:kVersionNameList parameters:jsonDic success:^(NSDictionary *json) {
             if([json[@"code"] integerValue] == 200){
                 NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
                 _versionNameList = resultDic[@"versionNameList"];   //版本
-//                NSLog(@"%@",_versionNameList);
                 _versionList = resultDic[@"versionList"];   //课本
                 [_tableView reloadData];
+            }else{
+                NSLog(@"%@",json[@"code"]);
+                NSLog(@"%@",json[@"message"]);
             }
         } failure:^(NSError * _Nonnull error) {
             NSLog(@"%@",error);
@@ -153,6 +160,8 @@
 //            "version":"1"           #版本代码（选填）
 //            "userPhone":"***"       #用户手机号
 //            "token":"****"          #登陆凭证
+//            "selectType":           #查询类型 0:根据上面条件查询，1：已订阅
+//            "pageIndex":            #查询页数（选填，select为1时候需要）
 //        }
         _currentVersionNameID = _versionNameList[index][@"class_type"];
         NSDictionary *jsonDic = @{
@@ -161,13 +170,16 @@
             @"classType":_currentClassID,     //    #科目代码（选填）
             @"version":_currentVersionNameID,        //   #版本代码（选填）
             @"userPhone":phoneNum,     //  #用户手机号
-            @"token":token      //   #登陆凭证
-            };
-        [YHWebRequest YHWebRequestForPOST:kVersionNameList parameters:jsonDic success:^(NSDictionary *json) {
+            @"token":token,      //   #登陆凭证
+            @"selectType":@"0"};       //    #查询类型 0:根据上面条件查询，1：已订阅
+        [YHWebRequest YHWebRequestForPOST:kVersionList parameters:jsonDic success:^(NSDictionary *json) {
             if([json[@"code"] integerValue] == 200){
                 NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
                 _versionList = resultDic[@"versionList"];   //课本
                 [_tableView reloadData];
+            }else{
+                NSLog(@"%@",json[@"code"]);
+                NSLog(@"%@",json[@"message"]);
             }
         } failure:^(NSError * _Nonnull error) {
             NSLog(@"%@",error);
@@ -180,9 +192,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return (WIDTH-20)*(30/71.0)*(49/75.0)+72;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 10;
-}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     GradeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GradeCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
