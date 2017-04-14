@@ -9,21 +9,24 @@
 #import <Foundation/Foundation.h>
 
 @interface Word : NSObject
-//\"id\": \"493aba500f7811e7a51c02004c4f4f50\",
-//\"word\": \"afternoon\",
-//\"img_id\": \"55c5ec060f7111e7a51c02004c4f4f50\",
-//\"split\": \"合成词after以后noon午间\",
-//\"phonogram\": \"[ɑ: ftəˈnu: n]\",
-//\"associate\": \"过了午间以后就是~下午~。\",
-//\"word_explain\": \"n.下午\"，
-//\"payType\": 1
+//associate = "\U4f2f\U4f2f\U8bf4\U8fd9\U672c~\U4e66~ok\U3002";
+//"class_id" = 7920306d0f6b11e7a51c02004c4f4f50;
+//collectionType = 0;
+//imgUrl = "https://omjbfvi08.qnssl.com/a/18.jpg";
+//phonogram = "[b\U028ak]";
+//split = "bo \U4f2f  ok";
+//"unit_id" = c33008960f6d11e7a51c02004c4f4f50;
+//word = "book ";
+//wordId = 493ac49a0f7811e7a51c02004c4f4f50;
+//"word_explain" = "n.\U4e66";
 @property (copy,nonatomic) NSString *wordId;
 @property (copy,nonatomic) NSString *word;
-@property (copy,nonatomic) NSString *img_id;
+@property (copy,nonatomic) NSString *imgUrl;
 @property (copy,nonatomic) NSString *split;
 @property (copy,nonatomic) NSString *phonogram;
 @property (copy,nonatomic) NSString *associate;
 @property (copy,nonatomic) NSString *word_explain;
 @property (copy,nonatomic) NSString *unit_id;
 @property (copy,nonatomic) NSString *collectionType;
+@property (copy,nonatomic) NSString *class_id;
 @end
