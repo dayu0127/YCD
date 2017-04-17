@@ -63,11 +63,9 @@
 //        "userPhone":"***"       #用户手机号
 //        "token":"****"          #登陆凭证
 //    }
-    NSString *phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum;
-    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
     NSDictionary *jsonDic = @{@"grade_type":@"1",        //#查询状态 1：小学 2：初中 3：高中
-                                          @"userPhone":phoneNum,     //  #用户手机号
-                                          @"token":token};       // #登陆凭证
+                                          @"userPhone":self.phoneNum,     //  #用户手机号
+                                          @"token":self.token};       // #登陆凭证
     [YHWebRequest YHWebRequestForPOST:kGradeList parameters:jsonDic success:^(NSDictionary *json) {
         if([json[@"code"] integerValue] == 200){
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];

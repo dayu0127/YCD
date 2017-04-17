@@ -97,11 +97,12 @@
     [app.window makeKeyWindow];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section ==0) {
+    if (indexPath.section ==0) { //积分
+       
         TopCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TopCell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
-    }else if (indexPath.section==1){
+    }else if (indexPath.section==1){  //
         MineCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineCell" forIndexPath:indexPath];
         cell.img.image = [UIImage imageNamed:_arr1[indexPath.row][@"img"]];
         cell.tile.text = _arr1[indexPath.row][@"title"];
@@ -132,9 +133,17 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 1) {
         if (indexPath.row == 0) {//我的订阅
-            [self performSegueWithIdentifier:@"toMySub" sender:self];
+            if (self.token==nil&&self.phoneNum==nil) {
+                [self returnToLogin];
+            }else{
+                [self performSegueWithIdentifier:@"toMySub" sender:self];
+            }
         }else if(indexPath.row == 1){//我的收藏
-            [self performSegueWithIdentifier:@"toMyCollect" sender:self];
+            if (self.token==nil&&self.phoneNum==nil) {
+                [self returnToLogin];
+            }else{
+                [self performSegueWithIdentifier:@"toMyCollect" sender:self];
+            }
         }else if (indexPath.row == 2){//邀请奖励
             [self performSegueWithIdentifier:@"toInviteRewards" sender:self];
         }else{//右脑训练
@@ -144,7 +153,11 @@
         if (indexPath.row == 0) {//关于我们
             [self performSegueWithIdentifier:@"toAboutUs" sender:self];
         }else{//意见反馈
-            [self performSegueWithIdentifier:@"toFeedback" sender:self];
+            if (self.token==nil&&self.phoneNum==nil) {
+                [self returnToLogin];
+            }else{
+                [self performSegueWithIdentifier:@"toFeedback" sender:self];
+            }
         }
     }else if(indexPath.section == 3&&indexPath.row == 0){//设置
         [self performSegueWithIdentifier:@"toSet" sender:self];

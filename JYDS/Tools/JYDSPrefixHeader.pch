@@ -143,6 +143,8 @@
 #define kOrderPrice API(@"/pay/getOrderPrice")  //获取订单价格
 #define kFedBack API(@"/system/fedBack")    //用户反馈
 #define kCollectionList API(@"/user/getCollectionList")    //收藏列表
+#define kNoticeList API(@"/common/getNoticeList")    //消息列表
+#define kInvitationList API(@"/user/invitationList")    //邀请列表
 //练习题等级数组
 #define LEVELARRAY @[@"60",@"50",@"40",@"30",@"25",@"20",@"15",@"13",@"10"]
 //练习题价格
@@ -150,7 +152,8 @@
 
 //UUID
 #define DEVICEID [[[UIDevice currentDevice] identifierForVendor] UUIDString]
-
+//签到详情
+#define kSignIn(phoneNum) [NSString stringWithFormat:@"https://www.jydsapp.com/jydsApi/h5/sign.html?userPhone=%@",phoneNum]
 //消息详情
 #define kMessageDetail @"https://www.jydsapp.com/jydsApi/h5/noticePage.html"
 //邀请奖励

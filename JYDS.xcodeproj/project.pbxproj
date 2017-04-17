@@ -124,9 +124,6 @@
 		6010FFAB1E912A2400071610 /* codeName.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6010FFAA1E912A2400071610 /* codeName.plist */; };
 		6010FFBE1E912B4400071610 /* SetCell0.m in Sources */ = {isa = PBXBuildFile; fileRef = 6010FFB91E912B4400071610 /* SetCell0.m */; };
 		6010FFBF1E912B4400071610 /* SetCell0.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6010FFBA1E912B4400071610 /* SetCell0.xib */; };
-		6010FFC01E912B4400071610 /* SetCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = 6010FFBC1E912B4400071610 /* SetCell1.m */; };
-		6010FFC11E912B4400071610 /* SetCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6010FFBD1E912B4400071610 /* SetCell1.xib */; };
-		6010FFC51E912B9F00071610 /* InviteRewardsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6010FFC41E912B9F00071610 /* InviteRewardsVC.m */; };
 		6013E80C1E5EE37E007E257A /* OtherAmountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6013E80A1E5EE37E007E257A /* OtherAmountCell.m */; };
 		6013E80D1E5EE37E007E257A /* OtherAmountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6013E80B1E5EE37E007E257A /* OtherAmountCell.xib */; };
 		602917841E90B1B400051C0B /* Mnemonics.m in Sources */ = {isa = PBXBuildFile; fileRef = 602917831E90B1B400051C0B /* Mnemonics.m */; };
@@ -279,6 +276,14 @@
 		60E2DD001E5A94F500D45986 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60E2DCFB1E5A94F500D45986 /* libWeChatSDK.a */; };
 		60E2DD011E5A94F500D45986 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 60E2DCFC1E5A94F500D45986 /* README.txt */; };
 		60E2DD041E5AA22F00D45986 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E2DD031E5AA22F00D45986 /* WXApiManager.m */; };
+		60E514EA1EA47391007CB096 /* SignInVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E514E91EA47391007CB096 /* SignInVC.m */; };
+		60E514EE1EA49101007CB096 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E514ED1EA49101007CB096 /* Message.m */; };
+		60E514F91EA4A154007CB096 /* InviteCodeListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E514F41EA4A154007CB096 /* InviteCodeListVC.m */; };
+		60E514FA1EA4A154007CB096 /* InviteRewardsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E514F61EA4A154007CB096 /* InviteRewardsVC.m */; };
+		60E514FE1EA4A4FC007CB096 /* InviteTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E514FC1EA4A4FC007CB096 /* InviteTitleCell.m */; };
+		60E514FF1EA4A4FC007CB096 /* InviteTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60E514FD1EA4A4FC007CB096 /* InviteTitleCell.xib */; };
+		60E515031EA4AB62007CB096 /* InviteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E515011EA4AB62007CB096 /* InviteCell.m */; };
+		60E515041EA4AB62007CB096 /* InviteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60E515021EA4AB62007CB096 /* InviteCell.xib */; };
 		60F308861E8A487600476E32 /* UIButton+ImageTitleSpacing.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F308851E8A487600476E32 /* UIButton+ImageTitleSpacing.m */; };
 		60F4EB651E9B178600DC7AB8 /* SureSubView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F4EB631E9B178600DC7AB8 /* SureSubView.m */; };
 		60F4EB661E9B178600DC7AB8 /* SureSubView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60F4EB641E9B178600DC7AB8 /* SureSubView.xib */; };
@@ -426,11 +431,6 @@
 		6010FFB81E912B4400071610 /* SetCell0.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetCell0.h; sourceTree = "<group>"; };
 		6010FFB91E912B4400071610 /* SetCell0.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetCell0.m; sourceTree = "<group>"; };
 		6010FFBA1E912B4400071610 /* SetCell0.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetCell0.xib; sourceTree = "<group>"; };
-		6010FFBB1E912B4400071610 /* SetCell1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetCell1.h; sourceTree = "<group>"; };
-		6010FFBC1E912B4400071610 /* SetCell1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetCell1.m; sourceTree = "<group>"; };
-		6010FFBD1E912B4400071610 /* SetCell1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetCell1.xib; sourceTree = "<group>"; };
-		6010FFC31E912B9F00071610 /* InviteRewardsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteRewardsVC.h; sourceTree = "<group>"; };
-		6010FFC41E912B9F00071610 /* InviteRewardsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteRewardsVC.m; sourceTree = "<group>"; };
 		6013E8091E5EE37E007E257A /* OtherAmountCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherAmountCell.h; sourceTree = "<group>"; };
 		6013E80A1E5EE37E007E257A /* OtherAmountCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherAmountCell.m; sourceTree = "<group>"; };
 		6013E80B1E5EE37E007E257A /* OtherAmountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OtherAmountCell.xib; sourceTree = "<group>"; };
@@ -775,6 +775,20 @@
 		60E2DCFF1E5A94F500D45986 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		60E2DD021E5AA22F00D45986 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
 		60E2DD031E5AA22F00D45986 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
+		60E514E81EA47391007CB096 /* SignInVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInVC.h; sourceTree = "<group>"; };
+		60E514E91EA47391007CB096 /* SignInVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInVC.m; sourceTree = "<group>"; };
+		60E514EC1EA49101007CB096 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		60E514ED1EA49101007CB096 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		60E514F31EA4A154007CB096 /* InviteCodeListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteCodeListVC.h; sourceTree = "<group>"; };
+		60E514F41EA4A154007CB096 /* InviteCodeListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteCodeListVC.m; sourceTree = "<group>"; };
+		60E514F51EA4A154007CB096 /* InviteRewardsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteRewardsVC.h; sourceTree = "<group>"; };
+		60E514F61EA4A154007CB096 /* InviteRewardsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteRewardsVC.m; sourceTree = "<group>"; };
+		60E514FB1EA4A4FC007CB096 /* InviteTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteTitleCell.h; sourceTree = "<group>"; };
+		60E514FC1EA4A4FC007CB096 /* InviteTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteTitleCell.m; sourceTree = "<group>"; };
+		60E514FD1EA4A4FC007CB096 /* InviteTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InviteTitleCell.xib; sourceTree = "<group>"; };
+		60E515001EA4AB62007CB096 /* InviteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteCell.h; sourceTree = "<group>"; };
+		60E515011EA4AB62007CB096 /* InviteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteCell.m; sourceTree = "<group>"; };
+		60E515021EA4AB62007CB096 /* InviteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InviteCell.xib; sourceTree = "<group>"; };
 		60F308841E8A487600476E32 /* UIButton+ImageTitleSpacing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+ImageTitleSpacing.h"; sourceTree = "<group>"; };
 		60F308851E8A487600476E32 /* UIButton+ImageTitleSpacing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+ImageTitleSpacing.m"; sourceTree = "<group>"; };
 		60F4EB621E9B178600DC7AB8 /* SureSubView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SureSubView.h; sourceTree = "<group>"; };
@@ -985,9 +999,6 @@
 				6010FFB81E912B4400071610 /* SetCell0.h */,
 				6010FFB91E912B4400071610 /* SetCell0.m */,
 				6010FFBA1E912B4400071610 /* SetCell0.xib */,
-				6010FFBB1E912B4400071610 /* SetCell1.h */,
-				6010FFBC1E912B4400071610 /* SetCell1.m */,
-				6010FFBD1E912B4400071610 /* SetCell1.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -995,8 +1006,9 @@
 		6010FFC21E912B8C00071610 /* 邀请奖励 */ = {
 			isa = PBXGroup;
 			children = (
-				6010FFC31E912B9F00071610 /* InviteRewardsVC.h */,
-				6010FFC41E912B9F00071610 /* InviteRewardsVC.m */,
+				60E514F21EA4A154007CB096 /* controller */,
+				60E514F71EA4A154007CB096 /* model */,
+				60E514F81EA4A154007CB096 /* view */,
 			);
 			path = "邀请奖励";
 			sourceTree = "<group>";
@@ -1060,6 +1072,7 @@
 		6042E0EF1E8D0BB300756A61 /* 消息 */ = {
 			isa = PBXGroup;
 			children = (
+				60E514EB1EA490F0007CB096 /* model */,
 				6042E0F11E8D0BDD00756A61 /* controller */,
 				6042E0F01E8D0BDD00756A61 /* view */,
 			);
@@ -1197,6 +1210,7 @@
 				606A94F31E51A8CA00A0279D /* 轮播图详情 */,
 				6039EEB91E9F8EB000BA4E24 /* 最新动态 */,
 				6042E0EF1E8D0BB300756A61 /* 消息 */,
+				60E514E71EA4736F007CB096 /* 签到 */,
 			);
 			name = "首页";
 			path = "JYDS/首页";
@@ -1732,6 +1746,55 @@
 			path = JYDS/WeChatPay;
 			sourceTree = SOURCE_ROOT;
 		};
+		60E514E71EA4736F007CB096 /* 签到 */ = {
+			isa = PBXGroup;
+			children = (
+				60E514E81EA47391007CB096 /* SignInVC.h */,
+				60E514E91EA47391007CB096 /* SignInVC.m */,
+			);
+			path = "签到";
+			sourceTree = "<group>";
+		};
+		60E514EB1EA490F0007CB096 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				60E514EC1EA49101007CB096 /* Message.h */,
+				60E514ED1EA49101007CB096 /* Message.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		60E514F21EA4A154007CB096 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				60E514F51EA4A154007CB096 /* InviteRewardsVC.h */,
+				60E514F61EA4A154007CB096 /* InviteRewardsVC.m */,
+				60E514F31EA4A154007CB096 /* InviteCodeListVC.h */,
+				60E514F41EA4A154007CB096 /* InviteCodeListVC.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		60E514F71EA4A154007CB096 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		60E514F81EA4A154007CB096 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				60E514FB1EA4A4FC007CB096 /* InviteTitleCell.h */,
+				60E514FC1EA4A4FC007CB096 /* InviteTitleCell.m */,
+				60E514FD1EA4A4FC007CB096 /* InviteTitleCell.xib */,
+				60E515001EA4AB62007CB096 /* InviteCell.h */,
+				60E515011EA4AB62007CB096 /* InviteCell.m */,
+				60E515021EA4AB62007CB096 /* InviteCell.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		69B129D81DE2C6490093D841 = {
 			isa = PBXGroup;
 			children = (
@@ -1839,7 +1902,7 @@
 				TargetAttributes = {
 					69B129E01DE2C6490093D841 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = AE5L29EYR8;
+						DevelopmentTeam = VL3XXNWR94;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1978,6 +2041,7 @@
 				602BDD301E8366E300C6CB92 /* BannerCell.xib in Resources */,
 				6010FF851E9128DB00071610 /* 81.png in Resources */,
 				6010FF351E9128DB00071610 /* 00.png in Resources */,
+				60E515041EA4AB62007CB096 /* InviteCell.xib in Resources */,
 				6010FF881E9128DB00071610 /* 84.png in Resources */,
 				608658BD1E94CF1B00A20EDC /* GradeCell.xib in Resources */,
 				6010FF761E9128DB00071610 /* 68.png in Resources */,
@@ -1986,7 +2050,6 @@
 				6010FF5F1E9128DB00071610 /* 47.png in Resources */,
 				6010FF701E9128DB00071610 /* 62.png in Resources */,
 				6010FF7E1E9128DB00071610 /* 75.png in Resources */,
-				6010FFC11E912B4400071610 /* SetCell1.xib in Resources */,
 				60A5C7CC1E8B8F61007D2366 /* MySubCell.xib in Resources */,
 				6010FF641E9128DB00071610 /* 51.png in Resources */,
 				602BDD421E83697700C6CB92 /* MemoryCell.xib in Resources */,
@@ -2001,6 +2064,7 @@
 				6010FF751E9128DB00071610 /* 67.png in Resources */,
 				6010FF831E9128DB00071610 /* 8.png in Resources */,
 				60F4EB661E9B178600DC7AB8 /* SureSubView.xib in Resources */,
+				60E514FF1EA4A4FC007CB096 /* InviteTitleCell.xib in Resources */,
 				6010FFBF1E912B4400071610 /* SetCell0.xib in Resources */,
 				6010FF3B1E9128DB00071610 /* 14.png in Resources */,
 				6010FF771E9128DB00071610 /* 69.png in Resources */,
@@ -2067,8 +2131,10 @@
 			files = (
 				606A94FA1E51A8CA00A0279D /* MemoryCourseVC.m in Sources */,
 				6078D2081E1613180089D40F /* RootTabBarController.m in Sources */,
+				60E514EA1EA47391007CB096 /* SignInVC.m in Sources */,
 				609F06291E1621BD009F4986 /* UpdateNickNameVC.m in Sources */,
 				60F7321F1E691B4900907D1E /* RememberWordModuleVC.m in Sources */,
+				60E515031EA4AB62007CB096 /* InviteCell.m in Sources */,
 				6078D1C61E1613180089D40F /* RememberWordVC.m in Sources */,
 				6010FF9D1E9128DB00071610 /* LevelView.m in Sources */,
 				604FE01A1E9B251400C98A54 /* SubAlertView.m in Sources */,
@@ -2082,9 +2148,7 @@
 				6078D1FE1E1613180089D40F /* BaseViewController.m in Sources */,
 				60F4EB651E9B178600DC7AB8 /* SureSubView.m in Sources */,
 				608658C41E94E1D100A20EDC /* ModuleCell.m in Sources */,
-				6010FFC51E912B9F00071610 /* InviteRewardsVC.m in Sources */,
 				608851931E9E0A9F004C107E /* YHMonitorKeyboard.m in Sources */,
-				6010FFC01E912B4400071610 /* SetCell1.m in Sources */,
 				6010FF9B1E9128DB00071610 /* FailedView.m in Sources */,
 				6078D1FF1E1613180089D40F /* BaseWKWebView.m in Sources */,
 				6039EEB31E9F5A1000BA4E24 /* ModifyPwdVC.m in Sources */,
@@ -2102,6 +2166,7 @@
 				606A94E41E51A89E00A0279D /* SecretsVC.m in Sources */,
 				6078D2261E161AF20089D40F /* YHWebRequest.m in Sources */,
 				6010FFA71E91295A00071610 /* MemoryExercisesVC.m in Sources */,
+				60E514EE1EA49101007CB096 /* Message.m in Sources */,
 				6078D1C41E1613180089D40F /* RememberWordItemVC.m in Sources */,
 				6010FFA61E91295A00071610 /* CodeListVC.m in Sources */,
 				60402E5E1E852A7600B1AD91 /* ButtomCell.m in Sources */,
@@ -2142,6 +2207,7 @@
 				604DBF2A1E8E22D10025E50C /* NSDictionary+FromNSString.m in Sources */,
 				609F063F1E1621D9009F4986 /* UserAgreementVC.m in Sources */,
 				609D6D521E17782D000BCD65 /* BaseNavViewController.m in Sources */,
+				60E514FE1EA4A4FC007CB096 /* InviteTitleCell.m in Sources */,
 				609F06421E1621DF009F4986 /* HelpFeedbackVC.m in Sources */,
 				60A5C7CB1E8B8F61007D2366 /* MySubCell.m in Sources */,
 				608851901E9DDC63004C107E /* MemoryComment.m in Sources */,
@@ -2155,6 +2221,7 @@
 				6078D2031E1613180089D40F /* main.m in Sources */,
 				609F05DF1E161D1A009F4986 /* ForgetPwdVC.m in Sources */,
 				608658DC1E950E2C00A20EDC /* WordDetailCell.m in Sources */,
+				60E514F91EA4A154007CB096 /* InviteCodeListVC.m in Sources */,
 				60557ACD1EA0ACC00018D761 /* IATConfig.m in Sources */,
 				60402E481E850FFD00B1AD91 /* MineTableVC.m in Sources */,
 				6010FF9A1E9128DB00071610 /* ExerciseView.m in Sources */,
@@ -2179,6 +2246,7 @@
 				609F05E81E161DE5009F4986 /* Words.m in Sources */,
 				60A5C7D11E8BDB94007D2366 /* SetVC.m in Sources */,
 				6039EEAA1E9F1EBE00BA4E24 /* MyCourseSubedVC.m in Sources */,
+				60E514FA1EA4A154007CB096 /* InviteRewardsVC.m in Sources */,
 				6010FEB81E91230D00071610 /* MessageDetailVC.m in Sources */,
 				6010FF9E1E9128DB00071610 /* ResultView.m in Sources */,
 				6078D1F91E1613180089D40F /* openssl_wrapper.m in Sources */,
@@ -2332,7 +2400,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: You Xia (VL3XXNWR94)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AE5L29EYR8;
+				DEVELOPMENT_TEAM = VL3XXNWR94;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2457,7 +2525,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: You Xia (VL3XXNWR94)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = AE5L29EYR8;
+				DEVELOPMENT_TEAM = VL3XXNWR94;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

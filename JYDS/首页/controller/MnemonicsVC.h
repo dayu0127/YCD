@@ -6,5 +6,5 @@
 //  Copyright © 2016年 dayu. All rights reserved.
 //
 #import <UIKit/UIKit.h>
-@interface MnemonicsVC : UIViewController
+@interface MnemonicsVC : BaseViewController
 @end

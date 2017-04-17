@@ -24,18 +24,18 @@
     [super touchesBegan:touches withEvent:event];
     [self.view endEditing:YES];
 }
-//- (void)returnToLogin{
-//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
-//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下线提醒" message:@"该账号已在其他设备上登录" preferredStyle:UIAlertControllerStyleAlert];
-//    [alert addAction:[UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-//        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//        LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-//        [app.window setRootViewController:loginVC];
-//        [app.window makeKeyWindow];
-//    }]];
-//    [self presentViewController:alert animated:YES completion:nil];
-//}
+- (void)returnToLogin{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"请先登录" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
+        [app.window setRootViewController:loginVC];
+        [app.window makeKeyWindow];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.view endEditing:YES];

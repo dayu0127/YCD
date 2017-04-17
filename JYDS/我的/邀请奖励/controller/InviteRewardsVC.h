@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface InviteRewardsVC : UIViewController
+@interface InviteRewardsVC : BaseViewController
 
 @end

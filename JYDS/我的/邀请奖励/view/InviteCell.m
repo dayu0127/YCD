@@ -1,14 +1,14 @@
 //
-//  SetCell1.m
+//  InviteCell.m
 //  JYDS
 //
-//  Created by 大雨 on 2017/3/29.
+//  Created by liyu on 2017/4/17.
 //  Copyright © 2017年 dayu. All rights reserved.
 //
 
-#import "SetCell1.h"
+#import "InviteCell.h"
 
-@implementation SetCell1
+@implementation InviteCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

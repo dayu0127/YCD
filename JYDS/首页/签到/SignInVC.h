@@ -1,13 +1,13 @@
 //
-//  SetCell1.h
+//  SignInVC.h
 //  JYDS
 //
-//  Created by 大雨 on 2017/3/29.
+//  Created by liyu on 2017/4/17.
 //  Copyright © 2017年 dayu. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface SetCell1 : UITableViewCell
+@interface SignInVC : UIViewController
 
 @end

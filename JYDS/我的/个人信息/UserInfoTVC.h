@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol UserInfoTVCDelegate<NSObject>
+- (void)updateHeadImageAndNickName:(UIImage *)img nickName:(NSString *)str;
+@end
 @interface UserInfoTVC : UITableViewController
 
 @end

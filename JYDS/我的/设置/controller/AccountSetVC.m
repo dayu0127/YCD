@@ -21,7 +21,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [_tableView registerNib:[UINib nibWithNibName:@"SetCell0" bundle:nil] forCellReuseIdentifier:@"SetCell0"];
-    [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
 }
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -75,16 +74,12 @@
                     //                    "genter":""                     #性别 1男 0女  （选填）
                     //
                     //                }
-                    NSString *phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum;
-                    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
                     NSString *associatedWx = resp.uid;
-                    NSDictionary *jsonDic = @{@"phoneNum":phoneNum,      // #用户手机号
-                                                          @"token":token,            //   #令牌
+                    NSDictionary *jsonDic = @{@"phoneNum":self.phoneNum,      // #用户手机号
+                                                          @"token":self.token,            //   #令牌
                                                          @"associatedWx":associatedWx};  // #第三方绑定的uid 唯一标识
-                    NSLog(@"%@",jsonDic);
                     [YHWebRequest YHWebRequestForPOST:kBindingWX parameters:jsonDic success:^(NSDictionary *json) {
                         if ([json[@"code"] integerValue] == 200) {
-                            NSLog(@"%@",json);
                             [YHHud showWithSuccess:@"绑定成功"];
                             [YHSingleton shareSingleton].userInfo.associatedWx = associatedWx;
                             [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
@@ -116,11 +111,9 @@
                     
                 } else {
                     UMSocialUserInfoResponse *resp = result;
-                    NSString *phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum;
-                    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
                     NSString *associatedQq = resp.uid;
-                    NSDictionary *jsonDic = @{@"phoneNum":phoneNum,      // #用户手机号
-                                              @"token":token,            //   #令牌
+                    NSDictionary *jsonDic = @{@"phoneNum":self.phoneNum,      // #用户手机号
+                                              @"token":self.token,            //   #令牌
                                               @"associatedQq":associatedQq};  // #第三方绑定的uid 唯一标识
                     [YHWebRequest YHWebRequestForPOST:kBindingQQ parameters:jsonDic success:^(NSDictionary *json) {
                         NSLog(@"%@",json);
@@ -144,7 +137,7 @@
 #pragma mark 退出当前账号
 - (IBAction)logoutClick:(id)sender {
     //清空token
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"tolen"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"token"];
     //清空个人信息
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfo"];
     //改变登录状态

@@ -24,4 +24,11 @@
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
+- (IBAction)inviteListClick:(UIButton *)sender {
+    if (self.token==nil&&self.phoneNum==nil) {
+        [self returnToLogin];
+    }else{
+        [self performSegueWithIdentifier:@"toInviteList" sender:self];
+    }
+}
 @end
