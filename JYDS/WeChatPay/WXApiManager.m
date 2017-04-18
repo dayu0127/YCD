@@ -47,42 +47,42 @@
         }
     }else if([resp isKindOfClass:[PayResp class]]){
         //支付返回结果，实际支付结果需要去微信服务器端查询
-//        if (resp.errCode == 0) {
-//            [YHHud showWithSuccess:@"支付成功"];
-//            NSLog(@"支付成功－PaySuccess，retcode = %d", resp.errCode);
-//        }else if (resp.errCode == -2){
-//            [YHHud showWithMessage:@"用户取消支付"];
-//            NSLog(@"错误，retcode = %d, retstr = %@", resp.errCode,resp.errStr);
-//        }else{
-//            [YHHud showWithMessage:@"支付失败"];
-//            NSLog(@"错误，retcode = %d, retstr = %@", resp.errCode,resp.errStr);
-//        }
-//        {
-//            "userPhone":"******"    #用户手机号
-//            "transaction_id":"***"  #微信官方订单号（选填，与out_trade_no二选一）
-//            "out_trade_no":"***"    #商户订单号（选填，与transaction_id二选一）
-//            "token":"****"          #登陆凭证
-//        }
-        [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
-        NSDictionary *jsonDic = @{@"userPhone":[YHSingleton shareSingleton].userInfo.phoneNum,  //  #用户手机号
-                                  @"out_trade_no":[YHSingleton shareSingleton].wx_out_trade_no,  //  #商户订单号（选填，与transaction_id二选一）
-                                  @"token":[[NSUserDefaults standardUserDefaults] objectForKey:@"token"]};      //    #登陆凭证
-        [YHWebRequest YHWebRequestForPOST:kWXSignCheck parameters:jsonDic success:^(NSDictionary *json) {
-            if ([json[@"code"] integerValue] == 200) {
-                if ([[YHSingleton shareSingleton].payType isEqualToString:@"0"]) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateWordSubStatus" object:nil];
-                }else if ([[YHSingleton shareSingleton].payType isEqualToString:@"1"]){
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMemorySubStatus" object:nil];
+        if (resp.errCode == 0) {
+            //        {
+            //            "userPhone":"******"    #用户手机号
+            //            "transaction_id":"***"  #微信官方订单号（选填，与out_trade_no二选一）
+            //            "out_trade_no":"***"    #商户订单号（选填，与transaction_id二选一）
+            //            "token":"****"          #登陆凭证
+            //        }
+            [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
+            NSDictionary *jsonDic = @{@"userPhone":[YHSingleton shareSingleton].userInfo.phoneNum,  //  #用户手机号
+                                      @"out_trade_no":[YHSingleton shareSingleton].wx_out_trade_no,  //  #商户订单号（选填，与transaction_id二选一）
+                                      @"token":[[NSUserDefaults standardUserDefaults] objectForKey:@"token"]};      //    #登陆凭证
+            [YHWebRequest YHWebRequestForPOST:kWXSignCheck parameters:jsonDic success:^(NSDictionary *json) {
+                NSLog(@"%@",json);
+                if ([json[@"code"] integerValue] == 200) {
+                    if ([[YHSingleton shareSingleton].payType isEqualToString:@"0"]) {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateWordSubStatus" object:nil];
+                    }else if ([[YHSingleton shareSingleton].payType isEqualToString:@"1"]){
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMemorySubStatus" object:nil];
+                    }
+                    [YHHud showWithSuccess:@"支付成功"];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"back" object:nil];
+                }else{
+                    NSLog(@"%@",json[@"code"]);
+                    NSLog(@"%@",json[@"message"]);
                 }
-                [YHHud showWithSuccess:@"支付成功"];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"back" object:nil];
-            }else{
-                NSLog(@"%@",json[@"code"]);
-                NSLog(@"%@",json[@"message"]);
-            }
-        } failure:^(NSError * _Nonnull error) {
-            NSLog(@"%@",error);
-        }];
+            } failure:^(NSError * _Nonnull error) {
+                NSLog(@"%@",error);
+            }];
+            NSLog(@"支付成功－PaySuccess，retcode = %d", resp.errCode);
+        }else if (resp.errCode == -2){
+            [YHHud showWithMessage:@"用户取消支付"];
+            NSLog(@"错误，retcode = %d, retstr = %@", resp.errCode,resp.errStr);
+        }else{
+            [YHHud showWithMessage:@"支付失败"];
+            NSLog(@"错误，retcode = %d, retstr = %@", resp.errCode,resp.errStr);
+        }
     }
 }
 #pragma mark 更新用户剩余和充值的学习豆

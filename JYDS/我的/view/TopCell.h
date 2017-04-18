@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface TopCell : UITableViewCell
-
+@property (weak, nonatomic) IBOutlet UILabel *pointsLabel;
 @end

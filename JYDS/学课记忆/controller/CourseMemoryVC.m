@@ -51,7 +51,7 @@
     if (self.token==nil&&self.phoneNum==nil) {
         [self returnToLogin];
     }else{
-        if (sender.tag<=3) {
+        if (sender.tag<3) {
             _grade_type = [NSString stringWithFormat:@"%zd",sender.tag];
             [self performSegueWithIdentifier:@"toItemDetail" sender:self];
         }else{

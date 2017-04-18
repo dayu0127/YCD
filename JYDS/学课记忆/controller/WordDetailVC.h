@@ -16,4 +16,5 @@
 @property (copy,nonatomic) NSString *classId;
 @property (copy,nonatomic) NSString *unitId;
 @property (weak,nonatomic) id<WordDetailVCDelegate> delegate;
+@property (assign,nonatomic) BOOL showCollectButton;
 @end

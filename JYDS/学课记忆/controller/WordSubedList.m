@@ -173,6 +173,7 @@
     wordDetailVC.word = _word;
     wordDetailVC.classId = _classId;
     wordDetailVC.unitId = _unitId;
+    wordDetailVC.showCollectButton = YES;
 }
 - (void)updateWordList{
     NSDictionary *jsonDic = @{@"classId":_classId,    //  #版本ID

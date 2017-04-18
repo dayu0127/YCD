@@ -273,6 +273,9 @@
 		60A5C7D41E8BE27F007D2366 /* AccountSetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A5C7D31E8BE27F007D2366 /* AccountSetVC.m */; };
 		60A976C71E8A0B2400F5461B /* DynamicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A976C51E8A0B2400F5461B /* DynamicCell.m */; };
 		60A976C81E8A0B2400F5461B /* DynamicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60A976C61E8A0B2400F5461B /* DynamicCell.xib */; };
+		60C71A1F1EA5E2C400164BE3 /* MyPointsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C71A1E1EA5E2C400164BE3 /* MyPointsVC.m */; };
+		60C71A231EA5EA2E00164BE3 /* MyPointsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C71A211EA5EA2E00164BE3 /* MyPointsCell.m */; };
+		60C71A241EA5EA2E00164BE3 /* MyPointsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60C71A221EA5EA2E00164BE3 /* MyPointsCell.xib */; };
 		60E2DD001E5A94F500D45986 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60E2DCFB1E5A94F500D45986 /* libWeChatSDK.a */; };
 		60E2DD011E5A94F500D45986 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 60E2DCFC1E5A94F500D45986 /* README.txt */; };
 		60E2DD041E5AA22F00D45986 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E2DD031E5AA22F00D45986 /* WXApiManager.m */; };
@@ -768,6 +771,11 @@
 		60A976C41E8A0B2400F5461B /* DynamicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicCell.h; sourceTree = "<group>"; };
 		60A976C51E8A0B2400F5461B /* DynamicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicCell.m; sourceTree = "<group>"; };
 		60A976C61E8A0B2400F5461B /* DynamicCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DynamicCell.xib; sourceTree = "<group>"; };
+		60C71A1D1EA5E2C400164BE3 /* MyPointsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPointsVC.h; sourceTree = "<group>"; };
+		60C71A1E1EA5E2C400164BE3 /* MyPointsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPointsVC.m; sourceTree = "<group>"; };
+		60C71A201EA5EA2E00164BE3 /* MyPointsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPointsCell.h; sourceTree = "<group>"; };
+		60C71A211EA5EA2E00164BE3 /* MyPointsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPointsCell.m; sourceTree = "<group>"; };
+		60C71A221EA5EA2E00164BE3 /* MyPointsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyPointsCell.xib; sourceTree = "<group>"; };
 		60E2DCFB1E5A94F500D45986 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		60E2DCFC1E5A94F500D45986 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		60E2DCFD1E5A94F500D45986 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
@@ -1357,6 +1365,7 @@
 				60402E441E850FD000B1AD91 /* model */,
 				60402E451E850FD000B1AD91 /* view */,
 				60A5C7991E8B6771007D2366 /* 个人信息 */,
+				60C71A1C1EA5E2A600164BE3 /* 积分 */,
 				60A5C7BD1E8B8970007D2366 /* 我的订阅 */,
 				60A5C79D1E8B786B007D2366 /* 我的收藏 */,
 				6010FFC21E912B8C00071610 /* 邀请奖励 */,
@@ -1731,6 +1740,18 @@
 			path = controller;
 			sourceTree = "<group>";
 		};
+		60C71A1C1EA5E2A600164BE3 /* 积分 */ = {
+			isa = PBXGroup;
+			children = (
+				60C71A1D1EA5E2C400164BE3 /* MyPointsVC.h */,
+				60C71A1E1EA5E2C400164BE3 /* MyPointsVC.m */,
+				60C71A201EA5EA2E00164BE3 /* MyPointsCell.h */,
+				60C71A211EA5EA2E00164BE3 /* MyPointsCell.m */,
+				60C71A221EA5EA2E00164BE3 /* MyPointsCell.xib */,
+			);
+			path = "积分";
+			sourceTree = "<group>";
+		};
 		60E2DCFA1E5A94C300D45986 /* WeChatPay */ = {
 			isa = PBXGroup;
 			children = (
@@ -1902,7 +1923,7 @@
 				TargetAttributes = {
 					69B129E01DE2C6490093D841 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = VL3XXNWR94;
+						DevelopmentTeam = AE5L29EYR8;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1944,6 +1965,7 @@
 				6010FF721E9128DB00071610 /* 64.png in Resources */,
 				6010FF481E9128DB00071610 /* 26.png in Resources */,
 				6010FF961E9128DB00071610 /* 97.png in Resources */,
+				60C71A241EA5EA2E00164BE3 /* MyPointsCell.xib in Resources */,
 				60A976C81E8A0B2400F5461B /* DynamicCell.xib in Resources */,
 				6042E0F91E8D0D8300756A61 /* MessageCell.xib in Resources */,
 				6010FF8D1E9128DB00071610 /* 89.png in Resources */,
@@ -2170,6 +2192,7 @@
 				6078D1C41E1613180089D40F /* RememberWordItemVC.m in Sources */,
 				6010FFA61E91295A00071610 /* CodeListVC.m in Sources */,
 				60402E5E1E852A7600B1AD91 /* ButtomCell.m in Sources */,
+				60C71A1F1EA5E2C400164BE3 /* MyPointsVC.m in Sources */,
 				60A5C7A51E8B7C95007D2366 /* MyCollectVC.m in Sources */,
 				602BDD411E83697700C6CB92 /* MemoryCell.m in Sources */,
 				606A94FB1E51A8CA00A0279D /* BannerDetailVC.m in Sources */,
@@ -2247,6 +2270,7 @@
 				60A5C7D11E8BDB94007D2366 /* SetVC.m in Sources */,
 				6039EEAA1E9F1EBE00BA4E24 /* MyCourseSubedVC.m in Sources */,
 				60E514FA1EA4A154007CB096 /* InviteRewardsVC.m in Sources */,
+				60C71A231EA5EA2E00164BE3 /* MyPointsCell.m in Sources */,
 				6010FEB81E91230D00071610 /* MessageDetailVC.m in Sources */,
 				6010FF9E1E9128DB00071610 /* ResultView.m in Sources */,
 				6078D1F91E1613180089D40F /* openssl_wrapper.m in Sources */,
@@ -2400,7 +2424,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: You Xia (VL3XXNWR94)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = VL3XXNWR94;
+				DEVELOPMENT_TEAM = AE5L29EYR8;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2525,7 +2549,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: You Xia (VL3XXNWR94)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = VL3XXNWR94;
+				DEVELOPMENT_TEAM = AE5L29EYR8;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

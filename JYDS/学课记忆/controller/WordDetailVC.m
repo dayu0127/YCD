@@ -40,6 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _isShowRead = YES;
+    _collectButton.alpha = _showCollectButton == YES ? 1 : 0;
     [_tableView registerNib:[UINib nibWithNibName:@"WordDetailCell" bundle:nil] forCellReuseIdentifier:@"WordDetailCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"WordImageCell" bundle:nil] forCellReuseIdentifier:@"WordImageCell"];
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, [self getFootViewHeight])];//86  140  176

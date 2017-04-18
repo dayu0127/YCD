@@ -145,10 +145,10 @@
     [_alertView dismissWithCompletion:nil];
     if (buttonIndex == 1) {
         //用户学习豆不够，跳转到充值页面
-        NSInteger studyBean = [[YHSingleton shareSingleton].userInfo.studyBean integerValue];
-        if (studyBean < [_memory.coursePrice integerValue]) {
-            [YHHud showWithMessage:@"余额不足"];
-        }else{
+//        NSInteger studyBean = [[YHSingleton shareSingleton].userInfo.studyBean integerValue];
+//        if (studyBean < [_memory.coursePrice integerValue]) {
+//            [YHHud showWithMessage:@"余额不足"];
+//        }else{
 //            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"productID":_memory.courseID,@"type":@"memory",@"device_id":DEVICEID};
 //            [YHWebRequest YHWebRequestForPOST:SUB parameters:dic success:^(NSDictionary *json) {
 //                if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
@@ -166,35 +166,35 @@
 //            } failure:^(NSError * _Nonnull error) {
 //                [YHHud showWithMessage:@"数据请求失败"];
 //            }];
-        }
+//        }
     }
 }
 #pragma mark 设置分享内容(图文链接)
 - (void)shareImageAndTextUrlToPlatformType:(UMSocialPlatformType)platformType{
     //创建分享消息对象
-    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-    //分享的网页地址对象
-    NSString *text = [NSString stringWithFormat:@"我的邀请码是%@\n快来加入记忆大师",[YHSingleton shareSingleton].userInfo.studyCode];
-    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"记忆大师邀请码" descr:text thumImage:[UIImage imageNamed:@"appLogo"]];
-    shareObject.webpageUrl = @"https://www.jydsapp.com";
-    messageObject.shareObject = shareObject;
-    //调用分享接口
-    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
-        if (error) {
-            UMSocialLogInfo(@"************Share fail with error %@*********",error);
-        }else{
-            if ([data isKindOfClass:[UMSocialShareResponse class]]) {
-                UMSocialShareResponse *resp = data;
-                //分享结果消息
-                UMSocialLogInfo(@"response message is %@",resp.message);
-                //第三方原始返回的数据
-                UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
-            }else{
-                UMSocialLogInfo(@"response data is %@",data);
-            }
-        }
-        [self alertWithError:error];
-    }];
+//    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+//    //分享的网页地址对象
+//    NSString *text = [NSString stringWithFormat:@"我的邀请码是%@\n快来加入记忆大师",[YHSingleton shareSingleton].userInfo.studyCode];
+//    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"记忆大师邀请码" descr:text thumImage:[UIImage imageNamed:@"appLogo"]];
+//    shareObject.webpageUrl = @"https://www.jydsapp.com";
+//    messageObject.shareObject = shareObject;
+//    //调用分享接口
+//    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+//        if (error) {
+//            UMSocialLogInfo(@"************Share fail with error %@*********",error);
+//        }else{
+//            if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+//                UMSocialShareResponse *resp = data;
+//                //分享结果消息
+//                UMSocialLogInfo(@"response message is %@",resp.message);
+//                //第三方原始返回的数据
+//                UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+//            }else{
+//                UMSocialLogInfo(@"response data is %@",data);
+//            }
+//        }
+//        [self alertWithError:error];
+//    }];
 }
 #pragma mark 分享
 - (void)shareButtonClick{

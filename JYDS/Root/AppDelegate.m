@@ -191,7 +191,7 @@
     }else{
         // 微信SDK的回调
         [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
-        [[IFlySpeechUtility getUtility] handleOpenURL:url];
+//        [[IFlySpeechUtility getUtility] handleOpenURL:url];
     }
     return result;
 }

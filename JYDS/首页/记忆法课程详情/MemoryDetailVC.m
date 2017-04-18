@@ -165,8 +165,9 @@
                                   @"content":textField.text};     //       #评论目标的ID
         [YHWebRequest YHWebRequestForPOST:kUserComment parameters:jsonDic success:^(NSDictionary *json) {
             if ([json[@"code"] integerValue] == 200) {
-                [YHHud showWithSuccess:@"评论成功"];
+                textField.text = @"";
                 [self.view endEditing:YES];
+                [YHHud showWithSuccess:@"评论成功"];
             }else{
                 NSLog(@"%@",json[@"code"]);
                 NSLog(@"%@",json[@"message"]);

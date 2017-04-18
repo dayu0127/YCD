@@ -30,8 +30,7 @@
     _headImageButton.layer.masksToBounds = YES;
     _headImageButton.layer.cornerRadius = 45.5f;
     //加载头像昵称性别
-    NSString *headImageUrl = [NSString stringWithFormat:@"%@%@",kHeadImageUrl,[YHSingleton shareSingleton].userInfo.headImg];
-    [_headImageButton sd_setImageWithURL:[NSURL URLWithString:headImageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"mine_headimage"]];
+    [_headImageButton setImage:_headImage forState:UIControlStateNormal];
     _nickNameLabel.text = [YHSingleton shareSingleton].userInfo.nickName;
     _sexLabel.text = [[YHSingleton shareSingleton].userInfo.genter isEqualToString:@""] ? @"保密" : [YHSingleton shareSingleton].userInfo.genter;
     if ([[YHSingleton shareSingleton].userInfo.genter intValue] == 1) {
@@ -41,12 +40,6 @@
     }else{
         _sexLabel.text = @"保密";
     }
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
 }
 - (void)nickEditingChanged:(UITextField *)sender{
     NSString *resultStr = [sender.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -197,6 +190,7 @@
                                           @"sex":sex};     //#用户性别（选填字段）
     [YHWebRequest YHWebRequestForPOST:kNicknameSex parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
+            [_delegate updateNickName:_nickNameLabel.text];
             [YHHud showWithSuccess:@"修改成功"];
         }else{
             NSLog(@"%@",json[@"code"]);
@@ -235,8 +229,7 @@
                 [YHSingleton shareSingleton].userInfo.nickName = _nickNameLabel.text;
                 [YHSingleton shareSingleton].userInfo.genter = _sexLabel.text;
                 //更新我的页面的头像和昵称
-                NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:_headImageButton.imageView.image,@"headImage",_nickNameText.text,@"nickName",nil];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadImageAndNickName" object:nil userInfo:dic];
+                [_delegate updateHeadImage:_headImageButton.imageView.image];
                 [YHHud showWithSuccess:@"修改成功"];
             }else{
                 NSLog(@"%@",json[@"code"]);

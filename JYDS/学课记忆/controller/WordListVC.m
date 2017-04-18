@@ -347,6 +347,7 @@
     if ([segue.identifier isEqualToString:@"toWordDetail"]) {
         WordDetailVC *wordDetail = segue.destinationViewController;
         wordDetail.word = _word;
+        wordDetail.showCollectButton = NO;
     }else if ([segue.identifier isEqualToString:@"toPayViewController"]){
         PayViewController *payVC = segue.destinationViewController;
         payVC.classId = _classId;

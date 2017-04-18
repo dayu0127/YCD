@@ -41,7 +41,8 @@
     [YHHud showWithStatus];
     NSDictionary *jsonDic = @{@"userPhone":self.phoneNum,    //    #用户手机号
                               @"token":self.token,         //   #登陆凭证
-                              @"pageIndex":@"1"};       //        #记忆法页数
+                              @"pageIndex":@"1",        //   #记忆法页数
+                              @"type":@"0"};       //  #查询类型 0所有 1已订阅
     [YHWebRequest YHWebRequestForPOST:kMemoryVideo parameters:jsonDic success:^(NSDictionary *json) {
         [YHHud dismiss];
         if ([json[@"code"] integerValue] == 200) {

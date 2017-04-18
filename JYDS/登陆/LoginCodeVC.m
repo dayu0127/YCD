@@ -88,7 +88,8 @@
             [timer invalidate];
             sender.enabled = YES;
             [sender setTitle:@"获取验证码" forState:UIControlStateNormal];
-            sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+//            sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+            sender.backgroundColor = ORANGERED;
         }
     }];
     NSString *phoneNum = _phoneTxt.text;
@@ -125,8 +126,9 @@
             //保存token
             [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"token"] forKey:@"token"];
             //保存用户信息
-            [YHSingleton shareSingleton].userInfo.phoneNum = dataDic[@"user"][@"phoneNum"]; //手机号
-            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
+            [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
+            [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
+            
             //保存登录保存登录状态
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
             //登录成功跳转首页

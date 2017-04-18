@@ -25,10 +25,10 @@
     [super viewDidLoad];
     [self nightModeConfiguration];
     //从用户配置中取出手机号码，头像和昵称
-    NSMutableString *phoneStr = [NSMutableString stringWithString:[YHSingleton shareSingleton].userInfo.userName];
-    [phoneStr replaceCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
-    _phoneNumLabel.text = phoneStr;
-    [_headImageView sd_setImageWithURL:[NSURL URLWithString:[YHSingleton shareSingleton].userInfo.headImageUrl] placeholderImage:[UIImage imageNamed:@"headImage"]];
+//    NSMutableString *phoneStr = [NSMutableString stringWithString:[YHSingleton shareSingleton].userInfo.userName];
+//    [phoneStr replaceCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+//    _phoneNumLabel.text = phoneStr;
+//    [_headImageView sd_setImageWithURL:[NSURL URLWithString:[YHSingleton shareSingleton].userInfo.headImageUrl] placeholderImage:[UIImage imageNamed:@"headImage"]];
     _nickNameLabel.text = [YHSingleton shareSingleton].userInfo.nickName;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeadImage:) name:@"updateHeadImage" object:nil];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePhoneNum:) name:@"updatePhoneNum" object:nil];
