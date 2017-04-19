@@ -16,6 +16,7 @@
     self.tabBar.tintColor = [UIColor whiteColor];
     for (UINavigationController *nav in self.viewControllers) {
         nav.navigationBar.tintColor = [UIColor whiteColor];
+        nav.navigationBar.translucent = NO;
     }
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dayMode) name:@"dayMode" object:nil];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightMode) name:@"nightMode" object:nil];

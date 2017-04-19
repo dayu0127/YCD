@@ -49,9 +49,8 @@
     }else{
         SetCell0 *cell = [tableView dequeueReusableCellWithIdentifier:@"SetCell0" forIndexPath:indexPath];
         cell.titleLabel0.text = @"清除缓存";
-        [cell setCellWithString:@"0k"];
-        cell.titleLabel1.text = @"666k";
-        cell.titleLabel1.textColor = ORANGERED;
+        [cell setCellWithString:@""];
+        cell.bingingLabel.alpha = 0;
         return cell;
     }
 }

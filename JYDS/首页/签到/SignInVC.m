@@ -16,12 +16,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSString *url = kSignIn([YHSingleton shareSingleton].userInfo.phoneNum);
-    _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64)];
-    _wkWebView.scrollView.showsVerticalScrollIndicator = NO;
-    NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    [_wkWebView loadRequest:request];
-    [self.view addSubview:_wkWebView];
+//    NSString *url = kSignIn([YHSingleton shareSingleton].userInfo.phoneNum);
+//    _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64)];
+//    _wkWebView.scrollView.showsVerticalScrollIndicator = NO;
+//    NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+//    [_wkWebView loadRequest:request];
+//    [self.view addSubview:_wkWebView];
 }
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];

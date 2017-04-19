@@ -47,7 +47,7 @@
     _mainScrollView.contentSize = CGSizeMake(WIDTH*2, 0);
     CGFloat tableHeight = HEIGHT-108;
     //未订阅列表
-    _noSubTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, tableHeight-65) style:UITableViewStylePlain];
+    _noSubTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, tableHeight) style:UITableViewStylePlain];
     _noSubTableView.delegate = self;
     _noSubTableView.dataSource = self;
     _noSubTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -55,19 +55,6 @@
     [_mainScrollView addSubview:_noSubTableView];
     [_noSubTableView registerNib:[UINib nibWithNibName:@"NotSubCell" bundle:nil] forCellReuseIdentifier:@"NotSubCell"];
     [self getNoSubData];
-    //订阅按钮
-    _subAllButton = [[UIButton alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_noSubTableView.frame)+10, WIDTH-20, 45)];
-    [_subAllButton setTitle:@"点击订阅本书所有单词" forState:UIControlStateNormal];
-    [_subAllButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _subAllButton.backgroundColor = ORANGERED;
-    _subAllButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-    [_subAllButton addTarget:self action:@selector(subAllButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [_mainScrollView addSubview:_subAllButton];
-    if ([_payType isEqualToString:@"0"]) {
-        _subAllButton.alpha = 1;
-    }else{
-        _subAllButton.alpha = 0;
-    }
     //已订阅列表
     _subedTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT-108) style:UITableViewStylePlain];
     _subedTableView.delegate = self;

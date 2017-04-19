@@ -9,12 +9,12 @@
 #import "MemoryDetailVC.h"
 #import "CommentCell.h"
 #import <ZFPlayer.h>
+#import <ZFPlayerControlView.h>
 #import "YHMonitorKeyboard.h"
 @interface MemoryDetailVC ()<UITableViewDelegate,UITableViewDataSource,ZFPlayerDelegate>
 @property (weak, nonatomic) IBOutlet UIView *playFatherView;
 @property (nonatomic,strong) ZFPlayerView *playerView;
 @property (nonatomic,strong) ZFPlayerModel *playerModel;
-@property (weak, nonatomic) IBOutlet UIView *studentDemoView;
 @property (weak, nonatomic) IBOutlet UILabel *videoTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *likeCountLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *memoryCollect;
@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIView *borderView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentBgViewBottomSpace;
 @property (weak, nonatomic) IBOutlet UITextField *commentTxt;
+@property (strong,nonatomic) NSURL *videoURL;
 @end
 
 @implementation MemoryDetailVC
@@ -39,20 +40,24 @@
         _playerModel                  = [[ZFPlayerModel alloc] init];
         _playerModel.title            = _memory.title;
         _playerModel.videoURL         = [NSURL URLWithString:_memory.url];
-//        _playerModel.placeholderImageURLString = [UIImage imageNamed:@"home_memoryImg"];
         _playerModel.placeholderImage = [UIImage imageNamed:@"home_memoryImg"];
         _playerModel.fatherView       = self.playFatherView;
     }
     return _playerModel;
 }
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.playerView pause];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _commentBgView.alpha = 0;
     //播放器
     _playerView = [[ZFPlayerView alloc] init];
     _playerView.delegate = self;
-    ZFPlayerControlView *playerControlView = [[ZFPlayerControlView alloc] init];
-    playerControlView.backBtn.hidden = YES;
-    [_playerView playerControlView:playerControlView playerModel:self.playerModel];
+    ZFPlayerControlView *pvc = [[ZFPlayerControlView alloc] init];
+    pvc.backBtn.hidden = YES;
+    [_playerView playerControlView:pvc playerModel:self.playerModel];
     [_tableView registerNib:[UINib nibWithNibName:@"CommentCell" bundle:nil] forCellReuseIdentifier:@"CommentCell"];
     _borderView.layer.masksToBounds = YES;
     _borderView.layer.cornerRadius = 18.5f;

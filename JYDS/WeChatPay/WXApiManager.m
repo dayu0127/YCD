@@ -59,7 +59,6 @@
                                       @"out_trade_no":[YHSingleton shareSingleton].wx_out_trade_no,  //  #商户订单号（选填，与transaction_id二选一）
                                       @"token":[[NSUserDefaults standardUserDefaults] objectForKey:@"token"]};      //    #登陆凭证
             [YHWebRequest YHWebRequestForPOST:kWXSignCheck parameters:jsonDic success:^(NSDictionary *json) {
-                NSLog(@"%@",json);
                 if ([json[@"code"] integerValue] == 200) {
                     if ([[YHSingleton shareSingleton].payType isEqualToString:@"0"]) {
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"updateWordSubStatus" object:nil];

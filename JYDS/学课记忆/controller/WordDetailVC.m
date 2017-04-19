@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *phonogramButton;
 @property (weak, nonatomic) IBOutlet UILabel *wordExplainLabel;
 @property (nonatomic,strong) AVSpeechSynthesizer *player;
-@property (nonatomic, strong) IFlyRecognizerView *iflyRecognizerView;//带界面的识别对象
+@property (nonatomic,strong) IFlyRecognizerView *iflyRecognizerView;//带界面的识别对象
 @property (nonatomic,strong) IFlyPcmRecorder *pcmRecorder;//录音器，用于音频流识别的数据传入
 @property (nonatomic,assign) BOOL isStreamRec;//是否是音频流识别
 @property (nonatomic,assign) BOOL isBeginOfSpeech;//是否返回BeginOfSpeech回调
@@ -40,6 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _isShowRead = YES;
+    
     _collectButton.alpha = _showCollectButton == YES ? 1 : 0;
     [_tableView registerNib:[UINib nibWithNibName:@"WordDetailCell" bundle:nil] forCellReuseIdentifier:@"WordDetailCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"WordImageCell" bundle:nil] forCellReuseIdentifier:@"WordImageCell"];
@@ -197,7 +198,6 @@
 - (void)showWrite{
     _isShowRead = NO;
     [self showBottomUI];
-    [_cell.showButton setTitle:@"跟写内容" forState:UIControlStateNormal];
     [_cell.showButton setImage:nil forState:UIControlStateNormal];
     _cell.rwButton.backgroundColor = ORANGERED;
     [_cell.rwButton setTitle:@"跟写" forState:UIControlStateNormal];
@@ -283,7 +283,7 @@
 }
 #pragma mark 跟写点击事件
 - (void)writeClick:(UIButton *)sender{
-    _alertVC = [UIAlertController alertControllerWithTitle:@"请跟写" message:@"\n\n" preferredStyle:UIAlertControllerStyleAlert];
+    _alertVC = [UIAlertController alertControllerWithTitle:nil message:@"\n\n" preferredStyle:UIAlertControllerStyleAlert];
     //单词输入框
     _wordText = [UITextField new];
     _wordText.borderStyle = UITextBorderStyleRoundedRect;

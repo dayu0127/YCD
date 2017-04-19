@@ -119,7 +119,6 @@
                                           @"verifyCode":verifyCode};               //    #验证码
     [YHWebRequest YHWebRequestForPOST:kCodeLogin parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
-            NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
             //改变我的页面，显示头像,昵称和手机号
             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
             NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
@@ -138,7 +137,7 @@
             });
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);

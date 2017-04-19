@@ -141,6 +141,7 @@
         MemoryDetailVC *detailVC = segue.destinationViewController;
         detailVC.delegate = self;
         detailVC.memory = _memory;
+        
     }else if ([segue.identifier isEqualToString:@"memoryListToPayVC"]){
         PayViewController *payVC = segue.destinationViewController;
         payVC.memoryId = _memory.memoryId;

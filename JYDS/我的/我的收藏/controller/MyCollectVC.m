@@ -58,7 +58,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _myCollectList.count;
+    return _myCollectList.count+1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
@@ -109,7 +109,7 @@
         return cell;
     }else{
         CollectCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CollectCell" forIndexPath:indexPath];
-        [cell addModelWithDic:_myCollectList[indexPath.row]];
+        [cell addModelWithDic:_myCollectList[indexPath.row-1]];
         return cell;
     }
 }

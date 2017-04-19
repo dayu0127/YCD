@@ -56,7 +56,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="Yvy-FO-jfd" kind="relationship" relationship="rootViewController" id="wAK-0O-fGu"/>
+                        <segue destination="CSS-cW-s3G" kind="relationship" relationship="rootViewController" id="XRZ-YU-3wa"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q3m-qd-nhW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -104,9 +104,6 @@
                                 <state key="normal" title="密码登录">
                                     <color key="titleColor" red="0.99607843139999996" green="0.31764705879999999" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                                <connections>
-                                    <segue destination="CSS-cW-s3G" kind="show" id="Zfd-hc-9f5"/>
-                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LdG-g9-9bq">
                                 <rect key="frame" x="56" y="127" width="263" height="35"/>
@@ -346,7 +343,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iKr-lA-Qic" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1561" y="36"/>
+            <point key="canvasLocation" x="1609" y="36"/>
         </scene>
         <!--密码登陆VC-->
         <scene sceneID="4Ug-2u-fdY">
@@ -391,6 +388,7 @@
                                 </state>
                                 <connections>
                                     <action selector="codeLoginClick:" destination="CSS-cW-s3G" eventType="touchUpInside" id="Q3g-am-HtB"/>
+                                    <segue destination="Yvy-FO-jfd" kind="show" id="0gq-mK-D4V"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="yNh-nJ-QjL">
@@ -598,7 +596,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8aP-02-ap6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1560.8" y="731.78410794602701"/>
+            <point key="canvasLocation" x="1609" y="755"/>
         </scene>
         <!--注册VC-->
         <scene sceneID="THp-Fy-hYW">
@@ -1585,7 +1583,7 @@
                                             <segue destination="Yyd-VW-Mo8" kind="show" id="9Bg-ij-kCJ"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U31-AX-jOZ">
+                                    <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U31-AX-jOZ">
                                         <rect key="frame" x="321" y="33" width="54" height="19"/>
                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="11"/>
                                         <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1594,7 +1592,7 @@
                                             <action selector="signInClick:" destination="MO3-TH-P5F" eventType="touchUpInside" id="Cyr-rc-Tix"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_top_beans" translatesAutoresizingMaskIntoConstraints="NO" id="SBY-dK-CA7">
+                                    <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_top_beans" translatesAutoresizingMaskIntoConstraints="NO" id="SBY-dK-CA7">
                                         <rect key="frame" x="351" y="38" width="14" height="9"/>
                                     </imageView>
                                 </subviews>
@@ -2065,7 +2063,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="邀请奖励" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xGw-R6-p2J">
-                                        <rect key="frame" x="48" y="32.5" width="61.5" height="18"/>
+                                        <rect key="frame" x="48" y="33" width="62" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -2078,7 +2076,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wnb-pk-Vdf">
-                                        <rect key="frame" x="298" y="26.5" width="62" height="30"/>
+                                        <rect key="frame" x="298" y="27" width="62" height="30"/>
                                         <state key="normal" title="邀请记录">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -3280,7 +3278,7 @@
                                             <action selector="backClick:" destination="JoF-DV-eXq" eventType="touchUpInside" id="g8r-mG-Dk4"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YNG-6b-7Cf">
+                                    <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YNG-6b-7Cf">
                                         <rect key="frame" x="348" y="30.5" width="17" height="22"/>
                                         <state key="normal" image="course_top_player"/>
                                     </button>
@@ -3382,7 +3380,7 @@
                                             <action selector="backClick:" destination="UOd-fm-gc1" eventType="touchUpInside" id="Zfm-XO-Z35"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ji-83-fga">
+                                    <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ji-83-fga">
                                         <rect key="frame" x="348" y="30.5" width="17" height="22"/>
                                         <state key="normal" image="course_top_player"/>
                                     </button>
@@ -3455,7 +3453,7 @@
                                             <action selector="backClick:" destination="WW6-Vz-Jnk" eventType="touchUpInside" id="hmi-xo-Xrv"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HiJ-uv-32N">
+                                    <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HiJ-uv-32N">
                                         <rect key="frame" x="348" y="30.5" width="17" height="22"/>
                                         <state key="normal" image="course_top_player"/>
                                     </button>
@@ -4257,10 +4255,10 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="rhJ-wj-NYw"/>
-        <segue reference="JDB-NH-aSF"/>
+        <segue reference="38R-Op-tOV"/>
         <segue reference="Doe-NR-kgY"/>
-        <segue reference="jUJ-Kx-0eF"/>
-        <segue reference="fWR-94-x8F"/>
-        <segue reference="xRH-BA-8YZ"/>
+        <segue reference="cV4-mu-ucd"/>
+        <segue reference="3Cm-7u-jdT"/>
+        <segue reference="uLV-zb-tLE"/>
     </inferredMetricsTieBreakers>
 </document>

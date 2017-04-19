@@ -63,10 +63,12 @@
 //        "userPhone":"***"       #用户手机号
 //        "token":"****"          #登陆凭证
 //    }
+    [YHHud showWithStatus];
     NSDictionary *jsonDic = @{@"grade_type":@"1",        //#查询状态 1：小学 2：初中 3：高中
                                           @"userPhone":self.phoneNum,     //  #用户手机号
                                           @"token":self.token};       // #登陆凭证
     [YHWebRequest YHWebRequestForPOST:kGradeList parameters:jsonDic success:^(NSDictionary *json) {
+        [YHHud dismiss];
         if([json[@"code"] integerValue] == 200){
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             _gradeList = resultDic[@"gradeList"];   //年级
@@ -79,6 +81,7 @@
             NSLog(@"%@",json[@"message"]);
         }
     } failure:^(NSError * _Nonnull error) {
+        [YHHud dismiss];
         NSLog(@"%@",error);
     }];
 }

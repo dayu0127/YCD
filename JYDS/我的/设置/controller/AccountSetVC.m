@@ -37,7 +37,7 @@
     }else if (indexPath.row == 1) {
         cell.titleLabel0.text = @"手机号码";
         [cell setCellWithString:[YHSingleton shareSingleton].userInfo.phoneNum];
-    }else if (indexPath.row == 1){
+    }else if (indexPath.row == 2){
         cell.titleLabel0.text = @"微信账号";
         [cell setCellWithString:[YHSingleton shareSingleton].userInfo.associatedWx];
     }else{

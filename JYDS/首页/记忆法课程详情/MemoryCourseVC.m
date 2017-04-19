@@ -30,6 +30,8 @@
 @property (nonatomic,strong) JCAlertView *alertView;
 @property (nonatomic,strong) UIView *opaqueView;
 @property (nonatomic,strong) UIButton *backBtn;
+/** 离开页面时候是否在播放 */
+@property (nonatomic, assign) BOOL isPlaying;
 
 @end
 
@@ -37,6 +39,23 @@
 // 返回值要必须为NO
 - (BOOL)shouldAutorotate{
     return NO;
+}
+//- (void)viewWillAppear:(BOOL)animated{
+//    [super viewWillAppear:animated];
+//    // pop回来时候是否自动播放
+//    if (self.navigationController.viewControllers.count == 2 && self.playerView && self.isPlaying) {
+//        self.isPlaying = NO;
+//        [self.playerView play];
+//    }
+//}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+//    // push出下一级页面时候暂停
+//    if (self.navigationController.viewControllers.count == 3 && self.playerView && !self.playerView.isPauseByUser){
+//        self.isPlaying = YES;
+//        [self.playerView pause];
+//    }
 }
 - (ZFPlayerModel *)playerModel{
     if (!_playerModel) {
@@ -252,9 +271,5 @@
         }
     }
     [YHHud showWithMessage:result];
-}
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    self.navigationController.navigationBar.hidden = NO;
 }
 @end

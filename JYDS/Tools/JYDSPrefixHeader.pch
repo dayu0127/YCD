@@ -155,7 +155,8 @@
 //UUID
 #define DEVICEID [[[UIDevice currentDevice] identifierForVendor] UUIDString]
 //签到详情
-#define kSignIn(phoneNum) [NSString stringWithFormat:@"https://www.jydsapp.com/jydsApi/h5/sign.html?userPhone=%@",phoneNum]
+//#define kSignIn(phoneNum) [NSString stringWithFormat:@"https://www.jydsapp.com/jydsApi/h5/sign.html?userPhone=%@",phoneNum]
+#define kShareRegister(phoneNum) [NSString stringWithFormat:@"https://www.jydsapp.com/jydsApi/h5/register.html?userPhone=%@",phoneNum]
 //消息详情
 #define kMessageDetail @"https://www.jydsapp.com/jydsApi/h5/noticePage.html"
 //邀请奖励
@@ -171,7 +172,7 @@
 #define kHeadImageUrl @"https://omj0etkcd.qnssl.com/"
 
 //橙红色
-#define ORANGERED RGB(255,78,0) //#FE514A
+#define ORANGERED RGB(254,81,74) //#FE514A
 //线色
 #define LINECOLOR RGB(228,228,228) //#E4E4E4
 //浅灰色

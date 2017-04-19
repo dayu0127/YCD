@@ -113,7 +113,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.row == 1){
-        _alertVC = [UIAlertController alertControllerWithTitle:@"昵称修改" message:@"\n\n" preferredStyle:UIAlertControllerStyleAlert];
+        _alertVC = [UIAlertController alertControllerWithTitle:nil message:@"\n\n" preferredStyle:UIAlertControllerStyleAlert];
         //昵称修改输入框
         _nickNameText = [UITextField new];
         _nickNameText.borderStyle = UITextBorderStyleRoundedRect;
