@@ -10,9 +10,10 @@
 
 @implementation SuccessView
 - (IBAction)continueClick:(id)sender {
-    [_delegate backToLevelView];
+    [_delegate backToExerciselView];
 }
 - (IBAction)backClick:(id)sender {
+    [_delegate backToLevelView];
 }
 - (void)awakeFromNib{
     [super awakeFromNib];

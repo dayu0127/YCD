@@ -7,7 +7,7 @@
 //
 #import "BaseViewController.h"
 #import "AppDelegate.h"
-
+#import "BingingPhoneVC.h"
 @interface BaseViewController ()
 @end
 @implementation BaseViewController
@@ -17,6 +17,8 @@
 //    self.view.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
     [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
     _phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum;
+    _associatedWx = [YHSingleton shareSingleton].userInfo.associatedWx;
+    _associatedQq = [YHSingleton shareSingleton].userInfo.associatedQq;
     _token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
 }
 
@@ -33,6 +35,16 @@
         LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
         [app.window setRootViewController:loginVC];
         [app.window makeKeyWindow];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+- (void)returnToBingingPhone{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"请先绑定手机" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"绑定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        BingingPhoneVC *bingingvc = [sb instantiateViewControllerWithIdentifier:@"bingingPhone"];
+        [self.navigationController pushViewController:bingingvc animated:YES];
     }]];
     [self presentViewController:alert animated:YES completion:nil];
 }

@@ -42,7 +42,7 @@
                 _cell.pointsLabel.text = [NSString stringWithFormat:@"%@",jsonDic[@"user"][@"points"]];
             }else{
                 NSLog(@"%@",json[@"code"]);
-                NSLog(@"%@",json[@"message"]);
+                [YHHud showWithMessage:json[@"message"]];
             }
         } failure:^(NSError * _Nonnull error) {
             NSLog(@"%@",error);
@@ -172,21 +172,28 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
     if (indexPath.section ==0) {
-        if (self.token==nil&&self.phoneNum==nil) {
+        if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
+            [self returnToBingingPhone];
+        }else if (self.token==nil&&self.phoneNum==nil) {
             [self returnToLogin];
         }else{
             [self performSegueWithIdentifier:@"toMyPoints" sender:self];
         }
     }else if (indexPath.section == 1) {
         if (indexPath.row == 0) {//我的订阅
-            if (self.token==nil&&self.phoneNum==nil) {
+            if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
+                [self returnToBingingPhone];
+            }else if (self.token==nil&&self.phoneNum==nil) {
                 [self returnToLogin];
             }else{
                 [self performSegueWithIdentifier:@"toMySub" sender:self];
             }
         }else if(indexPath.row == 1){//我的收藏
-            if (self.token==nil&&self.phoneNum==nil) {
+            if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
+                [self returnToBingingPhone];
+            }else if (self.token==nil&&self.phoneNum==nil) {
                 [self returnToLogin];
             }else{
                 [self performSegueWithIdentifier:@"toMyCollect" sender:self];
@@ -198,7 +205,9 @@
         if (indexPath.row == 0) {//关于我们
             [self performSegueWithIdentifier:@"toAboutUs" sender:self];
         }else{//意见反馈
-            if (self.token==nil&&self.phoneNum==nil) {
+            if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
+                [self returnToBingingPhone];
+            }else if (self.token==nil&&self.phoneNum==nil) {
                 [self returnToLogin];
             }else{
                 [self performSegueWithIdentifier:@"toFeedback" sender:self];

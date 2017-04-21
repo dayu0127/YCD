@@ -50,7 +50,7 @@
             [_tableView reloadData];
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
         [YHHud dismiss];
@@ -114,7 +114,7 @@
                 [self performSegueWithIdentifier:@"memoryListToPayVC" sender:self];
             }else{
                 NSLog(@"%@",json[@"code"]);
-                NSLog(@"%@",json[@"message"]);
+                [YHHud showWithMessage:json[@"message"]];
             }
         } failure:^(NSError * _Nonnull error) {
             [YHHud dismiss];
@@ -153,6 +153,20 @@
     }
 }
 - (void)reloadMemoryList{
-    [self loadMemoryList];
+    NSDictionary *jsonDic = @{@"userPhone":self.phoneNum,    //    #用户手机号
+                              @"token":self.token,         //   #登陆凭证
+                              @"pageIndex":@"1",        //   #记忆法页数
+                              @"type":@"0"};       //  #查询类型 0所有 1已订阅
+    [YHWebRequest YHWebRequestForPOST:kMemoryVideo parameters:jsonDic success:^(NSDictionary *json) {
+        if ([json[@"code"] integerValue] == 200) {
+            _memoryVideoList = [NSDictionary dictionaryWithJsonString:json[@"data"]][@"indexMemory"];
+            [_tableView reloadData];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            [YHHud showWithMessage:json[@"message"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
 }
 @end

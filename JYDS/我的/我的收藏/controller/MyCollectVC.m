@@ -9,9 +9,12 @@
 #import "MyCollectVC.h"
 #import "CollectHeadCell.h"
 #import "CollectCell.h"
-@interface MyCollectVC ()<UITableViewDelegate,UITableViewDataSource>
+#import "Word.h"
+#import "WordDetailVC.h"
+@interface MyCollectVC ()<UITableViewDelegate,UITableViewDataSource,WordDetailVCDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) NSMutableArray *myCollectList;
+@property (strong,nonatomic) Word *word;
 @end
 
 @implementation MyCollectVC
@@ -44,7 +47,7 @@
             [_tableView reloadData];
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
         if (index == 1) {
@@ -71,9 +74,9 @@
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         if (tableView == self.tableView) {
-            NSString *classId = _myCollectList[indexPath.row][@"class_id"];
-            NSString *unitId = _myCollectList[indexPath.row][@"unit_id"];
-            NSString *wordId = _myCollectList[indexPath.row][@"wordId"];
+            NSString *classId = _myCollectList[indexPath.row-1][@"class_id"];
+            NSString *unitId = _myCollectList[indexPath.row-1][@"unit_id"];
+            NSString *wordId = _myCollectList[indexPath.row-1][@"wordId"];
             //        {
             //            "userPhone":"******"    #用户手机号
             //            "token":"****"          #登陆凭证
@@ -88,14 +91,14 @@
                                       @"token":self.token};       //   #登陆凭证
             [YHWebRequest YHWebRequestForPOST:kCancelCollectionWord parameters:jsonDic success:^(NSDictionary *json) {
                 if([json[@"code"] integerValue] == 200){
-                    [_myCollectList removeObjectAtIndex:indexPath.row];
+                    [_myCollectList removeObjectAtIndex:indexPath.row-1];
                     [self.tableView beginUpdates];
                     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     [self.tableView endUpdates];
                     [YHHud showWithMessage:@"删除成功"];
                 }else{
                     NSLog(@"%@",json[@"code"]);
-                    NSLog(@"%@",json[@"message"]);
+                    [YHHud showWithMessage:json[@"message"]];
                 }
             } failure:^(NSError * _Nonnull error) {
                 NSLog(@"%@",error);
@@ -113,14 +116,22 @@
         return cell;
     }
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row!=0) {
+        _word = [Word yy_modelWithJSON:_myCollectList[indexPath.row-1]];
+        [self performSegueWithIdentifier:@"myCollectToWordDetail" sender:self];
+    }
 }
-*/
-
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"myCollectToWordDetail"]) {
+        WordDetailVC *detailVC = segue.destinationViewController;
+        detailVC.word = _word;
+        detailVC.isMyCollect = YES;
+        detailVC.delegate = self;
+        detailVC.showCollectButton = YES;
+    }
+}
+- (void)updateMyCollectList{
+    [self loadCollectList:0];
+}
 @end

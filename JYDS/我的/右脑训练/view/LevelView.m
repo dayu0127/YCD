@@ -13,54 +13,63 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         _buttonArray = [NSMutableArray array];
-        self.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 15)];
-        label.text = @"请选择练习题等级";
-        label.font = [UIFont systemFontOfSize:17.0f];
-        label.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-        label.textAlignment = NSTextAlignmentCenter;
-        [self addSubview:label];
+        self.backgroundColor = [UIColor whiteColor];
+        UILabel *titleLabel = [UILabel new];
+        titleLabel.text = @"请选择难度等级";
+        titleLabel.font = [UIFont systemFontOfSize:18.0f];
+        titleLabel.textColor = DGRAYCOLOR;
+        [self addSubview:titleLabel];
+        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self).offset(31);
+            make.height.mas_equalTo(@18);
+            make.centerX.equalTo(self);
+        }];
         
-        //等级View
-        CGFloat height = frame.size.height;
-        CGFloat btnWidth = (WIDTH-120)/3.0;
-        CGFloat btnHeight = btnWidth*11/17.0;
+        //等级按钮
+        CGFloat diameter = (WIDTH-112)/3.0;
         for (NSInteger i = 0; i< 3; i++) {
-            CGFloat y = CGRectGetMaxY(label.frame)+0.24*height+(btnHeight+10)*i;
+            CGFloat y = 79+(diameter+35)*i;
             for (NSInteger j = 0; j<3; j++) {
-                CGFloat x = 30+(btnWidth+30)*j;
-                UIButton *levelBtn = [[UIButton alloc] initWithFrame:CGRectMake(x, y, btnWidth, btnHeight)];
+                CGFloat x = 31+(diameter+25)*j;
+                UIButton *levelBtn = [[UIButton alloc] initWithFrame:CGRectMake(x, y, diameter, diameter)];
                 levelBtn.tag = i*3+j;
-                [levelBtn setTitle:[NSString stringWithFormat:@"%@秒",LEVELARRAY[i*3+j]]forState:UIControlStateNormal];
-                [levelBtn dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
-                levelBtn.dk_backgroundColorPicker = DKColorPickerWithColors(D_BTN_BG,N_CELL_BG,RED);
-                if (levelBtn.tag == 0) {
-                    levelBtn.backgroundColor = GREEN;
-                }
-                levelBtn.layer.masksToBounds = YES;
-                levelBtn.layer.cornerRadius = 6.0f;
-                levelBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+                NSString *imageStr = [NSString stringWithFormat:@"Lv%zd",i*3+j+1];
+                [levelBtn setBackgroundImage:[UIImage imageNamed:imageStr] forState:UIControlStateNormal];
                 [levelBtn addTarget:self action:@selector(btnTouchDown:) forControlEvents:UIControlEventTouchDown];
-                [levelBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                 [self addSubview:levelBtn];
                 [_buttonArray addObject:levelBtn];
             }
         }
+        //开始练习
+        UIButton *startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [startBtn setBackgroundImage:[UIImage imageNamed:@"start_bg"] forState:UIControlStateNormal];
+        [startBtn setTitle:@"开始练习" forState:UIControlStateNormal];
+        startBtn.titleLabel.font = [UIFont systemFontOfSize:20.0f];
+        [startBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [startBtn addTarget:self action:@selector(startClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:startBtn];
+        [startBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self).offset(WIDTH+89);
+            make.centerX.equalTo(self);
+        }];
     }
     return self;
 }
 - (void)btnTouchDown:(UIButton *)sender{
-    for (UIButton *btn in _buttonArray) {
-        btn.dk_backgroundColorPicker = DKColorPickerWithColors(D_BTN_BG,N_CELL_BG,RED);
+    for (NSInteger i = 1; i<=_buttonArray.count; i++) {
+        NSString *imageStr = [NSString stringWithFormat:@"Lv%zd",i];
+        UIButton *btn = (UIButton *)[_buttonArray objectAtIndex:i-1];
+        [btn setBackgroundImage:[UIImage imageNamed:imageStr] forState:UIControlStateNormal];
     }
-    sender.backgroundColor = GREEN;
+    _currentLevel = sender.tag+1;
+    NSString *currentImageStr = [NSString stringWithFormat:@"Lv%zd_selected",sender.tag+1];
+    [sender setBackgroundImage:[UIImage imageNamed:currentImageStr] forState:UIControlStateNormal];
 }
-- (void)btnClick:(UIButton *)sender{
-    for (UIButton *btn in _buttonArray) {
-        btn.dk_backgroundColorPicker = DKColorPickerWithColors(D_BTN_BG,N_CELL_BG,RED);
+- (void)startClick:(UIButton *)sender{
+    if (_currentLevel == 0) {
+        [YHHud showWithMessage:@"请先选择难度等级"];
+    }else{
+        [_delegate startExerciseClick:_currentLevel];
     }
-    sender.backgroundColor = GREEN;
-    [_delegate levelButtonClick:sender.tag];
 }
-
 @end

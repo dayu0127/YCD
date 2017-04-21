@@ -88,7 +88,7 @@
             [_noSubTableView reloadData];
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -125,8 +125,7 @@
             [_subedTableView reloadData];
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
-        }
+            [YHHud showWithMessage:json[@"message"]];        }
     } failure:^(NSError * _Nonnull error) {
         [YHHud dismiss];
         NSLog(@"%@",error);
@@ -171,8 +170,7 @@
                 [self performSegueWithIdentifier:@"toPayViewController" sender:self];
             }else{
                 NSLog(@"%@",json[@"code"]);
-                NSLog(@"%@",json[@"message"]);
-            }
+                [YHHud showWithMessage:json[@"message"]];            }
         } failure:^(NSError * _Nonnull error) {
             [YHHud dismiss];
             NSLog(@"%@",error);
@@ -315,8 +313,7 @@
             [YHHud showWithSuccess:@"订阅成功"];
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
-        }
+            [YHHud showWithMessage:json[@"message"]];        }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];

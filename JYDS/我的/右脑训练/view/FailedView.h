@@ -7,18 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@protocol FailedViewDelegate<NSObject>
-- (void)backToExerciselView;
-- (void)backToLevelView;
-@end
+#import "ExerciseDelegate.h"
 @interface FailedView : UIView
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *verticalSpacing1;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *verticalSpacing2;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *verticalSpacing3;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *buttomHeight;
-@property (weak,nonatomic) id<FailedViewDelegate> delegate;
+@property (weak,nonatomic) id<ExerciseDelegate> delegate;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;
 @end

@@ -57,7 +57,7 @@
                 _payPriceLabel.text = [NSString stringWithFormat:@"￥:%0.2f",newPrice];
             }else{
                 NSLog(@"%@",json[@"code"]);
-                NSLog(@"%@",json[@"message"]);
+                [YHHud showWithMessage:json[@"message"]];
             }
         } failure:^(NSError * _Nonnull error) {
             [self.tableView.mj_header endRefreshing];
@@ -201,16 +201,14 @@
                         });
                     }else{
                         NSLog(@"%@",json[@"code"]);
-                        NSLog(@"%@",json[@"message"]);
-                    }
+                        [YHHud showWithMessage:json[@"message"]];                    }
                 } failure:^(NSError * _Nonnull error) {
                     NSLog(@"%@",error);
                 }];
             }];
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
-        }
+            [YHHud showWithMessage:json[@"message"]];        }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
@@ -251,8 +249,7 @@
             [WXApi sendReq:request];
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
-        }
+            [YHHud showWithMessage:json[@"message"]];        }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];

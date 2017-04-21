@@ -194,7 +194,7 @@
             [YHHud showWithSuccess:@"修改成功"];
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -233,8 +233,7 @@
                 [YHHud showWithSuccess:@"修改成功"];
             }else{
                 NSLog(@"%@",json[@"code"]);
-                NSLog(@"%@",json[@"message"]);
-            }
+                [YHHud showWithMessage:json[@"message"]];            }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             [YHHud showWithMessage:@"上传失败"];
         }];

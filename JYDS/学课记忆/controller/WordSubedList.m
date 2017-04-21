@@ -17,6 +17,7 @@
 @property (strong,nonatomic) Word *word;
 @property (strong,nonatomic) NSMutableArray *collectStateArr;
 @property (assign,nonatomic) NSInteger currentRow;
+@property (assign,nonatomic) NSInteger indexOfWord;
 @end
 
 @implementation WordSubedList
@@ -47,7 +48,7 @@
             _collectStateArr = [NSMutableArray arrayWithCapacity:_subedWordList.count];
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
         [YHHud dismiss];
@@ -114,8 +115,7 @@
                     [YHHud showWithMessage:@"收藏成功"];
                 }else{
                     NSLog(@"%@",json[@"code"]);
-                    NSLog(@"%@",json[@"message"]);
-                }
+                    [YHHud showWithMessage:json[@"message"]];                }
             } failure:^(NSError * _Nonnull error) {
                 NSLog(@"%@",error);
             }];
@@ -149,8 +149,7 @@
                     [YHHud showWithMessage:@"已取消收藏"];
                 }else{
                     NSLog(@"%@",json[@"code"]);
-                    NSLog(@"%@",json[@"message"]);
-                }
+                    [YHHud showWithMessage:json[@"message"]];                }
             } failure:^(NSError * _Nonnull error) {
                 NSLog(@"%@",error);
             }];
@@ -158,7 +157,7 @@
 //    }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"%@",_subedWordList[indexPath.row]);
+    _indexOfWord = indexPath.row+1;
     _word = [Word yy_modelWithJSON:_subedWordList[indexPath.row]];
     [self performSegueWithIdentifier:@"toWordSubedDetail" sender:self];
 }
@@ -168,12 +167,13 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    WordDetailVC *wordDetailVC = segue.destinationViewController;
-    wordDetailVC.delegate = self;
-    wordDetailVC.word = _word;
-    wordDetailVC.classId = _classId;
-    wordDetailVC.unitId = _unitId;
-    wordDetailVC.showCollectButton = YES;
+    if ([segue.identifier isEqualToString:@"toWordSubedDetail"]) {
+        WordDetailVC *wordDetailVC = segue.destinationViewController;
+        wordDetailVC.delegate = self;
+        wordDetailVC.word = _word;
+        wordDetailVC.showCollectButton = YES;
+        wordDetailVC.indexOfWord = _indexOfWord;
+    }
 }
 - (void)updateWordList{
     NSDictionary *jsonDic = @{@"classId":_classId,    //  #版本ID
@@ -188,7 +188,7 @@
             [_tableView reloadData];
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);

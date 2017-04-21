@@ -194,13 +194,8 @@
                                           @"deviceNum":DEVICEID             //     #设备码（选填）
                                       };
     [YHWebRequest YHWebRequestForPOST:kSendCheckCode parameters:jsonDic success:^(NSDictionary *json) {
-        if ([json[@"code"] integerValue] == 200) {
-//            [YHHud showWithSuccess:json[@"message"]];
-            NSLog(@"1111");
-        }else{
-            NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
-        }
+        NSLog(@"%@",json[@"code"]);
+        [YHHud showWithMessage:json[@"message"]];
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
@@ -229,7 +224,7 @@
             });
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);

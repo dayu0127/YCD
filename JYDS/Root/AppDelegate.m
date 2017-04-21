@@ -144,7 +144,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:dataDic forKey:@"banner"];
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     }failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -181,7 +181,7 @@
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"back" object:nil];
                     }else{
                         NSLog(@"%@",json[@"code"]);
-                        NSLog(@"%@",json[@"message"]);
+                        [YHHud showWithMessage:json[@"message"]];
                     }
                 } failure:^(NSError * _Nonnull error) {
                     NSLog(@"%@",error);

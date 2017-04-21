@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 @protocol LevelViewDelegate<NSObject>
-- (void)levelButtonClick:(NSInteger)buttonIndex;
+- (void)startExerciseClick:(NSInteger)level;
 @end
 @interface LevelView : UIView
 @property (weak,nonatomic) id<LevelViewDelegate> delegate;
 @property (strong,nonatomic) NSMutableArray<UIButton *> *buttonArray;
+@property (assign,nonatomic) NSInteger currentLevel;
 @end

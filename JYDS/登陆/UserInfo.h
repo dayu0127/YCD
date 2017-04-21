@@ -28,6 +28,4 @@
 @property (strong,nonatomic) NSString *genter;  //性别
 @property (strong,nonatomic) NSString *nickName;  //昵称
 @property (strong,nonatomic) NSString *points;  //积分
-
-
 @end

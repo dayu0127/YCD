@@ -48,7 +48,10 @@
     }
 }
 - (void)itemClick:(UIButton *)sender{
-    if (self.token==nil&&self.phoneNum==nil) {
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
+        [self returnToBingingPhone];
+    }else if (self.token==nil&&self.phoneNum==nil) {
         [self returnToLogin];
     }else{
         if (sender.tag==0) {

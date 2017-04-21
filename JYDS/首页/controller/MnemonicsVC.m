@@ -18,7 +18,7 @@
 #import "MemoryCell.h"
 #import "Memory.h"
 #import "MemoryDetailVC.h"
-
+#import "BingingPhoneVC.h"
 @interface MnemonicsVC ()<UITableViewDelegate,UITableViewDataSource,PlanCellDelegate,MemoryHeaderViewDelegate>
 //@property (strong,nonatomic) NSMutableArray *netImages;  //网络图片
 //@property (strong,nonatomic) SDCycleScrollView *cycleScrollView;//轮播器
@@ -75,7 +75,10 @@
 //    _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
 //}
 - (IBAction)signInClick:(UIButton *)sender {
-    if (self.token==nil&&self.phoneNum==nil) {
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
+        [self returnToBingingPhone];
+    }else if (self.token==nil&&self.phoneNum==nil) {
         [self returnToLogin];
     }else{
         [self performSegueWithIdentifier:@"toSignIn" sender:self];
@@ -163,6 +166,8 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 1) {
         MemoryHeaderView *headerView = [MemoryHeaderView loadView];
+        headerView.moreButton.alpha = 0;
+        headerView.arrows.alpha = 0;
         return headerView;
     }else if(section == 2){
         MemoryHeaderView *headerView = [MemoryHeaderView loadView];
@@ -175,7 +180,10 @@
 }
 #pragma mark 记忆法课程更多
 - (void)pushMoreMemoryList{
-    if (self.token==nil&&self.phoneNum==nil) {
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
+        [self returnToBingingPhone];
+    }else if (self.token==nil&&self.phoneNum==nil) {
         [self returnToLogin];
     }else{
         [self performSegueWithIdentifier:@"toMemoryMore" sender:self];
@@ -183,20 +191,22 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 2) {
-        if (self.token==nil&&self.phoneNum==nil) {
+        NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+        if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
+            [self returnToBingingPhone];
+        }else if (self.token==nil&&self.phoneNum==nil) {
             [self returnToLogin];
         }else{
-            _memory = [Memory yy_modelWithJSON:_memoryList[indexPath.row]];
-            [self performSegueWithIdentifier:@"homeToMemoryDetail" sender:self];
+            [self performSegueWithIdentifier:@"toMemoryMore" sender:self];
         }
     }
 }
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"homeToMemoryDetail"]) {
-        MemoryDetailVC *detailVC = segue.destinationViewController;
-        detailVC.memory = _memory;
-    }
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+//    if ([segue.identifier isEqualToString:@"homeToMemoryDetail"]) {
+//        MemoryDetailVC *detailVC = segue.destinationViewController;
+//        detailVC.memory = _memory;
+//    }
+//}
 //- (void)initTableView{
 //    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-113) style:UITableViewStyleGrouped];
 //    _tableView.delegate = self;
