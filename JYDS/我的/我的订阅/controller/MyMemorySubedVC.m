@@ -14,52 +14,120 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) NSMutableArray *memoryVideoList;
 @property (strong,nonatomic) Memory *memory;
+@property (assign,nonatomic) NSInteger pageIndex;
 @end
 
 @implementation MyMemorySubedVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self loadMemoryList:1];
+//    [self loadMemoryList:1];
+    _pageIndex = 1;
+    [self loadDataWithRefreshStatus:UITableViewRefreshStatusAnimation pageIndex:_pageIndex];
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        _pageIndex = 1;
+        [self loadDataWithRefreshStatus:UITableViewRefreshStatusHeader pageIndex:_pageIndex];
+    }];
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        _pageIndex++;
+        [self loadDataWithRefreshStatus:UITableViewRefreshStatusFooter pageIndex:_pageIndex];
+    }];
     [_tableView registerNib:[UINib nibWithNibName:@"MemoryMoreCell" bundle:nil] forCellReuseIdentifier:@"MemoryMoreCell"];
 }
-- (void)loadMemoryList:(NSInteger)index{
-    //    {
-    //        "userPhone":"*****",        #用户手机号
-    //        "token":"*****",            #登陆凭证
-    //        "pageIndex":1               #记忆法页数
-    //    }
-    if (index == 1) {
+//- (void)loadMemoryList:(NSInteger)index{
+//    //    {
+//    //        "userPhone":"*****",        #用户手机号
+//    //        "token":"*****",            #登陆凭证
+//    //        "pageIndex":1               #记忆法页数
+//    //    }
+//    if (index == 1) {
+//        [YHHud showWithStatus];
+//    }
+//    NSDictionary *jsonDic = @{@"userPhone":self.phoneNum,    //    #用户手机号
+//                              @"token":self.token,         //   #登陆凭证
+//                              @"pageIndex":@"1",        //   #记忆法页数
+//                              @"type":@"1"};       //  #查询类型 0所有 1已订阅
+//    [YHWebRequest YHWebRequestForPOST:kMemoryVideo parameters:jsonDic success:^(NSDictionary *json) {
+//        if (index == 1) {
+//            [YHHud dismiss];
+//        }
+//        if ([json[@"code"] integerValue] == 200) {
+//            NSArray *resultArr = [NSDictionary dictionaryWithJsonString:json[@"data"]][@"indexMemory"];
+//            _memoryVideoList = [NSMutableArray array];
+//            for (NSDictionary *memoryDic in resultArr) {
+//                if ([memoryDic[@"payType"] integerValue] == 1) {
+//                    [_memoryVideoList addObject:memoryDic];
+//                }
+//            }
+//            [_tableView reloadData];
+//        }else{
+//            NSLog(@"%@",json[@"code"]);
+//            [YHHud showWithMessage:json[@"message"]];
+//        }
+//    } failure:^(NSError * _Nonnull error) {
+//        if (index == 1) {
+//            [YHHud dismiss];
+//        }
+//        NSLog(@"%@",error);
+//    }];
+//}
+- (void)loadDataWithRefreshStatus:(UITableViewRefreshStatus)status pageIndex:(NSInteger)pageIndex{
+    if (status==UITableViewRefreshStatusAnimation) {
         [YHHud showWithStatus];
     }
-    NSDictionary *jsonDic = @{@"userPhone":self.phoneNum,    //    #用户手机号
-                              @"token":self.token,         //   #登陆凭证
-                              @"pageIndex":@"1",        //   #记忆法页数
-                              @"type":@"1"};       //  #查询类型 0所有 1已订阅
+    NSDictionary *jsonDic = @{
+        @"userPhone":self.phoneNum,    //    #用户手机号
+        @"token":self.token,         //   #登陆凭证
+        @"pageIndex":[NSString stringWithFormat:@"%zd",pageIndex],        //   #记忆法页数
+        @"type":@"1"       //  #查询类型 0所有 1已订阅
+    };
     [YHWebRequest YHWebRequestForPOST:kMemoryVideo parameters:jsonDic success:^(NSDictionary *json) {
-        if (index == 1) {
+        if (status==UITableViewRefreshStatusAnimation) {
             [YHHud dismiss];
         }
-        if ([json[@"code"] integerValue] == 200) {
-            NSArray *resultArr = [NSDictionary dictionaryWithJsonString:json[@"data"]][@"indexMemory"];
-            _memoryVideoList = [NSMutableArray array];
-            for (NSDictionary *memoryDic in resultArr) {
-                if ([memoryDic[@"payType"] integerValue] == 1) {
-                    [_memoryVideoList addObject:memoryDic];
+        if([json[@"code"] integerValue] == 200){
+            NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+            NSArray *resultArray =  resultDic[@"indexMemory"];
+            if (status == UITableViewRefreshStatusAnimation || status == UITableViewRefreshStatusHeader) {
+                _memoryVideoList = [NSMutableArray arrayWithArray:resultArray];
+                [_tableView reloadData];
+                if (status==UITableViewRefreshStatusHeader) {
+                    [self.tableView.mj_header endRefreshing];
+                    // 重置没有更多的数据（消除没有更多数据的状态）！！！！！！
+                    [self.tableView.mj_footer resetNoMoreData];
                 }
+            }else if (status == UITableViewRefreshStatusFooter){
+                [_memoryVideoList addObjectsFromArray:resultArray];
+                [self.tableView reloadData];
+                [self.tableView.mj_footer endRefreshing];
             }
-            [_tableView reloadData];
+        }else if([json[@"code"] integerValue] == 106){
+            if (_pageIndex==1) {
+                [self loadNoInviteView:@"您还未订阅记忆法，快去订阅吧！"];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
         }else{
             NSLog(@"%@",json[@"code"]);
             [YHHud showWithMessage:json[@"message"]];
+            if (status==UITableViewRefreshStatusHeader) {
+                [self.tableView.mj_header endRefreshing];
+            }else if (status==UITableViewRefreshStatusFooter){
+                [self.tableView.mj_footer endRefreshing];
+            }
         }
     } failure:^(NSError * _Nonnull error) {
-        if (index == 1) {
+        NSLog(@"%@",error);
+        if (status==UITableViewRefreshStatusHeader) {
+            [self.tableView.mj_header endRefreshing];
+        }else if (status==UITableViewRefreshStatusFooter){
+            [self.tableView.mj_footer endRefreshing];
+        }else if (status==UITableViewRefreshStatusAnimation){
             [YHHud dismiss];
         }
-        NSLog(@"%@",error);
     }];
 }
+
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -91,7 +159,9 @@
     }
 }
 - (void)reloadMemoryList{
-    [self loadMemoryList:0];
+//    [self loadMemoryList:0];
+    _pageIndex = 1;
+    [self loadDataWithRefreshStatus:UITableViewRefreshStatusHeader pageIndex:_pageIndex];
 }
 
 @end

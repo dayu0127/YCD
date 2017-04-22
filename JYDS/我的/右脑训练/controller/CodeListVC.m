@@ -27,9 +27,8 @@
 //    _collectionView.backgroundColor = [UIColor clearColor];
 //    [self.view addSubview:_collectionView];
 //    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
-    _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64)];
-    NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:kMemoryImages]];
-    [_wkWebView loadRequest:request];
+    [YHHud showWithStatus];
+    _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64) url:kMemoryImages];
     [self.view addSubview:_wkWebView];
 }
 - (IBAction)backClick:(id)sender {

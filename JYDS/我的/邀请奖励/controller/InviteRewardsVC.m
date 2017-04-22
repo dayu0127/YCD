@@ -7,12 +7,12 @@
 //
 
 #import "InviteRewardsVC.h"
-#import "BaseWKWebView.h"
+#import <WebKit/WebKit.h>
 #import <UShareUI/UMSocialUIManager.h>
 #import "WXApi.h"
 #import <TencentOpenAPI/QQApiInterface.h>
 @interface InviteRewardsVC ()<WKNavigationDelegate>
-@property (strong,nonatomic) BaseWKWebView *wkWebView;
+@property (strong,nonatomic) WKWebView *wkWebView;
 @property (strong,nonatomic) UIButton *shareButton;
 @end
 
@@ -20,9 +20,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64)];
+    [YHHud showWithStatus];
+    _wkWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64)];
     NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:kInviteRewards]];
     _wkWebView.navigationDelegate = self;
+    _wkWebView.scrollView.showsVerticalScrollIndicator = NO;
     [_wkWebView loadRequest:request];
     [self.view insertSubview:_wkWebView atIndex:0];
     _shareButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -41,6 +43,7 @@
 #pragma mark 加载完成
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
     _shareButton.alpha = 1;
+    [YHHud dismiss];
 }
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];

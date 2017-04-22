@@ -12,38 +12,109 @@
 @property (weak, nonatomic) IBOutlet UILabel *pointsLabel;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (strong,nonatomic) UITableView *tableView;
-@property (strong,nonatomic) NSArray *pointsList;
+@property (strong,nonatomic) NSMutableArray *pointsList;
+@property (strong,nonatomic) NSDictionary *jsonData;
+@property (assign,nonatomic) NSInteger pageIndex;
 @end
 
 @implementation MyPointsVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _pageIndex = 1;
+    [self loadDataWithRefreshStatus:UITableViewRefreshStatusAnimation pageIndex:_pageIndex];
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        _pageIndex = 1;
+        [self loadDataWithRefreshStatus:UITableViewRefreshStatusHeader pageIndex:_pageIndex];
+    }];
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        _pageIndex++;
+        [self loadDataWithRefreshStatus:UITableViewRefreshStatusFooter pageIndex:_pageIndex];
+    }];
     _pointsLabel.text = _points;
-//    {
-//        "userPhone":"******"        #用户手机号
-//        "pageIndex":1               #页数
-//        "token":""                  #用户登陆凭证
-//    }
+////    {
+////        "userPhone":"******"        #用户手机号
+////        "pageIndex":1               #页数
+////        "token":""                  #用户登陆凭证
+////    }
+//    NSDictionary *jsonDic = @{
+//        @"userPhone":self.phoneNum,   //     #用户手机号
+//        @"pageIndex":@"1",          //     #页数
+//        @"token":self.token               //   #用户登陆凭证
+//    };
+//    [YHWebRequest YHWebRequestForPOST:kPointsList parameters:jsonDic success:^(NSDictionary *json) {
+//        if ([json[@"code"] integerValue] == 106) {
+//            [self loadNoPointsView];
+//        }else if ([json[@"code"] integerValue] == 200) {
+//            NSDictionary *jsonData = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+//            [self loadTableView];
+//            _pointsList = jsonData[@"pointsList"];
+//            [_tableView reloadData];
+//        }else{
+//            NSLog(@"%@",json[@"code"]);
+//            [YHHud showWithMessage:json[@"message"]];
+//        }
+//    } failure:^(NSError * _Nonnull error) {
+//        NSLog(@"%@",error);
+//    }];
+}
+- (void)loadDataWithRefreshStatus:(UITableViewRefreshStatus)status pageIndex:(NSInteger)pageIndex{
+    if (status==UITableViewRefreshStatusAnimation) {
+        [YHHud showWithStatus];
+    }
     NSDictionary *jsonDic = @{
-        @"userPhone":self.phoneNum,   //     #用户手机号
-        @"pageIndex":@"1",          //     #页数
-        @"token":self.token               //   #用户登陆凭证
+        @"userPhone":self.phoneNum,    //    #用户手机号
+        @"token":self.token,            //      #用户登陆凭证
+        @"pageIndex":[NSString stringWithFormat:@"%zd",pageIndex]         //    #页数
     };
     [YHWebRequest YHWebRequestForPOST:kPointsList parameters:jsonDic success:^(NSDictionary *json) {
-        if ([json[@"code"] integerValue] == 106) {
-            [self loadNoPointsView];
-        }else if ([json[@"code"] integerValue] == 200) {
-            NSDictionary *jsonData = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-            [self loadTableView];
-            _pointsList = jsonData[@"pointsList"];
-            [_tableView reloadData];
+        if (status==UITableViewRefreshStatusAnimation) {
+            [YHHud dismiss];
+        }
+        if([json[@"code"] integerValue] == 200){
+            _jsonData = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+            NSArray *resultArray =  _jsonData[@"pointsList"];
+            if (status == UITableViewRefreshStatusAnimation || status == UITableViewRefreshStatusHeader) {
+                if (_tableView==nil) {
+                    [self loadTableView];
+                }
+                _pointsList = [NSMutableArray arrayWithArray:resultArray];
+                [_tableView reloadData];
+                if (status==UITableViewRefreshStatusHeader) {
+                   _pointsLabel.text = [NSString stringWithFormat:@"%@",_jsonData[@"countPoints"]];
+                    [self.tableView.mj_header endRefreshing];
+                    // 重置没有更多的数据（消除没有更多数据的状态）！！！！！！
+                    [self.tableView.mj_footer resetNoMoreData];
+                }
+            }else if (status == UITableViewRefreshStatusFooter){
+                [_pointsList addObjectsFromArray:resultArray];
+                [self.tableView reloadData];
+                [self.tableView.mj_footer endRefreshing];
+            }
+        }else if([json[@"code"] integerValue] == 106){
+            if (_pageIndex==1) {
+                [self loadNoPointsView];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
         }else{
             NSLog(@"%@",json[@"code"]);
             [YHHud showWithMessage:json[@"message"]];
+            if (status==UITableViewRefreshStatusHeader) {
+                [self.tableView.mj_header endRefreshing];
+            }else if (status==UITableViewRefreshStatusFooter){
+                [self.tableView.mj_footer endRefreshing];
+            }
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
+        if (status==UITableViewRefreshStatusHeader) {
+            [self.tableView.mj_header endRefreshing];
+        }else if (status==UITableViewRefreshStatusFooter){
+            [self.tableView.mj_footer endRefreshing];
+        }else if (status==UITableViewRefreshStatusAnimation){
+            [YHHud dismiss];
+        }
     }];
 }
 - (IBAction)backClick:(id)sender {

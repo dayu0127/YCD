@@ -16,10 +16,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64)];
-    NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:kMessageDetail]];
-    [_wkWebView loadRequest:request];
+    [YHHud showWithStatus];
+    _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64) url:kMessageDetail];
     [self.view addSubview:_wkWebView];
 }
 

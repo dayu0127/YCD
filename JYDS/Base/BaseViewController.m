@@ -48,6 +48,17 @@
     }]];
     [self presentViewController:alert animated:YES completion:nil];
 }
+- (void)loadNoInviteView:(NSString *)str{
+    UILabel *label = [UILabel new];
+    label.text = str;
+    label.textColor = LIGHTGRAYCOLOR;
+    label.font = [UIFont systemFontOfSize:16.0f];
+    [self.view addSubview:label];
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(289/667.0*HEIGHT);
+        make.centerX.equalTo(self.view);
+    }];
+}
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.view endEditing:YES];

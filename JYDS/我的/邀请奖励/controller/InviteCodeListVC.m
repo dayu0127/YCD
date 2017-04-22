@@ -12,49 +12,103 @@
 @interface InviteCodeListVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (strong,nonatomic) UITableView *tableView;
 @property (strong,nonatomic) NSDictionary *jsonData;
-@property (strong,nonatomic) NSArray *inviteList;
+@property (strong,nonatomic) NSMutableArray *inviteList;
+@property (strong,nonatomic) InviteTitleCell *cell;
+@property (assign,nonatomic) NSInteger pageIndex;
 @end
 
 @implementation InviteCodeListVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-//    {
-//        "userPhone":"******"        #用户手机号
-//        "token":""                  #用户登陆凭证
-//        "pageIndex":""             #页数
-//    }
+//    NSDictionary *jsonDic = @{
+//        @"userPhone":self.phoneNum,    //    #用户手机号
+//        @"token":self.token,            //      #用户登陆凭证
+//        @"pageIndex":@"1"         //    #页数
+//    };
+//    [YHWebRequest YHWebRequestForPOST:kInvitationList parameters:jsonDic success:^(NSDictionary *json) {
+//        if ([json[@"code"] integerValue]  == 106) {
+//            
+//        }else if ([json[@"code"] integerValue]  == 200) {
+//            [self loadTableView];
+//            _jsonData = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+//            _inviteList = _jsonData[@"invitationList"];
+//            [_tableView reloadData];
+//        }else{
+//            NSLog(@"%@",json[@"code"]);
+//            [YHHud showWithMessage:json[@"message"]];
+//        }
+//    } failure:^(NSError * _Nonnull error) {
+//        NSLog(@"%@",error);
+//    }];
+    _pageIndex = 1;
+    [self loadDataWithRefreshStatus:UITableViewRefreshStatusAnimation pageIndex:_pageIndex];
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        _pageIndex = 1;
+        [self loadDataWithRefreshStatus:UITableViewRefreshStatusHeader pageIndex:_pageIndex];
+    }];
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        _pageIndex++;
+        [self loadDataWithRefreshStatus:UITableViewRefreshStatusFooter pageIndex:_pageIndex];
+    }];
+}
+- (void)loadDataWithRefreshStatus:(UITableViewRefreshStatus)status pageIndex:(NSInteger)pageIndex{
+    if (status==UITableViewRefreshStatusAnimation) {
+        [YHHud showWithStatus];
+    }
     NSDictionary *jsonDic = @{
         @"userPhone":self.phoneNum,    //    #用户手机号
         @"token":self.token,            //      #用户登陆凭证
-        @"pageIndex":@"1"         //    #页数
+        @"pageIndex":[NSString stringWithFormat:@"%zd",pageIndex]         //    #页数
     };
     [YHWebRequest YHWebRequestForPOST:kInvitationList parameters:jsonDic success:^(NSDictionary *json) {
-        if ([json[@"code"] integerValue]  == 106) {
-            [self loadNoInviteView];
-        }else if ([json[@"code"] integerValue]  == 200) {
-            [self loadTableView];
+        if (status==UITableViewRefreshStatusAnimation) {
+            [YHHud dismiss];
+        }
+        if([json[@"code"] integerValue] == 200){
             _jsonData = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-            _inviteList = _jsonData[@"invitationList"];
-            [_tableView reloadData];
+            NSArray *resultArray =  _jsonData[@"invitationList"];
+            if (status == UITableViewRefreshStatusAnimation || status == UITableViewRefreshStatusHeader) {
+                if (_tableView==nil) {
+                    [self loadTableView];
+                }
+                _inviteList = [NSMutableArray arrayWithArray:resultArray];
+                [_tableView reloadData];
+                if (status==UITableViewRefreshStatusHeader) {
+                    _cell.inviteNum.text = [NSString stringWithFormat:@"%@",_jsonData[@"invitationCount"]];
+                    [self.tableView.mj_header endRefreshing];
+                    // 重置没有更多的数据（消除没有更多数据的状态）！！！！！！
+                    [self.tableView.mj_footer resetNoMoreData];
+                }
+            }else if (status == UITableViewRefreshStatusFooter){
+                [_inviteList addObjectsFromArray:resultArray];
+                [self.tableView reloadData];
+                [self.tableView.mj_footer endRefreshing];
+            }
+        }else if([json[@"code"] integerValue] == 106){
+            if (_pageIndex==1) {
+                [self loadNoInviteView:@"您还未邀请过小伙伴，快去邀请吧！"];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
         }else{
             NSLog(@"%@",json[@"code"]);
             [YHHud showWithMessage:json[@"message"]];
+            if (status==UITableViewRefreshStatusHeader) {
+                [self.tableView.mj_header endRefreshing];
+            }else if (status==UITableViewRefreshStatusFooter){
+                [self.tableView.mj_footer endRefreshing];
+            }
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
-    }];
-}
-- (void)loadNoInviteView{
-    UILabel *label = [UILabel new];
-    label.text = @"您还未邀请过小伙伴，快去邀请吧！";
-    label.textColor = LIGHTGRAYCOLOR;
-    label.font = [UIFont systemFontOfSize:16.0f];
-    [self.view addSubview:label];
-    [label mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(289/667.0*HEIGHT);
-        make.centerX.equalTo(self.view);
+        if (status==UITableViewRefreshStatusHeader) {
+            [self.tableView.mj_header endRefreshing];
+        }else if (status==UITableViewRefreshStatusFooter){
+            [self.tableView.mj_footer endRefreshing];
+        }else if (status==UITableViewRefreshStatusAnimation){
+            [YHHud dismiss];
+        }
     }];
 }
 - (void)loadTableView{
@@ -75,9 +129,9 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
-        InviteTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InviteTitleCell" forIndexPath:indexPath];
-        cell.inviteNum.text = [NSString stringWithFormat:@"%@",_jsonData[@"invitationCount"]];
-        return cell;
+        _cell = [tableView dequeueReusableCellWithIdentifier:@"InviteTitleCell" forIndexPath:indexPath];
+        _cell.inviteNum.text = [NSString stringWithFormat:@"%@",_jsonData[@"invitationCount"]];
+        return _cell;
     }else{
         InviteCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InviteCell" forIndexPath:indexPath];
         cell.phoneNumLabel.text = _inviteList[indexPath.row-1][@"phone_num"];

@@ -149,6 +149,7 @@
 #define kGetUser API(@"/user/getUser")      //用户信息
 #define kWordFlip API(@"/study/wordFlip")      //单词翻页
 #define kPlayNum API(@"/common/addPlayNum")      //视频播放次数增加
+#define kSelectWord API(@"/study/selectWord")      //单词查询
 
 //练习题等级数组
 #define LEVELARRAY @[@"60",@"50",@"40",@"30",@"25",@"20",@"15",@"13",@"10"]
@@ -194,4 +195,15 @@
 #define SUBEDCOLOR RGB(57,196,130)  //#39C482
 //绿色
 #define GREENCOLOR RGB(57,196,130) //#39C482
+
+typedef NS_ENUM(NSInteger, UITableViewRefreshStatus) {
+    UITableViewRefreshStatusAnimation,   //刷新动画
+    UITableViewRefreshStatusHeader,     //下拉刷新
+    UITableViewRefreshStatusFooter      //上拉刷新
+};
+typedef NS_ENUM(NSInteger, UIViewControllerName) {
+    UIViewControllerNameWordSearchList,   //单词搜索列表
+    UIViewControllerNameWordSubedList,     //已订阅单词列表
+    UIViewControllerNameMyCollectList     //我的收藏列表
+};
 #endif /* JYDSPrefixHeader_pch */

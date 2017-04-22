@@ -135,8 +135,14 @@
 //            "userPhone":"***"       #用户手机号
 //            "token":"****"          #登陆凭证
 //        }
+        NSString *gradeID = @"";
+        if (_currentGradeID == nil) {
+            gradeID = _gradeList[0][@"gradeId"];
+        }else{
+            gradeID = _currentGradeID;
+        }
         _currentClassID = _classTypeList[index][@"class_type"];
-        NSDictionary *jsonDic = @{@"gradeId":_currentGradeID,        //#年级ID
+        NSDictionary *jsonDic = @{@"gradeId":gradeID,        //#年级ID
                                   @"classType":_currentClassID,  // #科目代码
                                   @"userPhone":phoneNum,     //  #用户手机号
                                   @"token":token};       // #登陆凭证
@@ -164,15 +170,28 @@
 //            "selectType":           #查询类型 0:根据上面条件查询，1：已订阅
 //            "pageIndex":            #查询页数（选填，select为1时候需要）
 //        }
+        NSString *gradeID = @"";
+        if (_currentGradeID == nil) {
+            gradeID = _gradeList[0][@"gradeId"];
+        }else{
+            gradeID = _currentGradeID;
+        }
+        NSString *classID = @"";
+        if (_currentClassID == nil) {
+            classID = _classTypeList[0][@"class_type"];
+        }else{
+            classID = _currentClassID;
+        }
         _currentVersionNameID = _versionNameList[index][@"class_type"];
         NSDictionary *jsonDic = @{
-            @"gradeType":_grade_type,          // #年段代码（选填：和gradeId填选一个）
-            @"gradeId":_currentGradeID,    //  #年级ID（选填：和gradeType填选一个）
-            @"classType":_currentClassID,     //    #科目代码（选填）
+//            @"gradeType":_grade_type,          // #年段代码（选填：和gradeId填选一个）
+            @"gradeId":gradeID,    //  #年级ID（选填：和gradeType填选一个）
+            @"classType":classID,     //    #科目代码（选填）
             @"version":_currentVersionNameID,        //   #版本代码（选填）
             @"userPhone":phoneNum,     //  #用户手机号
             @"token":token,      //   #登陆凭证
-            @"selectType":@"0"};       //    #查询类型 0:根据上面条件查询，1：已订阅
+            @"selectType":@"0"       //    #查询类型 0:根据上面条件查询，1：已订阅
+        };
         [YHWebRequest YHWebRequestForPOST:kVersionList parameters:jsonDic success:^(NSDictionary *json) {
             if([json[@"code"] integerValue] == 200){
                 NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];

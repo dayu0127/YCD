@@ -13,4 +13,5 @@
 @property (copy,nonatomic) NSString *associatedWx;
 - (void)returnToLogin;
 - (void)returnToBingingPhone;
+- (void)loadNoInviteView:(NSString *)str;
 @end

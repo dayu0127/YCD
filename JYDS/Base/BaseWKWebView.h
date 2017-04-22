@@ -7,6 +7,5 @@
 //
 #import <WebKit/WebKit.h>
 @interface BaseWKWebView : WKWebView<WKNavigationDelegate>
-@property (strong,nonatomic) UIActivityIndicatorView *activityIndicatorView;
-@property (strong,nonatomic) UIView *opaqueView;
+- (instancetype)initWithFrame:(CGRect)frame url:(NSString *)urlStr;
 @end

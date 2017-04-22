@@ -13,6 +13,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "iflyMSC/iflyMSC.h"
 #import "IATConfig.h"
+#import <UIImageView+WebCache.h>
 @interface WordDetailVC ()<UITableViewDataSource,UITableViewDelegate,WordImageCellDelegate,IFlyRecognizerViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *collectButton;
@@ -47,7 +48,7 @@
     _isShowRead = YES;
     _collectButton.alpha = _showCollectButton == YES ? 1 : 0;
     _classId = _word.class_id;
-    _unitId = _word.class_id;
+    _unitId = _word.unit_id;
     [_tableView registerNib:[UINib nibWithNibName:@"WordDetailCell" bundle:nil] forCellReuseIdentifier:@"WordDetailCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"WordImageCell" bundle:nil] forCellReuseIdentifier:@"WordImageCell"];
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, [self getFootViewHeight])];//86  140  176
@@ -73,8 +74,8 @@
 //            "classId"："****"        #课本id
 //            "wordId":"**"           #单词id
 //        }
-        NSDictionary *jsonDic = @{@"classId":_word.class_id,    //  #版本ID
-                                  @"unitId" :_word.unit_id,    // #单元ID
+        NSDictionary *jsonDic = @{@"classId":_classId,    //  #版本ID
+                                  @"unitId" :_unitId,    // #单元ID
                                   @"wordId":_word.wordId,         //  #当前页数
                                   @"userPhone":self.phoneNum,     //  #用户手机号
                                   @"token":self.token};       //   #登陆凭证
@@ -83,10 +84,12 @@
                 //刷新单词收藏图片
                 [sender setImage:[UIImage imageNamed:@"course_collected"] forState:UIControlStateNormal];
                 _word.collectionType = @"1";
-                if (_isMyCollect == YES) {
+                if (_vcName == UIViewControllerNameMyCollectList) {
                     [_delegate updateMyCollectList];
-                }else{
+                }else if(_vcName == UIViewControllerNameWordSubedList){
                     [_delegate updateWordList];
+                }else if(_vcName == UIViewControllerNameWordSearchList){
+                    [_delegate updateWordSearchList];
                 }
                 [YHHud showWithMessage:@"收藏成功"];
             }else{
@@ -104,8 +107,8 @@
 //            "classId"："****"        #课本id
 //            "wordId":"**"           #单词id
 //        }
-        NSDictionary *jsonDic = @{@"classId":_word.class_id,    //  #版本ID
-                                  @"unitId" :_word.unit_id,    // #单元ID
+        NSDictionary *jsonDic = @{@"classId":_classId,    //  #版本ID
+                                  @"unitId" :_unitId,    // #单元ID
                                   @"wordId":_word.wordId,         //  #当前页数
                                   @"userPhone":self.phoneNum,     //  #用户手机号
                                   @"token":self.token};       //   #登陆凭证
@@ -114,10 +117,12 @@
                 //刷新单词收藏图片
                 [sender setImage:[UIImage imageNamed:@"course_collect"] forState:UIControlStateNormal];
                 _word.collectionType = @"0";
-                if (_isMyCollect == YES) {
+                if (_vcName == UIViewControllerNameMyCollectList) {
                     [_delegate updateMyCollectList];
-                }else{
+                }else if(_vcName == UIViewControllerNameWordSubedList){
                     [_delegate updateWordList];
+                }else if(_vcName == UIViewControllerNameWordSearchList){
+                    [_delegate updateWordSearchList];
                 }
                 [YHHud showWithMessage:@"已取消收藏"];
             }else{
@@ -168,22 +173,37 @@
         return _associateCell;
     }else{
         _imageCell = [tableView dequeueReusableCellWithIdentifier:@"WordImageCell" forIndexPath:indexPath];
-        [_imageCell.preBtn addTarget:self action:@selector(preBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [_imageCell.nextBtn addTarget:self action:@selector(nextBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [_imageCell setModel:_word];
         _imageCell.delegate = self;
+        if (_vcName == UIViewControllerNameWordSubedList) {
+            [_imageCell.preBtn addTarget:self action:@selector(preBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+            [_imageCell.nextBtn addTarget:self action:@selector(nextBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        }else{
+            _imageCell.preImageView.alpha = 0;
+            _imageCell.nextImageView.alpha = 0;
+            _imageCell.preBtn.alpha = 0;
+            _imageCell.nextBtn.alpha = 0;
+        }
         return _imageCell;
     }
 }
 #pragma mark 上一个点击事件
 - (void)preBtnClick:(UIButton *)sender{
     _indexOfWord--;
-    [self reloadWordDeltail:_indexOfWord];
+    if (_indexOfWord<1) {
+        [YHHud showWithMessage:@"已经是第一个了"];
+    }else{
+        [self reloadWordDeltail:_indexOfWord];
+    }
 }
 #pragma mark 下一个点击事件
 - (void)nextBtnClick:(UIButton *)sender{
     _indexOfWord++;
-    [self reloadWordDeltail:_indexOfWord];
+    if (_indexOfWord>_wordNum) {
+        [YHHud showWithMessage:@"已经是最后一个了"];
+    }else{
+        [self reloadWordDeltail:_indexOfWord];
+    }
 }
 - (void)reloadWordDeltail:(NSInteger)wordIndex{
     //    {
@@ -200,7 +220,6 @@
         @"classId":_classId,                  //#课本id
         @"unitId":_unitId                     //#单元id
     };
-    NSLog(@"%@",jsonDic);
     [YHWebRequest YHWebRequestForPOST:kWordFlip parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
             NSDictionary *jsonDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
@@ -208,7 +227,10 @@
             [self loadWordDetail];
             _splitCell.splitOrAssociateLabel.text = _word.split;
             _associateCell.splitOrAssociateLabel.attributedText = [self setColorForString:_word.associate];
-            [_imageCell setModel:_word];
+            [_imageCell.img sd_setImageWithURL:[NSURL URLWithString:_word.imgUrl]];
+//            [_imageCell setModel:_word];
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
+//            [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }else{
             NSLog(@"%@",json[@"code"]);
             [YHHud showWithMessage:json[@"message"]];

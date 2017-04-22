@@ -185,6 +185,7 @@
 		606A94F61E51A8CA00A0279D /* MnemonicsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94E81E51A8CA00A0279D /* MnemonicsVC.m */; };
 		606A94FA1E51A8CA00A0279D /* MemoryCourseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94F21E51A8CA00A0279D /* MemoryCourseVC.m */; };
 		606A94FB1E51A8CA00A0279D /* BannerDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94F51E51A8CA00A0279D /* BannerDetailVC.m */; };
+		606BFF9B1EAB7F0E000084D4 /* WordSearchListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606BFF9A1EAB7F0E000084D4 /* WordSearchListVC.m */; };
 		606F12D41E6EB49A00875F1B /* ca.cer in Resources */ = {isa = PBXBuildFile; fileRef = 606F12D31E6EB49A00875F1B /* ca.cer */; };
 		6076CEF51E8601F5006E5F6F /* NoLoginHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6076CEF41E8601F5006E5F6F /* NoLoginHeaderView.m */; };
 		6076CEF81E86020C006E5F6F /* LoggedInHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6076CEF71E86020C006E5F6F /* LoggedInHeaderView.m */; };
@@ -545,6 +546,8 @@
 		606A94F21E51A8CA00A0279D /* MemoryCourseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryCourseVC.m; sourceTree = "<group>"; };
 		606A94F41E51A8CA00A0279D /* BannerDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerDetailVC.h; sourceTree = "<group>"; };
 		606A94F51E51A8CA00A0279D /* BannerDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerDetailVC.m; sourceTree = "<group>"; };
+		606BFF991EAB7F0E000084D4 /* WordSearchListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordSearchListVC.h; sourceTree = "<group>"; };
+		606BFF9A1EAB7F0E000084D4 /* WordSearchListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordSearchListVC.m; sourceTree = "<group>"; };
 		606F12D31E6EB49A00875F1B /* ca.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = ca.cer; path = JYDS/ca.cer; sourceTree = SOURCE_ROOT; };
 		6076CEF31E8601F5006E5F6F /* NoLoginHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoLoginHeaderView.h; sourceTree = "<group>"; };
 		6076CEF41E8601F5006E5F6F /* NoLoginHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoLoginHeaderView.m; sourceTree = "<group>"; };
@@ -1169,6 +1172,8 @@
 				608658B71E94BD4800A20EDC /* GradeVC.m */,
 				608658C61E94E20700A20EDC /* ModuleListVC.h */,
 				608658C71E94E20700A20EDC /* ModuleListVC.m */,
+				606BFF991EAB7F0E000084D4 /* WordSearchListVC.h */,
+				606BFF9A1EAB7F0E000084D4 /* WordSearchListVC.m */,
 				608658C91E94E8A700A20EDC /* WordListVC.h */,
 				608658CA1E94E8A700A20EDC /* WordListVC.m */,
 				604FE02C1E9BA7CD00C98A54 /* WordSubedList.h */,
@@ -2265,6 +2270,7 @@
 				609F06421E1621DF009F4986 /* HelpFeedbackVC.m in Sources */,
 				60A5C7CB1E8B8F61007D2366 /* MySubCell.m in Sources */,
 				608851901E9DDC63004C107E /* MemoryComment.m in Sources */,
+				606BFF9B1EAB7F0E000084D4 /* WordSearchListVC.m in Sources */,
 				6078D1FB1E1613180089D40F /* RSADataVerifier.m in Sources */,
 				6088518C1E9DD63E004C107E /* CommentCell.m in Sources */,
 				60A5C7C21E8B8A1A007D2366 /* MySubVC.m in Sources */,

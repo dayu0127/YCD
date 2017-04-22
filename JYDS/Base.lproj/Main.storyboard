@@ -2994,8 +2994,8 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uGC-iP-7ai" userLabel="backButton">
-                                        <rect key="frame" x="8" y="25" width="33" height="33"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uGC-iP-7ai" userLabel="backButton">
+                                        <rect key="frame" x="7" y="25" width="33" height="33"/>
                                         <state key="normal" image="back"/>
                                         <connections>
                                             <action selector="backClick:" destination="ZIE-Yb-BZD" eventType="touchUpInside" id="ZpL-Li-j12"/>
@@ -3276,6 +3276,9 @@
                             <searchBar contentMode="redraw" placeholder="请输入生词，立即查询" translatesAutoresizingMaskIntoConstraints="NO" id="IU0-ac-8F6">
                                 <rect key="frame" x="0.0" y="64" width="375" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="JoF-DV-eXq" id="fKd-eS-s8T"/>
+                                </connections>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ECc-aw-pZl">
                                 <rect key="frame" x="10" y="563" width="355" height="45"/>
@@ -3325,11 +3328,72 @@
                         <segue destination="5a8-Cj-aGI" kind="show" identifier="toPayViewController" id="shh-pJ-PmO"/>
                         <segue destination="UOd-fm-gc1" kind="show" identifier="toWordSubedList" id="39c-X7-5FN"/>
                         <segue destination="Mjh-Gy-vFh" kind="show" identifier="moduleListToInviteRewards" id="PX7-fy-7bi"/>
+                        <segue destination="yvf-gx-LuJ" kind="show" identifier="toWordSearchVC" id="nQi-es-xmg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="25y-DZ-cmh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5660" y="35.532233883058474"/>
+        </scene>
+        <!--单词搜索VC-->
+        <scene sceneID="lK8-Vu-5zh">
+            <objects>
+                <viewController hidesBottomBarWhenPushed="YES" id="yvf-gx-LuJ" userLabel="单词搜索VC" customClass="WordSearchListVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4Fq-OH-d1j"/>
+                        <viewControllerLayoutGuide type="bottom" id="giu-Bv-rPe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pYa-XR-nS5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8CV-RM-qY1" userLabel="navView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="单词搜索" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TlB-JB-Nhg">
+                                        <rect key="frame" x="48" y="32.5" width="62" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iim-QF-FrC" userLabel="backButton">
+                                        <rect key="frame" x="7" y="25" width="33" height="33"/>
+                                        <state key="normal" image="back"/>
+                                        <connections>
+                                            <action selector="backClick:" destination="yvf-gx-LuJ" eventType="touchUpInside" id="DJk-BE-YQ3"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C6R-vW-5qd">
+                                        <rect key="frame" x="348" y="30.5" width="17" height="22"/>
+                                        <state key="normal" image="course_top_player"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.99607843139999996" green="0.31764705879999999" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="iim-QF-FrC" firstAttribute="top" secondItem="8CV-RM-qY1" secondAttribute="top" constant="25" id="Hkp-qR-64F"/>
+                                    <constraint firstAttribute="height" constant="64" id="JcS-6d-Mgp"/>
+                                    <constraint firstItem="TlB-JB-Nhg" firstAttribute="leading" secondItem="iim-QF-FrC" secondAttribute="trailing" constant="8" id="QsX-4M-kti"/>
+                                    <constraint firstItem="TlB-JB-Nhg" firstAttribute="centerY" secondItem="iim-QF-FrC" secondAttribute="centerY" id="UFk-qs-IyY"/>
+                                    <constraint firstAttribute="trailing" secondItem="C6R-vW-5qd" secondAttribute="trailing" constant="10" id="WBE-Bd-TvR"/>
+                                    <constraint firstItem="iim-QF-FrC" firstAttribute="leading" secondItem="8CV-RM-qY1" secondAttribute="leading" constant="7" id="bvQ-HO-Poh"/>
+                                    <constraint firstItem="C6R-vW-5qd" firstAttribute="centerY" secondItem="TlB-JB-Nhg" secondAttribute="centerY" id="jQd-Ik-980"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="8CV-RM-qY1" secondAttribute="trailing" id="IWy-0g-taT"/>
+                            <constraint firstItem="8CV-RM-qY1" firstAttribute="leading" secondItem="pYa-XR-nS5" secondAttribute="leading" id="cbM-JM-IDA"/>
+                            <constraint firstItem="8CV-RM-qY1" firstAttribute="top" secondItem="pYa-XR-nS5" secondAttribute="top" id="sbv-rO-Y2h"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <segue destination="mQH-Bd-X9I" kind="show" identifier="wordSearchToWordDetail" id="Ism-xV-ZwY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pzD-ct-brV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5660" y="-634"/>
         </scene>
         <!--已订阅单词列表VC-->
         <scene sceneID="OOG-EU-Aae">
@@ -4500,11 +4564,11 @@
         <image name="userinfo_top_bg" width="375" height="246"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fWR-94-x8F"/>
-        <segue reference="FCC-bP-pwD"/>
-        <segue reference="ieB-4i-mT9"/>
-        <segue reference="3Cm-7u-jdT"/>
-        <segue reference="83X-RF-JWC"/>
         <segue reference="rhJ-wj-NYw"/>
+        <segue reference="fWR-94-x8F"/>
+        <segue reference="ieB-4i-mT9"/>
+        <segue reference="shh-pJ-PmO"/>
+        <segue reference="PX7-fy-7bi"/>
+        <segue reference="Ism-xV-ZwY"/>
     </inferredMetricsTieBreakers>
 </document>
