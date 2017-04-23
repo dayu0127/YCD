@@ -13,7 +13,10 @@
 - (instancetype)initWithFrame:(CGRect)frame imageNameArray:(NSArray *)arr{
     if (self = [super initWithFrame:frame]) {
         self.userInteractionEnabled = YES;
-        _wkWebView = [[BaseWKWebView alloc] initWithFrame:self.bounds];
+        [YHHud showWithStatus];
+        _wkWebView = [[WKWebView alloc] initWithFrame:self.bounds];
+        _wkWebView.navigationDelegate = self;
+        _wkWebView.scrollView.bounces = NO;
         NSMutableString *arrStr = [[NSMutableString alloc] initWithString:@"["];
         for (int i = 0; i<arr.count; i++) {
             if (i!=arr.count-1) {
@@ -65,28 +68,46 @@
 //        }
         
         //button
-        //continue
-//        UIButton *continueButton = [[UIButton alloc] initWithFrame:CGRectMake((WIDTH-200)*0.5, CGRectGetMaxY(titleLabel.frame)+c*3+70,200, 38)];
-//        [continueButton setTitle:@"继续" forState:UIControlStateNormal];
-//        [continueButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        continueButton.layer.masksToBounds = YES;
-//        continueButton.layer.cornerRadius = 6.0f;
-//        continueButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
-//        continueButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-//        [continueButton addTarget:self action:@selector(continueClick) forControlEvents:UIControlEventTouchUpInside];
-//        [self addSubview:continueButton];
-//        //back
-//        UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake((WIDTH-200)*0.5, CGRectGetMaxY(continueButton.frame)+13,200, 38)];
-//        [backButton setTitle:@"返回" forState:UIControlStateNormal];
-//        [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        backButton.layer.masksToBounds = YES;
-//        backButton.layer.cornerRadius = 6.0f;
-//        backButton.backgroundColor = SEPCOLOR;
-//        backButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-//        [backButton addTarget:self action:@selector(backClick) forControlEvents:UIControlEventTouchUpInside];
-//        [self addSubview:backButton];
+        //继续当前难度训练
+        _continueButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_continueButton setTitle:@"继续" forState:UIControlStateNormal];
+        [_continueButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _continueButton.layer.masksToBounds = YES;
+        _continueButton.layer.cornerRadius = 6.0f;
+        _continueButton.backgroundColor = ORANGERED;
+        _continueButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+        [_continueButton addTarget:self action:@selector(continueClick) forControlEvents:UIControlEventTouchUpInside];
+        [self insertSubview:_continueButton atIndex:1];
+        [_continueButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self).offset(-(self.frame.size.height*39/603.0+38));
+            make.centerX.equalTo(self);
+            make.width.mas_equalTo(@200);
+            make.height.mas_equalTo(@38);
+        }];
+        _continueButton.alpha = 0;
+        _backButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_backButton setTitle:@"返回" forState:UIControlStateNormal];
+        [_backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _backButton.layer.masksToBounds = YES;
+        _backButton.layer.cornerRadius = 6.0f;
+        _backButton.backgroundColor = LIGHTGRAYCOLOR;
+        _backButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+        [_backButton addTarget:self action:@selector(backClick) forControlEvents:UIControlEventTouchUpInside];
+        [self insertSubview:_backButton atIndex:1];
+        [_backButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self).offset(-(self.frame.size.height*25/603.0));
+            make.centerX.equalTo(self);
+            make.width.mas_equalTo(@200);
+            make.height.mas_equalTo(@38);
+        }];
+        _backButton.alpha = 0;
     }
     return self;
+}
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
+    _continueButton.alpha = 1;
+    _backButton.alpha = 1;
+    [YHHud dismiss];
 }
 - (void)continueClick{
     [_delegate backToExerciselView];
