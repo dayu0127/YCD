@@ -20,18 +20,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSMutableArray *arr = [NSMutableArray array];
-    for (NSString *str in _errorNumArray) {
-        if (![arr containsObject:str]) {
-            [arr addObject:str];
-        }
-    }
-    if (arr.count == 0) {
+//    NSMutableArray *arr = [NSMutableArray array];
+//    for (NSString *str in _errorNumArray) {
+//        if (![arr containsObject:str]) {
+//            [arr addObject:str];
+//        }
+//    }
+    if (_errorNumArray.count == 0) {
         SuccessView *successView = [[NSBundle mainBundle] loadNibNamed:@"SuccessView" owner:nil options:nil ].lastObject;
         successView.frame = CGRectMake(0, 64, WIDTH, HEIGHT-64);
         successView.delegate = self;
         [self.view addSubview:successView];
-    }else if (arr.count>0&&arr.count<10){
+    }else if (_errorNumArray.count>0&&_errorNumArray.count<10){
         ResultView *resultView = [[ResultView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64) imageNameArray:_errorNumArray];
         resultView.delegate = self;
         [self.view addSubview:resultView];
