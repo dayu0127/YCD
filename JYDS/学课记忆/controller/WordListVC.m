@@ -209,7 +209,7 @@
                 [self.subedTableView.mj_footer endRefreshing];
             }
         }else if([json[@"code"] integerValue] == 106){
-            if (_pageIndex1 == 1) {
+            if (_subedWordList.count == 0) {
                 [self loadNoSubView];
             }else{
                 [self.subedTableView.mj_footer endRefreshingWithNoMoreData];

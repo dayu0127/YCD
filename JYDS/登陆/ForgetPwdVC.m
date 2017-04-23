@@ -31,7 +31,10 @@
 @end
 
 @implementation ForgetPwdVC
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     _sureButton.layer.masksToBounds = YES;

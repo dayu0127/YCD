@@ -177,14 +177,14 @@
                         }else if ([[YHSingleton shareSingleton].payType isEqualToString:@"1"]){
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMemorySubStatus" object:nil];
                         }
-//                        [YHHud showWithSuccess:@"支付成功"];
-                        [YHHud showPaySuccessOrFailed:@"success" completion:^{
+                        [YHHud showPaySuccessOrFailed:@"success"];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"back" object:nil];
-                        }];
+                        });
                     }else{
                         NSLog(@"%@",json[@"code"]);
 //                        [YHHud showWithMessage:json[@"message"]];
-                        [YHHud showPaySuccessOrFailed:@"failed" completion:nil];
+                        [YHHud showPaySuccessOrFailed:@"failed"];
                     }
                 } failure:^(NSError * _Nonnull error) {
                     NSLog(@"%@",error);

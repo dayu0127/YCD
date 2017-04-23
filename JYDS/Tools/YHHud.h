@@ -14,5 +14,5 @@
 + (void)showRightOrWrong:(NSString *)str; //答对答错
 + (void)dismiss;
 + (void)showWithSuccess:(NSString*)successString;//成功提示
-+ (void)showPaySuccessOrFailed:(NSString *)str completion:(void(^)(void))completion; //支付成功失败
++ (void)showPaySuccessOrFailed:(NSString *)str; //支付成功失败
 @end

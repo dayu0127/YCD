@@ -23,7 +23,10 @@
 @end
 
 @implementation LoginCodeVC
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -117,6 +120,7 @@
                                           @"verifyCode":verifyCode};               //    #验证码
     [YHWebRequest YHWebRequestForPOST:kCodeLogin parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
+//            NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
             //改变我的页面，显示头像,昵称和手机号
             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
             NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
@@ -176,13 +180,22 @@
                                                   @"genter":genter,
                                                   @"nickName":nickName};               //   #性别 1男 0女  （选填
             [YHWebRequest YHWebRequestForPOST:kQQLogin parameters:jsonDic success:^(NSDictionary *json) {
-                NSLog(@"%@",json);
                 if ([json[@"code"] integerValue] == 200) {
-                    [YHSingleton shareSingleton].userInfo.associatedQq = associatedQq;
-                    [YHHud showWithSuccess:@"登录成功"];
+//                    NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
+                    //改变我的页面，显示头像,昵称和手机号
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
+                    NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+                    //保存token
+                    [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"token"] forKey:@"token"];
+                    //保存用户信息
+                    [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
+                    [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
+                    //保存登录类型
+                    [[NSUserDefaults standardUserDefaults] setObject:@"wx" forKey:@"loginType"];
+                    //改变登录状态
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [YHHud showWithSuccess:@"登录成功"];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [self returnToHome];
                     });
                 }else{
@@ -232,11 +245,21 @@
                                                  @"nickName":nickName};               //   #性别 1男 0女  （选填
             [YHWebRequest YHWebRequestForPOST:kWXLogin parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {
-                    [YHSingleton shareSingleton].userInfo.associatedWx = associatedWx;
-                    [YHHud showWithSuccess:@"登录成功"];
+//                    NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
+                    //改变我的页面，显示头像,昵称和手机号
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
+                    NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+                    //保存token
+                    [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"token"] forKey:@"token"];
+                    //保存用户信息
+                    [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
+                    [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
+                    //保存登录类型
+                    [[NSUserDefaults standardUserDefaults] setObject:@"wx" forKey:@"loginType"];
+                    //改变登录状态
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [YHHud showWithSuccess:@"登录成功"];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [self returnToHome];
                     });
                 }else{
@@ -249,5 +272,8 @@
         }
     }];
 }
-
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+}
 @end

@@ -33,6 +33,7 @@
         [self loadDataWithRefreshStatus:UITableViewRefreshStatusFooter pageIndex:_pageIndex];
     }];
     [_tableView registerNib:[UINib nibWithNibName:@"GradeCell" bundle:nil] forCellReuseIdentifier:@"GradeCell"];
+    _tableView.alpha = 0;
 }
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -83,6 +84,7 @@
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             NSArray *resultArray =  resultDic[@"versionList"];
             if (status == UITableViewRefreshStatusAnimation || status == UITableViewRefreshStatusHeader) {
+                _tableView.alpha = 1;
                 _courseSubedList = [NSMutableArray arrayWithArray:resultArray];
                 [_tableView reloadData];
                 if (status==UITableViewRefreshStatusHeader) {
@@ -96,7 +98,7 @@
                 [self.tableView.mj_footer endRefreshing];
             }
         }else if([json[@"code"] integerValue] == 106){
-            if (_pageIndex==1) {
+            if (_courseSubedList.count==0) {
                 [self loadNoInviteView:@"您还未订阅课本，快去订阅吧！"];
             }else{
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];

@@ -34,6 +34,19 @@
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
+- (IBAction)phoneEditingChanged:(UITextField *)sender {
+    if (sender.text.length==0) {
+        _sureButton.enabled = NO;
+        [_sureButton setTitleColor:GRAYCOLOR forState:UIControlStateNormal];
+        _sureButton.layer.borderColor = LIGHTGRAYCOLOR.CGColor;
+    }else if(sender.text.length>0&&sender.text.length<=11){
+        _sureButton.enabled = YES;
+        [_sureButton setTitleColor:ORANGERED forState:UIControlStateNormal];
+        _sureButton.layer.borderColor = ORANGERED.CGColor;
+    }else {
+        sender.text = [sender.text substringToIndex:11];
+    }
+}
 #pragma mark 获取验证码
 - (IBAction)getCheckCode:(UIButton *)sender {
     //验证码按钮倒计时

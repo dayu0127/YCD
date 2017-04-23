@@ -91,14 +91,11 @@
 - (void)menuClick:(UIButton *)sender{
     _selectIndex = sender.tag;
     if (sender.tag == 0) { //年级选择
-        YBPopupMenu *menu = [YBPopupMenu showRelyOnView:sender titles:[self getNameListFromArray:_gradeList keyName:@"grade_name"] icons:nil menuWidth:WIDTH/3.0-20 delegate:self];
-        menu.fontSize = 9.0f;
+        [YBPopupMenu showRelyOnView:sender titles:[self getNameListFromArray:_gradeList keyName:@"grade_name"] icons:nil menuWidth:WIDTH/3.0-10 delegate:self];
     }else if(sender.tag == 1){  //科目选择
-        YBPopupMenu *menu = [YBPopupMenu showRelyOnView:sender titles:[self getNameListFromArray:_classTypeList keyName:@"class_name"]  icons:nil menuWidth:WIDTH/3.0-20 delegate:self];
-        menu.fontSize = 13.0f;
+         [YBPopupMenu showRelyOnView:sender titles:[self getNameListFromArray:_classTypeList keyName:@"class_name"]  icons:nil menuWidth:WIDTH/3.0-10 delegate:self];
     }else{  //版本选择
-        YBPopupMenu *menu = [YBPopupMenu showRelyOnView:sender titles:[self getNameListFromArray:_versionNameList keyName:@"class_name"]  icons:nil menuWidth:WIDTH/3.0-20 delegate:self];
-        menu.fontSize = 11.0f;
+        [YBPopupMenu showRelyOnView:sender titles:[self getNameListFromArray:_versionNameList keyName:@"class_name"]  icons:nil menuWidth:WIDTH/3.0-10 delegate:self];
     }
 }
 #pragma mark - YBPopupMenuDelegate

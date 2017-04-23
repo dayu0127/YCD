@@ -189,23 +189,21 @@
                                                       @"token":self.token};       //   #登陆凭证
                 [YHWebRequest YHWebRequestForPOST:kAlipaySignCheck parameters:jsonDic success:^(NSDictionary *json) {
                     if ([json[@"code"] integerValue] == 200) {
+                         [YHHud showWithSuccess:@"支付成功"];
                         //刷新订阅状态
                         if ([_payType isEqualToString:@"0"]) {
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateWordSubStatus" object:nil];
                         }else if ([_payType isEqualToString:@"1"]){
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMemorySubStatus" object:nil];
                         }
-//                        [YHHud showWithSuccess:@"支付成功"];
-//                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                            [self.navigationController popViewControllerAnimated:YES];
-//                        });
-                        [YHHud showPaySuccessOrFailed:@"success" completion:^{
+                        [YHHud showPaySuccessOrFailed:@"success"];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                             [self.navigationController popViewControllerAnimated:YES];
-                        }];
+                        });
                     }else{
                         NSLog(@"%@",json[@"code"]);
 //                        [YHHud showWithMessage:json[@"message"]];
-                        [YHHud showPaySuccessOrFailed:@"failed" completion:nil];
+                        [YHHud showPaySuccessOrFailed:@"failed"];
                     }
                 } failure:^(NSError * _Nonnull error) {
                     NSLog(@"%@",error);

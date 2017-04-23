@@ -133,7 +133,7 @@
         [YHWebRequest YHWebRequestForPOST:kPwdLogin parameters:jsonDic success:^(NSDictionary *json) {
             [YHHud dismiss];
             if ([json[@"code"] integerValue] == 200) {
-                NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
+//                NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
                 //改变我的页面，显示头像,昵称和手机号
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
                 NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
@@ -213,7 +213,7 @@
                                                   @"nickName":nickName};               //   #性别 1男 0女  （选填
             [YHWebRequest YHWebRequestForPOST:kQQLogin parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {
-                    NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
+//                    NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
                     //改变我的页面，显示头像,昵称和手机号
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
                     NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
@@ -227,7 +227,9 @@
                     //改变登录状态
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
                     [YHHud showWithSuccess:@"登录成功"];
-                    [self returnToHome];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self returnToHome];
+                    });
                 }else{
                     NSLog(@"%@",json[@"code"]);
                     [YHHud showWithMessage:json[@"message"]];
@@ -275,7 +277,7 @@
                                                   @"nickName":nickName};
             [YHWebRequest YHWebRequestForPOST:kWXLogin parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {
-                    NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
+//                    NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
                     //改变我的页面，显示头像,昵称和手机号
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
                     NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
@@ -289,7 +291,9 @@
                     //改变登录状态
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
                     [YHHud showWithSuccess:@"登录成功"];
-                    [self returnToHome];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self returnToHome];
+                    });
                 }else{
                     NSLog(@"%@",json[@"code"]);
                     [YHHud showWithMessage:json[@"message"]];

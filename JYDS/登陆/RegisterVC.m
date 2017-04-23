@@ -34,7 +34,10 @@
 @end
 
 @implementation RegisterVC
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     _registerButton.layer.masksToBounds = YES;

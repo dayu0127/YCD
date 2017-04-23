@@ -122,7 +122,7 @@ static YHHud *hud = nil;
         [hud removeFromSuperview];
     });
 }
-- (void)showPaySuccessOrFailed:(NSString *)str completion:(void(^)(void))completion{
++ (void)showPaySuccessOrFailed:(NSString *)str{
     if (hud!=nil) {
         [hud removeFromSuperview];
     }
@@ -135,17 +135,14 @@ static YHHud *hud = nil;
     imageView.bounds = CGRectMake(0, 0, 87, 87);
     [hud addSubview:imageView];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(WIDTH/2.0-50, hud.center.y+65.5, 100, 16)];
-    titleLabel.text = [str isEqualToString:@"success"] ? @"支付成功！" :@"支付失败！";
+    titleLabel.text = [str isEqualToString:@"success"] ? @"支付成功！":@"支付失败！";
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.font = [UIFont systemFontOfSize:16.0f];
     [hud addSubview:titleLabel];
     //视图消失
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [hud removeFromSuperview];
-        if (completion) {
-            completion();
-        }
     });
 }
 + (void)showWithSuccess:(NSString*)successString{//成功提示

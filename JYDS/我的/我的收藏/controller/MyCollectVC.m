@@ -34,6 +34,7 @@
     }];
     [_tableView registerNib:[UINib nibWithNibName:@"CollectHeadCell" bundle:nil] forCellReuseIdentifier:@"CollectHeadCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"CollectCell" bundle:nil] forCellReuseIdentifier:@"CollectCell"];
+    _tableView.alpha = 0;
 }
 //- (void)loadCollectList:(NSInteger)index{
 ////    {
@@ -83,6 +84,7 @@
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             NSArray *resultArray =  resultDic[@"collectionList"];
             if (status == UITableViewRefreshStatusAnimation || status == UITableViewRefreshStatusHeader) {
+                _tableView.alpha = 1;
                 _myCollectList = [NSMutableArray arrayWithArray:resultArray];
                 [_tableView reloadData];
                 if (status==UITableViewRefreshStatusHeader) {
@@ -96,7 +98,7 @@
                 [self.tableView.mj_footer endRefreshing];
             }
         }else if([json[@"code"] integerValue] == 106){
-            if (_pageIndex==1) {
+            if (_myCollectList.count==0) {
                 [self loadNoInviteView:@"您还未收藏单词，快去收藏吧！"];
             }else{
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
@@ -161,6 +163,10 @@
                     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     [self.tableView endUpdates];
                     [YHHud showWithMessage:@"删除成功"];
+                    if (_myCollectList.count==0) {
+                        _tableView.alpha = 0;
+                        [self loadNoInviteView:@"您还未收藏单词，快去收藏吧！"];
+                    }
                 }else{
                     NSLog(@"%@",json[@"code"]);
                     [YHHud showWithMessage:json[@"message"]];

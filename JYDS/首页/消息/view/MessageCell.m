@@ -14,7 +14,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
+    _dateLabelHeight.constant = 14;
 }
 - (void)updateConstraints{
     [super updateConstraints];
@@ -31,7 +31,7 @@
 - (void)setModel:(NSDictionary *)dic{
     Message *model = [Message yy_modelWithJSON:dic];
     _dateLabel1.text = [model.create_time substringWithRange:NSMakeRange(0, 10)];
-    _dateLabelWidth.constant+=20;
+    _dateLabelWidth.constant+=10;
 //    [_img sd_setImageWithURL:[NSURL URLWithString:model.imgUrl] placeholderImage:[UIImage imageNamed:@"m1"]];
     NSURL *url = [NSURL URLWithString:model.imgUrl];
     NSData *data = [NSData dataWithContentsOfURL:url];

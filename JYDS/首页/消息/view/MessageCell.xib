@@ -17,7 +17,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="263"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="263"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="262.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17-03-11" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqj-Kb-nxA">
@@ -83,9 +83,9 @@
                     <constraint firstItem="hpt-b5-mRL" firstAttribute="top" secondItem="XVd-a1-lnb" secondAttribute="bottom" constant="16" id="8ag-l9-3v1"/>
                     <constraint firstItem="hpt-b5-mRL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="12" id="EJt-5r-Qph"/>
                     <constraint firstItem="dqj-Kb-nxA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="FXE-Ec-OSk"/>
-                    <constraint firstItem="Flq-MS-HpR" firstAttribute="top" secondItem="dqj-Kb-nxA" secondAttribute="bottom" constant="9" id="FZu-5F-ndB"/>
                     <constraint firstAttribute="trailing" secondItem="Flq-MS-HpR" secondAttribute="trailing" constant="10" id="ICp-L2-2Hu"/>
                     <constraint firstAttribute="trailingMargin" secondItem="hpt-b5-mRL" secondAttribute="trailing" constant="12" id="U1R-6G-96w"/>
+                    <constraint firstItem="Flq-MS-HpR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="33" id="WZX-o1-1xC"/>
                     <constraint firstAttribute="bottom" secondItem="NyH-B5-cx3" secondAttribute="bottom" id="X59-nM-pyU"/>
                     <constraint firstItem="XVd-a1-lnb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="12" id="XRr-Re-I91"/>
                     <constraint firstItem="Flq-MS-HpR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="a2S-x5-YsV"/>
