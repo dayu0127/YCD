@@ -13,36 +13,50 @@
 #import <AVFoundation/AVFoundation.h>
 #import "iflyMSC/iflyMSC.h"
 #import "IATConfig.h"
+#import <UIImageView+WebCache.h>
 @interface WordDetailVC ()<UITableViewDataSource,UITableViewDelegate,WordImageCellDelegate,IFlyRecognizerViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *collectButton;
 @property (strong,nonatomic) UIImageView *img;
-@property (strong,nonatomic) WordImageCell *cell;
+@property (strong,nonatomic) WordDetailCell *splitCell;
+@property (strong,nonatomic) WordDetailCell *associateCell;
+@property (strong,nonatomic) WordImageCell *imageCell;
 @property (strong,nonatomic) UIView *footView;
 @property (weak, nonatomic) IBOutlet UILabel *wordLabel;
 @property (weak, nonatomic) IBOutlet UIButton *phonogramButton;
 @property (weak, nonatomic) IBOutlet UILabel *wordExplainLabel;
 @property (nonatomic,strong) AVSpeechSynthesizer *player;
-@property (nonatomic, strong) IFlyRecognizerView *iflyRecognizerView;//带界面的识别对象
+@property (nonatomic,strong) IFlyRecognizerView *iflyRecognizerView;//带界面的识别对象
 @property (nonatomic,strong) IFlyPcmRecorder *pcmRecorder;//录音器，用于音频流识别的数据传入
 @property (nonatomic,assign) BOOL isStreamRec;//是否是音频流识别
 @property (nonatomic,assign) BOOL isBeginOfSpeech;//是否返回BeginOfSpeech回调
 @property (nonatomic, strong) NSString * result;
 @property (nonatomic, assign) BOOL isCanceled;
 @property (nonatomic, strong) UIAlertController *alertVC;
-@property (strong,nonatomic) UITextField *wordText;
 @property (strong,nonatomic) UIAlertAction *sureAction;
 @property (assign,nonatomic) BOOL isShowRead;
+@property (strong,nonatomic) NSString *classId;
+@property (strong,nonatomic) NSString *unitId;
+
 @end
 
 @implementation WordDetailVC
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     _isShowRead = YES;
+    _collectButton.alpha = _showCollectButton == YES ? 1 : 0;
+    _classId = _word.class_id;
+    _unitId = _word.unit_id;
     [_tableView registerNib:[UINib nibWithNibName:@"WordDetailCell" bundle:nil] forCellReuseIdentifier:@"WordDetailCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"WordImageCell" bundle:nil] forCellReuseIdentifier:@"WordImageCell"];
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, [self getFootViewHeight])];//86  140  176
+    [self loadWordDetail];
+}
+- (void)loadWordDetail{
     _wordLabel.text = _word.word;
     if ([_word.collectionType integerValue] == 0) {
         [_collectButton setImage:[UIImage imageNamed:@"course_collect"] forState:UIControlStateNormal];
@@ -72,11 +86,17 @@
                 //刷新单词收藏图片
                 [sender setImage:[UIImage imageNamed:@"course_collected"] forState:UIControlStateNormal];
                 _word.collectionType = @"1";
-                [_delegate updateWordList];
+                if (_vcName == UIViewControllerNameMyCollectList) {
+                    [_delegate updateMyCollectList];
+                }else if(_vcName == UIViewControllerNameWordSubedList){
+                    [_delegate updateWordList];
+                }else if(_vcName == UIViewControllerNameWordSearchList){
+                    [_delegate updateWordSearchList];
+                }
                 [YHHud showWithMessage:@"收藏成功"];
             }else{
                 NSLog(@"%@",json[@"code"]);
-                NSLog(@"%@",json[@"message"]);
+                [YHHud showWithMessage:json[@"message"]];
             }
         } failure:^(NSError * _Nonnull error) {
             NSLog(@"%@",error);
@@ -99,11 +119,17 @@
                 //刷新单词收藏图片
                 [sender setImage:[UIImage imageNamed:@"course_collect"] forState:UIControlStateNormal];
                 _word.collectionType = @"0";
-                [_delegate updateWordList];
+                if (_vcName == UIViewControllerNameMyCollectList) {
+                    [_delegate updateMyCollectList];
+                }else if(_vcName == UIViewControllerNameWordSubedList){
+                    [_delegate updateWordList];
+                }else if(_vcName == UIViewControllerNameWordSearchList){
+                    [_delegate updateWordSearchList];
+                }
                 [YHHud showWithMessage:@"已取消收藏"];
             }else{
                 NSLog(@"%@",json[@"code"]);
-                NSLog(@"%@",json[@"message"]);
+                [YHHud showWithMessage:json[@"message"]];
             }
         } failure:^(NSError * _Nonnull error) {
             NSLog(@"%@",error);
@@ -139,88 +165,148 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
-        WordDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WordDetailCell" forIndexPath:indexPath];
-        cell.splitOrAssociateLabel.text = _word.split;
-        return cell;
+        _splitCell = [tableView dequeueReusableCellWithIdentifier:@"WordDetailCell" forIndexPath:indexPath];
+        _splitCell.splitOrAssociateLabel.text = _word.split;
+        return _splitCell;
     }else if (indexPath.row == 1){
-        WordDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WordDetailCell" forIndexPath:indexPath];
-        cell.img.image = [UIImage imageNamed:@"course_lian"];
-        cell.splitOrAssociateLabel.attributedText = [self setColorForString:_word.associate];
-        return cell;
+        _associateCell = [tableView dequeueReusableCellWithIdentifier:@"WordDetailCell" forIndexPath:indexPath];
+        _associateCell.img.image = [UIImage imageNamed:@"course_lian"];
+        _associateCell.splitOrAssociateLabel.attributedText = [self setColorForString:_word.associate];
+        return _associateCell;
     }else{
-        _cell = [tableView dequeueReusableCellWithIdentifier:@"WordImageCell" forIndexPath:indexPath];
-        [_cell setModel:_word];
-        _cell.delegate = self;
-        return _cell;
+        _imageCell = [tableView dequeueReusableCellWithIdentifier:@"WordImageCell" forIndexPath:indexPath];
+        [_imageCell setModel:_word];
+        _imageCell.delegate = self;
+        if (_vcName == UIViewControllerNameWordSubedList) {
+            [_imageCell.preBtn addTarget:self action:@selector(preBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+            [_imageCell.nextBtn addTarget:self action:@selector(nextBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        }else{
+            _imageCell.preImageView.alpha = 0;
+            _imageCell.nextImageView.alpha = 0;
+            _imageCell.preBtn.alpha = 0;
+            _imageCell.nextBtn.alpha = 0;
+        }
+        return _imageCell;
     }
+}
+#pragma mark 上一个点击事件
+- (void)preBtnClick:(UIButton *)sender{
+    _indexOfWord--;
+    if (_indexOfWord<1) {
+        [YHHud showWithMessage:@"已经是第一个了"];
+    }else{
+        [self reloadWordDeltail:_indexOfWord];
+    }
+}
+#pragma mark 下一个点击事件
+- (void)nextBtnClick:(UIButton *)sender{
+    _indexOfWord++;
+    if (_indexOfWord>_wordNum) {
+        [YHHud showWithMessage:@"已经是最后一个了"];
+    }else{
+        [self reloadWordDeltail:_indexOfWord];
+    }
+}
+- (void)reloadWordDeltail:(NSInteger)wordIndex{
+    //    {
+    //        "userPhone":"******"        #用户手机号
+    //        "pageIndex":1               #下标
+    //        "token":""                  #用户登陆凭证
+    //        "classId":""                #课本id
+    //        "unitId":""                 #单元id
+    //    }
+    NSDictionary *jsonDic = @{
+        @"userPhone":self.phoneNum,         //#用户手机号
+        @"pageIndex":[NSString stringWithFormat:@"%zd",wordIndex],                   //#下标
+        @"token":self.token,                    //#用户登陆凭证
+        @"classId":_classId,                  //#课本id
+        @"unitId":_unitId                     //#单元id
+    };
+    [YHWebRequest YHWebRequestForPOST:kWordFlip parameters:jsonDic success:^(NSDictionary *json) {
+        if ([json[@"code"] integerValue] == 200) {
+            NSDictionary *jsonDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+            _word = [Word yy_modelWithJSON:jsonDic[@"word"]];
+            [self loadWordDetail];
+            _splitCell.splitOrAssociateLabel.text = _word.split;
+            _associateCell.splitOrAssociateLabel.attributedText = [self setColorForString:_word.associate];
+            [_imageCell.img sd_setImageWithURL:[NSURL URLWithString:_word.imgUrl]];
+//            [_imageCell setModel:_word];
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
+//            [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            [YHHud showWithMessage:json[@"message"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat offsetY = scrollView.contentOffset.y;
-    _cell.leftSpace.constant = (offsetY+49)/135*82;
-    if (_cell.leftSpace.constant >= 112) {
+    _imageCell.leftSpace.constant = (offsetY+49)/135*82;
+    if (_imageCell.leftSpace.constant >= 112) {
         [self showBottomUI];
     }else{
         //隐藏底部功能界面
-        _cell.line.alpha = 0;
-        _cell.showButton.alpha = 0;
-        _cell.rwButton.alpha = 0;
+        _imageCell.line.alpha = 0;
+        _imageCell.showButton.alpha = 0;
+        _imageCell.rwButton.alpha = 0;
         //删除跟读(跟写)点击事件
         if (_isShowRead) {
-            [_cell.rwButton removeTarget:self action:@selector(readClick:) forControlEvents:UIControlEventTouchUpInside];
+            [_imageCell.rwButton removeTarget:self action:@selector(readClick:) forControlEvents:UIControlEventTouchUpInside];
         }else{
-            [_cell.rwButton removeTarget:self action:@selector(writeClick:) forControlEvents:UIControlEventTouchUpInside];
+            [_imageCell.rwButton removeTarget:self action:@selector(writeClick:) forControlEvents:UIControlEventTouchUpInside];
         }
-        if (_cell.leftSpace.constant<=32) {
-            _cell.leftSpace.constant=32;
+        if (_imageCell.leftSpace.constant<=32) {
+            _imageCell.leftSpace.constant=32;
             //显示跟读/跟写按钮
-            _cell.readButton.alpha = 1;
-            _cell.writeButton.alpha = 1;
+            _imageCell.readButton.alpha = 1;
+            _imageCell.writeButton.alpha = 1;
         }
     }
-    _cell.btnBottomSpace.constant = _cell.frame.size.height - CGRectGetMaxY(_cell.img.frame) + 6;
+    _imageCell.btnBottomSpace.constant = _imageCell.frame.size.height - CGRectGetMaxY(_imageCell.img.frame) + 6;
 }
 #pragma mark 单词跟读代理
 - (void)showRead{
     _isShowRead = YES;
     [self showBottomUI];
-    [_cell.showButton setTitle:@"" forState:UIControlStateNormal];
-    [_cell.showButton setImage:[UIImage imageNamed:@"course_volume"] forState:UIControlStateNormal];
-    _cell.rwButton.backgroundColor = [UIColor colorWithRed:131/255.0 green:46/255.0 blue:43/255.0 alpha:1.0];
-    [_cell.rwButton setTitle:@"跟读" forState:UIControlStateNormal];
+    [_imageCell.showButton setTitle:@"" forState:UIControlStateNormal];
+    [_imageCell.showButton setImage:[UIImage imageNamed:@"course_volume"] forState:UIControlStateNormal];
+    _imageCell.rwButton.backgroundColor = [UIColor colorWithRed:131/255.0 green:46/255.0 blue:43/255.0 alpha:1.0];
+    [_imageCell.rwButton setTitle:@"跟读" forState:UIControlStateNormal];
     //删除跟写点击事件
-    [_cell.rwButton removeTarget:self action:@selector(writeClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_imageCell.rwButton removeTarget:self action:@selector(writeClick:) forControlEvents:UIControlEventTouchUpInside];
     //添加跟读点击事件
-    [_cell.rwButton addTarget:self action:@selector(readClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_imageCell.rwButton addTarget:self action:@selector(readClick:) forControlEvents:UIControlEventTouchUpInside];
 }
 #pragma mark 单词跟写代理
 - (void)showWrite{
     _isShowRead = NO;
     [self showBottomUI];
-    [_cell.showButton setTitle:@"跟写内容" forState:UIControlStateNormal];
-    [_cell.showButton setImage:nil forState:UIControlStateNormal];
-    _cell.rwButton.backgroundColor = ORANGERED;
-    [_cell.rwButton setTitle:@"跟写" forState:UIControlStateNormal];
+    [_imageCell.showButton setImage:nil forState:UIControlStateNormal];
+    _imageCell.rwButton.backgroundColor = ORANGERED;
+    [_imageCell.rwButton setTitle:@"跟写" forState:UIControlStateNormal];
     //删除跟读点击事件
-    [_cell.rwButton removeTarget:self action:@selector(readClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_imageCell.rwButton removeTarget:self action:@selector(readClick:) forControlEvents:UIControlEventTouchUpInside];
     //添加跟写点击事件
-    [_cell.rwButton addTarget:self action:@selector(writeClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_imageCell.rwButton addTarget:self action:@selector(writeClick:) forControlEvents:UIControlEventTouchUpInside];
 }
 - (void)showBottomUI{
      [_tableView setContentOffset:CGPointMake(0,  136)];
-    _cell.leftSpace.constant = 112;
+    _imageCell.leftSpace.constant = 112;
     //显示底部功能界面
-    _cell.line.alpha = 1;
-    _cell.showButton.alpha = 1;
-    _cell.rwButton.alpha = 1;
+    _imageCell.line.alpha = 1;
+    _imageCell.showButton.alpha = 1;
+    _imageCell.rwButton.alpha = 1;
     //添加跟读(跟写)点击事件
     if (_isShowRead == YES) {
-        [_cell.rwButton addTarget:self action:@selector(readClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_imageCell.rwButton addTarget:self action:@selector(readClick:) forControlEvents:UIControlEventTouchUpInside];
     }else{
-        [_cell.rwButton addTarget:self action:@selector(writeClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_imageCell.rwButton addTarget:self action:@selector(writeClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     //隐藏跟读/跟写按钮
-    _cell.readButton.alpha = 0;
-    _cell.writeButton.alpha = 0;
+    _imageCell.readButton.alpha = 0;
+    _imageCell.writeButton.alpha = 0;
 }
 - (CGFloat)getFootViewHeight{
     CGFloat h = 0;
@@ -282,23 +368,17 @@
 }
 #pragma mark 跟写点击事件
 - (void)writeClick:(UIButton *)sender{
-    _alertVC = [UIAlertController alertControllerWithTitle:@"请跟写" message:@"\n\n" preferredStyle:UIAlertControllerStyleAlert];
-    //单词输入框
-    _wordText = [UITextField new];
-    _wordText.borderStyle = UITextBorderStyleRoundedRect;
-    [_wordText addTarget:self action:@selector(nickEditingChanged:) forControlEvents:UIControlEventEditingChanged];
-    _wordText.placeholder = @"请输入";
-    [_alertVC.view addSubview:_wordText];
-    [_wordText mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_alertVC.view).offset(50);
-        make.centerX.mas_equalTo(_alertVC.view.mas_centerX);
-        make.width.mas_equalTo(@250);
-        make.height.mas_equalTo(@38);
+    [YHHud dismiss];
+    _alertVC = [UIAlertController alertControllerWithTitle:@"单词跟写" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [_alertVC addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"请输入正确的单词";
     }];
+    UITextField *alertText = (UITextField *)_alertVC.textFields[0];
+    [alertText addTarget:self action:@selector(wordEditingChanged:) forControlEvents:UIControlEventEditingChanged];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    _sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [_cell.showButton setTitle:_wordText.text forState:UIControlStateNormal];
-        if ([[_wordText.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:_word.word]) {
+    _sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [_imageCell.showButton setTitle:alertText.text forState:UIControlStateNormal];
+        if ([[alertText.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:_word.word]) {
             [YHHud showRightOrWrong:@"right"];
         }else{
             [YHHud showRightOrWrong:@"wrong"];
@@ -309,7 +389,7 @@
     [_alertVC addAction:_sureAction];
     [self presentViewController:_alertVC animated:YES completion:nil];
 }
-- (void)nickEditingChanged:(UITextField *)sender{
+- (void)wordEditingChanged:(UITextField *)sender{
     NSString *resultStr = [sender.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if ([resultStr isEqualToString:@""]) {
         _sureAction.enabled = NO;
@@ -403,5 +483,9 @@
             }
         });
     }
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 @end

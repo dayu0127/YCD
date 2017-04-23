@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface YHHud : UIView
-+(void)showWithMessage:(NSString*)text;//消息提示
-+(void)showWithStatus;//加载视图
++ (void)showWithMessage:(NSString*)text;//消息提示
++ (void)showWithStatus;//加载视图
 + (void)showRightOrWrong:(NSString *)str; //答对答错
-+(void)dismiss;
-+(void)showWithSuccess:(NSString*)successString;//成功提示
++ (void)dismiss;
++ (void)showWithSuccess:(NSString*)successString;//成功提示
++ (void)showPaySuccessOrFailed:(NSString *)str completion:(void(^)(void))completion; //支付成功失败
 @end

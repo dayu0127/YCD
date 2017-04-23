@@ -11,4 +11,5 @@
 @interface WordSubedList : BaseViewController
 @property (copy,nonatomic) NSString *classId;
 @property (copy,nonatomic) NSString *unitId;
+@property (assign,nonatomic) NSInteger wordNum;
 @end

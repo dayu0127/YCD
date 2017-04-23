@@ -90,7 +90,8 @@
                         [timer invalidate];
                         sender.enabled = YES;
                         [sender setTitle:@"获取验证码" forState:UIControlStateNormal];
-                        sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+//                        sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+                        sender.backgroundColor = ORANGERED;
                     }
                 }];
             } else {

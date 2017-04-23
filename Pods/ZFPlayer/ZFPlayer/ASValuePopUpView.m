@@ -153,7 +153,7 @@ NSString *const SliderFillColorAnim = @"fillColor";
     colorAnim.values = cgColors;
     colorAnim.fillMode = kCAFillModeBoth;
     colorAnim.duration = 1.0;
-//    colorAnim.delegate = self;
+    colorAnim.delegate = self;
     
     // As the interpolated color values from the presentationLayer are needed immediately
     // the animation must be allowed to start to initialize _colorAnimLayer's presentationLayer

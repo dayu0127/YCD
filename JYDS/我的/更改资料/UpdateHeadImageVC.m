@@ -27,7 +27,7 @@
     [super viewDidLoad];
     _photoSelectButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     _photographButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BTN_BG1,N_CELL_BG,RED);
-    [_headImageView sd_setImageWithURL:[NSURL URLWithString:[YHSingleton shareSingleton].userInfo.headImageUrl] placeholderImage:[UIImage imageNamed:@"headImage"]];
+//    [_headImageView sd_setImageWithURL:[NSURL URLWithString:[YHSingleton shareSingleton].userInfo.headImageUrl] placeholderImage:[UIImage imageNamed:@"headImage"]];
 }
 - (IBAction)finishButtonClick:(UIBarButtonItem *)sender {
     if (![UIImagePNGRepresentation(_oldImage) isEqual:UIImagePNGRepresentation(_headImageView.image)]) {
@@ -53,7 +53,7 @@
                 //通知我的VC更新头像图片
                 NSDictionary *dic = [NSDictionary dictionaryWithObject:_headImageView.image forKey:@"headImage"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadImage" object:nil userInfo:dic];
-                [YHSingleton shareSingleton].userInfo.headImageUrl = json[@"url"];
+//                [YHSingleton shareSingleton].userInfo.headImageUrl = json[@"url"];
                 [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
                 [YHHud showWithSuccess:@"修改成功"];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

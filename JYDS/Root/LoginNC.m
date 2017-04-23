@@ -10,6 +10,5 @@
 @implementation LoginNC
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 @end

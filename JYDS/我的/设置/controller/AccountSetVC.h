@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AccountSetVC : UIViewController
+@interface AccountSetVC : BaseViewController
 
 @end

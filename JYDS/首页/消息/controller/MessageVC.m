@@ -10,7 +10,7 @@
 #import "MessageCell.h"
 @interface MessageVC ()<UITableViewDelegate,UITableViewDataSource,MessageCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (strong,nonatomic) NSArray *noticeList;
 @end
 
 @implementation MessageVC
@@ -19,6 +19,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1.0];
+    [YHWebRequest YHWebRequestForPOST:kNoticeList parameters:nil success:^(NSDictionary *json) {
+        if ([json[@"code"] integerValue] == 200) {
+            NSDictionary *jsonData = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+            _noticeList = jsonData[@"getNoticeList"];
+            [_tableView reloadData];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
     [_tableView registerNib:[UINib nibWithNibName:@"MessageCell" bundle:nil] forCellReuseIdentifier:@"MessageCell"];
 }
 
@@ -30,15 +39,19 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return _noticeList.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 263;
+    return 46/71.0*WIDTH+33;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessageCell" forIndexPath:indexPath];
+    [cell setModel:_noticeList[indexPath.row]];
     cell.delegate = self;
     return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self messageDetail];
 }
 - (void)messageDetail{
     [self performSegueWithIdentifier:@"toMessageDetail" sender:self];

@@ -76,7 +76,7 @@
             });
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);

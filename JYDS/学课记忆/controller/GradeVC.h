@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GradeVC : UIViewController
+@interface GradeVC : BaseViewController
 @property (copy,nonatomic) NSString *grade_type;
 @end

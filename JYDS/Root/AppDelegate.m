@@ -102,7 +102,7 @@
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105811937"  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
     
     //设置新浪的appKey和appSecret
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"1292322940"  appSecret:@"c1ad238284f47072b0caaf27d4d3afb3" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"1292322940"  appSecret:@"c1ad238284f47072b0caaf27d4d3afb3" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
     //SMSSDK集成短信验证码
     [SMSSDK registerApp:@"1a0a96a7aca8e" withSecret:@"84dcd3028b078eb4ecbe9bed5c669dec"];
@@ -144,7 +144,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:dataDic forKey:@"banner"];
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     }failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -177,11 +177,14 @@
                         }else if ([[YHSingleton shareSingleton].payType isEqualToString:@"1"]){
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMemorySubStatus" object:nil];
                         }
-                        [YHHud showWithSuccess:@"支付成功"];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"back" object:nil];
+//                        [YHHud showWithSuccess:@"支付成功"];
+                        [YHHud showPaySuccessOrFailed:@"success" completion:^{
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"back" object:nil];
+                        }];
                     }else{
                         NSLog(@"%@",json[@"code"]);
-                        NSLog(@"%@",json[@"message"]);
+//                        [YHHud showWithMessage:json[@"message"]];
+                        [YHHud showPaySuccessOrFailed:@"failed" completion:nil];
                     }
                 } failure:^(NSError * _Nonnull error) {
                     NSLog(@"%@",error);
@@ -191,7 +194,7 @@
     }else{
         // 微信SDK的回调
         [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
-        [[IFlySpeechUtility getUtility] handleOpenURL:url];
+//        [[IFlySpeechUtility getUtility] handleOpenURL:url];
     }
     return result;
 }

@@ -7,7 +7,11 @@
 //
 #import <UIKit/UIKit.h>
 @interface BaseViewController : UIViewController
-//- (void)returnToLogin;
 @property (copy,nonatomic) NSString *phoneNum;
 @property (copy,nonatomic) NSString *token;
+@property (copy,nonatomic) NSString *associatedQq;
+@property (copy,nonatomic) NSString *associatedWx;
+- (void)returnToLogin;
+- (void)returnToBingingPhone;
+- (void)loadNoInviteView:(NSString *)str;
 @end

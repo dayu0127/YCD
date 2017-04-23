@@ -11,9 +11,9 @@
 @interface BingingPhoneVC ()
 @property (weak, nonatomic) IBOutlet UITextField *phoneTxt;
 @property (weak, nonatomic) IBOutlet UITextField *checkCodeTxt;
-@property (weak, nonatomic) IBOutlet UITextField *pwdTxt;
 @property (weak, nonatomic) IBOutlet UIButton *sureButton;
-
+@property (strong,nonatomic) NSTimer *countDownTimer;
+@property (assign,nonatomic)int countDown;
 @end
 
 @implementation BingingPhoneVC
@@ -35,19 +35,30 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark 获取验证码
-- (IBAction)getCheckCode:(id)sender {
+- (IBAction)getCheckCode:(UIButton *)sender {
+    //验证码按钮倒计时
+    _countDown = COUNTDOWN;
+    sender.enabled = NO;
+    sender.backgroundColor = [UIColor lightGrayColor];
+    [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
+    _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        _countDown--;
+        [sender setTitle:[NSString stringWithFormat:@"%ds",_countDown] forState:UIControlStateNormal];
+        if (_countDown == 0) {
+            [timer invalidate];
+            sender.enabled = YES;
+            [sender setTitle:@"获取验证码" forState:UIControlStateNormal];
+            sender.backgroundColor = ORANGERED;
+        }
+    }];
     NSString *phoneNum = _phoneTxt.text;
     NSDictionary *jsonDic = @{@"phoneNum" :phoneNum,             // #用户名
                               @"stype":@"1",               //    #类型  1注册 2登录 3找回密码
                               @"deviceNum":DEVICEID             //     #设备码（选填）
                               };
     [YHWebRequest YHWebRequestForPOST:kSendCheckCode parameters:jsonDic success:^(NSDictionary *json) {
-        if ([json[@"code"] integerValue] == 200) {
-            NSLog(@"绑定成功");
-        }else{
-            NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
-        }
+        NSLog(@"%@",json[@"code"]);
+        [YHHud showWithMessage:json[@"message"]];
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
@@ -68,26 +79,38 @@
 //        
 //    }
     NSString *phoneNum = _phoneTxt.text;
-    NSString *password = _pwdTxt.text;
     NSString *verifyCode = _checkCodeTxt.text;
-    [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
-    NSString *bindingType = @"";
-    NSString *associatedWx = [YHSingleton shareSingleton].userInfo.associatedWx;
-    NSString *associatedQq = [YHSingleton shareSingleton].userInfo.associatedQq;
-    if (![associatedQq isEqualToString:@""]) {
+    NSString *bindingType;
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"loginType"] isEqualToString:@"qq"]) {
         bindingType = @"1";
-    }else if (![associatedWx isEqualToString:@""]){
+    }else if([[[NSUserDefaults standardUserDefaults] objectForKey:@"loginType"] isEqualToString:@"wx"]){
         bindingType = @"2";
     }
+    NSString *associatedWx = self.associatedWx!=nil ? self.associatedWx : @"";
+    NSString *associatedQq = self.associatedQq!=nil ? self.associatedQq : @"";
     NSDictionary *jsonDic = @{  @"phoneNum":phoneNum,       //#用户手机号
-                                            @"password":password,           //#密码            与登陆类型一致
                                             @"verifyCode":verifyCode,           //#短信验证码      与登陆类型一致
                                             @"bindingType":bindingType,         //#当前第三方登陆的类型 1qq 2weixin
                                             @"associatedWx":associatedWx,       //#第三方绑定的uid 唯一标识 (选填)
                                             @"associatedQq":associatedQq};      //#第三方绑定的uid 唯一标识 (选填)     qq微信必须填一个不能两个都不填！
-    [YHWebRequest YHWebRequestForPOST:kSendCheckCode parameters:jsonDic success:^(NSDictionary *json) {
+    [YHWebRequest YHWebRequestForPOST:kBindingPhone parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
-            NSLog(@"绑定成功");
+            NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
+            //改变我的页面，显示头像,昵称和手机号
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
+            NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+            //保存token
+            [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"token"] forKey:@"token"];
+            //保存用户信息
+            [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
+            [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
+            [YHHud showWithSuccess:@"绑定成功"];
+            //改变手机绑定状态显示
+            [_delegate updatePhoneBingingState:_phoneTxt.text];
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);

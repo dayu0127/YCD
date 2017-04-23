@@ -62,6 +62,9 @@
     [app.window setRootViewController:rootTBC];
     [app.window makeKeyWindow];
 }
+- (IBAction)backToPwdLogin:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 #pragma mark 获取验证码
 - (IBAction)getCodeClick:(UIButton *)sender {
     
@@ -88,7 +91,7 @@
             [timer invalidate];
             sender.enabled = YES;
             [sender setTitle:@"获取验证码" forState:UIControlStateNormal];
-            sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+            sender.backgroundColor = ORANGERED;
         }
     }];
     NSString *phoneNum = _phoneTxt.text;
@@ -96,12 +99,8 @@
                                           @"stype":@"2",               //    #类型  1注册 2登录 3找回密码
                                           @"deviceNum":DEVICEID};               //     #设备码（选填）
     [YHWebRequest YHWebRequestForPOST:kSendCheckCode parameters:jsonDic success:^(NSDictionary *json) {
-        if ([json[@"code"] integerValue] == 200) {
-            [YHHud showWithSuccess:json[@"message"]];
-        }else{
-            NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
-        }
+        NSLog(@"%@",json[@"code"]);
+        [YHHud showWithMessage:json[@"message"]];
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
@@ -118,15 +117,15 @@
                                           @"verifyCode":verifyCode};               //    #验证码
     [YHWebRequest YHWebRequestForPOST:kCodeLogin parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
-            NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
             //改变我的页面，显示头像,昵称和手机号
             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
             NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             //保存token
             [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"token"] forKey:@"token"];
             //保存用户信息
-            [YHSingleton shareSingleton].userInfo.phoneNum = dataDic[@"user"][@"phoneNum"]; //手机号
-            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
+            [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
+            [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
+            
             //保存登录保存登录状态
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
             //登录成功跳转首页
@@ -136,7 +135,7 @@
             });
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -188,7 +187,7 @@
                     });
                 }else{
                     NSLog(@"%@",json[@"code"]);
-                    NSLog(@"%@",json[@"message"]);
+                    [YHHud showWithMessage:json[@"message"]];
                 }
             } failure:^(NSError * _Nonnull error) {
                 NSLog(@"%@",error);
@@ -242,7 +241,7 @@
                     });
                 }else{
                     NSLog(@"%@",json[@"code"]);
-                    NSLog(@"%@",json[@"message"]);
+                    [YHHud showWithMessage:json[@"message"]];
                 }
             } failure:^(NSError * _Nonnull error) {
                 NSLog(@"%@",error);

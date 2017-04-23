@@ -13,9 +13,8 @@
 @implementation IntroduceVC
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64)];
-    NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:IntroduceUrl]];
-    [_wkWebView loadRequest:request];
+    [YHHud showWithStatus];
+    _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64) url:IntroduceUrl];
     [self.view addSubview:_wkWebView];
 }
 - (IBAction)backClick:(id)sender {

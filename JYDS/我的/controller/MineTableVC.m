@@ -33,21 +33,21 @@
 }
 #pragma mark 更新剩余学习豆
 - (void)updateStudyBean{
-    NSDictionary *userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-    UserInfo *model = [UserInfo yy_modelWithDictionary:userDic];
-    _studyBean.text = model.studyBean;
+//    NSDictionary *userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+//    UserInfo *model = [UserInfo yy_modelWithDictionary:userDic];
+//    _studyBean.text = model.studyBean;
 }
 #pragma mark 更新消费学习豆
 - (void)updateCostBean{
-    NSDictionary *userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-    UserInfo *model = [UserInfo yy_modelWithDictionary:userDic];
-    _costStudyBean.text = model.costStudyBean;
+//    NSDictionary *userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+//    UserInfo *model = [UserInfo yy_modelWithDictionary:userDic];
+//    _costStudyBean.text = model.costStudyBean;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self nightModeConfiguration];
     //从用户配置中获取用户信息
-    [self userConfiguration];
+//    [self userConfiguration];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeadImage:) name:@"updateHeadImage" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNickName:) name:@"updateNickName" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dayMode) name:@"dayMode" object:nil];
@@ -106,14 +106,14 @@
     }
     _payButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
 }
-- (void)userConfiguration{
-    NSDictionary *userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-    UserInfo *model = [UserInfo yy_modelWithDictionary:userDic];
-    [_headImageView sd_setImageWithURL:[NSURL URLWithString:model.headImageUrl] placeholderImage:[UIImage imageNamed:@"headImage"]];
-    _nickNameLabel.text = model.nickName;
-    _studyBean.text = model.studyBean;
-    _costStudyBean.text = model.costStudyBean;
-}
+//- (void)userConfiguration{
+//    NSDictionary *userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+//    UserInfo *model = [UserInfo yy_modelWithDictionary:userDic];
+//    [_headImageView sd_setImageWithURL:[NSURL URLWithString:model.headImageUrl] placeholderImage:[UIImage imageNamed:@"headImage"]];
+//    _nickNameLabel.text = model.nickName;
+//    _studyBean.text = model.studyBean;
+//    _costStudyBean.text = model.costStudyBean;
+//}
 #pragma mark - Table view data source
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 0.0001;

@@ -126,7 +126,8 @@
             [timer invalidate];
             sender.enabled = YES;
             [sender setTitle:@"获取验证码" forState:UIControlStateNormal];
-            sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+//            sender.dk_backgroundColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
+            sender.backgroundColor = ORANGERED;
         }
     }];
 //    if (REGEX(PHONE_RE, _phoneText.text)==NO) {
@@ -193,13 +194,8 @@
                                           @"deviceNum":DEVICEID             //     #设备码（选填）
                                       };
     [YHWebRequest YHWebRequestForPOST:kSendCheckCode parameters:jsonDic success:^(NSDictionary *json) {
-        if ([json[@"code"] integerValue] == 200) {
-//            [YHHud showWithSuccess:json[@"message"]];
-            NSLog(@"1111");
-        }else{
-            NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
-        }
+        NSLog(@"%@",json[@"code"]);
+        [YHHud showWithMessage:json[@"message"]];
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
@@ -228,7 +224,7 @@
             });
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);

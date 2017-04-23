@@ -22,7 +22,10 @@
 @end
 
 @implementation LoginVC
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     //登录按钮
@@ -149,7 +152,7 @@
                 });
             }else{
                 NSLog(@"%@",json[@"code"]);
-                NSLog(@"%@",json[@"message"]);
+                [YHHud showWithMessage:json[@"message"]];
             }
         } failure:^(NSError * _Nonnull error) {
             [YHHud dismiss];
@@ -210,17 +213,24 @@
                                                   @"nickName":nickName};               //   #性别 1男 0女  （选填
             [YHWebRequest YHWebRequestForPOST:kQQLogin parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {
-                    NSLog(@"%@",json);
-                    [YHSingleton shareSingleton].userInfo.associatedQq = associatedQq;
-                    [YHHud showWithSuccess:@"登录成功"];
+                    NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
+                    //改变我的页面，显示头像,昵称和手机号
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
+                    NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+                    //保存token
+                    [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"token"] forKey:@"token"];
+                    //保存用户信息
+                    [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
+                    [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
+                    //保存登录类型
+                    [[NSUserDefaults standardUserDefaults] setObject:@"qq" forKey:@"loginType"];
+                    //改变登录状态
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self returnToHome];
-                    });
+                    [YHHud showWithSuccess:@"登录成功"];
+                    [self returnToHome];
                 }else{
                     NSLog(@"%@",json[@"code"]);
-                    NSLog(@"%@",json[@"message"]);
+                    [YHHud showWithMessage:json[@"message"]];
                 }
             } failure:^(NSError * _Nonnull error) {
                 NSLog(@"%@",error);
@@ -265,16 +275,24 @@
                                                   @"nickName":nickName};
             [YHWebRequest YHWebRequestForPOST:kWXLogin parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {
-                    [YHSingleton shareSingleton].userInfo.associatedWx = associatedWx;
-                    [YHHud showWithSuccess:json[@"message"]];
+                    NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
+                    //改变我的页面，显示头像,昵称和手机号
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
+                    NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+                    //保存token
+                    [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"token"] forKey:@"token"];
+                    //保存用户信息
+                    [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
+                    [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
+                    //保存登录类型
+                    [[NSUserDefaults standardUserDefaults] setObject:@"wx" forKey:@"loginType"];
+                    //改变登录状态
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self returnToHome];
-                    });
+                    [YHHud showWithSuccess:@"登录成功"];
+                    [self returnToHome];
                 }else{
                     NSLog(@"%@",json[@"code"]);
-                    NSLog(@"%@",json[@"message"]);
+                    [YHHud showWithMessage:json[@"message"]];
                 }
             } failure:^(NSError * _Nonnull error) {
                 NSLog(@"%@",error);
@@ -282,5 +300,8 @@
         }
     }];
 }
-
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+}
 @end

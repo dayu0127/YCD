@@ -45,7 +45,10 @@
         _leftButton.alpha = 0;
         _rightButton.alpha = 0;
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, w, h)];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:netImages[0]] placeholderImage:[UIImage imageNamed:@"banner"]];
+//        [imageView sd_setImageWithURL:[NSURL URLWithString:netImages[0]] placeholderImage:[UIImage imageNamed:@"banner"]];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:netImages[0]] placeholderImage:[UIImage imageNamed:@"banner"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSLog(@"--------------%@",imageURL.absoluteString);
+        }];
         [_scrollView insertSubview:imageView atIndex:0];
     }else if(_imageCount > 1){
         for (int i = 0; i<_imageCount; i++) {

@@ -104,7 +104,7 @@ static YHHud *hud = nil;
         h = 176;
     }
     //添加背景
-    hud = [[YHHud alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT-(135+h))];
+    hud = [[YHHud alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT-(134+h))];
     [[UIApplication sharedApplication].keyWindow addSubview:hud];
     NSString *imgStr = [NSString stringWithFormat:@"course_%@",str];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imgStr]];
@@ -118,8 +118,34 @@ static YHHud *hud = nil;
     titleLabel.font = [UIFont systemFontOfSize:15.0f];
     [hud addSubview:titleLabel];
     //视图消失
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [hud removeFromSuperview];
+    });
+}
+- (void)showPaySuccessOrFailed:(NSString *)str completion:(void(^)(void))completion{
+    if (hud!=nil) {
+        [hud removeFromSuperview];
+    }
+    //添加背景
+    hud = [[YHHud alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    [[UIApplication sharedApplication].keyWindow addSubview:hud];
+    NSString *imgStr = [NSString stringWithFormat:@"pay_%@",str];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imgStr]];
+    imageView.center = hud.center;
+    imageView.bounds = CGRectMake(0, 0, 87, 87);
+    [hud addSubview:imageView];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(WIDTH/2.0-50, hud.center.y+65.5, 100, 16)];
+    titleLabel.text = [str isEqualToString:@"success"] ? @"支付成功！" :@"支付失败！";
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.font = [UIFont systemFontOfSize:16.0f];
+    [hud addSubview:titleLabel];
+    //视图消失
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [hud removeFromSuperview];
+        if (completion) {
+            completion();
+        }
     });
 }
 + (void)showWithSuccess:(NSString*)successString{//成功提示

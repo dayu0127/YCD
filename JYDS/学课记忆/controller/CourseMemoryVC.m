@@ -48,8 +48,19 @@
     }
 }
 - (void)itemClick:(UIButton *)sender{
-    _grade_type = [NSString stringWithFormat:@"%zd",sender.tag];
-    [self performSegueWithIdentifier:@"toItemDetail" sender:self];
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
+        [self returnToBingingPhone];
+    }else if (self.token==nil&&self.phoneNum==nil) {
+        [self returnToLogin];
+    }else{
+        if (sender.tag==0) {
+            _grade_type = [NSString stringWithFormat:@"%zd",sender.tag];
+            [self performSegueWithIdentifier:@"toItemDetail" sender:self];
+        }else{
+            [YHHud showWithMessage:@"课程正在研制中"];
+        }
+    }
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"toItemDetail"]) {

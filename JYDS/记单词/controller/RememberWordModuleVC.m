@@ -131,9 +131,9 @@
     [_alertView dismissWithCompletion:nil];
     if (buttonIndex == 1) {
         //学习豆不足
-        if ([_subBean integerValue]>[[YHSingleton shareSingleton].userInfo.studyBean integerValue]) {
-            [self pushPayVC];
-        }else{
+//        if ([_subBean integerValue]>[[YHSingleton shareSingleton].userInfo.studyBean integerValue]) {
+//            [self pushPayVC];
+//        }else{
             //学习豆充足
 //            NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"type":@"words",@"classifyID":_classifyID,@"device_id":DEVICEID};
 //            [YHWebRequest YHWebRequestForPOST:SUBALL parameters:dic success:^(NSDictionary  *json) {
@@ -154,7 +154,7 @@
 //            } failure:^(NSError * _Nonnull error) {
 //                [YHHud showWithMessage:@"网络请求失败"];
 //            }];
-        }
+//        }
     }
 }
 #pragma mark 更新用户的消费学习豆

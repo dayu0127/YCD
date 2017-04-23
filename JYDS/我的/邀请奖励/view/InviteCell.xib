@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="55" id="KGk-i7-Jjw" customClass="InviteCell">
+            <rect key="frame" x="0.0" y="0.0" width="379" height="55"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="379" height="55"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11111111111" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GWw-KA-4CE">
+                        <rect key="frame" x="0.0" y="0.0" width="189.5" height="42"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="42" id="WlR-mF-509"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="立减50元" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sm7-1E-zfa">
+                        <rect key="frame" x="189.5" y="0.0" width="189.5" height="42"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="42" id="eKl-Qw-Q73"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4eo-vp-Cr7">
+                        <rect key="frame" x="0.0" y="53.5" width="379" height="1"/>
+                        <color key="backgroundColor" red="0.89411764709999997" green="0.89411764709999997" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="vpW-KC-xDl"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="GWw-KA-4CE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="69N-gA-yyZ"/>
+                    <constraint firstAttribute="trailing" secondItem="4eo-vp-Cr7" secondAttribute="trailing" id="9Gl-xF-4Gs"/>
+                    <constraint firstItem="4eo-vp-Cr7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="G7u-C0-AiA"/>
+                    <constraint firstItem="sm7-1E-zfa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="UnU-Ch-OAg"/>
+                    <constraint firstItem="GWw-KA-4CE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="YiN-BF-tOh"/>
+                    <constraint firstItem="sm7-1E-zfa" firstAttribute="leading" secondItem="GWw-KA-4CE" secondAttribute="trailing" id="fYi-ab-q36"/>
+                    <constraint firstAttribute="trailing" secondItem="sm7-1E-zfa" secondAttribute="trailing" id="fun-qO-97k"/>
+                    <constraint firstItem="GWw-KA-4CE" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.5" id="iZG-84-yFc"/>
+                    <constraint firstAttribute="bottom" secondItem="4eo-vp-Cr7" secondAttribute="bottom" id="zNU-A9-DH3"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="phoneNumLabel" destination="GWw-KA-4CE" id="25q-2l-llF"/>
+                <outlet property="preferentialLabel" destination="sm7-1E-zfa" id="ond-SS-uxm"/>
+            </connections>
+            <point key="canvasLocation" x="26.5" y="58.5"/>
+        </tableViewCell>
+    </objects>
+</document>

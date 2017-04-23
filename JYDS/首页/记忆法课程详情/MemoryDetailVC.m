@@ -9,12 +9,13 @@
 #import "MemoryDetailVC.h"
 #import "CommentCell.h"
 #import <ZFPlayer.h>
+#import <ZFPlayerControlView.h>
+#import <UIView+CustomControlView.h>
 #import "YHMonitorKeyboard.h"
-@interface MemoryDetailVC ()<UITableViewDelegate,UITableViewDataSource,ZFPlayerDelegate>
+@interface MemoryDetailVC ()<UITableViewDelegate,UITableViewDataSource,ZFPlayerDelegate,ZFPlayerControlViewDelagate>
 @property (weak, nonatomic) IBOutlet UIView *playFatherView;
 @property (nonatomic,strong) ZFPlayerView *playerView;
 @property (nonatomic,strong) ZFPlayerModel *playerModel;
-@property (weak, nonatomic) IBOutlet UIView *studentDemoView;
 @property (weak, nonatomic) IBOutlet UILabel *videoTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *likeCountLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *memoryCollect;
@@ -27,6 +28,8 @@
 @property (weak, nonatomic) IBOutlet UIView *borderView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentBgViewBottomSpace;
 @property (weak, nonatomic) IBOutlet UITextField *commentTxt;
+@property (strong,nonatomic) NSURL *videoURL;
+@property (assign,nonatomic) NSInteger isZan;
 @end
 
 @implementation MemoryDetailVC
@@ -39,20 +42,45 @@
         _playerModel                  = [[ZFPlayerModel alloc] init];
         _playerModel.title            = _memory.title;
         _playerModel.videoURL         = [NSURL URLWithString:_memory.url];
-//        _playerModel.placeholderImageURLString = [UIImage imageNamed:@"home_memoryImg"];
         _playerModel.placeholderImage = [UIImage imageNamed:@"home_memoryImg"];
         _playerModel.fatherView       = self.playFatherView;
     }
     return _playerModel;
 }
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.playerView pause];
+//    {
+//        "userPhone":"******"    #用户手机号
+//        "token":"****"          #登陆凭证
+//        "memoryId"："****"       #记忆法视频id
+//    }
+    NSDictionary *jsonDic = @{
+        @"userPhone":self.phoneNum,   // #用户手机号
+        @"token":self.token,      //    #登陆凭证
+        @"memoryId":_memory.memoryId,    //   #记忆法视频id
+    };
+    [YHWebRequest YHWebRequestForPOST:kPlayNum parameters:jsonDic success:^(NSDictionary *json) {
+        if ([json[@"code"] integerValue] == 200) {
+            [_delegate reloadMemoryList];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            [YHHud showWithMessage:json[@"message"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _commentBgView.alpha = 0;
     //播放器
     _playerView = [[ZFPlayerView alloc] init];
     _playerView.delegate = self;
-    ZFPlayerControlView *playerControlView = [[ZFPlayerControlView alloc] init];
-    playerControlView.backBtn.hidden = YES;
-    [_playerView playerControlView:playerControlView playerModel:self.playerModel];
+    ZFPlayerControlView *pvc = [[ZFPlayerControlView alloc] init];
+    pvc.backBtn.hidden = YES;
+    [_playerView playerControlView:pvc playerModel:self.playerModel];
+    
     [_tableView registerNib:[UINib nibWithNibName:@"CommentCell" bundle:nil] forCellReuseIdentifier:@"CommentCell"];
     _borderView.layer.masksToBounds = YES;
     _borderView.layer.cornerRadius = 18.5f;
@@ -65,8 +93,7 @@
     _issueTimeLabel.text = [NSString stringWithFormat:@"%@年%@月%@日发布",dateArr[0],dateArr[1],dateArr[2]];
     _playCountLabel.text = [NSString stringWithFormat:@"%@次播放",_memory.views];
     _videoContent.text = _memory.content;
-    [_playerView playerControlView:nil playerModel:self.playerModel];
-    [self getCommentList];
+//    [self getCommentList];
     //监听键盘弹出和消失
     [YHMonitorKeyboard YHAddMonitorWithShowBack:^(NSInteger height) {
         [UIView animateWithDuration:1 animations:^{
@@ -101,7 +128,7 @@
             [_tableView reloadData];
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -123,28 +150,31 @@
 }
 #pragma mark 记忆法点赞
 - (IBAction)memoryLikesClick:(UIButton *)sender {
-//    {
-//        "userPhone":"******"    #用户手机号
-//        "token":"****"          #登陆凭证
-//        "memoryId"："****"       #记忆法视频id
-//    }
-    NSDictionary *jsonDic = @{@"userPhone":self.phoneNum,    //    #用户手机号
-                                          @"token":self.token,    //          #登陆凭证
-                                          @"memoryId":_memory.memoryId};    //   #记忆法视频id
-    [YHWebRequest YHWebRequestForPOST:kMemoryLikes parameters:jsonDic success:^(NSDictionary *json) {
-        if ([json[@"code"] integerValue] == 200) {
-            _memoryCollect.image = [UIImage imageNamed:@"course_collected"];
-            NSInteger count = [_likeCountLabel.text integerValue];
-            count++;
-            _likeCountLabel.text = [NSString stringWithFormat:@"%zd",count];
-            [_delegate reloadMemoryList];
-        }else{
-            NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
-        }
-    } failure:^(NSError * _Nonnull error) {
-        NSLog(@"%@",error);
-    }];
+    if (_isZan == 0) {
+        //    {
+        //        "userPhone":"******"    #用户手机号
+        //        "token":"****"          #登陆凭证
+        //        "memoryId"："****"       #记忆法视频id
+        //    }
+        NSDictionary *jsonDic = @{@"userPhone":self.phoneNum,    //    #用户手机号
+                                  @"token":self.token,    //          #登陆凭证
+                                  @"memoryId":_memory.memoryId};    //   #记忆法视频id
+        [YHWebRequest YHWebRequestForPOST:kMemoryLikes parameters:jsonDic success:^(NSDictionary *json) {
+            if ([json[@"code"] integerValue] == 200) {
+                _memoryCollect.image = [UIImage imageNamed:@"course_collected"];
+                NSInteger count = [_likeCountLabel.text integerValue];
+                count++;
+                _likeCountLabel.text = [NSString stringWithFormat:@"%zd",count];
+                _isZan = 1;
+                [_delegate reloadMemoryList];
+            }else{
+                NSLog(@"%@",json[@"code"]);
+                [YHHud showWithMessage:json[@"message"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+        }];
+    }
 }
 #pragma mark 发送评论
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -165,11 +195,12 @@
                                   @"content":textField.text};     //       #评论目标的ID
         [YHWebRequest YHWebRequestForPOST:kUserComment parameters:jsonDic success:^(NSDictionary *json) {
             if ([json[@"code"] integerValue] == 200) {
-                [YHHud showWithSuccess:@"评论成功"];
+                textField.text = @"";
                 [self.view endEditing:YES];
+                [YHHud showWithSuccess:@"评论成功"];
             }else{
                 NSLog(@"%@",json[@"code"]);
-                NSLog(@"%@",json[@"message"]);
+                [YHHud showWithMessage:json[@"message"]];
             }
         } failure:^(NSError * _Nonnull error) {
             NSLog(@"%@",error);
@@ -177,14 +208,4 @@
         return YES;
     }
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

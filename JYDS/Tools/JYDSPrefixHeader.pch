@@ -143,6 +143,14 @@
 #define kOrderPrice API(@"/pay/getOrderPrice")  //获取订单价格
 #define kFedBack API(@"/system/fedBack")    //用户反馈
 #define kCollectionList API(@"/user/getCollectionList")    //收藏列表
+#define kNoticeList API(@"/common/getNoticeList")    //消息列表
+#define kInvitationList API(@"/user/invitationList")    //邀请列表
+#define kPointsList API(@"/user/pointsList")    //积分列表
+#define kGetUser API(@"/user/getUser")      //用户信息
+#define kWordFlip API(@"/study/wordFlip")      //单词翻页
+#define kPlayNum API(@"/common/addPlayNum")      //视频播放次数增加
+#define kSelectWord API(@"/study/selectWord")      //单词查询
+
 //练习题等级数组
 #define LEVELARRAY @[@"60",@"50",@"40",@"30",@"25",@"20",@"15",@"13",@"10"]
 //练习题价格
@@ -150,7 +158,9 @@
 
 //UUID
 #define DEVICEID [[[UIDevice currentDevice] identifierForVendor] UUIDString]
-
+//签到详情
+//#define kSignIn(phoneNum) [NSString stringWithFormat:@"https://www.jydsapp.com/jydsApi/h5/sign.html?userPhone=%@",phoneNum]
+#define kShareRegister(phoneNum) [NSString stringWithFormat:@"https://www.jydsapp.com/jydsApi/h5/register.html?userPhone=%@",phoneNum]
 //消息详情
 #define kMessageDetail @"https://www.jydsapp.com/jydsApi/h5/noticePage.html"
 //邀请奖励
@@ -163,10 +173,14 @@
 #define UseHelpUrl @"https://www.jydsapp.com/jydsApi/h5/help.html"
 #define UserAgreementUrl @"https://www.jydsapp.com/jydsApi/h5/agreement.html"
 //头像上传路径
-#define kHeadImageUrl @"http://onq2x5lx5.bkt.clouddn.com"
+#define kHeadImageUrl @"https://omj0etkcd.qnssl.com/"
+//编码表
+#define kMemoryImages @"https://www.jydsapp.com/jydsApi/h5/image_memory.html"
+//练习结果
+#define kExerciseResult @"https://www.jydsapp.com/jydsApi/h5/image_memory.html?para="
 
 //橙红色
-#define ORANGERED RGB(255,78,0) //#FE514A
+#define ORANGERED RGB(254,81,74) //#FE514A
 //线色
 #define LINECOLOR RGB(228,228,228) //#E4E4E4
 //浅灰色
@@ -181,4 +195,15 @@
 #define SUBEDCOLOR RGB(57,196,130)  //#39C482
 //绿色
 #define GREENCOLOR RGB(57,196,130) //#39C482
+
+typedef NS_ENUM(NSInteger, UITableViewRefreshStatus) {
+    UITableViewRefreshStatusAnimation,   //刷新动画
+    UITableViewRefreshStatusHeader,     //下拉刷新
+    UITableViewRefreshStatusFooter      //上拉刷新
+};
+typedef NS_ENUM(NSInteger, UIViewControllerName) {
+    UIViewControllerNameWordSearchList,   //单词搜索列表
+    UIViewControllerNameWordSubedList,     //已订阅单词列表
+    UIViewControllerNameMyCollectList     //我的收藏列表
+};
 #endif /* JYDSPrefixHeader_pch */

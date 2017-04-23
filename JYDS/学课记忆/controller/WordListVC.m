@@ -12,10 +12,9 @@
 #import "WordDetailVC.h"
 #import "Word.h"
 #import "SureSubView.h"
-#import "SubAlertView.h"
 #import "PayViewController.h"
 #import "UILabel+Utils.h"
-@interface WordListVC ()<UITableViewDelegate,UITableViewDataSource,SureSubViewDelegate,SubAlertViewDelegate>
+@interface WordListVC ()<UITableViewDelegate,UITableViewDataSource,SureSubViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *notSubBtn;
 @property (weak, nonatomic) IBOutlet UIButton *subedBtn;
 @property (weak, nonatomic) IBOutlet UIView *underLine;
@@ -32,79 +31,131 @@
 @property (copy,nonatomic) NSString *inviteCount;
 @property (copy,nonatomic) NSString *preferentialPrice;
 @property (copy,nonatomic) NSString *payPrice;
+@property (assign,nonatomic) NSInteger pageIndex;
+@property (assign,nonatomic) NSInteger pageIndex1;
+@property (strong,nonatomic) UILabel *noSubLabel;
 @end
 
 @implementation WordListVC
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWordSubStatus) name:@"updateWordSubStatus" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWordSubStatus) name:@"updateWordSubStatus" object:nil];
     
     //scrollView 设置
     _mainScrollView.contentSize = CGSizeMake(WIDTH*2, 0);
     CGFloat tableHeight = HEIGHT-108;
     //未订阅列表
-    _noSubTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, tableHeight-65) style:UITableViewStylePlain];
+    _noSubTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, tableHeight) style:UITableViewStylePlain];
     _noSubTableView.delegate = self;
     _noSubTableView.dataSource = self;
     _noSubTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _noSubTableView.showsVerticalScrollIndicator = NO;
     [_mainScrollView addSubview:_noSubTableView];
     [_noSubTableView registerNib:[UINib nibWithNibName:@"NotSubCell" bundle:nil] forCellReuseIdentifier:@"NotSubCell"];
-    [self getNoSubData];
-    //订阅按钮
-    _subAllButton = [[UIButton alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_noSubTableView.frame)+10, WIDTH-20, 45)];
-    [_subAllButton setTitle:@"点击订阅本书所有单词" forState:UIControlStateNormal];
-    [_subAllButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _subAllButton.backgroundColor = ORANGERED;
-    _subAllButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-    [_subAllButton addTarget:self action:@selector(subAllButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [_mainScrollView addSubview:_subAllButton];
-    if ([_payType isEqualToString:@"0"]) {
-        _subAllButton.alpha = 1;
-    }else{
-        _subAllButton.alpha = 0;
-    }
+//    [self getNoSubData];
+    _pageIndex = 1;
+    [self loadNoSubDataWithRefreshStatus:UITableViewRefreshStatusAnimation pageIndex:_pageIndex];
+    self.noSubTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        _pageIndex = 1;
+        [self loadNoSubDataWithRefreshStatus:UITableViewRefreshStatusHeader pageIndex:_pageIndex];
+    }];
+    self.noSubTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        _pageIndex++;
+        [self loadNoSubDataWithRefreshStatus:UITableViewRefreshStatusFooter pageIndex:_pageIndex];
+    }];
     //已订阅列表
-    _subedTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT-108) style:UITableViewStylePlain];
-    _subedTableView.delegate = self;
-    _subedTableView.dataSource = self;
-    _subedTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _subedTableView.showsVerticalScrollIndicator = NO;
-    [_mainScrollView addSubview:_subedTableView];
-    [_subedTableView registerClass:[SubedCell class] forCellReuseIdentifier:@"SubedCell"];
+//    _subedTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT-108) style:UITableViewStylePlain];
+//    _subedTableView.delegate = self;
+//    _subedTableView.dataSource = self;
+//    _subedTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    _subedTableView.showsVerticalScrollIndicator = NO;
+//    [_mainScrollView addSubview:_subedTableView];
+//    [_subedTableView registerClass:[SubedCell class] forCellReuseIdentifier:@"SubedCell"];
+    [self loadSubedTableView];
 }
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)getNoSubData{
-    //    {
-    //        "classId":"******"      #版本ID
-    //        "unitId" :"*******"     #单元ID
-    //        "pageIndex":1           #当前页数
-    //        "userPhone":"***"       #用户手机号
-    //        "token":"****"          #登陆凭证
-    //    }
-    NSDictionary *jsonDic = @{@"classId":_classId,    //  #版本ID
-                              @"unitId" :_unitId,    // #单元ID
-                              @"pageIndex":@"1",         //  #当前页数
-                              @"userPhone":self.phoneNum,     //  #用户手机号
-                              @"token":self.token};       //   #登陆凭证
+//    //    {
+//    //        "classId":"******"      #版本ID
+//    //        "unitId" :"*******"     #单元ID
+//    //        "pageIndex":1           #当前页数
+//    //        "userPhone":"***"       #用户手机号
+//    //        "token":"****"          #登陆凭证
+//    //    }
+//    NSDictionary *jsonDic = @{@"classId":_classId,    //  #版本ID
+//                              @"unitId" :_unitId,    // #单元ID
+//                              @"pageIndex":@"1",         //  #当前页数
+//                              @"userPhone":self.phoneNum,     //  #用户手机号
+//                              @"token":self.token};       //   #登陆凭证
+//    [YHWebRequest YHWebRequestForPOST:kWordList parameters:jsonDic success:^(NSDictionary *json) {
+//        if([json[@"code"] integerValue] == 200){
+//            NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+//            _noSubWordList = [NSMutableArray arrayWithArray:resultDic[@"unitWordList"]];
+//            _tableIndex = 0;
+//            [_noSubTableView reloadData];
+//        }else{
+//            NSLog(@"%@",json[@"code"]);
+//            [YHHud showWithMessage:json[@"message"]];
+//        }
+//    } failure:^(NSError * _Nonnull error) {
+//        NSLog(@"%@",error);
+//    }];
+}
+- (void)loadNoSubDataWithRefreshStatus:(UITableViewRefreshStatus)status pageIndex:(NSInteger)pageIndex{
+    if (status==UITableViewRefreshStatusAnimation) {
+        [YHHud showWithStatus];
+    }
+    NSDictionary *jsonDic = @{
+        @"classId":_classId,    //  #版本ID
+        @"unitId" :_unitId,    // #单元ID
+        @"pageIndex":[NSString stringWithFormat:@"%zd",pageIndex],         //  #当前页数
+        @"userPhone":self.phoneNum,     //  #用户手机号
+        @"token":self.token       //   #登陆凭证
+    };
     [YHWebRequest YHWebRequestForPOST:kWordList parameters:jsonDic success:^(NSDictionary *json) {
+        if (status==UITableViewRefreshStatusAnimation) {
+            [YHHud dismiss];
+        }
         if([json[@"code"] integerValue] == 200){
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-            _noSubWordList = [NSMutableArray arrayWithArray:resultDic[@"unitWordList"]];
-            _tableIndex = 0;
-            [_noSubTableView reloadData];
+            NSArray *resultArray =  resultDic[@"unitWordList"];
+            if (status == UITableViewRefreshStatusAnimation || status == UITableViewRefreshStatusHeader) {
+                _noSubWordList = [NSMutableArray arrayWithArray:resultArray];
+                _tableIndex = 0;
+                [self.noSubTableView reloadData];
+                if (status==UITableViewRefreshStatusHeader) {
+                    [self.noSubTableView.mj_header endRefreshing];
+                    // 重置没有更多的数据（消除没有更多数据的状态）！！！！！！
+                    [self.noSubTableView.mj_footer resetNoMoreData];
+                }
+            }else if (status == UITableViewRefreshStatusFooter){
+                [self.noSubTableView.mj_header endRefreshing];
+                [_noSubWordList addObjectsFromArray:resultArray];
+                [self.noSubTableView reloadData];
+                [self.noSubTableView.mj_footer endRefreshing];
+            }
+        }else if([json[@"code"] integerValue] == 106){
+            [self.noSubTableView.mj_footer endRefreshingWithNoMoreData];
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
+            [YHHud showWithMessage:json[@"message"]];
+            if (status==UITableViewRefreshStatusHeader) {
+                [self.noSubTableView.mj_header endRefreshing];
+            }else if (status==UITableViewRefreshStatusFooter){
+                [self.noSubTableView.mj_footer endRefreshing];
+            }
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
+        if (status==UITableViewRefreshStatusHeader) {
+            [self.noSubTableView.mj_header endRefreshing];
+        }else if (status==UITableViewRefreshStatusFooter){
+            [self.noSubTableView.mj_footer endRefreshing];
+        }else if (status==UITableViewRefreshStatusAnimation){
+            [YHHud dismiss];
+        }
     }];
 }
 - (void)getSubedData{
@@ -115,95 +166,109 @@
         [self loadSubedData];
     }
 }
-- (void)loadSubedData{
-    //    {
-    //        "userPhone":"******"    #用户手机号
-    //        "token":"****"          #登陆凭证
-    //        "unitId"："****"         #单元id
-    //        "classId"："****"        #课本id
-    //        "pageIndex":1           #当前页数
-    //    }
-    [YHHud showWithStatus];
-    NSDictionary *jsonDic = @{@"classId":_classId,    //  #版本ID
-                              @"unitId" :_unitId,    // #单元ID
-                              @"pageIndex":@"1",         //  #当前页数
-                              @"userPhone":self.phoneNum,     //  #用户手机号
-                              @"token":self.token};       //   #登陆凭证
+- (void)loadSubedDataWithRefreshStatus:(UITableViewRefreshStatus)status pageIndex:(NSInteger)pageIndex{
+    if (status==UITableViewRefreshStatusAnimation) {
+        [YHHud showWithStatus];
+    }
+    NSDictionary *jsonDic = @{
+        @"classId":_classId,    //  #版本ID
+        @"unitId" :_unitId,    // #单元ID
+        @"pageIndex":[NSString stringWithFormat:@"%zd",pageIndex],         //  #当前页数
+        @"userPhone":self.phoneNum,     //  #用户手机号
+        @"token":self.token       //   #登陆凭证
+    };
     [YHWebRequest YHWebRequestForPOST:kWordSubedList parameters:jsonDic success:^(NSDictionary *json) {
-        [YHHud dismiss];
+        if (status==UITableViewRefreshStatusAnimation) {
+            [YHHud dismiss];
+        }
         if([json[@"code"] integerValue] == 200){
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-            _subedWordList = [NSMutableArray arrayWithArray:resultDic[@"subWordList"]];
-            _tableIndex = 1;
-            [_subedTableView reloadData];
+            NSArray *resultArray =  resultDic[@"subWordList"];
+            if (status == UITableViewRefreshStatusAnimation || status == UITableViewRefreshStatusHeader) {
+//                if (resultArray.count>0) {
+//                    if (_subedTableView == nil) {
+//                        [self loadSubedTableView];
+//                    }
+//                }
+                if (_noSubLabel!=nil) {
+                    [_noSubLabel removeFromSuperview];
+                    _noSubLabel = nil;
+                }
+                _subedTableView.alpha = 1;
+                _subedWordList = [NSMutableArray arrayWithArray:resultArray];
+                _tableIndex = 1;
+                [self.subedTableView reloadData];
+                if (status==UITableViewRefreshStatusHeader) {
+                    [self.subedTableView.mj_header endRefreshing];
+                    // 重置没有更多的数据（消除没有更多数据的状态）！！！！！！
+                    [self.subedTableView.mj_footer resetNoMoreData];
+                }
+            }else if (status == UITableViewRefreshStatusFooter){
+                [_subedWordList addObjectsFromArray:resultArray];
+                [self.subedTableView reloadData];
+                [self.subedTableView.mj_footer endRefreshing];
+            }
+        }else if([json[@"code"] integerValue] == 106){
+            if (_pageIndex1 == 1) {
+                [self loadNoSubView];
+            }else{
+                [self.subedTableView.mj_footer endRefreshingWithNoMoreData];
+            }
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
+            [YHHud showWithMessage:json[@"message"]];
+            if (status==UITableViewRefreshStatusHeader) {
+                [self.subedTableView.mj_header endRefreshing];
+            }else if (status==UITableViewRefreshStatusFooter){
+                [self.subedTableView.mj_footer endRefreshing];
+            }
         }
     } failure:^(NSError * _Nonnull error) {
-        [YHHud dismiss];
         NSLog(@"%@",error);
-    }];
-}
-#pragma mark 订阅所有单词
-- (void)subAllButtonClick{
-    SubAlertView *subAlertView = [[SubAlertView alloc] initWithNib];
-    NSString *str = [NSString stringWithFormat:@"一次性订阅%@所有单词仅需100元!",_gradeName];
-    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:str];
-    [attStr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:ORANGERED,NSForegroundColorAttributeName,[UIFont systemFontOfSize:16.0f],NSFontAttributeName, nil] range:NSMakeRange(str.length-5, 3)];
-    subAlertView.label_0.attributedText = attStr;
-    subAlertView.label_1.text = [NSString stringWithFormat:@"最多可邀请5个好友，订阅%@所有单词价格低至100元。",_gradeName];
-    [subAlertView.label_1 setText:subAlertView.label_1.text lineSpacing:7.0f];
-    subAlertView.delegate = self;
-    _alertView = [[JCAlertView alloc] initWithCustomView:subAlertView dismissWhenTouchedBackground:NO];
-    [_alertView show];
-}
-#pragma mark 继续订阅
-- (void)continueSubClick{
-    [_alertView dismissWithCompletion:^{
-        //        {
-        //            "userPhone":"******"    #用户手机号
-        //            "token":"****"          #登陆凭证
-        //            "objectId":"****"       #目标id
-        //            "payType":"***"         #支付类型 1：记忆法  0：单词课本
-        //        }
-        [YHHud showWithStatus];
-        NSDictionary *jsonDic = @{@"userPhone":self.phoneNum,  //  #用户手机号
-                                  @"payType" :@"0",         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
-                                  @"objectId":_classId,       //  #目标id
-                                  @"token":self.token};       //   #登陆凭证
-        [YHWebRequest YHWebRequestForPOST:kOrderPrice parameters:jsonDic success:^(NSDictionary *json) {
+        if (status==UITableViewRefreshStatusHeader) {
+            [self.subedTableView.mj_header endRefreshing];
+        }else if (status==UITableViewRefreshStatusFooter){
+            [self.subedTableView.mj_footer endRefreshing];
+        }else if (status==UITableViewRefreshStatusAnimation){
             [YHHud dismiss];
-            if ([json[@"code"] integerValue] == 200) {
-                NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-                _inviteCount = [NSString stringWithFormat:@"%@",dataDic[@"inviteNum"]];
-                float oldPrice = [dataDic[@"price"] floatValue];
-                float newPrice = [dataDic[@"discountPrice"] floatValue];
-                _preferentialPrice = [NSString stringWithFormat:@"￥:%0.2f",oldPrice-newPrice];
-                _payPrice = [NSString stringWithFormat:@"￥:%0.2f",newPrice];
-                [self performSegueWithIdentifier:@"toPayViewController" sender:self];
-            }else{
-                NSLog(@"%@",json[@"code"]);
-                NSLog(@"%@",json[@"message"]);
-            }
-        } failure:^(NSError * _Nonnull error) {
-            [YHHud dismiss];
-            NSLog(@"%@",error);
-        }];
+        }
     }];
 }
-#pragma mark 邀请好友
-- (void)invitateFriendClick{
-    [_alertView dismissWithCompletion:^{
-        [self performSegueWithIdentifier:@"moduleListToInviteRewards" sender:self];
+- (void)loadNoSubView{
+    _noSubLabel = [UILabel new];
+    _noSubLabel.text = @"您还未订阅单词，快去订阅吧！";
+    _noSubLabel.textAlignment = NSTextAlignmentCenter;
+    _noSubLabel.textColor = LIGHTGRAYCOLOR;
+    _noSubLabel.font = [UIFont systemFontOfSize:16.0f];
+    [_mainScrollView addSubview:_noSubLabel];
+    [_noSubLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_mainScrollView).offset(WIDTH);
+        make.centerY.equalTo(_mainScrollView);
+        make.right.equalTo(_mainScrollView);
+        make.width.mas_equalTo(@(WIDTH));
     }];
 }
-#pragma mark 关闭提示框
-- (void)closeClick{
-    [_alertView dismissWithCompletion:nil];
+- (void)loadSubedTableView{
+    _subedTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT-108) style:UITableViewStylePlain];
+    _subedTableView.delegate = self;
+    _subedTableView.dataSource = self;
+    _subedTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _subedTableView.showsVerticalScrollIndicator = NO;
+    [_mainScrollView addSubview:_subedTableView];
+    [_subedTableView registerClass:[SubedCell class] forCellReuseIdentifier:@"SubedCell"];
+    _subedTableView.alpha = 0;
 }
-- (void)updateWordSubStatus{
-    _subAllButton.alpha = 0;
+- (void)loadSubedData{
+    _pageIndex1 = 1;
+    [self loadSubedDataWithRefreshStatus:UITableViewRefreshStatusAnimation pageIndex:_pageIndex1];
+    self.subedTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        _pageIndex1 = 1;
+        [self loadSubedDataWithRefreshStatus:UITableViewRefreshStatusHeader pageIndex:_pageIndex1];
+    }];
+    self.subedTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        _pageIndex1++;
+        [self loadSubedDataWithRefreshStatus:UITableViewRefreshStatusFooter pageIndex:_pageIndex1];
+    }];
 }
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     if (_mainScrollView.contentOffset.x == WIDTH) {
@@ -229,8 +294,59 @@
 //    if ([_payType isEqualToString:@"0"]) {
 //        _subAllButton.alpha = 1;
 //    }
+//    if (_subedTableView.alpha == ) {
+//        <#statements#>
+//    }
     _tableIndex = 0;
-    [_noSubTableView reloadData];
+    [self.noSubTableView reloadData];
+//    [self.noSubTableView.mj_header beginRefreshing];
+//    _pageIndex = 1;
+//    [self loadNoSubDataWithRefreshStatus:UITableViewRefreshStatusHeader pageIndex:_pageIndex];
+//    NSDictionary *jsonDic = @{
+//        @"classId":_classId,    //  #版本ID
+//        @"unitId" :_unitId,    // #单元ID
+//        @"pageIndex":@"1",         //  #当前页数
+//        @"userPhone":self.phoneNum,     //  #用户手机号
+//        @"token":self.token       //   #登陆凭证
+//    };
+//    [YHWebRequest YHWebRequestForPOST:kWordList parameters:jsonDic success:^(NSDictionary *json) {
+//        if([json[@"code"] integerValue] == 200){
+//            NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+//            NSArray *resultArray =  resultDic[@"unitWordList"];
+//                _noSubWordList = [NSMutableArray arrayWithArray:resultArray];
+//                _tableIndex = 0;
+//                [self.noSubTableView reloadData];
+//                if (status==UITableViewRefreshStatusHeader) {
+//                    [self.noSubTableView.mj_header endRefreshing];
+//                    // 重置没有更多的数据（消除没有更多数据的状态）！！！！！！
+//                    [self.noSubTableView.mj_footer resetNoMoreData];
+//                }
+//            }else if (status == UITableViewRefreshStatusFooter){
+//                [_noSubWordList addObjectsFromArray:resultArray];
+//                [self.noSubTableView reloadData];
+//                [self.noSubTableView.mj_footer endRefreshing];
+//            }
+//        }else if([json[@"code"] integerValue] == 106){
+//            [self.noSubTableView.mj_footer endRefreshingWithNoMoreData];
+//        }else{
+//            NSLog(@"%@",json[@"code"]);
+//            [YHHud showWithMessage:json[@"message"]];
+//            if (status==UITableViewRefreshStatusHeader) {
+//                [self.noSubTableView.mj_header endRefreshing];
+//            }else if (status==UITableViewRefreshStatusFooter){
+//                [self.noSubTableView.mj_footer endRefreshing];
+//            }
+//        }
+//    } failure:^(NSError * _Nonnull error) {
+//        NSLog(@"%@",error);
+//        if (status==UITableViewRefreshStatusHeader) {
+//            [self.noSubTableView.mj_header endRefreshing];
+//        }else if (status==UITableViewRefreshStatusFooter){
+//            [self.noSubTableView.mj_footer endRefreshing];
+//        }else if (status==UITableViewRefreshStatusAnimation){
+//            [YHHud dismiss];
+//        }
+//    }];
 }
 - (void)rightSet{
     [_subedBtn setTitleColor:ORANGERED forState:UIControlStateNormal];
@@ -238,6 +354,8 @@
     _lineLeftSpace.constant = WIDTH/2.0;
     [_mainScrollView setContentOffset:CGPointMake(WIDTH, 0) animated:YES];
 //    _subAllButton.alpha = 0;
+//    _pageIndex1 = 1;
+//    [self loadNoSubDataWithRefreshStatus:UITableViewRefreshStatusHeader pageIndex:_pageIndex1];
     [self getSubedData];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -267,6 +385,14 @@
 - (void)freeSubClick:(UIButton *)sender{
     [self freeSub:sender.tag];
 }
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (_tableIndex == 0) {//单个单词免费查阅
+        [self freeSub:indexPath.row];
+    }else{
+        _word = [Word yy_modelWithJSON:_subedWordList[indexPath.row]];
+        [self performSegueWithIdentifier:@"toWordDetail" sender:self];
+    }
+}
 - (void)freeSub:(NSInteger)wordRowIndex{
     _word = [Word yy_modelWithJSON:_noSubWordList[wordRowIndex]];
     //单个单词订阅
@@ -279,14 +405,6 @@
         sureSubView.delegate = self;
         _alertView = [[JCAlertView alloc] initWithCustomView:sureSubView dismissWhenTouchedBackground:NO];
         [_alertView show];
-    }
-}
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (_tableIndex == 0) {//单个单词免费查阅
-        [self freeSub:indexPath.row];
-    }else{
-        _word = [Word yy_modelWithJSON:_subedWordList[indexPath.row]];
-        [self performSegueWithIdentifier:@"toWordDetail" sender:self];
     }
 }
 - (void)cancelClick{
@@ -314,7 +432,7 @@
             //刷新未订阅列表
             for (NSInteger i = 0; i<_noSubWordList.count; i++) {
                 NSDictionary *itemDic = _noSubWordList[i];
-                if ([itemDic[@"wordId"] integerValue] == [_word.wordId integerValue]) {
+                if ([itemDic[@"wordId"] isEqualToString:_word.wordId]) {
                     [_noSubWordList removeObjectAtIndex:i];
                     break;
                 }
@@ -328,16 +446,16 @@
             [YHHud showWithSuccess:@"订阅成功"];
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
 }
 - (void)reloadSubedTableView{
+    _tableIndex = 1;
     if (_subedWordList.count!=0) {
         [_subedWordList addObject:[_word yy_modelToJSONObject]];
-        _tableIndex = 1;
         [_subedTableView reloadData];
     }else{
         [self loadSubedData];
@@ -347,18 +465,7 @@
     if ([segue.identifier isEqualToString:@"toWordDetail"]) {
         WordDetailVC *wordDetail = segue.destinationViewController;
         wordDetail.word = _word;
-    }else if ([segue.identifier isEqualToString:@"toPayViewController"]){
-        PayViewController *payVC = segue.destinationViewController;
-        payVC.classId = _classId;
-        payVC.payType = @"0";    //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
-        payVC.inviteCount = _inviteCount;
-        payVC.preferentialPrice = _preferentialPrice;
-        payVC.payPrice = _payPrice;
-        [YHSingleton shareSingleton].payType = @"0";
+        wordDetail.showCollectButton = NO;
     }
-}
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 @end

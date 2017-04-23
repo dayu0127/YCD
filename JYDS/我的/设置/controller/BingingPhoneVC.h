@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface BingingPhoneVC : UIViewController
-
+@protocol BingingPhoneVCDelegate<NSObject>
+- (void)updatePhoneBingingState:(NSString *)phone;
+@end
+@interface BingingPhoneVC : BaseViewController
+@property (weak,nonatomic) id<BingingPhoneVCDelegate> delegate;
 @end

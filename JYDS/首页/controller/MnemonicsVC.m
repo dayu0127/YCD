@@ -16,8 +16,9 @@
 #import "MemoryHeaderView.h"
 #import "DynamicCell.h"
 #import "MemoryCell.h"
-//#import "PayVC.h"
-
+#import "Memory.h"
+#import "MemoryDetailVC.h"
+#import "BingingPhoneVC.h"
 @interface MnemonicsVC ()<UITableViewDelegate,UITableViewDataSource,PlanCellDelegate,MemoryHeaderViewDelegate>
 //@property (strong,nonatomic) NSMutableArray *netImages;  //网络图片
 //@property (strong,nonatomic) SDCycleScrollView *cycleScrollView;//轮播器
@@ -32,6 +33,7 @@
 //@property (strong,nonatomic) MJRefreshNormalHeader *header;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) NSArray *memoryList;
+@property (strong,nonatomic) Memory *memory;
 @end
 
 @implementation MnemonicsVC
@@ -72,6 +74,16 @@
 //    self.cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControl_selectN"];
 //    _header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
 //}
+- (IBAction)signInClick:(UIButton *)sender {
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
+        [self returnToBingingPhone];
+    }else if (self.token==nil&&self.phoneNum==nil) {
+        [self returnToLogin];
+    }else{
+        [self performSegueWithIdentifier:@"toSignIn" sender:self];
+    }
+}
 #pragma mark 轮播器代理方法
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
@@ -139,13 +151,13 @@
     }
 }
 #pragma mark PlanCellDelegate
-#pragma mark 我的订阅
+#pragma mark 右脑训练
 - (void)pushToMySub{
-    [self performSegueWithIdentifier:@"homeToMySub" sender:self];
+    [self performSegueWithIdentifier:@"homeToExercises" sender:self];
 }
 #pragma mark 记忆法课程列表
 - (void)pushToMemoryMore{
-    [self performSegueWithIdentifier:@"toMemoryMore" sender:self];
+    [self pushMoreMemoryList];
 }
 #pragma mark 邀请好友
 - (void)pushToInvitation{
@@ -154,6 +166,8 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 1) {
         MemoryHeaderView *headerView = [MemoryHeaderView loadView];
+        headerView.moreButton.alpha = 0;
+        headerView.arrows.alpha = 0;
         return headerView;
     }else if(section == 2){
         MemoryHeaderView *headerView = [MemoryHeaderView loadView];
@@ -166,8 +180,33 @@
 }
 #pragma mark 记忆法课程更多
 - (void)pushMoreMemoryList{
-    [self performSegueWithIdentifier:@"toMemoryMore" sender:self];
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
+        [self returnToBingingPhone];
+    }else if (self.token==nil&&self.phoneNum==nil) {
+        [self returnToLogin];
+    }else{
+        [self performSegueWithIdentifier:@"toMemoryMore" sender:self];
+    }
 }
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 2) {
+        NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+        if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
+            [self returnToBingingPhone];
+        }else if (self.token==nil&&self.phoneNum==nil) {
+            [self returnToLogin];
+        }else{
+            [self performSegueWithIdentifier:@"toMemoryMore" sender:self];
+        }
+    }
+}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+//    if ([segue.identifier isEqualToString:@"homeToMemoryDetail"]) {
+//        MemoryDetailVC *detailVC = segue.destinationViewController;
+//        detailVC.memory = _memory;
+//    }
+//}
 //- (void)initTableView{
 //    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-113) style:UITableViewStyleGrouped];
 //    _tableView.delegate = self;

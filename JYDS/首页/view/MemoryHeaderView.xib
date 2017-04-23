@@ -70,6 +70,8 @@
                 <constraint firstItem="EgV-Dh-HsC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="frN-eq-Jnx"/>
             </constraints>
             <connections>
+                <outlet property="arrows" destination="BUn-IA-BC2" id="8Kk-6C-6o1"/>
+                <outlet property="moreButton" destination="Rpo-7x-3mY" id="JlR-Pq-wY3"/>
                 <outlet property="title" destination="MMi-Id-GSB" id="LR3-Lh-pSG"/>
             </connections>
             <point key="canvasLocation" x="68.5" y="122.5"/>

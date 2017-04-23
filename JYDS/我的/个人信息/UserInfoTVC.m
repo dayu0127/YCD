@@ -30,8 +30,7 @@
     _headImageButton.layer.masksToBounds = YES;
     _headImageButton.layer.cornerRadius = 45.5f;
     //加载头像昵称性别
-    NSString *headImageUrl = [NSString stringWithFormat:@"%@%@",kHeadImageUrl,[YHSingleton shareSingleton].userInfo.headImg];
-    [_headImageButton sd_setImageWithURL:[NSURL URLWithString:headImageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"mine_headimage"]];
+    [_headImageButton setImage:_headImage forState:UIControlStateNormal];
     _nickNameLabel.text = [YHSingleton shareSingleton].userInfo.nickName;
     _sexLabel.text = [[YHSingleton shareSingleton].userInfo.genter isEqualToString:@""] ? @"保密" : [YHSingleton shareSingleton].userInfo.genter;
     if ([[YHSingleton shareSingleton].userInfo.genter intValue] == 1) {
@@ -41,12 +40,6 @@
     }else{
         _sexLabel.text = @"保密";
     }
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
 }
 - (void)nickEditingChanged:(UITextField *)sender{
     NSString *resultStr = [sender.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -120,23 +113,22 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.row == 1){
-        _alertVC = [UIAlertController alertControllerWithTitle:@"昵称修改" message:@"\n\n" preferredStyle:UIAlertControllerStyleAlert];
-        //昵称修改输入框
-        _nickNameText = [UITextField new];
-        _nickNameText.borderStyle = UITextBorderStyleRoundedRect;
-        _nickNameText.text = _nickNameLabel.text;
-        [_nickNameText addTarget:self action:@selector(nickEditingChanged:) forControlEvents:UIControlEventEditingChanged];
-        [_alertVC.view addSubview:_nickNameText];
-        [_nickNameText mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_alertVC.view).offset(50);
-            make.centerX.mas_equalTo(_alertVC.view.mas_centerX);
-            make.width.mas_equalTo(@250);
-            make.height.mas_equalTo(@38);
+        _alertVC = [UIAlertController alertControllerWithTitle:@"昵称修改" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        NSString *oldNickName =_nickNameLabel.text;
+        [_alertVC addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+            textField.placeholder = @"请输入昵称";
+            textField.text = oldNickName;
         }];
+        UITextField *alertText = (UITextField *)_alertVC.textFields[0];
+        [alertText addTarget:self action:@selector(nickEditingChanged:) forControlEvents:UIControlEventEditingChanged];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
         _updateAction = [UIAlertAction actionWithTitle:@"修改" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            _nickNameLabel.text = _nickNameText.text;
+            _nickNameLabel.text = alertText.text;
         }];
+        //输入框为空的时候禁用默认修改按钮
+        if ([[alertText.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
+            _updateAction.enabled = NO;
+        }
         [_alertVC addAction:cancel];
         [_alertVC addAction:_updateAction];
         [self presentViewController:_alertVC animated:YES completion:nil];
@@ -197,10 +189,11 @@
                                           @"sex":sex};     //#用户性别（选填字段）
     [YHWebRequest YHWebRequestForPOST:kNicknameSex parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
+            [_delegate updateNickName:_nickNameLabel.text];
             [YHHud showWithSuccess:@"修改成功"];
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -235,13 +228,11 @@
                 [YHSingleton shareSingleton].userInfo.nickName = _nickNameLabel.text;
                 [YHSingleton shareSingleton].userInfo.genter = _sexLabel.text;
                 //更新我的页面的头像和昵称
-                NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:_headImageButton.imageView.image,@"headImage",_nickNameText.text,@"nickName",nil];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadImageAndNickName" object:nil userInfo:dic];
+                [_delegate updateHeadImage:_headImageButton.imageView.image];
                 [YHHud showWithSuccess:@"修改成功"];
             }else{
                 NSLog(@"%@",json[@"code"]);
-                NSLog(@"%@",json[@"message"]);
-            }
+                [YHHud showWithMessage:json[@"message"]];            }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             [YHHud showWithMessage:@"上传失败"];
         }];

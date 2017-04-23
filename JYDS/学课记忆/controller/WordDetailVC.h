@@ -9,11 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "Word.h"
 @protocol WordDetailVCDelegate<NSObject>
+@optional
 - (void)updateWordList;
+- (void)updateMyCollectList;
+- (void)updateWordSearchList;
 @end
 @interface WordDetailVC : BaseViewController
 @property (strong,nonatomic) Word *word;
-@property (copy,nonatomic) NSString *classId;
-@property (copy,nonatomic) NSString *unitId;
 @property (weak,nonatomic) id<WordDetailVCDelegate> delegate;
+@property (assign,nonatomic) BOOL showCollectButton;
+@property (assign,nonatomic) UIViewControllerName vcName;
+@property (assign,nonatomic) NSInteger indexOfWord;
+@property (assign,nonatomic) NSInteger wordNum;
 @end

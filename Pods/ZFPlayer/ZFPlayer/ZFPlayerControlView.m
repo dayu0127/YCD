@@ -26,7 +26,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "UIView+CustomControlView.h"
 #import "MMMaterialDesignSpinner.h"
-#import <DKNightVersion/DKNightVersion.h>
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
 
@@ -100,7 +100,8 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
 @property (nonatomic, assign, getter=isDragged) BOOL  dragged;
 /** 是否播放结束 */
 @property (nonatomic, assign, getter=isPlayEnd) BOOL  playeEnd;
-
+/** 是否全屏播放 */
+@property (nonatomic, assign,getter=isFullScreen)BOOL fullScreen;
 @end
 
 @implementation ZFPlayerControlView
@@ -123,7 +124,6 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
         
         [self.topImageView addSubview:self.downLoadBtn];
         [self addSubview:self.lockBtn];
-        
         [self.topImageView addSubview:self.backBtn];
         [self addSubview:self.activity];
         [self addSubview:self.repeatBtn];
@@ -168,9 +168,7 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
     [self.placeholderImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
-    [self mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo([UIScreen mainScreen].bounds.size.width);
-    }];
+    
     [self.closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.trailing.equalTo(self.mas_trailing).offset(7);
         make.top.equalTo(self.mas_top).offset(-7);
@@ -213,6 +211,7 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
         make.top.equalTo(self.topImageView.mas_top).offset(15);
         make.trailing.equalTo(self.resolutionBtn.mas_leading).offset(-10);
     }];
+    
     [self.bottomImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.bottom.equalTo(self);
         make.height.mas_equalTo(50);
@@ -731,7 +730,7 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
 
         [_videoSlider setThumbImage:ZFPlayerImage(@"ZFPlayer_slider") forState:UIControlStateNormal];
         _videoSlider.maximumValue          = 1;
-        _videoSlider.dk_minimumTrackTintColorPicker = DKColorPickerWithColors([UIColor colorWithRed:0.4 green:0.6 blue:0.8 alpha:1.0],[UIColor colorWithRed:19/255.0 green:34/255.0 blue:73/255.0 alpha:1.0],[UIColor redColor]);
+        _videoSlider.minimumTrackTintColor = [UIColor whiteColor];
         _videoSlider.maximumTrackTintColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
         
         // slider开始滑动事件

@@ -57,7 +57,7 @@
                 _payPriceLabel.text = [NSString stringWithFormat:@"￥:%0.2f",newPrice];
             }else{
                 NSLog(@"%@",json[@"code"]);
-                NSLog(@"%@",json[@"message"]);
+                [YHHud showWithMessage:json[@"message"]];
             }
         } failure:^(NSError * _Nonnull error) {
             [self.tableView.mj_header endRefreshing];
@@ -195,13 +195,17 @@
                         }else if ([_payType isEqualToString:@"1"]){
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMemorySubStatus" object:nil];
                         }
-                        [YHHud showWithSuccess:@"支付成功"];
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                        [YHHud showWithSuccess:@"支付成功"];
+//                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                            [self.navigationController popViewControllerAnimated:YES];
+//                        });
+                        [YHHud showPaySuccessOrFailed:@"success" completion:^{
                             [self.navigationController popViewControllerAnimated:YES];
-                        });
+                        }];
                     }else{
                         NSLog(@"%@",json[@"code"]);
-                        NSLog(@"%@",json[@"message"]);
+//                        [YHHud showWithMessage:json[@"message"]];
+                        [YHHud showPaySuccessOrFailed:@"failed" completion:nil];
                     }
                 } failure:^(NSError * _Nonnull error) {
                     NSLog(@"%@",error);
@@ -209,7 +213,7 @@
             }];
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -251,8 +255,7 @@
             [WXApi sendReq:request];
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
-        }
+            [YHHud showWithMessage:json[@"message"]];        }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];

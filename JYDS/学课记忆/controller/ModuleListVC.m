@@ -13,7 +13,8 @@
 #import "SubAlertView.h"
 #import "PayViewController.h"
 #import "UILabel+Utils.h"
-@interface ModuleListVC ()<UITableViewDelegate,UITableViewDataSource,SubAlertViewDelegate>
+#import "WordSearchListVC.h"
+@interface ModuleListVC ()<UITableViewDelegate,UITableViewDataSource,SubAlertViewDelegate,UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) NSArray *moduleList;
@@ -23,6 +24,9 @@
 @property (copy,nonatomic) NSString *inviteCount;
 @property (copy,nonatomic) NSString *preferentialPrice;
 @property (copy,nonatomic) NSString *payPrice;
+@property (assign,nonatomic) NSInteger wordNum;
+@property (strong,nonatomic) NSArray *wordSearchResultArray;
+@property (copy,nonatomic) NSString *searchContent;
 @end
 
 @implementation ModuleListVC
@@ -53,11 +57,39 @@
             [_tableView reloadData];
         }else{
             NSLog(@"%@",json[@"code"]);
-            NSLog(@"%@",json[@"message"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
+}
+#pragma mark 单词搜索
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    searchBar.text = [searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (REGEX(LETTER_RE, searchBar.text) == NO) {
+        [YHHud showWithMessage:@"请输入英文单词"];
+    }else{
+        if (![searchBar.text isEqualToString:@""]) {
+            NSDictionary *jsonDic = @{
+                @"userPhone":self.phoneNum,   //     #用户手机号
+                @"token":self.token,            //      #用户登陆凭证
+                @"selContent":searchBar.text       //      #查询内容
+            };
+            [YHWebRequest YHWebRequestForPOST:kSelectWord parameters:jsonDic success:^(NSDictionary *json) {
+                if ([json[@"code"] integerValue] == 200) {
+                    NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+                    _wordSearchResultArray = resultDic[@"selWordList"];
+                    _searchContent = searchBar.text;
+                    [self performSegueWithIdentifier:@"toWordSearchVC" sender:self];
+                }else{
+                    NSLog(@"%@",json[@"code"]);
+                    [YHHud showWithMessage:json[@"message"]];
+                }
+            } failure:^(NSError * _Nonnull error) {
+                NSLog(@"%@",error);
+            }];
+        }
+    }
 }
 - (void)updateWordSubStatus{
     _subAllButton.alpha = 0;
@@ -82,12 +114,17 @@
     if ([_payType isEqualToString:@"0"]) {
         [self performSegueWithIdentifier:@"toWordList" sender:self];
     }else{
+        _wordNum = [_moduleList[indexPath.row][@"wrodNum"] integerValue];
         [self performSegueWithIdentifier:@"toWordSubedList" sender:self];
     }
     
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"toWordList"]) {
+    if ([segue.identifier isEqualToString:@"toWordSearchVC"]) {
+        WordSearchListVC *wordSearchListVC = segue.destinationViewController;
+        wordSearchListVC.wordSearchResultArray = _wordSearchResultArray;
+        wordSearchListVC.searchContent = _searchContent;
+    }else if ([segue.identifier isEqualToString:@"toWordList"]) {
         WordListVC *wordListVC = segue.destinationViewController;
         wordListVC.classId = _classId;
         wordListVC.unitId = _unitId;
@@ -97,6 +134,7 @@
         WordSubedList *wordSubedList = segue.destinationViewController;
         wordSubedList.classId = _classId;
         wordSubedList.unitId = _unitId;
+        wordSubedList.wordNum = _wordNum;
     }else if ([segue.identifier isEqualToString:@"toPayViewController"]){
         PayViewController *payVC = segue.destinationViewController;
         payVC.classId = _classId;
@@ -145,8 +183,7 @@
                 [self performSegueWithIdentifier:@"toPayViewController" sender:self];
             }else{
                 NSLog(@"%@",json[@"code"]);
-                NSLog(@"%@",json[@"message"]);
-            }
+                [YHHud showWithMessage:json[@"message"]];            }
         } failure:^(NSError * _Nonnull error) {
             [YHHud dismiss];
             NSLog(@"%@",error);

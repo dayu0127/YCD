@@ -11,5 +11,11 @@
 - (void)messageDetail;
 @end
 @interface MessageCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *dateLabelWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *dateLabelHeight;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel1;
+@property (weak, nonatomic) IBOutlet UIImageView *img;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel1;
 @property (weak,nonatomic) id<MessageCellDelegate> delegate;
+- (void)setModel:(NSDictionary *)dic;
 @end

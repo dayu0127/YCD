@@ -9,7 +9,6 @@
 #import "SetVC.h"
 #import <UIImageView+WebCache.h>
 #import "SetCell0.h"
-#import "SetCell1.h"
 @interface SetVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -24,7 +23,6 @@
     [super viewDidLoad];
     [_tableView registerNib:[UINib nibWithNibName:@"SetCell" bundle:nil] forCellReuseIdentifier:@"SetCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"SetCell0" bundle:nil] forCellReuseIdentifier:@"SetCell0"];
-    [_tableView registerNib:[UINib nibWithNibName:@"SetCell1" bundle:nil] forCellReuseIdentifier:@"SetCell1"];
 }
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -36,7 +34,7 @@
     return _arr;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return 2;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 0.00001;
@@ -48,21 +46,21 @@
         [cell setCellWithString:@""];
         cell.bingingLabel.alpha = 0;
         return cell;
-    }else if (indexPath.row == 1){
+    }else{
         SetCell0 *cell = [tableView dequeueReusableCellWithIdentifier:@"SetCell0" forIndexPath:indexPath];
         cell.titleLabel0.text = @"清除缓存";
-        [cell setCellWithString:@"0k"];
-        cell.titleLabel1.text = @"666k";
-        cell.titleLabel1.textColor = ORANGERED;
-        return cell;
-    }else{
-        SetCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"SetCell1" forIndexPath:indexPath];
+        [cell setCellWithString:@""];
+        cell.bingingLabel.alpha = 0;
         return cell;
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
-        [self performSegueWithIdentifier:@"toAccountSet" sender:self];
+        if (self.token==nil&&self.phoneNum==nil) {
+            [self returnToLogin];
+        }else{
+            [self performSegueWithIdentifier:@"toAccountSet" sender:self];
+        }
     }else if (indexPath.row == 1) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         [YHHud showWithStatus];
@@ -72,19 +70,19 @@
         [YHHud showWithSuccess:@"清除成功"];
     }
 }
-- (void)openNight:(UISwitch *)sender{
-    if (sender.on == YES) {
-        //开启夜间模式
-        [DKNightVersionManager sharedManager].themeVersion = DKThemeVersionNight;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"nightMode" object:nil];
-    }else{
-        //关闭夜间模式
-        [DKNightVersionManager sharedManager].themeVersion = DKThemeVersionNormal;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"dayMode" object:nil];
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    }
-    [[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:@"isNightMode"];
-}
+//- (void)openNight:(UISwitch *)sender{
+//    if (sender.on == YES) {
+//        //开启夜间模式
+//        [DKNightVersionManager sharedManager].themeVersion = DKThemeVersionNight;
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"nightMode" object:nil];
+//    }else{
+//        //关闭夜间模式
+//        [DKNightVersionManager sharedManager].themeVersion = DKThemeVersionNormal;
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"dayMode" object:nil];
+//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+//    }
+//    [[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:@"isNightMode"];
+//}
 //- (IBAction)logoutButtonClick:(UIButton *)sender {
 //    YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 255, 100) title:@"确定退出登录?" message:nil];
 //    alertView.delegate = self;
@@ -112,5 +110,26 @@
 //            [YHHud showWithMessage:@"数据请求失败"];
 //        }];
 //    }
+//}
+//- (float)checkTmpSize {
+//    
+//    float totalSize = 0;
+//    
+//    NSDirectoryEnumerator *fileEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:_diskCachePath];
+//    
+//    for (NSString *fileName in fileEnumerator) {
+//        
+//        NSString *filePath = [_diskCachePath stringByAppendingPathComponent:fileName];
+//        
+//        NSDictionary *attrs = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
+//        
+//        unsigned long long length = [attrs fileSize];
+//        
+//        totalSize += length / 1024.0 / 1024.0;
+//        
+//    } // NSLog(@"tmp size is %.2f",totalSize);
+//    
+//    return totalSize;
+//    
 //}
 @end

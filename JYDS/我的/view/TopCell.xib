@@ -25,8 +25,8 @@
                             <constraint firstAttribute="height" constant="15" id="PjM-3K-wde"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学习豆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4yK-WV-lqT">
-                        <rect key="frame" x="39" y="6.5" width="46" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的积分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4yK-WV-lqT">
+                        <rect key="frame" x="39" y="6.5" width="61.5" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="1" green="0.30588235289999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -56,6 +56,9 @@
                     <constraint firstItem="Adx-Tm-ten" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="r4h-Ih-CZ0"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="pointsLabel" destination="jkM-io-IKA" id="e3B-Ii-BhC"/>
+            </connections>
             <point key="canvasLocation" x="30.5" y="60"/>
         </tableViewCell>
     </objects>

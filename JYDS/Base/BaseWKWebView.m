@@ -11,26 +11,22 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.navigationDelegate = self;
-        self.scrollView.bounces = NO;
-        _opaqueView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
-        _opaqueView.backgroundColor = [UIColor clearColor];
-        _activityIndicatorView = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
-        _activityIndicatorView.backgroundColor = [UIColor clearColor];
-        _activityIndicatorView.center = _opaqueView.center;
-        _activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-        [_opaqueView addSubview:_activityIndicatorView];
-        [self addSubview:_opaqueView];
+        self.scrollView.showsVerticalScrollIndicator = NO;
     }
     return self;
 }
-#pragma mark 开始加载
-- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
-    [_activityIndicatorView startAnimating];
-    _opaqueView.hidden = NO;
+- (instancetype)initWithFrame:(CGRect)frame url:(NSString *)urlStr{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.navigationDelegate = self;
+        self.scrollView.showsVerticalScrollIndicator = NO;
+        NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]];
+        [self loadRequest:request];
+    }
+    return self;
 }
 #pragma mark 加载完成
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
-    [_activityIndicatorView stopAnimating];
-    _opaqueView.hidden = YES;
+    [YHHud dismiss];
 }
 @end
