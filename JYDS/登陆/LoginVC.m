@@ -207,7 +207,12 @@
 //            }
             NSString *associatedQq = resp.uid;
             NSString *genter = resp.gender;
-            NSString *nickName = resp.name;
+            NSString *nickName;
+            if ([resp.name isEqualToString:@"男"]) {
+                nickName = @"1";
+            }else if([resp.name isEqualToString:@"女"]){
+                nickName = @"0";
+            }
             NSDictionary *jsonDic = @{@"associatedQq" :associatedQq,             // #第三方绑定的uid 唯一标识
                                                   @"genter":genter,
                                                   @"nickName":nickName};               //   #性别 1男 0女  （选填
@@ -271,7 +276,12 @@
 //            }
             NSString *associatedWx = resp.uid;
             NSString *genter = resp.gender;
-            NSString *nickName = resp.name;
+            NSString *nickName;
+            if ([resp.name isEqualToString:@"男"]) {
+                nickName = @"1";
+            }else if([resp.name isEqualToString:@"女"]){
+                nickName = @"0";
+            }
             NSDictionary *jsonDic = @{@"associatedWx" :associatedWx,             // #第三方绑定的uid 唯一标识
                                                   @"genter":genter,               //   #性别 1男 0女  （选填
                                                   @"nickName":nickName};

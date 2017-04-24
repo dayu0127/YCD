@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface NewestDynamicVC : UIViewController
-
+@property (copy,nonatomic) NSString *linkUrl;
 @end

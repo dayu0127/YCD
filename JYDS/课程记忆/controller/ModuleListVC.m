@@ -117,7 +117,6 @@
         _wordNum = [_moduleList[indexPath.row][@"wrodNum"] integerValue];
         [self performSegueWithIdentifier:@"toWordSubedList" sender:self];
     }
-    
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"toWordSearchVC"]) {
@@ -147,9 +146,10 @@
 }
 - (IBAction)subAllWordBtnClick:(UIButton *)sender {
     SubAlertView *subAlertView = [[SubAlertView alloc] initWithNib];
-    NSString *str = [NSString stringWithFormat:@"一次性订阅%@所有单词仅需100元!",_gradeName];
+    NSString *str = [NSString stringWithFormat:@"一次性订阅%@所有单词仅需%@元!",_gradeName,_full_price];
+    NSRange priceRange= [str rangeOfString:[NSString stringWithFormat:@"%@",_full_price]];
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:str];
-    [attStr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:ORANGERED,NSForegroundColorAttributeName,[UIFont systemFontOfSize:16.0f],NSFontAttributeName, nil] range:NSMakeRange(str.length-5, 3)];
+    [attStr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:ORANGERED,NSForegroundColorAttributeName,[UIFont systemFontOfSize:16.0f],NSFontAttributeName, nil] range:NSMakeRange(priceRange.location, priceRange.length)];
     subAlertView.label_0.attributedText = attStr;
     subAlertView.label_1.text = [NSString stringWithFormat:@"最多可邀请5个好友，订阅%@所有单词价格低至100元。",_gradeName];
     [subAlertView.label_1 setText:subAlertView.label_1.text lineSpacing:7.0f];
@@ -178,12 +178,13 @@
                 _inviteCount = [NSString stringWithFormat:@"%@",dataDic[@"inviteNum"]];
                 float oldPrice = [dataDic[@"price"] floatValue];
                 float newPrice = [dataDic[@"discountPrice"] floatValue];
-                _preferentialPrice = [NSString stringWithFormat:@"￥:%0.2f",oldPrice-newPrice];
-                _payPrice = [NSString stringWithFormat:@"￥:%0.2f",newPrice];
+                _preferentialPrice = [NSString stringWithFormat:@"￥%0.2f",oldPrice-newPrice];
+                _payPrice = [NSString stringWithFormat:@"￥%0.2f",newPrice];
                 [self performSegueWithIdentifier:@"toPayViewController" sender:self];
             }else{
                 NSLog(@"%@",json[@"code"]);
-                [YHHud showWithMessage:json[@"message"]];            }
+                [YHHud showWithMessage:json[@"message"]];
+            }
         } failure:^(NSError * _Nonnull error) {
             [YHHud dismiss];
             NSLog(@"%@",error);

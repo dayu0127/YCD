@@ -43,10 +43,13 @@
 }
 - (void)nickEditingChanged:(UITextField *)sender{
     NSString *resultStr = [sender.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if ([resultStr isEqualToString:@""]) {
+    if (resultStr.length == 0) {
         _updateAction.enabled = NO;
     }else{
         _updateAction.enabled = YES;
+         if(resultStr.length>8){
+            sender.text = [resultStr substringToIndex:8];
+        }
     }
 }
 - (void)didReceiveMemoryWarning {
@@ -116,14 +119,19 @@
         _alertVC = [UIAlertController alertControllerWithTitle:@"昵称修改" message:nil preferredStyle:UIAlertControllerStyleAlert];
         NSString *oldNickName =_nickNameLabel.text;
         [_alertVC addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-            textField.placeholder = @"请输入昵称";
+            textField.placeholder = @"长度不能超过8位";
             textField.text = oldNickName;
+            
         }];
         UITextField *alertText = (UITextField *)_alertVC.textFields[0];
         [alertText addTarget:self action:@selector(nickEditingChanged:) forControlEvents:UIControlEventEditingChanged];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
         _updateAction = [UIAlertAction actionWithTitle:@"修改" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            _nickNameLabel.text = alertText.text;
+            if (REGEX(NICK_RE, alertText.text) == NO) {
+                [YHHud showWithMessage:@"请输入中文,字母或数字"];
+            }else{
+                _nickNameLabel.text = alertText.text;
+            }
         }];
         //输入框为空的时候禁用默认修改按钮
         if ([[alertText.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
@@ -140,11 +148,13 @@
         UIAlertAction *nvAction = [UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _sexLabel.text = @"女";
         }];
-        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"保密" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *secret = [UIAlertAction actionWithTitle:@"保密" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _sexLabel.text = @"保密";
         }];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
         [_alertVC addAction:manAction];
         [_alertVC addAction:nvAction];
+        [_alertVC addAction:secret];
         [_alertVC addAction:cancel];
         [self presentViewController:_alertVC animated:YES completion:nil];
     }
@@ -184,9 +194,11 @@
     }else{
         sex = @"2";
     }
-    NSDictionary *jsonDic = @{@"userPhone":[YHSingleton shareSingleton].userInfo.phoneNum,    //#用户手机号
-                                          @"newNickName":_nickNameLabel.text,         //#用户新昵称（选填字段）
-                                          @"sex":sex};     //#用户性别（选填字段）
+    NSDictionary *jsonDic = @{
+        @"userPhone":[YHSingleton shareSingleton].userInfo.phoneNum,    //#用户手机号
+        @"newNickName":_nickNameLabel.text,         //#用户新昵称（选填字段）
+        @"sex":sex     //#用户性别（选填字段）
+    };
     [YHWebRequest YHWebRequestForPOST:kNicknameSex parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
             [_delegate updateNickName:_nickNameLabel.text];
@@ -232,7 +244,8 @@
                 [YHHud showWithSuccess:@"修改成功"];
             }else{
                 NSLog(@"%@",json[@"code"]);
-                [YHHud showWithMessage:json[@"message"]];            }
+                [YHHud showWithMessage:json[@"message"]];
+            }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             [YHHud showWithMessage:@"上传失败"];
         }];

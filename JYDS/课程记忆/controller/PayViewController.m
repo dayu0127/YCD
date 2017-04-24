@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *payPriceLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet MJRefreshNormalHeader *header;
+@property (strong,nonatomic) PayDetailCell *cell;
 @end
 
 @implementation PayViewController
@@ -50,11 +51,11 @@
             [self.tableView.mj_header endRefreshing];
             if ([json[@"code"] integerValue] == 200) {
                 NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-                _inviteCountLabel.text = [NSString stringWithFormat:@"%@",dataDic[@"inviteNum"]];
+                _cell.inviteCountLabel.text = [NSString stringWithFormat:@"%@",dataDic[@"inviteNum"]];
                 float oldPrice = [dataDic[@"price"] floatValue];
                 float newPrice = [dataDic[@"discountPrice"] floatValue];
-                _preferentialPriceLabel.text = [NSString stringWithFormat:@"￥:%0.2f",oldPrice-newPrice];
-                _payPriceLabel.text = [NSString stringWithFormat:@"￥:%0.2f",newPrice];
+                _cell.preferentialPriceLabel.text = [NSString stringWithFormat:@"￥%0.2f",oldPrice-newPrice];
+                _cell.payPriceLabel.text = [NSString stringWithFormat:@"￥%0.2f",newPrice];
             }else{
                 NSLog(@"%@",json[@"code"]);
                 [YHHud showWithMessage:json[@"message"]];
@@ -91,12 +92,12 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
-        PayDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PayDetailCell" forIndexPath:indexPath];
-        cell.inviteCountLabel.text = _inviteCount;
-        cell.preferentialPriceLabel.text = _preferentialPrice;
-        cell.payPriceLabel.text = _payPrice;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
+        _cell = [tableView dequeueReusableCellWithIdentifier:@"PayDetailCell" forIndexPath:indexPath];
+        _cell.inviteCountLabel.text = _inviteCount;
+        _cell.preferentialPriceLabel.text = _preferentialPrice;
+        _cell.payPriceLabel.text = _payPrice;
+        _cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return _cell;
     }else{
         if ([WXApi isWXAppInstalled]) {
             PaymentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PaymentCell" forIndexPath:indexPath];
@@ -143,7 +144,7 @@
 //        "token":"****"          #登陆凭证
 //    }
     NSDictionary *jsonDic = [NSDictionary dictionary];
-    if (_classId!=nil) {    //单词订阅参数
+    if (_classId!=nil) {    //课本订阅参数
         jsonDic  = @{@"userPhone":self.phoneNum,  //  #用户手机号
                      @"payType" :_payType,         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
                      @"classId":_classId,       //  #课本id（选填，当payType=0时候必填）
@@ -189,21 +190,28 @@
                                                       @"token":self.token};       //   #登陆凭证
                 [YHWebRequest YHWebRequestForPOST:kAlipaySignCheck parameters:jsonDic success:^(NSDictionary *json) {
                     if ([json[@"code"] integerValue] == 200) {
-                         [YHHud showWithSuccess:@"支付成功"];
+//                         [YHHud showWithSuccess:@"支付成功"];
                         //刷新订阅状态
                         if ([_payType isEqualToString:@"0"]) {
-                            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateWordSubStatus" object:nil];
+                            NSDictionary *classDic = @{@"classId":_classId};
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateWordSubStatus" object:nil userInfo:classDic];
                         }else if ([_payType isEqualToString:@"1"]){
+//                            NSDictionary *memoryDic = @{@"memoryId":_memoryId};
+//                            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMemorySubStatus" object:nil userInfo:memoryDic];
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMemorySubStatus" object:nil];
                         }
                         [YHHud showPaySuccessOrFailed:@"success"];
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [YHHud dismiss];
                             [self.navigationController popViewControllerAnimated:YES];
                         });
                     }else{
                         NSLog(@"%@",json[@"code"]);
 //                        [YHHud showWithMessage:json[@"message"]];
                         [YHHud showPaySuccessOrFailed:@"failed"];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [YHHud dismiss];
+                        });
                     }
                 } failure:^(NSError * _Nonnull error) {
                     NSLog(@"%@",error);
@@ -253,7 +261,8 @@
             [WXApi sendReq:request];
         }else{
             NSLog(@"%@",json[@"code"]);
-            [YHHud showWithMessage:json[@"message"]];        }
+            [YHHud showWithMessage:json[@"message"]];
+        }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];

@@ -41,6 +41,6 @@
         _subStatusLabel.textColor = ORANGERED;
     }
     _ordersLabel.text = v.orders;
-    _fullPriceLabel.text = [NSString stringWithFormat:@"￥:%@",v.full_price];
+    _fullPriceLabel.text = [NSString stringWithFormat:@"￥%@",v.full_price];
 }
 @end

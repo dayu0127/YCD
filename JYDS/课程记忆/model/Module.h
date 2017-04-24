@@ -12,9 +12,9 @@
 //\"unitName\": \"Module1\",
 //\"unitId\": \"c33008960f6d11e7a51c02004c4f4f50\",
 //\"classId\":\"7920306d0f6b11e7a51c02004c4f4f50\",
-//\"wrodNum\" ：100
+
 @property (copy,nonatomic) NSString *unitName;
 @property (copy,nonatomic) NSString *unitId;
 @property (copy,nonatomic) NSString *classID;
-@property (copy,nonatomic) NSString *wrodNum;
+
 @end

@@ -16,19 +16,13 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 MODULE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtn-n8-14I">
                         <rect key="frame" x="15" y="13" width="74" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="122生词" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t0S-Sp-eJ4">
-                        <rect key="frame" x="99" y="14.5" width="48.5" height="16"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mine_arrows" translatesAutoresizingMaskIntoConstraints="NO" id="RU5-Ob-ARH">
@@ -40,8 +34,6 @@
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="t0S-Sp-eJ4" firstAttribute="leading" secondItem="dtn-n8-14I" secondAttribute="trailing" constant="10" id="QUT-fx-uIp"/>
-                    <constraint firstItem="t0S-Sp-eJ4" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="b8w-Qz-gi7"/>
                     <constraint firstItem="RU5-Ob-ARH" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="bgR-se-MFB"/>
                     <constraint firstAttribute="trailingMargin" secondItem="RU5-Ob-ARH" secondAttribute="trailing" constant="7" id="ho5-ZY-NLo"/>
                     <constraint firstItem="dtn-n8-14I" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="isi-93-aWL"/>
@@ -50,7 +42,6 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="moduleNameLabel" destination="dtn-n8-14I" id="BU6-s9-gvu"/>
-                <outlet property="wordNumLabel" destination="t0S-Sp-eJ4" id="54W-4n-svX"/>
             </connections>
             <point key="canvasLocation" x="24.5" y="52"/>
         </tableViewCell>

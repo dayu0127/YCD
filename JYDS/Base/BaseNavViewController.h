@@ -13,8 +13,9 @@
 @property (strong,nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UIButton *leftBarButton;
 @property (strong, nonatomic) UIButton *rightBarButton;
+@property (copy,nonatomic) NSString *linkUrl;
 
 - (void)initNaBar:(NSString *)title;
-- (void)returnToLogin;
+//- (void)returnToLogin;
 
 @end

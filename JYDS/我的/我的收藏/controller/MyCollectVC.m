@@ -98,7 +98,10 @@
                 [self.tableView.mj_footer endRefreshing];
             }
         }else if([json[@"code"] integerValue] == 106){
+            [_myCollectList removeAllObjects];
+            [self.tableView reloadData];
             if (_myCollectList.count==0) {
+                _tableView.alpha = 0;
                 [self loadNoInviteView:@"您还未收藏单词，快去收藏吧！"];
             }else{
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];

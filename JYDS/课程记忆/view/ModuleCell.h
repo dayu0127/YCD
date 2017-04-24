@@ -10,6 +10,6 @@
 
 @interface ModuleCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *moduleNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *wordNumLabel;
+
 - (void)addModelWithDic:(NSDictionary *)dic;
 @end

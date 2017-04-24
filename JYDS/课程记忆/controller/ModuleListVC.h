@@ -13,4 +13,5 @@
 /**当前单元所在课本订阅状态*/
 @property (copy,nonatomic) NSString *payType;
 @property (copy,nonatomic) NSString *gradeName;
+@property (copy,nonatomic) NSString *full_price;
 @end

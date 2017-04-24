@@ -40,6 +40,7 @@
     //    bannerVC.linkUrl = _bannerInfoArray[index][@"linkUrl"];
     //    bannerVC.hidesBottomBarWhenPushed = YES;
     //    [self.navigationController pushViewController:bannerVC animated:YES];
+    [_delegete bannerClick:index];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

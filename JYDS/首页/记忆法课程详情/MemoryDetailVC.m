@@ -11,8 +11,8 @@
 #import <ZFPlayer.h>
 #import <ZFPlayerControlView.h>
 #import <UIView+CustomControlView.h>
-#import "YHMonitorKeyboard.h"
-@interface MemoryDetailVC ()<UITableViewDelegate,UITableViewDataSource,ZFPlayerDelegate,ZFPlayerControlViewDelagate>
+//#import "YHMonitorKeyboard.h"
+@interface MemoryDetailVC ()<ZFPlayerDelegate,ZFPlayerControlViewDelagate>
 @property (weak, nonatomic) IBOutlet UIView *playFatherView;
 @property (nonatomic,strong) ZFPlayerView *playerView;
 @property (nonatomic,strong) ZFPlayerModel *playerModel;
@@ -21,15 +21,16 @@
 @property (weak, nonatomic) IBOutlet UIImageView *memoryCollect;
 @property (weak, nonatomic) IBOutlet UILabel *issueTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *playCountLabel;
-@property (weak, nonatomic) IBOutlet UILabel *videoContent;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong,nonatomic) NSArray *memoryCommentList;
-@property (weak, nonatomic) IBOutlet UIView *commentBgView;
-@property (weak, nonatomic) IBOutlet UIView *borderView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentBgViewBottomSpace;
-@property (weak, nonatomic) IBOutlet UITextField *commentTxt;
+//@property (weak, nonatomic) IBOutlet UITableView *tableView;
+//@property (strong,nonatomic) NSArray *memoryCommentList;
+//@property (weak, nonatomic) IBOutlet UIView *commentBgView;
+//@property (weak, nonatomic) IBOutlet UIView *borderView;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentBgViewBottomSpace;
+//@property (weak, nonatomic) IBOutlet UITextField *commentTxt;
 @property (strong,nonatomic) NSURL *videoURL;
 @property (assign,nonatomic) NSInteger isZan;
+@property (weak, nonatomic) IBOutlet UIButton *likeButton;
+@property (weak, nonatomic) IBOutlet UITextView *detailTextView;
 @end
 
 @implementation MemoryDetailVC
@@ -73,7 +74,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _commentBgView.alpha = 0;
+//    _commentBgView.alpha = 0;
     //播放器
     _playerView = [[ZFPlayerView alloc] init];
     _playerView.delegate = self;
@@ -81,73 +82,88 @@
     pvc.backBtn.hidden = YES;
     [_playerView playerControlView:pvc playerModel:self.playerModel];
     
-    [_tableView registerNib:[UINib nibWithNibName:@"CommentCell" bundle:nil] forCellReuseIdentifier:@"CommentCell"];
-    _borderView.layer.masksToBounds = YES;
-    _borderView.layer.cornerRadius = 18.5f;
-    _borderView.layer.borderColor = LIGHTGRAYCOLOR.CGColor;
-    _borderView.layer.borderWidth = 1.0f;
+//    [_tableView registerNib:[UINib nibWithNibName:@"CommentCell" bundle:nil] forCellReuseIdentifier:@"CommentCell"];
+//    _borderView.layer.masksToBounds = YES;
+//    _borderView.layer.cornerRadius = 18.5f;
+//    _borderView.layer.borderColor = LIGHTGRAYCOLOR.CGColor;
+//    _borderView.layer.borderWidth = 1.0f;
     _videoTitleLabel.text = _memory.title;
     _likeCountLabel.text = _memory.likes;
+    if (_isLike == YES) {
+        [_memoryCollect setImage:[UIImage imageNamed:@"course_collected"]];
+        _likeButton.enabled = NO;
+    }else{
+        [_memoryCollect setImage:[UIImage imageNamed:@"course_collect"]];
+        _likeButton.enabled = YES;
+    }
     NSString *timeStr = [_memory.create_time componentsSeparatedByString:@" "][0];
     NSArray *dateArr = [timeStr componentsSeparatedByString:@"-"];
     _issueTimeLabel.text = [NSString stringWithFormat:@"%@年%@月%@日发布",dateArr[0],dateArr[1],dateArr[2]];
-    _playCountLabel.text = [NSString stringWithFormat:@"%@次播放",_memory.views];
-    _videoContent.text = _memory.content;
+    NSString *playCountStr;
+    if ([_memory.views integerValue]>10000) {
+        playCountStr = [NSString stringWithFormat:@"%.1f万",[_memory.views integerValue]/10000.0];
+    }else{
+        playCountStr = [NSString stringWithFormat:@"%@",_memory.views];
+    }
+    _playCountLabel.text = [NSString stringWithFormat:@"%@次播放",playCountStr];
+    _detailTextView.text = _memory.content;
 //    [self getCommentList];
     //监听键盘弹出和消失
-    [YHMonitorKeyboard YHAddMonitorWithShowBack:^(NSInteger height) {
-        [UIView animateWithDuration:1 animations:^{
-            _commentBgViewBottomSpace.constant = height;
-        }];
-    } andDismissBlock:^(NSInteger height) {
-        [UIView animateWithDuration:1 animations:^{
-            _commentBgViewBottomSpace.constant = 0;
-        }];
-    }];
+//    [YHMonitorKeyboard YHAddMonitorWithShowBack:^(NSInteger height) {
+//        [UIView animateWithDuration:1 animations:^{
+//            _commentBgViewBottomSpace.constant = height;
+//        }];
+//    } andDismissBlock:^(NSInteger height) {
+//        [UIView animateWithDuration:1 animations:^{
+//            _commentBgViewBottomSpace.constant = 0;
+//        }];
+//    }];
 }
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
-- (void)getCommentList{
-//    {
-//        "userPhone":"******"    #用户手机号
-//        "token":"****"          #登陆凭证
-//        "pageIndex":1           #页数
-//        "memoryId":"***"        #记忆法id（选填，与commenId二选一）
-//        "commenId":"****"       #评论id（选填，与memoryId二选一）
+//- (void)getCommentList{
+////    {
+////        "userPhone":"******"    #用户手机号
+////        "token":"****"          #登陆凭证
+////        "pageIndex":1           #页数
+////        "memoryId":"***"        #记忆法id（选填，与commenId二选一）
+////        "commenId":"****"       #评论id（选填，与memoryId二选一）
+////    }
+//    NSDictionary *jsonDic = @{
+//        @"userPhone":self.phoneNum,   //    #用户手机号
+//        @"token":self.token,   //          #登陆凭证
+//        @"pageIndex":@"1",   //           #页数
+//        @"memoryId":_memory.memoryId   //        #记忆法id（选填，与commenId二选一）
+////     @"commenId":"****"     //    #评论id（选填，与memoryId二选一）
+//    };
+//    [YHWebRequest YHWebRequestForPOST:kMemoryCommentList parameters:jsonDic success:^(NSDictionary *json) {
+//        if ([json[@"code"] integerValue] == 200) {
+//            NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+//            _memoryCommentList = dataDic[@"commentList"];
+//            [_tableView reloadData];
+//        }else{
+//            NSLog(@"%@",json[@"code"]);
+//            [YHHud showWithMessage:json[@"message"]];
+//        }
+//    } failure:^(NSError * _Nonnull error) {
+//        NSLog(@"%@",error);
+//    }];
+//}
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+//    return _memoryCommentList.count;
+//}
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    return 157;
+//}
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
+//    [cell addModelWithDic:_memoryCommentList[indexPath.row]];
+//    if (_memoryCommentList.count == 1) {
+//        cell.sepLine.alpha = 0;
 //    }
-    NSDictionary *jsonDic = @{@"userPhone":self.phoneNum,   //    #用户手机号
-                                          @"token":self.token,   //          #登陆凭证
-                                          @"pageIndex":@"1",   //           #页数
-                                          @"memoryId":_memory.memoryId};   //        #记忆法id（选填，与commenId二选一）
-//                                          @"commenId":"****"     //    #评论id（选填，与memoryId二选一）
-    [YHWebRequest YHWebRequestForPOST:kMemoryCommentList parameters:jsonDic success:^(NSDictionary *json) {
-        if ([json[@"code"] integerValue] == 200) {
-            NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-            _memoryCommentList = dataDic[@"commentList"];
-            [_tableView reloadData];
-        }else{
-            NSLog(@"%@",json[@"code"]);
-            [YHHud showWithMessage:json[@"message"]];
-        }
-    } failure:^(NSError * _Nonnull error) {
-        NSLog(@"%@",error);
-    }];
-}
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _memoryCommentList.count;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 157;
-}
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
-    [cell addModelWithDic:_memoryCommentList[indexPath.row]];
-    if (_memoryCommentList.count == 1) {
-        cell.sepLine.alpha = 0;
-    }
-    return cell;
-}
+//    return cell;
+//}
 #pragma mark 记忆法点赞
 - (IBAction)memoryLikesClick:(UIButton *)sender {
     if (_isZan == 0) {
@@ -161,6 +177,11 @@
                                   @"memoryId":_memory.memoryId};    //   #记忆法视频id
         [YHWebRequest YHWebRequestForPOST:kMemoryLikes parameters:jsonDic success:^(NSDictionary *json) {
             if ([json[@"code"] integerValue] == 200) {
+                _memoryCollect.image = [UIImage imageNamed:@"course_collected"];
+                //改变该视频在本地的点赞状态
+                NSMutableDictionary *likesDic = [[NSMutableDictionary alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"likesDic"]];
+                [likesDic setObject:@"1" forKey:_memory.memoryId];
+                [[NSUserDefaults standardUserDefaults] setObject:[NSDictionary dictionaryWithDictionary:likesDic] forKey:@"likesDic"];
                 _memoryCollect.image = [UIImage imageNamed:@"course_collected"];
                 NSInteger count = [_likeCountLabel.text integerValue];
                 count++;
@@ -176,36 +197,38 @@
         }];
     }
 }
-#pragma mark 发送评论
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    textField.text = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if ([textField.text isEqualToString:@""]) {
-        return NO;
-    }else{
-//        {
-//            "userPhone":"******"    #用户手机号
-//            "token":"****"          #登陆凭证
-//            "commentType"："**"      #评论类型 memory：记忆法视频轮 word：单词评论  非上面两种类型为评论他人评论
-//            "objectId":             #评论目标的ID
-//        }
-        NSDictionary *jsonDic = @{@"userPhone":self.phoneNum,  //    #用户手机号
-                                  @"token":self.token,    //      #登陆凭证
-                                  @"commentType":@"memory",    //  #评论类型 memory：记忆法视频轮 word：单词评论  非上面两种类型为评论他人评论
-                                  @"objectId":_memory.memoryId,
-                                  @"content":textField.text};     //       #评论目标的ID
-        [YHWebRequest YHWebRequestForPOST:kUserComment parameters:jsonDic success:^(NSDictionary *json) {
-            if ([json[@"code"] integerValue] == 200) {
-                textField.text = @"";
-                [self.view endEditing:YES];
-                [YHHud showWithSuccess:@"评论成功"];
-            }else{
-                NSLog(@"%@",json[@"code"]);
-                [YHHud showWithMessage:json[@"message"]];
-            }
-        } failure:^(NSError * _Nonnull error) {
-            NSLog(@"%@",error);
-        }];
-        return YES;
-    }
-}
+//#pragma mark 发送评论
+//- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+//    textField.text = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//    if ([textField.text isEqualToString:@""]) {
+//        return NO;
+//    }else{
+////        {
+////            "userPhone":"******"    #用户手机号
+////            "token":"****"          #登陆凭证
+////            "commentType"："**"      #评论类型 memory：记忆法视频轮 word：单词评论  非上面两种类型为评论他人评论
+////            "objectId":             #评论目标的ID
+////        }
+//        NSDictionary *jsonDic = @{
+//            @"userPhone":self.phoneNum,  //    #用户手机号
+//            @"token":self.token,    //      #登陆凭证
+//            @"commentType":@"memory",    //  #评论类型 memory：记忆法视频轮 word：单词评论  非上面两种类型为评论他人评论
+//            @"objectId":_memory.memoryId,
+//            @"content":textField.text    //       #评论目标的ID
+//        };
+//        [YHWebRequest YHWebRequestForPOST:kUserComment parameters:jsonDic success:^(NSDictionary *json) {
+//            if ([json[@"code"] integerValue] == 200) {
+//                textField.text = @"";
+//                [self.view endEditing:YES];
+//                [YHHud showWithSuccess:@"评论成功"];
+//            }else{
+//                NSLog(@"%@",json[@"code"]);
+//                [YHHud showWithMessage:json[@"message"]];
+//            }
+//        } failure:^(NSError * _Nonnull error) {
+//            NSLog(@"%@",error);
+//        }];
+//        return YES;
+//    }
+//}
 @end

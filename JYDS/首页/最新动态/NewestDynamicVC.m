@@ -7,21 +7,18 @@
 //
 
 #import "NewestDynamicVC.h"
-
+#import "BaseWKWebView.h"
 @interface NewestDynamicVC ()
-
+@property (strong,nonatomic) BaseWKWebView *wkWebView;
 @end
 
 @implementation NewestDynamicVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [YHHud showWithStatus];
+    _wkWebView = [[BaseWKWebView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64) url:_linkUrl];
+    [self.view addSubview:_wkWebView];
 }
 
 /*

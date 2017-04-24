@@ -8,6 +8,7 @@
 
 #import "MemoryCell.h"
 #import "Memory.h"
+#import <UIImageView+WebCache.h>
 @implementation MemoryCell
 
 - (void)awakeFromNib {
@@ -28,5 +29,6 @@
 //    @property (weak, nonatomic) IBOutlet UILabel *memoryDetail;
     _memoryTitle.text = model.title;
     _memoryDetail.text = model.content;
+    [_memoryImage sd_setImageWithURL:[NSURL URLWithString:model.imgUrl]];
 }
 @end

@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *subStateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *playCountLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *subImg;
+@property (weak, nonatomic) IBOutlet UIImageView *memoryImageView;
 - (void)addModelWithDic:(NSDictionary *)dic;
 @end

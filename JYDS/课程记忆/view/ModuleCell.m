@@ -23,6 +23,6 @@
 - (void)addModelWithDic:(NSDictionary *)dic{
     Module *m = [Module yy_modelWithJSON:dic];
     _moduleNameLabel.text = m.unitName;
-    _wordNumLabel.text = [NSString stringWithFormat:@"%@生词",m.wrodNum];
+//    _wordNumLabel.text = [NSString stringWithFormat:@"%@生词",m.wrodNum];
 }
 @end

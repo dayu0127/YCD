@@ -15,4 +15,5 @@
 @property (copy,nonatomic) NSString *commentId;
 @property (strong,nonatomic) Memory *memory;
 @property (weak,nonatomic) id<MemoryDetailVCDelegate> delegate;
+@property (assign,nonatomic) BOOL isLike;
 @end

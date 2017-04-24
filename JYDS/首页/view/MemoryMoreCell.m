@@ -8,6 +8,7 @@
 
 #import "MemoryMoreCell.h"
 #import "Memory.h"
+#import <UIImageView+WebCache.h>
 @implementation MemoryMoreCell
 
 - (void)awakeFromNib {
@@ -23,7 +24,7 @@
 - (void)addModelWithDic:(NSDictionary *)dic{
     Memory *model = [Memory yy_modelWithJSON:dic];
     _titleLabel.text = model.title;
-    _priceLabel.text = [NSString stringWithFormat:@"￥:%@",model.full_price];
+    _priceLabel.text = [NSString stringWithFormat:@"￥%@",model.full_price];
     if ([model.payType integerValue] == 0) {
         _subStateLabel.text = @"未订阅";
         _subStateLabel.textColor = ORANGERED;
@@ -33,6 +34,13 @@
         _subStateLabel.textColor = GREENCOLOR;
         _subImg.image = [UIImage imageNamed:@"home_subed"];
     }
-    _playCountLabel.text = [NSString stringWithFormat:@"%@次播放",model.views];
+    NSString *playCountStr;
+    if ([model.views integerValue]>10000) {
+        playCountStr = [NSString stringWithFormat:@"%.1f万",[model.views integerValue]/10000.0];
+    }else{
+        playCountStr = [NSString stringWithFormat:@"%@",model.views];
+    }
+    _playCountLabel.text = [NSString stringWithFormat:@"%@次播放",playCountStr];
+    [_memoryImageView sd_setImageWithURL:[NSURL URLWithString:model.imgUrl]];
 }
 @end

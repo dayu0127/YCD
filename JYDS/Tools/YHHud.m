@@ -123,9 +123,9 @@ static YHHud *hud = nil;
     });
 }
 + (void)showPaySuccessOrFailed:(NSString *)str{
-    if (hud!=nil) {
-        [hud removeFromSuperview];
-    }
+//    if (hud!=nil) {
+//        [hud removeFromSuperview];
+//    }
     //添加背景
     hud = [[YHHud alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [[UIApplication sharedApplication].keyWindow addSubview:hud];
@@ -141,9 +141,9 @@ static YHHud *hud = nil;
     titleLabel.font = [UIFont systemFontOfSize:16.0f];
     [hud addSubview:titleLabel];
     //视图消失
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [hud removeFromSuperview];
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [hud removeFromSuperview];
+//    });
 }
 + (void)showWithSuccess:(NSString*)successString{//成功提示
     if (hud!=nil) {
