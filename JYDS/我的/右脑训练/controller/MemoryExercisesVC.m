@@ -13,7 +13,7 @@
 #import "FailedView.h"
 //#import "PayVC.h"
 #import "StartView.h"
-@interface MemoryExercisesVC ()</*YHAlertViewDelegate,*/StartViewDelegate>
+@interface MemoryExercisesVC ()<StartViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;

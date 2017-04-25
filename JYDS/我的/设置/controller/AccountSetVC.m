@@ -52,6 +52,7 @@
     // Dispose of any resources that can be recreated.
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 0) {
         [self performSegueWithIdentifier:@"toModifyPwdVC" sender:self];
     }else if (indexPath.row == 1) {//手机号绑定

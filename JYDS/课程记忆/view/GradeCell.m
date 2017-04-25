@@ -31,7 +31,7 @@
 //    \"payType\": \"0\"
     _classNameLabel.text = v.class_name;
     _gradeNameLabel.text = v.grade_name;
-    _totalWordLabel.text = [NSString stringWithFormat:@"%@词",v.total_words];
+//    _totalWordLabel.text = [NSString stringWithFormat:@"%@词",v.total_words];
     [_img sd_setImageWithURL:[NSURL URLWithString:v.imgurl]];
     if ([v.payType integerValue] == 1) {
         _subStatusLabel.text = @"已订阅";

@@ -16,5 +16,5 @@
 @property (copy,nonatomic) NSString *unitName;
 @property (copy,nonatomic) NSString *unitId;
 @property (copy,nonatomic) NSString *classID;
-
+@property (copy,nonatomic) NSString *wrodNum;
 @end

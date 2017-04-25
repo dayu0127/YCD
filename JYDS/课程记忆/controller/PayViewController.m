@@ -193,11 +193,8 @@
 //                         [YHHud showWithSuccess:@"支付成功"];
                         //刷新订阅状态
                         if ([_payType isEqualToString:@"0"]) {
-                            NSDictionary *classDic = @{@"classId":_classId};
-                            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateWordSubStatus" object:nil userInfo:classDic];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateWordSubStatus" object:nil];
                         }else if ([_payType isEqualToString:@"1"]){
-//                            NSDictionary *memoryDic = @{@"memoryId":_memoryId};
-//                            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMemorySubStatus" object:nil userInfo:memoryDic];
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMemorySubStatus" object:nil];
                         }
                         [YHHud showPaySuccessOrFailed:@"success"];

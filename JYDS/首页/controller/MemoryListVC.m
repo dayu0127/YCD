@@ -141,19 +141,21 @@
 #pragma mark 继续订阅
 - (void)continueSubClick{
     [_alertView dismissWithCompletion:^{
-        //        {
-        //            "userPhone":"******"    #用户手机号
-        //            "token":"****"          #登陆凭证
-        //            "objectId":"****"       #目标id
-        //            "payType":"***"         #支付类型 1：记忆法  0：单词课本
-        //        }
-//        [YHHud showWithStatus];
-        NSDictionary *jsonDic = @{@"userPhone":self.phoneNum,  //  #用户手机号
-                                  @"payType" :@"1",         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
-                                  @"objectId":_memory.memoryId,       //  #目标id
-                                  @"token":self.token};       //   #登陆凭证
+//        {
+//            "userPhone":"******"    #用户手机号
+//            "token":"****"          #登陆凭证
+//            "objectId":"****"       #目标id
+//            "payType":"***"         #支付类型 1：记忆法  0：单词课本
+//        }
+        [YHHud showWithStatus];
+        NSDictionary *jsonDic = @{
+            @"userPhone":self.phoneNum,  //  #用户手机号
+            @"payType" :@"1",         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
+            @"objectId":_memory.memoryId,       //  #目标id
+            @"token":self.token       //   #登陆凭证
+        };
         [YHWebRequest YHWebRequestForPOST:kOrderPrice parameters:jsonDic success:^(NSDictionary *json) {
-//            [YHHud dismiss];
+            [YHHud dismiss];
             if ([json[@"code"] integerValue] == 200) {
                 NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
                 _inviteCount = [NSString stringWithFormat:@"%@",dataDic[@"inviteNum"]];
@@ -167,7 +169,7 @@
                 [YHHud showWithMessage:json[@"message"]];
             }
         } failure:^(NSError * _Nonnull error) {
-//            [YHHud dismiss];
+            [YHHud dismiss];
             NSLog(@"%@",error);
         }];
     }];
@@ -183,7 +185,6 @@
     [_alertView dismissWithCompletion:nil];
 }
 #pragma mark - Navigation
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.

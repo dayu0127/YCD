@@ -96,10 +96,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-## MOBFoundation_IDFA
-
-Copyright © 2012-2015 mob
-
 ## Masonry
 
 Copyright (c) 2011-2012 Masonry Team - https://github.com/Masonry
@@ -171,10 +167,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-
-## SMSSDK
-
-Copyright © 2012-2015 mob.com
 
 ## UMengUShare
 

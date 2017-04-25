@@ -11,7 +11,6 @@
 #import "BaseViewController.h"
 #import "BaseNavViewController.h"
 #import <JCAlertView.h>
-#import "YHAlertView.h"
 #import "YHHud.h"
 #import "YHWebRequest.h"
 #import <YYModel.h>
@@ -19,11 +18,11 @@
 #import "YHSingleton.h"
 #import "AppDelegate.h"
 #import "LoginNC.h"
-#import "MJChiBaoZiHeader.h"
 #import <MJRefresh.h>
 #import <Masonry.h>
 #import "NSDictionary+FromNSString.h"
 #import "NSString+FromNSDictionary.h"
+#import "BaseCell.h"
 //屏幕高宽
 #define WIDTH [UIScreen mainScreen].bounds.size.width
 #define HEIGHT [UIScreen mainScreen].bounds.size.height
@@ -195,6 +194,8 @@
 #define SUBEDCOLOR RGB(57,196,130)  //#39C482
 //绿色
 #define GREENCOLOR RGB(57,196,130) //#39C482
+//Cell选中背景色
+#define kCellBg RGB(229,230,231) //#E5E6E7
 
 typedef NS_ENUM(NSInteger, UITableViewRefreshStatus) {
     UITableViewRefreshStatusAnimation,   //刷新动画

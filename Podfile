@@ -13,8 +13,6 @@ pod 'UMengUShare/Social/WeChat'
 pod 'UMengUShare/Social/QQ'
 pod 'MJRefresh'
 pod 'ZFPlayer'
-pod 'MOBFoundation_IDFA'
-pod 'SMSSDK'
 pod 'YYModel'
 
 end

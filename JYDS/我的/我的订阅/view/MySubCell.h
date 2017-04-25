@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MySubCell : UITableViewCell
+@interface MySubCell : BaseCell
 @property (weak, nonatomic) IBOutlet UIImageView *img;
 @property (weak, nonatomic) IBOutlet UILabel *tile;
 

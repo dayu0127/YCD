@@ -11,9 +11,11 @@
 - (void)pushMoreMemoryList;
 @end
 @interface MemoryHeaderView : UIView
+
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) id<MemoryHeaderViewDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIImageView *arrows;
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
 + (instancetype)loadView;
+
 @end

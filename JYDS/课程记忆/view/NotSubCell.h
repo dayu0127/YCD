@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NotSubCell : UITableViewCell
+@interface NotSubCell : BaseCell
 @property (weak, nonatomic) IBOutlet UILabel *wordLabel;
 @property (weak, nonatomic) IBOutlet UIButton *subBtn;
 - (void)addModelWithDic:(NSDictionary *)dic;

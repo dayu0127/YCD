@@ -23,6 +23,8 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.selectedBackgroundView = [[UIView alloc] initWithFrame:self.bounds];
+        self.selectedBackgroundView.backgroundColor = kCellBg;
         _wordLabel = [UILabel new];
         _wordLabel.font = [UIFont systemFontOfSize:15.0f];
         _wordLabel.textColor = GRAYCOLOR;

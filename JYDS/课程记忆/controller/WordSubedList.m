@@ -95,10 +95,12 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SubedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SubedCell" forIndexPath:indexPath];
+    
     [cell addModelWithDic:_subedWordList[indexPath.row]];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     _indexOfWord = indexPath.row+1;
     _word = [Word yy_modelWithJSON:_subedWordList[indexPath.row]];
     [self performSegueWithIdentifier:@"toWordSubedDetail" sender:self];

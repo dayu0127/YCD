@@ -7,7 +7,6 @@
 //
 
 #import "YHWebRequest.h"
-#import "AppDelegate.h"
 #import <UIKit/UIKit.h>
 @implementation YHWebRequest
 + (AFHTTPSessionManager *)shareManager{
@@ -39,26 +38,21 @@
                              parameters:(nullable NSDictionary *)parameters
                                  success:(nullable void(^)(id _Nonnull json))success
                                    failure:(nullable void (^)(NSError *_Nonnull error))failure {
-    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    if (app.isReachable == NO) {
-        [YHHud showWithMessage:@"断网了"];
-    }else{
-        //字符串处理
-        NSString * string =[URLString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:URLString]];
-        // 参数转成JSON
-        NSDictionary *paramDic = nil;
-        if (parameters!=nil) {
-            paramDic = @{@"paramStr":[NSString dictionaryToJson:parameters]};
-        }
-        [[YHWebRequest shareManager] POST:string parameters:paramDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task,id _Nullable responseObject) {
-            if (success) {
-                success([NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil]);
-            }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError *_Nonnull error) {
-            if (failure) {
-                failure(error);
-            }
-        }];
+    //字符串处理
+    NSString * string =[URLString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:URLString]];
+    // 参数转成JSON
+    NSDictionary *paramDic = nil;
+    if (parameters!=nil) {
+        paramDic = @{@"paramStr":[NSString dictionaryToJson:parameters]};
     }
+    [[YHWebRequest shareManager] POST:string parameters:paramDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task,id _Nullable responseObject) {
+        if (success) {
+            success([NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil]);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError *_Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
 }
 @end

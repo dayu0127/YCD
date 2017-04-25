@@ -24,9 +24,6 @@
 }
 - (void)addModelWithDic:(NSDictionary *)dic{
     Memory *model = [Memory yy_modelWithJSON:dic];
-//    @property (weak, nonatomic) IBOutlet UIImageView *memoryImage;
-//    @property (weak, nonatomic) IBOutlet UILabel *memoryTitle;
-//    @property (weak, nonatomic) IBOutlet UILabel *memoryDetail;
     _memoryTitle.text = model.title;
     _memoryDetail.text = model.content;
     [_memoryImage sd_setImageWithURL:[NSURL URLWithString:model.imgUrl]];

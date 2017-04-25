@@ -110,6 +110,7 @@
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     _unitId = _moduleList[indexPath.row][@"unitId"];
     if ([_payType isEqualToString:@"0"]) {
         [self performSegueWithIdentifier:@"toWordList" sender:self];

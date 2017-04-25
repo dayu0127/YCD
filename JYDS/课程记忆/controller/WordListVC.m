@@ -39,8 +39,6 @@
 @implementation WordListVC
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWordSubStatus) name:@"updateWordSubStatus" object:nil];
-    
     //scrollView 设置
     _mainScrollView.contentSize = CGSizeMake(WIDTH*2, 0);
     CGFloat tableHeight = HEIGHT-108;
@@ -353,9 +351,6 @@
     [_notSubBtn setTitleColor:GRAYCOLOR forState:UIControlStateNormal];
     _lineLeftSpace.constant = WIDTH/2.0;
     [_mainScrollView setContentOffset:CGPointMake(WIDTH, 0) animated:YES];
-//    _subAllButton.alpha = 0;
-//    _pageIndex1 = 1;
-//    [self loadNoSubDataWithRefreshStatus:UITableViewRefreshStatusHeader pageIndex:_pageIndex1];
     [self getSubedData];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -386,6 +381,7 @@
     [self freeSub:sender.tag];
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (_tableIndex == 0) {//单个单词免费查阅
         [self freeSub:indexPath.row];
     }else{
@@ -413,16 +409,12 @@
 #pragma makr 确认订阅
 - (void)sureClick{
     [_alertView dismissWithCompletion:nil];
-    //        {
-    //            "classId":"******"      #课本ID
-    //            "wordId" :"*******"     #单词ID
-    //            "userPhone":"***"       #用户手机号
-    //            "token":"****"          #登陆凭证
-    //        }
-    NSDictionary *jsonDic = @{@"classId":_classId,    //  #课本ID
-                              @"wordId" :_word.wordId,  //   #单词ID
-                              @"userPhone":self.phoneNum,     //  #用户手机号
-                              @"token":self.token};        //  #登陆凭证
+    NSDictionary *jsonDic = @{
+        @"classId":_classId,    //  #课本ID
+        @"wordId" :_word.wordId,  //   #单词ID
+        @"userPhone":self.phoneNum,     //  #用户手机号
+        @"token":self.token       //  #登陆凭证
+    };
     [YHWebRequest YHWebRequestForPOST:kFreeWord parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];

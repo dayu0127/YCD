@@ -54,7 +54,12 @@
     [self messageDetail];
 }
 - (void)messageDetail{
-    [self performSegueWithIdentifier:@"toMessageDetail" sender:self];
+    BaseNavViewController *messageDetailVC = [[BaseNavViewController alloc] init];
+    messageDetailVC.linkUrl = kMessageDetail;
+    messageDetailVC.isShowShareBtn = NO;
+    messageDetailVC.navTitle = @"消息详情";
+    messageDetailVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:messageDetailVC animated:YES];
 }
 /*
 #pragma mark - Navigation

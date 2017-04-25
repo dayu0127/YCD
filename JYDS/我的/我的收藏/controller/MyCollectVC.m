@@ -191,6 +191,7 @@
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row!=0) {
         _word = [Word yy_modelWithJSON:_myCollectList[indexPath.row-1]];
         [self performSegueWithIdentifier:@"myCollectToWordDetail" sender:self];

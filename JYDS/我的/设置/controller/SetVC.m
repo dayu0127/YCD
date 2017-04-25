@@ -55,6 +55,7 @@
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 0) {
         if (self.token==nil&&self.phoneNum==nil) {
             [self returnToLogin];
@@ -70,66 +71,4 @@
         [YHHud showWithSuccess:@"清除成功"];
     }
 }
-//- (void)openNight:(UISwitch *)sender{
-//    if (sender.on == YES) {
-//        //开启夜间模式
-//        [DKNightVersionManager sharedManager].themeVersion = DKThemeVersionNight;
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"nightMode" object:nil];
-//    }else{
-//        //关闭夜间模式
-//        [DKNightVersionManager sharedManager].themeVersion = DKThemeVersionNormal;
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"dayMode" object:nil];
-//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-//    }
-//    [[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:@"isNightMode"];
-//}
-//- (IBAction)logoutButtonClick:(UIButton *)sender {
-//    YHAlertView *alertView = [[YHAlertView alloc] initWithFrame:CGRectMake(0, 0, 255, 100) title:@"确定退出登录?" message:nil];
-//    alertView.delegate = self;
-//    _alertView = [[JCAlertView alloc] initWithCustomView:alertView dismissWhenTouchedBackground:NO];
-//    [_alertView show];
-//}
-//- (void)buttonClickIndex:(NSInteger)buttonIndex{
-//    [_alertView dismissWithCompletion:nil];
-//    if (buttonIndex == 1) {
-//        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID};
-//        [YHWebRequest YHWebRequestForPOST:LOGOUT parameters:dic success:^(NSDictionary *json) {
-//            if ([json[@"code"] isEqualToString:@"SUCCESS"]||[json[@"code"] isEqualToString:@"TYPEERR"]) {
-//                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//                AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//                LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-//                [app.window setRootViewController:loginVC];
-//                [app.window makeKeyWindow];
-//                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
-//            }else if([json[@"code"] isEqualToString:@"ERROR"]){
-//                [YHHud showWithMessage:@"服务器错误"];
-//            }else{
-//                [YHHud showWithMessage:@"退出登录失败"];
-//            }
-//        } failure:^(NSError * _Nonnull error) {
-//            [YHHud showWithMessage:@"数据请求失败"];
-//        }];
-//    }
-//}
-//- (float)checkTmpSize {
-//    
-//    float totalSize = 0;
-//    
-//    NSDirectoryEnumerator *fileEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:_diskCachePath];
-//    
-//    for (NSString *fileName in fileEnumerator) {
-//        
-//        NSString *filePath = [_diskCachePath stringByAppendingPathComponent:fileName];
-//        
-//        NSDictionary *attrs = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
-//        
-//        unsigned long long length = [attrs fileSize];
-//        
-//        totalSize += length / 1024.0 / 1024.0;
-//        
-//    } // NSLog(@"tmp size is %.2f",totalSize);
-//    
-//    return totalSize;
-//    
-//}
 @end

@@ -12,10 +12,12 @@
 #import <ZFPlayerControlView.h>
 #import <UIView+CustomControlView.h>
 //#import "YHMonitorKeyboard.h"
+#import "UITextView+Utils.h"
 @interface MemoryDetailVC ()<ZFPlayerDelegate,ZFPlayerControlViewDelagate>
 @property (weak, nonatomic) IBOutlet UIView *playFatherView;
 @property (nonatomic,strong) ZFPlayerView *playerView;
 @property (nonatomic,strong) ZFPlayerModel *playerModel;
+@property (weak, nonatomic) IBOutlet UIView *detailBgView;
 @property (weak, nonatomic) IBOutlet UILabel *videoTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *likeCountLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *memoryCollect;
@@ -30,7 +32,7 @@
 @property (strong,nonatomic) NSURL *videoURL;
 @property (assign,nonatomic) NSInteger isZan;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
-@property (weak, nonatomic) IBOutlet UITextView *detailTextView;
+@property (strong, nonatomic) UITextView *detailTextView;
 @end
 
 @implementation MemoryDetailVC
@@ -106,7 +108,31 @@
         playCountStr = [NSString stringWithFormat:@"%@",_memory.views];
     }
     _playCountLabel.text = [NSString stringWithFormat:@"%@次播放",playCountStr];
+    //详情
+    _detailTextView = [UITextView new];
     _detailTextView.text = _memory.content;
+    CGFloat h = [_memory.content boundingRectWithSize:CGSizeMake(WIDTH-30, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:14.0f] forKey:NSFontAttributeName] context:nil].size.height;
+    h += (h/14.0+2)*5;
+    _detailTextView.font = [UIFont systemFontOfSize:14.0f];
+    _detailTextView.textColor = DGRAYCOLOR;
+    _detailTextView.editable = NO;
+    _detailTextView.selectable = NO;
+    [_detailTextView setText:_memory.content lineSpacing:5];
+    [_detailBgView addSubview:_detailTextView];
+    [_detailTextView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.playCountLabel.mas_bottom).offset(7);
+        make.left.equalTo(self.detailBgView).offset(10);
+        make.right.equalTo(self.detailBgView).offset(-10);
+        make.height.mas_equalTo(@(h));
+    }];
+    UIView *line = [UIView new];
+    line.backgroundColor = LINECOLOR;
+    [_detailBgView addSubview:line];
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(_detailTextView.mas_bottom);
+        make.left.right.equalTo(_detailBgView);
+        make.height.mas_equalTo(@10);
+    }];
 //    [self getCommentList];
     //监听键盘弹出和消失
 //    [YHMonitorKeyboard YHAddMonitorWithShowBack:^(NSInteger height) {

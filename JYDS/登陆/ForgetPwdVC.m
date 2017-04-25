@@ -7,11 +7,7 @@
 //
 
 #import "ForgetPwdVC.h"
-#import <SMS_SDK/SMSSDK.h>
 @interface ForgetPwdVC ()
-//@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
-//@property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
-//@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *lineCollection;
 @property (weak, nonatomic) IBOutlet UIImageView *login_code_img;
 @property (weak, nonatomic) IBOutlet UITextField *imgCodeTxt;
 @property (weak, nonatomic) IBOutlet UIImageView *codeImage;
@@ -20,11 +16,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *phoneTxt;
 @property (weak, nonatomic) IBOutlet UITextField *checkCodeTxt;
 @property (weak, nonatomic) IBOutlet UITextField *pwdTxt;
+@property (weak, nonatomic) IBOutlet UITextField *rePwdTxt;
 @property (weak, nonatomic) IBOutlet UIButton *checkButton;
 @property (weak, nonatomic) IBOutlet UIButton *sureButton;
-//@property (strong,nonatomic) UITextField *phoneText;
-//@property (strong,nonatomic) UITextField *idCodeText;
-//@property (strong,nonatomic) UITextField *pwdText;
 @property (strong,nonatomic)NSTimer *countDownTimer;
 @property (assign,nonatomic)int countDown;
 
@@ -47,30 +41,7 @@
     _codeImage.alpha = 0;
     _line2.alpha = 0;
     _spaceForImageCheck.constant = 22;
-//    [self nightModeConfiguration];
-//    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateNormal];
-//    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateHighlighted];
-//    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateSelected];
-//    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateDisabled];
-//    _submitButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
-//    _phoneText = [_textFieldCollection objectAtIndex:0];
-//    _idCodeText = [_textFieldCollection objectAtIndex:1];
-//    _pwdText = [_textFieldCollection objectAtIndex:2];
 }
-//- (void)nightModeConfiguration{
-//    self.view.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],N_BG,RED);
-//    for (UILabel *item in _labelCollection) {
-//        item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-//    }
-//    for (UITextField *item in _textFieldCollection) {
-//        [item setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
-//        item.dk_tintColorPicker = DKColorPickerWithKey(TINT);
-//        item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-//    }
-//    for (UIView *line in _lineCollection) {
-//        line.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
-//    }
-//}
 - (IBAction)backButtonClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -207,27 +178,31 @@
 //        password:"",               #新密码
 //        verifyCode:"",             #短信验证码
 //    }
-    NSString *phoneNum = _phoneTxt.text;
-    NSString *password = _pwdTxt.text;
-    NSString *verifyCode = _checkCodeTxt.text;
-    NSDictionary *jsonDic = @{
-                                        @"phoneNum" :phoneNum,             // #用户手机号
-                                        @"password":password,               //    #新密码
-                                        @"verifyCode":verifyCode             //     #短信验证码
-                                      };
-    [YHWebRequest YHWebRequestForPOST:kSetPwd parameters:jsonDic success:^(NSDictionary *json) {
-        if ([json[@"code"] integerValue] == 200) {
-            [YHHud showWithSuccess:@"修改成功"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.navigationController popViewControllerAnimated:YES];
-            });
-        }else{
-            NSLog(@"%@",json[@"code"]);
-            [YHHud showWithMessage:json[@"message"]];
-        }
-    } failure:^(NSError * _Nonnull error) {
-        NSLog(@"%@",error);
-    }];
+    if(![_rePwdTxt.text isEqualToString:_pwdTxt.text]){
+        [YHHud showWithMessage:@"两次密码输入不一致"];
+    }else{
+        NSString *phoneNum = _phoneTxt.text;
+        NSString *password = _pwdTxt.text;
+        NSString *verifyCode = _checkCodeTxt.text;
+        NSDictionary *jsonDic = @{
+                                  @"phoneNum" :phoneNum,             // #用户手机号
+                                  @"password":password,               //    #新密码
+                                  @"verifyCode":verifyCode             //     #短信验证码
+                                  };
+        [YHWebRequest YHWebRequestForPOST:kSetPwd parameters:jsonDic success:^(NSDictionary *json) {
+            if ([json[@"code"] integerValue] == 200) {
+                [YHHud showWithSuccess:@"修改成功"];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.navigationController popViewControllerAnimated:YES];
+                });
+            }else{
+                NSLog(@"%@",json[@"code"]);
+                [YHHud showWithMessage:json[@"message"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+        }];
+    }
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];

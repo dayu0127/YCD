@@ -29,12 +29,10 @@ static YHHud *hud = nil;
     CGFloat width =[message boundingRectWithSize:CGSizeMake(1000, 40) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:14.0f] forKey:NSFontAttributeName] context:nil].size.width+24;
     UILabel * messageLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,0, width, 40)];
     messageLabel.center = hud.center;
-//    messageLabel.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BLUE,RED);
     messageLabel.backgroundColor = ORANGERED;
     messageLabel.text = message;
     messageLabel.textAlignment = NSTextAlignmentCenter;
     messageLabel.font = [UIFont boldSystemFontOfSize:14.0f];
-//    messageLabel.dk_textColorPicker = DKColorPickerWithColors(D_ORANGE,N_ORANGE,RED);
     messageLabel.textColor = [UIColor whiteColor];
     [hud addSubview:messageLabel];
     messageLabel.layer.masksToBounds = YES;
@@ -44,7 +42,6 @@ static YHHud *hud = nil;
         [hud removeFromSuperview];
     });
 }
-
 
 +(void)showWithStatus{
     if (hud!=nil) {
@@ -123,9 +120,9 @@ static YHHud *hud = nil;
     });
 }
 + (void)showPaySuccessOrFailed:(NSString *)str{
-//    if (hud!=nil) {
-//        [hud removeFromSuperview];
-//    }
+    if (hud!=nil) {
+        [hud removeFromSuperview];
+    }
     //添加背景
     hud = [[YHHud alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [[UIApplication sharedApplication].keyWindow addSubview:hud];

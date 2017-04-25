@@ -70,7 +70,6 @@
 }
 #pragma mark 获取验证码
 - (IBAction)getCodeClick:(UIButton *)sender {
-    
     //点击显示图形验证(测试环境)
 //    _login_code_img.alpha = 1;
 //    _imgCodeTxt.alpha = 1;
@@ -98,9 +97,12 @@
         }
     }];
     NSString *phoneNum = _phoneTxt.text;
-    NSDictionary *jsonDic = @{@"phoneNum" :phoneNum,             // #用户名
-                                          @"stype":@"2",               //    #类型  1注册 2登录 3找回密码
-                                          @"deviceNum":DEVICEID};               //     #设备码（选填）
+    //发送验证码
+    NSDictionary *jsonDic = @{
+        @"phoneNum" :phoneNum,             // #用户名
+        @"stype":@"2",               //    #类型  1注册 2登录 3找回密码
+        @"deviceNum":DEVICEID               //     #设备码（选填）
+    };
     [YHWebRequest YHWebRequestForPOST:kSendCheckCode parameters:jsonDic success:^(NSDictionary *json) {
         NSLog(@"%@",json[@"code"]);
         [YHHud showWithMessage:json[@"message"]];
@@ -110,14 +112,13 @@
 }
 #pragma mark 验证码登录按钮点击事件
 - (IBAction)loginButtonClick:(id)sender {
-//    {
-//        "phoneNum":"13300001111",#手机号
-//        "verifyCode":"123456"    #验证码
-//    }
     NSString *phoneNum = _phoneTxt.text;
     NSString *verifyCode = _checkCodeTxt.text;
-    NSDictionary *jsonDic = @{@"phoneNum" :phoneNum,             // #用户名
-                                          @"verifyCode":verifyCode};               //    #验证码
+    //验证码登录
+    NSDictionary *jsonDic = @{
+        @"phoneNum" :phoneNum,             // #手机号
+        @"verifyCode":verifyCode              //    #验证码
+    };
     [YHWebRequest YHWebRequestForPOST:kCodeLogin parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
 //            NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
@@ -129,7 +130,6 @@
             //保存用户信息
             [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
             [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
-            
             //保存登录保存登录状态
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
             //登录成功跳转首页
@@ -148,31 +148,28 @@
 - (IBAction)qqLogin:(id)sender {
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_QQ currentViewController:nil completion:^(id result, NSError *error) {
         if (error) {
-            
+            NSLog(@"%@",error);
         } else {
             UMSocialUserInfoResponse *resp = result;
-            
             // 授权信息
             NSLog(@"QQ uid: %@", resp.uid);
             NSLog(@"QQ openid: %@", resp.openid);
             NSLog(@"QQ accessToken: %@", resp.accessToken);
             NSLog(@"QQ expiration: %@", resp.expiration);
-            
             // 用户信息
             NSLog(@"QQ name: %@", resp.name);
             NSLog(@"QQ iconurl: %@", resp.iconurl);
             NSLog(@"QQ gender: %@", resp.gender);
-            
             // 第三方平台SDK源数据
             NSLog(@"QQ originalResponse: %@", resp.originalResponse);
-            
-            //            {
-            //                "associatedQq":"dfdsfsdfsdf",   #第三方绑定的uid 唯一标识
-            //                "country":"",                   #国家（选填）
-            //                "province":"",                  #省市（选填）
-            //                "city":"",                      #城市（选填）
-            //                "genter":""                     #性别 1男 0女  （选填）
-            //            }
+//            {
+//                "associatedQq":"dfdsfsdfsdf",   #第三方绑定的uid 唯一标识
+//                "country":"",                   #国家（选填）
+//                "province":"",                  #省市（选填）
+//                "city":"",                      #城市（选填）
+//                "genter":""                     #性别 1男 0女  （选填）
+//            }
+            //QQ登录
             NSString *associatedQq = resp.uid;
             NSString *genter = resp.gender;
             NSString *nickName;
@@ -181,9 +178,11 @@
             }else if([resp.name isEqualToString:@"女"]){
                 nickName = @"0";
             }
-            NSDictionary *jsonDic = @{@"associatedQq" :associatedQq,             // #第三方绑定的uid 唯一标识
-                                                  @"genter":genter,
-                                                  @"nickName":nickName};               //   #性别 1男 0女  （选填
+            NSDictionary *jsonDic = @{
+                @"associatedQq" :associatedQq,             // #第三方绑定的uid 唯一标识
+                @"genter":genter,                                 //   #性别 1男 0女  （选填
+                @"nickName":nickName
+            };
             [YHWebRequest YHWebRequestForPOST:kQQLogin parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {
 //                    NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
@@ -216,7 +215,7 @@
 - (IBAction)wxLogin:(id)sender {
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:nil completion:^(id result, NSError *error) {
         if (error) {
-
+            NSLog(@"%@",error);
         } else {
             UMSocialUserInfoResponse *resp = result;
             // 授权信息
@@ -225,23 +224,21 @@
             NSLog(@"Wechat accessToken: %@", resp.accessToken);
             NSLog(@"Wechat refreshToken: %@", resp.refreshToken);
             NSLog(@"Wechat expiration: %@", resp.expiration);
-            
             // 用户信息
             NSLog(@"Wechat name: %@", resp.name);
             NSLog(@"Wechat iconurl: %@", resp.iconurl);
             NSLog(@"Wechat gender: %@", resp.gender);
-            
             // 第三方平台SDK源数据
             NSLog(@"Wechat originalResponse: %@", resp.originalResponse);
-            
-            //            {
-            //                "associatedWx":"dfdsfsdfsdf"    #第三方绑定的uid 唯一标识
-            //                "country":"",                   #国家（选填）
-            //                "province":"",                  #省市（选填）
-            //                "city":"",                      #城市（选填）
-            //                "genter":""                     #性别 1男 0女  （选填）
-            //                "nickName":"Winner.z"           #昵称(选填)
-            //            }
+//            {
+//                "associatedWx":"dfdsfsdfsdf"    #第三方绑定的uid 唯一标识
+//                "country":"",                   #国家（选填）
+//                "province":"",                  #省市（选填）
+//                "city":"",                      #城市（选填）
+//                "genter":""                     #性别 1男 0女  （选填）
+//                "nickName":"Winner.z"           #昵称(选填)
+//            }
+            //微信登录
             NSString *associatedWx = resp.uid;
             NSString *genter = resp.gender;
             NSString *nickName;
@@ -250,9 +247,11 @@
             }else if([resp.name isEqualToString:@"女"]){
                 nickName = @"0";
             }
-            NSDictionary *jsonDic = @{@"associatedWx" :associatedWx,             // #第三方绑定的uid 唯一标识
-                                                 @"genter":genter,
-                                                 @"nickName":nickName};               //   #性别 1男 0女  （选填
+            NSDictionary *jsonDic = @{
+                @"associatedWx" :associatedWx,             // #第三方绑定的uid 唯一标识
+                @"genter":genter,                           //   #性别 1男 0女  （选填
+                @"nickName":nickName
+            };
             [YHWebRequest YHWebRequestForPOST:kWXLogin parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {
 //                    NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);

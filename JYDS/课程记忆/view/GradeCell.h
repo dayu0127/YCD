@@ -26,7 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *img;
 @property (weak, nonatomic) IBOutlet UILabel *classNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *gradeNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *totalWordLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *totalWordLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subStatusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *fullPriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ordersLabel;

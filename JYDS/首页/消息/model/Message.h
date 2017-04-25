@@ -21,4 +21,5 @@
 @property (copy,nonatomic) NSString *create_time;
 @property (copy,nonatomic) NSString *imgUrl;
 @property (copy,nonatomic) NSString *type_name;
+
 @end

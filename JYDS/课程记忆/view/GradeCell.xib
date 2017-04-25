@@ -17,7 +17,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="172"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="171.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="172"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dza-gN-Wiu">
@@ -39,12 +39,6 @@
                                 <rect key="frame" x="180" y="54" width="68" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <color key="textColor" red="1" green="0.59999999999999998" blue="0.12549019607843137" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5566词" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fah-1a-LKG">
-                                <rect key="frame" x="257.5" y="68.5" width="39.5" height="13.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已订阅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pM-2R-y5Z">
@@ -103,10 +97,8 @@
                             <constraint firstItem="mjA-33-66v" firstAttribute="leading" secondItem="dza-gN-Wiu" secondAttribute="leading" constant="15" id="N5P-oG-Pvy"/>
                             <constraint firstItem="Y68-XC-T9j" firstAttribute="leading" secondItem="MDu-Yu-Rih" secondAttribute="trailing" id="OJ3-1L-aHq"/>
                             <constraint firstItem="2pM-2R-y5Z" firstAttribute="top" secondItem="mM7-5N-BKd" secondAttribute="bottom" id="Omh-hW-3oJ"/>
-                            <constraint firstItem="fah-1a-LKG" firstAttribute="centerY" secondItem="mM7-5N-BKd" secondAttribute="centerY" id="QLa-y0-sSo"/>
                             <constraint firstAttribute="trailing" secondItem="I4m-II-h8Y" secondAttribute="trailing" constant="15" id="S7a-U6-n4Z"/>
                             <constraint firstItem="mM7-5N-BKd" firstAttribute="leading" secondItem="mjA-33-66v" secondAttribute="trailing" constant="15" id="SNw-K9-02z"/>
-                            <constraint firstItem="fah-1a-LKG" firstAttribute="leading" secondItem="mM7-5N-BKd" secondAttribute="trailing" constant="10" id="ZKO-N8-Rff"/>
                             <constraint firstItem="I4m-II-h8Y" firstAttribute="top" secondItem="2pM-2R-y5Z" secondAttribute="bottom" constant="18" id="cHt-1f-mwu"/>
                             <constraint firstItem="MDu-Yu-Rih" firstAttribute="leading" secondItem="dza-gN-Wiu" secondAttribute="leading" constant="16" id="cZX-ZK-jrE"/>
                             <constraint firstItem="I4m-II-h8Y" firstAttribute="leading" secondItem="dza-gN-Wiu" secondAttribute="leading" constant="15" id="eAd-UY-e74"/>
@@ -139,7 +131,6 @@
                 <outlet property="img" destination="mjA-33-66v" id="Ykx-Vr-1q1"/>
                 <outlet property="ordersLabel" destination="MDu-Yu-Rih" id="MbU-3s-zEB"/>
                 <outlet property="subStatusLabel" destination="2pM-2R-y5Z" id="Ek1-bi-kkQ"/>
-                <outlet property="totalWordLabel" destination="fah-1a-LKG" id="Xbz-Et-bPk"/>
             </connections>
             <point key="canvasLocation" x="74.5" y="59"/>
         </tableViewCell>

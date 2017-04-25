@@ -7,8 +7,6 @@
 //
 
 #import "MnemonicsVC.h"
-#import <SDCycleScrollView.h>
-#import "BannerDetailVC.h"
 #import <UIImageView+WebCache.h>
 #import "BannerCell.h"
 #import "PlanCell.h"
@@ -50,18 +48,26 @@
         [self performSegueWithIdentifier:@"toSignIn" sender:self];
     }
 }
+#pragma mark 消息按钮点击
+- (IBAction)messageButtonClick:(UIButton *)sender {
+    [sender setImage:[UIImage imageNamed:@"home_top_message"] forState:UIControlStateNormal];
+    [self performSegueWithIdentifier:@"homeToMessage" sender:self];
+}
 #pragma mark 轮播图点击
 - (void)bannerClick:(NSInteger)index{
     BaseNavViewController *bannerVC = [[BaseNavViewController alloc] init];
     bannerVC.linkUrl = _bannerInfoArray[index][@"content"];
+    bannerVC.isShowShareBtn = YES;
     bannerVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:bannerVC animated:YES];
 }
+#pragma mark 最新动态点击
 - (void)dynamicClick:(NSInteger)index{
-    BaseNavViewController *bannerVC = [[BaseNavViewController alloc] init];
-    bannerVC.linkUrl = _dynamicArray[index][@"content"];
-    bannerVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:bannerVC animated:YES];
+    BaseNavViewController *dynamicVC = [[BaseNavViewController alloc] init];
+    dynamicVC.linkUrl = _dynamicArray[index][@"content"];
+    dynamicVC.isShowShareBtn = NO;
+    dynamicVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:dynamicVC animated:YES];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {

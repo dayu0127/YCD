@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
 @interface MemoryMoreCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subStateLabel;
@@ -16,4 +16,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *subImg;
 @property (weak, nonatomic) IBOutlet UIImageView *memoryImageView;
 - (void)addModelWithDic:(NSDictionary *)dic;
+
 @end

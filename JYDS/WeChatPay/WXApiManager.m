@@ -48,16 +48,18 @@
     }else if([resp isKindOfClass:[PayResp class]]){
         //支付返回结果，实际支付结果需要去微信服务器端查询
         if (resp.errCode == 0) {
-            //        {
-            //            "userPhone":"******"    #用户手机号
-            //            "transaction_id":"***"  #微信官方订单号（选填，与out_trade_no二选一）
-            //            "out_trade_no":"***"    #商户订单号（选填，与transaction_id二选一）
-            //            "token":"****"          #登陆凭证
-            //        }
+//        {
+//            "userPhone":"******"    #用户手机号
+//            "transaction_id":"***"  #微信官方订单号（选填，与out_trade_no二选一）
+//            "out_trade_no":"***"    #商户订单号（选填，与transaction_id二选一）
+//            "token":"****"          #登陆凭证
+//        }
             [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
-            NSDictionary *jsonDic = @{@"userPhone":[YHSingleton shareSingleton].userInfo.phoneNum,  //  #用户手机号
-                                      @"out_trade_no":[YHSingleton shareSingleton].wx_out_trade_no,  //  #商户订单号（选填，与transaction_id二选一）
-                                      @"token":[[NSUserDefaults standardUserDefaults] objectForKey:@"token"]};      //    #登陆凭证
+            NSDictionary *jsonDic = @{
+                @"userPhone":[YHSingleton shareSingleton].userInfo.phoneNum,  //  #用户手机号
+                @"out_trade_no":[YHSingleton shareSingleton].wx_out_trade_no,  //  #商户订单号（选填，与transaction_id二选一）
+                @"token":[[NSUserDefaults standardUserDefaults] objectForKey:@"token"]      //    #登陆凭证
+            };
             [YHWebRequest YHWebRequestForPOST:kWXSignCheck parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {
                     if ([[YHSingleton shareSingleton].payType isEqualToString:@"0"]) {

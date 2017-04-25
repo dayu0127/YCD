@@ -9,7 +9,6 @@
 #import "MineTableVC.h"
 #import <UIImageView+WebCache.h>
 #import <MJRefresh.h>
-#import "MJChiBaoZiHeader.h"
 //#import "PayVC.h"
 @interface MineTableVC ()
 

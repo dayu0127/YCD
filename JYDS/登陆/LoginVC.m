@@ -126,10 +126,10 @@
         NSString *phoneNum = _phoneText.text;
         NSString *password = _pwdTxt.text;
         NSDictionary *jsonDic = @{
-                                  @"phoneNum" :phoneNum,             // #用户名
-                                  @"password":password,               //    #密码
-                                  @"deviceNum":DEVICEID,    //#设备码（选填）
-                                  };
+            @"phoneNum" :phoneNum,             // #用户名
+            @"password":password,               //    #密码
+            @"deviceNum":DEVICEID,    //#设备码（选填）
+        };
         [YHWebRequest YHWebRequestForPOST:kPwdLogin parameters:jsonDic success:^(NSDictionary *json) {
             [YHHud dismiss];
             if ([json[@"code"] integerValue] == 200) {
@@ -169,17 +169,10 @@
 - (void)autoFillUserName:(NSString *)userName{
     _phoneText.text = userName;
 }
-//- (IBAction)visitorsToLogin:(id)sender {
-//    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//    RootTabBarController *rootTBC = [sb instantiateViewControllerWithIdentifier:@"root"];
-//    [app.window setRootViewController:rootTBC];
-//    [app.window makeKeyWindow];
-//}
 - (IBAction)qqLogin:(id)sender {
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_QQ currentViewController:nil completion:^(id result, NSError *error) {
         if (error) {
-            
+            NSLog(@"%@",error);
         } else {
             UMSocialUserInfoResponse *resp = result;
             
@@ -213,9 +206,11 @@
             }else if([resp.name isEqualToString:@"女"]){
                 nickName = @"0";
             }
-            NSDictionary *jsonDic = @{@"associatedQq" :associatedQq,             // #第三方绑定的uid 唯一标识
-                                                  @"genter":genter,
-                                                  @"nickName":nickName};               //   #性别 1男 0女  （选填
+            NSDictionary *jsonDic = @{
+                @"associatedQq" :associatedQq,             // #第三方绑定的uid 唯一标识
+                @"genter":genter,
+                @"nickName":nickName               //   #性别 1男 0女  （选填
+            };
             [YHWebRequest YHWebRequestForPOST:kQQLogin parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {
 //                    NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
@@ -248,7 +243,7 @@
 - (IBAction)weChatLogin:(id)sender {
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:nil completion:^(id result, NSError *error) {
         if (error) {
-            
+            NSLog(@"%@",error);
         } else {
             UMSocialUserInfoResponse *resp = result;
             
@@ -282,9 +277,11 @@
             }else if([resp.name isEqualToString:@"女"]){
                 nickName = @"0";
             }
-            NSDictionary *jsonDic = @{@"associatedWx" :associatedWx,             // #第三方绑定的uid 唯一标识
-                                                  @"genter":genter,               //   #性别 1男 0女  （选填
-                                                  @"nickName":nickName};
+            NSDictionary *jsonDic = @{
+                @"associatedWx" :associatedWx,             // #第三方绑定的uid 唯一标识
+                @"genter":genter,               //   #性别 1男 0女  （选填
+                @"nickName":nickName
+            };
             [YHWebRequest YHWebRequestForPOST:kWXLogin parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {
 //                    NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);

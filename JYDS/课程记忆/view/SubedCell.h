@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface SubedCell : UITableViewCell
+#import "BaseCell.h"
+@interface SubedCell : BaseCell
 
 @property (strong, nonatomic) UILabel *wordLabel;
 //@property (strong, nonatomic) UIButton *collectButton;

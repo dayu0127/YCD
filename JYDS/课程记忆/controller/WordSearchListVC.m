@@ -40,6 +40,7 @@
     return _wordSearchResultArray.count;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     _word = [Word yy_modelWithJSON:_wordSearchResultArray[indexPath.row]];
     [self performSegueWithIdentifier:@"wordSearchToWordDetail" sender:self];
 }

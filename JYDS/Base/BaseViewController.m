@@ -14,7 +14,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.view.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
     [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
     _phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum;
     _associatedWx = [YHSingleton shareSingleton].userInfo.associatedWx;

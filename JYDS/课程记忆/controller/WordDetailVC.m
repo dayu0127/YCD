@@ -40,8 +40,6 @@
 @property (strong,nonatomic) NSString *unitId;
 @property (strong,nonatomic) UIButton *showReadButton;
 @property (strong,nonatomic) UIButton *showWriteButton;
-@property (strong,nonatomic) UIView *line;
-@property (strong,nonatomic) UIButton *showButton;
 @property (strong,nonatomic) UIButton *rwButton;
 
 @end
@@ -88,28 +86,14 @@
     [_tableView registerNib:[UINib nibWithNibName:@"WordDetailCell" bundle:nil] forCellReuseIdentifier:@"WordDetailCell"];
 }
 - (void)loadTableFooterView{
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 135)];
-    _line = [UIView new];
-    [footerView addSubview:_line];
-    CGFloat f = 204/255.0;
-    _line.backgroundColor = [UIColor colorWithRed:f green:f blue:f alpha:1.0];
-    [_line mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 79)];
+    UIView *line = [UIView new];
+    [footerView addSubview:line];
+    line.backgroundColor = LINECOLOR;
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(footerView);
         make.top.equalTo(footerView);
         make.height.mas_equalTo(@1);
-    }];
-    //显示按钮
-    _showButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [footerView addSubview:_showButton];
-    _showButton.backgroundColor = [UIColor colorWithRed:f green:f blue:f alpha:1.0];
-    _showButton.layer.masksToBounds = YES;
-    _showButton.layer.cornerRadius = 3.0f;
-    [_showButton setImage:[UIImage imageNamed:@"course_volume"] forState:UIControlStateNormal];
-    [_showButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(footerView).offset(73);
-        make.right.equalTo(footerView).offset(-73);
-        make.bottom.equalTo(footerView).offset(-79);
-        make.height.mas_equalTo(@42);
     }];
     //跟读/跟写按钮
     _rwButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -271,7 +255,8 @@
 #pragma mark 上一个点击事件
 - (void)preBtnClick:(UIButton *)sender{
     _indexOfWord--;
-    if (_indexOfWord<1) {
+    if (_indexOfWord < 1) {
+        _indexOfWord = 1;
         [YHHud showWithMessage:@"已经是第一个了"];
     }else{
         [self reloadWordDeltail:_indexOfWord];
@@ -280,7 +265,8 @@
 #pragma mark 下一个点击事件
 - (void)nextBtnClick:(UIButton *)sender{
     _indexOfWord++;
-    if (_indexOfWord>_wordNum) {
+    if (_indexOfWord > _wordNum) {
+        _indexOfWord = _wordNum;
         [YHHud showWithMessage:@"已经是最后一个了"];
     }else{
         [self reloadWordDeltail:_indexOfWord];
@@ -306,7 +292,6 @@
         if ([json[@"code"] integerValue] == 200) {
             NSDictionary *jsonDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             _word = [Word yy_modelWithJSON:jsonDic[@"word"]];
-            NSLog(@"%@",jsonDic[@"word"]);
             [self loadWordDetail];
             _splitCell.splitOrAssociateLabel.text = _word.split;
             _associateCell.splitOrAssociateLabel.attributedText = [self setColorForString:_word.associate];
@@ -324,7 +309,7 @@
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat offsetY = scrollView.contentOffset.y;
-    if (offsetY > (WIDTH-80)*(240/295.0)+560 -HEIGHT) {
+    if (offsetY > (WIDTH-80)*(240/295.0)+504 -HEIGHT) {
         _showReadButton.alpha = 0;
         _showWriteButton.alpha = 0;
     }
@@ -332,37 +317,11 @@
         _showReadButton.alpha = 1;
         _showWriteButton.alpha = 1;
     }
-    
-//    _imageCell.leftSpace.constant = (offsetY+49)/135*82;
-//    if (_imageCell.leftSpace.constant >= 112) {
-//        [self showBottomUI];
-//    }else{
-//        //隐藏底部功能界面
-//        _imageCell.line.alpha = 0;
-//        _imageCell.showButton.alpha = 0;
-//        _imageCell.rwButton.alpha = 0;
-//        //删除跟读(跟写)点击事件
-//        if (_isShowRead) {
-//            [_imageCell.rwButton removeTarget:self action:@selector(readClick:) forControlEvents:UIControlEventTouchUpInside];
-//        }else{
-//            [_imageCell.rwButton removeTarget:self action:@selector(writeClick:) forControlEvents:UIControlEventTouchUpInside];
-//        }
-//        if (_imageCell.leftSpace.constant<=32) {
-//            _imageCell.leftSpace.constant=32;
-//            //显示跟读/跟写按钮
-//            _imageCell.readButton.alpha = 1;
-//            _imageCell.writeButton.alpha = 1;
-//        }
-//    }
-//    _imageCell.btnBottomSpace.constant = _imageCell.frame.size.height - CGRectGetMaxY(_imageCell.img.frame) + 6;
 }
 #pragma mark 单词跟读代理
 - (void)showRead:(UIButton *)sender{
     _isShowRead = YES;
-//    [sender setImage:[UIImage imageNamed:@"course_read_select"] forState:UIControlStateNormal];
-    [_tableView setContentOffset:CGPointMake(0,  (WIDTH-80)*(240/295.0)+560 -HEIGHT)];
-    [_showButton setTitle:@"" forState:UIControlStateNormal];
-    [_showButton setImage:[UIImage imageNamed:@"course_volume"] forState:UIControlStateNormal];
+    [_tableView setContentOffset:CGPointMake(0,  (WIDTH-80)*(240/295.0)+504-HEIGHT)];
     _rwButton.backgroundColor = [UIColor colorWithRed:131/255.0 green:46/255.0 blue:43/255.0 alpha:1.0];
     [_rwButton setTitle:@"跟读" forState:UIControlStateNormal];
     _showReadButton.alpha = 0;
@@ -375,9 +334,7 @@
 #pragma mark 单词跟写代理
 - (void)showWrite:(UIButton *)sender{
     _isShowRead = NO;
-//    [sender setImage:[UIImage imageNamed:@"course_write_select"] forState:UIControlStateNormal];
-    [_tableView setContentOffset:CGPointMake(0,  (WIDTH-80)*(240/295.0)+560 -HEIGHT)];
-    [_showButton setImage:nil forState:UIControlStateNormal];
+    [_tableView setContentOffset:CGPointMake(0,  (WIDTH-80)*(240/295.0)+504 -HEIGHT)];
     _rwButton.backgroundColor = ORANGERED;
     [_rwButton setTitle:@"跟写" forState:UIControlStateNormal];
     _showReadButton.alpha = 0;
@@ -456,7 +413,6 @@
     [alertText addTarget:self action:@selector(wordEditingChanged:) forControlEvents:UIControlEventEditingChanged];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     _sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [_showButton setTitle:alertText.text forState:UIControlStateNormal];
         if ([[alertText.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:_word.word]) {
             [YHHud showRightOrWrong:@"right"];
         }else{

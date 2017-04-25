@@ -7,14 +7,10 @@
 //
 #import "AppDelegate.h"
 #import "UserGuideViewController.h"
-#import "LoginNC.h"
-#import "RootTabBarController.h"
 #import <UMSocialCore/UMSocialCore.h>
-#import <SMS_SDK/SMSSDK.h>
 #import <AlipaySDK/AlipaySDK.h>
 #import "WXApi.h"
 #import "WXApiManager.h"
-#import <SMS_SDK/Extend/SMSSDK+AddressBookMethods.h>
 #import "iflyMSC/IFlyMSC.h"
 
 @interface AppDelegate ()
@@ -22,9 +18,6 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    _isReachable = YES;
-    //监测网络状态
-    [self checkNetStatus];
     //初始化设置
     [self getBannerInfo];
     [self initSettings];
@@ -37,39 +30,33 @@
         //第一次启动,使用UserGuideViewController (用户引导页面) 作为根视图
         self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"userGuide"];
     } else {
-        //不是第一次启动
-//        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogin"] == YES) { //登录了
-//            [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
-            self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"root"];
-//        }else{ //未登录
-//            self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"login"];
-//        }
+        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"root"];
     }
     [self.window makeKeyAndVisible];
     return YES;
 }
-
-- (void)checkNetStatus{
-    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
-    [[AFNetworkReachabilityManager sharedManager ] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        [YHHud dismiss];
-        switch (status) {
-            case AFNetworkReachabilityStatusUnknown:
-                _isReachable = NO;
-                break;
-            case AFNetworkReachabilityStatusNotReachable:
-                _isReachable = NO;
-                break;
-            case AFNetworkReachabilityStatusReachableViaWWAN:
-                _isReachable = YES;
-                break;
-            case AFNetworkReachabilityStatusReachableViaWiFi:
-                _isReachable = YES;
-            default:
-                break;
-        }
-    }];
-}
+//监测网络状态
+//- (void)checkNetStatus{
+//    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+//    [[AFNetworkReachabilityManager sharedManager ] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+//        [YHHud dismiss];
+//        switch (status) {
+//            case AFNetworkReachabilityStatusUnknown:
+//                _isReachable = NO;
+//                break;
+//            case AFNetworkReachabilityStatusNotReachable:
+//                _isReachable = NO;
+//                break;
+//            case AFNetworkReachabilityStatusReachableViaWWAN:
+//                _isReachable = YES;
+//                break;
+//            case AFNetworkReachabilityStatusReachableViaWiFi:
+//                _isReachable = YES;
+//            default:
+//                break;
+//        }
+//    }];
+//}
 
 #pragma mark 初始化设置
 - (void)initSettings{
@@ -104,13 +91,10 @@
     //设置新浪的appKey和appSecret
 //    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"1292322940"  appSecret:@"c1ad238284f47072b0caaf27d4d3afb3" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
-    //SMSSDK集成短信验证码
-    [SMSSDK registerApp:@"1a0a96a7aca8e" withSecret:@"84dcd3028b078eb4ecbe9bed5c669dec"];
-    [SMSSDK enableAppContactFriends:NO];
-    
     //微信支付注册APPID
     [WXApi registerApp:@"wx7658d0735b233185"];
     
+    //科大讯飞
     //设置sdk的log等级，log保存在下面设置的工作路径中
     [IFlySetting setLogFile:LVL_ALL];
     
@@ -129,15 +113,14 @@
     [IFlySpeechUtility createUtility:initString];
 }
 - (void)getBannerInfo{
-//    {
-//        "userPhone":"*****",        #用户手机号
-//        "token":"*****",            #用户登陆凭证
-//    }
+    //获取首页内容
     [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
     NSString *phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum!=nil ? [YHSingleton shareSingleton].userInfo.phoneNum : @"";
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"]!=nil ? [[NSUserDefaults standardUserDefaults] objectForKey:@"token"] : @"";
-    NSDictionary *jsonDic = @{@"userPhone":phoneNum,      //  #用户手机号
-                                        @"token":token};        //    #用户登陆凭证
+    NSDictionary *jsonDic = @{
+        @"userPhone":phoneNum,      //  #用户手机号
+        @"token":token        //    #用户登陆凭证
+    };
     [YHWebRequest YHWebRequestForPOST:kBanner parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
             NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
@@ -158,18 +141,14 @@
         if ([url.host isEqualToString:@"safepay"]) {
             //跳转支付宝钱包进行支付，处理支付结果
             [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-                //                {
-                //                    "userPhone":"******"    #用户手机号
-                //                    "code":"***"            #支付宝支付状态码
-                //                    "out_trade_no":"***"    #商户订单号（选填，与transaction_id二选一）
-                //                    "result":"***"          #支付宝返回的订单信息
-                //                    "token":"****"          #登陆凭证
-                //                }
-                NSDictionary *jsonDic = @{@"userPhone":[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"][@"phoneNum"],   // #用户手机号
-                                          @"code":resultDic[@"resultStatus"],        //    #支付宝支付状态码
-                                          @"out_trade_no":[YHSingleton shareSingleton].ali_out_trade_no, //   #商户订单号（选填，与transaction_id二选一）
-                                          @"result":resultDic[@"result"],      //    #支付宝返回的订单信息
-                                          @"token":[[NSUserDefaults standardUserDefaults] objectForKey:@"token"]};       //   #登陆凭证
+                //支付宝验签
+                NSDictionary *jsonDic = @{
+                    @"userPhone":[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"][@"phoneNum"],   // #用户手机号
+                    @"code":resultDic[@"resultStatus"],        //    #支付宝支付状态码
+                    @"out_trade_no":[YHSingleton shareSingleton].ali_out_trade_no, //   #商户订单号（选填，与transaction_id二选一）
+                    @"result":resultDic[@"result"],      //    #支付宝返回的订单信息
+                    @"token":[[NSUserDefaults standardUserDefaults] objectForKey:@"token"]      //   #登陆凭证
+                };
                 [YHWebRequest YHWebRequestForPOST:kAlipaySignCheck parameters:jsonDic success:^(NSDictionary *json) {
                     if ([json[@"code"] integerValue] == 200) {
                         if ([[YHSingleton shareSingleton].payType isEqualToString:@"0"]) {
@@ -195,29 +174,7 @@
     }else{
         // 微信SDK的回调
         [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
-//        [[IFlySpeechUtility getUtility] handleOpenURL:url];
     }
     return result;
 }
-#pragma mark 更新用户剩余和充值的学习豆
-- (void)updateStudyBean{
-//    [YHWebRequest YHWebRequestForPOST:BEANS parameters:@{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"device_id":DEVICEID} success:^(NSDictionary *json) {
-//        if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-//            [YHSingleton shareSingleton].userInfo.studyBean = [NSString stringWithFormat:@"%@",json[@"data"][@"restBean"]];
-//            [YHSingleton shareSingleton].userInfo.rechargeBean = [NSString stringWithFormat:@"%@",json[@"data"][@"rechargeBean"]];
-//            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateStudyBean" object:nil];
-//        }else if([json[@"code"] isEqualToString:@"ERROR"]){
-//            [YHHud showWithMessage:@"服务器错误"];
-//        }else{
-//            [YHHud showWithMessage:@"数据异常"];
-//        }
-//    } failure:^(NSError * _Nonnull error) {
-//        [YHHud showWithMessage:@"数据请求失败"];
-//    }];
-}
-//- (void)applicationDidBecomeActive:(UIApplication *)application
-//{
-//    [UMSocialSnsService  applicationDidBecomeActive];
-//}
 @end
