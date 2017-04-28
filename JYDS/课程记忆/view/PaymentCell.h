@@ -6,7 +6,7 @@
 //  Copyright © 2016年 dayu. All rights reserved.
 //
 #import <UIKit/UIKit.h>
-@interface PaymentCell : UITableViewCell
+@interface PaymentCell : BaseCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView1;
 @property (weak, nonatomic) IBOutlet UILabel *title;

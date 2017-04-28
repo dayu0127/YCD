@@ -55,7 +55,7 @@
         [self returnToLogin];
     }else{
         if (sender.tag==0) {
-            _grade_type = [NSString stringWithFormat:@"%zd",sender.tag];
+            _grade_type = [NSString stringWithFormat:@"%zd",sender.tag+1];
             [self performSegueWithIdentifier:@"toItemDetail" sender:self];
         }else{
             [YHHud showWithMessage:@"课程正在研制中"];

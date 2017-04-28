@@ -28,9 +28,9 @@
     NSString *version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
     NSString *build = [infoDictionary objectForKey:@"CFBundleVersion"];
     _appVersionLabel.text = [NSString stringWithFormat:@"%@%@.%@",appName,version,build];
-    _appVersionLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    _appVersionLabel.textColor = DGRAYCOLOR;
     for (UILabel *item in _copyrightLabelCollection) {
-        item.dk_textColorPicker = DKColorPickerWithColors([UIColor lightGrayColor],[UIColor groupTableViewBackgroundColor],[UIColor redColor]);
+        item.textColor = [UIColor lightGrayColor];
     }
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellid"];
 }
@@ -58,13 +58,13 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellid" forIndexPath:indexPath];
-    cell.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
-    cell.textLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    cell.backgroundColor = D_CELL_BG;
+    cell.textLabel.textColor = DGRAYCOLOR;
     cell.textLabel.text = self.dataArray[indexPath.row];
     cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
-    cell.selectedBackgroundView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_SELT,N_CELL_SELT,RED);
+    cell.selectedBackgroundView.backgroundColor = D_CELL_SELT;
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -31,11 +31,11 @@
     _headImageButton.layer.cornerRadius = 45.5f;
     //加载头像昵称性别
     [_headImageButton setImage:_headImage forState:UIControlStateNormal];
+    [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
     _nickNameLabel.text = [YHSingleton shareSingleton].userInfo.nickName;
-    _sexLabel.text = [[YHSingleton shareSingleton].userInfo.genter isEqualToString:@""] ? @"保密" : [YHSingleton shareSingleton].userInfo.genter;
-    if ([[YHSingleton shareSingleton].userInfo.genter intValue] == 1) {
+    if ([[YHSingleton shareSingleton].userInfo.genter isEqualToString:@"1"]) {
         _sexLabel.text = @"男";
-    }else if ([[YHSingleton shareSingleton].userInfo.genter intValue] == 2){
+    }else if ([[YHSingleton shareSingleton].userInfo.genter isEqualToString:@"0"]){
         _sexLabel.text = @"女";
     }else{
         _sexLabel.text = @"保密";
@@ -201,6 +201,10 @@
     };
     [YHWebRequest YHWebRequestForPOST:kNicknameSex parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
+            //更新昵称和性别
+            [YHSingleton shareSingleton].userInfo.nickName = _nickNameLabel.text;
+            [YHSingleton shareSingleton].userInfo.genter = sex;
+            [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
             [_delegate updateNickName:_nickNameLabel.text];
             [YHHud showWithSuccess:@"修改成功"];
         }else{
@@ -236,10 +240,7 @@
                 //更新本地头像url
                 //                [YHSingleton shareSingleton].userInfo.headImageUrl = json[@"url"];
                 //                [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
-                //更新昵称和性别
-                [YHSingleton shareSingleton].userInfo.nickName = _nickNameLabel.text;
-                [YHSingleton shareSingleton].userInfo.genter = _sexLabel.text;
-                //更新我的页面的头像和昵称
+                //更新我的页面的头像
                 [_delegate updateHeadImage:_headImageButton.imageView.image];
                 [YHHud showWithSuccess:@"修改成功"];
             }else{

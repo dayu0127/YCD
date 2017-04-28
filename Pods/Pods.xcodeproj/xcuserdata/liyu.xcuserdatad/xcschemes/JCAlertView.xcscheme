@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '76E6F4463B0CAF1565F5402D8422FE51'
+               BlueprintIdentifier = '3DCFBBFD4FD876F3E54957472898F808'
                BlueprintName = 'JCAlertView'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libJCAlertView.a'>

@@ -5,7 +5,6 @@ target 'JYDS' do
 pod 'AFNetworking'
 pod 'SDWebImage'
 pod 'SDCycleScrollView'
-pod 'DKNightVersion'
 pod 'JCAlertView'
 pod 'UMengUShare/UI'
 pod 'UMengUShare/Social/Sina'

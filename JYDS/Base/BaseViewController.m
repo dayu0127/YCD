@@ -11,7 +11,10 @@
 @interface BaseViewController ()
 @end
 @implementation BaseViewController
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
@@ -29,11 +32,7 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"请先登录" message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
     [alert addAction:[UIAlertAction actionWithTitle:@"登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-        [app.window setRootViewController:loginVC];
-        [app.window makeKeyWindow];
+        [self popToLogin];
     }]];
     [self presentViewController:alert animated:YES completion:nil];
 }
@@ -46,6 +45,13 @@
         [self.navigationController pushViewController:bingingvc animated:YES];
     }]];
     [self presentViewController:alert animated:YES completion:nil];
+}
+- (void)popToLogin{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
+    [app.window setRootViewController:loginVC];
+    [app.window makeKeyWindow];
 }
 - (void)loadNoInviteView:(NSString *)str{
     UILabel *label = [UILabel new];

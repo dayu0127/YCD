@@ -29,10 +29,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(initSet) name:@"initSet" object:nil];
-    [self initSet];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(initSet:) name:@"initSet" object:nil];
+    [self initSet:nil];
 }
-- (void)initSet{
+- (void)initSet:(NSNotification *)sender{
+    if (sender.userInfo[@"exerciseCount"]!=nil) {
+        _exerciseCount = [sender.userInfo[@"exerciseCount"] integerValue];
+    }
     _index = 0;
     //初始化错误数字数组
     _errorNumArray = [NSMutableArray array];

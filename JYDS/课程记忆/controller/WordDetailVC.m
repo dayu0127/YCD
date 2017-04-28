@@ -139,11 +139,13 @@
 //            "classId"："****"        #课本id
 //            "wordId":"**"           #单词id
 //        }
-        NSDictionary *jsonDic = @{@"classId":_classId,    //  #版本ID
-                                  @"unitId" :_unitId,    // #单元ID
-                                  @"wordId":_word.wordId,         //  #当前页数
-                                  @"userPhone":self.phoneNum,     //  #用户手机号
-                                  @"token":self.token};       //   #登陆凭证
+        NSDictionary *jsonDic = @{
+            @"classId":_classId,    //  #版本ID
+            @"unitId" :_unitId,    // #单元ID
+            @"wordId":_word.wordId,         //  #当前页数
+            @"userPhone":self.phoneNum,     //  #用户手机号
+            @"token":self.token       //   #登陆凭证
+        };
         [YHWebRequest YHWebRequestForPOST:kCollectionWord parameters:jsonDic success:^(NSDictionary *json) {
             if([json[@"code"] integerValue] == 200){
                 //刷新单词收藏图片
@@ -172,11 +174,13 @@
 //            "classId"："****"        #课本id
 //            "wordId":"**"           #单词id
 //        }
-        NSDictionary *jsonDic = @{@"classId":_classId,    //  #版本ID
-                                  @"unitId" :_unitId,    // #单元ID
-                                  @"wordId":_word.wordId,         //  #当前页数
-                                  @"userPhone":self.phoneNum,     //  #用户手机号
-                                  @"token":self.token};       //   #登陆凭证
+        NSDictionary *jsonDic = @{
+            @"classId":_classId,    //  #版本ID
+            @"unitId" :_unitId,    // #单元ID
+            @"wordId":_word.wordId,         //  #当前页数
+            @"userPhone":self.phoneNum,     //  #用户手机号
+            @"token":self.token       //   #登陆凭证
+        };
         [YHWebRequest YHWebRequestForPOST:kCancelCollectionWord parameters:jsonDic success:^(NSDictionary *json) {
             if([json[@"code"] integerValue] == 200){
                 //刷新单词收藏图片
@@ -235,8 +239,6 @@
             [_imageCell.preBtn addTarget:self action:@selector(preBtnClick:) forControlEvents:UIControlEventTouchUpInside];
             [_imageCell.nextBtn addTarget:self action:@selector(nextBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         }else{
-            _imageCell.preImageView.alpha = 0;
-            _imageCell.nextImageView.alpha = 0;
             _imageCell.preBtn.alpha = 0;
             _imageCell.nextBtn.alpha = 0;
         }
@@ -273,13 +275,13 @@
     }
 }
 - (void)reloadWordDeltail:(NSInteger)wordIndex{
-    //    {
-    //        "userPhone":"******"        #用户手机号
-    //        "pageIndex":1               #下标
-    //        "token":""                  #用户登陆凭证
-    //        "classId":""                #课本id
-    //        "unitId":""                 #单元id
-    //    }
+//    {
+//        "userPhone":"******"        #用户手机号
+//        "pageIndex":1               #下标
+//        "token":""                  #用户登陆凭证
+//        "classId":""                #课本id
+//        "unitId":""                 #单元id
+//    }
     [YHHud showWithStatus];
     NSDictionary *jsonDic = @{
         @"userPhone":self.phoneNum,         //#用户手机号
@@ -295,7 +297,11 @@
             [self loadWordDetail];
             _splitCell.splitOrAssociateLabel.text = _word.split;
             _associateCell.splitOrAssociateLabel.attributedText = [self setColorForString:_word.associate];
-            [_imageCell.img sd_setImageWithURL:[NSURL URLWithString:_word.imgUrl]];
+            if ([_word.imgUrl isEqualToString:@"#"]) {
+                [_imageCell.img setImage:[UIImage imageNamed:@"course_no_word_img"]];
+            }else{
+                [_imageCell.img sd_setImageWithURL:[NSURL URLWithString:_word.imgUrl]];
+            }
             [YHHud dismiss];
         }else{
             [YHHud dismiss];

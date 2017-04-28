@@ -98,8 +98,6 @@
                 [self.tableView.mj_footer endRefreshing];
             }
         }else if([json[@"code"] integerValue] == 106){
-            [_myCollectList removeAllObjects];
-            [self.tableView reloadData];
             if (_myCollectList.count==0) {
                 _tableView.alpha = 0;
                 [self loadNoInviteView:@"您还未收藏单词，快去收藏吧！"];
@@ -147,18 +145,20 @@
             NSString *classId = _myCollectList[indexPath.row-1][@"class_id"];
             NSString *unitId = _myCollectList[indexPath.row-1][@"unit_id"];
             NSString *wordId = _myCollectList[indexPath.row-1][@"wordId"];
-            //        {
-            //            "userPhone":"******"    #用户手机号
-            //            "token":"****"          #登陆凭证
-            //            "unitId"："****"         #单元id
-            //            "classId"："****"        #课本id
-            //            "wordId":"**"           #单词id
-            //        }
-            NSDictionary *jsonDic = @{@"classId":classId,    //  #版本ID
-                                      @"unitId" :unitId,    // #单元ID
-                                      @"wordId":wordId,         //  #当前页数
-                                      @"userPhone":self.phoneNum,     //  #用户手机号
-                                      @"token":self.token};       //   #登陆凭证
+//            {
+//                "userPhone":"******"    #用户手机号
+//                "token":"****"          #登陆凭证
+//                "unitId"："****"         #单元id
+//                "classId"："****"        #课本id
+//                "wordId":"**"           #单词id
+//            }
+            NSDictionary *jsonDic = @{
+                @"classId":classId,    //  #版本ID
+                @"unitId" :unitId,    // #单元ID
+                @"wordId":wordId,         //  #当前页数
+                @"userPhone":self.phoneNum,     //  #用户手机号
+                @"token":self.token       //   #登陆凭证
+            };
             [YHWebRequest YHWebRequestForPOST:kCancelCollectionWord parameters:jsonDic success:^(NSDictionary *json) {
                 if([json[@"code"] integerValue] == 200){
                     [_myCollectList removeObjectAtIndex:indexPath.row-1];
@@ -207,8 +207,27 @@
     }
 }
 - (void)updateMyCollectList{
-//    [self loadCollectList:0];
-    _pageIndex = 1;
-    [self loadDataWithRefreshStatus:UITableViewRefreshStatusHeader pageIndex:_pageIndex];
+    NSDictionary *jsonDic = @{
+        @"userPhone":self.phoneNum,    //    #用户手机号
+        @"token":self.token,         //   #登陆凭证
+        @"pageIndex":@"1"       //        #页数
+    };
+    [YHWebRequest YHWebRequestForPOST:kCollectionList parameters:jsonDic success:^(NSDictionary *json) {
+        if([json[@"code"] integerValue] == 200){
+            NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+            NSArray *resultArray =  resultDic[@"collectionList"];
+            _tableView.alpha = 1;
+            _myCollectList = [NSMutableArray arrayWithArray:resultArray];
+            [_tableView reloadData];
+        }else if([json[@"code"] integerValue] == 106){
+            _tableView.alpha = 0;
+            [self loadNoInviteView:@"您还未收藏单词，快去收藏吧！"];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            [YHHud showWithMessage:json[@"message"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
 }
 @end

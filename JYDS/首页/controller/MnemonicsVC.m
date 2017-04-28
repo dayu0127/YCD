@@ -17,7 +17,7 @@
 #import "MemoryDetailVC.h"
 #import "BingingPhoneVC.h"
 #import "BaseNavViewController.h"
-@interface MnemonicsVC ()<UITableViewDelegate,UITableViewDataSource,BannerCellDelegate,PlanCellDelegate,DynamicCellDelegate,MemoryHeaderViewDelegate>
+@interface MnemonicsVC ()<UITableViewDelegate,UITableViewDataSource,BannerCellDelegate,PlanCellDelegate,DynamicCellDelegate>
 @property (strong,nonatomic) NSArray *bannerInfoArray;
 @property (strong,nonatomic) NSArray *dynamicArray;
 @property (weak,nonatomic) IBOutlet UITableView *tableView;
@@ -37,6 +37,33 @@
     _bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexImages"];
     _dynamicArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexDynamic"];
     _memoryList = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexMemory"];
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            //获取首页内容
+            [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
+            NSString *phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum!=nil ? [YHSingleton shareSingleton].userInfo.phoneNum : @"";
+            NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"]!=nil ? [[NSUserDefaults standardUserDefaults] objectForKey:@"token"] : @"";
+            NSDictionary *jsonDic = @{
+                @"userPhone":phoneNum,      //  #用户手机号
+                @"token":token        //    #用户登陆凭证
+            };
+            [YHWebRequest YHWebRequestForPOST:kBanner parameters:jsonDic success:^(NSDictionary *json) {
+                if ([json[@"code"] integerValue] == 200) {
+                    NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+                    _bannerInfoArray = dataDic[@"indexImages"];
+                    _dynamicArray = dataDic[@"indexDynamic"];
+                    _memoryList = dataDic[@"indexMemory"];
+                    [self.tableView reloadData];
+                    [self.tableView.mj_header endRefreshing];
+                }else{
+                    NSLog(@"%@",json[@"code"]);
+                    [YHHud showWithMessage:json[@"message"]];
+                    [self.tableView.mj_header endRefreshing];
+                }
+            }failure:^(NSError * _Nonnull error) {
+                NSLog(@"%@",error);
+                [self.tableView.mj_header endRefreshing];
+            }];
+    }];
 }
 - (IBAction)signInClick:(UIButton *)sender {
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
@@ -56,15 +83,20 @@
 #pragma mark 轮播图点击
 - (void)bannerClick:(NSInteger)index{
     BaseNavViewController *bannerVC = [[BaseNavViewController alloc] init];
-    bannerVC.linkUrl = _bannerInfoArray[index][@"content"];
-    bannerVC.isShowShareBtn = YES;
-    bannerVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:bannerVC animated:YES];
+    if (![_bannerInfoArray[index][@"content"] isEqualToString:@"#"]) {
+        bannerVC.linkUrl = _bannerInfoArray[index][@"content"];
+        bannerVC.shareUrl = _bannerInfoArray[index][@"content"];
+        bannerVC.navTitle = @"返回";
+        bannerVC.isShowShareBtn = YES;
+        bannerVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:bannerVC animated:YES];
+    }
 }
 #pragma mark 最新动态点击
 - (void)dynamicClick:(NSInteger)index{
     BaseNavViewController *dynamicVC = [[BaseNavViewController alloc] init];
     dynamicVC.linkUrl = _dynamicArray[index][@"content"];
+    dynamicVC.navTitle = @"最新动态";
     dynamicVC.isShowShareBtn = NO;
     dynamicVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:dynamicVC animated:YES];
@@ -140,13 +172,10 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 1) {
         MemoryHeaderView *headerView = [MemoryHeaderView loadView];
-        headerView.moreButton.alpha = 0;
-        headerView.arrows.alpha = 0;
         return headerView;
     }else if(section == 2){
         MemoryHeaderView *headerView = [MemoryHeaderView loadView];
         headerView.title.text = @"记忆法课程";
-        headerView.delegate = self;
         return headerView;
     }else{
         return nil;

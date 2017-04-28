@@ -66,12 +66,6 @@
     //设置
     [UINavigationBar appearance].titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     [UITableView appearance].separatorColor = SEPCOLOR;
-    //判断是否加载夜间模式
-//    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isNightMode"]==YES) {
-//        [[DKNightVersionManager sharedManager] nightFalling];
-//    }else{
-//        [[DKNightVersionManager sharedManager] dawnComing];
-//    }
     //分享
     //打开调试日志
     [[UMSocialManager defaultManager] openLog:YES];
@@ -82,7 +76,7 @@
     // 获取友盟social版本号
     //NSLog(@"UMeng social version: %@", [UMSocialGlobal umSocialSDKVersion]);
 
-    //设置微信的appKey和appSecret
+    //设置微信的appKey和appSecret                                                                                             
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx7658d0735b233185" appSecret:@"07f165e769707ce2d10955666edbeb1c" redirectURL:@"http://mobile.umeng.com/social"];
     
     //设置分享到QQ互联的appKey和appSecret
@@ -91,7 +85,7 @@
     //设置新浪的appKey和appSecret
 //    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"1292322940"  appSecret:@"c1ad238284f47072b0caaf27d4d3afb3" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
-    //微信支付注册APPID
+    //微信注册APPID
     [WXApi registerApp:@"wx7658d0735b233185"];
     
     //科大讯飞
@@ -141,6 +135,7 @@
         if ([url.host isEqualToString:@"safepay"]) {
             //跳转支付宝钱包进行支付，处理支付结果
             [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+                NSLog(@"%@",resultDic);
                 //支付宝验签
                 NSDictionary *jsonDic = @{
                     @"userPhone":[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"][@"phoneNum"],   // #用户手机号
@@ -157,7 +152,7 @@
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMemorySubStatus" object:nil];
                         }
                         [YHHud showPaySuccessOrFailed:@"success"];
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                             [YHHud dismiss];
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"back" object:nil];
                         });
@@ -165,16 +160,20 @@
                         NSLog(@"%@",json[@"code"]);
 //                        [YHHud showWithMessage:json[@"message"]];
                         [YHHud showPaySuccessOrFailed:@"failed"];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [YHHud dismiss];
+                        });
                     }
                 } failure:^(NSError * _Nonnull error) {
                     NSLog(@"%@",error);
                 }];
             }];
         }
-    }else{
-        // 微信SDK的回调
-        [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     }
+//    else{
+//        // 微信SDK的回调
+//        [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+//    }
     return result;
 }
 @end

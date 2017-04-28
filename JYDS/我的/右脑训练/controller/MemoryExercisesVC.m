@@ -31,10 +31,6 @@
 
 @end
 @implementation MemoryExercisesVC
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = NO;
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     StartView *startView = [[StartView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64)];

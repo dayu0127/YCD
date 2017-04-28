@@ -13,7 +13,8 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 @interface BaseNavViewController ()<WKNavigationDelegate>
 @property (strong,nonatomic) WKWebView *wkWebView;
-
+@property (copy,nonatomic) NSString *shareTitle;
+@property (copy,nonatomic) NSString *shareContent;
 @end
 
 @implementation BaseNavViewController
@@ -61,19 +62,20 @@
     [_wkWebView loadRequest:request];
     _wkWebView.navigationDelegate = self;
     _wkWebView.scrollView.showsVerticalScrollIndicator = NO;
-    [self.view insertSubview:_wkWebView atIndex:0];
+//    [self.view insertSubview:_wkWebView atIndex:0];
+    [self.view addSubview:_wkWebView];
     if (_isShowShareBtn == YES) {
         //分享按钮
-        _shareButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        [_shareButton setTitle:@"邀请好友 领取优惠" forState:UIControlStateNormal];
-        [_shareButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _shareButton.backgroundColor = ORANGERED;
-        _shareButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+        _shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_shareButton setImage:[UIImage imageNamed:@"memory_share"] forState:UIControlStateNormal];
         [_shareButton addTarget:self action:@selector(inviteShareClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view insertSubview:_shareButton atIndex:1];
+//        [self.view insertSubview:_shareButton atIndex:1];
+        [self.view addSubview:_shareButton];
         [_shareButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.bottom.equalTo(self.view);
-            make.height.mas_equalTo(@45);
+            make.right.equalTo(self.view).offset(-10);
+            make.width.mas_equalTo(@33);
+            make.height.mas_equalTo(@33);
+            make.centerY.mas_equalTo(self.leftBarButton.mas_centerY);
         }];
         _shareButton.alpha = 0;
     }
@@ -91,10 +93,10 @@
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     //分享的网页地址对象
-    NSString *title = @"记忆大师诚邀您加入";
-    NSString *descr = @"《最强大脑》名人堂刘健老师教你高效学习法，轻松快乐地学习。";
+    NSString *title = _shareTitle;
+    NSString *descr = _shareContent;
     UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:title descr:descr thumImage:[UIImage imageNamed:@"icon-40"]];
-    shareObject.webpageUrl = kShareRegister(self.phoneNum);
+    shareObject.webpageUrl = _shareUrl;
     messageObject.shareObject = shareObject;
     //调用分享接口
     [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
@@ -122,25 +124,38 @@
     }else if (self.token==nil&&self.phoneNum==nil) {
         [self returnToLogin];
     }else{
-        __weak typeof(self) weakSelf = self;
-        //设置面板样式
-        [UMSocialShareUIConfig shareInstance].shareTitleViewConfig.isShow = NO;
-        [UMSocialShareUIConfig shareInstance].shareCancelControlConfig.shareCancelControlText = @"取消";
-        //判断是否安装QQ,微信
-        NSMutableArray *platformArray = [NSMutableArray array];
-        if ([WXApi isWXAppInstalled]) {
-            [platformArray addObject:@(UMSocialPlatformType_WechatSession)];
-            [platformArray addObject:@(UMSocialPlatformType_WechatTimeLine)];
-        }
-        if ([QQApiInterface isQQInstalled]) {
-            [platformArray addObject:@(UMSocialPlatformType_QQ)];
-            [platformArray addObject:@(UMSocialPlatformType_Qzone)];
-        }
-        //预定义平台
-        [UMSocialUIManager setPreDefinePlatforms:[NSArray arrayWithArray:platformArray]];
-        //显示分享面板
-        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
-            [weakSelf shareImageAndTextUrlToPlatformType:platformType];
+        NSDictionary *jsonDic = @{
+            @"userPhone":self.phoneNum,
+            @"token":self.token
+        };
+        [YHWebRequest YHWebRequestForPOST:kGetShare parameters:jsonDic success:^(NSDictionary *json) {
+            if ([json[@"code"] integerValue] == 200) {
+                NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+                _shareTitle = resultDic[@"title"];
+                _shareContent = resultDic[@"content"];
+                __weak typeof(self) weakSelf = self;
+                //设置面板样式
+                [UMSocialShareUIConfig shareInstance].shareTitleViewConfig.isShow = NO;
+                [UMSocialShareUIConfig shareInstance].shareCancelControlConfig.shareCancelControlText = @"取消";
+                //判断是否安装QQ,微信
+                NSMutableArray *platformArray = [NSMutableArray array];
+                if ([WXApi isWXAppInstalled]) {
+                    [platformArray addObject:@(UMSocialPlatformType_WechatSession)];
+                    [platformArray addObject:@(UMSocialPlatformType_WechatTimeLine)];
+                }
+                if ([QQApiInterface isQQInstalled]) {
+                    [platformArray addObject:@(UMSocialPlatformType_QQ)];
+                    [platformArray addObject:@(UMSocialPlatformType_Qzone)];
+                }
+                //预定义平台
+                [UMSocialUIManager setPreDefinePlatforms:[NSArray arrayWithArray:platformArray]];
+                //显示分享面板
+                [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+                    [weakSelf shareImageAndTextUrlToPlatformType:platformType];
+                }];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            NSLog(@"%@",error);
         }];
     }
 }

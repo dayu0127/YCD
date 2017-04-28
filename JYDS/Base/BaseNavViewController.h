@@ -16,6 +16,7 @@
 @property (copy,nonatomic) NSString *linkUrl;
 @property (assign,nonatomic) BOOL isShowShareBtn;
 @property (strong,nonatomic) UIButton *shareButton;
+@property (copy,nonatomic) NSString *shareUrl;
 
 - (void)initNaBar:(NSString *)title;
 @end

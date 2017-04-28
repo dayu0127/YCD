@@ -7,7 +7,7 @@
 //
 
 #import "ModifyPwdVC.h"
-
+#import <UIImageView+WebCache.h>
 @interface ModifyPwdVC ()
 @property (weak, nonatomic) IBOutlet UITextField *phoneTxt;
 @property (weak, nonatomic) IBOutlet UITextField *oldPwdTxt;
@@ -29,21 +29,17 @@
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
-- (IBAction)phoneEditingChanged:(UITextField *)sender {
-    if (sender.text.length==0) {
-        _sureButton.enabled = NO;
-        [_sureButton setTitleColor:GRAYCOLOR forState:UIControlStateNormal];
-        _sureButton.layer.borderColor = LIGHTGRAYCOLOR.CGColor;
-    }else if(sender.text.length>0&&sender.text.length<=11){
-        _sureButton.enabled = YES;
-        [_sureButton setTitleColor:ORANGERED forState:UIControlStateNormal];
-        _sureButton.layer.borderColor = ORANGERED.CGColor;
-    }else {
-        sender.text = [sender.text substringToIndex:11];
+- (IBAction)pwdEditingChanged:(UITextField *)sender {
+    if (sender.text.length>15) {
+        sender.text = [sender.text substringToIndex:15];
     }
 }
+
 - (IBAction)sureButtonClick:(UIButton *)sender {
-    if(![_reNewPwdTxt.text isEqualToString:_pwdTxt.text]){
+    NSString *newPwd = [_pwdTxt.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if ([newPwd isEqualToString:@""]&&newPwd.length<6) {
+        [YHHud showWithMessage:@"密码长度不能低于6位"];
+    }else if(![_reNewPwdTxt.text isEqualToString:_pwdTxt.text]){
         [YHHud showWithMessage:@"两次密码输入不一致"];
     }else{
     //    {
@@ -52,14 +48,13 @@
     //        password:"",               #旧密码
     //        newPassword:""             #新密码
     //    }
-        NSString *phoneNum = _phoneTxt.text;
         NSString *oldPwd = _oldPwdTxt.text;
-        NSString *newPwd = _pwdTxt.text;
-        NSDictionary *jsonDic = @{@"phoneNum":phoneNum,  //  #用户手机号
-                                              @"token":self.token,     //      #令牌
-                                              @"password":oldPwd,      //         #旧密码
-                                              @"newPassword":newPwd};     //        #新密码
-        NSLog(@"%@",jsonDic);
+        NSDictionary *jsonDic = @{
+            @"phoneNum":self.phoneNum,  //  #用户手机号
+            @"token":self.token,     //      #令牌
+            @"password":oldPwd,      //         #旧密码
+            @"newPassword":newPwd     //        #新密码
+        };
         [YHWebRequest YHWebRequestForPOST:kUpdatePwd parameters:jsonDic success:^(NSDictionary *json) {
             if ([json[@"code"] integerValue] == 200) {
                 [YHHud showWithMessage:@"修改成功,请重新登录"];
@@ -68,6 +63,11 @@
                     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"tolen"];
                     //清空个人信息
                     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfo"];
+                    //清除个人点赞
+                    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"likesDic"];
+                    //清除缓存
+                    [[SDImageCache sharedImageCache] clearDisk];
+                    [[SDImageCache sharedImageCache] clearMemory];//可有可无
                     //改变登录状态
                     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isLogin"];
                     //跳转到登录页面

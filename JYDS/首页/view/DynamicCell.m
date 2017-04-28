@@ -45,10 +45,7 @@
         _leftButton.alpha = 0;
         _rightButton.alpha = 0;
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, w, h)];
-//        [imageView sd_setImageWithURL:[NSURL URLWithString:netImages[0]] placeholderImage:[UIImage imageNamed:@"banner"]];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:netImages[0]] placeholderImage:[UIImage imageNamed:@"banner"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            NSLog(@"--------------%@",imageURL.absoluteString);
-        }];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:netImages[0]] placeholderImage:[UIImage imageNamed:@"banner"]];
         imageView.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageClick:)];
         [imageView addGestureRecognizer:tap];

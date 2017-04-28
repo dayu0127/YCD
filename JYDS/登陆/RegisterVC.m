@@ -64,12 +64,12 @@
 //        sender.text = [sender.text substringToIndex:4];
 //    }
 //}
-//#pragma mark 限制密码长度不能超过15位
-//- (IBAction)pwdEditingChanged:(UITextField *)sender {
-//    if (sender.text.length>15) {
-//        sender.text = [sender.text substringToIndex:15];
-//    }
-//}
+#pragma mark 限制密码长度不能超过15位
+- (IBAction)pwdEditingChanged:(UITextField *)sender {
+    if (sender.text.length>15) {
+        sender.text = [sender.text substringToIndex:15];
+    }
+}
 #pragma mark 验证码按钮点击
 - (IBAction)checkButtonClick:(UIButton *)sender {
 //    运营商号段如下：
@@ -117,30 +117,35 @@
     }];
 }
 - (IBAction)registerButtonClick:(UIButton *)sender {
-    //注册
-    NSString *phoneNum = _phoneTxt.text;
-    NSString *verifyCode = _checkCodeTxt.text;
-    NSString *password = _pwdTxt.text;
-    NSString *invitePhoneNum = _invitationPhoneTxt.text;
-    NSDictionary *jsonDic = @{
-        @"phoneNum" :phoneNum,             // #用户名
-        @"verifyCode":verifyCode,               //    #验证码
-        @"password":password,               //    #密码
-        @"invitePhoneNum" :invitePhoneNum     //#推荐人手机号
-    };
-    [YHWebRequest YHWebRequestForPOST:kRegister parameters:jsonDic success:^(NSDictionary *json) {
-        if ([json[@"code"] integerValue] == 200) {
-            [YHHud showWithSuccess:@"注册成功"];
-            [_delegate autoFillUserName:_phoneTxt.text];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.navigationController popViewControllerAnimated:YES];
-            });
-        }else{
-            NSLog(@"%@",json[@"code"]);
-            [YHHud showWithMessage:json[@"message"]];
-        }
-    } failure:^(NSError * _Nonnull error) {
-        NSLog(@"%@",error);
-    }];
+    NSString *password = [_pwdTxt.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if ([password isEqualToString:@""]&&password.length<6) {
+        [YHHud showWithMessage:@"密码长度不能低于6位"];
+    }else{
+        //注册
+        NSString *phoneNum = _phoneTxt.text;
+        NSString *verifyCode = _checkCodeTxt.text;
+        NSString *invitePhoneNum = _invitationPhoneTxt.text;
+        NSDictionary *jsonDic = @{
+            @"phoneNum" :phoneNum,             // #用户名
+            @"verifyCode":verifyCode,               //    #验证码
+            @"password":password,               //    #密码
+            @"invitePhoneNum" :invitePhoneNum     //#推荐人手机号
+        };
+        [YHWebRequest YHWebRequestForPOST:kRegister parameters:jsonDic success:^(NSDictionary *json) {
+            if ([json[@"code"] integerValue] == 200) {
+                [YHHud showWithSuccess:@"注册成功"];
+                [_delegate autoFillUserName:_phoneTxt.text];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.navigationController popViewControllerAnimated:YES];
+                });
+            }else{
+                NSLog(@"%@",json[@"code"]);
+                [YHHud showWithMessage:json[@"message"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+        }];
+    }
+    
 }
 @end

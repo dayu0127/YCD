@@ -20,7 +20,7 @@
 @property (strong,nonatomic) NSArray *gradeNameList;
 @property (strong,nonatomic) NSArray *classNameTypeList;
 @property (strong,nonatomic) NSArray *versionNameNameList;
-@property (strong,nonatomic) NSArray *versionList;
+@property (strong,nonatomic) NSMutableArray *versionList;
 @property (assign,nonatomic) NSInteger selectIndex;
 /**当前年级ID*/
 @property (strong,nonatomic) NSString *currentGradeID;
@@ -60,14 +60,14 @@
 }
 - (void)updateWordSubStatus{
     NSDictionary *jsonDic = @{
-        @"grade_type":@"1",        //#查询状态 1：小学 2：初中 3：高中
+        @"grade_type":_grade_type,        //#查询状态 1：小学 2：初中 3：高中
         @"userPhone":self.phoneNum,     //  #用户手机号
         @"token":self.token             // #登陆凭证
     };
     [YHWebRequest YHWebRequestForPOST:kGradeList parameters:jsonDic success:^(NSDictionary *json) {
         if([json[@"code"] integerValue] == 200){
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-            _versionList = resultDic[@"versionList"];   //课本
+            _versionList = [NSMutableArray arrayWithArray:resultDic[@"versionList"]];   //课本
             [_tableView reloadData];
         }else{
             NSLog(@"%@",json[@"code"]);
@@ -85,9 +85,11 @@
 //        "token":"****"          #登陆凭证
 //    }
     [YHHud showWithStatus];
-    NSDictionary *jsonDic = @{@"grade_type":@"1",        //#查询状态 1：小学 2：初中 3：高中
-                                          @"userPhone":self.phoneNum,     //  #用户手机号
-                                          @"token":self.token};       // #登陆凭证
+    NSDictionary *jsonDic = @{
+        @"grade_type":_grade_type,        //#查询状态 1：小学 2：初中 3：高中
+        @"userPhone":self.phoneNum,     //  #用户手机号
+        @"token":self.token       // #登陆凭证
+    };
     [YHWebRequest YHWebRequestForPOST:kGradeList parameters:jsonDic success:^(NSDictionary *json) {
         [YHHud dismiss];
         if([json[@"code"] integerValue] == 200){
@@ -95,7 +97,7 @@
             _gradeList = resultDic[@"gradeList"];   //年级
             _classTypeList = resultDic[@"classTypeList"];   //科目
             _versionNameList = resultDic[@"versionNameList"];   //版本
-            _versionList = resultDic[@"versionList"];   //课本
+            _versionList = [NSMutableArray arrayWithArray:resultDic[@"versionList"]];   //课本
             [_tableView reloadData];
         }else{
             NSLog(@"%@",json[@"code"]);
@@ -125,6 +127,7 @@
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
     if (_selectIndex == 0) { //根据年级ID查科目列表和课本列表
         if (index == 0) {
+            _currentGradeID = nil;
             [self getGredeList];
         }else{
     //        {
@@ -133,9 +136,11 @@
     //            "token":"****"          #登陆凭证
     //        }
             _currentGradeID = _gradeList[index-1][@"gradeId"];
-            NSDictionary *jsonDic = @{@"gradeId":_currentGradeID,        //#年级ID
-                                      @"userPhone":phoneNum,     //  #用户手机号
-                                      @"token":token};       // #登陆凭证
+            NSDictionary *jsonDic = @{
+                @"gradeId":_currentGradeID,        //#年级ID
+                @"userPhone":phoneNum,     //  #用户手机号
+                @"token":token
+            };       // #登陆凭证
             [YHWebRequest YHWebRequestForPOST:kClassTypeList parameters:jsonDic success:^(NSDictionary *json) {
                 if([json[@"code"] integerValue] == 200){
                     NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
@@ -151,24 +156,32 @@
             }];
         }
     }else if (_selectIndex  == 1){ //根据科目ID查版本列表和课本列表
-        NSString *gradeID = @"";
-        if (_currentGradeID == nil) {
-            gradeID = _gradeList[0][@"gradeId"];
-        }else{
-            gradeID = _currentGradeID;
-        }
         _currentClassID = _classTypeList[index][@"class_type"];
-        NSDictionary *jsonDic = @{
-            @"gradeId":gradeID,        //#年级ID
-            @"classType":_currentClassID,  // #科目代码
-            @"userPhone":phoneNum,     //  #用户手机号
-            @"token":token       // #登陆凭证
-        };
+        NSDictionary *jsonDic = [NSDictionary dictionary];
+        if (_currentGradeID==nil) {
+            jsonDic = @{
+                @"gradeType":_grade_type,   //#年段代码（选填：和gradeId填选一个）
+                @"classType":_currentClassID,  // #科目代码
+                @"userPhone":phoneNum,     //  #用户手机号
+                @"token":token       // #登陆凭证
+            };
+        }else{
+            jsonDic = @{
+//                @"gradeType":_grade_type,   //#年段代码（选填：和gradeId填选一个）
+                @"gradeId":_currentGradeID,        //#年级ID（选填：和gradeType填选一个）
+                @"classType":_currentClassID,  // #科目代码
+                @"userPhone":phoneNum,     //  #用户手机号
+                @"token":token       // #登陆凭证
+            };
+        }
         [YHWebRequest YHWebRequestForPOST:kVersionNameList parameters:jsonDic success:^(NSDictionary *json) {
             if([json[@"code"] integerValue] == 200){
                 NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
                 _versionNameList = resultDic[@"versionNameList"];   //版本
                 _versionList = resultDic[@"versionList"];   //课本
+                [_tableView reloadData];
+            }else if([json[@"code"] integerValue] == 106){
+                [_versionList removeAllObjects];
                 [_tableView reloadData];
             }else{
                 NSLog(@"%@",json[@"code"]);
@@ -188,36 +201,40 @@
 //            "selectType":           #查询类型 0:根据上面条件查询，1：已订阅
 //            "pageIndex":            #查询页数（选填，select为1时候需要）
 //        }
-        NSString *gradeID = @"";
-        if (_currentGradeID == nil) {
-            gradeID = _gradeList[0][@"gradeId"];
-        }else{
-            gradeID = _currentGradeID;
-        }
-        NSString *classID = @"";
-        if (_currentClassID == nil) {
-            classID = _classTypeList[0][@"class_type"];
-        }else{
-            classID = _currentClassID;
-        }
+        NSString *classId = _currentClassID == nil ? _classTypeList[0][@"class_type"] : _currentClassID;
         _currentVersionNameID = _versionNameList[index][@"class_type"];
-        NSDictionary *jsonDic = @{
-//            @"gradeType":_grade_type,          // #年段代码（选填：和gradeId填选一个）
-            @"gradeId":gradeID,    //  #年级ID（选填：和gradeType填选一个）
-            @"classType":classID,     //    #科目代码（选填）
-            @"version":_currentVersionNameID,        //   #版本代码（选填）
-            @"userPhone":phoneNum,     //  #用户手机号
-            @"token":token,      //   #登陆凭证
-            @"selectType":@"0"       //    #查询类型 0:根据上面条件查询，1：已订阅
-        };
+        NSDictionary *jsonDic = [NSDictionary dictionary];
+        if (_currentGradeID==nil) {
+            jsonDic = @{
+                @"gradeType":_grade_type,          // #年段代码（选填：和gradeId填选一个）
+                @"classType":classId,     //    #科目代码（选填）
+                @"version":_currentVersionNameID,        //   #版本代码（选填）
+                @"userPhone":phoneNum,     //  #用户手机号
+                @"token":token,      //   #登陆凭证
+                @"selectType":@"0"       //    #查询类型 0:根据上面条件查询，1：已订阅
+            };
+        }else{
+            jsonDic = @{
+//                @"gradeType":_grade_type,          // #年段代码（选填：和gradeId填选一个）
+                @"gradeId":_currentGradeID,    //  #年级ID（选填：和gradeType填选一个）
+                @"classType":classId,     //    #科目代码（选填）
+                @"version":_currentVersionNameID,        //   #版本代码（选填）
+                @"userPhone":phoneNum,     //  #用户手机号
+                @"token":token,      //   #登陆凭证
+                @"selectType":@"0"       //    #查询类型 0:根据上面条件查询，1：已订阅
+            };
+        }
         [YHWebRequest YHWebRequestForPOST:kVersionList parameters:jsonDic success:^(NSDictionary *json) {
             if([json[@"code"] integerValue] == 200){
                 NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-                _versionList = resultDic[@"versionList"];   //课本
+                _versionList = [NSMutableArray arrayWithArray:resultDic[@"versionList"]];   //课本
+                [_tableView reloadData];
+            }else if([json[@"code"] integerValue] == 106){
+                [_versionList removeAllObjects];
                 [_tableView reloadData];
             }else{
                 NSLog(@"%@",json[@"code"]);
-//                [YHHud showWithMessage:json[@"message"]];
+                [YHHud showWithMessage:json[@"message"]];
             }
         } failure:^(NSError * _Nonnull error) {
             NSLog(@"%@",error);

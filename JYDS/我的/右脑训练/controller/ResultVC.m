@@ -20,12 +20,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    NSMutableArray *arr = [NSMutableArray array];
-//    for (NSString *str in _errorNumArray) {
-//        if (![arr containsObject:str]) {
-//            [arr addObject:str];
-//        }
-//    }
     if (_errorNumArray.count == 0) {
         SuccessView *successView = [[NSBundle mainBundle] loadNibNamed:@"SuccessView" owner:nil options:nil ].lastObject;
         successView.frame = CGRectMake(0, 64, WIDTH, HEIGHT-64);
@@ -43,15 +37,8 @@
     }
 }
 - (void)backToExerciselView{
-    for (UIViewController *controller in self.navigationController.viewControllers) {
-        if ([controller isKindOfClass:[ExerciseVC class]]) {
-            ExerciseVC *exerciseVC =(ExerciseVC *)controller;
-            exerciseVC.level = _level;
-            exerciseVC.exerciseCount = _exerciseCount+1;
-            [self.navigationController popToViewController:exerciseVC animated:YES];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"initSet" object:nil];
-        }
-    }
+    [self.navigationController popViewControllerAnimated:YES];
+    [self continueExercise];
 }
 - (IBAction)backClick:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:YES];
@@ -65,18 +52,12 @@
         }
     }
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self continueExercise];
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)continueExercise{
+    NSDictionary *dic = @{@"exerciseCount":[NSString stringWithFormat:@"%zd",_exerciseCount+1]};
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"initSet" object:self userInfo:dic];
 }
-*/
-
 @end

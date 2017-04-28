@@ -110,40 +110,44 @@
         NSLog(@"%@",error);
     }];
 }
-#pragma mark 验证码登录按钮点击事件
+#pragma mark 验证码登录
 - (IBAction)loginButtonClick:(id)sender {
-    NSString *phoneNum = _phoneTxt.text;
-    NSString *verifyCode = _checkCodeTxt.text;
-    //验证码登录
-    NSDictionary *jsonDic = @{
-        @"phoneNum" :phoneNum,             // #手机号
-        @"verifyCode":verifyCode              //    #验证码
-    };
-    [YHWebRequest YHWebRequestForPOST:kCodeLogin parameters:jsonDic success:^(NSDictionary *json) {
-        if ([json[@"code"] integerValue] == 200) {
-//            NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
-            //改变我的页面，显示头像,昵称和手机号
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
-            NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-            //保存token
-            [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"token"] forKey:@"token"];
-            //保存用户信息
-            [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
-            [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
-            //保存登录保存登录状态
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
-            //登录成功跳转首页
-            [YHHud showWithSuccess:@"登录成功"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self returnToHome];
-            });
-        }else{
-            NSLog(@"%@",json[@"code"]);
-            [YHHud showWithMessage:json[@"message"]];
-        }
-    } failure:^(NSError * _Nonnull error) {
-        NSLog(@"%@",error);
-    }];
+    if (REGEX(PHONE_RE, _phoneTxt.text)==NO) {
+        [YHHud showWithMessage:@"请输入有效的11位手机号"];
+    }else{
+        NSString *phoneNum = _phoneTxt.text;
+        NSString *verifyCode = _checkCodeTxt.text;
+        //验证码登录
+        NSDictionary *jsonDic = @{
+            @"phoneNum" :phoneNum,             // #手机号
+            @"verifyCode":verifyCode              //    #验证码
+        };
+        [YHWebRequest YHWebRequestForPOST:kCodeLogin parameters:jsonDic success:^(NSDictionary *json) {
+            if ([json[@"code"] integerValue] == 200) {
+    //            NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
+                //改变我的页面，显示头像,昵称和手机号
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
+                NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+                //保存token
+                [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"token"] forKey:@"token"];
+                //保存用户信息
+                [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
+                [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
+                //保存登录保存登录状态
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
+                //登录成功跳转首页
+                [YHHud showWithSuccess:@"登录成功"];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self returnToHome];
+                });
+            }else{
+                NSLog(@"%@",json[@"code"]);
+                [YHHud showWithMessage:json[@"message"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+        }];
+    }
 }
 - (IBAction)qqLogin:(id)sender {
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_QQ currentViewController:nil completion:^(id result, NSError *error) {
@@ -171,17 +175,17 @@
 //            }
             //QQ登录
             NSString *associatedQq = resp.uid;
-            NSString *genter = resp.gender;
-            NSString *nickName;
-            if ([resp.name isEqualToString:@"男"]) {
-                nickName = @"1";
-            }else if([resp.name isEqualToString:@"女"]){
-                nickName = @"0";
-            }
+//            NSString *genter;
+//            if ([resp.gender isEqualToString:@"男"]) {
+//                genter = @"1";
+//            }else if([resp.gender isEqualToString:@"女"]){
+//                genter = @"0";
+//            }
+//            NSString *nickName = resp.name;
             NSDictionary *jsonDic = @{
-                @"associatedQq" :associatedQq,             // #第三方绑定的uid 唯一标识
-                @"genter":genter,                                 //   #性别 1男 0女  （选填
-                @"nickName":nickName
+                @"associatedQq" :associatedQq             // #第三方绑定的uid 唯一标识
+//                @"genter":genter,                                 //   #性别 1男 0女  （选填
+//                @"nickName":nickName                        //昵称
             };
             [YHWebRequest YHWebRequestForPOST:kQQLogin parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {
@@ -240,17 +244,17 @@
 //            }
             //微信登录
             NSString *associatedWx = resp.uid;
-            NSString *genter = resp.gender;
-            NSString *nickName;
-            if ([resp.name isEqualToString:@"男"]) {
-                nickName = @"1";
-            }else if([resp.name isEqualToString:@"女"]){
-                nickName = @"0";
-            }
+//            NSString *genter;
+//            if ([resp.gender isEqualToString:@"男"]) {
+//                genter = @"1";
+//            }else if([resp.gender isEqualToString:@"女"]){
+//                genter = @"0";
+//            }
+//            NSString *nickName = resp.name;
             NSDictionary *jsonDic = @{
-                @"associatedWx" :associatedWx,             // #第三方绑定的uid 唯一标识
-                @"genter":genter,                           //   #性别 1男 0女  （选填
-                @"nickName":nickName
+                @"associatedWx" :associatedWx             // #第三方绑定的uid 唯一标识
+//                @"genter":genter,                           //   #性别 1男 0女  （选填
+//                @"nickName":nickName        //昵称
             };
             [YHWebRequest YHWebRequestForPOST:kWXLogin parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {

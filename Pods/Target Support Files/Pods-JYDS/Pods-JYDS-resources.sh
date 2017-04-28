@@ -74,7 +74,6 @@ EOM
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_resource "DKNightVersion/DKNightVersion/ColorTable/DKColorTable.txt"
   install_resource "JCAlertView/JCAlertView/JCAlertView.bundle"
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
   install_resource "UMengUShare/UShareSDK/SocialLibraries/QQ/TencentOpenApi_IOS_Bundle.bundle"
@@ -83,7 +82,14 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "ZFPlayer/ZFPlayer/ZFPlayer.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_resource "DKNightVersion/DKNightVersion/ColorTable/DKColorTable.txt"
+  install_resource "JCAlertView/JCAlertView/JCAlertView.bundle"
+  install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
+  install_resource "UMengUShare/UShareSDK/SocialLibraries/QQ/TencentOpenApi_IOS_Bundle.bundle"
+  install_resource "UMengUShare/UShareSDK/SocialLibraries/Sina/WeiboSDK.bundle"
+  install_resource "UMengUShare/UShareSDK/UMSocialUI/UMSocialSDKResources.bundle"
+  install_resource "ZFPlayer/ZFPlayer/ZFPlayer.bundle"
+fi
+if [[ "$CONFIGURATION" == "discribution" ]]; then
   install_resource "JCAlertView/JCAlertView/JCAlertView.bundle"
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
   install_resource "UMengUShare/UShareSDK/SocialLibraries/QQ/TencentOpenApi_IOS_Bundle.bundle"

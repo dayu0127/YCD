@@ -30,36 +30,15 @@
                             <color key="textColor" red="0.99607843137254903" green="0.31764705882352939" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_more" translatesAutoresizingMaskIntoConstraints="NO" id="BUn-IA-BC2">
-                            <rect key="frame" x="357" y="14" width="8" height="13"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="8" id="5Xn-Et-YyM"/>
-                                <constraint firstAttribute="height" constant="13" id="LS6-6h-YK1"/>
-                            </constraints>
-                        </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rpo-7x-3mY">
-                            <rect key="frame" x="325" y="6" width="30" height="28"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <state key="normal" title="更多">
-                                <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="moreClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="F1w-3a-fCY"/>
-                            </connections>
-                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="HFW-xU-NfO" secondAttribute="bottom" id="7mb-6P-dcc"/>
-                        <constraint firstAttribute="trailing" secondItem="BUn-IA-BC2" secondAttribute="trailing" constant="10" id="80a-5w-NKH"/>
                         <constraint firstItem="MMi-Id-GSB" firstAttribute="leading" secondItem="HFW-xU-NfO" secondAttribute="trailing" constant="13" id="GZ0-2s-sAX"/>
                         <constraint firstItem="HFW-xU-NfO" firstAttribute="leading" secondItem="EgV-Dh-HsC" secondAttribute="leading" id="J8j-7o-HJG"/>
                         <constraint firstAttribute="height" constant="41" id="N6I-ob-iOu"/>
-                        <constraint firstItem="Rpo-7x-3mY" firstAttribute="centerY" secondItem="BUn-IA-BC2" secondAttribute="centerY" id="SE7-6M-YFg"/>
-                        <constraint firstItem="BUn-IA-BC2" firstAttribute="leading" secondItem="Rpo-7x-3mY" secondAttribute="trailing" constant="2" id="Ssk-vm-UvJ"/>
                         <constraint firstItem="MMi-Id-GSB" firstAttribute="centerY" secondItem="EgV-Dh-HsC" secondAttribute="centerY" id="dTy-j7-VO2"/>
                         <constraint firstItem="HFW-xU-NfO" firstAttribute="top" secondItem="EgV-Dh-HsC" secondAttribute="top" id="uyG-VV-vg9"/>
-                        <constraint firstItem="BUn-IA-BC2" firstAttribute="centerY" secondItem="EgV-Dh-HsC" secondAttribute="centerY" id="xxX-gL-JpT"/>
                     </constraints>
                 </view>
             </subviews>
@@ -70,15 +49,12 @@
                 <constraint firstItem="EgV-Dh-HsC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="frN-eq-Jnx"/>
             </constraints>
             <connections>
-                <outlet property="arrows" destination="BUn-IA-BC2" id="8Kk-6C-6o1"/>
-                <outlet property="moreButton" destination="Rpo-7x-3mY" id="JlR-Pq-wY3"/>
                 <outlet property="title" destination="MMi-Id-GSB" id="LR3-Lh-pSG"/>
             </connections>
             <point key="canvasLocation" x="68.5" y="122.5"/>
         </view>
     </objects>
     <resources>
-        <image name="home_more" width="8" height="13"/>
         <image name="home_v_line" width="3" height="40"/>
     </resources>
 </document>

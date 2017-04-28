@@ -13,7 +13,9 @@
 #import "SubAlertView.h"
 #import "PayViewController.h"
 #import "UILabel+Utils.h"
+#import "BaseNavViewController.h"
 @interface MemoryListVC ()<UITableViewDelegate,UITableViewDataSource,SubAlertViewDelegate,MemoryDetailVCDelegate>
+@property (weak, nonatomic) IBOutlet UIImageView *topImageView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) NSMutableArray *memoryVideoList;
 @property (strong,nonatomic) Memory *memory;
@@ -31,8 +33,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadMemoryList) name:@"updateMemorySubStatus" object:nil];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(introduceClick)];
+    [_topImageView addGestureRecognizer:tap];
     [self loadMemoryList];
     [_tableView registerNib:[UINib nibWithNibName:@"MemoryMoreCell" bundle:nil] forCellReuseIdentifier:@"MemoryMoreCell"];
+}
+- (void)introduceClick{
+    BaseNavViewController *dynamicVC = [[BaseNavViewController alloc] init];
+    dynamicVC.linkUrl = kMemoryIntroduce;
+    dynamicVC.navTitle = @"记忆法简介";
+    dynamicVC.isShowShareBtn = NO;
+    dynamicVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:dynamicVC animated:YES];
 }
 - (void)loadMemoryList{
     _pageIndex = 1;

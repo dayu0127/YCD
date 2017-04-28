@@ -39,26 +39,13 @@
                             <constraint firstAttribute="width" secondItem="Vhe-SW-xDW" secondAttribute="height" multiplier="295:239" id="M8n-1O-kUb"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="course_pre_page" translatesAutoresizingMaskIntoConstraints="NO" id="2oV-RU-bwP">
-                        <rect key="frame" x="15" y="165.5" width="10" height="19"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="10" id="r5N-UP-vNu"/>
-                            <constraint firstAttribute="height" constant="19" id="v1j-fr-tzi"/>
-                        </constraints>
-                    </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="course_next_page" translatesAutoresizingMaskIntoConstraints="NO" id="BPW-8y-bId">
-                        <rect key="frame" x="350" y="165.5" width="10" height="19"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="19" id="Sn6-8b-kpH"/>
-                            <constraint firstAttribute="width" constant="10" id="YCb-Cp-OzR"/>
-                        </constraints>
-                    </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wq4-v0-xNh">
                         <rect key="frame" x="0.0" y="142" width="40" height="66"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="66" id="cPH-fj-mJL"/>
                             <constraint firstAttribute="width" constant="40" id="eag-aE-6jI"/>
                         </constraints>
+                        <state key="normal" image="course_pre_page"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cB3-df-pvT">
                         <rect key="frame" x="335" y="142" width="40" height="66"/>
@@ -66,23 +53,22 @@
                             <constraint firstAttribute="width" constant="40" id="bf0-BP-Ixx"/>
                             <constraint firstAttribute="height" constant="66" id="vfX-j3-hSC"/>
                         </constraints>
+                        <state key="normal" image="course_next_page"/>
                     </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Vhe-SW-xDW" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="0bK-61-msz"/>
                     <constraint firstItem="cdG-Qx-muX" firstAttribute="leading" secondItem="wgt-DZ-I5X" secondAttribute="trailing" constant="7" id="2oO-Ho-wGy"/>
-                    <constraint firstItem="BPW-8y-bId" firstAttribute="centerY" secondItem="Vhe-SW-xDW" secondAttribute="centerY" id="AOU-JS-mgX"/>
+                    <constraint firstItem="Wq4-v0-xNh" firstAttribute="centerY" secondItem="Vhe-SW-xDW" secondAttribute="centerY" id="BgC-kO-aOJ"/>
                     <constraint firstAttribute="trailing" secondItem="cB3-df-pvT" secondAttribute="trailing" id="DbV-Y0-jh2"/>
-                    <constraint firstItem="2oV-RU-bwP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="EoQ-BA-VTp"/>
-                    <constraint firstItem="2oV-RU-bwP" firstAttribute="centerY" secondItem="Vhe-SW-xDW" secondAttribute="centerY" id="Gg4-nQ-jzI"/>
-                    <constraint firstItem="cB3-df-pvT" firstAttribute="centerY" secondItem="BPW-8y-bId" secondAttribute="centerY" id="GhQ-zz-dLm"/>
+                    <constraint firstItem="cB3-df-pvT" firstAttribute="centerY" secondItem="Vhe-SW-xDW" secondAttribute="centerY" id="Dtt-vT-Dhp"/>
                     <constraint firstItem="wgt-DZ-I5X" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="15" id="Pfd-wI-xbf"/>
                     <constraint firstItem="Vhe-SW-xDW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="32" id="TIY-Gn-Dpg"/>
                     <constraint firstItem="cdG-Qx-muX" firstAttribute="centerY" secondItem="wgt-DZ-I5X" secondAttribute="centerY" id="WXi-xS-jrO"/>
+                    <constraint firstAttribute="trailing" secondItem="cB3-df-pvT" secondAttribute="trailing" id="bdU-nV-61W"/>
                     <constraint firstItem="Wq4-v0-xNh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="l3T-zL-W85"/>
                     <constraint firstItem="wgt-DZ-I5X" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="lVm-ni-bq7"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="BPW-8y-bId" secondAttribute="trailing" constant="7" id="mMH-Mb-3eg"/>
-                    <constraint firstItem="Wq4-v0-xNh" firstAttribute="centerY" secondItem="2oV-RU-bwP" secondAttribute="centerY" id="uMc-Sx-vSA"/>
+                    <constraint firstItem="Wq4-v0-xNh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="reY-Hy-8Pr"/>
                     <constraint firstItem="Vhe-SW-xDW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="47" id="zSD-Hd-Fv1"/>
                 </constraints>
             </tableViewCellContentView>
@@ -90,9 +76,7 @@
                 <outlet property="img" destination="Vhe-SW-xDW" id="2nE-W1-7xw"/>
                 <outlet property="leftSpace" destination="TIY-Gn-Dpg" id="obc-zZ-YQr"/>
                 <outlet property="nextBtn" destination="cB3-df-pvT" id="BkI-1H-CDE"/>
-                <outlet property="nextImageView" destination="BPW-8y-bId" id="pIe-rP-8Ml"/>
                 <outlet property="preBtn" destination="Wq4-v0-xNh" id="6Xh-87-Pl4"/>
-                <outlet property="preImageView" destination="2oV-RU-bwP" id="mVa-Yg-w8J"/>
             </connections>
             <point key="canvasLocation" x="26.5" y="52"/>
         </tableViewCell>

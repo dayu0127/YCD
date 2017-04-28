@@ -92,16 +92,8 @@ static YHHud *hud = nil;
     if (hud!=nil) {
         [hud removeFromSuperview];
     }
-    CGFloat h = 0;
-    if (WIDTH==320) {
-        h = 86;
-    }else if(WIDTH==375){
-        h = 140;
-    }else if(WIDTH==414){
-        h = 176;
-    }
     //添加背景
-    hud = [[YHHud alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT-(134+h))];
+    hud = [[YHHud alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT-79)];
     [[UIApplication sharedApplication].keyWindow addSubview:hud];
     NSString *imgStr = [NSString stringWithFormat:@"course_%@",str];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imgStr]];
@@ -109,7 +101,7 @@ static YHHud *hud = nil;
     imageView.bounds = CGRectMake(0, 0, 100, 100);
     [hud addSubview:imageView];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(WIDTH/2.0-50, hud.center.y+58, 100, 15)];
-    titleLabel.text = [str isEqualToString:@"right"] ? @"答对了！" :@"答错了！";
+    titleLabel.text = [str isEqualToString:@"right"] ? @"答对了!" :@"答错了!";
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.font = [UIFont systemFontOfSize:15.0f];
@@ -150,7 +142,7 @@ static YHHud *hud = nil;
     [[UIApplication sharedApplication].keyWindow addSubview:hud];
     
     UIView * customView = [[UIView alloc]initWithFrame:CGRectMake(WIDTH/2-75, HEIGHT/2-50, 150, 100)];
-    customView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor colorWithRed:0 green:0 blue:0 alpha:0.5],[UIColor colorWithRed:19/255.0 green:34/255.0 blue:73/255.0 alpha:0.5],RED);
+    customView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     [hud addSubview:customView];
     customView.layer.masksToBounds = YES;
     customView.layer.cornerRadius=6.0f;
