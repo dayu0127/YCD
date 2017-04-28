@@ -13,8 +13,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.selectedBackgroundView = [[UIView alloc]initWithFrame:self.frame];
-    self.selectedBackgroundView.backgroundColor = D_CELL_SELT;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

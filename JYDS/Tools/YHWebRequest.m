@@ -7,8 +7,8 @@
 //
 
 #import "YHWebRequest.h"
-#import "AppDelegate.h"
 #import <UIKit/UIKit.h>
+#import <UIImageView+WebCache.h>
 @implementation YHWebRequest
 + (AFHTTPSessionManager *)shareManager{
     static AFHTTPSessionManager *manager;
@@ -39,26 +39,40 @@
                              parameters:(nullable NSDictionary *)parameters
                                  success:(nullable void(^)(id _Nonnull json))success
                                    failure:(nullable void (^)(NSError *_Nonnull error))failure {
-    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    if (app.isReachable == NO) {
-        [YHHud showWithMessage:@"断网了"];
-    }else{
-        //字符串处理
-        NSString * string =[URLString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:URLString]];
-        // 参数转成JSON
-        NSDictionary *paramDic = nil;
-        if (parameters!=nil) {
-            paramDic = @{@"paramStr":[NSString dictionaryToJson:parameters]};
-        }
-        [[YHWebRequest shareManager] POST:string parameters:paramDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task,id _Nullable responseObject) {
-            if (success) {
-                success([NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil]);
-            }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError *_Nonnull error) {
-            if (failure) {
-                failure(error);
-            }
-        }];
+    //字符串处理
+    NSString * string =[URLString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:URLString]];
+    // 参数转成JSON
+    NSDictionary *paramDic = nil;
+    if (parameters!=nil) {
+        paramDic = @{@"paramStr":[NSString dictionaryToJson:parameters]};
     }
+    [[YHWebRequest shareManager] POST:string parameters:paramDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task,id _Nullable responseObject) {
+        NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil];
+        if ([jsonDic[@"code"] integerValue] == 103) {
+            [YHHud showWithMessage:jsonDic[@"message"]];
+            //清空token
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"token"];
+            //清空个人信息
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfo"];
+            //清除个人点赞
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"likesDic"];
+            //清除缓存
+            [[SDImageCache sharedImageCache] clearDisk];
+            [[SDImageCache sharedImageCache] clearMemory];//可有可无
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
+                [app.window setRootViewController:loginVC];
+                [app.window makeKeyWindow];
+            });
+        } else if (success) {
+            success([NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil]);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError *_Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
 }
 @end

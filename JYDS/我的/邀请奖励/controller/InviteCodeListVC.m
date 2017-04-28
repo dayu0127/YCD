@@ -41,6 +41,7 @@
 //    } failure:^(NSError * _Nonnull error) {
 //        NSLog(@"%@",error);
 //    }];
+    [self loadTableView];
     _pageIndex = 1;
     [self loadDataWithRefreshStatus:UITableViewRefreshStatusAnimation pageIndex:_pageIndex];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -51,6 +52,7 @@
         _pageIndex++;
         [self loadDataWithRefreshStatus:UITableViewRefreshStatusFooter pageIndex:_pageIndex];
     }];
+    
 }
 - (void)loadDataWithRefreshStatus:(UITableViewRefreshStatus)status pageIndex:(NSInteger)pageIndex{
     if (status==UITableViewRefreshStatusAnimation) {
@@ -69,9 +71,7 @@
             _jsonData = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             NSArray *resultArray =  _jsonData[@"invitationList"];
             if (status == UITableViewRefreshStatusAnimation || status == UITableViewRefreshStatusHeader) {
-                if (_tableView==nil) {
-                    [self loadTableView];
-                }
+                _tableView.alpha = 1;
                 _inviteList = [NSMutableArray arrayWithArray:resultArray];
                 [_tableView reloadData];
                 if (status==UITableViewRefreshStatusHeader) {
@@ -86,7 +86,7 @@
                 [self.tableView.mj_footer endRefreshing];
             }
         }else if([json[@"code"] integerValue] == 106){
-            if (_pageIndex==1) {
+            if (_inviteList.count == 0) {
                 [self loadNoInviteView:@"您还未邀请过小伙伴，快去邀请吧！"];
             }else{
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
@@ -120,6 +120,7 @@
     [self.view addSubview:_tableView];
     [_tableView registerNib:[UINib nibWithNibName:@"InviteTitleCell" bundle:nil] forCellReuseIdentifier:@"InviteTitleCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"InviteCell" bundle:nil] forCellReuseIdentifier:@"InviteCell"];
+    _tableView.alpha = 0;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _inviteList.count+1;

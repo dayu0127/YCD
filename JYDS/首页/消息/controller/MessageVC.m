@@ -11,6 +11,8 @@
 @interface MessageVC ()<UITableViewDelegate,UITableViewDataSource,MessageCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) NSArray *noticeList;
+@property (copy,nonatomic) NSString *messageTitle;
+@property (copy,nonatomic) NSString *messageUrl;
 @end
 
 @implementation MessageVC
@@ -47,6 +49,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessageCell" forIndexPath:indexPath];
     [cell setModel:_noticeList[indexPath.row]];
+    _messageTitle = _noticeList[indexPath.row][@"n_title"];
+    _messageUrl = _noticeList[indexPath.row][@"n_content"];
     cell.delegate = self;
     return cell;
 }
@@ -54,7 +58,12 @@
     [self messageDetail];
 }
 - (void)messageDetail{
-    [self performSegueWithIdentifier:@"toMessageDetail" sender:self];
+    BaseNavViewController *messageDetailVC = [[BaseNavViewController alloc] init];
+    messageDetailVC.isShowShareBtn = NO;
+    messageDetailVC.navTitle = _messageTitle;
+    messageDetailVC.linkUrl = _messageUrl;
+    messageDetailVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:messageDetailVC animated:YES];
 }
 /*
 #pragma mark - Navigation

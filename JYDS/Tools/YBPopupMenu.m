@@ -224,7 +224,7 @@ UITableViewDataSource
         _titles = titles;
         _icons  = icons;
         _dismissOnSelected = YES;
-        _fontSize = 15.0;
+        _fontSize = 13.0;
         _textColor = [UIColor blackColor];
         _offset = 0.0;
         _type = YBPopupMenuTypeDefault;
@@ -333,23 +333,33 @@ UITableViewDataSource
     if (!cell) {
         cell = [[YBPopupMenuCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
     }
+    cell.textLabel.text = @"";
     cell.backgroundColor = [UIColor clearColor];
-    cell.textLabel.textColor = _textColor;
-    cell.textLabel.font = [UIFont systemFontOfSize:_fontSize];
-    cell.textLabel.text = _titles[indexPath.row];
-    cell.textLabel.textAlignment = NSTextAlignmentCenter;
+//    cell.textLabel.textColor = _textColor;
+//    cell.textLabel.font = [UIFont systemFontOfSize:_fontSize];
+//    cell.textLabel.text = _titles[indexPath.row];
+//    cell.textLabel.textAlignment = NSTextAlignmentCenter;
     cell.separatorColor = _separatorColor;
-    if (_icons.count >= indexPath.row + 1) {
-        if ([_icons[indexPath.row] isKindOfClass:[NSString class]]) {
-            cell.imageView.image = [UIImage imageNamed:_icons[indexPath.row]];
-        }else if ([_icons[indexPath.row] isKindOfClass:[UIImage class]]){
-            cell.imageView.image = _icons[indexPath.row];
-        }else {
-            cell.imageView.image = nil;
-        }
-    }else {
-        cell.imageView.image = nil;
-    }
+//    if (_icons.count >= indexPath.row + 1) {
+//        if ([_icons[indexPath.row] isKindOfClass:[NSString class]]) {
+//            cell.imageView.image = [UIImage imageNamed:_icons[indexPath.row]];
+//        }else if ([_icons[indexPath.row] isKindOfClass:[UIImage class]]){
+//            cell.imageView.image = _icons[indexPath.row];
+//        }else {
+//            cell.imageView.image = nil;
+//        }
+//    }else {
+//        cell.imageView.image = nil;
+//    }
+    UILabel *titleLab = [UILabel new];
+    [cell.contentView addSubview:titleLab];
+    titleLab.textColor = _textColor;
+    titleLab.font = [UIFont systemFontOfSize:_fontSize];
+    titleLab.text = _titles[indexPath.row];
+    titleLab.textAlignment = NSTextAlignmentCenter;
+    [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(cell.contentView);
+    }];
     return cell;
 }
 

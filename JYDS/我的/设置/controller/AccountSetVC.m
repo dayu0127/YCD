@@ -11,6 +11,7 @@
 #import "SetCell0.h"
 #import <UMSocialCore/UMSocialCore.h>
 #import "BingingPhoneVC.h"
+#import <UIImageView+WebCache.h>
 @interface AccountSetVC ()<UITableViewDataSource,UITableViewDelegate,BingingPhoneVCDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -52,38 +53,45 @@
     // Dispose of any resources that can be recreated.
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSString *phoneNum = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"][@"phoneNum"];
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
     if (indexPath.row == 0) {
-        [self performSegueWithIdentifier:@"toModifyPwdVC" sender:self];
+        if ([phoneNum isEqualToString:@""]&&token == nil) {
+            [YHHud showWithMessage:@"请先绑定手机"];
+        }else{
+            [self performSegueWithIdentifier:@"toModifyPwdVC" sender:self];
+        }
     }else if (indexPath.row == 1) {//手机号绑定
-        if ([self.phoneNum isEqualToString:@""]) {
+        if ([phoneNum isEqualToString:@""]&&token == nil) {
             [self performSegueWithIdentifier:@"toBingingPhone" sender:self];
         }
     }else if (indexPath.row == 2) {//微信绑定
         if ([self.associatedWx isEqualToString:@""]) {
-            NSString *phoneNum = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"][@"phoneNum"];
-            NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
-            if ([phoneNum isEqualToString:@""]&&[token isEqualToString:@""]) {
-                [YHHud showWithMessage:@"请先绑定手机号"];
+            if ([phoneNum isEqualToString:@""]&&token == nil) {
+                [YHHud showWithMessage:@"请先绑定手机"];
             }else{
                 [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:nil completion:^(id result, NSError *error) {
                     if (error) {
                         NSLog(@"%@",error);
                     } else {
                         UMSocialUserInfoResponse *resp = result;
-                        //                {
-                        //                    "phoneNum":"13300001111",       #用户手机号
-                        //                    "token: "zzzzzz",               #令牌
-                        //                    "associatedWx":"dfdsfsdfsdf",   #第三方绑定的uid 唯一标识
-                        //                    "country":"",                   #国家（选填）
-                        //                    "province":"",                  #省市（选填）
-                        //                    "city":"",                      #城市（选填）
-                        //                    "genter":""                     #性别 1男 0女  （选填）
-                        //
-                        //                }
+//                        {
+//                            "phoneNum":"13300001111",       #用户手机号
+//                            "token: "zzzzzz",               #令牌
+//                            "associatedWx":"dfdsfsdfsdf",   #第三方绑定的uid 唯一标识
+//                            "country":"",                   #国家（选填）
+//                            "province":"",                  #省市（选填）
+//                            "city":"",                      #城市（选填）
+//                            "genter":""                     #性别 1男 0女  （选填）
+//        
+//                        }
                         NSString *associatedWx = resp.uid;
-                        NSDictionary *jsonDic = @{@"phoneNum":self.phoneNum,      // #用户手机号
-                                                  @"token":self.token,            //   #令牌
-                                                  @"associatedWx":associatedWx};  // #第三方绑定的uid 唯一标识
+                        NSDictionary *jsonDic = @{
+                            @"phoneNum":self.phoneNum,      // #用户手机号
+                            @"token":self.token,            //   #令牌
+                            @"associatedWx":associatedWx  // #第三方绑定的uid 唯一标识
+                        };
                         [YHWebRequest YHWebRequestForPOST:kBindingWX parameters:jsonDic success:^(NSDictionary *json) {
                             if ([json[@"code"] integerValue] == 200) {
                                 [YHHud showWithSuccess:@"绑定成功"];
@@ -113,20 +121,20 @@
 //            
 //        }
         if ([self.associatedQq isEqualToString:@""]) {
-            NSString *phoneNum = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"][@"phoneNum"];
-            NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
-            if ([phoneNum isEqualToString:@""]&&[token isEqualToString:@""]) {
-                [YHHud showWithMessage:@"请先绑定手机号"];
+            if ([phoneNum isEqualToString:@""]&&token == nil) {
+                [YHHud showWithMessage:@"请先绑定手机"];
             }else{
                 [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_QQ currentViewController:nil completion:^(id result, NSError *error) {
                     if (error) {
-                        
+                        NSLog(@"%@",error);
                     } else {
                         UMSocialUserInfoResponse *resp = result;
                         NSString *associatedQq = resp.uid;
-                        NSDictionary *jsonDic = @{@"phoneNum":self.phoneNum,      // #用户手机号
-                                                  @"token":self.token,            //   #令牌
-                                                  @"associatedQq":associatedQq};  // #第三方绑定的uid 唯一标识
+                        NSDictionary *jsonDic = @{
+                            @"phoneNum":self.phoneNum,      // #用户手机号
+                            @"token":self.token,            //   #令牌
+                            @"associatedQq":associatedQq  // #第三方绑定的uid 唯一标识
+                        };
                         [YHWebRequest YHWebRequestForPOST:kBindingQQ parameters:jsonDic success:^(NSDictionary *json) {
                             NSLog(@"%@",json);
                             if ([json[@"code"] integerValue] == 200) {
@@ -153,6 +161,11 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"token"];
     //清空个人信息
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfo"];
+    //清除个人点赞
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"likesDic"];
+    //清除缓存
+    [[SDImageCache sharedImageCache] clearDisk];
+    [[SDImageCache sharedImageCache] clearMemory];//可有可无
     //改变登录状态
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isLogin"];
     //跳转到登录页面
@@ -164,11 +177,7 @@
 }
 
 #pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"toBingingPhone"]) {
         BingingPhoneVC *bingingPhoneVC = segue.destinationViewController;
         bingingPhoneVC.delegate = self;
@@ -179,5 +188,4 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
     [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
-
 @end

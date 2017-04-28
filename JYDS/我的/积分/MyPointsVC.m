@@ -21,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self loadTableView];
     _pageIndex = 1;
     [self loadDataWithRefreshStatus:UITableViewRefreshStatusAnimation pageIndex:_pageIndex];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -75,9 +76,7 @@
             _jsonData = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             NSArray *resultArray =  _jsonData[@"pointsList"];
             if (status == UITableViewRefreshStatusAnimation || status == UITableViewRefreshStatusHeader) {
-                if (_tableView==nil) {
-                    [self loadTableView];
-                }
+                self.tableView.alpha = 1;
                 _pointsList = [NSMutableArray arrayWithArray:resultArray];
                 [_tableView reloadData];
                 if (status==UITableViewRefreshStatusHeader) {
@@ -92,7 +91,7 @@
                 [self.tableView.mj_footer endRefreshing];
             }
         }else if([json[@"code"] integerValue] == 106){
-            if (_pageIndex==1) {
+            if (_pointsList.count==0) {
                 [self loadNoPointsView];
             }else{
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
@@ -141,6 +140,7 @@
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_tableView];
     [_tableView registerNib:[UINib nibWithNibName:@"MyPointsCell" bundle:nil] forCellReuseIdentifier:@"MyPointsCell"];
+    _tableView.alpha = 0;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 75.0;

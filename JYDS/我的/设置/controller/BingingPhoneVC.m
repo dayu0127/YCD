@@ -34,6 +34,19 @@
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
+- (IBAction)phoneEditingChanged:(UITextField *)sender {
+    if (sender.text.length==0) {
+        _sureButton.enabled = NO;
+        [_sureButton setTitleColor:GRAYCOLOR forState:UIControlStateNormal];
+        _sureButton.layer.borderColor = LIGHTGRAYCOLOR.CGColor;
+    }else if(sender.text.length>0&&sender.text.length<=11){
+        _sureButton.enabled = YES;
+        [_sureButton setTitleColor:ORANGERED forState:UIControlStateNormal];
+        _sureButton.layer.borderColor = ORANGERED.CGColor;
+    }else {
+        sender.text = [sender.text substringToIndex:11];
+    }
+}
 #pragma mark 获取验证码
 - (IBAction)getCheckCode:(UIButton *)sender {
     //验证码按钮倒计时
@@ -52,10 +65,11 @@
         }
     }];
     NSString *phoneNum = _phoneTxt.text;
-    NSDictionary *jsonDic = @{@"phoneNum" :phoneNum,             // #用户名
-                              @"stype":@"1",               //    #类型  1注册 2登录 3找回密码
-                              @"deviceNum":DEVICEID             //     #设备码（选填）
-                              };
+    NSDictionary *jsonDic = @{
+        @"phoneNum" :phoneNum,             // #用户名
+        @"stype":@"2",               //    #类型  1注册 2登录 3找回密码
+        @"deviceNum":DEVICEID             //     #设备码（选填）
+    };
     [YHWebRequest YHWebRequestForPOST:kSendCheckCode parameters:jsonDic success:^(NSDictionary *json) {
         NSLog(@"%@",json[@"code"]);
         [YHHud showWithMessage:json[@"message"]];
@@ -88,11 +102,13 @@
     }
     NSString *associatedWx = self.associatedWx!=nil ? self.associatedWx : @"";
     NSString *associatedQq = self.associatedQq!=nil ? self.associatedQq : @"";
-    NSDictionary *jsonDic = @{  @"phoneNum":phoneNum,       //#用户手机号
-                                            @"verifyCode":verifyCode,           //#短信验证码      与登陆类型一致
-                                            @"bindingType":bindingType,         //#当前第三方登陆的类型 1qq 2weixin
-                                            @"associatedWx":associatedWx,       //#第三方绑定的uid 唯一标识 (选填)
-                                            @"associatedQq":associatedQq};      //#第三方绑定的uid 唯一标识 (选填)     qq微信必须填一个不能两个都不填！
+    NSDictionary *jsonDic = @{
+        @"phoneNum":phoneNum,       //#用户手机号
+        @"verifyCode":verifyCode,           //#短信验证码      与登陆类型一致
+        @"bindingType":bindingType,         //#当前第三方登陆的类型 1qq 2weixin
+        @"associatedWx":associatedWx,       //#第三方绑定的uid 唯一标识 (选填)
+        @"associatedQq":associatedQq      //#第三方绑定的uid 唯一标识 (选填)     qq微信必须填一个不能两个都不填！
+    };
     [YHWebRequest YHWebRequestForPOST:kBindingPhone parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
             NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);

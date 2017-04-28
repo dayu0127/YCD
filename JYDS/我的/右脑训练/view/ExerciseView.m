@@ -16,10 +16,10 @@
         _totalTime = _time = [LEVELARRAY[level] integerValue];
         //标题
         UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 44)];
-        bgView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_BG,N_CELL_BG,RED);
+        bgView.backgroundColor = D_CELL_BG;
         UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.text = @"练习次数";
-        titleLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+        titleLabel.textColor = DGRAYCOLOR;
         titleLabel.font = [UIFont systemFontOfSize:13.0f];
         [titleLabel sizeToFit];
         titleLabel.center = CGPointMake(bgView.center.x-14, bgView.center.y);
@@ -28,9 +28,9 @@
         numLabel.layer.masksToBounds = YES;
         numLabel.layer.cornerRadius = 6.0f;
         numLabel.textAlignment = NSTextAlignmentCenter;
-        numLabel.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor darkGrayColor],[UIColor whiteColor],RED);
+        numLabel.backgroundColor = [UIColor darkGrayColor];
         numLabel.text = [NSString stringWithFormat:@"%02zd",num];
-        numLabel.dk_textColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],RED);
+        numLabel.textColor = [UIColor whiteColor];
         numLabel.font = [UIFont systemFontOfSize:13.0f];
         [bgView addSubview:numLabel];
         [self addSubview:bgView];
@@ -40,7 +40,7 @@
         
         //mainView
         UIView *mainView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(line.frame), WIDTH, frame.size.height-CGRectGetMaxY(line.frame))];
-        mainView.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
+        mainView.backgroundColor = D_BG;
         //time
         UIImage *clock = [UIImage imageNamed:@"exer_clock"];
         UIImageView *clockImageView = [[UIImageView alloc] initWithFrame:CGRectMake(80*WIDTH/375.0, 48, clock.size.width, clock.size.height)];
@@ -96,7 +96,7 @@
         [currentNumBgImageView addSubview:_currentNumLabel];
         //上一个数字
         _preNumLabel =  [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(currentNumBgImageView.frame)-24-60, self.center.y-18, 60, 36)];
-        _preNumLabel.dk_textColorPicker = DKColorPickerWithColors(SEPCOLOR,[UIColor whiteColor],RED);
+        _preNumLabel.textColor = SEPCOLOR;
         _preNumLabel.textAlignment = NSTextAlignmentCenter;
         _preNumLabel.font = [UIFont systemFontOfSize:36.0];
         _preNumLabel.layer.shadowColor = RGB(231, 231, 231).CGColor;
@@ -106,7 +106,7 @@
         [self addSubview:_preNumLabel];
         //下一个数字
         _nextNumLabel =  [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(currentNumBgImageView.frame)+24, self.center.y-18, 60, 36)];
-        _nextNumLabel.dk_textColorPicker = DKColorPickerWithColors(SEPCOLOR,[UIColor whiteColor],RED);
+        _nextNumLabel.textColor = SEPCOLOR;
         _nextNumLabel.textAlignment = NSTextAlignmentCenter;
         _nextNumLabel.font = [UIFont systemFontOfSize:36.0];
         _nextNumLabel.text = _numArray[1];

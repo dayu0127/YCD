@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseWKWebView.h"
+#import <WebKit/WebKit.h>
 #import "ExerciseDelegate.h"
-@interface ResultView : UIView
+@interface ResultView : UIView<WKNavigationDelegate>
 @property (weak,nonatomic) id<ExerciseDelegate> delegate;
-@property (strong,nonatomic) BaseWKWebView *wkWebView;
+@property (strong,nonatomic) WKWebView *wkWebView;
+@property (strong,nonatomic) UIButton *continueButton;
+@property (strong,nonatomic) UIButton *backButton;
 - (instancetype)initWithFrame:(CGRect)frame imageNameArray:(NSArray *)arr;
 @end

@@ -29,10 +29,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(initSet) name:@"initSet" object:nil];
-    [self initSet];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(initSet:) name:@"initSet" object:nil];
+    [self initSet:nil];
 }
-- (void)initSet{
+- (void)initSet:(NSNotification *)sender{
+    if (sender.userInfo[@"exerciseCount"]!=nil) {
+        _exerciseCount = [sender.userInfo[@"exerciseCount"] integerValue];
+    }
     _index = 0;
     //初始化错误数字数组
     _errorNumArray = [NSMutableArray array];
@@ -40,14 +43,24 @@
     _exerciseCountLabel.text = [NSString stringWithFormat:@"练习次数 %02zd",_exerciseCount];
     //总时间和初始时间
     _totalTime = _time = [LEVELARRAY[_level-1] integerValue];
-    //生成20对 0到00 的数字(0,1,2,...,9,10,11,...,98,99,00)
+    //    NSMutableArray *arr = [NSMutableArray array];
+    //    for (NSString *str in _errorNumArray) {
+    //        if (![arr containsObject:str]) {
+    //            [arr addObject:str];
+    //        }
+    //    }
+    //生成不重复的20对 0到00 的数字(0,1,2,...,9,10,11,...,98,99,00)
     _numArray = [NSMutableArray array];
-    for (NSInteger i = 0; i<20; i++) {
+    while(_numArray.count<20){
         int num = arc4random()%101;
+        NSString *numStr;
         if (num == 100) {
-            [_numArray addObject:@"00"];
+            numStr = @"00";
         }else{
-            [_numArray addObject:[NSString stringWithFormat:@"%d",num]];
+            numStr = [NSString stringWithFormat:@"%d",num];
+        }
+        if (![_numArray containsObject:numStr]) {
+            [_numArray addObject:numStr];
         }
     }
     //初始时间显示

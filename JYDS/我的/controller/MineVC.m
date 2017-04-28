@@ -123,6 +123,7 @@
     [app.window makeKeyWindow];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section ==0) { //积分
         _cell = [tableView dequeueReusableCellWithIdentifier:@"TopCell" forIndexPath:indexPath];
         _cell.selectionStyle = UITableViewCellSelectionStyleNone;

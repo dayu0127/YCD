@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ChooseLevelVC : UIViewController
+@interface ChooseLevelVC : BaseViewController
 @property (assign,nonatomic) NSInteger level;
 @end

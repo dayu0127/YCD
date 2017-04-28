@@ -11,7 +11,6 @@
 #import "AppDelegate.h"
 @interface UserGuideViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-//@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong,nonatomic) UIButton *entryButton;
 @end
 
@@ -62,7 +61,6 @@
         [_scrollView addSubview:imageView];
     }
 }
-
 - (void)entryRootVC{
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;

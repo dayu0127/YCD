@@ -19,4 +19,5 @@
 @property (weak, nonatomic) IBOutlet UIView *sepLine;
 @property (weak, nonatomic) id<CommentCellDelegate> delegate;
 - (void)addModelWithDic:(NSDictionary *)dic;
+
 @end

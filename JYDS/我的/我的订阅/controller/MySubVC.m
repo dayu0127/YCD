@@ -20,7 +20,7 @@
     // Do any additional setup after loading the view.
     [_tableView registerNib:[UINib nibWithNibName:@"MySubCell" bundle:nil] forCellReuseIdentifier:@"MySubCell"];
     _arr = @[@{@"img":@"mysub_course",@"title":@"已订阅记忆法课程"},
-                @{@"img":@"mysub_word",@"title":@"已订阅学课记忆"}];
+                @{@"img":@"mysub_word",@"title":@"已订阅课程记忆"}];
 }
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -28,13 +28,14 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 2;
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{\
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MySubCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MySubCell" forIndexPath:indexPath];
     cell.img.image = [UIImage imageNamed:_arr[indexPath.row][@"img"]];
     cell.tile.text = _arr[indexPath.row][@"title"];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 0) { //记忆法
         [self performSegueWithIdentifier:@"toMySubMemoryList" sender:self];
     }else{  //k12

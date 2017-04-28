@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ResultVC : UIViewController
+@interface ResultVC : BaseViewController
 @property (strong,nonatomic) NSArray *errorNumArray;
 @property (assign,nonatomic) NSInteger level;
 @property (assign,nonatomic) NSInteger exerciseCount;

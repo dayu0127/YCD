@@ -7,11 +7,9 @@
 //
 #ifndef JYDSPrefixHeader_pch
 #define JYDSPrefixHeader_pch
-#import <DKNightVersion/DKNightVersion.h>
 #import "BaseViewController.h"
 #import "BaseNavViewController.h"
 #import <JCAlertView.h>
-#import "YHAlertView.h"
 #import "YHHud.h"
 #import "YHWebRequest.h"
 #import <YYModel.h>
@@ -19,11 +17,11 @@
 #import "YHSingleton.h"
 #import "AppDelegate.h"
 #import "LoginNC.h"
-#import "MJChiBaoZiHeader.h"
 #import <MJRefresh.h>
 #import <Masonry.h>
 #import "NSDictionary+FromNSString.h"
 #import "NSString+FromNSDictionary.h"
+#import "BaseCell.h"
 //屏幕高宽
 #define WIDTH [UIScreen mainScreen].bounds.size.width
 #define HEIGHT [UIScreen mainScreen].bounds.size.height
@@ -66,7 +64,7 @@
 #define PHONE_RE @"^((13[0-9])|(14[5,7,9])|(15[^4,\\D])|(17[0,1,3,5-8])|(18[0,5-9]))\\d{8}$" //手机号
 #define CHECHCODE_RE @"^\\d{4}$" //验证码
 #define PWD_RE @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$" //密码
-#define NICK_RE @"^([\u4e00-\u9fa5]|\\w){1,12}$"  //昵称
+#define NICK_RE @"^([\u4e00-\u9fa5]|[A-Za-z0-9]){1,8}$"  //昵称
 #define NUM_RE @"^[1-9]\\d*$"  //数字
 #define LETTER_RE @"^[A-Za-z]+$" //英文字母
 //验证码倒计时时间
@@ -150,6 +148,7 @@
 #define kWordFlip API(@"/study/wordFlip")      //单词翻页
 #define kPlayNum API(@"/common/addPlayNum")      //视频播放次数增加
 #define kSelectWord API(@"/study/selectWord")      //单词查询
+#define kGetShare API(@"/common/getShare")      //分享内容
 
 //练习题等级数组
 #define LEVELARRAY @[@"60",@"50",@"40",@"30",@"25",@"20",@"15",@"13",@"10"]
@@ -160,7 +159,7 @@
 #define DEVICEID [[[UIDevice currentDevice] identifierForVendor] UUIDString]
 //签到详情
 //#define kSignIn(phoneNum) [NSString stringWithFormat:@"https://www.jydsapp.com/jydsApi/h5/sign.html?userPhone=%@",phoneNum]
-#define kShareRegister(phoneNum) [NSString stringWithFormat:@"https://www.jydsapp.com/jydsApi/h5/register.html?userPhone=%@",phoneNum]
+//#define kShareRegister(phoneNum) [NSString stringWithFormat:@"https://www.jydsapp.com/jydsApi/h5/register.html?userPhone=%@",phoneNum]
 //消息详情
 #define kMessageDetail @"https://www.jydsapp.com/jydsApi/h5/noticePage.html"
 //邀请奖励
@@ -178,6 +177,8 @@
 #define kMemoryImages @"https://www.jydsapp.com/jydsApi/h5/image_memory.html"
 //练习结果
 #define kExerciseResult @"https://www.jydsapp.com/jydsApi/h5/image_memory.html?para="
+//记忆法简介
+#define kMemoryIntroduce @"http://www.jydsapp.com/jydsApi/h5/memory.html"
 
 //橙红色
 #define ORANGERED RGB(254,81,74) //#FE514A
@@ -195,6 +196,8 @@
 #define SUBEDCOLOR RGB(57,196,130)  //#39C482
 //绿色
 #define GREENCOLOR RGB(57,196,130) //#39C482
+//Cell选中背景色
+#define kCellBg RGB(229,230,231) //#E5E6E7
 
 typedef NS_ENUM(NSInteger, UITableViewRefreshStatus) {
     UITableViewRefreshStatusAnimation,   //刷新动画

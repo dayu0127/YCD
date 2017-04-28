@@ -103,15 +103,11 @@
     [sender setTitleColor:ORANGERED forState:UIControlStateNormal];
     sender.selected = NO;
 }
-#pragma mark 点击登录
+#pragma mark 密码登录
 - (IBAction)loginButtonClick:(UIButton *)sender {
     if (REGEX(PHONE_RE, _phoneText.text)==NO) {
         [YHHud showWithMessage:@"请输入有效的11位手机号"];
-    }
-//    else if (REGEX(PWD_RE, _pwdTxt.text)==NO){
-//        [YHHud showWithMessage:@"请输入6~15位字母+数字组合的密码"];
-//    }
-    else{
+    }else{
         //    {
         //        "phoneNum":"13300001111",#手机号
         //        "password":"123456",     #密码
@@ -126,14 +122,14 @@
         NSString *phoneNum = _phoneText.text;
         NSString *password = _pwdTxt.text;
         NSDictionary *jsonDic = @{
-                                  @"phoneNum" :phoneNum,             // #用户名
-                                  @"password":password,               //    #密码
-                                  @"deviceNum":DEVICEID,    //#设备码（选填）
-                                  };
+            @"phoneNum" :phoneNum,             // #用户名
+            @"password":password,               //    #密码
+            @"deviceNum":DEVICEID,    //#设备码（选填）
+        };
         [YHWebRequest YHWebRequestForPOST:kPwdLogin parameters:jsonDic success:^(NSDictionary *json) {
             [YHHud dismiss];
             if ([json[@"code"] integerValue] == 200) {
-                NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
+//                NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
                 //改变我的页面，显示头像,昵称和手机号
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
                 NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
@@ -142,7 +138,6 @@
                 //保存用户信息
                 [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
                 [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
-
                 //保存登录保存登录状态
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
                 //登录成功跳转首页
@@ -169,17 +164,10 @@
 - (void)autoFillUserName:(NSString *)userName{
     _phoneText.text = userName;
 }
-//- (IBAction)visitorsToLogin:(id)sender {
-//    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//    RootTabBarController *rootTBC = [sb instantiateViewControllerWithIdentifier:@"root"];
-//    [app.window setRootViewController:rootTBC];
-//    [app.window makeKeyWindow];
-//}
 - (IBAction)qqLogin:(id)sender {
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_QQ currentViewController:nil completion:^(id result, NSError *error) {
         if (error) {
-            
+            NSLog(@"%@",error);
         } else {
             UMSocialUserInfoResponse *resp = result;
             
@@ -206,14 +194,23 @@
 //                "nickName":"Winner.z"           #昵称(选填)
 //            }
             NSString *associatedQq = resp.uid;
-            NSString *genter = resp.gender;
-            NSString *nickName = resp.name;
-            NSDictionary *jsonDic = @{@"associatedQq" :associatedQq,             // #第三方绑定的uid 唯一标识
-                                                  @"genter":genter,
-                                                  @"nickName":nickName};               //   #性别 1男 0女  （选填
+//            NSString *genter;
+//            NSLog(@"%@",resp.gender);
+//            if ([resp.gender isEqualToString:@"男"]) {
+//                genter = @"1";
+//            }else if([resp.gender isEqualToString:@"女"]){
+//                genter = @"0";
+//            }
+//            NSString *nickName = resp.name;
+            NSDictionary *jsonDic = @{
+                @"associatedQq" :associatedQq             // #第三方绑定的uid 唯一标识
+//                @"genter":genter,       //   #性别 1男 0女  （选填
+//                @"nickName":nickName        //昵称
+            };
             [YHWebRequest YHWebRequestForPOST:kQQLogin parameters:jsonDic success:^(NSDictionary *json) {
+                NSLog(@"%@",json);
                 if ([json[@"code"] integerValue] == 200) {
-                    NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
+//                    NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
                     //改变我的页面，显示头像,昵称和手机号
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
                     NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
@@ -227,7 +224,9 @@
                     //改变登录状态
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
                     [YHHud showWithSuccess:@"登录成功"];
-                    [self returnToHome];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self returnToHome];
+                    });
                 }else{
                     NSLog(@"%@",json[@"code"]);
                     [YHHud showWithMessage:json[@"message"]];
@@ -241,7 +240,7 @@
 - (IBAction)weChatLogin:(id)sender {
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:nil completion:^(id result, NSError *error) {
         if (error) {
-            
+            NSLog(@"%@",error);
         } else {
             UMSocialUserInfoResponse *resp = result;
             
@@ -268,14 +267,19 @@
 //                "genter":""                     #性别 1男 0女  （选填）
 //            }
             NSString *associatedWx = resp.uid;
-            NSString *genter = resp.gender;
-            NSString *nickName = resp.name;
-            NSDictionary *jsonDic = @{@"associatedWx" :associatedWx,             // #第三方绑定的uid 唯一标识
-                                                  @"genter":genter,               //   #性别 1男 0女  （选填
-                                                  @"nickName":nickName};
+//            NSString *genter;
+//            if ([resp.gender isEqualToString:@"男"]) {
+//                genter = @"1";
+//            }else if([resp.gender isEqualToString:@"女"]){
+//                genter = @"0";
+//            }
+//            NSString *nickName = resp.name;
+            NSDictionary *jsonDic = @{
+                @"associatedWx" :associatedWx             // #第三方绑定的uid 唯一标识
+            };
             [YHWebRequest YHWebRequestForPOST:kWXLogin parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {
-                    NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
+//                    NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
                     //改变我的页面，显示头像,昵称和手机号
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
                     NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
@@ -289,7 +293,9 @@
                     //改变登录状态
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
                     [YHHud showWithSuccess:@"登录成功"];
-                    [self returnToHome];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self returnToHome];
+                    });
                 }else{
                     NSLog(@"%@",json[@"code"]);
                     [YHHud showWithMessage:json[@"message"]];

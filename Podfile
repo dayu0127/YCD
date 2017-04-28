@@ -5,7 +5,6 @@ target 'JYDS' do
 pod 'AFNetworking'
 pod 'SDWebImage'
 pod 'SDCycleScrollView'
-pod 'DKNightVersion'
 pod 'JCAlertView'
 pod 'UMengUShare/UI'
 pod 'UMengUShare/Social/Sina'
@@ -13,8 +12,6 @@ pod 'UMengUShare/Social/WeChat'
 pod 'UMengUShare/Social/QQ'
 pod 'MJRefresh'
 pod 'ZFPlayer'
-pod 'MOBFoundation_IDFA'
-pod 'SMSSDK'
 pod 'YYModel'
 
 end

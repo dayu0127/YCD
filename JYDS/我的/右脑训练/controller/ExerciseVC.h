@@ -10,7 +10,7 @@
 @protocol ExerciseVCDelegate<NSObject>
 - (void)setLevel:(NSInteger)level;
 @end
-@interface ExerciseVC : UIViewController
+@interface ExerciseVC : BaseViewController
 @property (assign,nonatomic) NSInteger level;
 @property (assign,nonatomic) NSInteger exerciseCount;
 @property (assign,nonatomic) NSInteger index;

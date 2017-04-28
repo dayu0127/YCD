@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TopCell : UITableViewCell
+@interface TopCell : BaseCell
 @property (weak, nonatomic) IBOutlet UILabel *pointsLabel;
 @end

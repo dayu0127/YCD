@@ -14,7 +14,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        //背景图0
+        //背景图
         UIImageView *topImageView = [UIImageView new];
         topImageView.image = [UIImage imageNamed:@"mine_top"];
         topImageView.userInteractionEnabled = YES;
@@ -24,7 +24,6 @@
         }];
         //头像
         _headImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//        _headImageButton.imageView.image = [UIImage imageNamed:@"mine_headimage"];
         [_headImageButton setImage:[UIImage imageNamed:@"mine_headimage"] forState:UIControlStateNormal];
         _headImageButton.layer.masksToBounds = YES;
         _headImageButton.layer.cornerRadius = 33.5f;

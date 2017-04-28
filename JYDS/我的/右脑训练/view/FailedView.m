@@ -17,11 +17,11 @@
 }
 - (void)awakeFromNib{
     [super awakeFromNib];
-    self.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
-    for (UILabel *label in _labelCollection) {
-        label.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    }
-    _continueButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
+//    self.dk_backgroundColorPicker = DKColorPickerWithColors(D_BG,N_BG,RED);
+//    for (UILabel *label in _labelCollection) {
+//        label.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+//    }
+//    _continueButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
 }
 - (void)updateConstraints{
     [super updateConstraints];
@@ -29,6 +29,6 @@
     _verticalSpacing1.constant = self.frame.size.height*22/603.0;
     _verticalSpacing2.constant = self.frame.size.height*30/603.0;
     _verticalSpacing3.constant =self.frame.size.height*14/603.0;
-    _buttomHeight.constant = self.frame.size.height*73/603.0;
+    _buttomHeight.constant = self.frame.size.height*25/603.0;
 }
 @end

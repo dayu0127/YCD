@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>DKNightVersion.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>JCAlertView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,52 +52,47 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>04CF549EBEEE7BC87AEAE35397184D94</key>
+		<key>14206ED9681DD5E2614D163F09CF6859</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>64EE1DFFE31D41C73822A3B730DEDABA</key>
+		<key>214070BF785AD292FA78699235629BC5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6DA668E0C2935DAAE25FA0708910B856</key>
+		<key>32DEF64546320E2C35950D1553E9DF99</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>76E6F4463B0CAF1565F5402D8422FE51</key>
+		<key>3DCFBBFD4FD876F3E54957472898F808</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9DC8D9E02903E93BD0B2FEC9D846EA20</key>
+		<key>60D906780895F59B9B42B5E5700CFE1C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9E033EDB5EC0819481B0546434FA577B</key>
+		<key>72718FDE22B920135EFB575EE2C24FCC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B32F9D7401634E0647B51C68D2F605F5</key>
+		<key>9F85A41AEB2CCB56ACDA370DF8DDB444</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B442DC60FB29DC1597843AFCD9FAD7F5</key>
+		<key>A39AAF3454A4924B36CA82BB9498438B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B46184DE6B3A8503498C74F1E3D2C1A4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FFF4C5A7050DAD54943AB4467A62841A</key>
+		<key>FE6D95AF027D1AC7FA0FAC17EE7FFDF0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

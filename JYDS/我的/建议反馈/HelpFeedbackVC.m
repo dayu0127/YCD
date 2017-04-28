@@ -24,8 +24,8 @@
     _textView.font = [UIFont systemFontOfSize:13.0f];
     _textView.delegate = self;
     _textView.layer.borderWidth = 1;
-    _textView.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    _textView.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],[UIColor blackColor],[UIColor redColor]);
+    _textView.textColor = DGRAYCOLOR;
+    _textView.backgroundColor = [UIColor whiteColor];
     _textView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     _textView.layer.masksToBounds = YES;
     _textView.layer.cornerRadius = 6.0f;

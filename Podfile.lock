@@ -14,29 +14,14 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - DKNightVersion (2.4.2):
-    - DKNightVersion/Core (= 2.4.2)
-    - DKNightVersion/CoreAnimation (= 2.4.2)
-    - DKNightVersion/UIKit (= 2.4.2)
-  - DKNightVersion/Core (2.4.2):
-    - DKNightVersion/Core/DeallocBlockExecutor (= 2.4.2)
-    - DKNightVersion/Core/extobjc (= 2.4.2)
-  - DKNightVersion/Core/DeallocBlockExecutor (2.4.2)
-  - DKNightVersion/Core/extobjc (2.4.2)
-  - DKNightVersion/CoreAnimation (2.4.2):
-    - DKNightVersion/Core
-  - DKNightVersion/UIKit (2.4.2):
-    - DKNightVersion/Core
   - JCAlertView (1.1.5)
   - Masonry (1.0.2)
   - MJRefresh (3.1.12)
-  - MOBFoundation_IDFA (2.2.3)
   - SDCycleScrollView (1.65):
     - SDWebImage (~> 3.7)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
-  - SMSSDK (2.0.8)
   - UMengUShare/Core (6.1):
     - UMengUShare/Network
   - UMengUShare/Network (6.1)
@@ -54,13 +39,10 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
-  - DKNightVersion
   - JCAlertView
   - MJRefresh
-  - MOBFoundation_IDFA
   - SDCycleScrollView
   - SDWebImage
-  - SMSSDK
   - UMengUShare/Social/QQ
   - UMengUShare/Social/Sina
   - UMengUShare/Social/WeChat
@@ -70,18 +52,15 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  DKNightVersion: a211bacb8d6a9677722aaf93e292a4e5908490c1
   JCAlertView: c65a7b298b8b497b3db783d82f719b88f4914869
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
-  MOBFoundation_IDFA: bdc119aa1dd48c741d913695dcecfbef350555df
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
-  SMSSDK: 1fc8500bec6bc36b524e4de7fac4acdb784e0217
   UMengUShare: 6c3902a68a06d01031bed6f426e97b89d4fc504f
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   ZFPlayer: c36657da33c28c75dfb100e98e7976b5b3e1fc10
 
-PODFILE CHECKSUM: 3cf5105187e88b8672bf7c477686201249c0fa3f
+PODFILE CHECKSUM: 982f4885342fb2a590819626d1a226641f54d297
 
 COCOAPODS: 1.1.1

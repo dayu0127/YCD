@@ -45,18 +45,28 @@
         _leftButton.alpha = 0;
         _rightButton.alpha = 0;
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, w, h)];
-//        [imageView sd_setImageWithURL:[NSURL URLWithString:netImages[0]] placeholderImage:[UIImage imageNamed:@"banner"]];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:netImages[0]] placeholderImage:[UIImage imageNamed:@"banner"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            NSLog(@"--------------%@",imageURL.absoluteString);
-        }];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:netImages[0]] placeholderImage:[UIImage imageNamed:@"banner"]];
+        imageView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageClick:)];
+        [imageView addGestureRecognizer:tap];
+        UIView *singleTapView = [tap view];
+        singleTapView.tag = 0;
         [_scrollView insertSubview:imageView atIndex:0];
     }else if(_imageCount > 1){
         for (int i = 0; i<_imageCount; i++) {
             UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(w*i, 0, w, h)];
             [imageView sd_setImageWithURL:[NSURL URLWithString:netImages[i]] placeholderImage:[UIImage imageNamed:@"banner"]];
+            imageView.userInteractionEnabled = YES;
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageClick:)];
+            [imageView addGestureRecognizer:tap];
+            UIView *singleTapView = [tap view];
+            singleTapView.tag = i;
             [_scrollView insertSubview:imageView atIndex:0];
         }
     }
+}
+- (void)imageClick:(UITapGestureRecognizer *)sender{
+    [_delegete dynamicClick:[sender view].tag];
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (_imageCount>2) {
