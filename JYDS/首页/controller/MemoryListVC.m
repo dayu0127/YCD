@@ -30,7 +30,6 @@
 
 @implementation MemoryListVC
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadMemoryList) name:@"updateMemorySubStatus" object:nil];
@@ -76,7 +75,6 @@
         if([json[@"code"] integerValue] == 200){
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             NSArray *resultArray =  resultDic[@"indexMemory"];
-            NSLog(@"%@",resultArray);
             if (status == UITableViewRefreshStatusAnimation || status == UITableViewRefreshStatusHeader) {
                 _memoryVideoList = [NSMutableArray arrayWithArray:resultArray];
                 [_tableView reloadData];
@@ -195,12 +193,6 @@
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"MemoryListToSeries"]) {
-//        MemoryDetailVC *detailVC = segue.destinationViewController;
-//        detailVC.delegate = self;
-//        detailVC.memory = _memory;
-//        NSDictionary *likesDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"likesDic"];
-//        NSString *likeStatus = likesDic[_memory.memoryId];
-//        detailVC.isLike = ![likeStatus isEqualToString:@"0"];
         MemorySeriesVideoListVC *seriesVC = segue.destinationViewController;
         seriesVC.lessonId = _memory.memoryId;
     }else if ([segue.identifier isEqualToString:@"memoryListToPayVC"]){
