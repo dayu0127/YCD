@@ -14,7 +14,8 @@
 #import "PayViewController.h"
 #import "UILabel+Utils.h"
 #import "BaseNavViewController.h"
-@interface MemoryListVC ()<UITableViewDelegate,UITableViewDataSource,SubAlertViewDelegate,MemoryDetailVCDelegate>
+#import "MemorySeriesVideoListVC.h"
+@interface MemoryListVC ()<UITableViewDelegate,UITableViewDataSource,SubAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *topImageView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) NSMutableArray *memoryVideoList;
@@ -69,12 +70,13 @@
         @"type":@"0"       //  #查询类型 0所有 1已订阅
     };
     [YHWebRequest YHWebRequestForPOST:kMemoryVideo parameters:jsonDic success:^(NSDictionary *json) {
-        if (status==UITableViewRefreshStatusAnimation) {
+        if (status == UITableViewRefreshStatusAnimation) {
             [YHHud dismiss];
         }
         if([json[@"code"] integerValue] == 200){
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             NSArray *resultArray =  resultDic[@"indexMemory"];
+            NSLog(@"%@",resultArray);
             if (status == UITableViewRefreshStatusAnimation || status == UITableViewRefreshStatusHeader) {
                 _memoryVideoList = [NSMutableArray arrayWithArray:resultArray];
                 [_tableView reloadData];
@@ -136,18 +138,12 @@
     _memory = [Memory yy_modelWithJSON:_memoryVideoList[indexPath.row]];
     if ([_memory.payType isEqualToString:@"0"]) {
         SubAlertView *subAlertView = [[SubAlertView alloc] initWithNib];
-        NSString *str = [NSString stringWithFormat:@"订阅%@仅需%@元!",_memory.title,_memory.full_price];
-        NSRange priceRange= [str rangeOfString:[NSString stringWithFormat:@"%@",_memory.full_price]];
-        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:str];
-        [attStr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:ORANGERED,NSForegroundColorAttributeName,[UIFont systemFontOfSize:16.0f],NSFontAttributeName, nil] range:NSMakeRange(priceRange.location, priceRange.length)];
-        subAlertView.label_0.attributedText = attStr;
-        subAlertView.label_1.text = [NSString stringWithFormat:@"最多可邀请5个好友，订阅%@价格低至100元。",_memory.title];
-        [subAlertView.label_1 setText:subAlertView.label_1.text lineSpacing:7.0f];
+        [subAlertView setTitle:_memory.title fullPrice:_memory.full_price subType:SubTypeMemory];
         subAlertView.delegate = self;
         _alertView = [[JCAlertView alloc] initWithCustomView:subAlertView dismissWhenTouchedBackground:NO];
         [_alertView show];
     }else{
-        [self performSegueWithIdentifier:@"toMemoryDetail" sender:self];
+        [self performSegueWithIdentifier:@"MemoryListToSeries" sender:self];
     }
 }
 #pragma mark 继续订阅
@@ -198,15 +194,15 @@
 }
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"toMemoryDetail"]) {
-        MemoryDetailVC *detailVC = segue.destinationViewController;
-        detailVC.delegate = self;
-        detailVC.memory = _memory;
-        NSDictionary *likesDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"likesDic"];
-        NSString *likeStatus = likesDic[_memory.memoryId];
-        detailVC.isLike = ![likeStatus isEqualToString:@"0"];
+    if ([segue.identifier isEqualToString:@"MemoryListToSeries"]) {
+//        MemoryDetailVC *detailVC = segue.destinationViewController;
+//        detailVC.delegate = self;
+//        detailVC.memory = _memory;
+//        NSDictionary *likesDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"likesDic"];
+//        NSString *likeStatus = likesDic[_memory.memoryId];
+//        detailVC.isLike = ![likeStatus isEqualToString:@"0"];
+        MemorySeriesVideoListVC *seriesVC = segue.destinationViewController;
+        seriesVC.lessonId = _memory.memoryId;
     }else if ([segue.identifier isEqualToString:@"memoryListToPayVC"]){
         PayViewController *payVC = segue.destinationViewController;
         payVC.memoryId = _memory.memoryId;

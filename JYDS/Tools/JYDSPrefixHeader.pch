@@ -21,6 +21,7 @@
 #import <Masonry.h>
 #import "NSDictionary+FromNSString.h"
 #import "NSString+FromNSDictionary.h"
+#import "NSString+ConvertWanFromNum.h"
 #import "BaseCell.h"
 //屏幕高宽
 #define WIDTH [UIScreen mainScreen].bounds.size.width
@@ -72,37 +73,7 @@
 
 //接口
 #define API(api) [NSString stringWithFormat:@"https://www.jydsapp.com/jydsApi/api/v2%@",api] //正式
-//#define API(api) [NSString stringWithFormat:@"http://www.zhongshuo.cn/jyds/jydsApi/api/v2%@",api] //正式
-
-//#define BANNER API(@"IOSbanner") //轮播图
-//#define MEMORY API(@"course") //记忆法列表
-//#define SUBALL API(@"subAll") //全部订阅
-//#define SUB API(@"sub") //单个订阅
-//#define COURSE API(@"getReciteWords") //记单词目录
-//#define UNITLIST API(@"getUnitList") //获取单元列表
-//#define WORD API(@"getWords") //分类单词
-//#define ALLWORD API(@"getAllWords") //获取所有单词
-//#define SEARCHWORD API(@"wordSel")    //搜索单词
-//#define UPLOADHEADIMAGE API(@"upload") //上传头像
-//#define MEMORYBYID API(@"memoryIDSel") //记忆法id查详情
-//#define WORDBYID API(@"wordIDSel") //单词id查详情
-//#define LOGIN API(@"login") //登录
-//#define REGISTER API(@"register") //注册
-//#define FORGETPWD API(@"forgetPwd") //密码找回
-//#define UPDATEPWD API(@"updatePwd") //修改密码
-//#define COSTDETAIL API(@"getCostDetail")  //支付明细
-//#define PAYDETAIL API(@"getPayDetail")  //充值明细
-//#define BEANS API(@"getBeans")  //获取用户学习豆
-//#define UPDNICK API(@"updateNickName")  //修改昵称
-//#define FEEDBACK API(@"fedBack") //反馈
-//#define INVITATION API(@"Invitation") //邀请列表
-//#define LOGOUT API(@"logout") //退出登录
-//#define ALISIGN API(@"order_generate") //支付宝签名
-//#define ALICHECK API(@"ALI_Sign_check") //支付宝验签
-//#define WXSIGN API(@"wx_unifiedorder") //微信统一下单(生成订单并签名)
-//#define WXCHECK API(@"wx_orderquery") //微信订单查询(验签)
-//#define FREEWORD API(@"userFreeCount")   //免费单词订阅
-//#define HAHA API(@"IOS")
+//#define API(api) [NSString stringWithFormat:@"https://192.168.15.112:8443/jydsApi/api/v2%@",api] //测试
 
 #define kRegister API(@"/login/register") //注册接口
 #define kPwdLogin API(@"/login/phonePasswordLogin") //用户手机密码登录
@@ -149,6 +120,7 @@
 #define kPlayNum API(@"/common/addPlayNum")      //视频播放次数增加
 #define kSelectWord API(@"/study/selectWord")      //单词查询
 #define kGetShare API(@"/common/getShare")      //分享内容
+#define kMemoryList API(@"/video/getMemoryList")      //记忆法系列视频列表
 
 //练习题等级数组
 #define LEVELARRAY @[@"60",@"50",@"40",@"30",@"25",@"20",@"15",@"13",@"10"]
@@ -208,5 +180,9 @@ typedef NS_ENUM(NSInteger, UIViewControllerName) {
     UIViewControllerNameWordSearchList,   //单词搜索列表
     UIViewControllerNameWordSubedList,     //已订阅单词列表
     UIViewControllerNameMyCollectList     //我的收藏列表
+};
+typedef NS_ENUM(NSInteger, SubType) {
+    SubTypeMemory,   //记忆法
+    SubTypeWord,     //单词
 };
 #endif /* JYDSPrefixHeader_pch */

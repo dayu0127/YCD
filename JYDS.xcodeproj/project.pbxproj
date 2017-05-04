@@ -24,6 +24,7 @@
 		601798481EA88D6F00FFCE9B /* ChooseLevelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 601798471EA88D6F00FFCE9B /* ChooseLevelVC.m */; };
 		6017984B1EA8B49B00FFCE9B /* ExerciseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6017984A1EA8B49B00FFCE9B /* ExerciseVC.m */; };
 		6017984E1EA8C87300FFCE9B /* ResultVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6017984D1EA8C87300FFCE9B /* ResultVC.m */; };
+		602AD5761EB8335000C9A549 /* MemorySeriesVideoListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 602AD5751EB8335000C9A549 /* MemorySeriesVideoListVC.m */; };
 		602BDD2F1E8366E300C6CB92 /* BannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 602BDD2D1E8366E300C6CB92 /* BannerCell.m */; };
 		602BDD301E8366E300C6CB92 /* BannerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 602BDD2E1E8366E300C6CB92 /* BannerCell.xib */; };
 		602BDD341E83679C00C6CB92 /* PlanCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 602BDD321E83679C00C6CB92 /* PlanCell.m */; };
@@ -57,6 +58,9 @@
 		60557ACD1EA0ACC00018D761 /* IATConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 60557ACC1EA0ACC00018D761 /* IATConfig.m */; };
 		6062A7901E98EA7700D8F5BB /* Memory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6062A78F1E98EA7700D8F5BB /* Memory.m */; };
 		6062A7931E98EC1B00D8F5BB /* MemoryDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6062A7921E98EC1B00D8F5BB /* MemoryDetailVC.m */; };
+		6066F4DA1EBB39E10088481D /* MemorySeriseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6066F4D81EBB39E10088481D /* MemorySeriseCell.m */; };
+		6066F4DB1EBB39E10088481D /* MemorySeriseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6066F4D91EBB39E10088481D /* MemorySeriseCell.xib */; };
+		6066F4E11EBB434A0088481D /* NSString+ConvertWanFromNum.m in Sources */ = {isa = PBXBuildFile; fileRef = 6066F4E01EBB434A0088481D /* NSString+ConvertWanFromNum.m */; };
 		606A94F61E51A8CA00A0279D /* MnemonicsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94E81E51A8CA00A0279D /* MnemonicsVC.m */; };
 		606F12D41E6EB49A00875F1B /* ca.cer in Resources */ = {isa = PBXBuildFile; fileRef = 606F12D31E6EB49A00875F1B /* ca.cer */; };
 		6076CEF51E8601F5006E5F6F /* NoLoginHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6076CEF41E8601F5006E5F6F /* NoLoginHeaderView.m */; };
@@ -214,6 +218,8 @@
 		6017984C1EA8C87300FFCE9B /* ResultVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultVC.h; sourceTree = "<group>"; };
 		6017984D1EA8C87300FFCE9B /* ResultVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultVC.m; sourceTree = "<group>"; };
 		6017984F1EA8DEE400FFCE9B /* ExerciseDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExerciseDelegate.h; sourceTree = "<group>"; };
+		602AD5741EB8335000C9A549 /* MemorySeriesVideoListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemorySeriesVideoListVC.h; sourceTree = "<group>"; };
+		602AD5751EB8335000C9A549 /* MemorySeriesVideoListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemorySeriesVideoListVC.m; sourceTree = "<group>"; };
 		602BDD2C1E8366E300C6CB92 /* BannerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerCell.h; sourceTree = "<group>"; };
 		602BDD2D1E8366E300C6CB92 /* BannerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerCell.m; sourceTree = "<group>"; };
 		602BDD2E1E8366E300C6CB92 /* BannerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BannerCell.xib; sourceTree = "<group>"; };
@@ -268,6 +274,11 @@
 		6062A78F1E98EA7700D8F5BB /* Memory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Memory.m; sourceTree = "<group>"; };
 		6062A7911E98EC1B00D8F5BB /* MemoryDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryDetailVC.h; sourceTree = "<group>"; };
 		6062A7921E98EC1B00D8F5BB /* MemoryDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryDetailVC.m; sourceTree = "<group>"; };
+		6066F4D71EBB39E10088481D /* MemorySeriseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemorySeriseCell.h; sourceTree = "<group>"; };
+		6066F4D81EBB39E10088481D /* MemorySeriseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemorySeriseCell.m; sourceTree = "<group>"; };
+		6066F4D91EBB39E10088481D /* MemorySeriseCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MemorySeriseCell.xib; sourceTree = "<group>"; };
+		6066F4DF1EBB434A0088481D /* NSString+ConvertWanFromNum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ConvertWanFromNum.h"; sourceTree = "<group>"; };
+		6066F4E01EBB434A0088481D /* NSString+ConvertWanFromNum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ConvertWanFromNum.m"; sourceTree = "<group>"; };
 		606A94E71E51A8CA00A0279D /* MnemonicsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnemonicsVC.h; sourceTree = "<group>"; };
 		606A94E81E51A8CA00A0279D /* MnemonicsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MnemonicsVC.m; sourceTree = "<group>"; };
 		606F12D31E6EB49A00875F1B /* ca.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = ca.cer; path = JYDS/ca.cer; sourceTree = SOURCE_ROOT; };
@@ -754,6 +765,8 @@
 				606A94E81E51A8CA00A0279D /* MnemonicsVC.m */,
 				60783C101E9CE29500F0FBE1 /* MemoryListVC.h */,
 				60783C111E9CE29500F0FBE1 /* MemoryListVC.m */,
+				602AD5741EB8335000C9A549 /* MemorySeriesVideoListVC.h */,
+				602AD5751EB8335000C9A549 /* MemorySeriesVideoListVC.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -793,6 +806,9 @@
 				608851891E9DD63E004C107E /* CommentCell.h */,
 				6088518A1E9DD63E004C107E /* CommentCell.m */,
 				6088518B1E9DD63E004C107E /* CommentCell.xib */,
+				6066F4D71EBB39E10088481D /* MemorySeriseCell.h */,
+				6066F4D81EBB39E10088481D /* MemorySeriseCell.m */,
+				6066F4D91EBB39E10088481D /* MemorySeriseCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1020,6 +1036,8 @@
 				604DBF291E8E22D10025E50C /* NSDictionary+FromNSString.m */,
 				604DBF2E1E8E6CAB0025E50C /* NSString+FromNSDictionary.h */,
 				604DBF2F1E8E6CAB0025E50C /* NSString+FromNSDictionary.m */,
+				6066F4DF1EBB434A0088481D /* NSString+ConvertWanFromNum.h */,
+				6066F4E01EBB434A0088481D /* NSString+ConvertWanFromNum.m */,
 				600259781E977F1700FA3991 /* YBPopupMenu.h */,
 				600259791E977F1700FA3991 /* YBPopupMenu.m */,
 				60F4EB671E9B179F00DC7AB8 /* UILabel+Utils.h */,
@@ -1454,6 +1472,7 @@
 				60A976C81E8A0B2400F5461B /* DynamicCell.xib in Resources */,
 				6042E0F91E8D0D8300756A61 /* MessageCell.xib in Resources */,
 				60E2DD011E5A94F500D45986 /* README.txt in Resources */,
+				6066F4DB1EBB39E10088481D /* MemorySeriseCell.xib in Resources */,
 				60F4C35D1EAD8F07002FC840 /* GradeCell.xib in Resources */,
 				602BDD351E83679C00C6CB92 /* PlanCell.xib in Resources */,
 				60783C171E9CE34C00F0FBE1 /* MemoryMoreCell.xib in Resources */,
@@ -1556,6 +1575,7 @@
 				6078D1FE1E1613180089D40F /* BaseViewController.m in Sources */,
 				6017984E1EA8C87300FFCE9B /* ResultVC.m in Sources */,
 				60F4C3551EAD8F06002FC840 /* WordSubedList.m in Sources */,
+				6066F4E11EBB434A0088481D /* NSString+ConvertWanFromNum.m in Sources */,
 				608851931E9E0A9F004C107E /* YHMonitorKeyboard.m in Sources */,
 				6010FF9B1E9128DB00071610 /* FailedView.m in Sources */,
 				60F4C3581EAD8F06002FC840 /* Version.m in Sources */,
@@ -1583,6 +1603,7 @@
 				60FC84AA1EAEF75100A62A1A /* BaseCell.m in Sources */,
 				60A5C7A51E8B7C95007D2366 /* MyCollectVC.m in Sources */,
 				60F4C34F1EAD8F06002FC840 /* GradeVC.m in Sources */,
+				602AD5761EB8335000C9A549 /* MemorySeriesVideoListVC.m in Sources */,
 				602BDD411E83697700C6CB92 /* MemoryCell.m in Sources */,
 				60F4C3691EAD8F07002FC840 /* SubedCell.m in Sources */,
 				602BDD381E83686F00C6CB92 /* MemoryHeaderView.m in Sources */,
@@ -1612,6 +1633,7 @@
 				60402E4B1E8518B300B1AD91 /* MineVC.m in Sources */,
 				6078D1F41E1613180089D40F /* base64.m in Sources */,
 				604DBF2A1E8E22D10025E50C /* NSDictionary+FromNSString.m in Sources */,
+				6066F4DA1EBB39E10088481D /* MemorySeriseCell.m in Sources */,
 				609F063F1E1621D9009F4986 /* UserAgreementVC.m in Sources */,
 				609D6D521E17782D000BCD65 /* BaseNavViewController.m in Sources */,
 				60E514FE1EA4A4FC007CB096 /* InviteTitleCell.m in Sources */,

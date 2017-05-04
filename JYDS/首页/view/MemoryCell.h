@@ -10,7 +10,6 @@
 
 @interface MemoryCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *memoryTitle;
-@property (weak, nonatomic) IBOutlet UILabel *memoryDetail;
 @property (weak, nonatomic) IBOutlet UIImageView *memoryImage;
 - (void)addModelWithDic:(NSDictionary *)dic;
 @end
