@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -1228,6 +1228,73 @@
             </objects>
             <point key="canvasLocation" x="3350" y="-1134"/>
         </scene>
+        <!--记忆法系列视频列表VC-->
+        <scene sceneID="q4R-Cl-QXH">
+            <objects>
+                <viewController hidesBottomBarWhenPushed="YES" id="irC-QK-Rcy" userLabel="记忆法系列视频列表VC" customClass="MemorySeriesVideoListVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="A06-QS-8vy"/>
+                        <viewControllerLayoutGuide type="bottom" id="U1d-5f-BQZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bqZ-MD-RlA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qI3-cS-da4" userLabel="navView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="记忆法系列视频" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AMg-fW-eAh">
+                                        <rect key="frame" x="48" y="32.5" width="107.5" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1LZ-Ba-PWM" userLabel="backButton">
+                                        <rect key="frame" x="7" y="25" width="33" height="33"/>
+                                        <state key="normal" image="back"/>
+                                        <connections>
+                                            <action selector="backClick:" destination="irC-QK-Rcy" eventType="touchUpInside" id="YlR-8m-MxV"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.99607843139999996" green="0.31764705879999999" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="AMg-fW-eAh" firstAttribute="centerY" secondItem="1LZ-Ba-PWM" secondAttribute="centerY" id="4gK-bq-E1B"/>
+                                    <constraint firstItem="AMg-fW-eAh" firstAttribute="leading" secondItem="1LZ-Ba-PWM" secondAttribute="trailing" constant="8" id="E1P-uS-iQl"/>
+                                    <constraint firstAttribute="height" constant="64" id="FNm-xU-MbC"/>
+                                    <constraint firstItem="1LZ-Ba-PWM" firstAttribute="top" secondItem="qI3-cS-da4" secondAttribute="top" constant="25" id="Fgn-lF-zdS"/>
+                                    <constraint firstItem="1LZ-Ba-PWM" firstAttribute="leading" secondItem="qI3-cS-da4" secondAttribute="leading" constant="7" id="qWw-8b-6aF"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Z5B-iC-Ejj">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="irC-QK-Rcy" id="ku4-9O-LxX"/>
+                                    <outlet property="delegate" destination="irC-QK-Rcy" id="XJt-da-vSz"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qI3-cS-da4" firstAttribute="leading" secondItem="bqZ-MD-RlA" secondAttribute="leading" id="0ES-uu-jX2"/>
+                            <constraint firstItem="Z5B-iC-Ejj" firstAttribute="leading" secondItem="bqZ-MD-RlA" secondAttribute="leading" id="4Ud-Mc-yJ7"/>
+                            <constraint firstItem="Z5B-iC-Ejj" firstAttribute="top" secondItem="qI3-cS-da4" secondAttribute="bottom" id="8TS-de-Mcz"/>
+                            <constraint firstAttribute="trailing" secondItem="qI3-cS-da4" secondAttribute="trailing" id="9NA-2E-SQ7"/>
+                            <constraint firstItem="U1d-5f-BQZ" firstAttribute="top" secondItem="Z5B-iC-Ejj" secondAttribute="bottom" id="EhD-Fw-n8u"/>
+                            <constraint firstItem="qI3-cS-da4" firstAttribute="top" secondItem="bqZ-MD-RlA" secondAttribute="top" id="Xl1-BX-v7y"/>
+                            <constraint firstAttribute="trailing" secondItem="Z5B-iC-Ejj" secondAttribute="trailing" id="jlb-Rq-vuz"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="Z5B-iC-Ejj" id="Lvi-vs-gRq"/>
+                        <segue destination="0jR-eX-LCS" kind="show" identifier="MemorySeriesToDetail" id="4OW-ab-GSa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p0y-k9-WtO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5780" y="-771.36431784107947"/>
+        </scene>
         <!--记忆法详情VC-->
         <scene sceneID="ABV-zs-oM0">
             <objects>
@@ -1375,7 +1442,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="289-4B-K0E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5780" y="-772"/>
+            <point key="canvasLocation" x="6553" y="-771"/>
         </scene>
         <!--记忆法列表VC-->
         <scene sceneID="0PT-u0-9jw">
@@ -1421,7 +1488,7 @@
                                     <constraint firstAttribute="width" secondItem="EL4-6V-X2I" secondAttribute="height" multiplier="375:112" id="eya-sT-ZNH"/>
                                 </constraints>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WTu-Kv-R7J">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WTu-Kv-R7J">
                                 <rect key="frame" x="0.0" y="196" width="375" height="471"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -1447,9 +1514,9 @@
                     <connections>
                         <outlet property="tableView" destination="WTu-Kv-R7J" id="yuz-ha-uSg"/>
                         <outlet property="topImageView" destination="EL4-6V-X2I" id="Z8w-pZ-Sng"/>
-                        <segue destination="0jR-eX-LCS" kind="show" identifier="toMemoryDetail" id="38R-Op-tOV"/>
                         <segue destination="5a8-Cj-aGI" kind="show" identifier="memoryListToPayVC" id="xRH-BA-8YZ"/>
                         <segue destination="Mjh-Gy-vFh" kind="show" identifier="memoryListToInviteRewards" id="dnP-vd-4lw"/>
+                        <segue destination="irC-QK-Rcy" kind="show" identifier="MemoryListToSeries" id="do2-6S-b41"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JpP-3Z-mdd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1542,6 +1609,7 @@
                         <segue destination="Mjh-Gy-vFh" kind="show" identifier="homeToInviteRewards" id="FCC-bP-pwD"/>
                         <segue destination="L7E-cv-c7Q" kind="show" identifier="homeToExercises" id="gaA-4t-5Z7"/>
                         <segue destination="Yyd-VW-Mo8" kind="show" identifier="homeToMessage" id="6SX-0j-k9E"/>
+                        <segue destination="irC-QK-Rcy" kind="show" identifier="HometToSeries" id="CjH-TU-cji"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bIr-u5-mNl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3258,7 +3326,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pzD-ct-brV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7290" y="-634"/>
+            <point key="canvasLocation" x="8241" y="-532"/>
         </scene>
         <!--已订阅单词列表VC-->
         <scene sceneID="OOG-EU-Aae">
@@ -3331,7 +3399,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q4Z-0x-Hbn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6553" y="-633"/>
+            <point key="canvasLocation" x="7375" y="-532"/>
         </scene>
         <!--单词列表VC-->
         <scene sceneID="F7a-hg-6Ro">
@@ -3568,7 +3636,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="75A-tn-h4I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8289" y="-220"/>
+            <point key="canvasLocation" x="8241" y="344"/>
         </scene>
         <!--账号设置VC-->
         <scene sceneID="xpa-gs-PLc">
@@ -4387,11 +4455,12 @@
         <image name="userinfo_top_bg" width="375" height="246"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rhJ-wj-NYw"/>
-        <segue reference="38R-Op-tOV"/>
         <segue reference="ieB-4i-mT9"/>
-        <segue reference="JDB-NH-aSF"/>
-        <segue reference="83X-RF-JWC"/>
+        <segue reference="cV4-mu-ucd"/>
+        <segue reference="dnP-vd-4lw"/>
         <segue reference="xRH-BA-8YZ"/>
+        <segue reference="do2-6S-b41"/>
+        <segue reference="4OW-ab-GSa"/>
+        <segue reference="rhJ-wj-NYw"/>
     </inferredMetricsTieBreakers>
 </document>

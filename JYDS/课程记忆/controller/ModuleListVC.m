@@ -147,13 +147,8 @@
 }
 - (IBAction)subAllWordBtnClick:(UIButton *)sender {
     SubAlertView *subAlertView = [[SubAlertView alloc] initWithNib];
-    NSString *str = [NSString stringWithFormat:@"一次性订阅%@所有单词仅需%@元!",_gradeName,_full_price];
-    NSRange priceRange= [str rangeOfString:[NSString stringWithFormat:@"%@",_full_price]];
-    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:str];
-    [attStr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:ORANGERED,NSForegroundColorAttributeName,[UIFont systemFontOfSize:16.0f],NSFontAttributeName, nil] range:NSMakeRange(priceRange.location, priceRange.length)];
-    subAlertView.label_0.attributedText = attStr;
-    subAlertView.label_1.text = [NSString stringWithFormat:@"最多可邀请5个好友，订阅%@所有单词价格低至100元。",_gradeName];
-    [subAlertView.label_1 setText:subAlertView.label_1.text lineSpacing:7.0f];
+    [subAlertView setTitle:_gradeName fullPrice:_full_price subType:SubTypeWord];
+    subAlertView.label_0_height.constant = [subAlertView.label_0.text boundingRectWithSize:CGSizeMake(280, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:12.0f] forKey:NSFontAttributeName] context:nil].size.height+5;
     subAlertView.delegate = self;
     _alertView = [[JCAlertView alloc] initWithCustomView:subAlertView dismissWhenTouchedBackground:NO];
     [_alertView show];

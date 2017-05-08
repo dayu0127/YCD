@@ -137,9 +137,10 @@
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
                 //登录成功跳转首页
                 [YHHud showWithSuccess:@"登录成功"];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self returnToHome];
-                });
+//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                    [self returnToHome];
+//                });
+                [self getBannerInfo];
             }else{
                 NSLog(@"%@",json[@"code"]);
                 [YHHud showWithMessage:json[@"message"]];
@@ -203,9 +204,10 @@
                     //改变登录状态
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
                     [YHHud showWithSuccess:@"登录成功"];
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self returnToHome];
-                    });
+//                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                        [self returnToHome];
+//                    });
+                    [self getBannerInfo];
                 }else{
                     NSLog(@"%@",json[@"code"]);
                     [YHHud showWithMessage:json[@"message"]];
@@ -272,9 +274,10 @@
                     //改变登录状态
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
                     [YHHud showWithSuccess:@"登录成功"];
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self returnToHome];
-                    });
+//                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                        [self returnToHome];
+//                    });
+                    [self getBannerInfo];
                 }else{
                     NSLog(@"%@",json[@"code"]);
                     [YHHud showWithMessage:json[@"message"]];
@@ -283,6 +286,28 @@
                 NSLog(@"%@",error);
             }];
         }
+    }];
+}
+- (void)getBannerInfo{
+    //获取首页内容
+    [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
+    NSString *phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum!=nil ? [YHSingleton shareSingleton].userInfo.phoneNum : @"";
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"]!=nil ? [[NSUserDefaults standardUserDefaults] objectForKey:@"token"] : @"";
+    NSDictionary *jsonDic = @{
+                              @"userPhone":phoneNum,      //  #用户手机号
+                              @"token":token        //    #用户登陆凭证
+                              };
+    [YHWebRequest YHWebRequestForPOST:kBanner parameters:jsonDic success:^(NSDictionary *json) {
+        if ([json[@"code"] integerValue] == 200) {
+            NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+            [[NSUserDefaults standardUserDefaults] setObject:dataDic forKey:@"banner"];
+            [self returnToHome];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            [YHHud showWithMessage:json[@"message"]];
+        }
+    }failure:^(NSError * _Nonnull error) {
+        NSLog(@"%@",error);
     }];
 }
 - (void)viewWillDisappear:(BOOL)animated{

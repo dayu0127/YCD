@@ -17,6 +17,7 @@
 #import "MemoryDetailVC.h"
 #import "BingingPhoneVC.h"
 #import "BaseNavViewController.h"
+#import "MemorySeriesVideoListVC.h"
 @interface MnemonicsVC ()<UITableViewDelegate,UITableViewDataSource,BannerCellDelegate,PlanCellDelegate,DynamicCellDelegate>
 @property (strong,nonatomic) NSArray *bannerInfoArray;
 @property (strong,nonatomic) NSArray *dynamicArray;
@@ -111,7 +112,7 @@
     }else if(indexPath.section == 1){
         return 177/355.0*(WIDTH-20)+42;
     }else{
-        return 36/71.0*(WIDTH-20)+86;
+        return 36/71.0*(WIDTH-20)+46;
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -200,8 +201,19 @@
         }else if (self.token==nil&&self.phoneNum==nil) {
             [self returnToLogin];
         }else{
-            [self performSegueWithIdentifier:@"toMemoryMore" sender:self];
+            _memory = [Memory yy_modelWithJSON:_memoryList[indexPath.row]];
+            if (([_memory.payType isEqualToString:@"1"]&&![_memory.full_price isEqualToString:@"0"]) || [_memory.full_price isEqualToString:@"0"]) {
+                [self performSegueWithIdentifier:@"HometToSeries" sender:self];
+            }else{
+                [self performSegueWithIdentifier:@"toMemoryMore" sender:self];
+            }
         }
+    }
+}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"HometToSeries"]) {
+        MemorySeriesVideoListVC *seriesVC = segue.destinationViewController;
+        seriesVC.lessonId = _memory.memoryId;
     }
 }
 @end

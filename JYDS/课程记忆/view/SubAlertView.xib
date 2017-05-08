@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -37,7 +37,7 @@
                                         <constraint firstAttribute="height" constant="1" id="Dpj-Wr-Xh8"/>
                                     </constraints>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="一次性订阅小学三年级所有单词仅需100元!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b8J-WN-ShR">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="一次性订阅小学三年级所有单词仅需100元!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b8J-WN-ShR">
                                     <rect key="frame" x="20" y="50" width="280" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="14" id="3bO-Ez-lAw"/>
@@ -47,7 +47,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="更多优惠:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acT-if-GRI">
-                                    <rect key="frame" x="20" y="81" width="57" height="13"/>
+                                    <rect key="frame" x="20" y="77" width="57" height="13"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="13" id="VBU-BZ-VfK"/>
                                     </constraints>
@@ -56,7 +56,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1、" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CYS-1p-R2Y">
-                                    <rect key="frame" x="20" y="107" width="22" height="13"/>
+                                    <rect key="frame" x="20" y="103" width="22" height="13"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="22" id="WYH-yZ-D43"/>
                                         <constraint firstAttribute="height" constant="13" id="l3W-4J-eQ5"/>
@@ -95,7 +95,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="每邀请1个好友成功注册，立减50元。" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xEW-e1-T7i">
-                                    <rect key="frame" x="42" y="107" width="221" height="13"/>
+                                    <rect key="frame" x="42" y="103" width="221" height="13"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="13" id="hHK-RE-fLr"/>
                                     </constraints>
@@ -104,7 +104,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2、" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3uc-st-Tl3">
-                                    <rect key="frame" x="20" y="131" width="22" height="13"/>
+                                    <rect key="frame" x="20" y="127" width="22" height="13"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="13" id="ceX-6r-Umj"/>
                                     </constraints>
@@ -113,13 +113,13 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="最多可邀请5个好友，订阅小学三年级所有单词价格低至100元。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EPj-7y-8XM">
-                                    <rect key="frame" x="42" y="130" width="258.5" height="31.5"/>
+                                    <rect key="frame" x="42" y="126" width="258.5" height="31.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3、" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DVU-XK-tK9">
-                                    <rect key="frame" x="20" y="179" width="22" height="13"/>
+                                    <rect key="frame" x="20" y="175" width="22" height="13"/>
                                     <constraints>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="13" id="7xm-tX-kYH"/>
                                         <constraint firstAttribute="height" constant="13" id="WUm-2p-7g7"/>
@@ -130,7 +130,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="邀请6个以上好友可获其他优惠，详见奖励邀请页面。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Coo-6G-7FS">
-                                    <rect key="frame" x="42" y="178" width="258" height="31.5"/>
+                                    <rect key="frame" x="42" y="174" width="258" height="31.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -171,7 +171,7 @@
                                 <constraint firstAttribute="trailing" secondItem="EPj-7y-8XM" secondAttribute="trailing" constant="20" id="UOi-Um-ffs"/>
                                 <constraint firstItem="CYS-1p-R2Y" firstAttribute="leading" secondItem="VHC-F8-Aj0" secondAttribute="leading" constant="20" id="WvZ-aX-VLT"/>
                                 <constraint firstAttribute="trailing" secondItem="q0r-Do-OPc" secondAttribute="trailing" constant="39" id="X9L-hf-LUv"/>
-                                <constraint firstItem="acT-if-GRI" firstAttribute="top" secondItem="b8J-WN-ShR" secondAttribute="bottom" constant="17" id="XLP-GE-UTi"/>
+                                <constraint firstItem="acT-if-GRI" firstAttribute="top" secondItem="b8J-WN-ShR" secondAttribute="bottom" constant="13" id="XLP-GE-UTi"/>
                                 <constraint firstAttribute="width" constant="320" id="czL-gc-O0K"/>
                                 <constraint firstAttribute="bottom" secondItem="dQV-fR-mtg" secondAttribute="bottom" constant="19" id="ejo-ky-0Ea"/>
                                 <constraint firstItem="3uc-st-Tl3" firstAttribute="top" secondItem="CYS-1p-R2Y" secondAttribute="bottom" constant="11" id="ekI-wj-jle"/>
@@ -207,11 +207,12 @@
             </constraints>
             <connections>
                 <outlet property="invitateFriendBtn" destination="q0r-Do-OPc" id="Let-CU-qa5"/>
+                <outlet property="label" destination="xEW-e1-T7i" id="Ld4-n9-Lf6"/>
                 <outlet property="label_0" destination="b8J-WN-ShR" id="VUg-bF-NHi"/>
+                <outlet property="label_0_height" destination="3bO-Ez-lAw" id="Wja-ne-hRX"/>
                 <outlet property="label_1" destination="EPj-7y-8XM" id="8uw-1M-Chq"/>
+                <outlet property="label_2" destination="Coo-6G-7FS" id="RwL-q9-P6y"/>
                 <outlet property="subBtn" destination="dQV-fR-mtg" id="x0W-Zv-Fpu"/>
-                <outletCollection property="labels" destination="EPj-7y-8XM" id="XUf-jd-XVa"/>
-                <outletCollection property="labels" destination="Coo-6G-7FS" id="rDY-wI-NS7"/>
             </connections>
             <point key="canvasLocation" x="-100.5" y="22.5"/>
         </view>

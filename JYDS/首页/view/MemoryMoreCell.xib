@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -30,13 +30,13 @@
                         <rect key="frame" x="0.0" y="182" width="375" height="34"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥350" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILu-nn-Dtj">
-                                <rect key="frame" x="16" y="9" width="40.5" height="17"/>
+                                <rect key="frame" x="15" y="9" width="40.5" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.99607843139999996" green="0.31764705879999999" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已订阅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vu9-fR-fKD">
-                                <rect key="frame" x="66.5" y="8.5" width="43" height="17"/>
+                                <rect key="frame" x="65.5" y="8.5" width="43" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.22352941179999999" green="0.76862745099999996" blue="0.50980392159999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -47,16 +47,24 @@
                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pz-pi-hHw">
+                                <rect key="frame" x="287.5" y="9.5" width="8.5" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.99607843139999996" green="0.31764705879999999" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="vu9-fR-fKD" firstAttribute="leading" secondItem="ILu-nn-Dtj" secondAttribute="trailing" constant="10" id="3o1-4U-KEI"/>
                             <constraint firstItem="ILu-nn-Dtj" firstAttribute="centerY" secondItem="EBQ-Hx-hEb" secondAttribute="centerY" id="4AE-Jv-3zl"/>
                             <constraint firstItem="rI6-oA-QWB" firstAttribute="centerY" secondItem="EBQ-Hx-hEb" secondAttribute="centerY" id="Fcb-TG-QA9"/>
+                            <constraint firstItem="rI6-oA-QWB" firstAttribute="leading" secondItem="2pz-pi-hHw" secondAttribute="trailing" id="Lei-wO-32f"/>
                             <constraint firstAttribute="height" constant="34" id="aRs-ut-5nd"/>
                             <constraint firstAttribute="trailing" secondItem="rI6-oA-QWB" secondAttribute="trailing" constant="15" id="eqi-cW-4Rk"/>
                             <constraint firstItem="vu9-fR-fKD" firstAttribute="centerY" secondItem="EBQ-Hx-hEb" secondAttribute="centerY" id="h49-28-af6"/>
-                            <constraint firstItem="ILu-nn-Dtj" firstAttribute="leading" secondItem="EBQ-Hx-hEb" secondAttribute="leading" constant="16" id="xzn-Zs-TMF"/>
+                            <constraint firstItem="2pz-pi-hHw" firstAttribute="centerY" secondItem="rI6-oA-QWB" secondAttribute="centerY" id="xSK-nA-dVR"/>
+                            <constraint firstItem="ILu-nn-Dtj" firstAttribute="leading" secondItem="EBQ-Hx-hEb" secondAttribute="leading" constant="15" id="xzn-Zs-TMF"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="记忆大师传1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgY-dy-lRP">
@@ -97,6 +105,7 @@
                 <outlet property="memoryImageView" destination="JNp-pe-H51" id="rlF-kU-XrD"/>
                 <outlet property="playCountLabel" destination="rI6-oA-QWB" id="F4m-1Y-K32"/>
                 <outlet property="priceLabel" destination="ILu-nn-Dtj" id="NSJ-yj-oVE"/>
+                <outlet property="subCountLabel" destination="2pz-pi-hHw" id="A2z-jE-pgI"/>
                 <outlet property="subImg" destination="wbV-t5-6XT" id="d5p-x8-qar"/>
                 <outlet property="subStateLabel" destination="vu9-fR-fKD" id="bST-ie-Jsm"/>
                 <outlet property="titleLabel" destination="mgY-dy-lRP" id="G2A-e2-OC9"/>

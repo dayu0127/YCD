@@ -44,8 +44,9 @@
     if (!_playerModel) {
         _playerModel                  = [[ZFPlayerModel alloc] init];
         _playerModel.title            = _memory.title;
-        _playerModel.videoURL         = [NSURL URLWithString:_memory.url];
-        _playerModel.placeholderImage = [UIImage imageNamed:@"home_memoryImg"];
+        _playerModel.videoURL         = [NSURL URLWithString:_memory.videoUrl];
+//        _playerModel.placeholderImage = [UIImage imageNamed:@"home_memoryImg"];
+        _playerModel.placeholderImageURLString = _memory.imgUrl;
         _playerModel.fatherView       = self.playFatherView;
     }
     return _playerModel;
@@ -90,7 +91,7 @@
 //    _borderView.layer.borderColor = LIGHTGRAYCOLOR.CGColor;
 //    _borderView.layer.borderWidth = 1.0f;
     _videoTitleLabel.text = _memory.title;
-    _likeCountLabel.text = _memory.likes;
+    _likeCountLabel.text = [NSString convertWanFromNum:_memory.likes];
     if (_isLike == YES) {
         [_memoryCollect setImage:[UIImage imageNamed:@"course_collected"]];
         _likeButton.enabled = NO;
@@ -101,12 +102,7 @@
     NSString *timeStr = [_memory.create_time componentsSeparatedByString:@" "][0];
     NSArray *dateArr = [timeStr componentsSeparatedByString:@"-"];
     _issueTimeLabel.text = [NSString stringWithFormat:@"%@年%@月%@日发布",dateArr[0],dateArr[1],dateArr[2]];
-    NSString *playCountStr;
-    if ([_memory.views integerValue]>10000) {
-        playCountStr = [NSString stringWithFormat:@"%.1f万",[_memory.views integerValue]/10000.0];
-    }else{
-        playCountStr = [NSString stringWithFormat:@"%@",_memory.views];
-    }
+    NSString *playCountStr = [NSString convertWanFromNum:_memory.views];
     _playCountLabel.text = [NSString stringWithFormat:@"%@次播放",playCountStr];
     //详情
     _detailTextView = [UITextView new];

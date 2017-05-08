@@ -25,7 +25,6 @@
 - (void)addModelWithDic:(NSDictionary *)dic{
     Memory *model = [Memory yy_modelWithJSON:dic];
     _memoryTitle.text = model.title;
-    _memoryDetail.text = model.content;
     [_memoryImage sd_setImageWithURL:[NSURL URLWithString:model.imgUrl]];
 }
 @end

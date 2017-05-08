@@ -234,7 +234,7 @@ UITableViewDataSource
         if (delegate) self.delegate = delegate;
         
         self.width = itemWidth;
-        self.height = (titles.count > 8 ? 8 * kButtonHeight : titles.count * kButtonHeight) + 2 * kArrowHeight;
+        self.height = (titles.count > 10 ? 10 * kButtonHeight : titles.count * kButtonHeight) + 2 * kArrowHeight;
         
         kArrowPosition = 0.5 * self.width - 0.5 * kArrowWidth;
         
@@ -252,7 +252,7 @@ UITableViewDataSource
         _contentView.backgroundColor = [UIColor clearColor];
         _contentView.delegate = self;
         _contentView.dataSource= self;
-        _contentView.bounces = titles.count > 8 ? YES : NO;
+        _contentView.bounces = titles.count > 10 ? YES : NO;
         _contentView.tableFooterView = [UIView new];
         _contentView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _contentView.height -= 2 * kArrowHeight;
