@@ -27,6 +27,7 @@
 @property (copy,nonatomic) NSString *content;
 @property (copy,nonatomic) NSString *full_price;
 @property (copy,nonatomic) NSString *url;
+@property (copy,nonatomic) NSString *videoUrl;
 @property (copy,nonatomic) NSString *payType;
 @property (copy,nonatomic) NSString *views;
 @property (copy,nonatomic) NSString *likes;

@@ -10,6 +10,7 @@
 #import "MemorySeriseCell.h"
 #import "MemoryDetailVC.h"
 #import "Memory.h"
+#import <UIImageView+WebCache.h>
 @interface MemorySeriesVideoListVC ()<UITableViewDelegate,UITableViewDataSource,MemoryDetailVCDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) Memory *memory;
@@ -108,6 +109,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MemorySeriseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MemorySeriseCell" forIndexPath:indexPath];
     cell.titleLabel.text = _memorySeriesList[indexPath.row][@"title"];
+    [cell.seriseImageView sd_setImageWithURL:[NSURL URLWithString:_memorySeriesList[indexPath.row][@"imgUrl"]] placeholderImage:[UIImage imageNamed:@"home_memoryImg"]];
     NSString *likesStr = [NSString convertWanFromNum:_memorySeriesList[indexPath.row][@"likes"]];
     cell.likesLabel.text = [NSString stringWithFormat:@"%@人点赞",likesStr];
     NSString *playCountStr = [NSString convertWanFromNum:_memorySeriesList[indexPath.row][@"views"]];

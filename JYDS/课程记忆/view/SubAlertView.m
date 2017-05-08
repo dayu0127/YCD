@@ -48,7 +48,6 @@
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:str];
     [attStr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:ORANGERED,NSForegroundColorAttributeName,[UIFont systemFontOfSize:16.0f],NSFontAttributeName, nil] range:NSMakeRange(priceRange.location, priceRange.length)];
     _label_0.attributedText = attStr;
-    _label_0_height.constant = [str boundingRectWithSize:CGSizeMake(280, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:12.0f] forKey:NSFontAttributeName] context:nil].size.height+5;
     _label.text = [NSString stringWithFormat:@"每邀请%@个好友成功注册，立减%@元。",discountDic[@"minNumber"],discountDic[@"minDeduction"]];
     _label_1.text = [NSString stringWithFormat:@"最多可邀请%@个好友，订阅%@价格低至%@元。",discountDic[@"maxNumber"],title,discountDic[@"minPrice"]];
     _label_2.text = [NSString stringWithFormat:@"邀请%@个以上好友可获其他优惠，详见奖励邀请页面。",discountDic[@"limitNumber"]];

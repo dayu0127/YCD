@@ -44,8 +44,9 @@
     if (!_playerModel) {
         _playerModel                  = [[ZFPlayerModel alloc] init];
         _playerModel.title            = _memory.title;
-        _playerModel.videoURL         = [NSURL URLWithString:_memory.url];
-        _playerModel.placeholderImage = [UIImage imageNamed:@"home_memoryImg"];
+        _playerModel.videoURL         = [NSURL URLWithString:_memory.videoUrl];
+//        _playerModel.placeholderImage = [UIImage imageNamed:@"home_memoryImg"];
+        _playerModel.placeholderImageURLString = _memory.imgUrl;
         _playerModel.fatherView       = self.playFatherView;
     }
     return _playerModel;
