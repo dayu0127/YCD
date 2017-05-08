@@ -137,7 +137,7 @@
     if ([_memory.payType isEqualToString:@"0"]) {
         SubAlertView *subAlertView = [[SubAlertView alloc] initWithNib];
         [subAlertView setTitle:_memory.title fullPrice:_memory.full_price subType:SubTypeMemory];
-        subAlertView.label_0_height.constant = [subAlertView.label_0.text boundingRectWithSize:CGSizeMake(280, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:12.0f] forKey:NSFontAttributeName] context:nil].size.height+5;
+        subAlertView.label_0_height.constant = [subAlertView.label_0.text boundingRectWithSize:CGSizeMake(280, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:12.0f] forKey:NSFontAttributeName] context:nil].size.height+6;
         subAlertView.delegate = self;
         _alertView = [[JCAlertView alloc] initWithCustomView:subAlertView dismissWhenTouchedBackground:NO];
         [_alertView show];

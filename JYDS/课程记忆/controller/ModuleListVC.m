@@ -148,7 +148,7 @@
 - (IBAction)subAllWordBtnClick:(UIButton *)sender {
     SubAlertView *subAlertView = [[SubAlertView alloc] initWithNib];
     [subAlertView setTitle:_gradeName fullPrice:_full_price subType:SubTypeWord];
-    subAlertView.label_0_height.constant = [subAlertView.label_0.text boundingRectWithSize:CGSizeMake(280, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:12.0f] forKey:NSFontAttributeName] context:nil].size.height+5;
+    subAlertView.label_0_height.constant = [subAlertView.label_0.text boundingRectWithSize:CGSizeMake(280, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:12.0f] forKey:NSFontAttributeName] context:nil].size.height+6;
     subAlertView.delegate = self;
     _alertView = [[JCAlertView alloc] initWithCustomView:subAlertView dismissWhenTouchedBackground:NO];
     [_alertView show];

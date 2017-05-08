@@ -157,7 +157,7 @@
 }
 #pragma mark 退出当前账号
 - (IBAction)logoutClick:(id)sender {
-    //情况banner
+    //清空banner
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"banner"];
     //清空token
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"token"];

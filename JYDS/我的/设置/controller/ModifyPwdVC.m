@@ -59,6 +59,8 @@
             if ([json[@"code"] integerValue] == 200) {
                 [YHHud showWithMessage:@"修改成功,请重新登录"];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    //清空banner
+                    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"banner"];
                     //清空token
                     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"tolen"];
                     //清空个人信息

@@ -7,7 +7,7 @@
 //
 
 #import "BingingPhoneVC.h"
-
+#import <UIImageView+WebCache.h>
 @interface BingingPhoneVC ()
 @property (weak, nonatomic) IBOutlet UITextField *phoneTxt;
 @property (weak, nonatomic) IBOutlet UITextField *checkCodeTxt;
@@ -111,19 +111,41 @@
     };
     [YHWebRequest YHWebRequestForPOST:kBindingPhone parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
-            NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
-            //改变我的页面，显示头像,昵称和手机号
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
-            NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-            //保存token
-            [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"token"] forKey:@"token"];
-            //保存用户信息
-            [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
-            [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
-            [YHHud showWithSuccess:@"绑定成功"];
-            //改变手机绑定状态显示
-            [_delegate updatePhoneBingingState:_phoneTxt.text];
-            [self.navigationController popViewControllerAnimated:YES];
+//            NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
+//            NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+//            //保存token
+//            [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"token"] forKey:@"token"];
+//            //保存用户信息
+//            [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
+//            [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
+//            //改变我的页面，显示头像,昵称和手机号
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
+//            [YHHud showWithSuccess:@"绑定成功"];
+//            //改变手机绑定状态显示
+//            [_delegate updatePhoneBingingState:_phoneTxt.text];
+//            [self.navigationController popViewControllerAnimated:YES];
+            [YHHud showWithMessage:@"绑定成功,请重新登录"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                //清空banner
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"banner"];
+                //清空token
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"tolen"];
+                //清空个人信息
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfo"];
+                //清除个人点赞
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"likesDic"];
+                //清除缓存
+                [[SDImageCache sharedImageCache] clearDisk];
+                [[SDImageCache sharedImageCache] clearMemory];//可有可无
+                //改变登录状态
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isLogin"];
+                //跳转到登录页面
+                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
+                [app.window setRootViewController:loginVC];
+                [app.window makeKeyWindow];
+            });
         }else{
             NSLog(@"%@",json[@"code"]);
             [YHHud showWithMessage:json[@"message"]];
