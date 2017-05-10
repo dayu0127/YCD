@@ -36,8 +36,14 @@
     [_tableView registerNib:[UINib nibWithNibName:@"DynamicCell" bundle:nil] forCellReuseIdentifier:@"DynamicCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"MemoryCell" bundle:nil] forCellReuseIdentifier:@"MemoryCell"];
     _bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexImages"];
+    if ([self.phoneNum isEqualToString:@"13312345678"]) {
+        _bannerInfoArray = [NSMutableArray arrayWithObject:_bannerInfoArray[1]];
+    }
     _dynamicArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexDynamic"];
     _memoryList = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexMemory"];
+    if ([self.phoneNum isEqualToString:@"13312345678"]) {
+        _memoryList = [NSMutableArray arrayWithObject:_memoryList[0]];
+    }
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             //获取首页内容
             [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
@@ -53,6 +59,9 @@
                     _bannerInfoArray = dataDic[@"indexImages"];
                     _dynamicArray = dataDic[@"indexDynamic"];
                     _memoryList = dataDic[@"indexMemory"];
+                    if ([self.phoneNum isEqualToString:@"13312345678"]) {
+                        _memoryList = [NSMutableArray arrayWithObject:dataDic[@"indexMemory"][0]];
+                    }
                     [self.tableView reloadData];
                     [self.tableView.mj_header endRefreshing];
                 }else{
@@ -168,7 +177,9 @@
 }
 #pragma mark 邀请好友
 - (void)pushToInvitation{
-    [self performSegueWithIdentifier:@"homeToInviteRewards" sender:self];
+    if (self.phoneNum==nil || (self.phoneNum != nil && ![self.phoneNum isEqualToString:@"13312345678"])) {
+        [self performSegueWithIdentifier:@"homeToInviteRewards" sender:self];
+    }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 1) {

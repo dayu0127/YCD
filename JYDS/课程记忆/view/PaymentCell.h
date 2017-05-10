@@ -7,8 +7,9 @@
 //
 #import <UIKit/UIKit.h>
 @interface PaymentCell : BaseCell
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageHeight;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView1;
 @property (weak, nonatomic) IBOutlet UILabel *title;
+@property (weak, nonatomic) IBOutlet UILabel *detail;
 
 @end

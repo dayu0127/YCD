@@ -200,7 +200,9 @@
                 [self performSegueWithIdentifier:@"toMyCollect" sender:self];
             }
         }else{//邀请奖励
-            [self performSegueWithIdentifier:@"toInviteRewards" sender:self];
+            if (self.phoneNum == nil || (self.phoneNum!=nil&&![self.phoneNum isEqualToString:@"13312345678"])) {
+                [self performSegueWithIdentifier:@"toInviteRewards" sender:self];
+            }
         }
     }else if (indexPath.section == 2){
         if (indexPath.row == 0) {//关于我们

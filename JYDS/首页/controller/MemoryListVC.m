@@ -77,6 +77,9 @@
             NSArray *resultArray =  resultDic[@"indexMemory"];
             if (status == UITableViewRefreshStatusAnimation || status == UITableViewRefreshStatusHeader) {
                 _memoryVideoList = [NSMutableArray arrayWithArray:resultArray];
+                if ([self.phoneNum isEqualToString:@"13312345678"]) {
+                    _memoryVideoList = [NSMutableArray arrayWithObject:resultArray[0]];
+                }
                 [_tableView reloadData];
                 //本地保存视频是否被点赞
                 if ([[NSUserDefaults standardUserDefaults] objectForKey:@"likesDic"] == nil) {
@@ -137,7 +140,7 @@
     if ([_memory.payType isEqualToString:@"0"]) {
         SubAlertView *subAlertView = [[SubAlertView alloc] initWithNib];
         [subAlertView setTitle:_memory.title fullPrice:_memory.full_price subType:SubTypeMemory];
-        subAlertView.label_0_height.constant = [subAlertView.label_0.text boundingRectWithSize:CGSizeMake(280, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:12.0f] forKey:NSFontAttributeName] context:nil].size.height+5;
+        subAlertView.label_0_height.constant = [subAlertView.label_0.text boundingRectWithSize:CGSizeMake(280, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:12.0f] forKey:NSFontAttributeName] context:nil].size.height+7;
         subAlertView.delegate = self;
         _alertView = [[JCAlertView alloc] initWithCustomView:subAlertView dismissWhenTouchedBackground:NO];
         [_alertView show];

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,24 +16,27 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支付宝支付" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="69d-3k-OxP" userLabel="title">
-                        <rect key="frame" x="53" y="13" width="76.5" height="18"/>
+                        <rect key="frame" x="51" y="14" width="76.5" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="bbq-Bb-z7I"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="course_alipay" translatesAutoresizingMaskIntoConstraints="NO" id="dFz-CV-Abn" userLabel="imageView">
-                        <rect key="frame" x="15" y="8" width="28" height="28"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="apple_pay_logo" translatesAutoresizingMaskIntoConstraints="NO" id="dFz-CV-Abn" userLabel="imageView">
+                        <rect key="frame" x="15" y="9" width="26" height="26"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="28" id="5ET-Yb-Vzn"/>
-                            <constraint firstAttribute="height" constant="28" id="kJ6-Yq-lVP"/>
+                            <constraint firstAttribute="width" constant="26" id="5ET-Yb-Vzn"/>
+                            <constraint firstAttribute="height" constant="26" id="kJ6-Yq-lVP"/>
                         </constraints>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kEo-Ag-hV4" userLabel="line">
-                        <rect key="frame" x="0.0" y="42" width="375" height="1"/>
+                        <rect key="frame" x="0.0" y="42.5" width="375" height="1"/>
                         <color key="backgroundColor" red="0.89411764705882346" green="0.89411764705882346" blue="0.89411764705882346" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="K4T-pF-W3w"/>
@@ -44,23 +47,24 @@
                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="kEo-Ag-hV4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="6WQ-Eb-7cc"/>
+                    <constraint firstItem="69d-3k-OxP" firstAttribute="centerY" secondItem="dFz-CV-Abn" secondAttribute="centerY" id="9Tn-u2-E2k"/>
                     <constraint firstAttribute="bottom" secondItem="kEo-Ag-hV4" secondAttribute="bottom" id="9jC-Ap-SF5"/>
                     <constraint firstAttribute="trailing" secondItem="kEo-Ag-hV4" secondAttribute="trailing" id="9n7-lE-gCs"/>
                     <constraint firstItem="dFz-CV-Abn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="Ojg-4L-tdD"/>
-                    <constraint firstItem="69d-3k-OxP" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ZC9-Il-dyg"/>
                     <constraint firstItem="dFz-CV-Abn" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="aoi-8f-mip"/>
                     <constraint firstItem="69d-3k-OxP" firstAttribute="leading" secondItem="dFz-CV-Abn" secondAttribute="trailing" constant="10" id="jTg-2q-Ota"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="imageHeight" destination="kJ6-Yq-lVP" id="Utl-TQ-ipP"/>
                 <outlet property="imageView1" destination="dFz-CV-Abn" id="RtW-tl-5oi"/>
                 <outlet property="title" destination="69d-3k-OxP" id="2hG-de-Mbc"/>
             </connections>
-            <point key="canvasLocation" x="26.5" y="52"/>
+            <point key="canvasLocation" x="26.5" y="51.5"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="course_alipay" width="25" height="25"/>
+        <image name="apple_pay_logo" width="50" height="50"/>
     </resources>
 </document>

@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet MJRefreshNormalHeader *header;
 @property (strong,nonatomic) PayDetailCell *cell;
+//@property (assign,nonatomic) NSInteger isReview;
 @end
 
 @implementation PayViewController
@@ -25,6 +26,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [YHSingleton shareSingleton].payType = _payType;
+//    _isReview = 1;
+//    _inviteCount = @"5";
+//    _preferentialPrice = @"￥ 250.00";
+//    _payPrice = @"￥ 100.00";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(back) name:@"back" object:nil];
     //下拉刷新
     _header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -88,7 +93,6 @@
     return indexPath.row == 0 ? 174 : 44;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    return [WXApi isWXAppInstalled] ? 3 : 2;
     return 2;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -100,33 +104,32 @@
         _cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return _cell;
     }else{
-//        if ([WXApi isWXAppInstalled]) {
+//        if (_isReview == 0) {
 //            PaymentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PaymentCell" forIndexPath:indexPath];
-//            cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
-//            cell.selectedBackgroundView.dk_backgroundColorPicker = DKColorPickerWithColors(D_CELL_SELT,N_CELL_SELT,RED);
 //            if (indexPath.row == 1) {
-//                cell.imageView1.image = [UIImage imageNamed:@"course_alipay"];
-//                cell.title.text = @"支付宝支付";
+//                cell.imageView1.image = [UIImage imageNamed:@"apple_pay_logo_large"];
+//                cell.title.text = @"Apple Pay";
+//                cell.detail.text = @"需要向苹果支付30%的手续费";
 //            }else{
-//                cell.imageView1.image = [UIImage imageNamed:@"course_wxpay"];
-//                cell.title.text =@"微信支付";
+//                cell.imageHeight.constant = 41;
+//                cell.imageView1.image = [UIImage imageNamed:@"apple_pay_logo"];
+//                cell.title.text =@"支付宝支付";
+//                cell.detail.text = @"推荐使用";
 //            }
 //            return cell;
 //        }else{
             PaymentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PaymentCell" forIndexPath:indexPath];
-            cell.imageView1.image = [UIImage imageNamed:@"course_alipay"];
-            cell.title.text = @"支付宝支付";
             return cell;
 //        }
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    if ([WXApi isWXAppInstalled]) {
+//    if (_isReview == 0) {
 //        if (indexPath.row == 1) {
-//            [self alipayCell];
+//            NSLog(@"苹果支付");
 //        }else if(indexPath.row == 2){
-//            [self wxpayCell];
+//            [self alipayCell];
 //        }
 //    }else{
         if (indexPath.row == 1) {

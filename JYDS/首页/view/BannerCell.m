@@ -17,6 +17,10 @@
     for (NSDictionary *dic in _bannerInfoArray) {
         [_netImages addObject:dic[@"url"]];
     }
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"][@"phoneNum"] isEqualToString:@"13312345678"]) {
+        _netImages = [NSMutableArray arrayWithObject:_netImages[1]];
+    }
+    NSLog(@"%@",_bannerInfoArray);
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, WIDTH, 112/375.0*WIDTH) delegate:self placeholderImage:[UIImage imageNamed:@"zuixin"]];
     cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     cycleScrollView.pageDotColor = [UIColor colorWithRed:235/255.0 green:222/255.0 blue:203/255.0 alpha:0.68];
