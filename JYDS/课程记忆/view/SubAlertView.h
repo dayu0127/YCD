@@ -25,5 +25,5 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *label_0_height;
 - (instancetype)initWithNib;
-- (void)setTitle:(NSString *)title fullPrice:(NSString *)fullPrice subType:(SubType)subType;
+- (void)setTitle:(NSString *)title discountPrice:(NSString *)discountPrice fullPrice:(NSString *)fullPrice subType:(SubType)subType;
 @end

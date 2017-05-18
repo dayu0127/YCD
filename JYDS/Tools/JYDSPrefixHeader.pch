@@ -73,7 +73,7 @@
 
 //接口
 #define API(api) [NSString stringWithFormat:@"https://www.jydsapp.com/jydsApi/api/v2%@",api] //正式
-//#define API(api) [NSString stringWithFormat:@"https://192.168.15.112:8443/jydsApi/api/v2%@",api] //测试
+//#define API(api) [NSString stringWithFormat:@"https://www.jydsapp.com/jydsApiNew/api/v2%@",api] //测试
 
 #define kRegister API(@"/login/register") //注册接口
 #define kPwdLogin API(@"/login/phonePasswordLogin") //用户手机密码登录
@@ -106,8 +106,10 @@
 #define kCollectionWord API(@"/study/collectionWord") //单词收藏
 #define kCancelCollectionWord API(@"/study/cancelCollectionWord") //单词取消收藏
 #define kAlipaySub API(@"/pay/alipayCreateOrder")  //支付宝订阅
+#define kAlipaySubOne API(@"/pay/alipayCreateOrderOne")  //支付宝单个订阅
 #define kAlipaySignCheck API(@"/pay/alipaySignCheck")  //支付宝验签
 #define kWXSub API(@"/pay/weixinCreateOrder")  //微信订阅
+#define kWXSubOne API(@"/pay/weixinCreateOrderOne")  //微信单个订阅
 #define kWXSignCheck API(@"/pay/weixinSignCheck")  //微信验签
 #define kOrderPrice API(@"/pay/getOrderPrice")  //获取订单价格
 #define kFedBack API(@"/system/fedBack")    //用户反馈
@@ -121,6 +123,7 @@
 #define kSelectWord API(@"/study/selectWord")      //单词查询
 #define kGetShare API(@"/common/getShare")      //分享内容
 #define kMemoryList API(@"/video/getMemoryList")      //记忆法系列视频列表
+#define kGetOrderSumPrice API(@"/pay/getOrderSumPrice")      //记忆法全部订阅提示价格
 
 //练习题等级数组
 #define LEVELARRAY @[@"60",@"50",@"40",@"30",@"25",@"20",@"15",@"13",@"10"]
@@ -181,8 +184,9 @@ typedef NS_ENUM(NSInteger, UIViewControllerName) {
     UIViewControllerNameWordSubedList,     //已订阅单词列表
     UIViewControllerNameMyCollectList     //我的收藏列表
 };
-typedef NS_ENUM(NSInteger, SubType) {
-    SubTypeMemory,   //记忆法
-    SubTypeWord,     //单词
-};
+//typedef NS_ENUM(NSInteger, SubType) {
+//    SubTypeMemory,   //记忆法
+//    SubTypeWord,     //单词
+//    SubTypeMemorySingle //单个记忆法
+//};
 #endif /* JYDSPrefixHeader_pch */

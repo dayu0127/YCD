@@ -21,7 +21,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     if (_wordSearchResultArray.count == 0) {
-        [self loadNoInviteView:@"该单词未订阅或者没有结果"];
+        [self loadNoInviteView:@"该单词未学习或者没有结果"];
     }else{
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64) style:UITableViewStylePlain];
         _tableView.delegate = self;

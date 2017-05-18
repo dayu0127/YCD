@@ -10,7 +10,7 @@
 #import "PaymentCell.h"
 #import "PayDetailCell.h"
 #import <AlipaySDK/AlipaySDK.h>
-//#import "WXApi.h"
+#import "WXApi.h"
 @interface PayViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *inviteCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *preferentialPriceLabel;
@@ -25,11 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [YHSingleton shareSingleton].payType = _payType;
-//    _isReview = 1;
-//    _inviteCount = @"5";
-//    _preferentialPrice = @"￥ 250.00";
-//    _payPrice = @"￥ 100.00";
+    [YHSingleton shareSingleton].subType = _subType;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(back) name:@"back" object:nil];
     //下拉刷新
     _header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -39,19 +35,24 @@
         //        "objectId":"****"       #目标id
         //        "payType":"***"         #支付类型 1：记忆法  0：单词课本
         //    }
-        NSDictionary *jsonDic = [NSDictionary dictionary];
-        if (_classId!=nil) {    //单词订阅参数
-            jsonDic  = @{@"userPhone":self.phoneNum,  //  #用户手机号
-                         @"payType" :_payType,         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
-                         @"objectId":_classId,       //  #课本id（选填，当payType=0时候必填）
-                         @"token":self.token};       //   #登陆凭证
+        NSString *payType;
+        NSString *objectId;
+        if (_subType == SubTypeWord) {    //单词订阅参数
+            payType = @"0";
+            objectId = _classId;
+        }else if (_subType == SubTypeMemory) { //记忆法课程订阅参数
+            payType = @"1";
+            objectId = _memoryId;
+        }else{
+            payType = @"2";
+            objectId = _memoryId;
         }
-        if (_memoryId!=nil) { //记忆法课程订阅参数
-            jsonDic  = @{@"userPhone":self.phoneNum,  //  #用户手机号
-                         @"payType" :_payType,         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
-                         @"objectId":_memoryId,     //   #记忆法视频id（选填，当payType=1时候必填）
-                         @"token":self.token};       //   #登陆凭证
-        }
+        NSDictionary *jsonDic  = @{
+            @"userPhone":self.phoneNum,  //  #用户手机号
+            @"payType" :payType,         //   #购买类型
+            @"objectId":objectId,       //  #目标id
+            @"token":self.token       //   #登陆凭证
+        };
         [YHWebRequest YHWebRequestForPOST:kOrderPrice parameters:jsonDic success:^(NSDictionary *json) {
             [self.tableView.mj_header endRefreshing];
             if ([json[@"code"] integerValue] == 200) {
@@ -93,7 +94,7 @@
     return indexPath.row == 0 ? 174 : 44;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return [WXApi isWXAppInstalled] ? 3 : 2;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
@@ -118,24 +119,35 @@
 //            }
 //            return cell;
 //        }else{
+        if ([WXApi isWXAppInstalled]) {
+            if (indexPath.row == 1) {
+                PaymentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PaymentCell" forIndexPath:indexPath];
+                return cell;
+            }else{
+                PaymentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PaymentCell" forIndexPath:indexPath];
+                cell.title.text = @"微信支付";
+                cell.imageView1.image = [UIImage imageNamed:@"course_wxpay"];
+                return cell;
+            }
+        }else{
             PaymentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PaymentCell" forIndexPath:indexPath];
             return cell;
-//        }
+        }
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    if (_isReview == 0) {
-//        if (indexPath.row == 1) {
-//            NSLog(@"苹果支付");
-//        }else if(indexPath.row == 2){
-//            [self alipayCell];
-//        }
-//    }else{
+    if ([WXApi isWXAppInstalled]) {
+        if (indexPath.row == 1) {
+            [self alipayCell];
+        }else if (indexPath.row == 2){
+            [self wxpayCell];
+        }
+    }else{
         if (indexPath.row == 1) {
             [self alipayCell];
         }
-//    }
+    }
 }
 - (void)alipayCell{
 //    {
@@ -146,23 +158,32 @@
 //        "token":"****"          #登陆凭证
 //    }
     NSDictionary *jsonDic = [NSDictionary dictionary];
-    if (_classId!=nil) {    //课本订阅参数
+    NSString *urlStr;
+    if (_subType == SubTypeWord) {    //课本订阅参数
         jsonDic  = @{
             @"userPhone":self.phoneNum,  //  #用户手机号
-            @"payType" :_payType,         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
-            @"classId":_classId,       //  #课本id（选填，当payType=0时候必填）
-            @"token":self.token       //   #登陆凭证
+            @"token":self.token,       //   #登陆凭证
+            @"payType" :@"0",         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
+            @"classId":_classId       //  #课本id（选填，当payType=0时候必填）
         };
-    }
-    if (_memoryId!=nil) { //记忆法课程订阅参数
+        urlStr = kAlipaySub;
+    }else if (_subType == SubTypeMemory) { //记忆法课程订阅参数
         jsonDic  = @{
             @"userPhone":self.phoneNum,  //  #用户手机号
-            @"payType" :self.payType,         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
-            @"memoryId":self.memoryId,     //   #记忆法视频id（选填，当payType=1时候必填）
-            @"token":self.token       //   #登陆凭证
+            @"token":self.token,       //   #登陆凭证
+            @"payType" :@"1",         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
+            @"memoryId":_memoryId     //   #记忆法视频id（选填，当payType=1时候必填）
         };
+        urlStr = kAlipaySub;
+    }else{
+        jsonDic  = @{
+            @"userPhone":self.phoneNum,  //  #用户手机号
+            @"token":self.token,       //   #登陆凭证
+            @"memoryId":_memoryId     //   #记忆法视频id（选填，当payType=1时候必填）
+        };
+        urlStr = kAlipaySubOne;
     }
-    [YHWebRequest YHWebRequestForPOST:kAlipaySub parameters:jsonDic success:^(NSDictionary *json) {
+    [YHWebRequest YHWebRequestForPOST:urlStr parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
             NSDictionary *resultData = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             [YHSingleton shareSingleton].ali_out_trade_no = resultData[@"out_trade_no"];
@@ -196,14 +217,12 @@
                     @"result":resultDic[@"result"],      //    #支付宝返回的订单信息
                     @"token":self.token      //   #登陆凭证
                 };
-                NSLog(@"%@",jsonDic);
                 [YHWebRequest YHWebRequestForPOST:kAlipaySignCheck parameters:jsonDic success:^(NSDictionary *json) {
-                    NSLog(@"%@",json);
                     if ([json[@"code"] integerValue] == 200) {
                         //刷新订阅状态
-                        if ([_payType isEqualToString:@"0"]) {
+                        if (_subType == SubTypeWord) {
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateWordSubStatus" object:nil];
-                        }else if ([_payType isEqualToString:@"1"]){
+                        }else{
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMemorySubStatus" object:nil];
                         }
                         [YHHud showPaySuccessOrFailed:@"success"];
@@ -231,46 +250,52 @@
         NSLog(@"%@",error);
     }];
 }
-//- (void)wxpayCell{
-//    //    {
-//    //        "userPhone":"******"    #用户手机号
-//    //        "payType" :0            #购买类型 0：K12课程单词购买 1：记忆法课程购买
-//    //        "classId":"***"         #课本id（选填，当payType=0时候必填）
-//    //        "memoryId":"***"        #记忆法视频id（选填，当payType=1时候必填）
-//    //        "token":"****"          #登陆凭证
-//    //    }
-//    NSDictionary *jsonDic = [NSDictionary dictionary];
-//    if (_classId!=nil) {    //单词订阅参数
-//        jsonDic  = @{@"userPhone":self.phoneNum,  //  #用户手机号
-//                     @"payType" :_payType,         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
-//                     @"classId":_classId,       //  #课本id（选填，当payType=0时候必填）
-//                     @"token":self.token};       //   #登陆凭证
-//    }
-//    if (_memoryId!=nil) { //记忆法课程订阅参数
-//        jsonDic  = @{@"userPhone":self.phoneNum,  //  #用户手机号
-//                     @"payType" :_payType,         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
-//                     @"memoryId":_memoryId,     //   #记忆法视频id（选填，当payType=1时候必填）
-//                     @"token":self.token};       //   #登陆凭证
-//    }
-//    [YHWebRequest YHWebRequestForPOST:kWXSub parameters:jsonDic success:^(NSDictionary *json) {
-//        NSDictionary *resultData = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-//        [YHSingleton shareSingleton].wx_out_trade_no = resultData[@"out_trade_no"];
-//        if ([json[@"code"] integerValue] == 200) {
-//            PayReq *request = [[PayReq alloc] init];
-//            request.partnerId = resultData[@"partnerId"];
-//            request.prepayId = resultData[@"prepayId"];
-//            request.package = resultData[@"package"];
-//            request.nonceStr= resultData[@"nonceStr"];
-//            request.timeStamp = [resultData[@"timestamp"] intValue];
-//            request.sign = resultData[@"sign"];
-//            //调起微信支付
-//            [WXApi sendReq:request];
-//        }else{
-//            NSLog(@"%@",json[@"code"]);
-//            [YHHud showWithMessage:json[@"message"]];
-//        }
-//    } failure:^(NSError * _Nonnull error) {
-//        NSLog(@"%@",error);
-//    }];
-//}
+- (void)wxpayCell{
+    NSDictionary *jsonDic = [NSDictionary dictionary];
+    NSString *urlStr;
+    if (_subType == SubTypeWord) {    //课本订阅参数
+        jsonDic  = @{
+                     @"userPhone":self.phoneNum,  //  #用户手机号
+                     @"token":self.token,       //   #登陆凭证
+                     @"payType" :@"0",         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
+                     @"classId":_classId       //  #课本id（选填，当payType=0时候必填）
+                     };
+        urlStr = kWXSub;
+    }else if (_subType == SubTypeMemory) { //记忆法课程订阅参数
+        jsonDic  = @{
+                     @"userPhone":self.phoneNum,  //  #用户手机号
+                     @"token":self.token,       //   #登陆凭证
+                     @"payType" :@"1",         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
+                     @"memoryId":_memoryId     //   #记忆法视频id（选填，当payType=1时候必填）
+                     };
+        urlStr = kWXSub;
+    }else{
+        jsonDic  = @{
+                     @"userPhone":self.phoneNum,  //  #用户手机号
+                     @"token":self.token,       //   #登陆凭证
+                     @"memoryId":_memoryId     //   #记忆法视频id（选填，当payType=1时候必填）
+                     };
+        urlStr = kWXSubOne;
+    }
+    [YHWebRequest YHWebRequestForPOST:urlStr parameters:jsonDic success:^(NSDictionary *json) {
+        NSDictionary *resultData = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+        [YHSingleton shareSingleton].wx_out_trade_no = resultData[@"out_trade_no"];
+        if ([json[@"code"] integerValue] == 200) {
+            PayReq *request = [[PayReq alloc] init];
+            request.partnerId = resultData[@"partnerId"];
+            request.prepayId = resultData[@"prepayId"];
+            request.package = resultData[@"package"];
+            request.nonceStr= resultData[@"nonceStr"];
+            request.timeStamp = [resultData[@"timestamp"] intValue];
+            request.sign = resultData[@"sign"];
+            //调起微信支付
+            [WXApi sendReq:request];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            [YHHud showWithMessage:json[@"message"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
+}
 @end

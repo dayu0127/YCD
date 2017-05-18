@@ -1287,8 +1287,12 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="lessonNameLabel" destination="AMg-fW-eAh" id="z7f-su-pEc"/>
+                        <outlet property="tableBottomSpace" destination="EhD-Fw-n8u" id="NND-yA-VAi"/>
                         <outlet property="tableView" destination="Z5B-iC-Ejj" id="Lvi-vs-gRq"/>
                         <segue destination="0jR-eX-LCS" kind="show" identifier="MemorySeriesToDetail" id="4OW-ab-GSa"/>
+                        <segue destination="5a8-Cj-aGI" kind="show" identifier="memoryListToPayVC" id="hMw-m4-2hH"/>
+                        <segue destination="Mjh-Gy-vFh" kind="show" identifier="memoryListToInviteRewards" id="oWY-Ur-CZj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p0y-k9-WtO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1514,8 +1518,6 @@
                     <connections>
                         <outlet property="tableView" destination="WTu-Kv-R7J" id="yuz-ha-uSg"/>
                         <outlet property="topImageView" destination="EL4-6V-X2I" id="Z8w-pZ-Sng"/>
-                        <segue destination="5a8-Cj-aGI" kind="show" identifier="memoryListToPayVC" id="xRH-BA-8YZ"/>
-                        <segue destination="Mjh-Gy-vFh" kind="show" identifier="memoryListToInviteRewards" id="dnP-vd-4lw"/>
                         <segue destination="irC-QK-Rcy" kind="show" identifier="MemoryListToSeries" id="do2-6S-b41"/>
                     </connections>
                 </viewController>
@@ -2215,25 +2217,14 @@
                                             <action selector="backClick:" destination="I6M-Ub-T1L" eventType="touchUpInside" id="F3R-Rk-RtB"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qy4-bt-4CF">
-                                        <rect key="frame" x="331" y="26" width="31" height="30"/>
-                                        <state key="normal" title="提交">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="submitClick:" destination="I6M-Ub-T1L" eventType="touchUpInside" id="wi8-V9-Kt5"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.99607843139999996" green="0.31764705879999999" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="oFV-7b-qNW" firstAttribute="leading" secondItem="JFQ-eh-P6E" secondAttribute="trailing" constant="8" id="b0d-6S-8SV"/>
-                                    <constraint firstAttribute="trailing" secondItem="Qy4-bt-4CF" secondAttribute="trailing" constant="13" id="dTd-NH-0eu"/>
                                     <constraint firstItem="JFQ-eh-P6E" firstAttribute="leading" secondItem="gRK-cK-6PG" secondAttribute="leading" constant="7" id="jf6-V7-QRB"/>
                                     <constraint firstItem="JFQ-eh-P6E" firstAttribute="top" secondItem="gRK-cK-6PG" secondAttribute="top" constant="25" id="kQl-Nv-HFo"/>
                                     <constraint firstAttribute="height" constant="64" id="lO2-yu-eJZ"/>
                                     <constraint firstItem="oFV-7b-qNW" firstAttribute="centerY" secondItem="JFQ-eh-P6E" secondAttribute="centerY" id="oB9-Rb-ZAT"/>
-                                    <constraint firstItem="Qy4-bt-4CF" firstAttribute="centerY" secondItem="oFV-7b-qNW" secondAttribute="centerY" id="wY1-hQ-3di"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -2827,7 +2818,7 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="jGJ-Cw-VA5" id="zV9-Rf-0ar"/>
-                        <segue destination="0jR-eX-LCS" kind="show" identifier="MySubToMemoryDetail" id="yqS-Ey-HAp"/>
+                        <segue destination="irC-QK-Rcy" kind="show" identifier="toSubedMemorySeriesList" id="Ba2-5Y-rJf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0GG-0y-L3V" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3458,7 +3449,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VV0-iA-n9z">
                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" title="未订阅单词">
+                                        <state key="normal" title="未学习单词">
                                             <color key="titleColor" red="0.99607843139999996" green="0.31764705879999999" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <state key="selected">
@@ -3474,7 +3465,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TcO-JV-1IA">
                                         <rect key="frame" x="187.5" y="0.0" width="187.5" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" title="已订阅单词">
+                                        <state key="normal" title="已学习单词">
                                             <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -4455,12 +4446,11 @@
         <image name="userinfo_top_bg" width="375" height="246"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ieB-4i-mT9"/>
-        <segue reference="cV4-mu-ucd"/>
-        <segue reference="dnP-vd-4lw"/>
-        <segue reference="xRH-BA-8YZ"/>
         <segue reference="do2-6S-b41"/>
-        <segue reference="4OW-ab-GSa"/>
+        <segue reference="ieB-4i-mT9"/>
+        <segue reference="uLV-zb-tLE"/>
+        <segue reference="jUJ-Kx-0eF"/>
+        <segue reference="3Cm-7u-jdT"/>
         <segue reference="rhJ-wj-NYw"/>
     </inferredMetricsTieBreakers>
 </document>

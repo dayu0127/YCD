@@ -213,11 +213,7 @@
             [self returnToLogin];
         }else{
             _memory = [Memory yy_modelWithJSON:_memoryList[indexPath.row]];
-            if (([_memory.payType isEqualToString:@"1"]&&![_memory.full_price isEqualToString:@"0"]) || [_memory.full_price isEqualToString:@"0"]) {
-                [self performSegueWithIdentifier:@"HometToSeries" sender:self];
-            }else{
-                [self performSegueWithIdentifier:@"toMemoryMore" sender:self];
-            }
+            [self performSegueWithIdentifier:@"HometToSeries" sender:self];
         }
     }
 }
@@ -225,6 +221,8 @@
     if ([segue.identifier isEqualToString:@"HometToSeries"]) {
         MemorySeriesVideoListVC *seriesVC = segue.destinationViewController;
         seriesVC.lessonId = _memory.memoryId;
+        seriesVC.lessonName = _memory.title;
+        seriesVC.lessonPayType = _memory.payType;
     }
 }
 @end

@@ -22,7 +22,6 @@
 @property (strong,nonatomic) JCAlertView *alertView;
 @property (weak, nonatomic) IBOutlet UIButton *subAllButton;
 @property (copy,nonatomic) NSString *inviteCount;
-@property (copy,nonatomic) NSString *preferentialPrice;
 @property (copy,nonatomic) NSString *payPrice;
 @property (assign,nonatomic) NSInteger wordNum;
 @property (strong,nonatomic) NSArray *wordSearchResultArray;
@@ -36,11 +35,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWordSubStatus) name:@"updateWordSubStatus" object:nil];
     [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
     [_tableView registerNib:[UINib nibWithNibName:@"ModuleCell" bundle:nil] forCellReuseIdentifier:@"ModuleCell"];
-    if ([_payType isEqualToString:@"0"]) {
-        _subAllButton.alpha = 1;
-    }else{
-        _subAllButton.alpha = 0;
-    }
+    [YHHud showWithStatus];
 //    {
 //        "classId":"******"      #课本ID
 //        "userPhone":"***"       #用户手机号
@@ -51,15 +46,22 @@
                                           @"userPhone":[YHSingleton shareSingleton].userInfo.phoneNum,     //  #用户手机号
                                           @"token":token};         // #登陆凭证
     [YHWebRequest YHWebRequestForPOST:kModuleList parameters:jsonDic success:^(NSDictionary *json) {
+        [YHHud dismiss];
         if([json[@"code"] integerValue] == 200){
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             _moduleList = resultDic[@"unitList"];
             [_tableView reloadData];
+            if ([_payType isEqualToString:@"0"]) {
+                _subAllButton.alpha = 1;
+            }else{
+                _subAllButton.alpha = 0;
+            }
         }else{
             NSLog(@"%@",json[@"code"]);
             [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
+        [YHHud dismiss];
         NSLog(@"%@",error);
     }];
 }
@@ -138,17 +140,16 @@
     }else if ([segue.identifier isEqualToString:@"toPayViewController"]){
         PayViewController *payVC = segue.destinationViewController;
         payVC.classId = _classId;
-        payVC.payType = @"0";    //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
         payVC.inviteCount = _inviteCount;
         payVC.preferentialPrice = _preferentialPrice;
         payVC.payPrice = _payPrice;
-        [YHSingleton shareSingleton].payType = @"0";
+        payVC.subType = SubTypeWord;
+        [YHSingleton shareSingleton].subType = SubTypeWord;
     }
 }
 - (IBAction)subAllWordBtnClick:(UIButton *)sender {
     SubAlertView *subAlertView = [[SubAlertView alloc] initWithNib];
-    [subAlertView setTitle:_gradeName fullPrice:_full_price subType:SubTypeWord];
-    subAlertView.label_0_height.constant = [subAlertView.label_0.text boundingRectWithSize:CGSizeMake(280, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:12.0f] forKey:NSFontAttributeName] context:nil].size.height+7;
+    [subAlertView setTitle:_gradeName discountPrice:_preferentialPrice fullPrice:_full_price subType:SubTypeWord];
     subAlertView.delegate = self;
     _alertView = [[JCAlertView alloc] initWithCustomView:subAlertView dismissWhenTouchedBackground:NO];
     [_alertView show];
@@ -163,10 +164,12 @@
 //            "payType":"***"         #支付类型 1：记忆法  0：单词课本
 //        }
         [YHHud showWithStatus];
-        NSDictionary *jsonDic = @{@"userPhone":self.phoneNum,  //  #用户手机号
-                                              @"payType" :@"0",         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
-                                              @"objectId":_classId,       //  #目标id
-                                              @"token":self.token};       //   #登陆凭证
+        NSDictionary *jsonDic = @{
+            @"userPhone":self.phoneNum,  //  #用户手机号
+            @"payType" :@"0",         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
+            @"objectId":_classId,       //  #目标id
+            @"token":self.token       //   #登陆凭证
+        };
         [YHWebRequest YHWebRequestForPOST:kOrderPrice parameters:jsonDic success:^(NSDictionary *json) {
             [YHHud dismiss];
             if ([json[@"code"] integerValue] == 200) {

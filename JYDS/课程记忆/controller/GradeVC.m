@@ -36,6 +36,8 @@
 @property (strong,nonatomic) NSString *gradeName;
 /**选中课本全价*/
 @property (copy,nonatomic) NSString *full_price;
+/**选中课本最低价*/
+@property (copy,nonatomic) NSString *preferentialPrice;
 @end
 @implementation GradeVC
 - (void)viewDidLoad {
@@ -257,6 +259,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     _classId  = _versionList[indexPath.row][@"classId"];
     _full_price = _versionList[indexPath.row][@"full_price"];
+    _preferentialPrice = _versionList[indexPath.row][@"preferentialPrice"];
     _payType  = [NSString stringWithFormat:@"%@",_versionList[indexPath.row][@"payType"]];
     _gradeName = _versionList[indexPath.row][@"grade_name"];
     [self performSegueWithIdentifier:@"toModuleList" sender:self];
@@ -278,6 +281,7 @@
         moduleListVC.payType =_payType;
         moduleListVC.gradeName = _gradeName;
         moduleListVC.full_price = _full_price;
+        moduleListVC.preferentialPrice = _preferentialPrice;
     }
 }
 @end

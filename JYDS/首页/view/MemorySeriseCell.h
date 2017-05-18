@@ -11,6 +11,7 @@
 @interface MemorySeriseCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *seriseImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *subImg;
 @property (weak, nonatomic) IBOutlet UILabel *likesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *playCountLabel;
 @end

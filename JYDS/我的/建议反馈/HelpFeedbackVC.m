@@ -31,6 +31,15 @@
     _textView.layer.cornerRadius = 6.0f;
     [self.view addSubview:_textView];
     [self addPromptContent];
+    UIButton *submitButton = [[UIButton alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_textView.frame)+10, WIDTH-20, 45)];
+    [submitButton setTitle:@"提 交" forState:UIControlStateNormal];
+    [submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    submitButton.backgroundColor = ORANGERED;
+    submitButton.layer.masksToBounds = YES;
+    submitButton.layer.cornerRadius = 3.0f;
+    submitButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    [submitButton addTarget:self action:@selector(submitClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:submitButton];
 }
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -57,7 +66,7 @@
     [super touchesBegan:touches withEvent:event];
     [self.view endEditing:YES];
 }
-- (IBAction)submitClick:(id)sender {
+- (void)submitClick:(id)sender {
     _textView.text = [_textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if ([_textView.text isEqualToString:@""]) {
         _promptLabel.textColor = ORANGERED;
@@ -84,29 +93,6 @@
         } failure:^(NSError * _Nonnull error) {
             NSLog(@"%@",error);
         }];
-    }
-}
-- (IBAction)sureButtonClick:(UIBarButtonItem *)sender {
-    if ([_textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) {
-        _promptLabel.textColor = [UIColor redColor];
-    }else{
-//        NSDictionary *dic = @{@"userID":[YHSingleton shareSingleton].userInfo.userID,@"content":_textView.text,@"device_id":DEVICEID};
-//        [YHWebRequest YHWebRequestForPOST:FEEDBACK parameters:dic success:^(NSDictionary *json) {
-//            if ([json[@"code"] isEqualToString:@"NOLOGIN"]) {
-//                [self returnToLogin];
-//            }else if ([json[@"code"] isEqualToString:@"SUCCESS"]) {
-//                [YHHud showWithSuccess:@"提交成功"];
-//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                    [self.navigationController popViewControllerAnimated:YES];
-//                });
-//            }else if([json[@"code"] isEqualToString:@"ERROR"]){
-//                [YHHud showWithMessage:@"服务器错误"];
-//            }else{
-//                [YHHud showWithMessage:@"提交失败"];
-//            }
-//        } failure:^(NSError * _Nonnull error) {
-//            [YHHud showWithMessage:@"数据请求失败"];
-//        }];
     }
 }
 @end

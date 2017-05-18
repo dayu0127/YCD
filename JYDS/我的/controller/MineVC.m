@@ -189,7 +189,9 @@
             }else if (self.token==nil&&self.phoneNum==nil) {
                 [self returnToLogin];
             }else{
-                [self performSegueWithIdentifier:@"toMySub" sender:self];
+                if (self.phoneNum == nil || (self.phoneNum!=nil&&![self.phoneNum isEqualToString:@"13312345678"])) {
+                    [self performSegueWithIdentifier:@"toMySub" sender:self];
+                }
             }
         }else if(indexPath.row == 1){//我的收藏
             if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {

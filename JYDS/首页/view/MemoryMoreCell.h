@@ -10,12 +10,10 @@
 @interface MemoryMoreCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *subStateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *playCountLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *subImg;
-@property (weak, nonatomic) IBOutlet UIImageView *memoryImageView;
+@property (weak, nonatomic) IBOutlet UILabel *lessonCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subCountLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *memoryImageView;
+
 - (void)addModelWithDic:(NSDictionary *)dic;
 
 @end

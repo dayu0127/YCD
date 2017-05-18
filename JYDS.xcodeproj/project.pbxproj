@@ -1439,7 +1439,7 @@
 				TargetAttributes = {
 					69B129E01DE2C6490093D841 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = QPA82R6FFY;
+						DevelopmentTeam = VL3XXNWR94;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplePay = {
@@ -1737,11 +1737,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: You Xia (VL3XXNWR94)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: You Xia (VL3XXNWR94)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = QPA82R6FFY;
+				DEVELOPMENT_TEAM = VL3XXNWR94;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1758,7 +1758,7 @@
 					"-Objc",
 					"-all_load",
 				);
-				PROVISIONING_PROFILE = "46f727d9-b763-4ae8-86f5-1d4b6502edc5";
+				PROVISIONING_PROFILE = "3376dc85-9b62-48a0-8e81-8dbb9fe0fd31";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1771,7 +1771,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: You Xia (VL3XXNWR94)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
@@ -1870,7 +1870,7 @@
 					"-framework",
 					"\"AlipaySDK\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSIOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1903,11 +1903,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: You Xia (VL3XXNWR94)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: You Xia (VL3XXNWR94)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = A8G7V8GV67;
+				DEVELOPMENT_TEAM = VL3XXNWR94;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1931,7 +1931,7 @@
 					"-Objc",
 					"-all_load",
 				);
-				PROVISIONING_PROFILE = "46f727d9-b763-4ae8-86f5-1d4b6502edc5";
+				PROVISIONING_PROFILE = "3376dc85-9b62-48a0-8e81-8dbb9fe0fd31";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1958,11 +1958,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: You Xia (VL3XXNWR94)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: You Xia (VL3XXNWR94)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = A8G7V8GV67;
+				DEVELOPMENT_TEAM = VL3XXNWR94;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1979,7 +1979,7 @@
 					"-Objc",
 					"-all_load",
 				);
-				PROVISIONING_PROFILE = "46f727d9-b763-4ae8-86f5-1d4b6502edc5";
+				PROVISIONING_PROFILE = "3376dc85-9b62-48a0-8e81-8dbb9fe0fd31";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1992,7 +1992,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: You Xia (VL3XXNWR94)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
@@ -2091,7 +2091,7 @@
 					"-framework",
 					"\"AlipaySDK\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSIOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2109,7 +2109,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: You Xia (VL3XXNWR94)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
@@ -2208,7 +2208,7 @@
 					"-framework",
 					"\"AlipaySDK\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSIOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

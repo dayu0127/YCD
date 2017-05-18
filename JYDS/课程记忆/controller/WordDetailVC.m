@@ -103,7 +103,8 @@
     _rwButton.layer.cornerRadius = 3.0f;
     [_rwButton setTitle:@"跟读" forState:UIControlStateNormal];
     [_rwButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _rwButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+    _rwButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];//添加跟读点击事件
+    [_rwButton addTarget:self action:@selector(readClick:) forControlEvents:UIControlEventTouchUpInside];
     [_rwButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(footerView).offset(73);
         make.right.equalTo(footerView).offset(-73);

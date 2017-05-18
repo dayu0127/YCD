@@ -146,9 +146,9 @@
                 };
                 [YHWebRequest YHWebRequestForPOST:kAlipaySignCheck parameters:jsonDic success:^(NSDictionary *json) {
                     if ([json[@"code"] integerValue] == 200) {
-                        if ([[YHSingleton shareSingleton].payType isEqualToString:@"0"]) {
+                        if ([YHSingleton shareSingleton].subType == SubTypeWord) {
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateWordSubStatus" object:nil];
-                        }else if ([[YHSingleton shareSingleton].payType isEqualToString:@"1"]){
+                        }else{
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMemorySubStatus" object:nil];
                         }
                         [YHHud showPaySuccessOrFailed:@"success"];
@@ -170,10 +170,10 @@
             }];
         }
     }
-//    else{
-//        // 微信SDK的回调
-//        [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
-//    }
+    else{
+        // 微信SDK的回调
+        [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+    }
     return result;
 }
 @end

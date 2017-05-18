@@ -17,13 +17,17 @@
 //\"payType\": \"0\",
 //\"orders\": 1,
 //\"grade_name\": \"小学五年级上学期\",
+//\"total_lessons\":4
+//\"preferentialPrice" : 100,
 @property (copy,nonatomic) NSString *classId;
 @property (copy,nonatomic) NSString *class_name;
 @property (copy,nonatomic) NSString *grade_name;
-//@property (copy,nonatomic) NSString *total_words;
+@property (copy,nonatomic) NSString *total_words;
 @property (copy,nonatomic) NSString *full_price;
 @property (copy,nonatomic) NSString *imgurl;
 @property (copy,nonatomic) NSString *payType;
 @property (copy,nonatomic) NSString *orders;
+@property (copy,nonatomic) NSString *preferentialPrice;
+@property (copy,nonatomic) NSString *total_lessons;
 
 @end

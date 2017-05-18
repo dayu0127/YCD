@@ -21,6 +21,8 @@
 //    "orders":10,
 //    "create_time":"2011-11-11 12:11:11",
 //    "imgUrl":"http://www.xxx.com"
+//        \"preferentialPrice\": 100.00
+//        \"total_lessons\":10
 //}
 @property (copy,nonatomic) NSString *memoryId;
 @property (copy,nonatomic) NSString *title;
@@ -34,5 +36,7 @@
 @property (copy,nonatomic) NSString *orders;
 @property (copy,nonatomic) NSString *create_time;
 @property (copy,nonatomic) NSString *imgUrl;
+@property (copy,nonatomic) NSString *preferentialPrice;
+@property (copy,nonatomic) NSString *total_lessons;
 
 @end
