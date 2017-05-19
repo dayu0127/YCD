@@ -13,7 +13,8 @@
 #import <UIImageView+WebCache.h>
 #import "SubAlertView.h"
 #import "PayViewController.h"
-@interface MemorySeriesVideoListVC ()<UITableViewDelegate,UITableViewDataSource,MemoryDetailVCDelegate,SubAlertViewDelegate>
+#import <StoreKit/StoreKit.h>
+@interface MemorySeriesVideoListVC ()<UITableViewDelegate,UITableViewDataSource,MemoryDetailVCDelegate,SubAlertViewDelegate,SKPaymentTransactionObserver,SKProductsRequestDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *lessonNameLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) Memory *memory;
@@ -38,6 +39,8 @@
     _lessonNameLabel.text = _lessonName;
     [self loadMemoryList];
     [_tableView registerNib:[UINib nibWithNibName:@"MemorySeriseCell" bundle:nil] forCellReuseIdentifier:@"MemorySeriseCell"];
+    //监听购买结果
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
 }
 - (void)addSubAllBtn{
     _bottomBgView = [UIView new];
@@ -257,16 +260,41 @@
             @"token":self.token       //   #登陆凭证
         };
         [YHWebRequest YHWebRequestForPOST:kOrderPrice parameters:jsonDic success:^(NSDictionary *json) {
-            [YHHud dismiss];
+            
             if ([json[@"code"] integerValue] == 200) {
                 NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
                 _inviteCount = [NSString stringWithFormat:@"%@",dataDic[@"inviteNum"]];
-                float oldPrice = [dataDic[@"price"] floatValue];
+//                float oldPrice = [dataDic[@"price"] floatValue];
                 float newPrice = [dataDic[@"discountPrice"] floatValue];
-                _preferentialPrice = [NSString stringWithFormat:@"￥%0.2f",oldPrice-newPrice];
-                _payPrice = [NSString stringWithFormat:@"￥%0.2f",newPrice];
-                [self performSegueWithIdentifier:@"memoryListToPayVC" sender:self];
+//                _preferentialPrice = [NSString stringWithFormat:@"￥%0.2f",oldPrice-newPrice];
+//                _payPrice = [NSString stringWithFormat:@"￥%0.2f",newPrice];
+//                [self performSegueWithIdentifier:@"memoryListToPayVC" sender:self];
+//                NSInteger preferentialPrice = (NSInteger)(oldPrice-newPrice);
+                NSInteger payPrice = (NSInteger)newPrice;
+                switch (payPrice) {
+                    case 100:
+                        [self validateIsCanBought:ProductID_Price100];
+                        break;
+                    case 150:
+                        [self validateIsCanBought:ProductID_Price150];
+                        break;
+                    case 200:
+                        [self validateIsCanBought:ProductID_Price200];
+                        break;
+                    case 250:
+                        [self validateIsCanBought:ProductID_Price250];
+                        break;
+                    case 300:
+                        [self validateIsCanBought:ProductID_Price300];
+                        break;
+                    case 350:
+                        [self validateIsCanBought:@"jiyifa300"];
+                        break;
+                    default:
+                        break;
+                }
             }else{
+                [YHHud dismiss];
                 NSLog(@"%@",json[@"code"]);
                 [YHHud showWithMessage:json[@"message"]];
             }
@@ -276,6 +304,148 @@
         }];
     }];
 }
+//--------------------------------------------内购开始-------------------------------------------------------
+
+//用户点击一个IAP项目时，首先查询用户是否允许应用内付费(tableViewCell点击时，传递内购商品ProductId，ProductID可以提前存储到本地，用到时直接获取即可)
+-(void)validateIsCanBought:(NSString *)productId{
+    if ([SKPaymentQueue canMakePayments]) {
+        [self getProductInfo:@[productId]];
+    }else{
+        NSLog(@"失败,用户禁止应用内付费购买");
+    }
+}
+
+//通过该IAP的Product ID向App Store查询，获取SKPayment实例，接着通过SKPaymentQueue的addPayment方法发起一个购买的操作
+//下面的ProductId应该是事先在itunesConnect中添加好的，已存在的付费项目，否则会查询失败
+-(void)getProductInfo:(NSArray *)productIds{
+    NSSet *set = [NSSet setWithArray:productIds];
+    SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:set];
+    request.delegate = self;
+    [request start];
+}
+
+#pragma mark - SKProductsRequestDelegate
+//查询的回调函数
+-(void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
+    //获取到的所有内购商品
+    NSArray *myProduct = response.products;
+    // populate UI
+    for(SKProduct *product in myProduct){
+        NSLog(@"SKProduct 描述信息%@", [product description]);
+        NSLog(@"产品标题 %@" , product.localizedTitle);
+        NSLog(@"产品描述信息: %@" , product.localizedDescription);
+        NSLog(@"价格: %@" , product.price);
+        NSLog(@"Product id: %@" , product.productIdentifier);
+    }
+    //判断个数
+    if (myProduct.count==0) {
+        [YHHud showWithMessage:@"无法获取产品信息，购买失败。"];
+        return;
+    }
+    //发起一个购买操作
+    SKPayment *payment = [SKPayment paymentWithProduct:myProduct[0]];
+    [[SKPaymentQueue defaultQueue] addPayment:payment];
+}
+//请求完成
+- (void)requestDidFinish:(SKRequest *)request{
+    [YHHud dismiss];
+}
+//请求失败
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
+    [YHHud showWithMessage:@"购买失败"];
+}
+#pragma mark - SKPaymentTransactionObserver
+//当用户购买的操作有结果时，就会触发下面的回调函数，相应进行处理
+-(void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray<SKPaymentTransaction *> *)transactions{
+    for (SKPaymentTransaction *transaction in transactions) {
+        switch (transaction.transactionState) {
+            case SKPaymentTransactionStatePurchased:  //交易完成
+                NSLog(@"transactionIdentifier = %@",transaction.transactionIdentifier);
+                [self completeTransaction:transaction];
+                break;
+            case SKPaymentTransactionStateFailed:     //交易失败
+                [self failedTransaction:transaction];
+                break;
+            case SKPaymentTransactionStateRestored:  //已经购买过该商品
+                [self restoreTransaction:transaction];
+                break;
+            case SKPaymentTransactionStatePurchasing: //商品添加进列表
+                NSLog(@"商品添加进列表");
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+//交易完成后的操作
+-(void)completeTransaction:(SKPaymentTransaction *)transaction{
+    NSLog(@"交易完成--------------");
+    NSString *productIdentifier = transaction.payment.productIdentifier;
+    NSData *transactionReceiptData = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]];
+    NSString *receipt = [transactionReceiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+    if ([productIdentifier length]>0) {
+        //向自己的服务器验证购买凭证
+        NSLog(@"----------%@",receipt);
+    }
+//    NSString *bodyString = [NSString stringWithFormat:@"{\"receipt-data\" : \"%@\"}", receipt];//拼接请求数据
+//    NSData *bodyData = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
+//
+//    //创建请求到苹果官方进行购买验证
+//    NSURL *url=[NSURL URLWithString:kSandbox];//沙盒测试环境验证
+////    NSURL *url=[NSURL URLWithString:kAppStore];//正式环境验证
+//    NSMutableURLRequest *requestM=[NSMutableURLRequest requestWithURL:url];
+//    requestM.HTTPBody=bodyData;
+//    requestM.HTTPMethod=@"POST";
+//    //创建连接并发送同步请求
+//    NSError *error=nil;
+//    NSData *responseData=[NSURLConnection sendSynchronousRequest:requestM returningResponse:nil error:&error];
+//    if (error) {
+//        NSLog(@"验证购买过程中发生错误，错误信息：%@",error.localizedDescription);
+//        return;
+//    }
+//    NSDictionary *dic=[NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+//    NSLog(@"%@",dic);
+//    if([dic[@"status"] intValue]==0){
+//        NSLog(@"购买成功！");
+//        NSDictionary *dicReceipt= dic[@"receipt"];
+//        NSDictionary *dicInApp=[dicReceipt[@"in_app"] firstObject];
+//        NSString *productIdentifier= dicInApp[@"product_id"];//读取产品标识
+//        //如果是消耗品则记录购买数量，非消耗品则记录是否购买过
+//        NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+//        if ([productIdentifier isEqualToString:@"123"]) {
+//            int purchasedCount=[defaults integerForKey:productIdentifier];//已购买数量
+//            [[NSUserDefaults standardUserDefaults] setInteger:(purchasedCount+1) forKey:productIdentifier];
+//        }else{
+//            [defaults setBool:YES forKey:productIdentifier];
+//        }
+//        //在此处对购买记录进行存储，可以存储到开发商的服务器端
+//    }else{
+//        NSLog(@"购买失败，未通过验证！");
+//    }
+    //移除transaction购买操作
+    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+}
+
+//交易失败后的操作
+-(void)failedTransaction:(SKPaymentTransaction *)transaction{
+    if (transaction.error.code != SKErrorPaymentCancelled) {
+        [YHHud showWithMessage:@"购买失败"];
+    }else{
+        [YHHud showWithMessage:@"用户取消交易"];
+    }
+    //移除transaction购买操作
+    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+}
+
+//已经购买过该商品
+-(void)restoreTransaction:(SKPaymentTransaction *)transaction{
+    //对于已购买商品，处理恢复购买的逻辑
+    //移除transaction购买操作
+    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+}
+
+//--------------------------------------------内购结束-------------------------------------------------------
 #pragma mark 邀请好友
 - (void)invitateFriendClick{
     [_alertView dismissWithCompletion:^{
@@ -341,5 +511,10 @@
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
+}
+
+-(void)dealloc{
+    //移除购买监听
+    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 @end

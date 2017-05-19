@@ -62,6 +62,8 @@
 		6066F4DB1EBB39E10088481D /* MemorySeriseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6066F4D91EBB39E10088481D /* MemorySeriseCell.xib */; };
 		6066F4E11EBB434A0088481D /* NSString+ConvertWanFromNum.m in Sources */ = {isa = PBXBuildFile; fileRef = 6066F4E01EBB434A0088481D /* NSString+ConvertWanFromNum.m */; };
 		606A94F61E51A8CA00A0279D /* MnemonicsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94E81E51A8CA00A0279D /* MnemonicsVC.m */; };
+		606E20131ECE956700FDBCFD /* RechargeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606E20121ECE956700FDBCFD /* RechargeVC.m */; };
+		606E20151ECE957C00FDBCFD /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 606E20141ECE957C00FDBCFD /* StoreKit.framework */; };
 		606F12D41E6EB49A00875F1B /* ca.cer in Resources */ = {isa = PBXBuildFile; fileRef = 606F12D31E6EB49A00875F1B /* ca.cer */; };
 		6076CEF51E8601F5006E5F6F /* NoLoginHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6076CEF41E8601F5006E5F6F /* NoLoginHeaderView.m */; };
 		6076CEF81E86020C006E5F6F /* LoggedInHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6076CEF71E86020C006E5F6F /* LoggedInHeaderView.m */; };
@@ -281,6 +283,9 @@
 		6066F4E01EBB434A0088481D /* NSString+ConvertWanFromNum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ConvertWanFromNum.m"; sourceTree = "<group>"; };
 		606A94E71E51A8CA00A0279D /* MnemonicsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnemonicsVC.h; sourceTree = "<group>"; };
 		606A94E81E51A8CA00A0279D /* MnemonicsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MnemonicsVC.m; sourceTree = "<group>"; };
+		606E20111ECE956700FDBCFD /* RechargeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeVC.h; sourceTree = "<group>"; };
+		606E20121ECE956700FDBCFD /* RechargeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeVC.m; sourceTree = "<group>"; };
+		606E20141ECE957C00FDBCFD /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		606F12D31E6EB49A00875F1B /* ca.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = ca.cer; path = JYDS/ca.cer; sourceTree = SOURCE_ROOT; };
 		6076CEF31E8601F5006E5F6F /* NoLoginHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoLoginHeaderView.h; sourceTree = "<group>"; };
 		6076CEF41E8601F5006E5F6F /* NoLoginHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoLoginHeaderView.m; sourceTree = "<group>"; };
@@ -574,6 +579,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				606E20151ECE957C00FDBCFD /* StoreKit.framework in Frameworks */,
 				609F05D81E161C57009F4986 /* libssl.a in Frameworks */,
 				60E2DD001E5A94F500D45986 /* libWeChatSDK.a in Frameworks */,
 				60557ACA1EA099CB0018D761 /* AudioToolbox.framework in Frameworks */,
@@ -1048,6 +1054,8 @@
 				608851921E9E0A9F004C107E /* YHMonitorKeyboard.m */,
 				60557ACB1EA0ACC00018D761 /* IATConfig.h */,
 				60557ACC1EA0ACC00018D761 /* IATConfig.m */,
+				606E20111ECE956700FDBCFD /* RechargeVC.h */,
+				606E20121ECE956700FDBCFD /* RechargeVC.m */,
 			);
 			name = Tools;
 			path = JYDS/Tools;
@@ -1386,6 +1394,7 @@
 		D4104350F4A5C3154590EC1A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				606E20141ECE957C00FDBCFD /* StoreKit.framework */,
 				60557AC91EA099CB0018D761 /* AudioToolbox.framework */,
 				60557AC71EA099650018D761 /* AVFoundation.framework */,
 				60557AC51EA098EA0018D761 /* iflyMSC.framework */,
@@ -1439,14 +1448,14 @@
 				TargetAttributes = {
 					69B129E01DE2C6490093D841 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = VL3XXNWR94;
+						DevelopmentTeam = QPA82R6FFY;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplePay = {
 								enabled = 0;
 							};
 							com.apple.InAppPurchase = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -1597,6 +1606,7 @@
 				60F4C36F1EAD8F07002FC840 /* WordImageCell.m in Sources */,
 				6062A7901E98EA7700D8F5BB /* Memory.m in Sources */,
 				6017984B1EA8B49B00FFCE9B /* ExerciseVC.m in Sources */,
+				606E20131ECE956700FDBCFD /* RechargeVC.m in Sources */,
 				60A5C7D41E8BE27F007D2366 /* AccountSetVC.m in Sources */,
 				6078D2071E1613180089D40F /* LoginNC.m in Sources */,
 				6010FFBE1E912B4400071610 /* SetCell0.m in Sources */,
@@ -1737,11 +1747,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: You Xia (VL3XXNWR94)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: You Xia (VL3XXNWR94)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = VL3XXNWR94;
+				DEVELOPMENT_TEAM = A8G7V8GV67;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1758,7 +1768,7 @@
 					"-Objc",
 					"-all_load",
 				);
-				PROVISIONING_PROFILE = "3376dc85-9b62-48a0-8e81-8dbb9fe0fd31";
+				PROVISIONING_PROFILE = "46f727d9-b763-4ae8-86f5-1d4b6502edc5";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1771,9 +1781,9 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: You Xia (VL3XXNWR94)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = QPA82R6FFY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1870,7 +1880,7 @@
 					"-framework",
 					"\"AlipaySDK\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSAPP;
+				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1903,11 +1913,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: You Xia (VL3XXNWR94)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: You Xia (VL3XXNWR94)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = VL3XXNWR94;
+				DEVELOPMENT_TEAM = A8G7V8GV67;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1931,7 +1941,7 @@
 					"-Objc",
 					"-all_load",
 				);
-				PROVISIONING_PROFILE = "3376dc85-9b62-48a0-8e81-8dbb9fe0fd31";
+				PROVISIONING_PROFILE = "46f727d9-b763-4ae8-86f5-1d4b6502edc5";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1958,11 +1968,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: You Xia (VL3XXNWR94)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: You Xia (VL3XXNWR94)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = VL3XXNWR94;
+				DEVELOPMENT_TEAM = A8G7V8GV67;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1979,7 +1989,7 @@
 					"-Objc",
 					"-all_load",
 				);
-				PROVISIONING_PROFILE = "3376dc85-9b62-48a0-8e81-8dbb9fe0fd31";
+				PROVISIONING_PROFILE = "46f727d9-b763-4ae8-86f5-1d4b6502edc5";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1992,9 +2002,9 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: You Xia (VL3XXNWR94)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = QPA82R6FFY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2091,7 +2101,7 @@
 					"-framework",
 					"\"AlipaySDK\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSAPP;
+				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2109,9 +2119,9 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: You Xia (VL3XXNWR94)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = QPA82R6FFY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2208,7 +2218,7 @@
 					"-framework",
 					"\"AlipaySDK\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSAPP;
+				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
