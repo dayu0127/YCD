@@ -62,7 +62,6 @@
 		6066F4DB1EBB39E10088481D /* MemorySeriseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6066F4D91EBB39E10088481D /* MemorySeriseCell.xib */; };
 		6066F4E11EBB434A0088481D /* NSString+ConvertWanFromNum.m in Sources */ = {isa = PBXBuildFile; fileRef = 6066F4E01EBB434A0088481D /* NSString+ConvertWanFromNum.m */; };
 		606A94F61E51A8CA00A0279D /* MnemonicsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A94E81E51A8CA00A0279D /* MnemonicsVC.m */; };
-		606E20131ECE956700FDBCFD /* RechargeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 606E20121ECE956700FDBCFD /* RechargeVC.m */; };
 		606E20151ECE957C00FDBCFD /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 606E20141ECE957C00FDBCFD /* StoreKit.framework */; };
 		606F12D41E6EB49A00875F1B /* ca.cer in Resources */ = {isa = PBXBuildFile; fileRef = 606F12D31E6EB49A00875F1B /* ca.cer */; };
 		6076CEF51E8601F5006E5F6F /* NoLoginHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6076CEF41E8601F5006E5F6F /* NoLoginHeaderView.m */; };
@@ -283,8 +282,6 @@
 		6066F4E01EBB434A0088481D /* NSString+ConvertWanFromNum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ConvertWanFromNum.m"; sourceTree = "<group>"; };
 		606A94E71E51A8CA00A0279D /* MnemonicsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnemonicsVC.h; sourceTree = "<group>"; };
 		606A94E81E51A8CA00A0279D /* MnemonicsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MnemonicsVC.m; sourceTree = "<group>"; };
-		606E20111ECE956700FDBCFD /* RechargeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeVC.h; sourceTree = "<group>"; };
-		606E20121ECE956700FDBCFD /* RechargeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeVC.m; sourceTree = "<group>"; };
 		606E20141ECE957C00FDBCFD /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		606F12D31E6EB49A00875F1B /* ca.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = ca.cer; path = JYDS/ca.cer; sourceTree = SOURCE_ROOT; };
 		6076CEF31E8601F5006E5F6F /* NoLoginHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoLoginHeaderView.h; sourceTree = "<group>"; };
@@ -1054,8 +1051,6 @@
 				608851921E9E0A9F004C107E /* YHMonitorKeyboard.m */,
 				60557ACB1EA0ACC00018D761 /* IATConfig.h */,
 				60557ACC1EA0ACC00018D761 /* IATConfig.m */,
-				606E20111ECE956700FDBCFD /* RechargeVC.h */,
-				606E20121ECE956700FDBCFD /* RechargeVC.m */,
 			);
 			name = Tools;
 			path = JYDS/Tools;
@@ -1606,7 +1601,6 @@
 				60F4C36F1EAD8F07002FC840 /* WordImageCell.m in Sources */,
 				6062A7901E98EA7700D8F5BB /* Memory.m in Sources */,
 				6017984B1EA8B49B00FFCE9B /* ExerciseVC.m in Sources */,
-				606E20131ECE956700FDBCFD /* RechargeVC.m in Sources */,
 				60A5C7D41E8BE27F007D2366 /* AccountSetVC.m in Sources */,
 				6078D2071E1613180089D40F /* LoginNC.m in Sources */,
 				6010FFBE1E912B4400071610 /* SetCell0.m in Sources */,

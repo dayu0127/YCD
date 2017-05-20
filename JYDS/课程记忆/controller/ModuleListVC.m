@@ -177,30 +177,29 @@
                 NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
                 _inviteCount = [NSString stringWithFormat:@"%@",dataDic[@"inviteNum"]];
 //                float oldPrice = [dataDic[@"price"] floatValue];
-                float newPrice = [dataDic[@"discountPrice"] floatValue];
 //                _preferentialPrice = [NSString stringWithFormat:@"￥%0.2f",oldPrice-newPrice];
 //                _payPrice = [NSString stringWithFormat:@"￥%0.2f",newPrice];
 //                [self performSegueWithIdentifier:@"memoryListToPayVC" sender:self];
 //                NSInteger preferentialPrice = (NSInteger)(oldPrice-newPrice);
-                NSInteger payPrice = (NSInteger)newPrice;
+                NSInteger payPrice = [dataDic[@"discountPrice"] integerValue];
                 switch (payPrice) {
                     case 100:
-                        [self validateIsCanBought:ProductID_Price100];
+                        [self validateIsCanBought:ProductID_textbook100];
                         break;
                     case 150:
-                        [self validateIsCanBought:ProductID_Price150];
+                        [self validateIsCanBought:ProductID_textbook150];
                         break;
                     case 200:
-                        [self validateIsCanBought:ProductID_Price200];
+                        [self validateIsCanBought:ProductID_textbook200];
                         break;
                     case 250:
-                        [self validateIsCanBought:ProductID_Price250];
+                        [self validateIsCanBought:ProductID_textbook250];
                         break;
                     case 300:
-                        [self validateIsCanBought:ProductID_Price300];
+                        [self validateIsCanBought:ProductID_textbook300];
                         break;
                     case 350:
-                        [self validateIsCanBought:ProductID_Price350];
+                        [self validateIsCanBought:ProductID_textbook350];
                         break;
                     default:
                         break;
