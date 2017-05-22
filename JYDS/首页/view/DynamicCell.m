@@ -14,9 +14,11 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+
+}
+- (void)configScrollView:(NSArray *)arr{
     NSMutableArray *netImages = [NSMutableArray array];
-    NSArray *bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexDynamic"];
-    for (NSDictionary *dic in bannerInfoArray) {
+    for (NSDictionary *dic in arr) {
         [netImages addObject:dic[@"url"]];
     }
     _imageCount = netImages.count;

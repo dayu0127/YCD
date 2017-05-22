@@ -36,14 +36,8 @@
     [_tableView registerNib:[UINib nibWithNibName:@"DynamicCell" bundle:nil] forCellReuseIdentifier:@"DynamicCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"MemoryCell" bundle:nil] forCellReuseIdentifier:@"MemoryCell"];
     _bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexImages"];
-    if ([self.phoneNum isEqualToString:@"13312345678"]) {
-        _bannerInfoArray = [NSMutableArray arrayWithObject:_bannerInfoArray[1]];
-    }
     _dynamicArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexDynamic"];
     _memoryList = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexMemory"];
-    if ([self.phoneNum isEqualToString:@"13312345678"]) {
-        _memoryList = [NSMutableArray arrayWithObject:_memoryList[0]];
-    }
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             //获取首页内容
             [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
@@ -59,9 +53,6 @@
                     _bannerInfoArray = dataDic[@"indexImages"];
                     _dynamicArray = dataDic[@"indexDynamic"];
                     _memoryList = dataDic[@"indexMemory"];
-                    if ([self.phoneNum isEqualToString:@"13312345678"]) {
-                        _memoryList = [NSMutableArray arrayWithObject:dataDic[@"indexMemory"][0]];
-                    }
                     [self.tableView reloadData];
                     [self.tableView.mj_header endRefreshing];
                 }else{
@@ -146,6 +137,7 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             BannerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BannerCell" forIndexPath:indexPath];
+            [cell setScrollView:_bannerInfoArray];
             cell.delegete = self;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
@@ -161,7 +153,6 @@
         return cell;
     }else{
         MemoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MemoryCell" forIndexPath:indexPath];
-        cell.memoryImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"k%zd",indexPath.row+1]];
         [cell addModelWithDic:_memoryList[indexPath.row]];
         return cell;
     }

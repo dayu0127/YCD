@@ -331,10 +331,10 @@
     // populate UI
     for(SKProduct *product in myProduct){
         NSLog(@"SKProduct 描述信息%@", [product description]);
-        NSLog(@"产品标题 %@" , product.localizedTitle);
-        NSLog(@"产品描述信息: %@" , product.localizedDescription);
-        NSLog(@"价格: %@" , product.price);
-        NSLog(@"Product id: %@" , product.productIdentifier);
+        NSLog(@"产品标题(localizedTitle):%@" , product.localizedTitle);
+        NSLog(@"产品描述信息(localizedDescription):%@" , product.localizedDescription);
+        NSLog(@"价格(price):%@" , product.price);
+        NSLog(@"商品ID(productIdentifier):%@" , product.productIdentifier);
     }
     //判断个数
     if (myProduct.count==0) {
@@ -379,96 +379,52 @@
 
 //交易完成后的操作
 -(void)completeTransaction:(SKPaymentTransaction *)transaction{
-//    NSString *receipt = [transactionReceiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-//    if ([productIdentifier length]>0) {
-//        //向自己的服务器验证购买凭证
-//        NSLog(@"----------%@",receipt);
-//    }
-//    NSString *bodyString = [NSString stringWithFormat:@"{\"receipt-data\" : \"%@\"}", receipt];//拼接请求数据
-//    NSData *bodyData = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
-//
-//    //创建请求到苹果官方进行购买验证
-//    NSLog(@"%@",transaction.transactionState);
-//    NSURL *url=[NSURL URLWithString:kSandbox];//沙盒测试环境验证
-////    NSURL *url=[NSURL URLWithString:kAppStore];//正式环境验证
-//    NSMutableURLRequest *requestM=[NSMutableURLRequest requestWithURL:url];
-//    requestM.HTTPBody=bodyData;
-//    requestM.HTTPMethod=@"POST";
-//    //创建连接并发送同步请求
-//    NSError *error=nil;
-//    NSData *responseData=[NSURLConnection sendSynchronousRequest:requestM returningResponse:nil error:&error];
-//    if (error) {
-//        NSLog(@"验证购买过程中发生错误，错误信息：%@",error.localizedDescription);
-//        return;
-//    }
-//    NSDictionary *dic=[NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-//    NSLog(@"%@",dic);
-//    if([dic[@"status"] intValue]==0){
-//        NSLog(@"购买成功！");
-//        NSDictionary *dicReceipt= dic[@"receipt"];
-//        NSDictionary *dicInApp=[dicReceipt[@"in_app"] firstObject];
-//        NSString *productIdentifier= dicInApp[@"product_id"];//读取产品标识
-//        //如果是消耗品则记录购买数量，非消耗品则记录是否购买过
-//        NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
-//        if ([productIdentifier isEqualToString:@"123"]) {
-//            int purchasedCount=[defaults integerForKey:productIdentifier];//已购买数量
-//            [[NSUserDefaults standardUserDefaults] setInteger:(purchasedCount+1) forKey:productIdentifier];
-//        }else{
-//            [defaults setBool:YES forKey:productIdentifier];
-//        }
-//        //在此处对购买记录进行存储，可以存储到开发商的服务器端
-//    }else{
-//        NSLog(@"购买失败，未通过验证！");
-//    }
-    
-    NSLog(@"交易完成--------------");
-    // Load the receipt from the app bundle.
-    NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
-    NSData *receipt = [NSData dataWithContentsOfURL:receiptURL];// Sent to the server by the device
-    if (!receipt) { /* No local receipt -- handle the error. */ }
-    
-    /* ... Send the receipt data to your server ... */
-    NSString * str=[[NSString alloc]initWithData:receipt encoding:NSUTF8StringEncoding];
-    NSString *environment=[self environmentForReceipt:str];
-    // Create the JSON object that describes the request
-    NSError *error;
-    NSDictionary *requestContents = @{
-        @"receipt-data": [receipt base64EncodedStringWithOptions:0]
-    };
-    NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestContents options:0 error:&error];
-    if (!requestData) { /* ... Handle error ... */ }
-    // Create a POST request with the receipt data.
-    NSURL *storeURL=nil;
-    if ([environment isEqualToString:@"environment=Sandbox"]) {
-        storeURL= [[NSURL alloc] initWithString:kSandbox];//沙盒测试环境验证
+    NSData *result = [self verifyPruchase:kAppStore];
+    if (result == nil) {
+        [YHHud showWithSuccess:@"订阅失败"];
     }else{
-        storeURL= [[NSURL alloc] initWithString:kAppStore];//正式环境验证
-    }
-    NSMutableURLRequest *storeRequest = [NSMutableURLRequest requestWithURL:storeURL];
-    [storeRequest setCachePolicy:NSURLRequestUseProtocolCachePolicy];
-    // 国内访问苹果服务器比较慢，timeoutInterval需要长一点
-    [storeRequest setTimeoutInterval:50.0f];
-    [storeRequest setHTTPMethod:@"POST"];
-    [storeRequest setHTTPBody:requestData];
-    
-    // Make a connection to the iTunes Store on a background queue.
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    [NSURLConnection sendAsynchronousRequest:storeRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        if (connectionError) {
-           /* ... Handle error ... */
-        } else {
-           NSError *error;
-           NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-           if (!jsonResponse) { /* ... Handle error ...*/ }
-           /* ... Send a response back to the device ... */
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:result options:NSJSONReadingAllowFragments error:nil];
+        if ([[dict objectForKey:@"status"] integerValue] == 0) {
+            [YHHud showWithSuccess:@"订阅成功"];
+        }else if ([[dict objectForKey:@"status"] integerValue] == 21007){
+            NSData *result = [self verifyPruchase:kSandbox];
+            if (result == nil) {
+                [YHHud showWithSuccess:@"订阅失败"];
+            }else{
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:result options:NSJSONReadingAllowFragments error:nil];
+                if ([[dict objectForKey:@"status"] integerValue] == 0) {
+                    [YHHud showWithSuccess:@"订阅成功"];
+                }else{
+                    [YHHud showWithSuccess:@"订阅失败"];
+                }
+            }
+        }else{
+            [YHHud showWithSuccess:@"订阅失败"];
         }
-    }];
+    }
     //移除transaction购买操作
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
-
+- (NSData *)verifyPruchase:(NSString *)verifyStr{
+    // 验证凭据，获取到苹果返回的交易凭据
+    // appStoreReceiptURL iOS7.0增加的，购买交易完成后，会将凭据存放在该地址
+    NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
+    // 从沙盒中获取到购买凭据
+    NSData *receiptData = [NSData dataWithContentsOfURL:receiptURL];
+    // 发送网络POST请求，对购买凭据进行验证
+    NSURL *url = [NSURL URLWithString:verifyStr];
+    // 国内访问苹果服务器比较慢，timeoutInterval需要长一点
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
+    request.HTTPMethod = @"POST";
+    NSString *encodeStr = [receiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+    NSString *payload = [NSString stringWithFormat:@"{\"receipt-data\" : \"%@\"}", encodeStr];
+    request.HTTPBody = [payload dataUsingEncoding:NSUTF8StringEncoding];
+    // 提交验证请求，并获得官方的验证JSON结果
+    NSData *result = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    return result;
+}
 //交易失败后的操作
--(void)failedTransaction:(SKPaymentTransaction *)transaction{
+- (void)failedTransaction:(SKPaymentTransaction *)transaction{
     if (transaction.error.code != SKErrorPaymentCancelled) {
         [YHHud showWithMessage:@"购买失败"];
     }else{
@@ -477,14 +433,12 @@
     //移除transaction购买操作
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
-
 //已经购买过该商品
 -(void)restoreTransaction:(SKPaymentTransaction *)transaction{
     //对于已购买商品，处理恢复购买的逻辑
     //移除transaction购买操作
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
-
 //--------------------------------------------内购结束-------------------------------------------------------
 #pragma mark 邀请好友
 - (void)invitateFriendClick{
@@ -556,23 +510,5 @@
 -(void)dealloc{
     //移除购买监听
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
-}
--(NSString * )environmentForReceipt:(NSString * )str
-{
-    str= [str stringByReplacingOccurrencesOfString:@"\r\n" withString:@""];
-    
-    str = [str stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    
-    str = [str stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-    
-    str=[str stringByReplacingOccurrencesOfString:@" " withString:@""];
-    
-    str=[str stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-    
-    NSArray * arr=[str componentsSeparatedByString:@";"];
-    
-    //存储收据环境的变量
-    NSString * environment=arr[2];
-    return environment;
 }
 @end

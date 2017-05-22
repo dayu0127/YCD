@@ -15,4 +15,5 @@
 @property (strong,nonatomic) NSMutableArray *netImages;  //网络图片
 @property (strong,nonatomic) NSArray *bannerInfoArray;
 @property (weak,nonatomic) id<BannerCellDelegate> delegete;
+- (void)setScrollView:(NSArray *)arr;
 @end
