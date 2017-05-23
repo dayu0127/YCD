@@ -29,10 +29,15 @@
 @property (copy,nonatomic) NSString *payPrice;
 @property (copy,nonatomic) NSString *objectId;
 @property (assign,nonatomic) SubType subType;
+@property (copy,nonatomic) NSString *productId;
 @end
 
 @implementation MemorySeriesVideoListVC
-
+//- (void)viewWillAppear:(BOOL)animated{
+//    [super viewWillAppear:animated];
+//    //移除购买监听
+//    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
+//}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadMemoryList) name:@"updateMemorySubStatus" object:nil];
@@ -97,9 +102,6 @@
             NSArray *resultArray =  resultDic[@"getMemoryList"];
             if (status == UITableViewRefreshStatusAnimation || status == UITableViewRefreshStatusHeader) {
                 _memorySeriesList = [NSMutableArray arrayWithArray:resultArray];
-                if ([self.phoneNum isEqualToString:@"13312345678"]) {
-                    _memorySeriesList = [NSMutableArray arrayWithObject:resultArray[0]];
-                }
                 [_tableView reloadData];
                 NSInteger count = 0;
                 for (NSInteger i = 0; i<_memorySeriesList.count; i++) {
@@ -197,18 +199,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     _memory = [Memory yy_modelWithJSON:_memorySeriesList[indexPath.row]];
     if ([_memory.payType isEqualToString:@"0"]) {
-        _objectId = _memory.memoryId;
-        _subType = SubTypeMemorySingle;
-        SubAlertView *subAlertView = [[SubAlertView alloc] initWithNib];
-        [subAlertView setTitle:_memory.title discountPrice:_memory.preferentialPrice fullPrice:_memory.full_price subType:SubTypeMemory];
-        subAlertView.delegate = self;
-        _alertView = [[JCAlertView alloc] initWithCustomView:subAlertView dismissWhenTouchedBackground:NO];
-        [_alertView show];
+        [self subAll];
     }else{
         [self performSegueWithIdentifier:@"MemorySeriesToDetail" sender:self];
     }
 }
 - (void)subAllClick:(UIButton *)sender {
+    [self subAll];
+}
+#pragma mark 全部订阅
+- (void)subAll{
     [YHHud showWithStatus];
     NSDictionary *jsonDic = @{
         @"userPhone":self.phoneNum,  //  #用户手机号
@@ -216,15 +216,15 @@
         @"token":self.token       //   #登陆凭证
     };
     [YHWebRequest YHWebRequestForPOST:kGetOrderSumPrice parameters:jsonDic success:^(NSDictionary *json) {
-         [YHHud dismiss];
+        [YHHud dismiss];
         if ([json[@"code"] integerValue] == 200) {
             _objectId = _lessonId;
             _subType = SubTypeMemory;
             NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             SubAlertView *subAlertView = [[SubAlertView alloc] initWithNib];
             [subAlertView setTitle:_lessonName discountPrice:dataDic[@"discountPrice"] fullPrice:dataDic[@"full_price"] subType:SubTypeMemory];
-//            NSLog(@"%@",subAlertView.label_0.text);
-//            subAlertView.label_0_height.constant = [subAlertView.label_0.text boundingRectWithSize:CGSizeMake(280, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:12.0f] forKey:NSFontAttributeName] context:nil].size.height+9;
+            //            NSLog(@"%@",subAlertView.label_0.text);
+            //            subAlertView.label_0_height.constant = [subAlertView.label_0.text boundingRectWithSize:CGSizeMake(280, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:12.0f] forKey:NSFontAttributeName] context:nil].size.height+9;
             subAlertView.delegate = self;
             _alertView = [[JCAlertView alloc] initWithCustomView:subAlertView dismissWhenTouchedBackground:NO];
             [_alertView show];
@@ -233,7 +233,7 @@
             [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
-         [YHHud dismiss];
+        [YHHud dismiss];
         NSLog(@"%@",error);
     }];
 }
@@ -260,7 +260,7 @@
             @"token":self.token       //   #登陆凭证
         };
         [YHWebRequest YHWebRequestForPOST:kOrderPrice parameters:jsonDic success:^(NSDictionary *json) {
-            
+            [YHHud dismiss];
             if ([json[@"code"] integerValue] == 200) {
                 NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
                 _inviteCount = [NSString stringWithFormat:@"%@",dataDic[@"inviteNum"]];
@@ -308,6 +308,7 @@
 //用户点击一个IAP项目时，首先查询用户是否允许应用内付费(tableViewCell点击时，传递内购商品ProductId，ProductID可以提前存储到本地，用到时直接获取即可)
 -(void)validateIsCanBought:(NSString *)productId{
     if ([SKPaymentQueue canMakePayments]) {
+        _productId = productId;
         [self getProductInfo:@[productId]];
     }else{
         NSLog(@"失败,用户禁止应用内付费购买");
@@ -321,11 +322,13 @@
     SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:set];
     request.delegate = self;
     [request start];
+    
 }
 
 #pragma mark - SKProductsRequestDelegate
 //查询的回调函数
 -(void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
+    [YHHud dismiss];
     //获取到的所有内购商品
     NSArray *myProduct = response.products;
     // populate UI
@@ -338,7 +341,7 @@
     }
     //判断个数
     if (myProduct.count==0) {
-        [YHHud showWithMessage:@"无法获取产品信息，购买失败。"];
+        [YHHud showWithMessage:@"无法获取产品信息，订阅失败。"];
         return;
     }
     //发起一个购买操作
@@ -347,11 +350,11 @@
 }
 //请求完成
 - (void)requestDidFinish:(SKRequest *)request{
-    [YHHud dismiss];
+    
 }
 //请求失败
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
-    [YHHud showWithMessage:@"购买失败"];
+    [YHHud showWithMessage:@"订阅失败"];
 }
 #pragma mark - SKPaymentTransactionObserver
 //当用户购买的操作有结果时，就会触发下面的回调函数，相应进行处理
@@ -369,7 +372,8 @@
                 [self restoreTransaction:transaction];
                 break;
             case SKPaymentTransactionStatePurchasing: //商品添加进列表
-                NSLog(@"商品添加进列表");
+//                [YHHud showWithMessage:@"交易中"];
+                [YHHud showWithStatus];
                 break;
             default:
                 break;
@@ -379,56 +383,48 @@
 
 //交易完成后的操作
 -(void)completeTransaction:(SKPaymentTransaction *)transaction{
-    NSData *result = [self verifyPruchase:kAppStore];
-    if (result == nil) {
-        [YHHud showWithSuccess:@"订阅失败"];
-    }else{
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:result options:NSJSONReadingAllowFragments error:nil];
-        if ([[dict objectForKey:@"status"] integerValue] == 0) {
-            [YHHud showWithSuccess:@"订阅成功"];
-        }else if ([[dict objectForKey:@"status"] integerValue] == 21007){
-            NSData *result = [self verifyPruchase:kSandbox];
-            if (result == nil) {
-                [YHHud showWithSuccess:@"订阅失败"];
+    if (_productId!=nil) {
+        // 验证凭据，获取到苹果返回的交易凭据
+        // appStoreReceiptURL iOS7.0增加的，购买交易完成后，会将凭据存放在该地址
+        NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
+        // 从沙盒中获取到购买凭据
+        NSData *receiptData = [NSData dataWithContentsOfURL:receiptURL];
+        // 发送网络POST请求，对购买凭据进行验证
+        NSString *encodeStr = [receiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+        NSDictionary *dic = @{
+            @"userPhone":self.phoneNum,      //  #用户手机号
+            @"token":self.token,            //      #用户登陆凭证
+            @"receipt_data":encodeStr,        //   #苹果凭证
+            @"type":@"1",                //    #购买类型（0：课本购买        1：记忆法购买）
+            @"product_id":_productId,     //    #产品类型
+            @"object_id":_lessonId      //     #产品ID
+        };
+        [YHWebRequest YHWebRequestForPOST:kApplePayCheck parameters:dic success:^(NSDictionary *json) {
+            //移除transaction购买操作
+            [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+            if ([json[@"code"] integerValue] == 200) {
+                [self reloadMemoryList];
+                [YHHud showWithSuccess:@"订阅成功"];
             }else{
-                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:result options:NSJSONReadingAllowFragments error:nil];
-                if ([[dict objectForKey:@"status"] integerValue] == 0) {
-                    [YHHud showWithSuccess:@"订阅成功"];
-                }else{
-                    [YHHud showWithSuccess:@"订阅失败"];
-                }
+                NSLog(@"%@",json[@"code"]);
+                [YHHud showWithSuccess:json[@"message"]];
             }
-        }else{
-            [YHHud showWithSuccess:@"订阅失败"];
-        }
+        } failure:^(NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+            //移除transaction购买操作
+            [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+            [YHHud showWithMessage:@"请求失败"];
+        }];
     }
     //移除transaction购买操作
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
-- (NSData *)verifyPruchase:(NSString *)verifyStr{
-    // 验证凭据，获取到苹果返回的交易凭据
-    // appStoreReceiptURL iOS7.0增加的，购买交易完成后，会将凭据存放在该地址
-    NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
-    // 从沙盒中获取到购买凭据
-    NSData *receiptData = [NSData dataWithContentsOfURL:receiptURL];
-    // 发送网络POST请求，对购买凭据进行验证
-    NSURL *url = [NSURL URLWithString:verifyStr];
-    // 国内访问苹果服务器比较慢，timeoutInterval需要长一点
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
-    request.HTTPMethod = @"POST";
-    NSString *encodeStr = [receiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-    NSString *payload = [NSString stringWithFormat:@"{\"receipt-data\" : \"%@\"}", encodeStr];
-    request.HTTPBody = [payload dataUsingEncoding:NSUTF8StringEncoding];
-    // 提交验证请求，并获得官方的验证JSON结果
-    NSData *result = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    return result;
-}
 //交易失败后的操作
 - (void)failedTransaction:(SKPaymentTransaction *)transaction{
     if (transaction.error.code != SKErrorPaymentCancelled) {
-        [YHHud showWithMessage:@"购买失败"];
+        [YHHud showWithMessage:@"订阅失败"];
     }else{
-        [YHHud showWithMessage:@"用户取消交易"];
+        [YHHud showWithMessage:@"用户取消订阅"];
     }
     //移除transaction购买操作
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
@@ -436,6 +432,39 @@
 //已经购买过该商品
 -(void)restoreTransaction:(SKPaymentTransaction *)transaction{
     //对于已购买商品，处理恢复购买的逻辑
+    if (_productId!=nil) {
+        // 验证凭据，获取到苹果返回的交易凭据
+        // appStoreReceiptURL iOS7.0增加的，购买交易完成后，会将凭据存放在该地址
+        NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
+        // 从沙盒中获取到购买凭据
+        NSData *receiptData = [NSData dataWithContentsOfURL:receiptURL];
+        // 发送网络POST请求，对购买凭据进行验证
+        NSString *encodeStr = [receiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+        NSDictionary *dic = @{
+            @"userPhone":self.phoneNum,      //  #用户手机号
+            @"token":self.token,            //      #用户登陆凭证
+            @"receipt_data":encodeStr,        //   #苹果凭证
+            @"type":@"1",                //    #购买类型（0：课本购买        1：记忆法购买）
+            @"product_id":_productId,     //    #产品类型
+            @"object_id":_lessonId      //     #产品ID
+        };
+        [YHWebRequest YHWebRequestForPOST:kApplePayCheck parameters:dic success:^(NSDictionary *json) {
+            //移除transaction购买操作
+            [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+            if ([json[@"code"] integerValue] == 200) {
+                [self reloadMemoryList];
+                [YHHud showWithSuccess:@"订阅成功"];
+            }else{
+                NSLog(@"%@",json[@"code"]);
+                [YHHud showWithSuccess:json[@"message"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+            //移除transaction购买操作
+            [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+            [YHHud showWithMessage:@"请求失败"];
+        }];
+    }
     //移除transaction购买操作
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
@@ -483,9 +512,6 @@
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             NSArray *resultArray =  resultDic[@"getMemoryList"];
             _memorySeriesList = [NSMutableArray arrayWithArray:resultArray];
-            if ([self.phoneNum isEqualToString:@"13312345678"]) {
-                _memorySeriesList = [NSMutableArray arrayWithObject:resultArray[0]];
-            }
             [_tableView reloadData];
             NSInteger count = 0;
             for (NSInteger i = 0; i<_memorySeriesList.count; i++) {
@@ -506,9 +532,13 @@
         NSLog(@"%@",error);
     }];
 }
-
--(void)dealloc{
+- (void)dealloc{
     //移除购买监听
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
+//- (void)viewWillDisappear:(BOOL)animated{
+//    [super viewWillDisappear:animated];
+//    //移除购买监听
+//    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
+//}
 @end

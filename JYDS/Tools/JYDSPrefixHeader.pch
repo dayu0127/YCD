@@ -68,7 +68,7 @@
 #define NICK_RE @"^([\u4e00-\u9fa5]|[A-Za-z0-9]){1,8}$"  //昵称
 #define NUM_RE @"^[1-9]\\d*$"  //数字
 #define LETTER_RE @"^[A-Za-z]+$" //英文字母
-//验证码倒计时时间
+//验证码倒计时时间                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 #define COUNTDOWN 60.0f
 
 //接口
@@ -124,6 +124,7 @@
 #define kGetShare API(@"/common/getShare")      //分享内容
 #define kMemoryList API(@"/video/getMemoryList")      //记忆法系列视频列表
 #define kGetOrderSumPrice API(@"/pay/getOrderSumPrice")      //记忆法全部订阅提示价格
+#define kApplePayCheck API(@"/pay/applePayCheck")      //Apple内购验签
 
 //练习题等级数组
 #define LEVELARRAY @[@"60",@"50",@"40",@"30",@"25",@"20",@"15",@"13",@"10"]

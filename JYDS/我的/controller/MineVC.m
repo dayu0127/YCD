@@ -173,47 +173,44 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
     if (indexPath.section ==0) {
-        if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
-            [self returnToBingingPhone];
-        }else if (self.token==nil&&self.phoneNum==nil) {
+        if (token == nil && userInfo == nil) {
             [self returnToLogin];
+        }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil)) {
+            [self returnToBingingPhone];
         }else{
             [self performSegueWithIdentifier:@"toMyPoints" sender:self];
         }
     }else if (indexPath.section == 1) {
         if (indexPath.row == 0) {//我的订阅
-            if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
-                [self returnToBingingPhone];
-            }else if (self.token==nil&&self.phoneNum==nil) {
+            if (token == nil && userInfo == nil) {
                 [self returnToLogin];
+            }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil)) {
+                [self returnToBingingPhone];
             }else{
-                if (self.phoneNum == nil || (self.phoneNum!=nil&&![self.phoneNum isEqualToString:@"13312345678"])) {
-                    [self performSegueWithIdentifier:@"toMySub" sender:self];
-                }
+                [self performSegueWithIdentifier:@"toMySub" sender:self];
             }
         }else if(indexPath.row == 1){//我的收藏
-            if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
-                [self returnToBingingPhone];
-            }else if (self.token==nil&&self.phoneNum==nil) {
+            if (token == nil && userInfo == nil) {
                 [self returnToLogin];
+            }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil)) {
+                [self returnToBingingPhone];
             }else{
                 [self performSegueWithIdentifier:@"toMyCollect" sender:self];
             }
         }else{//邀请奖励
-            if (self.phoneNum == nil || (self.phoneNum!=nil&&![self.phoneNum isEqualToString:@"13312345678"])) {
-                [self performSegueWithIdentifier:@"toInviteRewards" sender:self];
-            }
+            [self performSegueWithIdentifier:@"toInviteRewards" sender:self];
         }
     }else if (indexPath.section == 2){
         if (indexPath.row == 0) {//关于我们
             [self performSegueWithIdentifier:@"toAboutUs" sender:self];
         }else{//意见反馈
-            if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
-                [self returnToBingingPhone];
-            }else if (self.token==nil&&self.phoneNum==nil) {
+            if (token == nil && userInfo == nil) {
                 [self returnToLogin];
+            }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil)) {
+                [self returnToBingingPhone];
             }else{
                 [self performSegueWithIdentifier:@"toFeedback" sender:self];
             }

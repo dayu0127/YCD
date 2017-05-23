@@ -57,19 +57,19 @@
         };
         [YHWebRequest YHWebRequestForPOST:kUpdatePwd parameters:jsonDic success:^(NSDictionary *json) {
             if ([json[@"code"] integerValue] == 200) {
+                //清空token
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"token"];
+                //清空个人信息
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfo"];
+                //清除个人点赞
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"likesDic"];
+                //清除缓存
+                [[SDImageCache sharedImageCache] clearDisk];
+                [[SDImageCache sharedImageCache] clearMemory];//可有可无
+                //改变登录状态
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isLogin"];
                 [YHHud showWithMessage:@"修改成功,请重新登录"];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    //清空token
-                    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"tolen"];
-                    //清空个人信息
-                    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfo"];
-                    //清除个人点赞
-                    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"likesDic"];
-                    //清除缓存
-                    [[SDImageCache sharedImageCache] clearDisk];
-                    [[SDImageCache sharedImageCache] clearMemory];//可有可无
-                    //改变登录状态
-                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isLogin"];
                     //跳转到登录页面
                     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;

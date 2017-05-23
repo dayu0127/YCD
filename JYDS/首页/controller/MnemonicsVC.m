@@ -37,6 +37,7 @@
     [_tableView registerNib:[UINib nibWithNibName:@"MemoryCell" bundle:nil] forCellReuseIdentifier:@"MemoryCell"];
     _bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexImages"];
     _dynamicArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexDynamic"];
+    NSLog(@"%@",_dynamicArray);
     _memoryList = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexMemory"];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             //获取首页内容
@@ -67,11 +68,12 @@
     }];
 }
 - (IBAction)signInClick:(UIButton *)sender {
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
-    if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
-        [self returnToBingingPhone];
-    }else if (self.token==nil&&self.phoneNum==nil) {
+    if (token == nil && userInfo == nil) {
         [self returnToLogin];
+    }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil)) {
+        [self returnToBingingPhone];
     }else{
         [self performSegueWithIdentifier:@"toSignIn" sender:self];
     }
@@ -149,6 +151,7 @@
         }
     }else if(indexPath.section == 1){
         DynamicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DynamicCell" forIndexPath:indexPath];
+        [cell configScrollView:_dynamicArray];
         cell.delegete = self;
         return cell;
     }else{
@@ -186,11 +189,12 @@
 }
 #pragma mark 记忆法课程更多
 - (void)pushMoreMemoryList{
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
-    if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
-        [self returnToBingingPhone];
-    }else if (self.token==nil&&self.phoneNum==nil) {
+    if (token == nil && userInfo == nil) {
         [self returnToLogin];
+    }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil)) {
+        [self returnToBingingPhone];
     }else{
         [self performSegueWithIdentifier:@"toMemoryMore" sender:self];
     }

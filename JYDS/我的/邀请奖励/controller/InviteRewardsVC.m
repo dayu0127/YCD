@@ -60,11 +60,12 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)inviteListClick:(UIButton *)sender {
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
-    if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
-        [self returnToBingingPhone];
-    }else if (self.token==nil&&self.phoneNum==nil) {
+    if (token == nil && userInfo == nil) {
         [self returnToLogin];
+    }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil)) {
+        [self returnToBingingPhone];
     }else{
         [self performSegueWithIdentifier:@"toInviteList" sender:self];
     }
@@ -98,11 +99,12 @@
     }];
 }
 - (void)inviteShareClick:(UIButton *)sender {
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
-    if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
-        [self returnToBingingPhone];
-    }else if (self.token==nil&&self.phoneNum==nil) {
+    if (token == nil && userInfo == nil) {
         [self returnToLogin];
+    }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil)) {
+        [self returnToBingingPhone];
     }else{
         NSDictionary *jsonDic = @{
             @"userPhone":self.phoneNum,

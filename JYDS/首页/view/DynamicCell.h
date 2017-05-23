@@ -16,4 +16,5 @@
 @property (strong,nonatomic) UIButton *leftButton;
 @property (strong,nonatomic) UIButton *rightButton;
 @property (weak,nonatomic) id<DynamicCellDelegate> delegete;
+- (void)configScrollView:(NSArray *)arr;
 @end
