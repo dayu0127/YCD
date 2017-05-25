@@ -71,7 +71,6 @@
             NSArray *resultArray =  resultDic[@"indexMemory"];
             if (status == UITableViewRefreshStatusAnimation || status == UITableViewRefreshStatusHeader) {
                 _memoryVideoList = [NSMutableArray arrayWithArray:resultArray];
-                
                 [_tableView reloadData];
                 //本地保存视频是否被点赞
                 if ([[NSUserDefaults standardUserDefaults] objectForKey:@"likesDic"] == nil) {

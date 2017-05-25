@@ -185,29 +185,5 @@ typedef NS_ENUM(NSInteger, UIViewControllerName) {
     UIViewControllerNameWordSubedList,     //已订阅单词列表
     UIViewControllerNameMyCollectList     //我的收藏列表
 };
-typedef NS_ENUM(NSInteger, Price) {
-    Price100 = 100,
-    Price150 = 150,
-    Price200 = 200,
-    Price250 = 250,
-    Price300 = 300,
-    Price350 = 350
-};
-//沙盒测试环境验证地址
-#define kSandbox @"https://sandbox.itunes.apple.com/verifyReceipt"
-//正式环境验证地址
-#define kAppStore @"https://buy.itunes.apple.com/verifyReceipt"
-//在内购项目中创的商品单号
-#define ProductID_memory100 @"jiyifa100" //记忆法100元
-#define ProductID_memory150 @"jiyifa150" //记忆法150元
-#define ProductID_memory200 @"jiyifa200" //记忆法200元
-#define ProductID_memory250 @"jiyifa250" //记忆法250元
-#define ProductID_memory300 @"jiyifa300" //记忆法300元
-#define ProductID_memory350 @"jiyifa350" //记忆法350元
-#define ProductID_textbook100 @"keben100" //课本100元
-#define ProductID_textbook150 @"keben150" //课本150元
-#define ProductID_textbook200 @"keben200" //课本200元
-#define ProductID_textbook250 @"keben250" //课本250元
-#define ProductID_textbook300 @"keben300" //课本300元
-#define ProductID_textbook350 @"keben350" //课本350元
+
 #endif /* JYDSPrefixHeader_pch */

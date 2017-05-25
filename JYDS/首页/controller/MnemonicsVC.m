@@ -37,7 +37,6 @@
     [_tableView registerNib:[UINib nibWithNibName:@"MemoryCell" bundle:nil] forCellReuseIdentifier:@"MemoryCell"];
     _bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexImages"];
     _dynamicArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexDynamic"];
-    NSLog(@"%@",_dynamicArray);
     _memoryList = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexMemory"];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             //获取首页内容

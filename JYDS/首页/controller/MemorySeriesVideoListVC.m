@@ -263,35 +263,10 @@
             [YHHud dismiss];
             if ([json[@"code"] integerValue] == 200) {
                 NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-                _inviteCount = [NSString stringWithFormat:@"%@",dataDic[@"inviteNum"]];
-//                float oldPrice = [dataDic[@"price"] floatValue];
-//                _preferentialPrice = [NSString stringWithFormat:@"￥%0.2f",oldPrice-newPrice];
-//                _payPrice = [NSString stringWithFormat:@"￥%0.2f",newPrice];
-//                [self performSegueWithIdentifier:@"memoryListToPayVC" sender:self];
-//                NSInteger preferentialPrice = (NSInteger)(oldPrice-newPrice);
+//                _inviteCount = [NSString stringWithFormat:@"%@",dataDic[@"inviteNum"]];
                 NSInteger payPrice = [dataDic[@"discountPrice"] integerValue];
-                switch (payPrice) {
-                    case 100:
-                        [self validateIsCanBought:ProductID_memory100];
-                        break;
-                    case 150:
-                        [self validateIsCanBought:ProductID_memory150];
-                        break;
-                    case 200:
-                        [self validateIsCanBought:ProductID_memory200];
-                        break;
-                    case 250:
-                        [self validateIsCanBought:ProductID_memory250];
-                        break;
-                    case 300:
-                        [self validateIsCanBought:ProductID_memory300];
-                        break;
-                    case 350:
-                        [self validateIsCanBought:ProductID_memory350];
-                        break;
-                    default:
-                        break;
-                }
+                NSString *productId = [NSString stringWithFormat:@"%@_%zd",_objectId,payPrice];
+                [self validateIsCanBought:productId];
             }else{
                 [YHHud dismiss];
                 NSLog(@"%@",json[@"code"]);
