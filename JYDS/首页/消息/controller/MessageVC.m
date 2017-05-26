@@ -25,6 +25,7 @@
         if ([json[@"code"] integerValue] == 200) {
             NSDictionary *jsonData = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             _noticeList = jsonData[@"getNoticeList"];
+            NSLog(@"%@",_noticeList);
             [_tableView reloadData];
         }
     } failure:^(NSError * _Nonnull error) {
@@ -49,30 +50,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessageCell" forIndexPath:indexPath];
     [cell setModel:_noticeList[indexPath.row]];
-    _messageTitle = _noticeList[indexPath.row][@"n_title"];
-    _messageUrl = _noticeList[indexPath.row][@"n_content"];
-    cell.delegate = self;
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self messageDetail];
-}
-- (void)messageDetail{
     BaseNavViewController *messageDetailVC = [[BaseNavViewController alloc] init];
     messageDetailVC.isShowShareBtn = NO;
-    messageDetailVC.navTitle = _messageTitle;
-    messageDetailVC.linkUrl = _messageUrl;
+    messageDetailVC.navTitle = _noticeList[indexPath.row][@"n_title"];
+    messageDetailVC.linkUrl = _noticeList[indexPath.row][@"n_content"];
     messageDetailVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:messageDetailVC animated:YES];
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
