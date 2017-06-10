@@ -12,19 +12,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-//    _netImages = [NSMutableArray array];
-//    _bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexImages"];
-//    for (NSDictionary *dic in _bannerInfoArray) {
-//        [_netImages addObject:dic[@"url"]];
-//    }
-//    NSLog(@"%@",_bannerInfoArray);
-//    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, WIDTH, 112/375.0*WIDTH) delegate:self placeholderImage:[UIImage imageNamed:@"zuixin"]];
-//    cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
-//    cycleScrollView.pageDotColor = [UIColor colorWithRed:235/255.0 green:222/255.0 blue:203/255.0 alpha:0.68];
-//    cycleScrollView.currentPageDotColor = [UIColor colorWithRed:1 green:78/255.0 blue:0 alpha:0.68];
-//    cycleScrollView.imageURLStringsGroup = self.netImages;
-//    cycleScrollView.autoScrollTimeInterval = 3.0f;
-//    [self.contentView addSubview:cycleScrollView];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

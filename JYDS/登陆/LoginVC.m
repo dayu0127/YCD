@@ -12,12 +12,8 @@
 #import "RegisterVC.h"
 #import <UMSocialCore/UMSocialCore.h>
 @interface LoginVC ()<RegisterVCDelegate>
-
-//@property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFieldCollection;
-//@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *lineCollection;
 @property (weak, nonatomic) IBOutlet UITextField *phoneText;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
-//@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonCollection;
 @property (weak, nonatomic) IBOutlet UITextField *pwdTxt;
 @end
 
@@ -33,33 +29,7 @@
     _loginButton.layer.cornerRadius = 7.5f;
     _loginButton.layer.borderWidth = 1.0f;
     _loginButton.layer.borderColor = LIGHTGRAYCOLOR.CGColor;
-//    [_loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-//    [self nightModeConfiguration];
-//    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateNormal];
-//    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateHighlighted];
-//    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"showPwd",@"showPwdN",@"") forState:UIControlStateSelected];
-//    [_showPwdButton dk_setImage:DKImagePickerWithNames(@"hidePwd",@"hidePwdN",@"") forState:UIControlStateDisabled];
-//    _phoneText = [_textFieldCollection objectAtIndex:0];
-//    _pwdText = [_textFieldCollection objectAtIndex:1];
-//    if ([YHSingleton shareSingleton].userInfo!=nil) {
-//        _phoneText.text = [YHSingleton shareSingleton].userInfo.userName;
-//    }
 }
-//- (void)nightModeConfiguration{
-//    self.view.dk_backgroundColorPicker = DKColorPickerWithColors([UIColor whiteColor],N_BG,RED);
-//    for (UITextField *item in _textFieldCollection) {
-//        [item setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
-//        item.dk_tintColorPicker = DKColorPickerWithKey(TINT);
-//        item.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-//    }
-//    for (UIView *line in _lineCollection) {
-//        line.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
-//    }
-//    _loginButton.dk_backgroundColorPicker = DKColorPickerWithColors(D_BLUE,N_BLUE,RED);
-//    for (UIButton *item in _buttonCollection) {
-//        [item dk_setTitleColorPicker:DKColorPickerWithColors(D_BLUE,[UIColor whiteColor],RED) forState:UIControlStateNormal];
-//    }
-//}
 - (IBAction)backToHome:(id)sender {
     [self returnToHome];
 }
@@ -194,19 +164,16 @@
 //                "genter":""                     #性别 1男 0女  （选填）
 //                "nickName":"Winner.z"           #昵称(选填)
 //            }
-            NSString *associatedQq = resp.uid;
-//            NSString *genter;
-//            NSLog(@"%@",resp.gender);
-//            if ([resp.gender isEqualToString:@"男"]) {
-//                genter = @"1";
-//            }else if([resp.gender isEqualToString:@"女"]){
-//                genter = @"0";
-//            }
-//            NSString *nickName = resp.name;
+            NSString *headImg = resp.iconurl;
+            NSMutableString *iconUrl = [NSMutableString stringWithString:resp.iconurl];
+            if (![[iconUrl substringToIndex:4] isEqualToString:@"https"]) {
+                [iconUrl replaceCharactersInRange:NSMakeRange(0, 4) withString:@"https"];
+                headImg = [NSString stringWithString:iconUrl];
+            }
             NSDictionary *jsonDic = @{
-                @"associatedQq" :associatedQq             // #第三方绑定的uid 唯一标识
-//                @"genter":genter,       //   #性别 1男 0女  （选填
-//                @"nickName":nickName        //昵称
+                @"associatedQq" :resp.uid,             // #第三方绑定的uid 唯一标识
+                @"headImg":headImg,        //           #头像url（选填）
+                @"nickName":resp.name        //         #昵称（选填）
             };
             [YHWebRequest YHWebRequestForPOST:kQQLogin parameters:jsonDic success:^(NSDictionary *json) {
                 NSLog(@"%@",json);
@@ -268,16 +235,17 @@
 //                "city":"",                      #城市（选填）
 //                "genter":""                     #性别 1男 0女  （选填）
 //            }
-            NSString *associatedWx = resp.uid;
-//            NSString *genter;
-//            if ([resp.gender isEqualToString:@"男"]) {
-//                genter = @"1";
-//            }else if([resp.gender isEqualToString:@"女"]){
-//                genter = @"0";
-//            }
-//            NSString *nickName = resp.name;
+            //微信登录
+            NSString *headImg = resp.iconurl;
+            NSMutableString *iconUrl = [NSMutableString stringWithString:resp.iconurl];
+            if (![[iconUrl substringToIndex:4] isEqualToString:@"https"]) {
+                [iconUrl replaceCharactersInRange:NSMakeRange(0, 4) withString:@"https"];
+                headImg = [NSString stringWithString:iconUrl];
+            }
             NSDictionary *jsonDic = @{
-                @"associatedWx" :associatedWx             // #第三方绑定的uid 唯一标识
+                @"associatedWx" :resp.uid,             // #第三方绑定的uid 唯一标识
+                @"headImg":headImg,        //           #头像url（选填）
+                @"nickName":resp.name        //         #昵称（选填）
             };
             [YHWebRequest YHWebRequestForPOST:kWXLogin parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {
@@ -315,9 +283,9 @@
     NSString *phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum!=nil ? [YHSingleton shareSingleton].userInfo.phoneNum : @"";
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"]!=nil ? [[NSUserDefaults standardUserDefaults] objectForKey:@"token"] : @"";
     NSDictionary *jsonDic = @{
-                              @"userPhone":phoneNum,      //  #用户手机号
-                              @"token":token        //    #用户登陆凭证
-                              };
+        @"userPhone":phoneNum,      //  #用户手机号
+        @"token":token        //    #用户登陆凭证
+    };
     [YHWebRequest YHWebRequestForPOST:kBanner parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
             NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];

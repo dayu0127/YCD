@@ -26,8 +26,8 @@
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *appName = [infoDictionary objectForKey:@"CFBundleDisplayName"];
     NSString *version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    NSString *build = [infoDictionary objectForKey:@"CFBundleVersion"];
-    _appVersionLabel.text = [NSString stringWithFormat:@"%@%@.%@",appName,version,build];
+    //    NSString *build = [infoDictionary objectForKey:@"CFBundleVersion"];
+    _appVersionLabel.text = [NSString stringWithFormat:@"%@%@",appName,version];
     _appVersionLabel.textColor = DGRAYCOLOR;
     for (UILabel *item in _copyrightLabelCollection) {
         item.textColor = [UIColor lightGrayColor];

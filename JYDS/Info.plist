@@ -28,16 +28,6 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>Sina</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>wb2098975700</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
 			<string>app</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
@@ -61,13 +51,13 @@
 			<string>QQ</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>tencent1105811937</string>
-				<string>QQ41e959e1</string>
+				<string>tencent1105886616</string>
+				<string>QQ41ea7d98</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>5</string>
+	<string>7</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>wechat</string>

@@ -47,7 +47,7 @@
         }];
         //电话
         _phoneLabel = [UILabel new];
-        _phoneLabel.text = @"13712345678";
+        _phoneLabel.text = @"未绑定手机号";
         _phoneLabel.textColor = [UIColor whiteColor];
         _phoneLabel.textAlignment = NSTextAlignmentCenter;
         _phoneLabel.font = [UIFont systemFontOfSize:11.0f];

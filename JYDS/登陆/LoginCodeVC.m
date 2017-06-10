@@ -175,18 +175,16 @@
 //                "genter":""                     #性别 1男 0女  （选填）
 //            }
             //QQ登录
-            NSString *associatedQq = resp.uid;
-//            NSString *genter;
-//            if ([resp.gender isEqualToString:@"男"]) {
-//                genter = @"1";
-//            }else if([resp.gender isEqualToString:@"女"]){
-//                genter = @"0";
-//            }
-//            NSString *nickName = resp.name;
+            NSString *headImg = resp.iconurl;
+            NSMutableString *iconUrl = [NSMutableString stringWithString:resp.iconurl];
+            if (![[iconUrl substringToIndex:4] isEqualToString:@"https"]) {
+                [iconUrl replaceCharactersInRange:NSMakeRange(0, 4) withString:@"https"];
+                headImg = [NSString stringWithString:iconUrl];
+            }
             NSDictionary *jsonDic = @{
-                @"associatedQq" :associatedQq             // #第三方绑定的uid 唯一标识
-//                @"genter":genter,                                 //   #性别 1男 0女  （选填
-//                @"nickName":nickName                        //昵称
+                @"associatedQq" :resp.uid,             // #第三方绑定的uid 唯一标识
+                @"headImg":headImg,        //           #头像url（选填）
+                @"nickName":resp.name        //         #昵称（选填）
             };
             [YHWebRequest YHWebRequestForPOST:kQQLogin parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {
@@ -245,18 +243,16 @@
 //                "nickName":"Winner.z"           #昵称(选填)
 //            }
             //微信登录
-            NSString *associatedWx = resp.uid;
-//            NSString *genter;
-//            if ([resp.gender isEqualToString:@"男"]) {
-//                genter = @"1";
-//            }else if([resp.gender isEqualToString:@"女"]){
-//                genter = @"0";
-//            }
-//            NSString *nickName = resp.name;
+            NSString *headImg = resp.iconurl;
+            NSMutableString *iconUrl = [NSMutableString stringWithString:resp.iconurl];
+            if (![[iconUrl substringToIndex:4] isEqualToString:@"https"]) {
+                [iconUrl replaceCharactersInRange:NSMakeRange(0, 4) withString:@"https"];
+                headImg = [NSString stringWithString:iconUrl];
+            }
             NSDictionary *jsonDic = @{
-                @"associatedWx" :associatedWx             // #第三方绑定的uid 唯一标识
-//                @"genter":genter,                           //   #性别 1男 0女  （选填
-//                @"nickName":nickName        //昵称
+                @"associatedWx" :resp.uid,             // #第三方绑定的uid 唯一标识
+                @"headImg":headImg,        //           #头像url（选填）
+                @"nickName":resp.name        //         #昵称（选填）
             };
             [YHWebRequest YHWebRequestForPOST:kWXLogin parameters:jsonDic success:^(NSDictionary *json) {
                 if ([json[@"code"] integerValue] == 200) {
@@ -294,9 +290,9 @@
     NSString *phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum!=nil ? [YHSingleton shareSingleton].userInfo.phoneNum : @"";
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"]!=nil ? [[NSUserDefaults standardUserDefaults] objectForKey:@"token"] : @"";
     NSDictionary *jsonDic = @{
-                              @"userPhone":phoneNum,      //  #用户手机号
-                              @"token":token        //    #用户登陆凭证
-                              };
+        @"userPhone":phoneNum,      //  #用户手机号
+        @"token":token        //    #用户登陆凭证
+    };
     [YHWebRequest YHWebRequestForPOST:kBanner parameters:jsonDic success:^(NSDictionary *json) {
         if ([json[@"code"] integerValue] == 200) {
             NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];

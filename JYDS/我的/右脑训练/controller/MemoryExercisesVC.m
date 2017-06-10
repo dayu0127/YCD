@@ -52,7 +52,7 @@
     [self performSegueWithIdentifier:@"toChooseLevel" sender:self];
 }
 
-#pragma mark 确认订阅
+//#pragma mark 确认订阅
 //- (void)buttonClickIndex:(NSInteger)buttonIndex{
 //    if (buttonIndex == 1) {
 //        if (20>[[YHSingleton shareSingleton].userInfo.studyBean integerValue]) {

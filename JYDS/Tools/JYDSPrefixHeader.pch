@@ -147,8 +147,7 @@
 #define IntroduceUrl @"https://www.jydsapp.com/jydsApi/h5/introduce.html"
 #define UseHelpUrl @"https://www.jydsapp.com/jydsApi/h5/help.html"
 #define UserAgreementUrl @"https://www.jydsapp.com/jydsApi/h5/agreement.html"
-//头像上传路径
-#define kHeadImageUrl @"https://omj0etkcd.qnssl.com/"
+
 //编码表
 #define kMemoryImages @"https://www.jydsapp.com/jydsApi/h5/image_memory.html"
 //练习结果

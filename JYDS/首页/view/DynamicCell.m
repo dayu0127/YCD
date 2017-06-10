@@ -13,8 +13,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
-
 }
 - (void)configScrollView:(NSArray *)arr{
     NSMutableArray *netImages = [NSMutableArray array];

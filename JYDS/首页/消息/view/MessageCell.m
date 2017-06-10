@@ -22,11 +22,6 @@
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-- (IBAction)detailClick:(id)sender {
-    [_delegate messageDetail];
 }
 - (void)setModel:(NSDictionary *)dic{
     Message *model = [Message yy_modelWithJSON:dic];

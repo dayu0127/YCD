@@ -8,7 +8,7 @@
 
 #import "MessageVC.h"
 #import "MessageCell.h"
-@interface MessageVC ()<UITableViewDelegate,UITableViewDataSource,MessageCellDelegate>
+@interface MessageVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) NSArray *noticeList;
 @property (copy,nonatomic) NSString *messageTitle;
@@ -20,18 +20,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [YHHud showWithStatus];
+    [_tableView registerNib:[UINib nibWithNibName:@"MessageCell" bundle:nil] forCellReuseIdentifier:@"MessageCell"];
     self.view.backgroundColor = [UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1.0];
     [YHWebRequest YHWebRequestForPOST:kNoticeList parameters:nil success:^(NSDictionary *json) {
+        [YHHud dismiss];
         if ([json[@"code"] integerValue] == 200) {
             NSDictionary *jsonData = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             _noticeList = jsonData[@"getNoticeList"];
-            NSLog(@"%@",_noticeList);
             [_tableView reloadData];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
+        [YHHud dismiss];
     }];
-    [_tableView registerNib:[UINib nibWithNibName:@"MessageCell" bundle:nil] forCellReuseIdentifier:@"MessageCell"];
 }
 
 - (void)didReceiveMemoryWarning {

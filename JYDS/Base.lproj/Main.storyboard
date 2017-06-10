@@ -1291,7 +1291,6 @@
                         <outlet property="tableBottomSpace" destination="EhD-Fw-n8u" id="NND-yA-VAi"/>
                         <outlet property="tableView" destination="Z5B-iC-Ejj" id="Lvi-vs-gRq"/>
                         <segue destination="0jR-eX-LCS" kind="show" identifier="MemorySeriesToDetail" id="4OW-ab-GSa"/>
-                        <segue destination="5a8-Cj-aGI" kind="show" identifier="memoryListToPayVC" id="hMw-m4-2hH"/>
                         <segue destination="Mjh-Gy-vFh" kind="show" identifier="memoryListToInviteRewards" id="oWY-Ur-CZj"/>
                     </connections>
                 </viewController>
@@ -2683,7 +2682,7 @@
         <!--支付VC-->
         <scene sceneID="7KH-Ol-Xub">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="5a8-Cj-aGI" userLabel="支付VC" customClass="PayViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="zhifu" hidesBottomBarWhenPushed="YES" id="5a8-Cj-aGI" userLabel="支付VC" customClass="PayViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="u9I-UT-Cz8"/>
                         <viewControllerLayoutGuide type="bottom" id="Tit-yT-cwD"/>
@@ -2755,7 +2754,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NNw-xU-rYD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5660" y="796"/>
+            <point key="canvasLocation" x="5799" y="796"/>
         </scene>
         <!--我订阅的记忆法VC-->
         <scene sceneID="B6q-6I-dwV">
@@ -2943,7 +2942,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xsl-Ba-3Sn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5798" y="-1482"/>
+            <point key="canvasLocation" x="5780" y="-1496"/>
         </scene>
         <!--编码表-->
         <scene sceneID="MwD-OI-u9t">
@@ -3204,7 +3203,7 @@
                                 </connections>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ECc-aw-pZl">
-                                <rect key="frame" x="10" y="612" width="355" height="45"/>
+                                <rect key="frame" x="10" y="677" width="355" height="45"/>
                                 <color key="backgroundColor" red="0.99607843139999996" green="0.31764705879999999" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Gwp-j4-1L9"/>
@@ -3217,7 +3216,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="eTe-EX-SsO">
-                                <rect key="frame" x="0.0" y="108" width="375" height="494"/>
+                                <rect key="frame" x="0.0" y="108" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
@@ -3234,9 +3233,9 @@
                             <constraint firstItem="eTe-EX-SsO" firstAttribute="leading" secondItem="Keu-gI-Jhx" secondAttribute="leading" id="VaB-cw-kIy"/>
                             <constraint firstAttribute="trailing" secondItem="zJo-Uq-70a" secondAttribute="trailing" id="awG-OQ-hUu"/>
                             <constraint firstItem="zJo-Uq-70a" firstAttribute="leading" secondItem="Keu-gI-Jhx" secondAttribute="leading" id="fcm-d0-8db"/>
-                            <constraint firstItem="VS1-2O-SBs" firstAttribute="top" secondItem="ECc-aw-pZl" secondAttribute="bottom" constant="10" id="gYZ-p3-qTj"/>
                             <constraint firstItem="IU0-ac-8F6" firstAttribute="leading" secondItem="Keu-gI-Jhx" secondAttribute="leading" id="jqj-ox-Ro2"/>
                             <constraint firstAttribute="trailing" secondItem="IU0-ac-8F6" secondAttribute="trailing" id="kQf-M0-aYw"/>
+                            <constraint firstItem="VS1-2O-SBs" firstAttribute="top" secondItem="eTe-EX-SsO" secondAttribute="bottom" id="m34-qn-YXa"/>
                             <constraint firstItem="IU0-ac-8F6" firstAttribute="top" secondItem="zJo-Uq-70a" secondAttribute="bottom" id="svX-gp-CcX"/>
                             <constraint firstItem="eTe-EX-SsO" firstAttribute="top" secondItem="IU0-ac-8F6" secondAttribute="bottom" id="uPc-on-wOG"/>
                             <constraint firstItem="ECc-aw-pZl" firstAttribute="leading" secondItem="Keu-gI-Jhx" secondAttribute="leading" constant="10" id="vIj-KP-ZHD"/>
@@ -3246,10 +3245,8 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="searchBar" destination="IU0-ac-8F6" id="EDu-Yr-DNo"/>
-                        <outlet property="subAllButton" destination="ECc-aw-pZl" id="8AW-j7-hPY"/>
                         <outlet property="tableView" destination="eTe-EX-SsO" id="Cev-wj-fd5"/>
                         <segue destination="WW6-Vz-Jnk" kind="show" identifier="toWordList" id="V6r-vO-ADE"/>
-                        <segue destination="5a8-Cj-aGI" kind="show" identifier="toPayViewController" id="shh-pJ-PmO"/>
                         <segue destination="UOd-fm-gc1" kind="show" identifier="toWordSubedList" id="39c-X7-5FN"/>
                         <segue destination="Mjh-Gy-vFh" kind="show" identifier="moduleListToInviteRewards" id="PX7-fy-7bi"/>
                         <segue destination="yvf-gx-LuJ" kind="show" identifier="toWordSearchVC" id="nQi-es-xmg"/>
@@ -3517,7 +3514,6 @@
                         <outlet property="subedBtn" destination="TcO-JV-1IA" id="73c-H7-OT2"/>
                         <outlet property="underLine" destination="hf9-tS-6hy" id="mvK-nV-tbO"/>
                         <segue destination="mQH-Bd-X9I" kind="show" identifier="toWordDetail" id="jUJ-Kx-0eF"/>
-                        <segue destination="5a8-Cj-aGI" kind="show" identifier="toPayViewController" id="3Cm-7u-jdT"/>
                         <segue destination="Mjh-Gy-vFh" kind="show" identifier="wordListToInviteRewards" id="uLV-zb-tLE"/>
                     </connections>
                 </viewController>
@@ -4447,10 +4443,9 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="do2-6S-b41"/>
-        <segue reference="ieB-4i-mT9"/>
-        <segue reference="uLV-zb-tLE"/>
+        <segue reference="Doe-NR-kgY"/>
+        <segue reference="PX7-fy-7bi"/>
         <segue reference="jUJ-Kx-0eF"/>
-        <segue reference="3Cm-7u-jdT"/>
         <segue reference="rhJ-wj-NYw"/>
     </inferredMetricsTieBreakers>
 </document>

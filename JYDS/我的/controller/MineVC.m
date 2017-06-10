@@ -26,7 +26,7 @@
 @implementation MineVC
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeaderView) name:@"updateHeaderView" object:nil];
+    
 //    {
 //        "userPhone":"*****",        #用户手机号
 //        "token":"***************"   #登陆后的token值
@@ -49,16 +49,7 @@
         }];
     }
 }
-- (void)updateHeaderView{
-    [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
-    _logged = [[LoggedInHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 187)];
-    NSString *headImageUrl = [NSString stringWithFormat:@"%@%@",kHeadImageUrl,[YHSingleton shareSingleton].userInfo.headImg];
-    [_logged.headImageButton sd_setImageWithURL:[NSURL URLWithString:headImageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"mine_headimage"]];
-    _logged.delegate = self;
-    _logged.nameLabel.text = [YHSingleton shareSingleton].userInfo.nickName;
-    _logged.phoneLabel.text = [YHSingleton shareSingleton].userInfo.phoneNum;
-    _tableView.tableHeaderView = _logged;
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = false;
@@ -72,7 +63,7 @@
                   @{@"img":@"mine_feedback",@"title":@"意见反馈"}];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogin"] == YES) {
         _logged = [[LoggedInHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 187)];
-        NSString *headImageUrl = [NSString stringWithFormat:@"%@%@",kHeadImageUrl,[YHSingleton shareSingleton].userInfo.headImg];
+        NSString *headImageUrl = [NSString stringWithFormat:@"%@",[YHSingleton shareSingleton].userInfo.headImg];
         [_logged.headImageButton sd_setImageWithURL:[NSURL URLWithString:headImageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"mine_headimage"]];
         _logged.delegate = self;
         _logged.nameLabel.text = [YHSingleton shareSingleton].userInfo.nickName;
@@ -153,7 +144,11 @@
     }
 }
 - (void)pushToUserInfo{
-    [self performSegueWithIdentifier:@"toUserInfo" sender:self];
+    if ([self.phoneNum isEqualToString:@""]) {
+        [self returnToBingingPhone];
+    }else{
+        [self performSegueWithIdentifier:@"toUserInfo" sender:self];
+    }
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"toUserInfo"]) {

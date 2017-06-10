@@ -55,15 +55,11 @@
     }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil)) {
         [self returnToBingingPhone];
     }else{
-        if ([self.phoneNum isEqualToString:@"13312345678"]) {
-            [YHHud showWithMessage:@"课程正在研制中"];
+        if (sender.tag==0) {
+            _grade_type = [NSString stringWithFormat:@"%zd",sender.tag+1];
+            [self performSegueWithIdentifier:@"toItemDetail" sender:self];
         }else{
-            if (sender.tag==0) {
-                _grade_type = [NSString stringWithFormat:@"%zd",sender.tag+1];
-                [self performSegueWithIdentifier:@"toItemDetail" sender:self];
-            }else{
-                [YHHud showWithMessage:@"课程正在研制中"];
-            }
+            [YHHud showWithMessage:@"课程正在研制中"];
         }
     }
 }

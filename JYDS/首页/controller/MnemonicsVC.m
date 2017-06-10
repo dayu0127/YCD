@@ -18,7 +18,8 @@
 #import "BingingPhoneVC.h"
 #import "BaseNavViewController.h"
 #import "MemorySeriesVideoListVC.h"
-@interface MnemonicsVC ()<UITableViewDelegate,UITableViewDataSource,BannerCellDelegate,PlanCellDelegate,DynamicCellDelegate>
+#import <StoreKit/StoreKit.h>
+@interface MnemonicsVC ()<UITableViewDelegate,UITableViewDataSource,BannerCellDelegate,PlanCellDelegate,DynamicCellDelegate,SKStoreProductViewControllerDelegate>
 @property (strong,nonatomic) NSArray *bannerInfoArray;
 @property (strong,nonatomic) NSArray *dynamicArray;
 @property (weak,nonatomic) IBOutlet UITableView *tableView;
@@ -27,7 +28,40 @@
 @end
 
 @implementation MnemonicsVC
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    //提示版本更新
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager POST:@"https://itunes.apple.com/lookup?id=1214286729" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSArray *array = responseObject[@"results"];
+        NSDictionary *dict = [array lastObject];
+        NSString *appStoreVersion = dict[@"version"];
+        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        NSString *currentVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+        if ([appStoreVersion compare:currentVersion options:NSNumericSearch] == NSOrderedDescending){
+            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"更新提示" message:@"版本有更新，请前去下载" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *updateAction = [UIAlertAction actionWithTitle:@"立即更新" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                [self presentToAppStore];
+            }];
+            UIAlertAction *canceAction = [UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                //改变登录状态
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isLogin"];
+                //跳转到登录页面
+                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
+                [app.window setRootViewController:loginVC];
+                [app.window makeKeyWindow];
+            }];
+            [alertVC addAction:canceAction];
+            [alertVC addAction:updateAction];
+            [self presentViewController:alertVC animated:YES completion:nil];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+        [YHHud showWithMessage:@"请求失败"];
+    }];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -219,5 +253,24 @@
         seriesVC.lessonName = _memory.title;
         seriesVC.lessonPayType = _memory.payType;
     }
+}
+- (void)presentToAppStore{
+    //应用内跳转App Store
+    //1:导入StoreKit.framework,控制器里面添加框架#import <StoreKit/StoreKit.h>
+    //2:实现代理SKStoreProductViewControllerDelegate
+    SKStoreProductViewController *storeProductViewContorller = [[SKStoreProductViewController alloc] init];
+    storeProductViewContorller.delegate = self;
+    //加载一个新的视图展示
+    [storeProductViewContorller loadProductWithParameters:
+     //appId
+     @{SKStoreProductParameterITunesItemIdentifier : @"1214286729"} completionBlock:^(BOOL result, NSError *error) {
+         //回调
+         if(error){
+             NSLog(@"错误%@",error);
+         }else{
+             //AS应用界面
+             [self presentViewController:storeProductViewContorller animated:YES completion:nil];
+         }
+     }];
 }
 @end

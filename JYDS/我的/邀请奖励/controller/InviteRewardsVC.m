@@ -11,6 +11,7 @@
 #import <UShareUI/UMSocialUIManager.h>
 #import "WXApi.h"
 #import <TencentOpenAPI/QQApiInterface.h>
+#import "DES3Util.h"
 @interface InviteRewardsVC ()<WKNavigationDelegate>
 @property (strong,nonatomic) WKWebView *wkWebView;
 @property (strong,nonatomic) UIView *bottomBgView;
@@ -115,7 +116,7 @@
                 NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
                 _shareTitle = resultDic[@"title"];
                 _shareContent = resultDic[@"content"];
-                _shareUrl = resultDic[@"url"];
+                _shareUrl = [NSString stringWithFormat:@"%@&userPhone=%@",resultDic[@"url"],[DES3Util encrypt:self.phoneNum]];
                 __weak typeof(self) weakSelf = self;
                 //设置面板样式
                 [UMSocialShareUIConfig shareInstance].shareTitleViewConfig.isShow = NO;

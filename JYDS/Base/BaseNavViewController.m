@@ -11,6 +11,7 @@
 #import <UShareUI/UMSocialUIManager.h>
 #import "WXApi.h"
 #import <TencentOpenAPI/QQApiInterface.h>
+#import "DES3Util.h"
 @interface BaseNavViewController ()<WKNavigationDelegate>
 @property (strong,nonatomic) WKWebView *wkWebView;
 @property (copy,nonatomic) NSString *shareTitle;
@@ -96,7 +97,7 @@
     NSString *title = _shareTitle;
     NSString *descr = _shareContent;
     UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:title descr:descr thumImage:[UIImage imageNamed:@"icon-40"]];
-    shareObject.webpageUrl = _shareUrl;
+    shareObject.webpageUrl = [NSString stringWithFormat:@"%@&userPhone=%@",_shareUrl,[DES3Util encrypt:self.phoneNum]];
     messageObject.shareObject = shareObject;
     //调用分享接口
     [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
