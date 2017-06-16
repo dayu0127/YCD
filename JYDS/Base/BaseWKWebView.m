@@ -12,6 +12,7 @@
     if (self) {
         self.navigationDelegate = self;
         self.scrollView.showsVerticalScrollIndicator = NO;
+        self.scrollView.showsHorizontalScrollIndicator = NO;
     }
     return self;
 }
@@ -20,7 +21,8 @@
     if (self) {
         self.navigationDelegate = self;
         self.scrollView.showsVerticalScrollIndicator = NO;
-        NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]];
+        self.scrollView.showsHorizontalScrollIndicator = NO;
+        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlStr] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:30.0f];
         [self loadRequest:request];
     }
     return self;

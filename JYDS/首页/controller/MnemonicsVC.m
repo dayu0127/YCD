@@ -32,38 +32,42 @@
     [super viewWillAppear:animated];
     //提示版本更新
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    [manager POST:@"https://itunes.apple.com/lookup?id=1214286729" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager POST:@"https://itunes.apple.com/lookup?id=1230915498" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSArray *array = responseObject[@"results"];
-        NSDictionary *dict = [array lastObject];
-        NSString *appStoreVersion = dict[@"version"];
-        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-        NSString *currentVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-        if ([appStoreVersion compare:currentVersion options:NSNumericSearch] == NSOrderedDescending){
-            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"更新提示" message:@"版本有更新，请前去下载" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *updateAction = [UIAlertAction actionWithTitle:@"立即更新" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                [self presentToAppStore];
-            }];
-            UIAlertAction *canceAction = [UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                //改变登录状态
-                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isLogin"];
-                //跳转到登录页面
-                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
-                [app.window setRootViewController:loginVC];
-                [app.window makeKeyWindow];
-            }];
-            [alertVC addAction:canceAction];
-            [alertVC addAction:updateAction];
-            [self presentViewController:alertVC animated:YES completion:nil];
+       
+        if (array.count>0) {
+            NSDictionary *dict = [array lastObject];
+            NSString *appStoreVersion = dict[@"version"];
+            NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+            NSString *currentVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+            if ([appStoreVersion compare:currentVersion options:NSNumericSearch] == NSOrderedDescending){
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"更新提示" message:@"版本有更新，请前去下载" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *updateAction = [UIAlertAction actionWithTitle:@"立即更新" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                    [self presentToAppStore];
+                }];
+                UIAlertAction *canceAction = [UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    //改变登录状态
+                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isLogin"];
+                    //跳转到登录页面
+                    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                    LoginNC *loginVC = [sb instantiateViewControllerWithIdentifier:@"login"];
+                    [app.window setRootViewController:loginVC];
+                    [app.window makeKeyWindow];
+                }];
+                [alertVC addAction:canceAction];
+                [alertVC addAction:updateAction];
+                [self presentViewController:alertVC animated:YES completion:nil];
+            }
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
-        [YHHud showWithMessage:@"请求失败"];
+//        [YHHud showWithMessage:@"请求失败"];
     }];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+//     [YHHud showWithMessage:@"提示"];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [_tableView registerNib:[UINib nibWithNibName:@"BannerCell" bundle:nil] forCellReuseIdentifier:@"BannerCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"PlanCell" bundle:nil] forCellReuseIdentifier:@"PlanCell"];
@@ -105,7 +109,7 @@
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
     if (token == nil && userInfo == nil) {
         [self returnToLogin];
-    }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil)) {
+    }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
         [self returnToBingingPhone];
     }else{
         [self performSegueWithIdentifier:@"toSignIn" sender:self];
@@ -114,7 +118,7 @@
 #pragma mark 消息按钮点击
 - (IBAction)messageButtonClick:(UIButton *)sender {
     [sender setImage:[UIImage imageNamed:@"home_top_message"] forState:UIControlStateNormal];
-    [self performSegueWithIdentifier:@"homeToMessage" sender:self];
+    [self performSegueWithIdentifier:@"homeToMessageCenter" sender:self];
 }
 #pragma mark 轮播图点击
 - (void)bannerClick:(NSInteger)index{
@@ -204,9 +208,19 @@
 }
 #pragma mark 邀请好友
 - (void)pushToInvitation{
-    if (self.phoneNum==nil || (self.phoneNum != nil && ![self.phoneNum isEqualToString:@"13312345678"])) {
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    if (token == nil && userInfo == nil) {
+        [self returnToLogin];
+    }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
+        [self returnToBingingPhone];
+    }else{
         [self performSegueWithIdentifier:@"homeToInviteRewards" sender:self];
     }
+}
+#pragma mark 课程记忆
+- (void)pushToCourseMemory{
+    self.tabBarController.selectedIndex = 1;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 1) {
@@ -226,7 +240,7 @@
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
     if (token == nil && userInfo == nil) {
         [self returnToLogin];
-    }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil)) {
+    }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
         [self returnToBingingPhone];
     }else{
         [self performSegueWithIdentifier:@"toMemoryMore" sender:self];
@@ -238,7 +252,7 @@
         NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
         if (token == nil && userInfo == nil) {
             [self returnToLogin];
-        }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil)) {
+        }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
             [self returnToBingingPhone];
         }else{
             _memory = [Memory yy_modelWithJSON:_memoryList[indexPath.row]];

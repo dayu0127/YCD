@@ -11,6 +11,7 @@
 - (void)pushToMySub;
 - (void)pushToMemoryMore;
 - (void)pushToInvitation;
+- (void)pushToCourseMemory;
 @end
 @interface PlanCell : UITableViewCell
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttonCollection;

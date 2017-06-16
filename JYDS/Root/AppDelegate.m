@@ -10,7 +10,7 @@
 #import <UMSocialCore/UMSocialCore.h>
 #import "WXApi.h"
 #import "iflyMSC/IFlyMSC.h"
-
+#import <UMSocialSinaHandler.h>
 @interface AppDelegate ()
 @end
 @implementation AppDelegate
@@ -59,7 +59,7 @@
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105886616"  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
     
     //设置新浪的appKey和appSecret
-//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"1292322940"  appSecret:@"c1ad238284f47072b0caaf27d4d3afb3" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"1292322940"  appSecret:@"c1ad238284f47072b0caaf27d4d3afb3" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
     //微信注册APPID
     [WXApi registerApp:@"wx7658d0735b233185"];
@@ -104,8 +104,9 @@
     }];
 }
 //#pragma mark 设置系统回调(支持所有iOS系统)
-//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
-//    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+
 //    if (!result) {
 //        // 支付宝SDK的回调
 //        if ([url.host isEqualToString:@"safepay"]) {
@@ -150,6 +151,6 @@
 //        // 微信SDK的回调
 //        [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
 //    }
-//    return result;
-//}
+    return result;
+}
 @end

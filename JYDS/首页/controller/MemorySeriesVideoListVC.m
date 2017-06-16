@@ -131,13 +131,13 @@
 //                    }];
 //                }
                 //本地保存视频是否被点赞
-                if ([[NSUserDefaults standardUserDefaults] objectForKey:@"likesDic"] == nil) {
-                    NSMutableDictionary *likesDic = [[NSMutableDictionary alloc] init];
-                    for (NSDictionary *dic in _memorySeriesList) {
-                        [likesDic setObject:@"0" forKey:dic[@"memoryId"]];
-                    }
-                    [[NSUserDefaults standardUserDefaults] setObject:[NSDictionary dictionaryWithDictionary:likesDic] forKey:@"likesDic"];
-                }
+//                if ([[NSUserDefaults standardUserDefaults] objectForKey:@"likesDic"] == nil) {
+//                    NSMutableDictionary *likesDic = [[NSMutableDictionary alloc] init];
+//                    for (NSDictionary *dic in _memorySeriesList) {
+//                        [likesDic setObject:@"0" forKey:dic[@"memoryId"]];
+//                    }
+//                    [[NSUserDefaults standardUserDefaults] setObject:[NSDictionary dictionaryWithDictionary:likesDic] forKey:@"likesDic"];
+//                }
                 if (status==UITableViewRefreshStatusHeader) {
                     [self.tableView.mj_header endRefreshing];
                     // 重置没有更多的数据（消除没有更多数据的状态）！！！！！！
@@ -458,9 +458,9 @@
         MemoryDetailVC *detailVC = segue.destinationViewController;
         detailVC.delegate = self;
         detailVC.memory = _memory;
-        NSDictionary *likesDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"likesDic"];
-        NSString *likeStatus = likesDic[_memory.memoryId];
-        detailVC.isLike = ![likeStatus isEqualToString:@"0"];
+//        NSDictionary *likesDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"likesDic"];
+//        NSString *likeStatus = likesDic[_memory.memoryId];
+//        detailVC.isLike = ![likeStatus isEqualToString:@"0"];
     }
 //    else if ([segue.identifier isEqualToString:@"memoryListToPayVC"]){
 //        PayViewController *payVC = segue.destinationViewController;

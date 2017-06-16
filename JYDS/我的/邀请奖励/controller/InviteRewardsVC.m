@@ -12,6 +12,7 @@
 #import "WXApi.h"
 #import <TencentOpenAPI/QQApiInterface.h>
 #import "DES3Util.h"
+#import <WeiboSDK.h>
 @interface InviteRewardsVC ()<WKNavigationDelegate>
 @property (strong,nonatomic) WKWebView *wkWebView;
 @property (strong,nonatomic) UIView *bottomBgView;
@@ -65,7 +66,7 @@
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
     if (token == nil && userInfo == nil) {
         [self returnToLogin];
-    }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil)) {
+    }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
         [self returnToBingingPhone];
     }else{
         [self performSegueWithIdentifier:@"toInviteList" sender:self];
@@ -100,47 +101,54 @@
     }];
 }
 - (void)inviteShareClick:(UIButton *)sender {
-    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
-    if (token == nil && userInfo == nil) {
-        [self returnToLogin];
-    }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil)) {
-        [self returnToBingingPhone];
+    if ([WXApi isWXAppInstalled]==NO&&[QQApiInterface isQQInstalled]==NO&&[WeiboSDK isWeiboAppInstalled]==NO) {
+        [YHHud showWithMessage:@"分享失败"];
     }else{
-        NSDictionary *jsonDic = @{
-            @"userPhone":self.phoneNum,
-            @"token":self.token
-        };
-        [YHWebRequest YHWebRequestForPOST:kGetShare parameters:jsonDic success:^(NSDictionary *json) {
-            if ([json[@"code"] integerValue] == 200) {
-                NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-                _shareTitle = resultDic[@"title"];
-                _shareContent = resultDic[@"content"];
-                _shareUrl = [NSString stringWithFormat:@"%@&userPhone=%@",resultDic[@"url"],[DES3Util encrypt:self.phoneNum]];
-                __weak typeof(self) weakSelf = self;
-                //设置面板样式
-                [UMSocialShareUIConfig shareInstance].shareTitleViewConfig.isShow = NO;
-                [UMSocialShareUIConfig shareInstance].shareCancelControlConfig.shareCancelControlText = @"取消";
-                //判断是否安装QQ,微信
-                NSMutableArray *platformArray = [NSMutableArray array];
-                if ([WXApi isWXAppInstalled]) {
-                    [platformArray addObject:@(UMSocialPlatformType_WechatSession)];
-                    [platformArray addObject:@(UMSocialPlatformType_WechatTimeLine)];
+        NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+        NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+        if (token == nil && userInfo == nil) {
+            [self returnToLogin];
+        }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
+            [self returnToBingingPhone];
+        }else{
+            NSDictionary *jsonDic = @{
+                @"userPhone":self.phoneNum,
+                @"token":self.token
+            };
+            [YHWebRequest YHWebRequestForPOST:kGetShare parameters:jsonDic success:^(NSDictionary *json) {
+                if ([json[@"code"] integerValue] == 200) {
+                    NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+                    _shareTitle = resultDic[@"title"];
+                    _shareContent = resultDic[@"content"];
+                    _shareUrl = [NSString stringWithFormat:@"%@&userPhone=%@",resultDic[@"url"],[DES3Util encrypt:self.phoneNum]];
+                    __weak typeof(self) weakSelf = self;
+                    //设置面板样式
+                    [UMSocialShareUIConfig shareInstance].shareTitleViewConfig.isShow = NO;
+                    [UMSocialShareUIConfig shareInstance].shareCancelControlConfig.shareCancelControlText = @"取消";
+                    //判断是否安装QQ,微信
+                    NSMutableArray *platformArray = [NSMutableArray array];
+                    if ([WXApi isWXAppInstalled]) {
+                        [platformArray addObject:@(UMSocialPlatformType_WechatSession)];
+                        [platformArray addObject:@(UMSocialPlatformType_WechatTimeLine)];
+                    }
+                    if ([QQApiInterface isQQInstalled]) {
+                        [platformArray addObject:@(UMSocialPlatformType_QQ)];
+                        [platformArray addObject:@(UMSocialPlatformType_Qzone)];
+                    }
+                    if ([WeiboSDK isWeiboAppInstalled]) {
+                        [platformArray addObject:@(UMSocialPlatformType_Sina)];
+                    }
+                    //预定义平台
+                    [UMSocialUIManager setPreDefinePlatforms:[NSArray arrayWithArray:platformArray]];
+                    //显示分享面板
+                    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+                        [weakSelf shareImageAndTextUrlToPlatformType:platformType];
+                    }];
                 }
-                if ([QQApiInterface isQQInstalled]) {
-                    [platformArray addObject:@(UMSocialPlatformType_QQ)];
-                    [platformArray addObject:@(UMSocialPlatformType_Qzone)];
-                }
-                //预定义平台
-                [UMSocialUIManager setPreDefinePlatforms:[NSArray arrayWithArray:platformArray]];
-                //显示分享面板
-                [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
-                    [weakSelf shareImageAndTextUrlToPlatformType:platformType];
-                }];
-            }
-        } failure:^(NSError * _Nonnull error) {
-            NSLog(@"%@",error);
-        }];
+            } failure:^(NSError * _Nonnull error) {
+                NSLog(@"%@",error);
+            }];
+        }
     }
 }
 #pragma mark 分享错误信息提示

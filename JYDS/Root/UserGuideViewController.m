@@ -7,7 +7,7 @@
 //
 
 #import "UserGuideViewController.h"
-#import "LoginNC.h"
+#import "RootTabBarController.h"
 #import "AppDelegate.h"
 @interface UserGuideViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -64,8 +64,8 @@
 - (void)entryRootVC{
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    LoginNC *loginNC = [sb instantiateViewControllerWithIdentifier:@"login"];
-    [app.window setRootViewController:loginNC];
+    RootTabBarController *rootVC = [sb instantiateViewControllerWithIdentifier:@"root"];
+    [app.window setRootViewController:rootVC];
     [app.window makeKeyWindow];
 }
 @end

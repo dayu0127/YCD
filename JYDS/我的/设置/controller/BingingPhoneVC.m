@@ -99,14 +99,18 @@
         bindingType = @"1";
     }else if([[[NSUserDefaults standardUserDefaults] objectForKey:@"loginType"] isEqualToString:@"wx"]){
         bindingType = @"2";
+    }else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"loginType"] isEqualToString:@"wb"]){
+        bindingType = @"3";
     }
     NSString *associatedWx = self.associatedWx!=nil ? self.associatedWx : @"";
     NSString *associatedQq = self.associatedQq!=nil ? self.associatedQq : @"";
+    NSString *associatedWb = self.associatedWb!=nil ? self.associatedWb : @"";
     NSDictionary *jsonDic = @{
         @"phoneNum":phoneNum,       //#用户手机号
         @"verifyCode":verifyCode,           //#短信验证码      与登陆类型一致
         @"bindingType":bindingType,         //#当前第三方登陆的类型 1qq 2weixin
         @"associatedWx":associatedWx,       //#第三方绑定的uid 唯一标识 (选填)
+        @"associatedWb":associatedWb,       //#第三方绑定的uid 唯一标识 (选填)
         @"associatedQq":associatedQq      //#第三方绑定的uid 唯一标识 (选填)     qq微信必须填一个不能两个都不填！
     };
     [YHWebRequest YHWebRequestForPOST:kBindingPhone parameters:jsonDic success:^(NSDictionary *json) {

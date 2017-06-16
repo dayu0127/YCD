@@ -52,7 +52,7 @@
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
     if (token == nil && userInfo == nil) {
         [self returnToLogin];
-    }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil)) {
+    }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
         [self returnToBingingPhone];
     }else{
         if (sender.tag==0) {

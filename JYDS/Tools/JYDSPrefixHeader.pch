@@ -80,6 +80,7 @@
 #define kCodeLogin API(@"/login/phoneVerifyLogin") //用户手机验证码登录
 #define kQQLogin API(@"/login/qqLogin") //用户qq登录
 #define kWXLogin API(@"/login/weixinLogin") //用户微信登录
+#define kWBLogin API(@"/login/weiboLogin") //用户微博登录
 #define kSendCheckCode API(@"/sms/sendCode") //发送验证码统一入口
 #define kUpdatePwd API(@"/user/modifyPassword") //用户修改密码
 #define kSetPwd API(@"/user/findPassword") //用户找回(设置)密码
@@ -156,7 +157,7 @@
 #define kMemoryIntroduce @"http://www.jydsapp.com/jydsApi/h5/memory.html"
 
 //橙红色
-#define ORANGERED RGB(254,81,74) //#FE514A
+#define ORANGERED RGB(254,81,74) //#FE4F4A
 //线色
 #define LINECOLOR RGB(228,228,228) //#E4E4E4
 //浅灰色
@@ -173,6 +174,8 @@
 #define GREENCOLOR RGB(57,196,130) //#39C482
 //Cell选中背景色
 #define kCellBg RGB(229,230,231) //#E5E6E7
+
+
 
 typedef NS_ENUM(NSInteger, UITableViewRefreshStatus) {
     UITableViewRefreshStatusAnimation,   //刷新动画

@@ -173,7 +173,7 @@
     if (indexPath.section ==0) {
         if (token == nil && userInfo == nil) {
             [self returnToLogin];
-        }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil)) {
+        }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
             [self returnToBingingPhone];
         }else{
             [self performSegueWithIdentifier:@"toMyPoints" sender:self];
@@ -182,7 +182,7 @@
         if (indexPath.row == 0) {//我的订阅
             if (token == nil && userInfo == nil) {
                 [self returnToLogin];
-            }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil)) {
+            }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
                 [self returnToBingingPhone];
             }else{
                 [self performSegueWithIdentifier:@"toMySub" sender:self];
@@ -190,13 +190,19 @@
         }else if(indexPath.row == 1){//我的收藏
             if (token == nil && userInfo == nil) {
                 [self returnToLogin];
-            }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil)) {
+            }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
                 [self returnToBingingPhone];
             }else{
                 [self performSegueWithIdentifier:@"toMyCollect" sender:self];
             }
         }else{//邀请奖励
-            [self performSegueWithIdentifier:@"toInviteRewards" sender:self];
+            if (token == nil && userInfo == nil) {
+                [self returnToLogin];
+            }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
+                [self returnToBingingPhone];
+            }else{
+                [self performSegueWithIdentifier:@"toInviteRewards" sender:self];
+            }
         }
     }else if (indexPath.section == 2){
         if (indexPath.row == 0) {//关于我们
@@ -204,7 +210,7 @@
         }else{//意见反馈
             if (token == nil && userInfo == nil) {
                 [self returnToLogin];
-            }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil)) {
+            }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
                 [self returnToBingingPhone];
             }else{
                 [self performSegueWithIdentifier:@"toFeedback" sender:self];

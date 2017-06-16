@@ -28,7 +28,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    return 5;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SetCell0 *cell = [tableView dequeueReusableCellWithIdentifier:@"SetCell0" forIndexPath:indexPath];
@@ -42,9 +42,12 @@
     }else if (indexPath.row == 2){
         cell.titleLabel0.text = @"微信账号";
         [cell setCellWithString:[YHSingleton shareSingleton].userInfo.associatedWx];
-    }else{
+    }else if(indexPath.row == 3){
         cell.titleLabel0.text = @"QQ账号";
         [cell setCellWithString:[YHSingleton shareSingleton].userInfo.associatedQq];
+    }else{
+        cell.titleLabel0.text = @"微博账号";
+        [cell setCellWithString:[YHSingleton shareSingleton].userInfo.associatedWb];
     }
     return cell;
 }
@@ -109,7 +112,7 @@
                 }];
             }
         }
-    }else {//QQ绑定
+    }else if(indexPath.row == 3){//QQ绑定
 //        {
 //            "phoneNum":"13300001111",       #用户手机号
 //            "token: "zzzzzz",               #令牌
@@ -140,6 +143,40 @@
                             if ([json[@"code"] integerValue] == 200) {
                                 [YHHud showWithMessage:@"绑定成功"];
                                 [YHSingleton shareSingleton].userInfo.associatedQq = associatedQq;
+                                [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
+                                [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                            }else{
+                                NSLog(@"%@",json[@"code"]);
+                                [YHHud showWithMessage:json[@"message"]];
+                            }
+                        } failure:^(NSError * _Nonnull error) {
+                            NSLog(@"%@",error);
+                        }];
+                    }
+                }];
+            }
+        }
+    }else{ //微博绑定
+        if ([self.associatedWb isEqualToString:@""]) {
+            if ([phoneNum isEqualToString:@""]&&token == nil) {
+                [YHHud showWithMessage:@"请先绑定手机"];
+            }else{
+                [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_Sina currentViewController:nil completion:^(id result, NSError *error) {
+                    if (error) {
+                        NSLog(@"%@",error);
+                    } else {
+                        UMSocialUserInfoResponse *resp = result;
+                        NSString *associatedWb = resp.uid;
+                        NSDictionary *jsonDic = @{
+                            @"phoneNum":self.phoneNum,      // #用户手机号
+                            @"token":self.token,            //   #令牌
+                            @"associatedWb":associatedWb  // #第三方绑定的uid 唯一标识
+                        };
+                        [YHWebRequest YHWebRequestForPOST:kBindingQQ parameters:jsonDic success:^(NSDictionary *json) {
+                            NSLog(@"%@",json);
+                            if ([json[@"code"] integerValue] == 200) {
+                                [YHHud showWithMessage:@"绑定成功"];
+                                [YHSingleton shareSingleton].userInfo.associatedWb = associatedWb;
                                 [[NSUserDefaults standardUserDefaults] setObject:[[YHSingleton shareSingleton].userInfo yy_modelToJSONObject] forKey:@"userInfo"];
                                 [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                             }else{

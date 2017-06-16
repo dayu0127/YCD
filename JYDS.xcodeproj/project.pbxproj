@@ -80,6 +80,9 @@
 		6078D2241E161AF20089D40F /* YHHud.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D21B1E161AF20089D40F /* YHHud.m */; };
 		6078D2251E161AF20089D40F /* YHSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D21D1E161AF20089D40F /* YHSingleton.m */; };
 		6078D2261E161AF20089D40F /* YHWebRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6078D21F1E161AF20089D40F /* YHWebRequest.m */; };
+		60828A6C1EF0E24000615FA3 /* MessageCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60828A6B1EF0E23F00615FA3 /* MessageCenterVC.m */; };
+		60828A701EF0E33E00615FA3 /* MessageCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60828A6E1EF0E33E00615FA3 /* MessageCenterCell.m */; };
+		60828A711EF0E33E00615FA3 /* MessageCenterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60828A6F1EF0E33E00615FA3 /* MessageCenterCell.xib */; };
 		6088518C1E9DD63E004C107E /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6088518A1E9DD63E004C107E /* CommentCell.m */; };
 		6088518D1E9DD63E004C107E /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6088518B1E9DD63E004C107E /* CommentCell.xib */; };
 		608851901E9DDC63004C107E /* MemoryComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6088518F1E9DDC63004C107E /* MemoryComment.m */; };
@@ -156,6 +159,7 @@
 		60F4C36F1EAD8F07002FC840 /* WordImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F4C34C1EAD8F06002FC840 /* WordImageCell.m */; };
 		60F4C3701EAD8F07002FC840 /* WordImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60F4C34D1EAD8F06002FC840 /* WordImageCell.xib */; };
 		60F4EB691E9B179F00DC7AB8 /* UILabel+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F4EB681E9B179F00DC7AB8 /* UILabel+Utils.m */; };
+		60FA0A3B1EF27E4000683C5D /* MessageCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FA0A3A1EF27E4000683C5D /* MessageCenter.m */; };
 		60FC84AA1EAEF75100A62A1A /* BaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FC84A91EAEF75100A62A1A /* BaseCell.m */; };
 		60FC84AD1EAF297C00A62A1A /* UITextView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FC84AC1EAF297C00A62A1A /* UITextView+Utils.m */; };
 		60FC84B01EAF508100A62A1A /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FC84AF1EAF508100A62A1A /* UserInfo.m */; };
@@ -302,6 +306,11 @@
 		6078D21D1E161AF20089D40F /* YHSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHSingleton.m; sourceTree = "<group>"; };
 		6078D21E1E161AF20089D40F /* YHWebRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHWebRequest.h; sourceTree = "<group>"; };
 		6078D21F1E161AF20089D40F /* YHWebRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHWebRequest.m; sourceTree = "<group>"; };
+		60828A6A1EF0E23F00615FA3 /* MessageCenterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCenterVC.h; sourceTree = "<group>"; };
+		60828A6B1EF0E23F00615FA3 /* MessageCenterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCenterVC.m; sourceTree = "<group>"; };
+		60828A6D1EF0E33E00615FA3 /* MessageCenterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCenterCell.h; sourceTree = "<group>"; };
+		60828A6E1EF0E33E00615FA3 /* MessageCenterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCenterCell.m; sourceTree = "<group>"; };
+		60828A6F1EF0E33E00615FA3 /* MessageCenterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageCenterCell.xib; sourceTree = "<group>"; };
 		608851891E9DD63E004C107E /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
 		6088518A1E9DD63E004C107E /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 		6088518B1E9DD63E004C107E /* CommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
@@ -437,6 +446,8 @@
 		60F4C34D1EAD8F06002FC840 /* WordImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WordImageCell.xib; sourceTree = "<group>"; };
 		60F4EB671E9B179F00DC7AB8 /* UILabel+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Utils.h"; sourceTree = "<group>"; };
 		60F4EB681E9B179F00DC7AB8 /* UILabel+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Utils.m"; sourceTree = "<group>"; };
+		60FA0A391EF27E4000683C5D /* MessageCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCenter.h; sourceTree = "<group>"; };
+		60FA0A3A1EF27E4000683C5D /* MessageCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCenter.m; sourceTree = "<group>"; };
 		60FC84A81EAEF75100A62A1A /* BaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCell.h; sourceTree = "<group>"; };
 		60FC84A91EAEF75100A62A1A /* BaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseCell.m; sourceTree = "<group>"; };
 		60FC84AB1EAF297C00A62A1A /* UITextView+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Utils.h"; sourceTree = "<group>"; };
@@ -618,6 +629,9 @@
 				6042E0F51E8D0D8300756A61 /* MessageCell.h */,
 				6042E0F61E8D0D8300756A61 /* MessageCell.m */,
 				6042E0F71E8D0D8300756A61 /* MessageCell.xib */,
+				60828A6D1EF0E33E00615FA3 /* MessageCenterCell.h */,
+				60828A6E1EF0E33E00615FA3 /* MessageCenterCell.m */,
+				60828A6F1EF0E33E00615FA3 /* MessageCenterCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -625,6 +639,8 @@
 		6042E0F11E8D0BDD00756A61 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				60828A6A1EF0E23F00615FA3 /* MessageCenterVC.h */,
+				60828A6B1EF0E23F00615FA3 /* MessageCenterVC.m */,
 				6042E0F21E8D0BFF00756A61 /* MessageVC.h */,
 				6042E0F31E8D0BFF00756A61 /* MessageVC.m */,
 			);
@@ -976,6 +992,8 @@
 		60E514EB1EA490F0007CB096 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				60FA0A391EF27E4000683C5D /* MessageCenter.h */,
+				60FA0A3A1EF27E4000683C5D /* MessageCenter.m */,
 				60E514EC1EA49101007CB096 /* Message.h */,
 				60E514ED1EA49101007CB096 /* Message.m */,
 			);
@@ -1212,7 +1230,7 @@
 					69B129E01DE2C6490093D841 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = QPA82R6FFY;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplePay = {
 								enabled = 0;
@@ -1267,6 +1285,7 @@
 				602BDD3A1E83688C00C6CB92 /* MemoryHeaderView.xib in Resources */,
 				60F4C3701EAD8F07002FC840 /* WordImageCell.xib in Resources */,
 				6010FF9C1E9128DB00071610 /* FailedView.xib in Resources */,
+				60828A711EF0E33E00615FA3 /* MessageCenterCell.xib in Resources */,
 				60402E5F1E852A7600B1AD91 /* ButtomCell.xib in Resources */,
 				60A5C7B41E8B7D72007D2366 /* CollectCell.xib in Resources */,
 				60402E551E851E7000B1AD91 /* TopCell.xib in Resources */,
@@ -1376,6 +1395,7 @@
 				60E514EE1EA49101007CB096 /* Message.m in Sources */,
 				6010FFA61E91295A00071610 /* CodeListVC.m in Sources */,
 				60402E5E1E852A7600B1AD91 /* ButtomCell.m in Sources */,
+				60FA0A3B1EF27E4000683C5D /* MessageCenter.m in Sources */,
 				60F4C3521EAD8F06002FC840 /* WordDetailVC.m in Sources */,
 				60C71A1F1EA5E2C400164BE3 /* MyPointsVC.m in Sources */,
 				60FC84AA1EAEF75100A62A1A /* BaseCell.m in Sources */,
@@ -1403,6 +1423,7 @@
 				60F4C34E1EAD8F06002FC840 /* CourseMemoryVC.m in Sources */,
 				6039EEA71E9F1E9800BA4E24 /* MyMemorySubedVC.m in Sources */,
 				6002597A1E977F1700FA3991 /* YBPopupMenu.m in Sources */,
+				60828A6C1EF0E24000615FA3 /* MessageCenterVC.m in Sources */,
 				6062A7931E98EC1B00D8F5BB /* MemoryDetailVC.m in Sources */,
 				60402E4B1E8518B300B1AD91 /* MineVC.m in Sources */,
 				604DBF2A1E8E22D10025E50C /* NSDictionary+FromNSString.m in Sources */,
@@ -1432,6 +1453,7 @@
 				60F4C3591EAD8F07002FC840 /* Word.m in Sources */,
 				60402E541E851E7000B1AD91 /* TopCell.m in Sources */,
 				6042E0F41E8D0BFF00756A61 /* MessageVC.m in Sources */,
+				60828A701EF0E33E00615FA3 /* MessageCenterCell.m in Sources */,
 				609F063C1E1621D9009F4986 /* AboutUsVC.m in Sources */,
 				60783C121E9CE29500F0FBE1 /* MemoryListVC.m in Sources */,
 				606A94F61E51A8CA00A0279D /* MnemonicsVC.m in Sources */,
@@ -1535,8 +1557,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = QPA82R6FFY;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1627,8 +1649,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "46f727d9-b763-4ae8-86f5-1d4b6502edc5";
-				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution_5_10";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -1748,8 +1770,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = QPA82R6FFY;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1840,8 +1862,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "46f727d9-b763-4ae8-86f5-1d4b6502edc5";
-				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution_5_10";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -1857,8 +1879,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = QPA82R6FFY;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1949,8 +1971,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "46f727d9-b763-4ae8-86f5-1d4b6502edc5";
-				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution_5_10";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";

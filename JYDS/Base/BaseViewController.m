@@ -23,6 +23,7 @@
         _phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum;
         _associatedWx = [YHSingleton shareSingleton].userInfo.associatedWx;
         _associatedQq = [YHSingleton shareSingleton].userInfo.associatedQq;
+        _associatedQq = [YHSingleton shareSingleton].userInfo.associatedWb;
     }
     _token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
 }

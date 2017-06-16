@@ -20,8 +20,6 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 - (IBAction)mySubClick:(UIButton *)sender {
     [_delegate pushToMySub];
@@ -31,5 +29,8 @@
 }
 - (IBAction)invitationClick:(UIButton *)sender {
     [_delegate pushToInvitation];
+}
+- (IBAction)courseClick:(UIButton *)sender {
+    [_delegate pushToCourseMemory];
 }
 @end

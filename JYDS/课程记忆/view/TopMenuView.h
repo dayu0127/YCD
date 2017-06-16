@@ -12,5 +12,8 @@
 @end
 @interface TopMenuView : UIView
 @property (weak,nonatomic) id<TopMenuViewDelegate> delegate;
+@property (strong,nonatomic) UIView *contentView;
+@property (strong,nonatomic) UILabel *titleLabel;
 - (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title tag:(NSInteger)tag;
+- (void)updateWidth:(NSString *)title;
 @end
