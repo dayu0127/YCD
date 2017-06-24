@@ -157,7 +157,7 @@
 #define kMemoryIntroduce @"http://www.jydsapp.com/jydsApi/h5/memory.html"
 
 //橙红色
-#define ORANGERED RGB(254,81,74) //#FE4F4A
+#define ORANGERED RGB(254,79,74) //#FE4F4A
 //线色
 #define LINECOLOR RGB(228,228,228) //#E4E4E4
 //浅灰色

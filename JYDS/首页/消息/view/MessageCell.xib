@@ -74,6 +74,9 @@
                         <state key="normal" title="查看详情&gt;">
                             <color key="titleColor" red="0.99607843137254903" green="0.31764705882352939" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
+                        <connections>
+                            <action selector="detailClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="pn0-lb-Nu2"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>

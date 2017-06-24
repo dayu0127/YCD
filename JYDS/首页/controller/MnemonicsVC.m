@@ -19,6 +19,7 @@
 #import "BaseNavViewController.h"
 #import "MemorySeriesVideoListVC.h"
 #import <StoreKit/StoreKit.h>
+#import "GradeVC.h"
 @interface MnemonicsVC ()<UITableViewDelegate,UITableViewDataSource,BannerCellDelegate,PlanCellDelegate,DynamicCellDelegate,SKStoreProductViewControllerDelegate>
 @property (strong,nonatomic) NSArray *bannerInfoArray;
 @property (strong,nonatomic) NSArray *dynamicArray;
@@ -34,7 +35,6 @@
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager POST:@"https://itunes.apple.com/lookup?id=1230915498" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSArray *array = responseObject[@"results"];
-       
         if (array.count>0) {
             NSDictionary *dict = [array lastObject];
             NSString *appStoreVersion = dict[@"version"];
@@ -118,26 +118,37 @@
 #pragma mark 消息按钮点击
 - (IBAction)messageButtonClick:(UIButton *)sender {
     [sender setImage:[UIImage imageNamed:@"home_top_message"] forState:UIControlStateNormal];
-    [self performSegueWithIdentifier:@"homeToMessageCenter" sender:self];
+//    [self performSegueWithIdentifier:@"homeToMessageCenter" sender:self];
+    [self performSegueWithIdentifier:@"homeToMessage" sender:self];
 }
 #pragma mark 轮播图点击
 - (void)bannerClick:(NSInteger)index{
-    BaseNavViewController *bannerVC = [[BaseNavViewController alloc] init];
-    if (![_bannerInfoArray[index][@"content"] isEqualToString:@"#"]) {
-        bannerVC.linkUrl = _bannerInfoArray[index][@"content"];
-        bannerVC.shareUrl = _bannerInfoArray[index][@"content"];
-        bannerVC.navTitle = @"返回";
-        bannerVC.isShowShareBtn = YES;
-        bannerVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:bannerVC animated:YES];
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    if (token == nil && userInfo == nil) {
+        [self returnToLogin];
+    }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
+        [self returnToBingingPhone];
+    }else{
+        BaseNavViewController *bannerVC = [[BaseNavViewController alloc] init];
+        if (![_bannerInfoArray[index][@"content"] isEqualToString:@"#"]) {
+            bannerVC.linkUrl = _bannerInfoArray[index][@"content"];
+            bannerVC.shareUrl = _bannerInfoArray[index][@"content"];
+            bannerVC.navTitle = @"返回";
+            bannerVC.isShowShareBtn = YES;
+            bannerVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:bannerVC animated:YES];
+        }
     }
 }
 #pragma mark 最新动态点击
 - (void)dynamicClick:(NSInteger)index{
     BaseNavViewController *dynamicVC = [[BaseNavViewController alloc] init];
     dynamicVC.linkUrl = _dynamicArray[index][@"content"];
+    dynamicVC.shareUrl = _dynamicArray[index][@"content"];
     dynamicVC.navTitle = @"最新动态";
-    dynamicVC.isShowShareBtn = NO;
+    dynamicVC.isShowShareBtn = YES;
+    dynamicVC.isDynamic = YES;
     dynamicVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:dynamicVC animated:YES];
 }
@@ -220,7 +231,15 @@
 }
 #pragma mark 课程记忆
 - (void)pushToCourseMemory{
-    self.tabBarController.selectedIndex = 1;
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    if (token == nil && userInfo == nil) {
+        [self returnToLogin];
+    }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
+        [self returnToBingingPhone];
+    }else{
+        [self performSegueWithIdentifier:@"homeToGradeList" sender:self];
+    }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 1) {
@@ -266,6 +285,9 @@
         seriesVC.lessonId = _memory.memoryId;
         seriesVC.lessonName = _memory.title;
         seriesVC.lessonPayType = _memory.payType;
+    }else if ([segue.identifier isEqualToString:@"homeToGradeList"]){
+        GradeVC *gradeVC = segue.destinationViewController;
+        gradeVC.grade_type =@"1";
     }
 }
 - (void)presentToAppStore{

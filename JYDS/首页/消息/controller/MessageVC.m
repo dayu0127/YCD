@@ -8,7 +8,7 @@
 
 #import "MessageVC.h"
 #import "MessageCell.h"
-@interface MessageVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface MessageVC ()<UITableViewDelegate,UITableViewDataSource,MessageCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) NSArray *noticeList;
 @property (copy,nonatomic) NSString *messageTitle;
@@ -54,16 +54,23 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessageCell" forIndexPath:indexPath];
+    cell.tag = indexPath.row;
+    cell.delegate = self;
     [cell setModel:_noticeList[indexPath.row]];
     return cell;
 }
+- (void)messageDetailClick:(NSInteger)row{
+    [self pushToMessageDetail:row];
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self pushToMessageDetail:indexPath.row];
+}
+- (void)pushToMessageDetail:(NSInteger)row{
     BaseNavViewController *messageDetailVC = [[BaseNavViewController alloc] init];
     messageDetailVC.isShowShareBtn = NO;
-    messageDetailVC.navTitle = _noticeList[indexPath.row][@"n_title"];
-    messageDetailVC.linkUrl = _noticeList[indexPath.row][@"n_content"];
+    messageDetailVC.navTitle = _noticeList[row][@"n_title"];
+    messageDetailVC.linkUrl = _noticeList[row][@"n_content"];
     messageDetailVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:messageDetailVC animated:YES];
 }
-
 @end

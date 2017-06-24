@@ -99,7 +99,11 @@
     NSString *title = _shareTitle;
     NSString *descr = _shareContent;
     UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:title descr:descr thumImage:[UIImage imageNamed:@"icon-40"]];
-    shareObject.webpageUrl = [NSString stringWithFormat:@"%@&userPhone=%@",_shareUrl,[DES3Util encrypt:self.phoneNum]];
+    if (_isDynamic == YES) {
+        shareObject.webpageUrl = _shareUrl;
+    }else{
+        shareObject.webpageUrl = [NSString stringWithFormat:@"%@&userPhone=%@",_shareUrl,[DES3Util encrypt:self.phoneNum]];
+    }
     messageObject.shareObject = shareObject;
     //调用分享接口
     [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
@@ -154,9 +158,9 @@
                         [platformArray addObject:@(UMSocialPlatformType_QQ)];
                         [platformArray addObject:@(UMSocialPlatformType_Qzone)];
                     }
-                    if ([WeiboSDK isWeiboAppInstalled]) {
-                        [platformArray addObject:@(UMSocialPlatformType_Sina)];
-                    }
+//                    if ([WeiboSDK isWeiboAppInstalled]) {
+//                        [platformArray addObject:@(UMSocialPlatformType_Sina)];
+//                    }
                     //预定义平台
                     [UMSocialUIManager setPreDefinePlatforms:[NSArray arrayWithArray:platformArray]];
                     //显示分享面板

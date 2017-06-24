@@ -57,14 +57,14 @@
     }else{
         if (sender.tag==0) {
             _grade_type = [NSString stringWithFormat:@"%zd",sender.tag+1];
-            [self performSegueWithIdentifier:@"toItemDetail" sender:self];
+            [self performSegueWithIdentifier:@"toGradeList" sender:self];
         }else{
             [YHHud showWithMessage:@"课程正在研制中"];
         }
     }
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"toItemDetail"]) {
+    if ([segue.identifier isEqualToString:@"toGradeList"]) {
         GradeVC *gradeVC = segue.destinationViewController;
         gradeVC.grade_type =_grade_type;
     }

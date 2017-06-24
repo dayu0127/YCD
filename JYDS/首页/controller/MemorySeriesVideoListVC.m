@@ -185,7 +185,7 @@
     }else{
         cell.subImg.image = [UIImage imageNamed:@"home_subed"];
     }
-    [cell.seriseImageView sd_setImageWithURL:[NSURL URLWithString:_memorySeriesList[indexPath.row][@"imgUrl"]] placeholderImage:[UIImage imageNamed:@"home_memoryImg"]];
+    [cell.seriseImageView sd_setImageWithURL:[NSURL URLWithString:_memorySeriesList[indexPath.row][@"imgUrl"]] placeholderImage:[UIImage imageNamed:@"banner_defult"]];
     NSString *likesStr = [NSString convertWanFromNum:_memorySeriesList[indexPath.row][@"likes"]];
     cell.likesLabel.text = [NSString stringWithFormat:@"%@人点赞",likesStr];
     NSString *playCountStr = [NSString convertWanFromNum:_memorySeriesList[indexPath.row][@"views"]];

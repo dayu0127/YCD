@@ -21,7 +21,7 @@
     for (NSDictionary *dic in arr) {
         [_netImages addObject:dic[@"url"]];
     }
-    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, WIDTH, 112/375.0*WIDTH) delegate:self placeholderImage:[UIImage imageNamed:@"zuixin"]];
+    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, WIDTH, 112/375.0*WIDTH) delegate:self placeholderImage:[UIImage imageNamed:@"banner_defult"]];
     cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     cycleScrollView.pageDotColor = [UIColor colorWithRed:235/255.0 green:222/255.0 blue:203/255.0 alpha:0.68];
     cycleScrollView.currentPageDotColor = [UIColor colorWithRed:1 green:78/255.0 blue:0 alpha:0.68];

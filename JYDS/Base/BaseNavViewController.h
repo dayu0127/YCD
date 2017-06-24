@@ -15,6 +15,7 @@
 @property (strong, nonatomic) UIButton *rightBarButton;
 @property (copy,nonatomic) NSString *linkUrl;
 @property (assign,nonatomic) BOOL isShowShareBtn;
+@property (assign,nonatomic) BOOL isDynamic;
 @property (strong,nonatomic) UIButton *shareButton;
 @property (copy,nonatomic) NSString *shareUrl;
 

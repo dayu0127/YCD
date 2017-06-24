@@ -31,7 +31,7 @@
 //    \"payType\": \"0\"
     _classNameLabel.text = v.class_name;
     _gradeNameLabel.text = v.grade_name;
-    [_img sd_setImageWithURL:[NSURL URLWithString:v.imgurl]];
+    [_img sd_setImageWithURL:[NSURL URLWithString:v.imgurl] placeholderImage:[UIImage imageNamed:@"banner_defult"]];
 //    if ([v.payType integerValue] == 1) {
 //        _subStatusLabel.text = @"已订阅";
 //        _subStatusLabel.textColor = SUBEDCOLOR;
@@ -40,6 +40,6 @@
 //        _subStatusLabel.textColor = ORANGERED;
 //    }
     _ordersLabel.text = v.orders;
-    _lessonAndWordCountLabel.text = [NSString stringWithFormat:@"共%@单元，%@词",v.total_lessons,v.total_words];
+    _lessonAndWordCountLabel.text = [NSString stringWithFormat:@"共%@单元词汇",v.total_lessons];
 }
 @end

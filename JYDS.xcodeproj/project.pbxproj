@@ -115,6 +115,8 @@
 		60C71A1F1EA5E2C400164BE3 /* MyPointsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C71A1E1EA5E2C400164BE3 /* MyPointsVC.m */; };
 		60C71A231EA5EA2E00164BE3 /* MyPointsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C71A211EA5EA2E00164BE3 /* MyPointsCell.m */; };
 		60C71A241EA5EA2E00164BE3 /* MyPointsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60C71A221EA5EA2E00164BE3 /* MyPointsCell.xib */; };
+		60D8AFBC1EFE7A33000D90EC /* SetCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D8AFBA1EFE7A33000D90EC /* SetCell1.m */; };
+		60D8AFBD1EFE7A33000D90EC /* SetCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60D8AFBB1EFE7A33000D90EC /* SetCell1.xib */; };
 		60E514EE1EA49101007CB096 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E514ED1EA49101007CB096 /* Message.m */; };
 		60E514F91EA4A154007CB096 /* InviteCodeListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E514F41EA4A154007CB096 /* InviteCodeListVC.m */; };
 		60E514FA1EA4A154007CB096 /* InviteRewardsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E514F61EA4A154007CB096 /* InviteRewardsVC.m */; };
@@ -370,6 +372,9 @@
 		60C71A201EA5EA2E00164BE3 /* MyPointsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPointsCell.h; sourceTree = "<group>"; };
 		60C71A211EA5EA2E00164BE3 /* MyPointsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPointsCell.m; sourceTree = "<group>"; };
 		60C71A221EA5EA2E00164BE3 /* MyPointsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyPointsCell.xib; sourceTree = "<group>"; };
+		60D8AFB91EFE7A33000D90EC /* SetCell1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetCell1.h; sourceTree = "<group>"; };
+		60D8AFBA1EFE7A33000D90EC /* SetCell1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetCell1.m; sourceTree = "<group>"; };
+		60D8AFBB1EFE7A33000D90EC /* SetCell1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetCell1.xib; sourceTree = "<group>"; };
 		60E514EC1EA49101007CB096 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
 		60E514ED1EA49101007CB096 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		60E514F31EA4A154007CB096 /* InviteCodeListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteCodeListVC.h; sourceTree = "<group>"; };
@@ -552,6 +557,9 @@
 				6010FFB81E912B4400071610 /* SetCell0.h */,
 				6010FFB91E912B4400071610 /* SetCell0.m */,
 				6010FFBA1E912B4400071610 /* SetCell0.xib */,
+				60D8AFB91EFE7A33000D90EC /* SetCell1.h */,
+				60D8AFBA1EFE7A33000D90EC /* SetCell1.m */,
+				60D8AFBB1EFE7A33000D90EC /* SetCell1.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1230,13 +1238,13 @@
 					69B129E01DE2C6490093D841 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = QPA82R6FFY;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplePay = {
 								enabled = 0;
 							};
 							com.apple.InAppPurchase = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -1274,6 +1282,7 @@
 				602BDD351E83679C00C6CB92 /* PlanCell.xib in Resources */,
 				60783C171E9CE34C00F0FBE1 /* MemoryMoreCell.xib in Resources */,
 				603A42D61E83F71300134150 /* Assets.xcassets in Resources */,
+				60D8AFBD1EFE7A33000D90EC /* SetCell1.xib in Resources */,
 				60F4C3651EAD8F07002FC840 /* PaymentCell.xib in Resources */,
 				6078D2001E1613180089D40F /* LaunchScreen.storyboard in Resources */,
 				60F4C3681EAD8F07002FC840 /* SubAlertView.xib in Resources */,
@@ -1367,6 +1376,7 @@
 				602BDD2F1E8366E300C6CB92 /* BannerCell.m in Sources */,
 				60F4C3621EAD8F07002FC840 /* PayDetailCell.m in Sources */,
 				609F05E11E161D1A009F4986 /* RegisterVC.m in Sources */,
+				60D8AFBC1EFE7A33000D90EC /* SetCell1.m in Sources */,
 				604DBF301E8E6CAB0025E50C /* NSString+FromNSDictionary.m in Sources */,
 				6078D2241E161AF20089D40F /* YHHud.m in Sources */,
 				60F4EB691E9B179F00DC7AB8 /* UILabel+Utils.m in Sources */,
@@ -1544,8 +1554,10 @@
 					"-all_load",
 				);
 				PROVISIONING_PROFILE = "46f727d9-b763-4ae8-86f5-1d4b6502edc5";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution_5_10";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = discribution;
 		};
@@ -1557,8 +1569,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
+				DEVELOPMENT_TEAM = QPA82R6FFY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1649,8 +1661,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "46f727d9-b763-4ae8-86f5-1d4b6502edc5";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution_5_10";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -1709,7 +1721,9 @@
 					"-all_load",
 				);
 				PROVISIONING_PROFILE = "46f727d9-b763-4ae8-86f5-1d4b6502edc5";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution_5_10";
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -1757,8 +1771,10 @@
 					"-all_load",
 				);
 				PROVISIONING_PROFILE = "46f727d9-b763-4ae8-86f5-1d4b6502edc5";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution_5_10";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};
@@ -1770,8 +1786,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
+				DEVELOPMENT_TEAM = QPA82R6FFY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1862,8 +1878,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "46f727d9-b763-4ae8-86f5-1d4b6502edc5";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution_5_10";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -1879,8 +1895,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
+				DEVELOPMENT_TEAM = QPA82R6FFY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1971,8 +1987,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "46f727d9-b763-4ae8-86f5-1d4b6502edc5";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution_5_10";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";

@@ -27,11 +27,10 @@
     Message *model = [Message yy_modelWithJSON:dic];
     _dateLabel1.text = [model.create_time substringWithRange:NSMakeRange(0, 10)];
     _dateLabelWidth.constant+=10;
-//    [_img sd_setImageWithURL:[NSURL URLWithString:model.imgUrl] placeholderImage:[UIImage imageNamed:@"m1"]];
-    NSURL *url = [NSURL URLWithString:model.imgUrl];
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    UIImage *image = [[UIImage alloc] initWithData:data];
-    [_img setImage:image];
+    [_img sd_setImageWithURL:[NSURL URLWithString:model.imgUrl] placeholderImage:[UIImage imageNamed:@"banner_defult"]];
     _titleLabel1.text = model.n_title;
+}
+- (IBAction)detailClick:(UIButton *)sender{
+    [_delegate messageDetailClick:self.tag];
 }
 @end

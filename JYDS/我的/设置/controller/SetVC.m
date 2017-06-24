@@ -21,7 +21,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [_tableView registerNib:[UINib nibWithNibName:@"SetCell" bundle:nil] forCellReuseIdentifier:@"SetCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"SetCell0" bundle:nil] forCellReuseIdentifier:@"SetCell0"];
 }
 - (IBAction)backClick:(id)sender {
@@ -29,7 +28,7 @@
 }
 - (NSArray *)arr{
     if (!_arr) {
-        _arr = @[@"夜间模式",@"清除缓存"];
+        _arr = @[@"夜间模式",@"消息通知",@"清除缓存"];
     }
     return _arr;
 }
@@ -46,7 +45,12 @@
         [cell setCellWithString:@""];
         cell.bingingLabel.alpha = 0;
         return cell;
-    }else{
+    }
+//    else if(indexPath.row == 1){
+//        SetCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"SetCell1" forIndexPath:indexPath];
+//        return cell;
+//    }
+    else{
         SetCell0 *cell = [tableView dequeueReusableCellWithIdentifier:@"SetCell0" forIndexPath:indexPath];
         cell.titleLabel0.text = @"清除缓存";
         [cell setCellWithString:@""];
