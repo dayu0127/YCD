@@ -1440,7 +1440,7 @@
 					69B129E01DE2C6490093D841 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = QPA82R6FFY;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -1750,7 +1750,7 @@
 					"-Objc",
 					"-all_load",
 				);
-				PROVISIONING_PROFILE = "2442d082-f4e7-4fa2-a5aa-6dba02ab9f93";
+				PROVISIONING_PROFILE = "0d58689f-74c9-4224-b462-a73d74ba9444";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1764,7 +1764,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = QPA82R6FFY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1864,8 +1864,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "0d58689f-74c9-4224-b462-a73d74ba9444";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution2";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -1923,7 +1923,7 @@
 					"-Objc",
 					"-all_load",
 				);
-				PROVISIONING_PROFILE = "2442d082-f4e7-4fa2-a5aa-6dba02ab9f93";
+				PROVISIONING_PROFILE = "0d58689f-74c9-4224-b462-a73d74ba9444";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1971,7 +1971,7 @@
 					"-Objc",
 					"-all_load",
 				);
-				PROVISIONING_PROFILE = "2442d082-f4e7-4fa2-a5aa-6dba02ab9f93";
+				PROVISIONING_PROFILE = "0d58689f-74c9-4224-b462-a73d74ba9444";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1985,7 +1985,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = QPA82R6FFY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2085,8 +2085,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "0d58689f-74c9-4224-b462-a73d74ba9444";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution2";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -2102,7 +2102,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = QPA82R6FFY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2202,8 +2202,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "0d58689f-74c9-4224-b462-a73d74ba9444";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution2";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";
