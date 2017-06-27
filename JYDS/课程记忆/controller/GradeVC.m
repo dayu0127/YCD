@@ -36,24 +36,35 @@
 @property (strong,nonatomic) NSString *gradeName;
 /**选中课本全价*/
 @property (copy,nonatomic) NSString *full_price;
+/**选中课本最低价*/
+@property (copy,nonatomic) NSString *preferentialPrice;
+@property (strong,nonatomic) TopMenuView *menuView1;
+@property (strong,nonatomic) TopMenuView *menuView2;
+@property (strong,nonatomic) TopMenuView *menuView3;
 @end
 @implementation GradeVC
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _grade_type = @"1";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWordSubStatus) name:@"updateWordSubStatus" object:nil];
     [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
     CGFloat c = (WIDTH-2)/3.0;
     NSArray *arr = @[@"年级",@"科目",@"版本"];
+    NSMutableArray *menuArray = [NSMutableArray arrayWithCapacity:3];
     for (int i = 0; i< 3; i++) {
         TopMenuView *topV = [[TopMenuView alloc] initWithFrame:CGRectMake(i*(c+1), 0, c, 44) title:arr[i] tag:i];
         topV.delegate = self;
         [_topMenuBgView addSubview:topV];
+        [menuArray addObject:topV];
         if (i<2) {
-            UIView *v_line = [[UIView alloc] initWithFrame:CGRectMake(c*(i+1), 18, 1, 13)];
+            UIView *v_line = [[UIView alloc] initWithFrame:CGRectMake(c*(i+1), 15.5, 1, 13)];
             v_line.backgroundColor = LIGHTGRAYCOLOR;
             [_topMenuBgView addSubview:v_line];
         }
     }
+    _menuView1 = (TopMenuView *)menuArray[0];
+    _menuView2 = (TopMenuView *)menuArray[1];
+    _menuView3 = (TopMenuView *)menuArray[2];
     //获取数据
     [self getGredeList];
     [_tableView registerNib:[UINib nibWithNibName:@"GradeCell" bundle:nil] forCellReuseIdentifier:@"GradeCell"];
@@ -116,7 +127,7 @@
     if (sender.tag == 0) { //年级选择
         [YBPopupMenu showRelyOnView:sender titles:[self getNameListFromArray:_gradeList keyName:@"grade_name"] icons:nil menuWidth:WIDTH/3.0-10 delegate:self];
     }else if(sender.tag == 1){  //科目选择
-         [YBPopupMenu showRelyOnView:sender titles:[self getNameListFromArray:_classTypeList keyName:@"class_name"]  icons:nil menuWidth:WIDTH/3.0-10 delegate:self];
+        [YBPopupMenu showRelyOnView:sender titles:[self getNameListFromArray:_classTypeList keyName:@"class_name"]  icons:nil menuWidth:WIDTH/3.0-10 delegate:self];
     }else{  //版本选择
         [YBPopupMenu showRelyOnView:sender titles:[self getNameListFromArray:_versionNameList keyName:@"class_name"]  icons:nil menuWidth:WIDTH/3.0-10 delegate:self];
     }
@@ -128,6 +139,7 @@
     if (_selectIndex == 0) { //根据年级ID查科目列表和课本列表
         if (index == 0) {
             _currentGradeID = nil;
+            [_menuView1 updateWidth:@"全部年级"];
             [self getGredeList];
         }else{
     //        {
@@ -136,6 +148,7 @@
     //            "token":"****"          #登陆凭证
     //        }
             _currentGradeID = _gradeList[index-1][@"gradeId"];
+            [_menuView1 updateWidth:_gradeList[index-1][@"grade_name"]];
             NSDictionary *jsonDic = @{
                 @"gradeId":_currentGradeID,        //#年级ID
                 @"userPhone":phoneNum,     //  #用户手机号
@@ -157,6 +170,7 @@
         }
     }else if (_selectIndex  == 1){ //根据科目ID查版本列表和课本列表
         _currentClassID = _classTypeList[index][@"class_type"];
+        [_menuView2 updateWidth:_classTypeList[index][@"class_name"]];
         NSDictionary *jsonDic = [NSDictionary dictionary];
         if (_currentGradeID==nil) {
             jsonDic = @{
@@ -203,6 +217,7 @@
 //        }
         NSString *classId = _currentClassID == nil ? _classTypeList[0][@"class_type"] : _currentClassID;
         _currentVersionNameID = _versionNameList[index][@"class_type"];
+        [_menuView3 updateWidth:_versionNameList[index][@"class_name"]];
         NSDictionary *jsonDic = [NSDictionary dictionary];
         if (_currentGradeID==nil) {
             jsonDic = @{
@@ -257,6 +272,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     _classId  = _versionList[indexPath.row][@"classId"];
     _full_price = _versionList[indexPath.row][@"full_price"];
+    _preferentialPrice = _versionList[indexPath.row][@"preferentialPrice"];
     _payType  = [NSString stringWithFormat:@"%@",_versionList[indexPath.row][@"payType"]];
     _gradeName = _versionList[indexPath.row][@"grade_name"];
     [self performSegueWithIdentifier:@"toModuleList" sender:self];
@@ -278,6 +294,7 @@
         moduleListVC.payType =_payType;
         moduleListVC.gradeName = _gradeName;
         moduleListVC.full_price = _full_price;
+        moduleListVC.preferentialPrice = _preferentialPrice;
     }
 }
 @end

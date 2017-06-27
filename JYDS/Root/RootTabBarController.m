@@ -22,7 +22,7 @@
     for (UITabBarItem *item in self.tabBar.items) {
         item.image = [item.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         item.selectedImage = [item.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        [item setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:240/255.0 green:178/255.0 blue:164/255.0 alpha:1.0]} forState:UIControlStateNormal];
+        [item setTitleTextAttributes:@{NSForegroundColorAttributeName:GRAYCOLOR} forState:UIControlStateNormal];
         [item setTitleTextAttributes:@{NSForegroundColorAttributeName:ORANGERED} forState:UIControlStateSelected];
     }
     [self.tabBar setClipsToBounds:YES];

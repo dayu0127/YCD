@@ -68,8 +68,7 @@
     return self;
 }
 
-- (void) setText:(NSString *) text
-{
+- (void)setText:(NSString *)text{
     _textLabel.frame = CGRectMake(0, 10, 100, 10);
     _queueCount ++;
     self.alpha = 1.0f;
@@ -96,7 +95,6 @@
                          
                      }
      ];
-    
 }
 
 

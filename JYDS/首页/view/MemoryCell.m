@@ -14,7 +14,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -25,6 +24,6 @@
 - (void)addModelWithDic:(NSDictionary *)dic{
     Memory *model = [Memory yy_modelWithJSON:dic];
     _memoryTitle.text = model.title;
-    [_memoryImage sd_setImageWithURL:[NSURL URLWithString:model.imgUrl]];
+    [_memoryImage sd_setImageWithURL:[NSURL URLWithString:model.imgUrl] placeholderImage:[UIImage imageNamed:@"banner_defult"]];
 }
 @end

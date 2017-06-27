@@ -11,6 +11,8 @@
 @property (copy,nonatomic) NSString *token;
 @property (copy,nonatomic) NSString *associatedQq;
 @property (copy,nonatomic) NSString *associatedWx;
+@property (copy,nonatomic) NSString *associatedWb;
+@property (copy,nonatomic) UILabel *label;
 - (void)returnToLogin;
 - (void)returnToBingingPhone;
 - (void)loadNoInviteView:(NSString *)str;

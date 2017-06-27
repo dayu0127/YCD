@@ -15,4 +15,5 @@
 @property (copy,nonatomic) NSString *inviteCount;
 @property (copy,nonatomic) NSString *preferentialPrice;
 @property (copy,nonatomic) NSString *payPrice;
+@property (assign,nonatomic) SubType subType;
 @end

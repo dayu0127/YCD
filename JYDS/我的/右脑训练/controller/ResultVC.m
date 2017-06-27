@@ -38,7 +38,6 @@
 }
 - (void)backToExerciselView{
     [self.navigationController popViewControllerAnimated:YES];
-    [self continueExercise];
 }
 - (IBAction)backClick:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:YES];
@@ -54,9 +53,6 @@
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self continueExercise];
-}
-- (void)continueExercise{
     NSDictionary *dic = @{@"exerciseCount":[NSString stringWithFormat:@"%zd",_exerciseCount+1]};
     [[NSNotificationCenter defaultCenter] postNotificationName:@"initSet" object:self userInfo:dic];
 }

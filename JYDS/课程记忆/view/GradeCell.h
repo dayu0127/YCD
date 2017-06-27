@@ -28,7 +28,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *gradeNameLabel;
 //@property (weak, nonatomic) IBOutlet UILabel *totalWordLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subStatusLabel;
-@property (weak, nonatomic) IBOutlet UILabel *fullPriceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lessonAndWordCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ordersLabel;
 - (void)addModelWithDic:(NSDictionary *)dic;
 @end

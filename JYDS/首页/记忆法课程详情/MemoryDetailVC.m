@@ -92,13 +92,13 @@
 //    _borderView.layer.borderWidth = 1.0f;
     _videoTitleLabel.text = _memory.title;
     _likeCountLabel.text = [NSString convertWanFromNum:_memory.likes];
-    if (_isLike == YES) {
-        [_memoryCollect setImage:[UIImage imageNamed:@"course_collected"]];
-        _likeButton.enabled = NO;
-    }else{
-        [_memoryCollect setImage:[UIImage imageNamed:@"course_collect"]];
-        _likeButton.enabled = YES;
-    }
+//    if (_isLike == YES) {
+//        [_memoryCollect setImage:[UIImage imageNamed:@"course_collected"]];
+//        _likeButton.enabled = NO;
+//    }else{
+//        [_memoryCollect setImage:[UIImage imageNamed:@"course_collect"]];
+//        _likeButton.enabled = YES;
+//    }
     NSString *timeStr = [_memory.create_time componentsSeparatedByString:@" "][0];
     NSArray *dateArr = [timeStr componentsSeparatedByString:@"-"];
     _issueTimeLabel.text = [NSString stringWithFormat:@"%@年%@月%@日发布",dateArr[0],dateArr[1],dateArr[2]];
@@ -201,15 +201,17 @@
             if ([json[@"code"] integerValue] == 200) {
                 _memoryCollect.image = [UIImage imageNamed:@"course_collected"];
                 //改变该视频在本地的点赞状态
-                NSMutableDictionary *likesDic = [[NSMutableDictionary alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"likesDic"]];
-                [likesDic setObject:@"1" forKey:_memory.memoryId];
-                [[NSUserDefaults standardUserDefaults] setObject:[NSDictionary dictionaryWithDictionary:likesDic] forKey:@"likesDic"];
+//                NSMutableDictionary *likesDic = [[NSMutableDictionary alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"likesDic"]];
+//                [likesDic setObject:@"1" forKey:_memory.memoryId];
+//                [[NSUserDefaults standardUserDefaults] setObject:[NSDictionary dictionaryWithDictionary:likesDic] forKey:@"likesDic"];
+                _likeCountLabel.alpha = 0;
                 _memoryCollect.image = [UIImage imageNamed:@"course_collected"];
-                NSInteger count = [_likeCountLabel.text integerValue];
-                count++;
-                _likeCountLabel.text = [NSString stringWithFormat:@"%zd",count];
-                _isZan = 1;
+//                NSInteger count = [_likeCountLabel.text integerValue];
+//                count++;
+//                _likeCountLabel.text = [NSString stringWithFormat:@"%zd",count];
+//                _isZan = 1;
                 [_delegate reloadMemoryList];
+                [YHHud showWithMessage:@"点赞成功"];
             }else{
                 NSLog(@"%@",json[@"code"]);
                 [YHHud showWithMessage:json[@"message"]];

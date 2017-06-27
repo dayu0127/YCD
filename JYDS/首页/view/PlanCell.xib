@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0iV-yg-OdW" userLabel="Button1">
-                        <rect key="frame" x="0.0" y="0.0" width="125" height="69.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="94" height="69.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <state key="normal" title="右脑训练" image="home_mysub">
                             <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -30,7 +30,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hI7-mZ-JbX" userLabel="Button2">
-                        <rect key="frame" x="125" y="0.0" width="125" height="69.5"/>
+                        <rect key="frame" x="94" y="0.0" width="94" height="69.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <state key="normal" title="记忆法" image="home_memory">
                             <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -40,7 +40,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="97G-zt-tFq" userLabel="Button3">
-                        <rect key="frame" x="250" y="0.0" width="125" height="69.5"/>
+                        <rect key="frame" x="188" y="0.0" width="94" height="69.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <state key="normal" title="邀请好友" image="home_invitation">
                             <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -49,21 +49,35 @@
                             <action selector="invitationClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="EZ9-dQ-fhy"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ax-G2-31v" userLabel="Button3">
+                        <rect key="frame" x="282" y="0.0" width="93" height="69.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title="课程记忆" image="home_course">
+                            <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="courseClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="vaC-TW-4dF"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstItem="0iV-yg-OdW" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.333333" id="02J-DZ-tbb"/>
+                    <constraint firstItem="0iV-yg-OdW" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.25" id="02J-DZ-tbb"/>
                     <constraint firstItem="97G-zt-tFq" firstAttribute="leading" secondItem="hI7-mZ-JbX" secondAttribute="trailing" id="02g-FP-PdW"/>
                     <constraint firstItem="hI7-mZ-JbX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="3tw-CF-3kr"/>
-                    <constraint firstItem="hI7-mZ-JbX" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.333333" id="9aY-hd-KmP"/>
+                    <constraint firstItem="hI7-mZ-JbX" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.25" id="9aY-hd-KmP"/>
                     <constraint firstAttribute="bottom" secondItem="97G-zt-tFq" secondAttribute="bottom" id="ApW-zc-Dqo"/>
-                    <constraint firstAttribute="trailing" secondItem="97G-zt-tFq" secondAttribute="trailing" id="BRD-B9-3nC"/>
                     <constraint firstAttribute="bottom" secondItem="0iV-yg-OdW" secondAttribute="bottom" id="Nd7-I3-vG5"/>
+                    <constraint firstAttribute="trailing" secondItem="3Ax-G2-31v" secondAttribute="trailing" id="Pj7-E4-jgv"/>
                     <constraint firstItem="0iV-yg-OdW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="SUq-b6-I9e"/>
+                    <constraint firstItem="3Ax-G2-31v" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Wo1-J9-IFi"/>
                     <constraint firstItem="0iV-yg-OdW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="cmk-iC-7H0"/>
                     <constraint firstItem="hI7-mZ-JbX" firstAttribute="leading" secondItem="0iV-yg-OdW" secondAttribute="trailing" id="jxK-pz-N1J"/>
                     <constraint firstAttribute="bottom" secondItem="hI7-mZ-JbX" secondAttribute="bottom" id="qEc-Pf-sTK"/>
+                    <constraint firstItem="97G-zt-tFq" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.25" id="qf4-3Q-0jI"/>
+                    <constraint firstItem="3Ax-G2-31v" firstAttribute="leading" secondItem="97G-zt-tFq" secondAttribute="trailing" id="rQP-7J-7xo"/>
                     <constraint firstItem="97G-zt-tFq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="srL-Gs-ARK"/>
+                    <constraint firstAttribute="bottom" secondItem="3Ax-G2-31v" secondAttribute="bottom" id="z7W-jn-43F"/>
                 </constraints>
             </tableViewCellContentView>
             <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -71,11 +85,13 @@
                 <outletCollection property="buttonCollection" destination="0iV-yg-OdW" id="xNe-Xq-4CX"/>
                 <outletCollection property="buttonCollection" destination="hI7-mZ-JbX" id="eL6-mc-eeg"/>
                 <outletCollection property="buttonCollection" destination="97G-zt-tFq" id="1JP-lX-njj"/>
+                <outletCollection property="buttonCollection" destination="3Ax-G2-31v" id="PqJ-eM-sek"/>
             </connections>
             <point key="canvasLocation" x="63.5" y="57"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="home_course" width="30" height="30"/>
         <image name="home_invitation" width="30" height="30"/>
         <image name="home_memory" width="30" height="30"/>
         <image name="home_mysub" width="29" height="29"/>

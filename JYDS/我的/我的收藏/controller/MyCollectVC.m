@@ -219,6 +219,10 @@
             _tableView.alpha = 1;
             _myCollectList = [NSMutableArray arrayWithArray:resultArray];
             [_tableView reloadData];
+            if (_myCollectList.count>0) {
+                [self.label removeFromSuperview];
+                self.label = nil;
+            }
         }else if([json[@"code"] integerValue] == 106){
             _tableView.alpha = 0;
             [self loadNoInviteView:@"您还未收藏单词，快去收藏吧！"];

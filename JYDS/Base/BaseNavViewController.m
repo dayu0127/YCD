@@ -11,6 +11,8 @@
 #import <UShareUI/UMSocialUIManager.h>
 #import "WXApi.h"
 #import <TencentOpenAPI/QQApiInterface.h>
+#import "DES3Util.h"
+#import <WeiboSDK.h>
 @interface BaseNavViewController ()<WKNavigationDelegate>
 @property (strong,nonatomic) WKWebView *wkWebView;
 @property (copy,nonatomic) NSString *shareTitle;
@@ -58,7 +60,8 @@
     //页面
     [YHHud showWithStatus];
     _wkWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64)];
-    NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:_linkUrl]];
+//    NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:_linkUrl]];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:_linkUrl] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:30.0f];
     [_wkWebView loadRequest:request];
     _wkWebView.navigationDelegate = self;
     _wkWebView.scrollView.showsVerticalScrollIndicator = NO;
@@ -96,7 +99,11 @@
     NSString *title = _shareTitle;
     NSString *descr = _shareContent;
     UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:title descr:descr thumImage:[UIImage imageNamed:@"icon-40"]];
-    shareObject.webpageUrl = _shareUrl;
+    if (_isDynamic == YES) {
+        shareObject.webpageUrl = _shareUrl;
+    }else{
+        shareObject.webpageUrl = [NSString stringWithFormat:@"%@&userPhone=%@",_shareUrl,[DES3Util encrypt:self.phoneNum]];
+    }
     messageObject.shareObject = shareObject;
     //调用分享接口
     [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
@@ -118,45 +125,53 @@
 }
 #pragma mark 邀请分享按钮点击事件
 - (void)inviteShareClick:(UIButton *)sender {
-    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
-    if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
-        [self returnToBingingPhone];
-    }else if (self.token==nil&&self.phoneNum==nil) {
-        [self returnToLogin];
+    if ([WXApi isWXAppInstalled]==NO&&[QQApiInterface isQQInstalled]==NO&&[WeiboSDK isWeiboAppInstalled]==NO) {
+        [YHHud showWithMessage:@"分享失败"];
     }else{
-        NSDictionary *jsonDic = @{
-            @"userPhone":self.phoneNum,
-            @"token":self.token
-        };
-        [YHWebRequest YHWebRequestForPOST:kGetShare parameters:jsonDic success:^(NSDictionary *json) {
-            if ([json[@"code"] integerValue] == 200) {
-                NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-                _shareTitle = resultDic[@"title"];
-                _shareContent = resultDic[@"content"];
-                __weak typeof(self) weakSelf = self;
-                //设置面板样式
-                [UMSocialShareUIConfig shareInstance].shareTitleViewConfig.isShow = NO;
-                [UMSocialShareUIConfig shareInstance].shareCancelControlConfig.shareCancelControlText = @"取消";
-                //判断是否安装QQ,微信
-                NSMutableArray *platformArray = [NSMutableArray array];
-                if ([WXApi isWXAppInstalled]) {
-                    [platformArray addObject:@(UMSocialPlatformType_WechatSession)];
-                    [platformArray addObject:@(UMSocialPlatformType_WechatTimeLine)];
+        NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+        NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+        if (token == nil && userInfo == nil) {
+            [self returnToLogin];
+        }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
+            [self returnToBingingPhone];
+        }else{
+            NSDictionary *jsonDic = @{
+                @"userPhone":self.phoneNum,
+                @"token":self.token
+            };
+            [YHWebRequest YHWebRequestForPOST:kGetShare parameters:jsonDic success:^(NSDictionary *json) {
+                if ([json[@"code"] integerValue] == 200) {
+                    NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+                    _shareTitle = resultDic[@"title"];
+                    _shareContent = resultDic[@"content"];
+                    __weak typeof(self) weakSelf = self;
+                    //设置面板样式
+                    [UMSocialShareUIConfig shareInstance].shareTitleViewConfig.isShow = NO;
+                    [UMSocialShareUIConfig shareInstance].shareCancelControlConfig.shareCancelControlText = @"取消";
+                    //判断是否安装QQ,微信
+                    NSMutableArray *platformArray = [NSMutableArray array];
+                    if ([WXApi isWXAppInstalled]) {
+                        [platformArray addObject:@(UMSocialPlatformType_WechatSession)];
+                        [platformArray addObject:@(UMSocialPlatformType_WechatTimeLine)];
+                    }
+                    if ([QQApiInterface isQQInstalled]) {
+                        [platformArray addObject:@(UMSocialPlatformType_QQ)];
+                        [platformArray addObject:@(UMSocialPlatformType_Qzone)];
+                    }
+//                    if ([WeiboSDK isWeiboAppInstalled]) {
+//                        [platformArray addObject:@(UMSocialPlatformType_Sina)];
+//                    }
+                    //预定义平台
+                    [UMSocialUIManager setPreDefinePlatforms:[NSArray arrayWithArray:platformArray]];
+                    //显示分享面板
+                    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+                        [weakSelf shareImageAndTextUrlToPlatformType:platformType];
+                    }];
                 }
-                if ([QQApiInterface isQQInstalled]) {
-                    [platformArray addObject:@(UMSocialPlatformType_QQ)];
-                    [platformArray addObject:@(UMSocialPlatformType_Qzone)];
-                }
-                //预定义平台
-                [UMSocialUIManager setPreDefinePlatforms:[NSArray arrayWithArray:platformArray]];
-                //显示分享面板
-                [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
-                    [weakSelf shareImageAndTextUrlToPlatformType:platformType];
-                }];
-            }
-        } failure:^(NSError * _Nonnull error) {
-            NSLog(@"%@",error);
-        }];
+            } failure:^(NSError * _Nonnull error) {
+                NSLog(@"%@",error);
+            }];
+        }
     }
 }
 #pragma mark 分享错误信息提示

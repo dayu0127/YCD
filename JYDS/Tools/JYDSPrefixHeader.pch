@@ -68,18 +68,19 @@
 #define NICK_RE @"^([\u4e00-\u9fa5]|[A-Za-z0-9]){1,8}$"  //昵称
 #define NUM_RE @"^[1-9]\\d*$"  //数字
 #define LETTER_RE @"^[A-Za-z]+$" //英文字母
-//验证码倒计时时间
+//验证码倒计时时间                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 #define COUNTDOWN 60.0f
 
 //接口
 #define API(api) [NSString stringWithFormat:@"https://www.jydsapp.com/jydsApi/api/v2%@",api] //正式
-//#define API(api) [NSString stringWithFormat:@"https://192.168.15.112:8443/jydsApi/api/v2%@",api] //测试
+//#define API(api) [NSString stringWithFormat:@"https://www.jydsapp.com/jydsApiNew/api/v2%@",api] //测试
 
 #define kRegister API(@"/login/register") //注册接口
 #define kPwdLogin API(@"/login/phonePasswordLogin") //用户手机密码登录
 #define kCodeLogin API(@"/login/phoneVerifyLogin") //用户手机验证码登录
 #define kQQLogin API(@"/login/qqLogin") //用户qq登录
 #define kWXLogin API(@"/login/weixinLogin") //用户微信登录
+#define kWBLogin API(@"/login/weiboLogin") //用户微博登录
 #define kSendCheckCode API(@"/sms/sendCode") //发送验证码统一入口
 #define kUpdatePwd API(@"/user/modifyPassword") //用户修改密码
 #define kSetPwd API(@"/user/findPassword") //用户找回(设置)密码
@@ -106,8 +107,10 @@
 #define kCollectionWord API(@"/study/collectionWord") //单词收藏
 #define kCancelCollectionWord API(@"/study/cancelCollectionWord") //单词取消收藏
 #define kAlipaySub API(@"/pay/alipayCreateOrder")  //支付宝订阅
+#define kAlipaySubOne API(@"/pay/alipayCreateOrderOne")  //支付宝单个订阅
 #define kAlipaySignCheck API(@"/pay/alipaySignCheck")  //支付宝验签
 #define kWXSub API(@"/pay/weixinCreateOrder")  //微信订阅
+#define kWXSubOne API(@"/pay/weixinCreateOrderOne")  //微信单个订阅
 #define kWXSignCheck API(@"/pay/weixinSignCheck")  //微信验签
 #define kOrderPrice API(@"/pay/getOrderPrice")  //获取订单价格
 #define kFedBack API(@"/system/fedBack")    //用户反馈
@@ -121,6 +124,8 @@
 #define kSelectWord API(@"/study/selectWord")      //单词查询
 #define kGetShare API(@"/common/getShare")      //分享内容
 #define kMemoryList API(@"/video/getMemoryList")      //记忆法系列视频列表
+#define kGetOrderSumPrice API(@"/pay/getOrderSumPrice")      //记忆法全部订阅提示价格
+#define kApplePayCheck API(@"/pay/applePayCheck")      //Apple内购验签
 
 //练习题等级数组
 #define LEVELARRAY @[@"60",@"50",@"40",@"30",@"25",@"20",@"15",@"13",@"10"]
@@ -143,8 +148,7 @@
 #define IntroduceUrl @"https://www.jydsapp.com/jydsApi/h5/introduce.html"
 #define UseHelpUrl @"https://www.jydsapp.com/jydsApi/h5/help.html"
 #define UserAgreementUrl @"https://www.jydsapp.com/jydsApi/h5/agreement.html"
-//头像上传路径
-#define kHeadImageUrl @"https://omj0etkcd.qnssl.com/"
+
 //编码表
 #define kMemoryImages @"https://www.jydsapp.com/jydsApi/h5/image_memory.html"
 //练习结果
@@ -153,7 +157,7 @@
 #define kMemoryIntroduce @"http://www.jydsapp.com/jydsApi/h5/memory.html"
 
 //橙红色
-#define ORANGERED RGB(254,81,74) //#FE514A
+#define ORANGERED RGB(254,79,74) //#FE4F4A
 //线色
 #define LINECOLOR RGB(228,228,228) //#E4E4E4
 //浅灰色
@@ -171,6 +175,8 @@
 //Cell选中背景色
 #define kCellBg RGB(229,230,231) //#E5E6E7
 
+
+
 typedef NS_ENUM(NSInteger, UITableViewRefreshStatus) {
     UITableViewRefreshStatusAnimation,   //刷新动画
     UITableViewRefreshStatusHeader,     //下拉刷新
@@ -181,8 +187,5 @@ typedef NS_ENUM(NSInteger, UIViewControllerName) {
     UIViewControllerNameWordSubedList,     //已订阅单词列表
     UIViewControllerNameMyCollectList     //我的收藏列表
 };
-typedef NS_ENUM(NSInteger, SubType) {
-    SubTypeMemory,   //记忆法
-    SubTypeWord,     //单词
-};
+
 #endif /* JYDSPrefixHeader_pch */

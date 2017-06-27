@@ -13,10 +13,10 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+}
+- (void)configScrollView:(NSArray *)arr{
     NSMutableArray *netImages = [NSMutableArray array];
-    NSArray *bannerInfoArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"indexDynamic"];
-    for (NSDictionary *dic in bannerInfoArray) {
+    for (NSDictionary *dic in arr) {
         [netImages addObject:dic[@"url"]];
     }
     _imageCount = netImages.count;
@@ -24,28 +24,33 @@
     CGFloat h = 177/355.0*(WIDTH-20);
     _scrollView.contentSize = CGSizeMake(w*_imageCount, h);
     _scrollView.delegate = self;
-    _leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_leftButton setImage:[UIImage imageNamed:@"home_arrow"] forState:UIControlStateNormal];
-    [_leftButton addTarget:self action:@selector(leftButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [_scrollView insertSubview:_leftButton atIndex:1];
-    [_leftButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(20);
-        make.centerY.equalTo(self);
-    }];
-    _leftButton.alpha = 0;
-    _rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_rightButton setImage:[UIImage imageNamed:@"home_arrows"] forState:UIControlStateNormal];
-    [_rightButton addTarget:self action:@selector(rightButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [_scrollView insertSubview:_rightButton atIndex:1];;
-    [_rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self).offset(-20);
-        make.centerY.equalTo(self);
-    }];
+    [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    if (_leftButton == nil) {
+        _leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_leftButton setImage:[UIImage imageNamed:@"home_arrow"] forState:UIControlStateNormal];
+        [_leftButton addTarget:self action:@selector(leftButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_scrollView insertSubview:_leftButton atIndex:1];
+        [_leftButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self).offset(20);
+            make.centerY.equalTo(self);
+        }];
+        _leftButton.alpha = 0;
+    }
+    if (_rightButton == nil) {
+        _rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_rightButton setImage:[UIImage imageNamed:@"home_arrows"] forState:UIControlStateNormal];
+        [_rightButton addTarget:self action:@selector(rightButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_scrollView insertSubview:_rightButton atIndex:1];;
+        [_rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self).offset(-20);
+            make.centerY.equalTo(self);
+        }];
+    }
     if (_imageCount == 1) {
         _leftButton.alpha = 0;
         _rightButton.alpha = 0;
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, w, h)];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:netImages[0]] placeholderImage:[UIImage imageNamed:@"banner"]];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:netImages[0]] placeholderImage:[UIImage imageNamed:@"banner_defult"]];
         imageView.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageClick:)];
         [imageView addGestureRecognizer:tap];
@@ -55,7 +60,7 @@
     }else if(_imageCount > 1){
         for (int i = 0; i<_imageCount; i++) {
             UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(w*i, 0, w, h)];
-            [imageView sd_setImageWithURL:[NSURL URLWithString:netImages[i]] placeholderImage:[UIImage imageNamed:@"banner"]];
+            [imageView sd_setImageWithURL:[NSURL URLWithString:netImages[i]] placeholderImage:[UIImage imageNamed:@"banner_defult"]];
             imageView.userInteractionEnabled = YES;
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageClick:)];
             [imageView addGestureRecognizer:tap];
@@ -69,55 +74,45 @@
     [_delegete dynamicClick:[sender view].tag];
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (_imageCount>2) {
-        if (scrollView.contentOffset.x == 0) {
-            _leftButton.alpha = 0;
-        }else if (scrollView.contentOffset.x/(WIDTH-20)==_imageCount-1){
-            _rightButton.alpha = 0;
-        }else{
-            _leftButton.alpha = 1;
-            _rightButton.alpha = 1;
-        }
-    }else{
-        if (scrollView.contentOffset.x == 0) {
-            _leftButton.alpha = 0;
-            _rightButton.alpha = 1;
-        }else{
-            _leftButton.alpha = 1;
-            _rightButton.alpha = 0;
-        }
-    }
-    if (scrollView.contentOffset.x<0) {
+    CGFloat contentOffset = scrollView.contentOffset.x;
+    if (contentOffset<0) {
         [scrollView setContentOffset:CGPointMake(0, 0)];
     }
-    if (scrollView.contentOffset.x>(WIDTH-20)*(_imageCount-1)) {
+    if (contentOffset>(WIDTH-20)*(_imageCount-1)) {
         [scrollView setContentOffset:CGPointMake((WIDTH-20)*(_imageCount-1), 0)];
+    }
+    if (_imageCount>2) {
+        if (contentOffset <= 0) {
+            _leftButton.alpha = 0;
+            _rightButton.alpha = 1;
+        }else if (contentOffset < (WIDTH - 20)*(_imageCount - 1)){
+            _leftButton.alpha = 1;
+            _rightButton.alpha = 1;
+        }else{
+            _leftButton.alpha = 1;
+            _rightButton.alpha = 0;
+        }
+    }else{
+        if (contentOffset <= 0) {
+            _leftButton.alpha = 0;
+            _rightButton.alpha = 1;
+        }else{
+            _leftButton.alpha = 1;
+            _rightButton.alpha = 0;
+        }
     }
 }
 - (void)leftButtonClick:(UIButton *)sender{
     CGPoint currentPoint = _scrollView.contentOffset;
     currentPoint.x-=(WIDTH-20);
     [_scrollView setContentOffset:currentPoint animated:YES];
-    if (currentPoint.x == 0) {
-        sender.alpha = 0;
-    }else{
-        sender.alpha = 1;
-        _rightButton.alpha = 1;
-    }
 }
 - (void)rightButtonClick:(UIButton *)sender{
     CGPoint currentPoint = _scrollView.contentOffset;
     currentPoint.x+=(WIDTH-20);
     [_scrollView setContentOffset:currentPoint animated:YES];
-    if (currentPoint.x/(WIDTH-20) == _imageCount-1) {
-        sender.alpha = 0;
-    }else{
-        sender.alpha = 1;
-        _leftButton.alpha = 1;
-    }
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 }
-
 @end

@@ -91,7 +91,7 @@
 //        if (_index<18) {
 //            _currentNumLabel.text = _numArray[_index];
 //            _nextNumLabel.text = _numArray[_index+1];
-//        }else if (_index ==18){
+//        }else if (_index == 18){
 //            _currentNumLabel.text = _numArray[18];
 //            _nextNumLabel.text = @"";
 //        }else{
@@ -99,15 +99,14 @@
 //            _nextNumLabel.text = @"";
 //            [timer invalidate];
 //        }
-        ;
         _wrongImageView.alpha = 0;
-        _forgetButton.enabled = _index == 0 ? NO : YES;
         if (_index==0) {
             _forgetButton.enabled = NO;
             _preNumLabel.text = @"";
             _currentNumLabel.text = _numArray[_index];
             _nextNumLabel.text = _numArray[_index+1];
         }else if (_index>0&&_index<19){
+            _forgetButton.enabled = YES;
             _preNumLabel.text = _numArray[_index-1];
             _currentNumLabel.text = _numArray[_index];
             _nextNumLabel.text = _numArray[_index+1];
@@ -145,7 +144,13 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"toResultVC"]) {
         ResultVC *resultVC = segue.destinationViewController;
-        resultVC.errorNumArray = [NSArray arrayWithArray:_errorNumArray];
+        NSMutableArray *errorNumArray = [NSMutableArray array];
+        for (NSString *numStr in _errorNumArray) {
+            if (![errorNumArray containsObject:numStr]) {
+                [errorNumArray addObject:numStr];
+            }
+        }
+        resultVC.errorNumArray = [NSArray arrayWithArray:errorNumArray];
         resultVC.exerciseCount = _exerciseCount;
         resultVC.level = _level;
     }

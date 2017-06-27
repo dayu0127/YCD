@@ -73,6 +73,13 @@
                             <constraint firstAttribute="height" constant="1" id="Sek-x3-6uc"/>
                         </constraints>
                     </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_subed" translatesAutoresizingMaskIntoConstraints="NO" id="Ep3-bw-Qt4">
+                        <rect key="frame" x="345" y="13" width="15" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="hL3-kt-Xe7"/>
+                            <constraint firstAttribute="width" constant="15" id="nSw-OL-mor"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="RzI-bd-MdC" secondAttribute="bottom" id="AJG-Nh-lyB"/>
@@ -85,7 +92,9 @@
                     <constraint firstAttribute="trailing" secondItem="AVG-iB-8gO" secondAttribute="trailing" id="YEK-Iq-cVi"/>
                     <constraint firstAttribute="trailing" secondItem="RzI-bd-MdC" secondAttribute="trailing" id="Yf5-yn-zZu"/>
                     <constraint firstItem="5Eq-rK-Cvc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="ZzF-xn-dJf"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Ep3-bw-Qt4" secondAttribute="trailing" constant="8" id="ftp-Mj-2WO"/>
                     <constraint firstItem="jdg-bi-vFO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="qXv-UZ-RaD"/>
+                    <constraint firstItem="Ep3-bw-Qt4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="uQZ-Ic-T9B"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
@@ -93,13 +102,15 @@
                 <outlet property="likesLabel" destination="8Nc-WF-2Oc" id="3i1-h1-ncn"/>
                 <outlet property="playCountLabel" destination="B7E-Qf-Mz9" id="gOb-r0-kIs"/>
                 <outlet property="seriseImageView" destination="AVG-iB-8gO" id="Ift-6l-smy"/>
+                <outlet property="subImg" destination="Ep3-bw-Qt4" id="2kf-ej-uFI"/>
                 <outlet property="titleLabel" destination="5Eq-rK-Cvc" id="kjh-fU-2r1"/>
             </connections>
-            <point key="canvasLocation" x="25" y="71"/>
+            <point key="canvasLocation" x="25" y="70.5"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="course_collected" width="16" height="14"/>
         <image name="home_memoryImg" width="375" height="181"/>
+        <image name="home_subed" width="15" height="17"/>
     </resources>
 </document>

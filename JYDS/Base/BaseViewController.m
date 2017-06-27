@@ -17,10 +17,15 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
-    _phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum;
-    _associatedWx = [YHSingleton shareSingleton].userInfo.associatedWx;
-    _associatedQq = [YHSingleton shareSingleton].userInfo.associatedQq;
+    self.view.backgroundColor = [UIColor whiteColor];
+    NSDictionary *userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+    if (userDic!=nil) {
+        [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
+        _phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum;
+        _associatedWx = [YHSingleton shareSingleton].userInfo.associatedWx;
+        _associatedQq = [YHSingleton shareSingleton].userInfo.associatedQq;
+        _associatedQq = [YHSingleton shareSingleton].userInfo.associatedWb;
+    }
     _token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
 }
 
@@ -54,12 +59,12 @@
     [app.window makeKeyWindow];
 }
 - (void)loadNoInviteView:(NSString *)str{
-    UILabel *label = [UILabel new];
-    label.text = str;
-    label.textColor = LIGHTGRAYCOLOR;
-    label.font = [UIFont systemFontOfSize:16.0f];
-    [self.view addSubview:label];
-    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+    _label = [UILabel new];
+    _label.text = str;
+    _label.textColor = LIGHTGRAYCOLOR;
+    _label.font = [UIFont systemFontOfSize:16.0f];
+    [self.view addSubview:_label];
+    [_label mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(289/667.0*HEIGHT);
         make.centerX.equalTo(self.view);
     }];

@@ -48,22 +48,23 @@
     }
 }
 - (void)itemClick:(UIButton *)sender{
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
-    if ((self.associatedQq!=nil||self.associatedWx!=nil)&&token==nil) {
-        [self returnToBingingPhone];
-    }else if (self.token==nil&&self.phoneNum==nil) {
+    if (token == nil && userInfo == nil) {
         [self returnToLogin];
+    }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
+        [self returnToBingingPhone];
     }else{
         if (sender.tag==0) {
             _grade_type = [NSString stringWithFormat:@"%zd",sender.tag+1];
-            [self performSegueWithIdentifier:@"toItemDetail" sender:self];
+            [self performSegueWithIdentifier:@"toGradeList" sender:self];
         }else{
             [YHHud showWithMessage:@"课程正在研制中"];
         }
     }
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"toItemDetail"]) {
+    if ([segue.identifier isEqualToString:@"toGradeList"]) {
         GradeVC *gradeVC = segue.destinationViewController;
         gradeVC.grade_type =_grade_type;
     }

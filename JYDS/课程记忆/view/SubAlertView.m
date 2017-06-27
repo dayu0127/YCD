@@ -27,7 +27,7 @@
 - (IBAction)invitateFriendBtnClick:(UIButton *)sender {
     [_delegate invitateFriendClick];
 }
-- (void)setTitle:(NSString *)title fullPrice:(NSString *)fullPrice subType:(SubType)subType{
+- (void)setTitle:(NSString *)title discountPrice:(NSString *)discountPrice fullPrice:(NSString *)fullPrice subType:(SubType)subType{
 //    \"minDeduction\": \"50\",
 //    \"minNumber\": \"1\",
 //    \"maxNumber\": \"5\",
@@ -37,7 +37,7 @@
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"banner"]!=nil) {
         discountDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"banner"][@"discount"];
     }
-    NSString *priceStr = [NSString stringWithFormat:@"%@-%@",discountDic[@"minPrice"],fullPrice];
+    NSString *priceStr = [NSString stringWithFormat:@"%@-%@",discountPrice,fullPrice];
     NSString *str;
     if (subType == SubTypeMemory) {
         str = [NSString stringWithFormat:@"订阅%@的价格为%@元！",title,priceStr];
@@ -48,9 +48,8 @@
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:str];
     [attStr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:ORANGERED,NSForegroundColorAttributeName,[UIFont systemFontOfSize:16.0f],NSFontAttributeName, nil] range:NSMakeRange(priceRange.location, priceRange.length)];
     _label_0.attributedText = attStr;
-    _label.text = [NSString stringWithFormat:@"每邀请%@个好友成功注册，立减%@元。",discountDic[@"minNumber"],discountDic[@"minDeduction"]];
-    _label_1.text = [NSString stringWithFormat:@"最多可邀请%@个好友，订阅%@价格低至%@元。",discountDic[@"maxNumber"],title,discountDic[@"minPrice"]];
-    _label_2.text = [NSString stringWithFormat:@"邀请%@个以上好友可获其他优惠，详见奖励邀请页面。",discountDic[@"limitNumber"]];
+    _label.text = [NSString stringWithFormat:@"邀请%@个好友，价格低至%@元。",discountDic[@"maxNumber"],discountPrice];
+    _label_1.text = [NSString stringWithFormat:@"邀请%@个以上好友可获其他优惠，详见奖励邀请页面。",discountDic[@"limitNumber"]];
     [_label_1 setText:_label_1.text lineSpacing:5.0f];
     [_label_2 setText:_label_2.text lineSpacing:5.0f];
 }

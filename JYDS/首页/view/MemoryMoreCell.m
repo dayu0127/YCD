@@ -9,6 +9,7 @@
 #import "MemoryMoreCell.h"
 #import "Memory.h"
 #import <UIImageView+WebCache.h>
+#import "NSString+ConvertWanFromNum.h"
 @implementation MemoryMoreCell
 
 - (void)awakeFromNib {
@@ -22,27 +23,13 @@
 - (void)addModelWithDic:(NSDictionary *)dic{
     Memory *model = [Memory yy_modelWithJSON:dic];
     _titleLabel.text = model.title;
-    if ([model.full_price integerValue] == 0) {
-        _priceLabel.text = @"免费";
-        _subStateLabel.text = @"";
-        _subImg.alpha = 0;
-        _subCountLabel.text = @"";
-        NSString *playCountStr = [NSString convertWanFromNum:model.views];
-        _playCountLabel.text = [NSString stringWithFormat:@"%@次播放",playCountStr];
-    }else{
-        _priceLabel.text = [NSString stringWithFormat:@"￥%@",model.full_price];
-        if ([model.payType integerValue] == 0) {
-            _subStateLabel.text = @"未订阅";
-            _subStateLabel.textColor = ORANGERED;
-            _subImg.image = [UIImage imageNamed:@"home_nosub"];
-        }else{
-            _subStateLabel.text = @"已订阅";
-            _subStateLabel.textColor = GREENCOLOR;
-            _subImg.image = [UIImage imageNamed:@"home_subed"];
-        }
-        _subCountLabel.text = [NSString convertWanFromNum:model.orders];
-        _playCountLabel.text = @"人已订阅";
-    }
     [_memoryImageView sd_setImageWithURL:[NSURL URLWithString:model.imgUrl]];
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"][@"phoneNum"] isEqualToString:@"13312345678"]) {
+        _lessonCountLabel.alpha = 0;
+        _subCountLabel.alpha = 0;
+    }else{
+        _lessonCountLabel.text = [NSString stringWithFormat:@"%@课程",model.total_lessons];
+        _subCountLabel.text = [NSString stringWithFormat:@"%@次订阅",[NSString convertWanFromNum:model.orders]];
+    }
 }
 @end

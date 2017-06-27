@@ -234,7 +234,7 @@
 }
 - (void)loadNoSubView{
     _noSubLabel = [UILabel new];
-    _noSubLabel.text = @"您还未订阅单词，快去订阅吧！";
+    _noSubLabel.text = @"您还未学习单词，快去学习吧！";
     _noSubLabel.textAlignment = NSTextAlignmentCenter;
     _noSubLabel.textColor = LIGHTGRAYCOLOR;
     _noSubLabel.font = [UIFont systemFontOfSize:16.0f];
@@ -397,7 +397,7 @@
         [YHHud showWithMessage:@"免费次数已用完，请前去订阅本学期所有单词"];
     }else{
         SureSubView *sureSubView = [[SureSubView alloc] initWithNib];
-        sureSubView.messageLabel.text = [NSString stringWithFormat:@"您还有%@次免费订阅的额度",freeCount];
+        sureSubView.messageLabel.text = [NSString stringWithFormat:@"您还有%@次免费学习的额度",freeCount];
         sureSubView.delegate = self;
         _alertView = [[JCAlertView alloc] initWithCustomView:sureSubView dismissWhenTouchedBackground:NO];
         [_alertView show];
@@ -435,7 +435,7 @@
             [_mainScrollView setContentOffset:CGPointMake(WIDTH, 0) animated:YES];
             //刷新已订阅列表
             [self reloadSubedTableView];
-            [YHHud showWithSuccess:@"订阅成功"];
+            [YHHud showWithSuccess:@"获取成功"];
         }else{
             NSLog(@"%@",json[@"code"]);
             [YHHud showWithMessage:json[@"message"]];

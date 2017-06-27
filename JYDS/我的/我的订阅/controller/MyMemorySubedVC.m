@@ -9,8 +9,8 @@
 #import "MyMemorySubedVC.h"
 #import "MemoryMoreCell.h"
 #import "Memory.h"
-#import "MemoryDetailVC.h"
-@interface MyMemorySubedVC ()<UITableViewDelegate,UITableViewDataSource,MemoryDetailVCDelegate>
+#import "MemorySeriesVideoListVC.h"
+@interface MyMemorySubedVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) NSMutableArray *memoryVideoList;
 @property (strong,nonatomic) Memory *memory;
@@ -35,43 +35,7 @@
     [_tableView registerNib:[UINib nibWithNibName:@"MemoryMoreCell" bundle:nil] forCellReuseIdentifier:@"MemoryMoreCell"];
     _tableView.alpha = 0;
 }
-//- (void)loadMemoryList:(NSInteger)index{
-//    //    {
-//    //        "userPhone":"*****",        #用户手机号
-//    //        "token":"*****",            #登陆凭证
-//    //        "pageIndex":1               #记忆法页数
-//    //    }
-//    if (index == 1) {
-//        [YHHud showWithStatus];
-//    }
-//    NSDictionary *jsonDic = @{@"userPhone":self.phoneNum,    //    #用户手机号
-//                              @"token":self.token,         //   #登陆凭证
-//                              @"pageIndex":@"1",        //   #记忆法页数
-//                              @"type":@"1"};       //  #查询类型 0所有 1已订阅
-//    [YHWebRequest YHWebRequestForPOST:kMemoryVideo parameters:jsonDic success:^(NSDictionary *json) {
-//        if (index == 1) {
-//            [YHHud dismiss];
-//        }
-//        if ([json[@"code"] integerValue] == 200) {
-//            NSArray *resultArr = [NSDictionary dictionaryWithJsonString:json[@"data"]][@"indexMemory"];
-//            _memoryVideoList = [NSMutableArray array];
-//            for (NSDictionary *memoryDic in resultArr) {
-//                if ([memoryDic[@"payType"] integerValue] == 1) {
-//                    [_memoryVideoList addObject:memoryDic];
-//                }
-//            }
-//            [_tableView reloadData];
-//        }else{
-//            NSLog(@"%@",json[@"code"]);
-//            [YHHud showWithMessage:json[@"message"]];
-//        }
-//    } failure:^(NSError * _Nonnull error) {
-//        if (index == 1) {
-//            [YHHud dismiss];
-//        }
-//        NSLog(@"%@",error);
-//    }];
-//}
+
 - (void)loadDataWithRefreshStatus:(UITableViewRefreshStatus)status pageIndex:(NSInteger)pageIndex{
     if (status==UITableViewRefreshStatusAnimation) {
         [YHHud showWithStatus];
@@ -146,7 +110,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     _memory = [Memory yy_modelWithJSON:_memoryVideoList[indexPath.row]];
-    [self performSegueWithIdentifier:@"MySubToMemoryDetail" sender:self];
+    [self performSegueWithIdentifier:@"toSubedMemorySeriesList" sender:self];
 }
 
 #pragma mark - Navigation
@@ -154,16 +118,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"MySubToMemoryDetail"]) {
-        MemoryDetailVC *detailVC = segue.destinationViewController;
-        detailVC.memory = _memory;
-        detailVC.delegate = self;
+    if ([segue.identifier isEqualToString:@"toSubedMemorySeriesList"]) {
+        MemorySeriesVideoListVC *seriesVC = segue.destinationViewController;
+        seriesVC.lessonId = _memory.memoryId;
+        seriesVC.lessonName = _memory.title;
     }
 }
-- (void)reloadMemoryList{
-//    [self loadMemoryList:0];
-    _pageIndex = 1;
-    [self loadDataWithRefreshStatus:UITableViewRefreshStatusHeader pageIndex:_pageIndex];
-}
-
 @end

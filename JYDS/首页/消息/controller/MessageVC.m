@@ -20,17 +20,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [YHHud showWithStatus];
+    [_tableView registerNib:[UINib nibWithNibName:@"MessageCell" bundle:nil] forCellReuseIdentifier:@"MessageCell"];
     self.view.backgroundColor = [UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1.0];
     [YHWebRequest YHWebRequestForPOST:kNoticeList parameters:nil success:^(NSDictionary *json) {
+        [YHHud dismiss];
         if ([json[@"code"] integerValue] == 200) {
             NSDictionary *jsonData = [NSDictionary dictionaryWithJsonString:json[@"data"]];
             _noticeList = jsonData[@"getNoticeList"];
             [_tableView reloadData];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            [YHHud showWithMessage:json[@"message"]];
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
+        [YHHud dismiss];
     }];
-    [_tableView registerNib:[UINib nibWithNibName:@"MessageCell" bundle:nil] forCellReuseIdentifier:@"MessageCell"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,31 +54,23 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessageCell" forIndexPath:indexPath];
-    [cell setModel:_noticeList[indexPath.row]];
-    _messageTitle = _noticeList[indexPath.row][@"n_title"];
-    _messageUrl = _noticeList[indexPath.row][@"n_content"];
+    cell.tag = indexPath.row;
     cell.delegate = self;
+    [cell setModel:_noticeList[indexPath.row]];
     return cell;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self messageDetail];
+- (void)messageDetailClick:(NSInteger)row{
+    [self pushToMessageDetail:row];
 }
-- (void)messageDetail{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self pushToMessageDetail:indexPath.row];
+}
+- (void)pushToMessageDetail:(NSInteger)row{
     BaseNavViewController *messageDetailVC = [[BaseNavViewController alloc] init];
     messageDetailVC.isShowShareBtn = NO;
-    messageDetailVC.navTitle = _messageTitle;
-    messageDetailVC.linkUrl = _messageUrl;
+    messageDetailVC.navTitle = _noticeList[row][@"n_title"];
+    messageDetailVC.linkUrl = _noticeList[row][@"n_content"];
     messageDetailVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:messageDetailVC animated:YES];
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end
