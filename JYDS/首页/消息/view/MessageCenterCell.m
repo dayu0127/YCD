@@ -22,7 +22,7 @@
 }
 - (void)setModel:(NSDictionary *)dic{
     MessageCenter *model = [MessageCenter yy_modelWithJSON:dic];
-    _msgTitle.text = model.title;
-    _msgDetail.text = model.detail;
+    _msgTitle.text = model.noticeTypeName;
+    _msgDetail.text = [model.noticeCount integerValue] == 0 ? @"暂无消息":model.n_title;
 }
 @end

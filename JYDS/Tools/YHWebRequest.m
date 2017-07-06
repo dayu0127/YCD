@@ -55,7 +55,9 @@
             //清空个人信息
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfo"];
             //清除个人点赞
-//            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"likesDic"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"likesDic"];
+            //清空个人消息数
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"noticeCountDic"];
             //清除缓存
             [[SDImageCache sharedImageCache] clearDisk];
             [[SDImageCache sharedImageCache] clearMemory];//可有可无

@@ -151,16 +151,16 @@
                     //判断是否安装QQ,微信
                     NSMutableArray *platformArray = [NSMutableArray array];
                     if ([WXApi isWXAppInstalled]) {
-                        [platformArray addObject:@(UMSocialPlatformType_WechatSession)];
+//                        [platformArray addObject:@(UMSocialPlatformType_WechatSession)];
                         [platformArray addObject:@(UMSocialPlatformType_WechatTimeLine)];
                     }
                     if ([QQApiInterface isQQInstalled]) {
-                        [platformArray addObject:@(UMSocialPlatformType_QQ)];
+//                        [platformArray addObject:@(UMSocialPlatformType_QQ)];
                         [platformArray addObject:@(UMSocialPlatformType_Qzone)];
                     }
-//                    if ([WeiboSDK isWeiboAppInstalled]) {
-//                        [platformArray addObject:@(UMSocialPlatformType_Sina)];
-//                    }
+                    if ([WeiboSDK isWeiboAppInstalled]) {
+                        [platformArray addObject:@(UMSocialPlatformType_Sina)];
+                    }
                     //预定义平台
                     [UMSocialUIManager setPreDefinePlatforms:[NSArray arrayWithArray:platformArray]];
                     //显示分享面板

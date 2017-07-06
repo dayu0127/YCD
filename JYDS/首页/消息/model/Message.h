@@ -20,6 +20,6 @@
 @property (copy,nonatomic) NSString *n_content;
 @property (copy,nonatomic) NSString *create_time;
 @property (copy,nonatomic) NSString *imgUrl;
-@property (copy,nonatomic) NSString *type_name;
+//@property (copy,nonatomic) NSString *newType;
 
 @end

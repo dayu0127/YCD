@@ -6,7 +6,6 @@
 //  Copyright © 2016年 dayu. All rights reserved.
 //
 #import "BaseViewController.h"
-#import "AppDelegate.h"
 #import "BingingPhoneVC.h"
 @interface BaseViewController ()
 @end
@@ -14,19 +13,20 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
     NSDictionary *userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
     if (userDic!=nil) {
         [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
         _phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum;
         _associatedWx = [YHSingleton shareSingleton].userInfo.associatedWx;
         _associatedQq = [YHSingleton shareSingleton].userInfo.associatedQq;
-        _associatedQq = [YHSingleton shareSingleton].userInfo.associatedWb;
+        _associatedWb = [YHSingleton shareSingleton].userInfo.associatedWb;
     }
     _token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -68,6 +68,17 @@
         make.top.equalTo(self.view).offset(289/667.0*HEIGHT);
         make.centerX.equalTo(self.view);
     }];
+}
+- (void)loginInterceptCompletion:(void(^)(void))completion{
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    if (token == nil && userInfo == nil) {
+        [self returnToLogin];
+    }else if (token == nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
+        [self returnToBingingPhone];
+    }else{
+        completion();
+    }
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];

@@ -76,7 +76,7 @@
         @"userPhone":self.phoneNum,     //  #用户手机号
         @"token":self.token       // #登陆凭证
     };
-    [YHWebRequest YHWebRequestForPOST:kVersionList parameters:jsonDic success:^(NSDictionary *json) {
+    [YHWebRequest YHWebRequestForPOST:kWodeBook parameters:jsonDic success:^(NSDictionary *json) {
         if (status==UITableViewRefreshStatusAnimation) {
             [YHHud dismiss];
         }

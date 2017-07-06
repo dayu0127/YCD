@@ -13,6 +13,7 @@
 #import <UIView+CustomControlView.h>
 //#import "YHMonitorKeyboard.h"
 #import "UITextView+Utils.h"
+#import "GradeVC.h"
 @interface MemoryDetailVC ()<ZFPlayerDelegate,ZFPlayerControlViewDelagate>
 @property (weak, nonatomic) IBOutlet UIView *playFatherView;
 @property (nonatomic,strong) ZFPlayerView *playerView;
@@ -129,6 +130,23 @@
         make.left.right.equalTo(_detailBgView);
         make.height.mas_equalTo(@10);
     }];
+    //立即体验课程记忆
+    UIButton *gotoCourseMemory = [UIButton buttonWithType:UIButtonTypeSystem];
+    [gotoCourseMemory setTitle:@"立即体验课程记忆"forState:UIControlStateNormal];
+    [gotoCourseMemory setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    gotoCourseMemory.backgroundColor = ORANGERED;
+    gotoCourseMemory.layer.masksToBounds = YES;
+    gotoCourseMemory.layer.cornerRadius = 3.0f;
+    gotoCourseMemory.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    [gotoCourseMemory addTarget:self action:@selector(gotoCourseMemoryClick) forControlEvents:UIControlEventTouchUpInside];
+    [_detailBgView addSubview:gotoCourseMemory];
+    CGFloat w = 211/375.0*WIDTH;
+    [gotoCourseMemory mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(line.mas_bottom).offset(17);
+        make.centerX.equalTo(_detailBgView);
+        make.width.mas_equalTo(@(w));
+        make.height.mas_equalTo(@47);
+    }];
 //    [self getCommentList];
     //监听键盘弹出和消失
 //    [YHMonitorKeyboard YHAddMonitorWithShowBack:^(NSInteger height) {
@@ -141,8 +159,17 @@
 //        }];
 //    }];
 }
+- (void)gotoCourseMemoryClick{
+    [self performSegueWithIdentifier:@"memoryDetailToGradeList" sender:self];
+}
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"memoryDetailToGradeList"]) {
+        GradeVC *gradeVC = segue.destinationViewController;
+        gradeVC.grade_type = @"1";
+    }
 }
 //- (void)getCommentList{
 ////    {

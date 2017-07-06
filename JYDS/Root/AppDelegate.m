@@ -36,12 +36,6 @@
 
 #pragma mark 初始化设置
 - (void)initSettings{
-    //取消返回按钮文字
-    UIBarButtonItem *buttonItem = [UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil];
-    [buttonItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-1000, 0) forBarMetrics:UIBarMetricsDefault];
-    //设置
-    [UINavigationBar appearance].titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-    [UITableView appearance].separatorColor = SEPCOLOR;
     //分享
     //打开调试日志
     [[UMSocialManager defaultManager] openLog:YES];
@@ -105,52 +99,9 @@
 }
 //#pragma mark 设置系统回调(支持所有iOS系统)
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
-    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
-
-//    if (!result) {
-//        // 支付宝SDK的回调
-//        if ([url.host isEqualToString:@"safepay"]) {
-//            //跳转支付宝钱包进行支付，处理支付结果
-//            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-//                NSLog(@"%@",resultDic);
-//                //支付宝验签
-//                NSDictionary *jsonDic = @{
-//                    @"userPhone":[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"][@"phoneNum"],   // #用户手机号
-//                    @"code":resultDic[@"resultStatus"],        //    #支付宝支付状态码
-//                    @"out_trade_no":[YHSingleton shareSingleton].ali_out_trade_no, //   #商户订单号（选填，与transaction_id二选一）
-//                    @"result":resultDic[@"result"],      //    #支付宝返回的订单信息
-//                    @"token":[[NSUserDefaults standardUserDefaults] objectForKey:@"token"]      //   #登陆凭证
-//                };
-//                [YHWebRequest YHWebRequestForPOST:kAlipaySignCheck parameters:jsonDic success:^(NSDictionary *json) {
-//                    if ([json[@"code"] integerValue] == 200) {
-//                        if ([YHSingleton shareSingleton].subType == SubTypeWord) {
-//                            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateWordSubStatus" object:nil];
-//                        }else{
-//                            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMemorySubStatus" object:nil];
-//                        }
-//                        [YHHud showPaySuccessOrFailed:@"success"];
-//                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                            [YHHud dismiss];
-//                            [[NSNotificationCenter defaultCenter] postNotificationName:@"back" object:nil];
-//                        });
-//                    }else{
-//                        NSLog(@"%@",json[@"code"]);
-////                        [YHHud showWithMessage:json[@"message"]];
-//                        [YHHud showPaySuccessOrFailed:@"failed"];
-//                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                            [YHHud dismiss];
-//                        });
-//                    }
-//                } failure:^(NSError * _Nonnull error) {
-//                    NSLog(@"%@",error);
-//                }];
-//            }];
-//        }
-//    }
-//    else{
-//        // 微信SDK的回调
-//        [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
-//    }
-    return result;
+    return [[UMSocialManager defaultManager] handleOpenURL:url];
+}
+- (void)applicationWillEnterForeground:(UIApplication *)application{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateSwitchState" object:nil];
 }
 @end

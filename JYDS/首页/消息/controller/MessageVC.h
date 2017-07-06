@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface MessageVC : BaseViewController
-
+@property (copy,nonatomic) NSString *noticeType;
 @end

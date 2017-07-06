@@ -16,4 +16,5 @@
 - (void)returnToLogin;
 - (void)returnToBingingPhone;
 - (void)loadNoInviteView:(NSString *)str;
+- (void)loginInterceptCompletion:(void(^)(void))completion;
 @end

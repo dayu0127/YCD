@@ -75,9 +75,9 @@
 }
 #pragma mark 密码登录
 - (IBAction)loginButtonClick:(UIButton *)sender {
-    if (REGEX(PHONE_RE, _phoneText.text)==NO) {
-        [YHHud showWithMessage:@"请输入有效的11位手机号"];
-    }else{
+//    if (REGEX(PHONE_RE, _phoneText.text)==NO) {
+//        [YHHud showWithMessage:@"请输入有效的11位手机号"];
+//    }else{
         //    {
         //        "phoneNum":"13300001111",#手机号
         //        "password":"123456",     #密码
@@ -124,7 +124,7 @@
             [YHHud dismiss];
             NSLog(@"%@",error);
         }];
-    }
+//    }
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"register"]) {

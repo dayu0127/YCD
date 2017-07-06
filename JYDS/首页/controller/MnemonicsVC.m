@@ -118,8 +118,7 @@
 #pragma mark 消息按钮点击
 - (IBAction)messageButtonClick:(UIButton *)sender {
     [sender setImage:[UIImage imageNamed:@"home_top_message"] forState:UIControlStateNormal];
-//    [self performSegueWithIdentifier:@"homeToMessageCenter" sender:self];
-    [self performSegueWithIdentifier:@"homeToMessage" sender:self];
+    [self performSegueWithIdentifier:@"homeToMessageCenter" sender:self];
 }
 #pragma mark 轮播图点击
 - (void)bannerClick:(NSInteger)index{

@@ -132,6 +132,8 @@
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"token"];
             //清空个人信息
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfo"];
+            //清空个人消息数
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"noticeCountDic"];
             //清除个人点赞
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"likesDic"];
             //清除缓存

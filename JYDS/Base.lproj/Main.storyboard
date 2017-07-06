@@ -249,7 +249,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qu7-e4-iib" userLabel="view_buttom">
                                 <rect key="frame" x="135" y="590" width="105" height="41"/>
                                 <subviews>
-                                    <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hug-bd-j7J" userLabel="wx_btn">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hug-bd-j7J" userLabel="wx_btn">
                                         <rect key="frame" x="32" y="0.0" width="41" height="41"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="41" id="NLU-51-d58"/>
@@ -288,9 +288,9 @@
                                     <constraint firstAttribute="height" constant="41" id="c8p-96-ff5"/>
                                     <constraint firstAttribute="width" constant="41" id="qfm-xH-9iZ"/>
                                 </constraints>
-                                <state key="normal" image="login_wx"/>
+                                <state key="normal" image="login_wb"/>
                                 <connections>
-                                    <action selector="wxLogin:" destination="Yvy-FO-jfd" eventType="touchUpInside" id="gAk-Ka-NDg"/>
+                                    <action selector="sinaLogin:" destination="Yvy-FO-jfd" eventType="touchUpInside" id="KCy-03-4kq"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2vI-Lf-yEC">
@@ -547,7 +547,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OMO-nA-bQu" userLabel="view_buttom">
                                 <rect key="frame" x="135" y="590" width="105" height="41"/>
                                 <subviews>
-                                    <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SbQ-v7-fYK" userLabel="wx_btn">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SbQ-v7-fYK" userLabel="wx_btn">
                                         <rect key="frame" x="32" y="0.0" width="41" height="41"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="41" id="4E1-4L-eGx"/>
@@ -586,9 +586,9 @@
                                     <constraint firstAttribute="height" constant="41" id="0K9-m1-cvF"/>
                                     <constraint firstAttribute="width" constant="41" id="703-PM-HmZ"/>
                                 </constraints>
-                                <state key="normal" image="login_wx"/>
+                                <state key="normal" image="login_wb"/>
                                 <connections>
-                                    <action selector="weChatLogin:" destination="CSS-cW-s3G" eventType="touchUpInside" id="d6d-dd-JwM"/>
+                                    <action selector="sinaLogin:" destination="CSS-cW-s3G" eventType="touchUpInside" id="9aT-jj-cwD"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -822,7 +822,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="邀请人手机号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yYC-FX-0Uj">
                                 <rect key="frame" x="31" y="368.5" width="80" height="16"/>
@@ -1475,6 +1475,7 @@
                         <outlet property="playCountLabel" destination="CXS-ip-T5Q" id="hxb-jP-CRe"/>
                         <outlet property="playFatherView" destination="e39-7M-J2H" id="4k2-UD-NgS"/>
                         <outlet property="videoTitleLabel" destination="w6Y-H5-ytU" id="cgP-FI-TCy"/>
+                        <segue destination="HBv-VM-i9P" kind="show" identifier="memoryDetailToGradeList" id="G1O-9S-45W"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="289-4B-K0E" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1645,7 +1646,7 @@
                         <segue destination="L7E-cv-c7Q" kind="show" identifier="homeToExercises" id="gaA-4t-5Z7"/>
                         <segue destination="irC-QK-Rcy" kind="show" identifier="HometToSeries" id="CjH-TU-cji"/>
                         <segue destination="HBv-VM-i9P" kind="show" identifier="homeToGradeList" id="hz9-xL-aX1"/>
-                        <segue destination="Yyd-VW-Mo8" kind="show" identifier="homeToMessage" id="Rw3-HZ-QQY"/>
+                        <segue destination="fxz-9Q-nk4" kind="show" identifier="homeToMessageCenter" id="Nzk-0Q-wBb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bIr-u5-mNl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1712,7 +1713,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="pm5-sr-deJ" id="kX4-dg-5Tv"/>
+                        <outlet property="tableView1" destination="pm5-sr-deJ" id="NLw-Nk-dNa"/>
+                        <segue destination="Yyd-VW-Mo8" kind="show" identifier="messageCenterToList" id="rsM-Rs-RIB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6CQ-Xu-XQ1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3126,11 +3128,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DuV-lo-5bj">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M4E-48-7AT" userLabel="navView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
@@ -3155,20 +3152,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="M4E-48-7AT" firstAttribute="top" secondItem="5ER-QC-Nkl" secondAttribute="top" id="5RO-3h-Wcl"/>
-                            <constraint firstAttribute="trailing" secondItem="DuV-lo-5bj" secondAttribute="trailing" id="Nqk-Se-4Ws"/>
-                            <constraint firstItem="DB2-HM-jUj" firstAttribute="top" secondItem="DuV-lo-5bj" secondAttribute="bottom" id="YeJ-sq-nHD"/>
-                            <constraint firstItem="DuV-lo-5bj" firstAttribute="leading" secondItem="5ER-QC-Nkl" secondAttribute="leading" id="czg-U4-13X"/>
                             <constraint firstItem="M4E-48-7AT" firstAttribute="leading" secondItem="5ER-QC-Nkl" secondAttribute="leading" id="kZK-h8-3fR"/>
                             <constraint firstAttribute="trailing" secondItem="M4E-48-7AT" secondAttribute="trailing" id="tsH-nb-7XA"/>
-                            <constraint firstItem="DuV-lo-5bj" firstAttribute="top" secondItem="M4E-48-7AT" secondAttribute="bottom" id="vhg-Jx-Gyk"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="学课记忆" id="e3n-N4-xzC"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="scrollView" destination="DuV-lo-5bj" id="uzL-g4-e31"/>
-                        <segue destination="HBv-VM-i9P" kind="show" identifier="toGradeList" id="Y07-mi-IOc"/>
+                        <segue destination="HBv-VM-i9P" kind="show" identifier="toItemDetail" id="Y07-mi-IOc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l8g-nf-P5Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3347,7 +3339,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="25y-DZ-cmh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5650" y="36"/>
+            <point key="canvasLocation" x="5735" y="53"/>
         </scene>
         <!--单词搜索VC-->
         <scene sceneID="lK8-Vu-5zh">
@@ -3758,10 +3750,10 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Mtj-cR-OCO">
-                                <rect key="frame" x="0.0" y="64" width="375" height="200"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="250"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="X6p-v6-EjE"/>
+                                    <constraint firstAttribute="height" constant="250" id="X6p-v6-EjE"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="dataSource" destination="l3I-P2-f2R" id="MIC-c3-Ax4"/>
@@ -4519,6 +4511,7 @@
         <image name="login_pwd" width="11" height="15"/>
         <image name="login_qq" width="41" height="41"/>
         <image name="login_user" width="14" height="14"/>
+        <image name="login_wb" width="41" height="41"/>
         <image name="login_wx" width="41" height="41"/>
         <image name="lv_img" width="37" height="38"/>
         <image name="memory_collect" width="14" height="13"/>
@@ -4535,11 +4528,11 @@
         <image name="userinfo_top_bg" width="375" height="246"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Y07-mi-IOc"/>
         <segue reference="ieB-4i-mT9"/>
-        <segue reference="PX7-fy-7bi"/>
-        <segue reference="jUJ-Kx-0eF"/>
+        <segue reference="G1O-9S-45W"/>
         <segue reference="CjH-TU-cji"/>
+        <segue reference="FCC-bP-pwD"/>
+        <segue reference="jUJ-Kx-0eF"/>
         <segue reference="Aeb-Af-xhb"/>
     </inferredMetricsTieBreakers>
 </document>

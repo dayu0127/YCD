@@ -23,11 +23,12 @@
     [YHHud showWithStatus];
     [_tableView registerNib:[UINib nibWithNibName:@"MessageCell" bundle:nil] forCellReuseIdentifier:@"MessageCell"];
     self.view.backgroundColor = [UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1.0];
-    [YHWebRequest YHWebRequestForPOST:kNoticeList parameters:nil success:^(NSDictionary *json) {
+    NSDictionary *jsonDic = @{@"noticeType":_noticeType};
+    [YHWebRequest YHWebRequestForPOST:kNoticeList parameters:jsonDic success:^(NSDictionary *json) {
         [YHHud dismiss];
         if ([json[@"code"] integerValue] == 200) {
             NSDictionary *jsonData = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-            _noticeList = jsonData[@"getNoticeList"];
+            _noticeList = jsonData[@"noticeList"];
             [_tableView reloadData];
         }else{
             NSLog(@"%@",json[@"code"]);
@@ -68,7 +69,7 @@
 - (void)pushToMessageDetail:(NSInteger)row{
     BaseNavViewController *messageDetailVC = [[BaseNavViewController alloc] init];
     messageDetailVC.isShowShareBtn = NO;
-    messageDetailVC.navTitle = _noticeList[row][@"n_title"];
+    messageDetailVC.navTitle = @"消息";
     messageDetailVC.linkUrl = _noticeList[row][@"n_content"];
     messageDetailVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:messageDetailVC animated:YES];

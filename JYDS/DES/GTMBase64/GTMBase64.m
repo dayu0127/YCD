@@ -402,7 +402,7 @@ GTM_INLINE NSUInteger GuessDecodedLength(NSUInteger srcLen) {
 {
     const char *cStr = [inPutText UTF8String];
     unsigned char digest[16];
-    CC_MD5( cStr, strlen(cStr), digest );
+    CC_MD5( cStr, (unsigned int)strlen(cStr), digest );
     
     NSData * base64 = [[NSData alloc]initWithBytes:digest length:16];
     base64 = [GTMBase64 encodeData:base64];

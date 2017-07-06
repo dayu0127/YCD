@@ -112,9 +112,9 @@
 }
 #pragma mark 验证码登录
 - (IBAction)loginButtonClick:(id)sender {
-    if (REGEX(PHONE_RE, _phoneTxt.text)==NO) {
-        [YHHud showWithMessage:@"请输入有效的11位手机号"];
-    }else{
+//    if (REGEX(PHONE_RE, _phoneTxt.text)==NO) {
+//        [YHHud showWithMessage:@"请输入有效的11位手机号"];
+//    }else{
         NSString *phoneNum = _phoneTxt.text;
         NSString *verifyCode = _checkCodeTxt.text;
         //验证码登录
@@ -148,7 +148,7 @@
         } failure:^(NSError * _Nonnull error) {
             NSLog(@"%@",error);
         }];
-    }
+//    }
 }
 - (IBAction)qqLogin:(id)sender {
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_QQ currentViewController:nil completion:^(id result, NSError *error) {

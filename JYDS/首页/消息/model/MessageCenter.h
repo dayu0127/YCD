@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface MessageCenter : NSObject
-@property (copy,nonatomic) NSString *title;
-@property (copy,nonatomic) NSString *detail;
+//@property (copy,nonatomic) NSString *newType;
+@property (copy,nonatomic) NSString *create_time;
+@property (copy,nonatomic) NSString *noticeType;
+@property (copy,nonatomic) NSString *n_title;
+@property (copy,nonatomic) NSString *noticeTypeName;
+@property (copy,nonatomic) NSString *noticeCount;
 @end
