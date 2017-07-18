@@ -211,5 +211,8 @@
 - (IBAction)toOfficialWebsite:(id)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.jydsapp.com"]];
 }
-
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [_delegate showCancelOrderAlert];
+}
 @end

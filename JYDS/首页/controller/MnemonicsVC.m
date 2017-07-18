@@ -284,6 +284,7 @@
         seriesVC.lessonId = _memory.memoryId;
         seriesVC.lessonName = _memory.title;
         seriesVC.lessonPayType = _memory.payType;
+        seriesVC.type = @"0";
     }else if ([segue.identifier isEqualToString:@"homeToGradeList"]){
         GradeVC *gradeVC = segue.destinationViewController;
         gradeVC.grade_type =@"1";

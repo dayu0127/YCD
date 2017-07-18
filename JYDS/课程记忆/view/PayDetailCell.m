@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    _space1.constant = _space2.constant = _space3.constant = (WIDTH-181)/3.0;
+    _width1.constant = _width2.constant = (WIDTH-45)*0.5;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

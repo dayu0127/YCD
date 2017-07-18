@@ -19,14 +19,16 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet MJRefreshNormalHeader *header;
 @property (strong,nonatomic) PayDetailCell *cell;
-//@property (assign,nonatomic) NSInteger isReview;
+@property (assign,nonatomic) BOOL isShowCancelOrderAlert;
+
 @end
 
 @implementation PayViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(back) name:@"back" object:nil];
+    _isShowCancelOrderAlert = YES;
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(back) name:@"back" object:nil];
     [self getBean];
     //下拉刷新
     _header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -59,10 +61,23 @@
             if ([json[@"code"] integerValue] == 200) {
                 NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
                 _cell.inviteCountLabel.text = [NSString stringWithFormat:@"%@",dataDic[@"inviteNum"]];
-                NSInteger discountPrice = [dataDic[@"discountPrice"] integerValue];
-                NSInteger price = [dataDic[@"price"] integerValue];
-                _cell.preferentialPriceLabel.text =[NSString stringWithFormat:@"%zd学习豆",price - discountPrice];
-                _cell.payPriceLabel.text = [NSString stringWithFormat:@"%zd学习豆",discountPrice];
+                float discountPrice = [dataDic[@"discountPrice"] floatValue];
+                float price = [dataDic[@"price"] floatValue];
+                _cell.preferentialPriceLabel.text =[NSString stringWithFormat:@"%.2f学习豆",price - discountPrice];
+//                _cell.payPriceLabel.text = [NSString stringWithFormat:@"%zd学习豆",discountPrice];
+                NSDictionary *dic = @{
+                                      @"userPhone":self.phoneNum,  //  #用户手机号
+                                      @"token":self.token       //   #登陆凭证
+                                      };
+                [YHWebRequest YHWebRequestForPOST:kApplePayRatio parameters:dic success:^(NSDictionary *json) {
+                    if ([json[@"code"] integerValue] == 200) {
+                        float ratio = [[NSDictionary dictionaryWithJsonString:json[@"data"]][@"ratio"] floatValue];
+                        _cell.payPriceLabel.text = [NSString stringWithFormat:@"%.2f学习豆",discountPrice*ratio];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    NSLog(@"%@",error);
+                    [YHHud showWithMessage:@"服务器或网络异常"];
+                }];
                 [self getBean];
             }else{
                 NSLog(@"%@",json[@"code"]);
@@ -102,13 +117,23 @@
     }];
 }
 - (IBAction)backClick:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self cancelOrder];
 }
-- (void)back{
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+- (void)cancelOrder{
+    UIAlertController *cancelVC = [UIAlertController alertControllerWithTitle:@"是否取消当前订单" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self.navigationController popViewControllerAnimated:YES];
-    });
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleCancel handler:nil];
+    [cancelVC addAction:cancel];
+    [cancelVC addAction:sure];
+    [self presentViewController:cancelVC animated:YES completion:nil];
 }
+//- (void)back{
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self.navigationController popViewControllerAnimated:YES];
+//    });
+//}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 252;
 }
@@ -149,6 +174,7 @@
     [alertVC addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSDictionary *jsonDic = [self getJsonDic];
         [YHWebRequest YHWebRequestForPOST:kStuBeanPay parameters:jsonDic success:^(NSDictionary *json) {
+            _isShowCancelOrderAlert = NO;
             if ([json[@"code"] integerValue] == 200) {
                 //刷新订阅状态
                 if (_subType == SubTypeWord) {
@@ -164,8 +190,6 @@
             }else if ([json[@"code"] integerValue] == 106){
                 [YHHud showWithMessage:json[@"message"]];
             }else{
-                NSLog(@"%@",json[@"code"]);
-                NSLog(@"%@",json[@"message"]);
                 [YHHud showPaySuccessOrFailed:@"failed"];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [YHHud dismiss];
@@ -179,6 +203,7 @@
     [self presentViewController:alertVC animated:YES completion:nil];
 }
 - (void)beanPayClick{
+    _isShowCancelOrderAlert = NO;
     [self performSegueWithIdentifier:@"toBeanPay" sender:self];
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
@@ -189,5 +214,21 @@
 }
 - (void)updateBean:(NSString *)bean{
     _cell.myBeanLabel.text = bean;
+}
+- (void)showCancelOrderAlert{
+    _isShowCancelOrderAlert = YES;
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    if (_isShowCancelOrderAlert == YES) {
+        [self cancelOrder];
+    }
+}
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    if (_isShowCancelOrderAlert == YES) {
+        [YHHud showWithMessage:@"订单已取消"];
+    }
+    
 }
 @end

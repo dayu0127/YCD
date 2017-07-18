@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 @protocol BeanPayVCDelegate<NSObject>
 - (void)updateBean:(NSString *)bean;
+- (void)showCancelOrderAlert;
 @end
 @interface BeanPayVC : BaseViewController
 @property (weak,nonatomic) id<BeanPayVCDelegate> delegate;

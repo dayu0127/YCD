@@ -87,7 +87,8 @@
           @"userPhone": self.phoneNum,  // #用户手机号
           @"token": self.token,          //      #用户登陆凭证
           @"lessonId": _lessonId, // #记忆法系列ID
-          @"pageIndex":[NSString stringWithFormat:@"%zd",pageIndex]         //    #页数
+          @"pageIndex":[NSString stringWithFormat:@"%zd",pageIndex],         //    #页数
+          @"type":_type    // #查询类型 0所有 1已订阅
     };
     [YHWebRequest YHWebRequestForPOST:kMemoryList parameters:jsonDic success:^(NSDictionary *json) {
         if (status==UITableViewRefreshStatusAnimation) {
@@ -265,11 +266,23 @@
             if ([json[@"code"] integerValue] == 200) {
                 NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
                 _inviteCount = [NSString stringWithFormat:@"%@",dataDic[@"inviteNum"]];
-                NSInteger discountPrice = [dataDic[@"discountPrice"] integerValue];
-                NSInteger price = [dataDic[@"price"] integerValue];
-                _preferentialPrice =[NSString stringWithFormat:@"%zd学习豆",price - discountPrice];
-                _payPrice = [NSString stringWithFormat:@"%zd学习豆",discountPrice];
-                [self performSegueWithIdentifier:@"memoryToPay" sender:self];
+                float discountPrice = [dataDic[@"discountPrice"] floatValue];
+                float price = [dataDic[@"price"] floatValue];
+                _preferentialPrice =[NSString stringWithFormat:@"%.2f学习豆",price - discountPrice];
+                NSDictionary *dic = @{
+                    @"userPhone":self.phoneNum,  //  #用户手机号
+                    @"token":self.token       //   #登陆凭证
+                };
+                [YHWebRequest YHWebRequestForPOST:kApplePayRatio parameters:dic success:^(NSDictionary *json) {
+                    if ([json[@"code"] integerValue] == 200) {
+                        float ratio = [[NSDictionary dictionaryWithJsonString:json[@"data"]][@"ratio"] floatValue];
+                        _payPrice = [NSString stringWithFormat:@"%.2f学习豆",discountPrice*ratio];
+                        [self performSegueWithIdentifier:@"memoryToPay" sender:self];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    NSLog(@"%@",error);
+                    [YHHud showWithMessage:@"服务器或网络异常"];
+                }];
             }else{
                 [YHHud dismiss];
                 NSLog(@"%@",json[@"code"]);

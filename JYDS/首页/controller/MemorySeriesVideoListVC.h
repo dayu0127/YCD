@@ -11,5 +11,6 @@
 @property (copy,nonatomic) NSString *lessonId;
 @property (copy,nonatomic) NSString *lessonName;
 @property (copy,nonatomic) NSString *lessonPayType;
+@property (copy,nonatomic) NSString *type;
 //@property (weak,nonatomic) id<MemorySeriesVideoListVCDelegate> delegate;
 @end

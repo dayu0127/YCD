@@ -14,5 +14,5 @@
 @property (copy,nonatomic) NSString *payType;
 @property (copy,nonatomic) NSString *gradeName;
 @property (copy,nonatomic) NSString *full_price;
-@property (copy,nonatomic) NSString *preferentialPrice;
+@property (copy,nonatomic) NSString *min_price;
 @end

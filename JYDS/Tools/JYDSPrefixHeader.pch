@@ -94,6 +94,7 @@
 #define kPlayerSet API(@"/system/getPlayerSys") //获取播放器设置
 #define kBanner API(@"/common/getIndexImages") //获取首页内容
 #define kMemoryVideo API(@"/video/getMemoryVideo") //记忆法视频列表
+#define kMemoryList API(@"/video/getMemoryList")      //记忆法系列视频列表
 #define kMemoryLikes API(@"/common/memoryLikes") //记忆法点赞
 #define kMemoryCommentList API(@"/video/getMemoryCommentList") //记忆法评论列表
 #define kUserComment API(@"/common/userComment") //用户评论
@@ -130,9 +131,9 @@
 #define kPlayNum API(@"/common/addPlayNum")      //视频播放次数增加
 #define kSelectWord API(@"/study/selectWord")      //单词查询
 #define kGetShare API(@"/common/getShare")      //分享内容
-#define kMemoryList API(@"/video/getMemoryList")      //记忆法系列视频列表
 #define kGetOrderSumPrice API(@"/pay/getOrderSumPrice")      //记忆法全部订阅提示价格
 #define kApplePayCheck API(@"/pay/applePayStuBeanCheck")      //Apple内购验签
+#define kApplePayRatio API(@"/pay/getApplePayRatio")      //Apple内购支付比例
 
 //练习题等级数组
 #define LEVELARRAY @[@"60",@"50",@"40",@"30",@"25",@"20",@"15",@"13",@"10"]

@@ -44,7 +44,7 @@
         @"userPhone":self.phoneNum,    //    #用户手机号
         @"token":self.token,         //   #登陆凭证
         @"pageIndex":[NSString stringWithFormat:@"%zd",pageIndex],        //   #记忆法页数
-        @"type":@"1"       //  #查询类型 0所有 1已订阅
+        @"type":@"0"
     };
     [YHWebRequest YHWebRequestForPOST:kMemoryVideo parameters:jsonDic success:^(NSDictionary *json) {
         if (status==UITableViewRefreshStatusAnimation) {
@@ -122,6 +122,7 @@
         MemorySeriesVideoListVC *seriesVC = segue.destinationViewController;
         seriesVC.lessonId = _memory.memoryId;
         seriesVC.lessonName = _memory.title;
+        seriesVC.type = @"1";
     }
 }
 @end

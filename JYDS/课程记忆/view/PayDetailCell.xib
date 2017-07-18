@@ -134,12 +134,12 @@
                             <constraint firstAttribute="height" constant="1" id="YdS-wY-qaa"/>
                         </constraints>
                     </view>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ef-As-BdQ">
-                        <rect key="frame" x="60" y="186" width="83" height="34"/>
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ef-As-BdQ">
+                        <rect key="frame" x="15" y="186" width="253" height="34"/>
                         <color key="backgroundColor" red="0.99607843139999996" green="0.30980392159999998" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="34" id="LqX-ra-Zga"/>
-                            <constraint firstAttribute="width" constant="83" id="l1k-KZ-dbA"/>
+                            <constraint firstAttribute="width" constant="253" id="vBg-2f-Ces"/>
                         </constraints>
                         <state key="normal" title="确认支付">
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -155,10 +155,10 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B8b-no-E2T">
-                        <rect key="frame" x="217" y="186" width="98" height="34"/>
+                        <rect key="frame" x="283" y="186" width="77" height="34"/>
                         <color key="backgroundColor" red="0.51372549019607838" green="0.1803921568627451" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="98" id="HrI-de-199"/>
+                            <constraint firstAttribute="width" constant="77" id="eOE-k0-x6M"/>
                             <constraint firstAttribute="height" constant="34" id="oUN-OB-Il7"/>
                         </constraints>
                         <state key="normal" title="学习豆充值">
@@ -188,7 +188,7 @@
                     <constraint firstItem="LVj-4z-h4q" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="HVp-nM-IhW"/>
                     <constraint firstItem="HWl-Aa-s0Z" firstAttribute="top" secondItem="Gpr-M5-T2r" secondAttribute="bottom" id="J5L-hO-yZY"/>
                     <constraint firstItem="M0z-ZG-eAM" firstAttribute="leading" secondItem="qhD-KV-v42" secondAttribute="leading" id="Jl2-g1-8Ka"/>
-                    <constraint firstAttribute="trailing" secondItem="B8b-no-E2T" secondAttribute="trailing" constant="60" id="KDV-t5-J1n"/>
+                    <constraint firstAttribute="trailing" secondItem="B8b-no-E2T" secondAttribute="trailing" constant="15" id="KDV-t5-J1n"/>
                     <constraint firstItem="qhD-KV-v42" firstAttribute="top" secondItem="jzt-4f-U6z" secondAttribute="bottom" id="Mv1-0U-PiB"/>
                     <constraint firstAttribute="trailing" secondItem="uQe-b9-Owt" secondAttribute="trailing" id="Mz8-I8-0mC"/>
                     <constraint firstItem="HWl-Aa-s0Z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="QNn-Gg-AFa"/>
@@ -196,7 +196,7 @@
                     <constraint firstItem="qhD-KV-v42" firstAttribute="leading" secondItem="Z83-ay-bM4" secondAttribute="leading" id="Sy9-65-7AD"/>
                     <constraint firstItem="M0z-ZG-eAM" firstAttribute="top" secondItem="uQe-b9-Owt" secondAttribute="bottom" id="TxK-c7-oly"/>
                     <constraint firstAttribute="trailing" secondItem="LVj-4z-h4q" secondAttribute="trailing" id="UAp-kC-4gb"/>
-                    <constraint firstItem="9Ef-As-BdQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="60" id="XBh-Ql-fQa"/>
+                    <constraint firstItem="9Ef-As-BdQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="XBh-Ql-fQa"/>
                     <constraint firstAttribute="trailing" secondItem="jzt-4f-U6z" secondAttribute="trailing" id="YAg-fI-qqL"/>
                     <constraint firstItem="HwO-gC-Va8" firstAttribute="leading" secondItem="M0z-ZG-eAM" secondAttribute="trailing" id="aEE-If-4zD"/>
                     <constraint firstItem="jzt-4f-U6z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="bK9-VV-7DY"/>
@@ -213,7 +213,7 @@
                     <constraint firstItem="Pmr-u7-tkZ" firstAttribute="leading" secondItem="qhD-KV-v42" secondAttribute="trailing" id="xt8-zl-xxH"/>
                     <constraint firstItem="fW7-WG-Uki" firstAttribute="top" secondItem="HwO-gC-Va8" secondAttribute="bottom" id="xzT-iD-Sxs"/>
                     <constraint firstItem="HwO-gC-Va8" firstAttribute="top" secondItem="LVj-4z-h4q" secondAttribute="bottom" id="yyS-gw-A70"/>
-                    <constraint firstItem="B8b-no-E2T" firstAttribute="leading" secondItem="9Ef-As-BdQ" secondAttribute="trailing" constant="74" id="z0e-3S-nC4"/>
+                    <constraint firstItem="B8b-no-E2T" firstAttribute="leading" secondItem="9Ef-As-BdQ" secondAttribute="trailing" constant="15" id="z0e-3S-nC4"/>
                     <constraint firstItem="r6l-8b-hbQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="zZG-c1-mEj"/>
                     <constraint firstItem="fW7-WG-Uki" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="zhU-8d-4GI"/>
                 </constraints>
@@ -223,9 +223,8 @@
                 <outlet property="myBeanLabel" destination="HwO-gC-Va8" id="HFb-Ar-Hc7"/>
                 <outlet property="payPriceLabel" destination="Pmr-u7-tkZ" id="Mb1-Od-KkC"/>
                 <outlet property="preferentialPriceLabel" destination="xqr-hf-Qbb" id="GdD-fd-FxV"/>
-                <outlet property="space1" destination="XBh-Ql-fQa" id="BNq-Xs-GRR"/>
-                <outlet property="space2" destination="z0e-3S-nC4" id="MgF-q7-6ZS"/>
-                <outlet property="space3" destination="KDV-t5-J1n" id="9R3-0C-vqq"/>
+                <outlet property="width1" destination="vBg-2f-Ces" id="WZk-X9-4CW"/>
+                <outlet property="width2" destination="eOE-k0-x6M" id="mfF-Ac-eKD"/>
             </connections>
             <point key="canvasLocation" x="28.5" y="97"/>
         </tableViewCell>

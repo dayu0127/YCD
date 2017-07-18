@@ -167,7 +167,7 @@
         userInfovc.headImage = _logged.headImageButton.imageView.image;
     }else if ([segue.identifier isEqualToString:@"toMyPoints"]){
         MyPointsVC *pointVC = segue.destinationViewController;
-        pointVC.points = _cell.pointsLabel.text;
+        pointVC.points = _cell1.pointLabel.text;
     }
 }
 - (void)updateHeadImage:(UIImage *)img{

@@ -29,6 +29,7 @@
 @property (strong,nonatomic) NSArray *wordSearchResultArray;
 @property (copy,nonatomic) NSString *searchContent;
 @property (copy,nonatomic) NSString *productId;
+@property (copy,nonatomic) NSString *preferentialPrice;//优惠价格
 @end
 
 @implementation ModuleListVC
@@ -178,7 +179,7 @@
 }
 - (void)subAllClick:(id)sender {
     SubAlertView *subAlertView = [[SubAlertView alloc] initWithNib];
-    [subAlertView setTitle:_gradeName discountPrice:_preferentialPrice fullPrice:_full_price subType:SubTypeWord];
+    [subAlertView setTitle:_gradeName discountPrice:_min_price fullPrice:_full_price subType:SubTypeWord];
     subAlertView.delegate = self;
     _alertView = [[JCAlertView alloc] initWithCustomView:subAlertView dismissWhenTouchedBackground:NO];
     [_alertView show];
@@ -204,11 +205,23 @@
             if ([json[@"code"] integerValue] == 200) {
                 NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
                 _inviteCount = [NSString stringWithFormat:@"%@",dataDic[@"inviteNum"]];
-                NSInteger discountPrice = [dataDic[@"discountPrice"] integerValue];
-                NSInteger price = [dataDic[@"price"] integerValue];
-                _preferentialPrice =[NSString stringWithFormat:@"%zd学习豆",price - discountPrice];
-                _payPrice = [NSString stringWithFormat:@"%zd学习豆",discountPrice];
-                [self performSegueWithIdentifier:@"courseToPay" sender:self];
+                float discountPrice = [dataDic[@"discountPrice"] floatValue];
+                float price = [dataDic[@"price"] floatValue];
+                _preferentialPrice =[NSString stringWithFormat:@"%.2f学习豆",price - discountPrice];
+                NSDictionary *dic = @{
+                    @"userPhone":self.phoneNum,  //  #用户手机号
+                    @"token":self.token       //   #登陆凭证
+                };
+                [YHWebRequest YHWebRequestForPOST:kApplePayRatio parameters:dic success:^(NSDictionary *json) {
+                    if ([json[@"code"] integerValue] == 200) {
+                        float ratio = [[NSDictionary dictionaryWithJsonString:json[@"data"]][@"ratio"] floatValue];
+                        _payPrice = [NSString stringWithFormat:@"%.2f学习豆",discountPrice*ratio];
+                        [self performSegueWithIdentifier:@"courseToPay" sender:self];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    NSLog(@"%@",error);
+                    [YHHud showWithMessage:@"服务器或网络异常"];
+                }];
             }else{
                 [YHHud dismiss];
                 NSLog(@"%@",json[@"code"]);
