@@ -28,7 +28,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (self.phoneNum !=nil) {
+    if (self.phoneNum !=nil && [[YHSingleton shareSingleton].userInfo.freeCount integerValue] > 0) {
         NSString *freeCount =  [YHSingleton shareSingleton].userInfo.freeCount;
         UIAlertController *alertVC= [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"你有%@次免费体验机会",freeCount] message:nil preferredStyle:UIAlertControllerStyleAlert];
         [alertVC addAction:[UIAlertAction actionWithTitle:@"我知道了" style:UIAlertActionStyleDefault handler:nil]];

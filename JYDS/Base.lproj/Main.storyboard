@@ -1301,7 +1301,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Z5B-iC-Ejj">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="543"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="irC-QK-Rcy" id="ku4-9O-LxX"/>
@@ -1315,7 +1315,7 @@
                             <constraint firstItem="Z5B-iC-Ejj" firstAttribute="leading" secondItem="bqZ-MD-RlA" secondAttribute="leading" id="4Ud-Mc-yJ7"/>
                             <constraint firstItem="Z5B-iC-Ejj" firstAttribute="top" secondItem="qI3-cS-da4" secondAttribute="bottom" id="8TS-de-Mcz"/>
                             <constraint firstAttribute="trailing" secondItem="qI3-cS-da4" secondAttribute="trailing" id="9NA-2E-SQ7"/>
-                            <constraint firstItem="U1d-5f-BQZ" firstAttribute="top" secondItem="Z5B-iC-Ejj" secondAttribute="bottom" id="EhD-Fw-n8u"/>
+                            <constraint firstItem="U1d-5f-BQZ" firstAttribute="top" secondItem="Z5B-iC-Ejj" secondAttribute="bottom" constant="60" id="EhD-Fw-n8u"/>
                             <constraint firstItem="qI3-cS-da4" firstAttribute="top" secondItem="bqZ-MD-RlA" secondAttribute="top" id="Xl1-BX-v7y"/>
                             <constraint firstAttribute="trailing" secondItem="Z5B-iC-Ejj" secondAttribute="trailing" id="jlb-Rq-vuz"/>
                         </constraints>
@@ -1326,11 +1326,12 @@
                         <outlet property="tableView" destination="Z5B-iC-Ejj" id="Lvi-vs-gRq"/>
                         <segue destination="0jR-eX-LCS" kind="show" identifier="MemorySeriesToDetail" id="4OW-ab-GSa"/>
                         <segue destination="Mjh-Gy-vFh" kind="show" identifier="memoryListToInviteRewards" id="oWY-Ur-CZj"/>
+                        <segue destination="5a8-Cj-aGI" kind="show" identifier="memoryToPay" id="NP5-wE-iDl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p0y-k9-WtO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5780" y="-771.36431784107947"/>
+            <point key="canvasLocation" x="5761" y="-771"/>
         </scene>
         <!--记忆法详情VC-->
         <scene sceneID="ABV-zs-oM0">
@@ -1892,7 +1893,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j32-Kj-Kv6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3564" y="1904"/>
+            <point key="canvasLocation" x="3828" y="3484"/>
         </scene>
         <!--我的VC-->
         <scene sceneID="A41-cC-6p8">
@@ -1937,11 +1938,12 @@
                         <segue destination="UEu-ip-7MT" kind="show" identifier="toSet" id="VKF-hj-89s"/>
                         <segue destination="Mjh-Gy-vFh" kind="show" identifier="toInviteRewards" id="JDB-NH-aSF"/>
                         <segue destination="e8v-KT-rSp" kind="show" identifier="toMyPoints" id="pR2-Jz-wDJ"/>
+                        <segue destination="VoK-8e-cWU" kind="show" identifier="toMyBeans" id="bfG-s2-FMQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qzM-0b-YH1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3564" y="2648"/>
+            <point key="canvasLocation" x="3828" y="2648"/>
         </scene>
         <!--我的订阅VC-->
         <scene sceneID="3zg-SH-zeZ">
@@ -2008,7 +2010,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ido-xm-7mR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4897" y="1488"/>
+            <point key="canvasLocation" x="4974" y="1494"/>
         </scene>
         <!--我的收藏VC-->
         <scene sceneID="eAS-dP-F7o">
@@ -2074,7 +2076,115 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xuM-On-y0b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4897" y="2164"/>
+            <point key="canvasLocation" x="4974" y="2166"/>
+        </scene>
+        <!--学习豆充值VC-->
+        <scene sceneID="kSr-Tf-83Z">
+            <objects>
+                <viewController hidesBottomBarWhenPushed="YES" id="VoK-8e-cWU" userLabel="学习豆充值VC" customClass="BeanPayVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8xM-u7-m7r"/>
+                        <viewControllerLayoutGuide type="bottom" id="YQm-Rf-K6v"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mVW-ZX-Dat">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aos-Ns-v7z" userLabel="navView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学习豆充值" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vlg-JH-Lfg">
+                                        <rect key="frame" x="48" y="33" width="76.5" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zcI-ID-k15" userLabel="backButton">
+                                        <rect key="frame" x="7" y="25" width="33" height="33"/>
+                                        <state key="normal" image="back"/>
+                                        <connections>
+                                            <action selector="backClick:" destination="VoK-8e-cWU" eventType="touchUpInside" id="FqP-TU-vze"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.99607843139999996" green="0.30980392159999998" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Vlg-JH-Lfg" firstAttribute="leading" secondItem="zcI-ID-k15" secondAttribute="trailing" constant="8" id="14g-vl-jhh"/>
+                                    <constraint firstAttribute="height" constant="64" id="35I-yr-bXj"/>
+                                    <constraint firstItem="zcI-ID-k15" firstAttribute="top" secondItem="Aos-Ns-v7z" secondAttribute="top" constant="25" id="AKi-Lq-Zey"/>
+                                    <constraint firstItem="Vlg-JH-Lfg" firstAttribute="centerY" secondItem="zcI-ID-k15" secondAttribute="centerY" id="GYR-cH-hDv"/>
+                                    <constraint firstItem="zcI-ID-k15" firstAttribute="leading" secondItem="Aos-Ns-v7z" secondAttribute="leading" constant="7" id="M2a-iw-Kbi"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请选择充值金额（兑换比例：1元=1学习豆）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fa9-Q9-aeJ">
+                                <rect key="frame" x="16" y="84" width="240" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1、请勿在短时间(10分钟)多次尝试充值，充值遇到问题请联系客服电话：021-58327007" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UPR-bB-FiJ">
+                                <rect key="frame" x="16" y="362.5" width="343" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="IuY-Cj-O1Y"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2、本客户端不能使用微信、支付宝、短信等方式充值" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECt-EY-xhS">
+                                <rect key="frame" x="16" y="404.5" width="343" height="13"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="13" id="6oa-wE-exd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3、如还不能解决问题，请点击下面链接进行解决" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l1J-SO-lb1">
+                                <rect key="frame" x="16" y="429.5" width="243.5" height="13"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="13" id="7Iv-Hu-7fY"/>
+                                    <constraint firstAttribute="height" constant="13" id="SKN-6H-eS4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4c6-H4-vAS">
+                                <rect key="frame" x="120.5" y="445" width="134" height="26"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <state key="normal" title="https://www.jydsapp.com"/>
+                                <connections>
+                                    <action selector="toOfficialWebsite:" destination="VoK-8e-cWU" eventType="touchUpInside" id="BsX-rK-E3g"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="l1J-SO-lb1" firstAttribute="leading" secondItem="mVW-ZX-Dat" secondAttribute="leadingMargin" id="2s8-ah-pQD"/>
+                            <constraint firstItem="4c6-H4-vAS" firstAttribute="top" secondItem="l1J-SO-lb1" secondAttribute="bottom" constant="3" id="6Pe-xS-99q"/>
+                            <constraint firstAttribute="trailing" secondItem="Aos-Ns-v7z" secondAttribute="trailing" id="JeT-vS-yfb"/>
+                            <constraint firstItem="UPR-bB-FiJ" firstAttribute="trailing" secondItem="mVW-ZX-Dat" secondAttribute="trailingMargin" id="SHe-s5-hyp"/>
+                            <constraint firstItem="ECt-EY-xhS" firstAttribute="leading" secondItem="mVW-ZX-Dat" secondAttribute="leadingMargin" id="V7Z-Wn-Z7l"/>
+                            <constraint firstItem="Aos-Ns-v7z" firstAttribute="top" secondItem="mVW-ZX-Dat" secondAttribute="top" id="b7P-r3-IUw"/>
+                            <constraint firstItem="l1J-SO-lb1" firstAttribute="top" secondItem="ECt-EY-xhS" secondAttribute="bottom" constant="12" id="bJ9-x5-kNi"/>
+                            <constraint firstItem="fa9-Q9-aeJ" firstAttribute="top" secondItem="Aos-Ns-v7z" secondAttribute="bottom" constant="20" id="brL-3Z-2RQ"/>
+                            <constraint firstItem="ECt-EY-xhS" firstAttribute="trailing" secondItem="mVW-ZX-Dat" secondAttribute="trailingMargin" id="cmx-Im-XEq"/>
+                            <constraint firstItem="UPR-bB-FiJ" firstAttribute="top" secondItem="fa9-Q9-aeJ" secondAttribute="bottom" constant="264" id="hUj-iG-PhD"/>
+                            <constraint firstItem="ECt-EY-xhS" firstAttribute="top" secondItem="UPR-bB-FiJ" secondAttribute="bottom" constant="12" id="iWa-1s-1YW"/>
+                            <constraint firstItem="4c6-H4-vAS" firstAttribute="centerX" secondItem="mVW-ZX-Dat" secondAttribute="centerX" id="pHX-iu-mUJ"/>
+                            <constraint firstItem="UPR-bB-FiJ" firstAttribute="leading" secondItem="mVW-ZX-Dat" secondAttribute="leadingMargin" id="u9W-HB-1Bc"/>
+                            <constraint firstItem="Aos-Ns-v7z" firstAttribute="leading" secondItem="mVW-ZX-Dat" secondAttribute="leading" id="yED-yW-LTY"/>
+                            <constraint firstItem="fa9-Q9-aeJ" firstAttribute="leading" secondItem="mVW-ZX-Dat" secondAttribute="leadingMargin" id="zWw-Aa-JIm"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="topSpace" destination="hUj-iG-PhD" id="YK0-0q-xpd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Hs-zj-wGO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5780" y="2166"/>
         </scene>
         <!--邀请奖励VC-->
         <scene sceneID="3Mj-NI-210">
@@ -2139,7 +2249,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="63J-dF-0B7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4897" y="2803"/>
+            <point key="canvasLocation" x="4974" y="2827"/>
         </scene>
         <!--邀请记录VC-->
         <scene sceneID="cGw-I1-fm5">
@@ -2190,7 +2300,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hpa-y8-a4u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5678" y="2803"/>
+            <point key="canvasLocation" x="5780" y="2827"/>
         </scene>
         <!--使用帮助VC-->
         <scene sceneID="hgK-S0-A0f">
@@ -2352,7 +2462,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="27i-wW-U0y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4897" y="4202"/>
+            <point key="canvasLocation" x="4974" y="4162"/>
         </scene>
         <!--用户协议VC-->
         <scene sceneID="jbG-Sg-Ulz">
@@ -2525,7 +2635,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="32r-rx-U1h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4897" y="3484"/>
+            <point key="canvasLocation" x="4974" y="3484"/>
         </scene>
         <!--设置VC-->
         <scene sceneID="TKm-cr-CGu">
@@ -2594,7 +2704,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bww-fB-3h2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4897" y="4950"/>
+            <point key="canvasLocation" x="4950" y="4854"/>
         </scene>
         <!--个人信息TVC-->
         <scene sceneID="PfN-MJ-Kue">
@@ -2781,7 +2891,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="msf-ZX-YXG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4897" y="796"/>
+            <point key="canvasLocation" x="4974" y="796"/>
         </scene>
         <!--支付VC-->
         <scene sceneID="7KH-Ol-Xub">
@@ -2854,11 +2964,12 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="ejM-dw-zlS" id="BM5-yw-h0d"/>
+                        <segue destination="VoK-8e-cWU" kind="show" identifier="toBeanPay" id="LHf-SX-onh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NNw-xU-rYD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5799" y="796"/>
+            <point key="canvasLocation" x="5780" y="796"/>
         </scene>
         <!--我订阅的记忆法VC-->
         <scene sceneID="B6q-6I-dwV">
@@ -3304,7 +3415,7 @@
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="eTe-EX-SsO">
-                                <rect key="frame" x="0.0" y="108" width="375" height="559"/>
+                                <rect key="frame" x="0.0" y="108" width="375" height="494"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
@@ -3322,24 +3433,26 @@
                             <constraint firstItem="zJo-Uq-70a" firstAttribute="leading" secondItem="Keu-gI-Jhx" secondAttribute="leading" id="fcm-d0-8db"/>
                             <constraint firstItem="IU0-ac-8F6" firstAttribute="leading" secondItem="Keu-gI-Jhx" secondAttribute="leading" id="jqj-ox-Ro2"/>
                             <constraint firstAttribute="trailing" secondItem="IU0-ac-8F6" secondAttribute="trailing" id="kQf-M0-aYw"/>
-                            <constraint firstItem="VS1-2O-SBs" firstAttribute="top" secondItem="eTe-EX-SsO" secondAttribute="bottom" id="m34-qn-YXa"/>
                             <constraint firstItem="IU0-ac-8F6" firstAttribute="top" secondItem="zJo-Uq-70a" secondAttribute="bottom" id="svX-gp-CcX"/>
                             <constraint firstItem="eTe-EX-SsO" firstAttribute="top" secondItem="IU0-ac-8F6" secondAttribute="bottom" id="uPc-on-wOG"/>
+                            <constraint firstItem="VS1-2O-SBs" firstAttribute="top" secondItem="eTe-EX-SsO" secondAttribute="bottom" constant="65" id="xwo-Q9-20L"/>
                         </constraints>
                     </view>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="searchBar" destination="IU0-ac-8F6" id="EDu-Yr-DNo"/>
+                        <outlet property="tableBottomSpace" destination="xwo-Q9-20L" id="VoV-2S-Xcd"/>
                         <outlet property="tableView" destination="eTe-EX-SsO" id="Cev-wj-fd5"/>
                         <segue destination="WW6-Vz-Jnk" kind="show" identifier="toWordList" id="V6r-vO-ADE"/>
                         <segue destination="UOd-fm-gc1" kind="show" identifier="toWordSubedList" id="39c-X7-5FN"/>
                         <segue destination="Mjh-Gy-vFh" kind="show" identifier="moduleListToInviteRewards" id="PX7-fy-7bi"/>
                         <segue destination="yvf-gx-LuJ" kind="show" identifier="toWordSearchVC" id="nQi-es-xmg"/>
+                        <segue destination="5a8-Cj-aGI" kind="show" identifier="courseToPay" id="kJy-ac-HqM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="25y-DZ-cmh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5735" y="53"/>
+            <point key="canvasLocation" x="5762" y="36"/>
         </scene>
         <!--单词搜索VC-->
         <scene sceneID="lK8-Vu-5zh">
@@ -3399,7 +3512,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pzD-ct-brV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8241" y="-532"/>
+            <point key="canvasLocation" x="8241" y="-397"/>
         </scene>
         <!--已订阅单词列表VC-->
         <scene sceneID="OOG-EU-Aae">
@@ -3472,7 +3585,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q4Z-0x-Hbn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7375" y="-532"/>
+            <point key="canvasLocation" x="7383" y="36"/>
         </scene>
         <!--单词列表VC-->
         <scene sceneID="F7a-hg-6Ro">
@@ -3796,7 +3909,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6f3-Ky-Ehh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5705" y="4949"/>
+            <point key="canvasLocation" x="5705" y="4854"/>
         </scene>
         <!--修改密码VC-->
         <scene sceneID="na1-R2-BT1">
@@ -4528,11 +4641,13 @@
         <image name="userinfo_top_bg" width="375" height="246"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ieB-4i-mT9"/>
-        <segue reference="G1O-9S-45W"/>
-        <segue reference="CjH-TU-cji"/>
-        <segue reference="FCC-bP-pwD"/>
-        <segue reference="jUJ-Kx-0eF"/>
-        <segue reference="Aeb-Af-xhb"/>
+        <segue reference="Y07-mi-IOc"/>
+        <segue reference="Lnr-u8-mNA"/>
+        <segue reference="Doe-NR-kgY"/>
+        <segue reference="Ism-xV-ZwY"/>
+        <segue reference="do2-6S-b41"/>
+        <segue reference="oWY-Ur-CZj"/>
+        <segue reference="NP5-wE-iDl"/>
+        <segue reference="LHf-SX-onh"/>
     </inferredMetricsTieBreakers>
 </document>

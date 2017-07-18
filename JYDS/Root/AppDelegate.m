@@ -11,7 +11,9 @@
 #import "WXApi.h"
 #import "iflyMSC/IFlyMSC.h"
 #import <UMSocialSinaHandler.h>
-@interface AppDelegate ()
+//#import "UMessage.h"
+//#import <UserNotifications/UserNotifications.h>
+@interface AppDelegate ()/**<UNUserNotificationCenterDelegate>*/
 @end
 @implementation AppDelegate
 
@@ -19,6 +21,27 @@
     //初始化设置
     [self getBannerInfo];
     [self initSettings];
+    
+    //友盟推送
+//    [UMessage startWithAppkey:@"58524346f43e482aaa0012d6" launchOptions:launchOptions httpsEnable:YES];
+//    //注册通知，如果要使用category的自定义策略，可以参考demo中的代码。
+//    [UMessage registerForRemoteNotifications];
+//    //iOS10必须加下面这段代码。
+//    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+//    center.delegate = self;
+//    UNAuthorizationOptions types10=UNAuthorizationOptionBadge|UNAuthorizationOptionAlert|UNAuthorizationOptionSound;
+//    [center requestAuthorizationWithOptions:types10 completionHandler:^(BOOL granted, NSError * _Nullable error) {
+//        if (granted) {
+//            //点击允许
+//            //这里可以添加一些自己的逻辑
+//        } else {
+//            //点击不允许
+//            //这里可以添加一些自己的逻辑
+//        }
+//    }];
+//    //打开日志，方便调试
+//    [UMessage setLogEnabled:YES];
+    
     //设置根视图控制器
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: [NSBundle mainBundle]];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

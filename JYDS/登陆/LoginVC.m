@@ -99,7 +99,7 @@
         [YHWebRequest YHWebRequestForPOST:kPwdLogin parameters:jsonDic success:^(NSDictionary *json) {
             [YHHud dismiss];
             if ([json[@"code"] integerValue] == 200) {
-//                NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
+                NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
                 //改变我的页面，显示头像,昵称和手机号
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
                 NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];

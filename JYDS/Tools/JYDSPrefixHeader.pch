@@ -33,7 +33,7 @@
 #define WORD_ROWHEIGHT 44
 //充值
 #define PAY_ROWHEIGHT 47
-#define PAY_ARRAY @[@"5",@"20",@"50",@"100",@"500"]
+#define PAY_ARRAY @[@"25",@"68",@"128",@"258",@"388",@"518"]
 //充值比例
 #define PAY_PROPORTION 1
 //颜色
@@ -116,6 +116,7 @@
 #define kWXSub API(@"/pay/weixinCreateOrder")  //微信订阅
 #define kWXSubOne API(@"/pay/weixinCreateOrderOne")  //微信单个订阅
 #define kWXSignCheck API(@"/pay/weixinSignCheck")  //微信验签
+#define kStuBeanPay API(@"/pay/StuBeanPay")  //学习豆支付
 #define kOrderPrice API(@"/pay/getOrderPrice")  //获取订单价格
 #define kFedBack API(@"/system/fedBack")    //用户反馈
 #define kCollectionList API(@"/user/getCollectionList")    //收藏列表
@@ -131,6 +132,7 @@
 #define kGetShare API(@"/common/getShare")      //分享内容
 #define kMemoryList API(@"/video/getMemoryList")      //记忆法系列视频列表
 #define kGetOrderSumPrice API(@"/pay/getOrderSumPrice")      //记忆法全部订阅提示价格
+#define kApplePayCheck API(@"/pay/applePayStuBeanCheck")      //Apple内购验签
 
 //练习题等级数组
 #define LEVELARRAY @[@"60",@"50",@"40",@"30",@"25",@"20",@"15",@"13",@"10"]
@@ -159,6 +161,8 @@
 #define kExerciseResult @"https://www.jydsapp.com/jydsApi/h5/image_memory.html?para="
 //记忆法简介
 #define kMemoryIntroduce @"http://www.jydsapp.com/jydsApi/h5/memory.html"
+//产品ID
+#define kProductID @"com.randian.jyds.beans"
 
 //橙红色
 #define ORANGERED RGB(254,79,74) //#FE4F4A

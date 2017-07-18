@@ -79,10 +79,10 @@
 }
 - (void)updateWordSubStatus{
     NSDictionary *jsonDic = @{
-                              @"grade_type":_grade_type,        //#查询状态 1：小学 2：初中 3：高中
-                              @"userPhone":self.phoneNum,     //  #用户手机号
-                              @"token":self.token             // #登陆凭证
-                              };
+        @"grade_type":_grade_type,        //#查询状态 1：小学 2：初中 3：高中
+        @"userPhone":self.phoneNum,     //  #用户手机号
+        @"token":self.token             // #登陆凭证
+    };
     [YHWebRequest YHWebRequestForPOST:kWordIndex parameters:jsonDic success:^(NSDictionary *json) {
         if([json[@"code"] integerValue] == 200){
             NSDictionary *resultDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
@@ -167,11 +167,11 @@
 }
 - (NSDictionary *)getJsonDic{
     NSMutableDictionary *baseDic = [[NSMutableDictionary alloc] initWithDictionary:@{
-                                                                                     @"gradeType":_grade_type,    //       #年段代码（选填：和gradeId填选一个）
-                                                                                     @"userPhone":[YHSingleton shareSingleton].userInfo.phoneNum,   //    #用户手机号
-                                                                                     @"token":[[NSUserDefaults standardUserDefaults] objectForKey:@"token"],      //    #登陆凭证
-                                                                                     @"selectType":@"0"      //     #查询类型 0:根据上面条件查询，1：已订阅
-                                                                                     }];
+        @"gradeType":_grade_type,    //       #年段代码（选填：和gradeId填选一个）
+        @"userPhone":[YHSingleton shareSingleton].userInfo.phoneNum,   //    #用户手机号
+        @"token":[[NSUserDefaults standardUserDefaults] objectForKey:@"token"],      //    #登陆凭证
+        @"selectType":@"0"      //     #查询类型 0:根据上面条件查询，1：已订阅
+    }];
     if (_currentGradeID!=nil) {
         [baseDic setObject:_currentGradeID forKey:@"gradeId"];
     }

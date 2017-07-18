@@ -11,7 +11,8 @@
 #import "PayDetailCell.h"
 //#import <AlipaySDK/AlipaySDK.h>
 #import "WXApi.h"
-@interface PayViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import "BeanPayVC.h"
+@interface PayViewController ()<UITableViewDelegate,UITableViewDataSource,PayDetailCellDelegate,BeanPayVCDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *inviteCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *preferentialPriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *payPriceLabel;
@@ -25,8 +26,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [YHSingleton shareSingleton].subType = _subType;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(back) name:@"back" object:nil];
+    [self getBean];
     //下拉刷新
     _header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         //    {
@@ -58,10 +59,11 @@
             if ([json[@"code"] integerValue] == 200) {
                 NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
                 _cell.inviteCountLabel.text = [NSString stringWithFormat:@"%@",dataDic[@"inviteNum"]];
-                float oldPrice = [dataDic[@"price"] floatValue];
-                float newPrice = [dataDic[@"discountPrice"] floatValue];
-                _cell.preferentialPriceLabel.text = [NSString stringWithFormat:@"￥%0.2f",oldPrice-newPrice];
-                _cell.payPriceLabel.text = [NSString stringWithFormat:@"￥%0.2f",newPrice];
+                NSInteger discountPrice = [dataDic[@"discountPrice"] integerValue];
+                NSInteger price = [dataDic[@"price"] integerValue];
+                _cell.preferentialPriceLabel.text =[NSString stringWithFormat:@"%zd学习豆",price - discountPrice];
+                _cell.payPriceLabel.text = [NSString stringWithFormat:@"%zd学习豆",discountPrice];
+                [self getBean];
             }else{
                 NSLog(@"%@",json[@"code"]);
                 [YHHud showWithMessage:json[@"message"]];
@@ -82,6 +84,23 @@
     [_tableView registerNib:[UINib nibWithNibName:@"PayDetailCell" bundle:nil] forCellReuseIdentifier:@"PayDetailCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"PaymentCell" bundle:nil] forCellReuseIdentifier:@"PaymentCell"];
 }
+- (void)getBean{
+    NSDictionary *jsonDic  = @{
+        @"userPhone":self.phoneNum,    //    #用户手机号
+        @"token":self.token  // #登陆后的token值
+    };
+    [YHWebRequest YHWebRequestForPOST:kGetUser parameters:jsonDic success:^(NSDictionary *json) {
+        if ([json[@"code"] integerValue] == 200) {
+            NSDictionary *jsonDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+            _cell.myBeanLabel.text = [NSString stringWithFormat:@"%@",jsonDic[@"user"][@"stuBean"]];
+        }else{
+            NSLog(@"%@",json[@"code"]);
+            [YHHud showWithMessage:json[@"message"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
+}
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -91,211 +110,84 @@
     });
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return indexPath.row == 0 ? 174 : 44;
+    return 252;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [WXApi isWXAppInstalled] ? 3 : 2;
+    return 1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 0) {
-        _cell = [tableView dequeueReusableCellWithIdentifier:@"PayDetailCell" forIndexPath:indexPath];
-        _cell.inviteCountLabel.text = _inviteCount;
-        _cell.preferentialPriceLabel.text = _preferentialPrice;
-        _cell.payPriceLabel.text = _payPrice;
-        _cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return _cell;
-    }else{
-//        if (_isReview == 0) {
-//            PaymentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PaymentCell" forIndexPath:indexPath];
-//            if (indexPath.row == 1) {
-//                cell.imageView1.image = [UIImage imageNamed:@"apple_pay_logo_large"];
-//                cell.title.text = @"Apple Pay";
-//                cell.detail.text = @"需要向苹果支付30%的手续费";
-//            }else{
-//                cell.imageHeight.constant = 41;
-//                cell.imageView1.image = [UIImage imageNamed:@"apple_pay_logo"];
-//                cell.title.text =@"支付宝支付";
-//                cell.detail.text = @"推荐使用";
-//            }
-//            return cell;
-//        }else{
-        if ([WXApi isWXAppInstalled]) {
-            if (indexPath.row == 1) {
-                PaymentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PaymentCell" forIndexPath:indexPath];
-                return cell;
+    _cell = [tableView dequeueReusableCellWithIdentifier:@"PayDetailCell" forIndexPath:indexPath];
+    _cell.inviteCountLabel.text = _inviteCount;
+    _cell.preferentialPriceLabel.text = _preferentialPrice;
+    _cell.payPriceLabel.text = _payPrice;
+    _cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    _cell.myBeanLabel.text = [NSString stringWithFormat:@"%@",[YHSingleton shareSingleton].userInfo.stuBean];
+    _cell.delegate = self;
+    return _cell;
+}
+- (NSDictionary *)getJsonDic{
+    NSMutableDictionary *baseDic = [[NSMutableDictionary alloc] initWithDictionary:@{
+        @"userPhone":self.phoneNum,   //    #用户手机号
+        @"token":self.token,      //    #登陆凭证
+    }];
+    if (_subType == SubTypeWord) {
+        [baseDic setObject:@"0" forKey:@"type"];
+        [baseDic setObject:_classId forKey:@"classId"];
+    }else if (_subType == SubTypeMemory) {
+        [baseDic setObject:@"1" forKey:@"type"];
+        [baseDic setObject:_memoryId forKey:@"lessonId"];
+    }else {
+        [baseDic setObject:@"2" forKey:@"type"];
+        [baseDic setObject:_memoryId forKey:@"lessonId"];
+    }
+    return [NSDictionary dictionaryWithDictionary:baseDic];
+}
+- (void)surePayClick{
+    NSString *message = [NSString stringWithFormat:@"确定支付%@?",_cell.payPriceLabel.text];
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alertVC addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [alertVC addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSDictionary *jsonDic = [self getJsonDic];
+        [YHWebRequest YHWebRequestForPOST:kStuBeanPay parameters:jsonDic success:^(NSDictionary *json) {
+            if ([json[@"code"] integerValue] == 200) {
+                //刷新订阅状态
+                if (_subType == SubTypeWord) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateWordSubStatus" object:nil];
+                }else{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMemorySubStatus" object:nil];
+                }
+                [self.navigationController popViewControllerAnimated:YES];
+                [YHHud showPaySuccessOrFailed:@"success"];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [YHHud dismiss];
+                });
+            }else if ([json[@"code"] integerValue] == 106){
+                [YHHud showWithMessage:json[@"message"]];
             }else{
-                PaymentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PaymentCell" forIndexPath:indexPath];
-                cell.title.text = @"微信支付";
-                cell.imageView1.image = [UIImage imageNamed:@"course_wxpay"];
-                return cell;
+                NSLog(@"%@",json[@"code"]);
+                NSLog(@"%@",json[@"message"]);
+                [YHHud showPaySuccessOrFailed:@"failed"];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [YHHud dismiss];
+                });
             }
-        }else{
-            PaymentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PaymentCell" forIndexPath:indexPath];
-            return cell;
-        }
+        } failure:^(NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+            [YHHud showWithMessage:@"网络异常,支付失败"];
+        }];
+    }]];
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
+- (void)beanPayClick{
+    [self performSegueWithIdentifier:@"toBeanPay" sender:self];
+}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"toBeanPay"]) {
+        BeanPayVC *payVC = segue.destinationViewController;
+        payVC.delegate = self;
     }
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if ([WXApi isWXAppInstalled]) {
-        if (indexPath.row == 1) {
-//            [self alipayCell];
-        }else if (indexPath.row == 2){
-//            [self wxpayCell];
-        }
-    }else{
-        if (indexPath.row == 1) {
-//            [self alipayCell];
-        }
-    }
+- (void)updateBean:(NSString *)bean{
+    _cell.myBeanLabel.text = bean;
 }
-//- (void)alipayCell{
-////    {
-////        "userPhone":"******"    #用户手机号
-////        "payType" :0            #购买类型 0：K12课程单词购买 1：记忆法课程购买
-////        "classId":"***"         #课本id（选填，当payType=0时候必填）
-////        "memoryId":"***"        #记忆法视频id（选填，当payType=1时候必填）
-////        "token":"****"          #登陆凭证
-////    }
-//    NSDictionary *jsonDic = [NSDictionary dictionary];
-//    NSString *urlStr;
-//    if (_subType == SubTypeWord) {    //课本订阅参数
-//        jsonDic  = @{
-//            @"userPhone":self.phoneNum,  //  #用户手机号
-//            @"token":self.token,       //   #登陆凭证
-//            @"payType" :@"0",         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
-//            @"classId":_classId       //  #课本id（选填，当payType=0时候必填）
-//        };
-//        urlStr = kAlipaySub;
-//    }else if (_subType == SubTypeMemory) { //记忆法课程订阅参数
-//        jsonDic  = @{
-//            @"userPhone":self.phoneNum,  //  #用户手机号
-//            @"token":self.token,       //   #登陆凭证
-//            @"payType" :@"1",         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
-//            @"memoryId":_memoryId     //   #记忆法视频id（选填，当payType=1时候必填）
-//        };
-//        urlStr = kAlipaySub;
-//    }else{
-//        jsonDic  = @{
-//            @"userPhone":self.phoneNum,  //  #用户手机号
-//            @"token":self.token,       //   #登陆凭证
-//            @"memoryId":_memoryId     //   #记忆法视频id（选填，当payType=1时候必填）
-//        };
-//        urlStr = kAlipaySubOne;
-//    }
-//    [YHWebRequest YHWebRequestForPOST:urlStr parameters:jsonDic success:^(NSDictionary *json) {
-//        if ([json[@"code"] integerValue] == 200) {
-//            NSDictionary *resultData = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-//            [YHSingleton shareSingleton].ali_out_trade_no = resultData[@"out_trade_no"];
-//            NSMutableDictionary *jsonDic = [[NSMutableDictionary alloc] initWithDictionary:resultData];
-//            [jsonDic removeObjectForKey:@"code"];
-//            [jsonDic removeObjectForKey:@"out_trade_no"];
-//            NSArray* sortedKeyArray = [[jsonDic allKeys] sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-//                return [obj1 compare:obj2];
-//            }];
-//            NSMutableArray *tmpArray = [NSMutableArray array];
-//            for (NSString* key in sortedKeyArray) {
-//                NSString *value = jsonDic[key];
-//                value = (__bridge_transfer  NSString*)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)value, NULL, (__bridge CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8 );
-//                NSString* orderItem = [NSString stringWithFormat:@"%@=%@", key, value];
-//                [tmpArray addObject:orderItem];
-//            }
-//            NSString *orderString = [tmpArray componentsJoinedByString:@"&"];
-//            //调起支付宝支付
-//            [[AlipaySDK defaultService] payOrder:orderString fromScheme:@"jydsapp58327007" callback:^(NSDictionary *resultDic) {
-////            {
-////                "userPhone":"******"    #用户手机号
-////                "code":"***"            #支付宝支付状态码
-////                "out_trade_no":"***"    #商户订单号（选填，与transaction_id二选一）
-////                "result":"***"          #支付宝返回的订单信息
-////                "token":"****"          #登陆凭证
-////            }
-//                NSDictionary *jsonDic = @{
-//                    @"userPhone":self.phoneNum,   // #用户手机号
-//                    @"code":resultDic[@"resultStatus"],        //    #支付宝支付状态码
-//                    @"out_trade_no":resultData[@"out_trade_no"], //   #商户订单号（选填，与transaction_id二选一）
-//                    @"result":resultDic[@"result"],      //    #支付宝返回的订单信息
-//                    @"token":self.token      //   #登陆凭证
-//                };
-//                [YHWebRequest YHWebRequestForPOST:kAlipaySignCheck parameters:jsonDic success:^(NSDictionary *json) {
-//                    if ([json[@"code"] integerValue] == 200) {
-//                        //刷新订阅状态
-//                        if (_subType == SubTypeWord) {
-//                            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateWordSubStatus" object:nil];
-//                        }else{
-//                            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMemorySubStatus" object:nil];
-//                        }
-//                        [YHHud showPaySuccessOrFailed:@"success"];
-//                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                            [YHHud dismiss];
-//                            [self.navigationController popViewControllerAnimated:YES];
-//                        });
-//                    }else{
-//                        NSLog(@"%@",json[@"code"]);
-////                        [YHHud showWithMessage:json[@"message"]];
-//                        [YHHud showPaySuccessOrFailed:@"failed"];
-//                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                            [YHHud dismiss];
-//                        });
-//                    }
-//                } failure:^(NSError * _Nonnull error) {
-//                    NSLog(@"%@",error);
-//                }];
-//            }];
-//        }else{
-//            NSLog(@"%@",json[@"code"]);
-//            [YHHud showWithMessage:json[@"message"]];
-//        }
-//    } failure:^(NSError * _Nonnull error) {
-//        NSLog(@"%@",error);
-//    }];
-//}
-//- (void)wxpayCell{
-//    NSDictionary *jsonDic = [NSDictionary dictionary];
-//    NSString *urlStr;
-//    if (_subType == SubTypeWord) {    //课本订阅参数
-//        jsonDic  = @{
-//                     @"userPhone":self.phoneNum,  //  #用户手机号
-//                     @"token":self.token,       //   #登陆凭证
-//                     @"payType" :@"0",         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
-//                     @"classId":_classId       //  #课本id（选填，当payType=0时候必填）
-//                     };
-//        urlStr = kWXSub;
-//    }else if (_subType == SubTypeMemory) { //记忆法课程订阅参数
-//        jsonDic  = @{
-//                     @"userPhone":self.phoneNum,  //  #用户手机号
-//                     @"token":self.token,       //   #登陆凭证
-//                     @"payType" :@"1",         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
-//                     @"memoryId":_memoryId     //   #记忆法视频id（选填，当payType=1时候必填）
-//                     };
-//        urlStr = kWXSub;
-//    }else{
-//        jsonDic  = @{
-//                     @"userPhone":self.phoneNum,  //  #用户手机号
-//                     @"token":self.token,       //   #登陆凭证
-//                     @"memoryId":_memoryId     //   #记忆法视频id（选填，当payType=1时候必填）
-//                     };
-//        urlStr = kWXSubOne;
-//    }
-//    [YHWebRequest YHWebRequestForPOST:urlStr parameters:jsonDic success:^(NSDictionary *json) {
-//        NSDictionary *resultData = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-//        [YHSingleton shareSingleton].wx_out_trade_no = resultData[@"out_trade_no"];
-//        if ([json[@"code"] integerValue] == 200) {
-//            PayReq *request = [[PayReq alloc] init];
-//            request.partnerId = resultData[@"partnerId"];
-//            request.prepayId = resultData[@"prepayId"];
-//            request.package = resultData[@"package"];
-//            request.nonceStr= resultData[@"nonceStr"];
-//            request.timeStamp = [resultData[@"timestamp"] intValue];
-//            request.sign = resultData[@"sign"];
-//            //调起微信支付
-//            [WXApi sendReq:request];
-//        }else{
-//            NSLog(@"%@",json[@"code"]);
-//            [YHHud showWithMessage:json[@"message"]];
-//        }
-//    } failure:^(NSError * _Nonnull error) {
-//        NSLog(@"%@",error);
-//    }];
-//}
 @end

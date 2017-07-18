@@ -11,5 +11,6 @@
 @interface MineCell : BaseCell
 @property (weak, nonatomic) IBOutlet UIImageView *img;
 @property (weak, nonatomic) IBOutlet UILabel *tile;
+@property (weak, nonatomic) IBOutlet UILabel *pointLabel;
 
 @end

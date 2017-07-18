@@ -10,18 +10,19 @@
 #import "ModuleCell.h"
 #import "WordListVC.h"
 #import "WordSubedList.h"
-//#import "SubAlertView.h"
-//#import "PayViewController.h"
+#import "SubAlertView.h"
+#import "PayViewController.h"
 //#import "UILabel+Utils.h"
 #import "WordSearchListVC.h"
 //#import <StoreKit/StoreKit.h>
-@interface ModuleListVC ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate/*,SubAlertViewDelegate,SKPaymentTransactionObserver,SKProductsRequestDelegate*/>
+@interface ModuleListVC ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,SubAlertViewDelegate/*,,SKPaymentTransactionObserver,SKProductsRequestDelegate*/>
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) NSArray *moduleList;
 @property (copy,nonatomic) NSString *unitId;
 @property (strong,nonatomic) JCAlertView *alertView;
-@property (weak, nonatomic) IBOutlet UIButton *subAllButton;
+@property (weak,nonatomic) IBOutlet NSLayoutConstraint *tableBottomSpace;
+@property (strong,nonatomic) UIView *bottomBgView;
 @property (copy,nonatomic) NSString *inviteCount;
 @property (copy,nonatomic) NSString *payPrice;
 @property (assign,nonatomic) NSInteger wordNum;
@@ -34,7 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWordSubStatus) name:@"updateWordSubStatus" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWordSubStatus) name:@"updateWordSubStatus" object:nil];
     [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
     [_tableView registerNib:[UINib nibWithNibName:@"ModuleCell" bundle:nil] forCellReuseIdentifier:@"ModuleCell"];
     [YHHud showWithStatus];
@@ -58,6 +59,30 @@
 //            }else{
 //                _subAllButton.alpha = 0;
 //            }
+            if ([_payType isEqualToString:@"1"]) {
+                _tableBottomSpace.constant = 0;
+            }else{
+                _tableBottomSpace.constant = 65;
+                _bottomBgView = [UIView new];
+                _bottomBgView.backgroundColor = [UIColor whiteColor];
+                [self.view addSubview:_bottomBgView];
+                [_bottomBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.right.bottom.equalTo(self.view);
+                    make.height.mas_equalTo(@65);
+                }];
+                UIButton *subAllButton = [UIButton buttonWithType:UIButtonTypeSystem];
+                [subAllButton setTitle:[NSString stringWithFormat:@"订阅%@",_gradeName] forState:UIControlStateNormal];
+                [subAllButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                subAllButton.backgroundColor = ORANGERED;
+                subAllButton.layer.masksToBounds = YES;
+                subAllButton.layer.cornerRadius = 3.0f;
+                subAllButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+                [subAllButton addTarget:self action:@selector(subAllClick:) forControlEvents:UIControlEventTouchUpInside];
+                [_bottomBgView addSubview:subAllButton];
+                [subAllButton mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.edges.equalTo(_bottomBgView).with.insets(UIEdgeInsetsMake(10, 10, 10, 10));
+                }];
+            }
         }else{
             NSLog(@"%@",json[@"code"]);
             [YHHud showWithMessage:json[@"message"]];
@@ -97,10 +122,11 @@
         }
     }
 }
-//- (void)updateWordSubStatus{
-//    _subAllButton.alpha = 0;
-//    _payType = @"1";
-//}
+- (void)updateWordSubStatus{
+    [_bottomBgView removeFromSuperview];
+    _tableBottomSpace.constant = 0;
+    _payType = @"1";
+}
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -141,59 +167,59 @@
         wordSubedList.classId = _classId;
         wordSubedList.unitId = _unitId;
         wordSubedList.wordNum = _wordNum;
+    }else if ([segue.identifier isEqualToString:@"courseToPay"]){
+        PayViewController *payVC = segue.destinationViewController;
+        payVC.classId = _classId;
+        payVC.subType = SubTypeWord;
+        payVC.inviteCount = _inviteCount;
+        payVC.preferentialPrice = _preferentialPrice;
+        payVC.payPrice = _payPrice;
     }
-//    else if ([segue.identifier isEqualToString:@"toPayViewController"]){
-//        PayViewController *payVC = segue.destinationViewController;
-//        payVC.classId = _classId;
-//        payVC.inviteCount = _inviteCount;
-//        payVC.preferentialPrice = _preferentialPrice;
-//        payVC.payPrice = _payPrice;
-//        payVC.subType = SubTypeWord;
-//        [YHSingleton shareSingleton].subType = SubTypeWord;
-//    }
 }
-//- (IBAction)subAllWordBtnClick:(UIButton *)sender {
-//    SubAlertView *subAlertView = [[SubAlertView alloc] initWithNib];
-//    [subAlertView setTitle:_gradeName discountPrice:_preferentialPrice fullPrice:_full_price subType:SubTypeWord];
-//    subAlertView.delegate = self;
-//    _alertView = [[JCAlertView alloc] initWithCustomView:subAlertView dismissWhenTouchedBackground:NO];
-//    [_alertView show];
-//}
-//#pragma mark 继续订阅
-//- (void)continueSubClick{
-//    [_alertView dismissWithCompletion:^{
-////        {
-////            "userPhone":"******"    #用户手机号
-////            "token":"****"          #登陆凭证
-////            "objectId":"****"       #目标id
-////            "payType":"***"         #支付类型 1：记忆法  0：单词课本
-////        }
-//        [YHHud showWithStatus];
-//        NSDictionary *jsonDic = @{
-//            @"userPhone":self.phoneNum,  //  #用户手机号
-//            @"payType" :@"0",         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
-//            @"objectId":_classId,       //  #目标id
-//            @"token":self.token       //   #登陆凭证
-//        };
-//        [YHWebRequest YHWebRequestForPOST:kOrderPrice parameters:jsonDic success:^(NSDictionary *json) {
-//            [YHHud dismiss];
-//            if ([json[@"code"] integerValue] == 200) {
-//                NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-////                _inviteCount = [NSString stringWithFormat:@"%@",dataDic[@"inviteNum"]];
-//                NSInteger payPrice = [dataDic[@"discountPrice"] integerValue];
-//                NSString *productId = [NSString stringWithFormat:@"%@_%zd",_classId,payPrice];
-//                [self validateIsCanBought:productId];
-//            }else{
-//                [YHHud dismiss];
-//                NSLog(@"%@",json[@"code"]);
-//                [YHHud showWithMessage:json[@"message"]];
-//            }
-//        } failure:^(NSError * _Nonnull error) {
-//            [YHHud dismiss];
-//            NSLog(@"%@",error);
-//        }];
-//    }];
-//}
+- (void)subAllClick:(id)sender {
+    SubAlertView *subAlertView = [[SubAlertView alloc] initWithNib];
+    [subAlertView setTitle:_gradeName discountPrice:_preferentialPrice fullPrice:_full_price subType:SubTypeWord];
+    subAlertView.delegate = self;
+    _alertView = [[JCAlertView alloc] initWithCustomView:subAlertView dismissWhenTouchedBackground:NO];
+    [_alertView show];
+}
+#pragma mark 继续订阅
+- (void)continueSubClick{
+    [_alertView dismissWithCompletion:^{
+//        {
+//            "userPhone":"******"    #用户手机号
+//            "token":"****"          #登陆凭证
+//            "objectId":"****"       #目标id
+//            "payType":"***"         #支付类型 1：记忆法  0：单词课本
+//        }
+        [YHHud showWithStatus];
+        NSDictionary *jsonDic = @{
+            @"userPhone":self.phoneNum,  //  #用户手机号
+            @"payType" :@"0",         //   #购买类型 0：K12课程单词购买 1：记忆法课程购买
+            @"objectId":_classId,       //  #目标id
+            @"token":self.token       //   #登陆凭证
+        };
+        [YHWebRequest YHWebRequestForPOST:kOrderPrice parameters:jsonDic success:^(NSDictionary *json) {
+            [YHHud dismiss];
+            if ([json[@"code"] integerValue] == 200) {
+                NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
+                _inviteCount = [NSString stringWithFormat:@"%@",dataDic[@"inviteNum"]];
+                NSInteger discountPrice = [dataDic[@"discountPrice"] integerValue];
+                NSInteger price = [dataDic[@"price"] integerValue];
+                _preferentialPrice =[NSString stringWithFormat:@"%zd学习豆",price - discountPrice];
+                _payPrice = [NSString stringWithFormat:@"%zd学习豆",discountPrice];
+                [self performSegueWithIdentifier:@"courseToPay" sender:self];
+            }else{
+                [YHHud dismiss];
+                NSLog(@"%@",json[@"code"]);
+                [YHHud showWithMessage:json[@"message"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            [YHHud dismiss];
+            NSLog(@"%@",error);
+        }];
+    }];
+}
 
 //--------------------------------------------内购开始-------------------------------------------------------
 

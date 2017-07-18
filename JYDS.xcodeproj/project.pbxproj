@@ -88,6 +88,8 @@
 		608851901E9DDC63004C107E /* MemoryComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6088518F1E9DDC63004C107E /* MemoryComment.m */; };
 		608851931E9E0A9F004C107E /* YHMonitorKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 608851921E9E0A9F004C107E /* YHMonitorKeyboard.m */; };
 		608894271EAA352E00C9D435 /* UseMethodVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 608894261EAA352E00C9D435 /* UseMethodVC.m */; };
+		608E32361F0F5D820055FCDE /* libUMessage_Sdk_1.5.0a.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 608E32341F0F5D820055FCDE /* libUMessage_Sdk_1.5.0a.a */; };
+		608E32381F0F5E0D0055FCDE /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 608E32371F0F5E0D0055FCDE /* UserNotifications.framework */; };
 		609D6D521E17782D000BCD65 /* BaseNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 609D6D511E17782D000BCD65 /* BaseNavViewController.m */; };
 		609F05DF1E161D1A009F4986 /* ForgetPwdVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F05DA1E161D1A009F4986 /* ForgetPwdVC.m */; };
 		609F05E01E161D1A009F4986 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F05DC1E161D1A009F4986 /* LoginVC.m */; };
@@ -115,6 +117,8 @@
 		60C71A1F1EA5E2C400164BE3 /* MyPointsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C71A1E1EA5E2C400164BE3 /* MyPointsVC.m */; };
 		60C71A231EA5EA2E00164BE3 /* MyPointsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C71A211EA5EA2E00164BE3 /* MyPointsCell.m */; };
 		60C71A241EA5EA2E00164BE3 /* MyPointsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60C71A221EA5EA2E00164BE3 /* MyPointsCell.xib */; };
+		60CB1B741F18A83F005FC1E0 /* BeanPayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB1B731F18A83F005FC1E0 /* BeanPayVC.m */; };
+		60CB1B771F18AA3F005FC1E0 /* BeanPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB1B761F18AA3F005FC1E0 /* BeanPayView.m */; };
 		60D8AFBC1EFE7A33000D90EC /* SetCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D8AFBA1EFE7A33000D90EC /* SetCell1.m */; };
 		60D8AFBD1EFE7A33000D90EC /* SetCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60D8AFBB1EFE7A33000D90EC /* SetCell1.xib */; };
 		60E514EE1EA49101007CB096 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E514ED1EA49101007CB096 /* Message.m */; };
@@ -322,6 +326,10 @@
 		608851921E9E0A9F004C107E /* YHMonitorKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHMonitorKeyboard.m; sourceTree = "<group>"; };
 		608894251EAA352E00C9D435 /* UseMethodVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UseMethodVC.h; sourceTree = "<group>"; };
 		608894261EAA352E00C9D435 /* UseMethodVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UseMethodVC.m; sourceTree = "<group>"; };
+		608E32341F0F5D820055FCDE /* libUMessage_Sdk_1.5.0a.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.5.0a.a; sourceTree = "<group>"; };
+		608E32351F0F5D820055FCDE /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
+		608E32371F0F5E0D0055FCDE /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		608E32391F0F5E340055FCDE /* JYDS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = JYDS.entitlements; path = JYDS/JYDS.entitlements; sourceTree = SOURCE_ROOT; };
 		609D6D501E17782D000BCD65 /* BaseNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavViewController.h; sourceTree = "<group>"; };
 		609D6D511E17782D000BCD65 /* BaseNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavViewController.m; sourceTree = "<group>"; };
 		609F05D91E161D1A009F4986 /* ForgetPwdVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPwdVC.h; sourceTree = "<group>"; };
@@ -372,6 +380,10 @@
 		60C71A201EA5EA2E00164BE3 /* MyPointsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPointsCell.h; sourceTree = "<group>"; };
 		60C71A211EA5EA2E00164BE3 /* MyPointsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPointsCell.m; sourceTree = "<group>"; };
 		60C71A221EA5EA2E00164BE3 /* MyPointsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyPointsCell.xib; sourceTree = "<group>"; };
+		60CB1B721F18A83F005FC1E0 /* BeanPayVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeanPayVC.h; sourceTree = "<group>"; };
+		60CB1B731F18A83F005FC1E0 /* BeanPayVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeanPayVC.m; sourceTree = "<group>"; };
+		60CB1B751F18AA3F005FC1E0 /* BeanPayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeanPayView.h; sourceTree = "<group>"; };
+		60CB1B761F18AA3F005FC1E0 /* BeanPayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeanPayView.m; sourceTree = "<group>"; };
 		60D8AFB91EFE7A33000D90EC /* SetCell1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetCell1.h; sourceTree = "<group>"; };
 		60D8AFBA1EFE7A33000D90EC /* SetCell1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetCell1.m; sourceTree = "<group>"; };
 		60D8AFBB1EFE7A33000D90EC /* SetCell1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetCell1.xib; sourceTree = "<group>"; };
@@ -480,6 +492,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				608E32381F0F5E0D0055FCDE /* UserNotifications.framework in Frameworks */,
 				60557ACA1EA099CB0018D761 /* AudioToolbox.framework in Frameworks */,
 				60557AC81EA099650018D761 /* AVFoundation.framework in Frameworks */,
 				60557AC61EA098EA0018D761 /* iflyMSC.framework in Frameworks */,
@@ -491,6 +504,7 @@
 				60FF516D1E0A5F1200DA6693 /* CoreText.framework in Frameworks */,
 				60FF516B1E0A5F0700DA6693 /* QuartzCore.framework in Frameworks */,
 				60FF51691E0A5EFD00DA6693 /* CoreTelephony.framework in Frameworks */,
+				608E32361F0F5D820055FCDE /* libUMessage_Sdk_1.5.0a.a in Frameworks */,
 				60FF51631E0A5EA900DA6693 /* SystemConfiguration.framework in Frameworks */,
 				60FF51611E0A5E8C00DA6693 /* libz.tbd in Frameworks */,
 				60FF515F1E0A5E3B00DA6693 /* libc++.tbd in Frameworks */,
@@ -755,6 +769,7 @@
 				60402E441E850FD000B1AD91 /* model */,
 				60402E451E850FD000B1AD91 /* view */,
 				60A5C7991E8B6771007D2366 /* 个人信息 */,
+				60CB1B711F18A7FE005FC1E0 /* 学习豆充值 */,
 				60C71A1C1EA5E2A600164BE3 /* 积分 */,
 				60A5C7BD1E8B8970007D2366 /* 我的订阅 */,
 				60A5C79D1E8B786B007D2366 /* 我的收藏 */,
@@ -841,6 +856,16 @@
 			);
 			name = Tools;
 			path = JYDS/Tools;
+			sourceTree = SOURCE_ROOT;
+		};
+		608E32331F0F5D820055FCDE /* UMessage_Sdk_1.5.0a */ = {
+			isa = PBXGroup;
+			children = (
+				608E32341F0F5D820055FCDE /* libUMessage_Sdk_1.5.0a.a */,
+				608E32351F0F5D820055FCDE /* UMessage.h */,
+			);
+			name = UMessage_Sdk_1.5.0a;
+			path = JYDS/UMessage_Sdk_1.5.0a;
 			sourceTree = SOURCE_ROOT;
 		};
 		609F06011E162057009F4986 /* 关于我们 */ = {
@@ -995,6 +1020,17 @@
 				60C71A221EA5EA2E00164BE3 /* MyPointsCell.xib */,
 			);
 			path = "积分";
+			sourceTree = "<group>";
+		};
+		60CB1B711F18A7FE005FC1E0 /* 学习豆充值 */ = {
+			isa = PBXGroup;
+			children = (
+				60CB1B721F18A83F005FC1E0 /* BeanPayVC.h */,
+				60CB1B731F18A83F005FC1E0 /* BeanPayVC.m */,
+				60CB1B751F18AA3F005FC1E0 /* BeanPayView.h */,
+				60CB1B761F18AA3F005FC1E0 /* BeanPayView.m */,
+			);
+			path = "学习豆充值";
 			sourceTree = "<group>";
 		};
 		60E514EB1EA490F0007CB096 /* model */ = {
@@ -1152,6 +1188,7 @@
 		69B129E31DE2C6490093D841 /* JYDS */ = {
 			isa = PBXGroup;
 			children = (
+				608E32331F0F5D820055FCDE /* UMessage_Sdk_1.5.0a */,
 				60B1F9AE1EEA4434001E04D3 /* DES */,
 				6078D1AC1E1613180089D40F /* Root */,
 				6078D19A1E1613180089D40F /* Base */,
@@ -1162,6 +1199,7 @@
 				6078D1011E1613180089D40F /* 我的 */,
 				6078D1A11E1613180089D40F /* Base.lproj */,
 				6078D1A61E1613180089D40F /* Info.plist */,
+				608E32391F0F5E340055FCDE /* JYDS.entitlements */,
 				606F12D31E6EB49A00875F1B /* ca.cer */,
 				6078D1A71E1613180089D40F /* main.m */,
 				603A42D51E83F71300134150 /* Assets.xcassets */,
@@ -1183,6 +1221,7 @@
 		D4104350F4A5C3154590EC1A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				608E32371F0F5E0D0055FCDE /* UserNotifications.framework */,
 				606E20141ECE957C00FDBCFD /* StoreKit.framework */,
 				60557AC91EA099CB0018D761 /* AudioToolbox.framework */,
 				60557AC71EA099650018D761 /* AVFoundation.framework */,
@@ -1238,12 +1277,15 @@
 					69B129E01DE2C6490093D841 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = QPA82R6FFY;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplePay = {
 								enabled = 0;
 							};
 							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+							com.apple.Push = {
 								enabled = 0;
 							};
 						};
@@ -1411,6 +1453,7 @@
 				60FC84AA1EAEF75100A62A1A /* BaseCell.m in Sources */,
 				60A5C7A51E8B7C95007D2366 /* MyCollectVC.m in Sources */,
 				60F4C34F1EAD8F06002FC840 /* GradeVC.m in Sources */,
+				60CB1B771F18AA3F005FC1E0 /* BeanPayView.m in Sources */,
 				602AD5761EB8335000C9A549 /* MemorySeriesVideoListVC.m in Sources */,
 				602BDD411E83697700C6CB92 /* MemoryCell.m in Sources */,
 				60F4C3691EAD8F07002FC840 /* SubedCell.m in Sources */,
@@ -1451,6 +1494,7 @@
 				60F4C3601EAD8F07002FC840 /* NotSubCell.m in Sources */,
 				60F4C35E1EAD8F07002FC840 /* ModuleCell.m in Sources */,
 				60F4C36A1EAD8F07002FC840 /* SureSubView.m in Sources */,
+				60CB1B741F18A83F005FC1E0 /* BeanPayVC.m in Sources */,
 				60A5C7BB1E8B8238007D2366 /* CollectHeadCell.m in Sources */,
 				6078D2091E1613180089D40F /* UserGuideViewController.m in Sources */,
 				6078D2031E1613180089D40F /* main.m in Sources */,
@@ -1532,6 +1576,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = JYDS/JYDS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
 				COPY_PHASE_STRIP = NO;
@@ -1553,8 +1598,8 @@
 					"-Objc",
 					"-all_load",
 				);
-				PROVISIONING_PROFILE = "46f727d9-b763-4ae8-86f5-1d4b6502edc5";
-				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution_5_10";
+				PROVISIONING_PROFILE = "62ba4910-904b-432d-ac8f-7966c6824f55";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -1569,8 +1614,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
-				DEVELOPMENT_TEAM = QPA82R6FFY;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1599,6 +1644,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)",
+					"$(PROJECT_DIR)/JYDS/UMessage_Sdk_1.5.0a",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1661,8 +1707,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d3556e0a-2172-4b12-b903-d5d50e59222c";
-				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution_5_10";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -1692,6 +1738,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = JYDS/JYDS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
 				COPY_PHASE_STRIP = NO;
@@ -1720,8 +1767,8 @@
 					"-Objc",
 					"-all_load",
 				);
-				PROVISIONING_PROFILE = "46f727d9-b763-4ae8-86f5-1d4b6502edc5";
-				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution_5_10";
+				PROVISIONING_PROFILE = "62ba4910-904b-432d-ac8f-7966c6824f55";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
@@ -1749,6 +1796,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = JYDS/JYDS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
 				COPY_PHASE_STRIP = NO;
@@ -1770,8 +1818,8 @@
 					"-Objc",
 					"-all_load",
 				);
-				PROVISIONING_PROFILE = "46f727d9-b763-4ae8-86f5-1d4b6502edc5";
-				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution_5_10";
+				PROVISIONING_PROFILE = "62ba4910-904b-432d-ac8f-7966c6824f55";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -1786,8 +1834,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
-				DEVELOPMENT_TEAM = QPA82R6FFY;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1816,6 +1864,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)",
+					"$(PROJECT_DIR)/JYDS/UMessage_Sdk_1.5.0a",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1878,8 +1927,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d3556e0a-2172-4b12-b903-d5d50e59222c";
-				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution_5_10";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -1895,8 +1944,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Randian Electronic Technology Co., Ltd. (QPA82R6FFY)";
-				DEVELOPMENT_TEAM = QPA82R6FFY;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1925,6 +1974,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)",
+					"$(PROJECT_DIR)/JYDS/UMessage_Sdk_1.5.0a",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1987,8 +2037,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.randian.JYDSIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d3556e0a-2172-4b12-b903-d5d50e59222c";
-				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution_5_10";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";

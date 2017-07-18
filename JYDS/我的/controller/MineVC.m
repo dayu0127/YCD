@@ -20,7 +20,8 @@
 @property (strong,nonatomic) NSArray *arr1;
 @property (strong,nonatomic) NSArray *arr2;
 @property (strong,nonatomic) LoggedInHeaderView *logged;
-@property (strong,nonatomic) TopCell *cell;
+@property (strong,nonatomic) TopCell *cell;//我的学习豆cell
+@property (strong,nonatomic) MineCell *cell1;//我的积分cell
 @end
 
 @implementation MineVC
@@ -39,7 +40,8 @@
         [YHWebRequest YHWebRequestForPOST:kGetUser parameters:jsonDic success:^(NSDictionary *json) {
             if ([json[@"code"] integerValue] == 200) {
                 NSDictionary *jsonDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-                _cell.pointsLabel.text = [NSString stringWithFormat:@"%@",jsonDic[@"user"][@"points"]];
+                _cell.pointsLabel.text = [NSString stringWithFormat:@"%@",jsonDic[@"user"][@"stuBean"]];
+                _cell1.pointLabel.text = [NSString stringWithFormat:@"%@",jsonDic[@"user"][@"points"]];
             }else{
                 NSLog(@"%@",json[@"code"]);
                 [YHHud showWithMessage:json[@"message"]];
@@ -84,7 +86,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section==0) {
-        return 1;
+        return 2;
     }else if (section==1){
         return 3;
     }else{
@@ -95,7 +97,7 @@
     return section==0? 0.000001: 10;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section==0) {
+    if (indexPath.section==0&&indexPath.row ==0) {
         return 38;
     }else if (indexPath.section==3&&indexPath.row ==1){
         return 75;
@@ -115,11 +117,19 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section ==0) { //积分
-        _cell = [tableView dequeueReusableCellWithIdentifier:@"TopCell" forIndexPath:indexPath];
-        _cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return _cell;
-    }else if (indexPath.section==1){  //
+    if (indexPath.section ==0) {
+        if (indexPath.row == 0 ) {//学习豆
+            _cell = [tableView dequeueReusableCellWithIdentifier:@"TopCell" forIndexPath:indexPath];
+            _cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return _cell;
+        }else{//积分
+            _cell1 = [tableView dequeueReusableCellWithIdentifier:@"MineCell" forIndexPath:indexPath];
+            _cell1.img.image = [UIImage imageNamed:@"mine_points"];
+            _cell1.tile.text = @"我的积分";
+            _cell1.pointLabel.alpha = 1;
+            return _cell1;
+        }
+    }else if (indexPath.section==1){  
         MineCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineCell" forIndexPath:indexPath];
         cell.img.image = [UIImage imageNamed:_arr1[indexPath.row][@"img"]];
         cell.tile.text = _arr1[indexPath.row][@"title"];
@@ -176,7 +186,11 @@
         }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
             [self returnToBingingPhone];
         }else{
-            [self performSegueWithIdentifier:@"toMyPoints" sender:self];
+            if (indexPath.row == 0) {
+                [self performSegueWithIdentifier:@"toMyBeans" sender:self];
+            }else{
+                [self performSegueWithIdentifier:@"toMyPoints" sender:self];
+            }
         }
     }else if (indexPath.section == 1) {
         if (indexPath.row == 0) {//我的订阅

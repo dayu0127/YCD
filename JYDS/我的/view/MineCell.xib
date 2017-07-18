@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="41"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="40.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="41"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mine_collect" translatesAutoresizingMaskIntoConstraints="NO" id="fHG-Yu-Xz7">
@@ -39,18 +39,27 @@
                             <constraint firstAttribute="height" constant="12.5" id="aoV-73-rAq"/>
                         </constraints>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6r9-js-ieo">
+                        <rect key="frame" x="343" y="11.5" width="8.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="fHG-Yu-Xz7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="3vz-n0-eGa"/>
                     <constraint firstItem="PLv-uh-ma7" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="UDC-Rf-nPz"/>
                     <constraint firstItem="pq5-vx-x4r" firstAttribute="leading" secondItem="fHG-Yu-Xz7" secondAttribute="trailing" constant="9" id="VGH-Hg-9ot"/>
                     <constraint firstAttribute="trailingMargin" secondItem="PLv-uh-ma7" secondAttribute="trailing" constant="2" id="YRh-Te-yPV"/>
+                    <constraint firstItem="PLv-uh-ma7" firstAttribute="leading" secondItem="6r9-js-ieo" secondAttribute="trailing" constant="6" id="eWA-xq-qaw"/>
+                    <constraint firstItem="6r9-js-ieo" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="qL5-lN-7mc"/>
                     <constraint firstItem="fHG-Yu-Xz7" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="rtM-BQ-8Po"/>
                     <constraint firstItem="pq5-vx-x4r" firstAttribute="centerY" secondItem="fHG-Yu-Xz7" secondAttribute="centerY" id="xeS-21-wHW"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="img" destination="fHG-Yu-Xz7" id="pNF-4k-TWZ"/>
+                <outlet property="pointLabel" destination="6r9-js-ieo" id="yEB-hT-sUt"/>
                 <outlet property="tile" destination="pq5-vx-x4r" id="FIx-Rg-cPZ"/>
             </connections>
             <point key="canvasLocation" x="24.5" y="51.5"/>
