@@ -88,8 +88,12 @@
           @"token": self.token,          //      #用户登陆凭证
           @"lessonId": _lessonId, // #记忆法系列ID
           @"pageIndex":[NSString stringWithFormat:@"%zd",pageIndex],         //    #页数
-          @"type":_type    // #查询类型 0所有 1已订阅
     };
+    if (_isQueryAllSub == YES) {
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:jsonDic];
+        [dic  setObject:@"0" forKey:@"type"];
+        jsonDic = [NSDictionary dictionaryWithDictionary:dic];
+    }
     [YHWebRequest YHWebRequestForPOST:kMemoryList parameters:jsonDic success:^(NSDictionary *json) {
         if (status==UITableViewRefreshStatusAnimation) {
             [YHHud dismiss];

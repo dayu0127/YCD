@@ -125,7 +125,9 @@
 }
 #pragma mark 邀请分享按钮点击事件
 - (void)inviteShareClick:(UIButton *)sender {
-    if ([WXApi isWXAppInstalled]==NO&&[QQApiInterface isQQInstalled]==NO&&[WeiboSDK isWeiboAppInstalled]==NO) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isVisitor"] == YES) {
+        [YHHud showWithMessage:@"游客登录不支持该功能"];
+    }else if ([WXApi isWXAppInstalled]==NO&&[QQApiInterface isQQInstalled]==NO&&[WeiboSDK isWeiboAppInstalled]==NO) {
         [YHHud showWithMessage:@"分享失败"];
     }else{
         NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];

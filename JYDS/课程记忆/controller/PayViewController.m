@@ -174,8 +174,8 @@
     [alertVC addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSDictionary *jsonDic = [self getJsonDic];
         [YHWebRequest YHWebRequestForPOST:kStuBeanPay parameters:jsonDic success:^(NSDictionary *json) {
-            _isShowCancelOrderAlert = NO;
             if ([json[@"code"] integerValue] == 200) {
+                _isShowCancelOrderAlert = NO;
                 //刷新订阅状态
                 if (_subType == SubTypeWord) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateWordSubStatus" object:nil];
@@ -189,8 +189,10 @@
                 });
             }else if ([json[@"code"] integerValue] == 106){
                 [YHHud showWithMessage:json[@"message"]];
+                _isShowCancelOrderAlert = YES;
             }else{
                 [YHHud showPaySuccessOrFailed:@"failed"];
+                _isShowCancelOrderAlert = YES;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [YHHud dismiss];
                 });

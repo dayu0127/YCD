@@ -161,6 +161,7 @@
 //        }];
 //    }];
 }
+
 - (void)gotoCourseMemoryClick{
     [self performSegueWithIdentifier:@"memoryDetailToGradeList" sender:self];
 }

@@ -251,6 +251,7 @@
     }else{
         _associateCell = [tableView dequeueReusableCellWithIdentifier:@"WordDetailCell" forIndexPath:indexPath];
         _associateCell.img.image = [UIImage imageNamed:@"course_lian"];
+        _associateCell.titleLabel.text = @"联想";
         _associateCell.splitOrAssociateLabel.attributedText = [self setColorForString:_word.associate];
         return _associateCell;
     }

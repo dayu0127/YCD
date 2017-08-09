@@ -12,6 +12,7 @@
 #import <AVFoundation/AVMediaFormat.h>
 #import<AssetsLibrary/AssetsLibrary.h>
 #import<CoreLocation/CoreLocation.h>
+#import <Photos/Photos.h>
 @interface UserInfoTVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *headImageButton;
 @property (strong,nonatomic) UIAlertController *alertVC;
@@ -61,8 +62,8 @@
     _alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *manAction = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //相册权限(上线开启注释)
-        ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
-        if (author ==kCLAuthorizationStatusRestricted || author ==kCLAuthorizationStatusDenied){
+        PHAuthorizationStatus author = [PHPhotoLibrary authorizationStatus];
+        if (author == PHAuthorizationStatusRestricted || author == PHAuthorizationStatusDenied){
             //无权限 引导去开启
             NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
             if ([[UIApplication sharedApplication] canOpenURL:url]) {

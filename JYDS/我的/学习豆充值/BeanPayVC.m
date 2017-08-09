@@ -9,6 +9,7 @@
 #import "BeanPayVC.h"
 #import "BeanPayView.h"
 #import <StoreKit/StoreKit.h>
+#import "BaseWKWebView.h"
 #import "BaseNavViewController.h"
 @interface BeanPayVC ()<BeanPayViewDelegate,SKPaymentTransactionObserver,SKProductsRequestDelegate>
 @property (weak,nonatomic) IBOutlet NSLayoutConstraint *topSpace;
@@ -209,7 +210,8 @@
 }
 //--------------------------------------------内购结束-------------------------------------------------------
 - (IBAction)toOfficialWebsite:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.jydsapp.com"]];
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.jydsapp.com"]];
+    
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];

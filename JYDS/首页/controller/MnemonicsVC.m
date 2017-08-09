@@ -122,21 +122,23 @@
 }
 #pragma mark 轮播图点击
 - (void)bannerClick:(NSInteger)index{
-    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
-    if (token == nil && userInfo == nil) {
-        [self returnToLogin];
-    }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
-        [self returnToBingingPhone];
-    }else{
-        BaseNavViewController *bannerVC = [[BaseNavViewController alloc] init];
-        if (![_bannerInfoArray[index][@"content"] isEqualToString:@"#"]) {
-            bannerVC.linkUrl = _bannerInfoArray[index][@"content"];
-            bannerVC.shareUrl = _bannerInfoArray[index][@"content"];
-            bannerVC.navTitle = @"返回";
-            bannerVC.isShowShareBtn = YES;
-            bannerVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:bannerVC animated:YES];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isVisitor"] == NO) {
+        NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+        NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+        if (token == nil && userInfo == nil) {
+            [self returnToLogin];
+        }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
+            [self returnToBingingPhone];
+        }else{
+            BaseNavViewController *bannerVC = [[BaseNavViewController alloc] init];
+            if (![_bannerInfoArray[index][@"content"] isEqualToString:@"#"]) {
+                bannerVC.linkUrl = _bannerInfoArray[index][@"content"];
+                bannerVC.shareUrl = _bannerInfoArray[index][@"content"];
+                bannerVC.navTitle = @"返回";
+                bannerVC.isShowShareBtn = YES;
+                bannerVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:bannerVC animated:YES];
+            }
         }
     }
 }
@@ -218,14 +220,18 @@
 }
 #pragma mark 邀请好友
 - (void)pushToInvitation{
-    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
-    if (token == nil && userInfo == nil) {
-        [self returnToLogin];
-    }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
-        [self returnToBingingPhone];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isVisitor"] == NO) {
+        NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+        NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+        if (token == nil && userInfo == nil) {
+            [self returnToLogin];
+        }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
+            [self returnToBingingPhone];
+        }else{
+            [self performSegueWithIdentifier:@"homeToInviteRewards" sender:self];
+        }
     }else{
-        [self performSegueWithIdentifier:@"homeToInviteRewards" sender:self];
+        [YHHud showWithMessage:@"游客登录不支持该功能"];
     }
 }
 #pragma mark 课程记忆
@@ -284,7 +290,7 @@
         seriesVC.lessonId = _memory.memoryId;
         seriesVC.lessonName = _memory.title;
         seriesVC.lessonPayType = _memory.payType;
-        seriesVC.type = @"0";
+        seriesVC.isQueryAllSub = NO;
     }else if ([segue.identifier isEqualToString:@"homeToGradeList"]){
         GradeVC *gradeVC = segue.destinationViewController;
         gradeVC.grade_type =@"1";

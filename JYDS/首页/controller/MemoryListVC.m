@@ -138,7 +138,7 @@
         seriesVC.lessonId = _memory.memoryId;
         seriesVC.lessonName = _memory.title;
         seriesVC.lessonPayType = _memory.payType;
-        seriesVC.type = @"0";
+        seriesVC.isQueryAllSub = NO;
     }
 }
 //- (void)reloadMemoryList{

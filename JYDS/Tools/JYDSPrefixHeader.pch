@@ -76,6 +76,7 @@
 //#define API(api) [NSString stringWithFormat:@"https://www.jydsapp.com/jydsApiNew/api/v2%@",api] //测试
 
 #define kRegister API(@"/login/register") //注册接口
+#define kVisitorLogin API(@"/login/touristLogin") //游客登录
 #define kPwdLogin API(@"/login/phonePasswordLogin") //用户手机密码登录
 #define kCodeLogin API(@"/login/phoneVerifyLogin") //用户手机验证码登录
 #define kQQLogin API(@"/login/qqLogin") //用户qq登录
@@ -142,9 +143,6 @@
 
 //UUID
 #define DEVICEID [[[UIDevice currentDevice] identifierForVendor] UUIDString]
-//签到详情
-//#define kSignIn(phoneNum) [NSString stringWithFormat:@"https://www.jydsapp.com/jydsApi/h5/sign.html?userPhone=%@",phoneNum]
-//#define kShareRegister(phoneNum) [NSString stringWithFormat:@"https://www.jydsapp.com/jydsApi/h5/register.html?userPhone=%@",phoneNum]
 //消息详情
 #define kMessageDetail @"https://www.jydsapp.com/jydsApi/h5/noticePage.html"
 //邀请奖励
@@ -157,7 +155,7 @@
 #define UseHelpUrl @"https://www.jydsapp.com/jydsApi/h5/help.html"
 #define UserAgreementUrl @"https://www.jydsapp.com/jydsApi/h5/agreement.html"
 //编码表
-#define kMemoryImages @"https://www.jydsapp.com/jydsApi/h5/image_memory.html"
+#define kMemoryImages @"http://www.jydsapp.com/jydsApi/h5/image_memory.html"
 //练习结果
 #define kExerciseResult @"https://www.jydsapp.com/jydsApi/h5/image_memory.html?para="
 //记忆法简介

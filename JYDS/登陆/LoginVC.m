@@ -36,13 +36,6 @@
 - (IBAction)codeLoginClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
-- (void)returnToHome{
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    RootTabBarController *rootTBC = [sb instantiateViewControllerWithIdentifier:@"root"];
-    [app.window setRootViewController:rootTBC];
-    [app.window makeKeyWindow];
-}
 - (IBAction)phoneEditingChanged:(UITextField *)sender {
     if (sender.text.length==0) {
         _loginButton.enabled = NO;
@@ -99,23 +92,9 @@
         [YHWebRequest YHWebRequestForPOST:kPwdLogin parameters:jsonDic success:^(NSDictionary *json) {
             [YHHud dismiss];
             if ([json[@"code"] integerValue] == 200) {
-                NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
-                //改变我的页面，显示头像,昵称和手机号
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
-                NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-                //保存token
-                [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"token"] forKey:@"token"];
-                //保存用户信息
-                [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
-                [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
-                //保存登录保存登录状态
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
-                //登录成功跳转首页
-                [YHHud showWithSuccess:@"登录成功"];
-//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                    [self returnToHome];
-//                });
-                [self getBannerInfo];
+                //非游客登录
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isVisitor"];
+                [self loginSuccess:json[@"data"]];
             }else{
                 NSLog(@"%@",json[@"code"]);
                 [YHHud showWithMessage:json[@"message"]];
@@ -132,233 +111,36 @@
         registerVC.delegate = self;
     }
 }
+#pragma mark 游客登录
+- (IBAction)visitorLogin:(id)sender {
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"重要提示" message:@"亲爱的用户，您选择了游客模式登录应用，由于该模式下的用户数据（包括付费数据）在删除应用、更换设备后将被清空！对此造成的损失，本公司将不承担任何责任！\n我们强烈建议您使用手机号登录应用" preferredStyle:UIAlertControllerStyleAlert];
+    [alertVC addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:nil]];
+    [alertVC addAction:[UIAlertAction actionWithTitle:@"继续游客登录" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSDictionary *jsonDic = @{@"deviceNum":DEVICEID};
+        
+        [YHWebRequest YHWebRequestForPOST:kVisitorLogin parameters:jsonDic success:^(NSDictionary *json) {
+            if ([json[@"code"] integerValue] == 200) {
+                //非游客登录
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isVisitor"];
+                [self loginSuccess:json[@"data"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+        }];
+    }]];
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
 - (void)autoFillUserName:(NSString *)userName{
     _phoneText.text = userName;
 }
 - (IBAction)qqLogin:(id)sender {
-    [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_QQ currentViewController:nil completion:^(id result, NSError *error) {
-        if (error) {
-            NSLog(@"%@",error);
-        } else {
-            UMSocialUserInfoResponse *resp = result;
-            
-            // 授权信息
-            NSLog(@"QQ uid: %@", resp.uid);
-            NSLog(@"QQ openid: %@", resp.openid);
-            NSLog(@"QQ accessToken: %@", resp.accessToken);
-            NSLog(@"QQ expiration: %@", resp.expiration);
-            
-            // 用户信息
-            NSLog(@"QQ name: %@", resp.name);
-            NSLog(@"QQ iconurl: %@", resp.iconurl);
-            NSLog(@"QQ gender: %@", resp.gender);
-            
-            // 第三方平台SDK源数据
-            NSLog(@"QQ originalResponse: %@", resp.originalResponse);
-            
-//            {
-//                "associatedQq":"dfdsfsdfsdf",   #第三方绑定的uid 唯一标识
-//                "country":"",                   #国家（选填）
-//                "province":"",                  #省市（选填）
-//                "city":"",                      #城市（选填）
-//                "genter":""                     #性别 1男 0女  （选填）
-//                "nickName":"Winner.z"           #昵称(选填)
-//            }
-            NSString *headImg = resp.iconurl;
-            NSMutableString *iconUrl = [NSMutableString stringWithString:resp.iconurl];
-            if (![[iconUrl substringToIndex:4] isEqualToString:@"https"]) {
-                [iconUrl replaceCharactersInRange:NSMakeRange(0, 4) withString:@"https"];
-                headImg = [NSString stringWithString:iconUrl];
-            }
-            NSDictionary *jsonDic = @{
-                @"associatedQq" :resp.uid,             // #第三方绑定的uid 唯一标识
-                @"headImg":headImg,        //           #头像url（选填）
-                @"nickName":resp.name        //         #昵称（选填）
-            };
-            [YHWebRequest YHWebRequestForPOST:kQQLogin parameters:jsonDic success:^(NSDictionary *json) {
-                NSLog(@"%@",json);
-                if ([json[@"code"] integerValue] == 200) {
-//                    NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
-                    //改变我的页面，显示头像,昵称和手机号
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
-                    NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-                    //保存token
-                    [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"token"] forKey:@"token"];
-                    //保存用户信息
-                    [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
-                    [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
-                    //保存登录类型
-                    [[NSUserDefaults standardUserDefaults] setObject:@"qq" forKey:@"loginType"];
-                    //改变登录状态
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
-                    [YHHud showWithSuccess:@"登录成功"];
-                    [self getBannerInfo];
-                }else{
-                    NSLog(@"%@",json[@"code"]);
-                    [YHHud showWithMessage:json[@"message"]];
-                }
-            } failure:^(NSError * _Nonnull error) {
-                NSLog(@"%@",error);
-            }];
-        }
-    }];
+    [self otherLogin:UMSocialPlatformType_QQ];
 }
 - (IBAction)weChatLogin:(id)sender {
-    [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:nil completion:^(id result, NSError *error) {
-        if (error) {
-            NSLog(@"%@",error);
-        } else {
-            UMSocialUserInfoResponse *resp = result;
-            
-            // 授权信息
-            NSLog(@"Wechat uid: %@", resp.uid);
-            NSLog(@"Wechat openid: %@", resp.openid);
-            NSLog(@"Wechat accessToken: %@", resp.accessToken);
-            NSLog(@"Wechat refreshToken: %@", resp.refreshToken);
-            NSLog(@"Wechat expiration: %@", resp.expiration);
-            
-            // 用户信息
-            NSLog(@"Wechat name: %@", resp.name);
-            NSLog(@"Wechat iconurl: %@", resp.iconurl);
-            NSLog(@"Wechat gender: %@", resp.gender);
-            
-            // 第三方平台SDK源数据
-            NSLog(@"Wechat originalResponse: %@", resp.originalResponse);
-            
-//            {
-//                "associatedWx":"dfdsfsdfsdf"    #第三方绑定的uid 唯一标识
-//                "country":"",                   #国家（选填）
-//                "province":"",                  #省市（选填）
-//                "city":"",                      #城市（选填）
-//                "genter":""                     #性别 1男 0女  （选填）
-//            }
-            //微信登录
-            NSString *headImg = resp.iconurl;
-            NSMutableString *iconUrl = [NSMutableString stringWithString:resp.iconurl];
-            if (![[iconUrl substringToIndex:4] isEqualToString:@"https"]) {
-                [iconUrl replaceCharactersInRange:NSMakeRange(0, 4) withString:@"https"];
-                headImg = [NSString stringWithString:iconUrl];
-            }
-            NSDictionary *jsonDic = @{
-                @"associatedWx" :resp.uid,             // #第三方绑定的uid 唯一标识
-                @"headImg":headImg,        //           #头像url（选填）
-                @"nickName":resp.name        //         #昵称（选填）
-            };
-            [YHWebRequest YHWebRequestForPOST:kWXLogin parameters:jsonDic success:^(NSDictionary *json) {
-                if ([json[@"code"] integerValue] == 200) {
-//                    NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
-                    //改变我的页面，显示头像,昵称和手机号
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
-                    NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-                    //保存token
-                    [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"token"] forKey:@"token"];
-                    //保存用户信息
-                    [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
-                    [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
-                    //保存登录类型
-                    [[NSUserDefaults standardUserDefaults] setObject:@"wx" forKey:@"loginType"];
-                    //改变登录状态
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
-                    [YHHud showWithSuccess:@"登录成功"];
-                    [self getBannerInfo];
-                }else{
-                    NSLog(@"%@",json[@"code"]);
-                    [YHHud showWithMessage:json[@"message"]];
-                }
-            } failure:^(NSError * _Nonnull error) {
-                NSLog(@"%@",error);
-            }];
-        }
-    }];
+    [self otherLogin:UMSocialPlatformType_WechatSession];
 }
 - (IBAction)sinaLogin:(id)sender {
-    [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_Sina currentViewController:nil completion:^(id result, NSError *error) {
-        if (error) {
-            NSLog(@"%@",error);
-        } else {
-            UMSocialUserInfoResponse *resp = result;
-            
-            // 授权信息
-            NSLog(@"Sina uid: %@", resp.uid);
-            NSLog(@"Sina accessToken: %@", resp.accessToken);
-            NSLog(@"Sina refreshToken: %@", resp.refreshToken);
-            NSLog(@"Sina expiration: %@", resp.expiration);
-            
-            // 用户信息
-            NSLog(@"Sina name: %@", resp.name);
-            NSLog(@"Sina iconurl: %@", resp.iconurl);
-            NSLog(@"Sina gender: %@", resp.gender);
-            
-            // 第三方平台SDK源数据
-            NSLog(@"Sina originalResponse: %@", resp.originalResponse);
-            
-//            {
-//                "associatedWx":"dfdsfsdfsdf"    #第三方绑定的uid 唯一标识
-//                "country":"",                   #国家（选填）
-//                "province":"",                  #省市（选填）
-//                "city":"",                      #城市（选填）
-//                "genter":""                     #性别 1男 0女  （选填）
-//            }
-            //新浪微博登录
-            NSString *headImg = resp.iconurl;
-            NSMutableString *iconUrl = [NSMutableString stringWithString:resp.iconurl];
-            if (![[iconUrl substringToIndex:4] isEqualToString:@"https"]) {
-                [iconUrl replaceCharactersInRange:NSMakeRange(0, 4) withString:@"https"];
-                headImg = [NSString stringWithString:iconUrl];
-            }
-            NSDictionary *jsonDic = @{
-                @"associatedWx" :resp.uid,             // #第三方绑定的uid 唯一标识
-                @"headImg":headImg,        //           #头像url（选填）
-                @"nickName":resp.name        //         #昵称（选填）
-            };
-            [YHWebRequest YHWebRequestForPOST:kWBLogin parameters:jsonDic success:^(NSDictionary *json) {
-                if ([json[@"code"] integerValue] == 200) {
-                    //                    NSLog(@"%@",[NSDictionary dictionaryWithJsonString:json[@"data"]]);
-                    //改变我的页面，显示头像,昵称和手机号
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeaderView" object:nil];
-                    NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-                    //保存token
-                    [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"token"] forKey:@"token"];
-                    //保存用户信息
-                    [[NSUserDefaults standardUserDefaults] setObject:dataDic[@"user"] forKey:@"userInfo"];
-                    [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:dataDic[@"user"]];
-                    //保存登录类型
-                    [[NSUserDefaults standardUserDefaults] setObject:@"wb" forKey:@"loginType"];
-                    //改变登录状态
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
-                    [YHHud showWithSuccess:@"登录成功"];
-                    [self getBannerInfo];
-                }else{
-                    NSLog(@"%@",json[@"code"]);
-                    [YHHud showWithMessage:json[@"message"]];
-                }
-            } failure:^(NSError * _Nonnull error) {
-                NSLog(@"%@",error);
-            }];
-        }
-    }];
-}
-- (void)getBannerInfo{
-    //获取首页内容
-    [YHSingleton shareSingleton].userInfo = [UserInfo yy_modelWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"]];
-    NSString *phoneNum = [YHSingleton shareSingleton].userInfo.phoneNum!=nil ? [YHSingleton shareSingleton].userInfo.phoneNum : @"";
-    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"]!=nil ? [[NSUserDefaults standardUserDefaults] objectForKey:@"token"] : @"";
-    NSDictionary *jsonDic = @{
-        @"userPhone":phoneNum,      //  #用户手机号
-        @"token":token        //    #用户登陆凭证
-    };
-    [YHWebRequest YHWebRequestForPOST:kBanner parameters:jsonDic success:^(NSDictionary *json) {
-        if ([json[@"code"] integerValue] == 200) {
-            NSDictionary *dataDic = [NSDictionary dictionaryWithJsonString:json[@"data"]];
-            [[NSUserDefaults standardUserDefaults] setObject:dataDic forKey:@"banner"];
-            [self returnToHome];
-        }else{
-            NSLog(@"%@",json[@"code"]);
-            [YHHud showWithMessage:json[@"message"]];
-        }
-    }failure:^(NSError * _Nonnull error) {
-        NSLog(@"%@",error);
-    }];
+    [self otherLogin:UMSocialPlatformType_Sina];
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];

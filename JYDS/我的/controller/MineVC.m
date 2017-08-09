@@ -50,6 +50,7 @@
             NSLog(@"%@",error);
         }];
     }
+    
 }
 
 - (void)viewDidLoad {
@@ -69,7 +70,12 @@
         [_logged.headImageButton sd_setImageWithURL:[NSURL URLWithString:headImageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"mine_headimage"]];
         _logged.delegate = self;
         _logged.nameLabel.text = [YHSingleton shareSingleton].userInfo.nickName;
-        _logged.phoneLabel.text = [YHSingleton shareSingleton].userInfo.phoneNum;
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isVisitor"] == NO) {
+            _logged.phoneLabel.alpha = 1;
+            _logged.phoneLabel.text = [YHSingleton shareSingleton].userInfo.phoneNum;
+        }else{
+            _logged.phoneLabel.alpha = 0;
+        }
         _tableView.tableHeaderView = _logged;
     }else{
         _tableView.tableHeaderView = [[NoLoginHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 187)];
@@ -210,12 +216,16 @@
                 [self performSegueWithIdentifier:@"toMyCollect" sender:self];
             }
         }else{//邀请奖励
-            if (token == nil && userInfo == nil) {
-                [self returnToLogin];
-            }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
-                [self returnToBingingPhone];
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isVisitor"] == NO) {
+                if (token == nil && userInfo == nil) {
+                    [self returnToLogin];
+                }else if (token ==nil&& (userInfo[@"associatedWx"] != nil || userInfo[@"associatedQq"] != nil || userInfo[@"associatedWb"] != nil)) {
+                    [self returnToBingingPhone];
+                }else{
+                    [self performSegueWithIdentifier:@"toInviteRewards" sender:self];
+                }
             }else{
-                [self performSegueWithIdentifier:@"toInviteRewards" sender:self];
+                [YHHud showWithMessage:@"游客登录不支持该功能"];
             }
         }
     }else if (indexPath.section == 2){

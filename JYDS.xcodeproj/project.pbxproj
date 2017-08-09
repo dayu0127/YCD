@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1A1EB556E63E28FFA4C24D83 /* libPods-JYDS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1303B7A5C1A41C70CD494C6C /* libPods-JYDS.a */; };
 		6002597A1E977F1700FA3991 /* YBPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 600259791E977F1700FA3991 /* YBPopupMenu.m */; };
+		600EF3A21F2F1AE00099FF4B /* GuanWangVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 600EF3A11F2F1AE00099FF4B /* GuanWangVC.m */; };
 		6010FF9A1E9128DB00071610 /* ExerciseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6010FF271E9128DB00071610 /* ExerciseView.m */; };
 		6010FF9B1E9128DB00071610 /* FailedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6010FF291E9128DB00071610 /* FailedView.m */; };
 		6010FF9C1E9128DB00071610 /* FailedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6010FF2A1E9128DB00071610 /* FailedView.xib */; };
@@ -91,6 +92,7 @@
 		608E32361F0F5D820055FCDE /* libUMessage_Sdk_1.5.0a.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 608E32341F0F5D820055FCDE /* libUMessage_Sdk_1.5.0a.a */; };
 		608E32381F0F5E0D0055FCDE /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 608E32371F0F5E0D0055FCDE /* UserNotifications.framework */; };
 		609D6D521E17782D000BCD65 /* BaseNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 609D6D511E17782D000BCD65 /* BaseNavViewController.m */; };
+		609E874D1F205C0200BC8B6D /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 609E874C1F205C0200BC8B6D /* Photos.framework */; };
 		609F05DF1E161D1A009F4986 /* ForgetPwdVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F05DA1E161D1A009F4986 /* ForgetPwdVC.m */; };
 		609F05E01E161D1A009F4986 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F05DC1E161D1A009F4986 /* LoginVC.m */; };
 		609F05E11E161D1A009F4986 /* RegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 609F05DE1E161D1A009F4986 /* RegisterVC.m */; };
@@ -187,6 +189,8 @@
 		1303B7A5C1A41C70CD494C6C /* libPods-JYDS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JYDS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		600259781E977F1700FA3991 /* YBPopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenu.h; sourceTree = "<group>"; };
 		600259791E977F1700FA3991 /* YBPopupMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPopupMenu.m; sourceTree = "<group>"; };
+		600EF3A01F2F1AE00099FF4B /* GuanWangVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuanWangVC.h; sourceTree = "<group>"; };
+		600EF3A11F2F1AE00099FF4B /* GuanWangVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuanWangVC.m; sourceTree = "<group>"; };
 		6010FF261E9128DB00071610 /* ExerciseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExerciseView.h; sourceTree = "<group>"; };
 		6010FF271E9128DB00071610 /* ExerciseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExerciseView.m; sourceTree = "<group>"; };
 		6010FF281E9128DB00071610 /* FailedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FailedView.h; sourceTree = "<group>"; };
@@ -332,6 +336,7 @@
 		608E32391F0F5E340055FCDE /* JYDS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = JYDS.entitlements; path = JYDS/JYDS.entitlements; sourceTree = SOURCE_ROOT; };
 		609D6D501E17782D000BCD65 /* BaseNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavViewController.h; sourceTree = "<group>"; };
 		609D6D511E17782D000BCD65 /* BaseNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavViewController.m; sourceTree = "<group>"; };
+		609E874C1F205C0200BC8B6D /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		609F05D91E161D1A009F4986 /* ForgetPwdVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPwdVC.h; sourceTree = "<group>"; };
 		609F05DA1E161D1A009F4986 /* ForgetPwdVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPwdVC.m; sourceTree = "<group>"; };
 		609F05DB1E161D1A009F4986 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
@@ -492,6 +497,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				609E874D1F205C0200BC8B6D /* Photos.framework in Frameworks */,
 				608E32381F0F5E0D0055FCDE /* UserNotifications.framework in Frameworks */,
 				60557ACA1EA099CB0018D761 /* AudioToolbox.framework in Frameworks */,
 				60557AC81EA099650018D761 /* AVFoundation.framework in Frameworks */,
@@ -1029,6 +1035,8 @@
 				60CB1B731F18A83F005FC1E0 /* BeanPayVC.m */,
 				60CB1B751F18AA3F005FC1E0 /* BeanPayView.h */,
 				60CB1B761F18AA3F005FC1E0 /* BeanPayView.m */,
+				600EF3A01F2F1AE00099FF4B /* GuanWangVC.h */,
+				600EF3A11F2F1AE00099FF4B /* GuanWangVC.m */,
 			);
 			path = "学习豆充值";
 			sourceTree = "<group>";
@@ -1221,6 +1229,7 @@
 		D4104350F4A5C3154590EC1A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				609E874C1F205C0200BC8B6D /* Photos.framework */,
 				608E32371F0F5E0D0055FCDE /* UserNotifications.framework */,
 				606E20141ECE957C00FDBCFD /* StoreKit.framework */,
 				60557AC91EA099CB0018D761 /* AudioToolbox.framework */,
@@ -1442,6 +1451,7 @@
 				6078D2071E1613180089D40F /* LoginNC.m in Sources */,
 				6010FFBE1E912B4400071610 /* SetCell0.m in Sources */,
 				6078D2261E161AF20089D40F /* YHWebRequest.m in Sources */,
+				600EF3A21F2F1AE00099FF4B /* GuanWangVC.m in Sources */,
 				6010FFA71E91295A00071610 /* MemoryExercisesVC.m in Sources */,
 				60F4C35C1EAD8F07002FC840 /* GradeCell.m in Sources */,
 				60E514EE1EA49101007CB096 /* Message.m in Sources */,
@@ -1598,8 +1608,8 @@
 					"-Objc",
 					"-all_load",
 				);
-				PROVISIONING_PROFILE = "62ba4910-904b-432d-ac8f-7966c6824f55";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "d8f33304-c713-4880-bc5f-b360518bd37b";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution_7_20";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -1638,7 +1648,7 @@
 					"\"${PODS_ROOT}/Headers/Public/ZFPlayer\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/JYDS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1767,8 +1777,8 @@
 					"-Objc",
 					"-all_load",
 				);
-				PROVISIONING_PROFILE = "62ba4910-904b-432d-ac8f-7966c6824f55";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "d8f33304-c713-4880-bc5f-b360518bd37b";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution_7_20";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
@@ -1818,8 +1828,8 @@
 					"-Objc",
 					"-all_load",
 				);
-				PROVISIONING_PROFILE = "62ba4910-904b-432d-ac8f-7966c6824f55";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "d8f33304-c713-4880-bc5f-b360518bd37b";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Distribution_7_20";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -1858,7 +1868,7 @@
 					"\"${PODS_ROOT}/Headers/Public/ZFPlayer\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/JYDS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1968,7 +1978,7 @@
 					"\"${PODS_ROOT}/Headers/Public/ZFPlayer\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/JYDS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

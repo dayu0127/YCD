@@ -127,4 +127,5 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application{
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateSwitchState" object:nil];
 }
+
 @end

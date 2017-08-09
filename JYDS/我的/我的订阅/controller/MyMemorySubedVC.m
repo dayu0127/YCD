@@ -122,7 +122,7 @@
         MemorySeriesVideoListVC *seriesVC = segue.destinationViewController;
         seriesVC.lessonId = _memory.memoryId;
         seriesVC.lessonName = _memory.title;
-        seriesVC.type = @"1";
+        seriesVC.isQueryAllSub = YES;
     }
 }
 @end

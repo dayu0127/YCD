@@ -61,6 +61,8 @@
     return self;
 }
 - (void)userInfoClick{
-    [_delegate pushToUserInfo];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isVisitor"] == NO) {
+        [_delegate pushToUserInfo];
+    }
 }
 @end
